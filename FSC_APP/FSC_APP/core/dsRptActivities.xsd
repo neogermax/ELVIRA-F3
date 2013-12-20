@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="dsRptActivities" targetNamespace="http://tempuri.org/dsRptActivities.xsd" xmlns:mstns="http://tempuri.org/dsRptActivities.xsd" xmlns="http://tempuri.org/dsRptActivities.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="1" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="FSC_eSecurity_DevConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="FSC_eSecurity_DevConnectionString (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.FSC_eSecurity_DevConnectionString.ConnectionString" Provider="System.Data.SqlClient" />
+          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="FSC_eSecurity_DevConnectionString1" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="FSC_eSecurity_DevConnectionString1 (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.FSC_eSecurity_DevConnectionString1.ConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="vReportActivitiesTableAdapter" GeneratorDataComponentClassName="vReportActivitiesTableAdapter" Name="vReportActivities" UserDataComponentName="vReportActivitiesTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="FSC_eSecurity_DevConnectionString (Web.config)" DbObjectName="FSC_eSecurity.dbo.vReportActivities" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT IdProject, NameProject, idKey, isLastVersion, IdComponent, NameComponent, IdSubActivity, SubactivityIsLastVersion, Description, IdResponsible, NameResponsible, ScheduledStartDate, ScheduledEndDate, EndDate, NameState FROM dbo.vReportActivities</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="IdProject" DataSetColumn="IdProject" />
+              <Mapping SourceColumn="NameProject" DataSetColumn="NameProject" />
+              <Mapping SourceColumn="idKey" DataSetColumn="idKey" />
+              <Mapping SourceColumn="isLastVersion" DataSetColumn="isLastVersion" />
+              <Mapping SourceColumn="IdComponent" DataSetColumn="IdComponent" />
+              <Mapping SourceColumn="NameComponent" DataSetColumn="NameComponent" />
+              <Mapping SourceColumn="IdSubActivity" DataSetColumn="IdSubActivity" />
+              <Mapping SourceColumn="SubactivityIsLastVersion" DataSetColumn="SubactivityIsLastVersion" />
+              <Mapping SourceColumn="Description" DataSetColumn="Description" />
+              <Mapping SourceColumn="IdResponsible" DataSetColumn="IdResponsible" />
+              <Mapping SourceColumn="NameResponsible" DataSetColumn="NameResponsible" />
+              <Mapping SourceColumn="ScheduledStartDate" DataSetColumn="ScheduledStartDate" />
+              <Mapping SourceColumn="ScheduledEndDate" DataSetColumn="ScheduledEndDate" />
+              <Mapping SourceColumn="EndDate" DataSetColumn="EndDate" />
+              <Mapping SourceColumn="NameState" DataSetColumn="NameState" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="dsRptActivities" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_UserDSName="dsRptActivities" msprop:Generator_DataSetName="dsRptActivities">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="vReportActivities" msprop:Generator_UserTableName="vReportActivities" msprop:Generator_RowDeletedName="vReportActivitiesRowDeleted" msprop:Generator_TableClassName="vReportActivitiesDataTable" msprop:Generator_RowChangedName="vReportActivitiesRowChanged" msprop:Generator_RowClassName="vReportActivitiesRow" msprop:Generator_RowChangingName="vReportActivitiesRowChanging" msprop:Generator_RowEvArgName="vReportActivitiesRowChangeEvent" msprop:Generator_RowEvHandlerName="vReportActivitiesRowChangeEventHandler" msprop:Generator_TablePropName="vReportActivities" msprop:Generator_TableVarName="tablevReportActivities" msprop:Generator_RowDeletingName="vReportActivitiesRowDeleting">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="IdProject" msprop:Generator_UserColumnName="IdProject" msprop:Generator_ColumnPropNameInRow="IdProject" msprop:Generator_ColumnVarNameInTable="columnIdProject" msprop:Generator_ColumnPropNameInTable="IdProjectColumn" type="xs:int" />
+              <xs:element name="NameProject" msprop:Generator_UserColumnName="NameProject" msprop:Generator_ColumnPropNameInRow="NameProject" msprop:Generator_ColumnVarNameInTable="columnNameProject" msprop:Generator_ColumnPropNameInTable="NameProjectColumn">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="idKey" msprop:Generator_UserColumnName="idKey" msprop:Generator_ColumnPropNameInRow="idKey" msprop:Generator_ColumnVarNameInTable="columnidKey" msprop:Generator_ColumnPropNameInTable="idKeyColumn" type="xs:int" minOccurs="0" />
+              <xs:element name="isLastVersion" msprop:Generator_UserColumnName="isLastVersion" msprop:Generator_ColumnPropNameInRow="isLastVersion" msprop:Generator_ColumnVarNameInTable="columnisLastVersion" msprop:Generator_ColumnPropNameInTable="isLastVersionColumn" type="xs:boolean" minOccurs="0" />
+              <xs:element name="IdComponent" msprop:Generator_UserColumnName="IdComponent" msprop:Generator_ColumnPropNameInRow="IdComponent" msprop:Generator_ColumnVarNameInTable="columnIdComponent" msprop:Generator_ColumnPropNameInTable="IdComponentColumn" type="xs:int" />
+              <xs:element name="NameComponent" msprop:Generator_UserColumnName="NameComponent" msprop:Generator_ColumnPropNameInRow="NameComponent" msprop:Generator_ColumnVarNameInTable="columnNameComponent" msprop:Generator_ColumnPropNameInTable="NameComponentColumn">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="IdSubActivity" msprop:Generator_UserColumnName="IdSubActivity" msprop:Generator_ColumnPropNameInRow="IdSubActivity" msprop:Generator_ColumnVarNameInTable="columnIdSubActivity" msprop:Generator_ColumnPropNameInTable="IdSubActivityColumn" type="xs:int" />
+              <xs:element name="SubactivityIsLastVersion" msprop:Generator_UserColumnName="SubactivityIsLastVersion" msprop:Generator_ColumnPropNameInRow="SubactivityIsLastVersion" msprop:Generator_ColumnVarNameInTable="columnSubactivityIsLastVersion" msprop:Generator_ColumnPropNameInTable="SubactivityIsLastVersionColumn" type="xs:boolean" minOccurs="0" />
+              <xs:element name="Description" msprop:Generator_UserColumnName="Description" msprop:Generator_ColumnPropNameInRow="Description" msprop:Generator_ColumnVarNameInTable="columnDescription" msprop:Generator_ColumnPropNameInTable="DescriptionColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="500" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="IdResponsible" msprop:Generator_UserColumnName="IdResponsible" msprop:Generator_ColumnPropNameInRow="IdResponsible" msprop:Generator_ColumnVarNameInTable="columnIdResponsible" msprop:Generator_ColumnPropNameInTable="IdResponsibleColumn" type="xs:int" />
+              <xs:element name="NameResponsible" msprop:Generator_UserColumnName="NameResponsible" msprop:Generator_ColumnPropNameInRow="NameResponsible" msprop:Generator_ColumnVarNameInTable="columnNameResponsible" msprop:Generator_ColumnPropNameInTable="NameResponsibleColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="140" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ScheduledStartDate" msprop:Generator_UserColumnName="ScheduledStartDate" msprop:Generator_ColumnPropNameInRow="ScheduledStartDate" msprop:Generator_ColumnVarNameInTable="columnScheduledStartDate" msprop:Generator_ColumnPropNameInTable="ScheduledStartDateColumn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ScheduledEndDate" msprop:Generator_UserColumnName="ScheduledEndDate" msprop:Generator_ColumnPropNameInRow="ScheduledEndDate" msprop:Generator_ColumnVarNameInTable="columnScheduledEndDate" msprop:Generator_ColumnPropNameInTable="ScheduledEndDateColumn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="EndDate" msprop:Generator_UserColumnName="EndDate" msprop:Generator_ColumnPropNameInRow="EndDate" msprop:Generator_ColumnVarNameInTable="columnEndDate" msprop:Generator_ColumnPropNameInTable="EndDateColumn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="NameState" msdata:ReadOnly="true" msprop:Generator_UserColumnName="NameState" msprop:Generator_ColumnPropNameInRow="NameState" msprop:Generator_ColumnVarNameInTable="columnNameState" msprop:Generator_ColumnPropNameInTable="NameStateColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="500" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

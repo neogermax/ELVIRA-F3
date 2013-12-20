@@ -1,0 +1,263 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="dsRptBasicProjectData" targetNamespace="http://tempuri.org/dsRptBasicProjectData.xsd" xmlns:mstns="http://tempuri.org/dsRptBasicProjectData.xsd" xmlns="http://tempuri.org/dsRptBasicProjectData.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="FSC_eSecurity_DevConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="FSC_eSecurity_DevConnectionString (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.FSC_eSecurity_DevConnectionString.ConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="vReportBasicProjectDataTableAdapter" GeneratorDataComponentClassName="vReportBasicProjectDataTableAdapter" Name="vReportBasicProjectData" UserDataComponentName="vReportBasicProjectDataTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="FSC_eSecurity_DevConnectionString (Web.config)" DbObjectName="FSC_eSecurity_Dev.dbo.vReportBasicProjectData" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT IdProject, Code, Name, Objective, Antecedent, Justification, BeginDate, Duration, ZoneDescription, Population, StrategicDescription, Results, Source, Purpose, TotalCost, FSCContribution, CounterpartValue, EffectiveBudget, CreateDate, IdUser, Enabled, IdStrategicLine, StrategicLineName, idKey, isLastVersion FROM dbo.vReportBasicProjectData</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="IdProject" DataSetColumn="IdProject" />
+              <Mapping SourceColumn="Code" DataSetColumn="Code" />
+              <Mapping SourceColumn="Name" DataSetColumn="Name" />
+              <Mapping SourceColumn="Objective" DataSetColumn="Objective" />
+              <Mapping SourceColumn="Antecedent" DataSetColumn="Antecedent" />
+              <Mapping SourceColumn="Justification" DataSetColumn="Justification" />
+              <Mapping SourceColumn="BeginDate" DataSetColumn="BeginDate" />
+              <Mapping SourceColumn="Duration" DataSetColumn="Duration" />
+              <Mapping SourceColumn="ZoneDescription" DataSetColumn="ZoneDescription" />
+              <Mapping SourceColumn="Population" DataSetColumn="Population" />
+              <Mapping SourceColumn="StrategicDescription" DataSetColumn="StrategicDescription" />
+              <Mapping SourceColumn="Results" DataSetColumn="Results" />
+              <Mapping SourceColumn="Source" DataSetColumn="Source" />
+              <Mapping SourceColumn="Purpose" DataSetColumn="Purpose" />
+              <Mapping SourceColumn="TotalCost" DataSetColumn="TotalCost" />
+              <Mapping SourceColumn="FSCContribution" DataSetColumn="FSCContribution" />
+              <Mapping SourceColumn="CounterpartValue" DataSetColumn="CounterpartValue" />
+              <Mapping SourceColumn="EffectiveBudget" DataSetColumn="EffectiveBudget" />
+              <Mapping SourceColumn="CreateDate" DataSetColumn="CreateDate" />
+              <Mapping SourceColumn="IdUser" DataSetColumn="IdUser" />
+              <Mapping SourceColumn="Enabled" DataSetColumn="Enabled" />
+              <Mapping SourceColumn="IdStrategicLine" DataSetColumn="IdStrategicLine" />
+              <Mapping SourceColumn="StrategicLineName" DataSetColumn="StrategicLineName" />
+              <Mapping SourceColumn="idKey" DataSetColumn="idKey" />
+              <Mapping SourceColumn="isLastVersion" DataSetColumn="isLastVersion" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="vReportLocationsByProjectTableAdapter" GeneratorDataComponentClassName="vReportLocationsByProjectTableAdapter" Name="vReportLocationsByProject" UserDataComponentName="vReportLocationsByProjectTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="FSC_eSecurity_DevConnectionString (Web.config)" DbObjectName="FSC_eSecurity_Dev.dbo.vReportLocationsByProject" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT IdProject, CityName, DeptoName, IdCity, IdDepto, idKey, isLastVersion FROM dbo.vReportLocationsByProject</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="IdProject" DataSetColumn="IdProject" />
+              <Mapping SourceColumn="CityName" DataSetColumn="CityName" />
+              <Mapping SourceColumn="DeptoName" DataSetColumn="DeptoName" />
+              <Mapping SourceColumn="IdCity" DataSetColumn="IdCity" />
+              <Mapping SourceColumn="IdDepto" DataSetColumn="IdDepto" />
+              <Mapping SourceColumn="idKey" DataSetColumn="idKey" />
+              <Mapping SourceColumn="isLastVersion" DataSetColumn="isLastVersion" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="vReportSourceByProjectTableAdapter" GeneratorDataComponentClassName="vReportSourceByProjectTableAdapter" Name="vReportSourceByProject" UserDataComponentName="vReportSourceByProjectTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="FSC_eSecurity_DevConnectionString (Web.config)" DbObjectName="FSC_eSecurity_Dev.dbo.vReportSourceByProject" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT IdProject, IdSource, nameSource, idKey, isLastVersion FROM dbo.vReportSourceByProject</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="IdProject" DataSetColumn="IdProject" />
+              <Mapping SourceColumn="IdSource" DataSetColumn="IdSource" />
+              <Mapping SourceColumn="nameSource" DataSetColumn="nameSource" />
+              <Mapping SourceColumn="idKey" DataSetColumn="idKey" />
+              <Mapping SourceColumn="isLastVersion" DataSetColumn="isLastVersion" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="dsRptBasicProjectData" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_UserDSName="dsRptBasicProjectData" msprop:Generator_DataSetName="dsRptBasicProjectData">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="vReportBasicProjectData" msprop:Generator_UserTableName="vReportBasicProjectData" msprop:Generator_RowDeletedName="vReportBasicProjectDataRowDeleted" msprop:Generator_RowChangedName="vReportBasicProjectDataRowChanged" msprop:Generator_RowClassName="vReportBasicProjectDataRow" msprop:Generator_RowChangingName="vReportBasicProjectDataRowChanging" msprop:Generator_RowEvArgName="vReportBasicProjectDataRowChangeEvent" msprop:Generator_RowEvHandlerName="vReportBasicProjectDataRowChangeEventHandler" msprop:Generator_TableClassName="vReportBasicProjectDataDataTable" msprop:Generator_TableVarName="tablevReportBasicProjectData" msprop:Generator_RowDeletingName="vReportBasicProjectDataRowDeleting" msprop:Generator_TablePropName="vReportBasicProjectData">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="IdProject" msprop:Generator_UserColumnName="IdProject" msprop:Generator_ColumnPropNameInRow="IdProject" msprop:Generator_ColumnVarNameInTable="columnIdProject" msprop:Generator_ColumnPropNameInTable="IdProjectColumn" type="xs:int" />
+              <xs:element name="Code" msprop:Generator_UserColumnName="Code" msprop:Generator_ColumnPropNameInRow="Code" msprop:Generator_ColumnVarNameInTable="columnCode" msprop:Generator_ColumnPropNameInTable="CodeColumn">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Name" msprop:Generator_UserColumnName="Name" msprop:Generator_ColumnPropNameInRow="Name" msprop:Generator_ColumnVarNameInTable="columnName" msprop:Generator_ColumnPropNameInTable="NameColumn">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Objective" msprop:Generator_UserColumnName="Objective" msprop:Generator_ColumnPropNameInRow="Objective" msprop:Generator_ColumnVarNameInTable="columnObjective" msprop:Generator_ColumnPropNameInTable="ObjectiveColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="800" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Antecedent" msprop:Generator_UserColumnName="Antecedent" msprop:Generator_ColumnPropNameInRow="Antecedent" msprop:Generator_ColumnVarNameInTable="columnAntecedent" msprop:Generator_ColumnPropNameInTable="AntecedentColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="800" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Justification" msprop:Generator_UserColumnName="Justification" msprop:Generator_ColumnPropNameInRow="Justification" msprop:Generator_ColumnVarNameInTable="columnJustification" msprop:Generator_ColumnPropNameInTable="JustificationColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="800" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="BeginDate" msprop:Generator_UserColumnName="BeginDate" msprop:Generator_ColumnPropNameInRow="BeginDate" msprop:Generator_ColumnVarNameInTable="columnBeginDate" msprop:Generator_ColumnPropNameInTable="BeginDateColumn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Duration" msprop:Generator_UserColumnName="Duration" msprop:Generator_ColumnPropNameInRow="Duration" msprop:Generator_ColumnVarNameInTable="columnDuration" msprop:Generator_ColumnPropNameInTable="DurationColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ZoneDescription" msprop:Generator_UserColumnName="ZoneDescription" msprop:Generator_ColumnPropNameInRow="ZoneDescription" msprop:Generator_ColumnVarNameInTable="columnZoneDescription" msprop:Generator_ColumnPropNameInTable="ZoneDescriptionColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="800" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Population" msprop:Generator_UserColumnName="Population" msprop:Generator_ColumnPropNameInRow="Population" msprop:Generator_ColumnVarNameInTable="columnPopulation" msprop:Generator_ColumnPropNameInTable="PopulationColumn">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="800" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="StrategicDescription" msprop:Generator_UserColumnName="StrategicDescription" msprop:Generator_ColumnPropNameInRow="StrategicDescription" msprop:Generator_ColumnVarNameInTable="columnStrategicDescription" msprop:Generator_ColumnPropNameInTable="StrategicDescriptionColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="800" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Results" msprop:Generator_UserColumnName="Results" msprop:Generator_ColumnPropNameInRow="Results" msprop:Generator_ColumnVarNameInTable="columnResults" msprop:Generator_ColumnPropNameInTable="ResultsColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="800" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Source" msprop:Generator_UserColumnName="Source" msprop:Generator_ColumnPropNameInRow="Source" msprop:Generator_ColumnVarNameInTable="columnSource" msprop:Generator_ColumnPropNameInTable="SourceColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="800" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Purpose" msprop:Generator_UserColumnName="Purpose" msprop:Generator_ColumnPropNameInRow="Purpose" msprop:Generator_ColumnVarNameInTable="columnPurpose" msprop:Generator_ColumnPropNameInTable="PurposeColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="800" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="TotalCost" msprop:Generator_UserColumnName="TotalCost" msprop:Generator_ColumnPropNameInRow="TotalCost" msprop:Generator_ColumnVarNameInTable="columnTotalCost" msprop:Generator_ColumnPropNameInTable="TotalCostColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="FSCContribution" msprop:Generator_UserColumnName="FSCContribution" msprop:Generator_ColumnPropNameInRow="FSCContribution" msprop:Generator_ColumnVarNameInTable="columnFSCContribution" msprop:Generator_ColumnPropNameInTable="FSCContributionColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CounterpartValue" msprop:Generator_UserColumnName="CounterpartValue" msprop:Generator_ColumnPropNameInRow="CounterpartValue" msprop:Generator_ColumnVarNameInTable="columnCounterpartValue" msprop:Generator_ColumnPropNameInTable="CounterpartValueColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="EffectiveBudget" msprop:Generator_UserColumnName="EffectiveBudget" msprop:Generator_ColumnPropNameInRow="EffectiveBudget" msprop:Generator_ColumnVarNameInTable="columnEffectiveBudget" msprop:Generator_ColumnPropNameInTable="EffectiveBudgetColumn" type="xs:int" minOccurs="0" />
+              <xs:element name="CreateDate" msprop:Generator_UserColumnName="CreateDate" msprop:Generator_ColumnPropNameInRow="CreateDate" msprop:Generator_ColumnVarNameInTable="columnCreateDate" msprop:Generator_ColumnPropNameInTable="CreateDateColumn" type="xs:dateTime" />
+              <xs:element name="IdUser" msprop:Generator_UserColumnName="IdUser" msprop:Generator_ColumnPropNameInRow="IdUser" msprop:Generator_ColumnVarNameInTable="columnIdUser" msprop:Generator_ColumnPropNameInTable="IdUserColumn" type="xs:int" />
+              <xs:element name="Enabled" msprop:Generator_UserColumnName="Enabled" msprop:Generator_ColumnPropNameInRow="Enabled" msprop:Generator_ColumnVarNameInTable="columnEnabled" msprop:Generator_ColumnPropNameInTable="EnabledColumn" type="xs:boolean" />
+              <xs:element name="IdStrategicLine" msprop:Generator_UserColumnName="IdStrategicLine" msprop:Generator_ColumnPropNameInRow="IdStrategicLine" msprop:Generator_ColumnVarNameInTable="columnIdStrategicLine" msprop:Generator_ColumnPropNameInTable="IdStrategicLineColumn" type="xs:int" minOccurs="0" />
+              <xs:element name="StrategicLineName" msprop:Generator_UserColumnName="StrategicLineName" msprop:Generator_ColumnPropNameInRow="StrategicLineName" msprop:Generator_ColumnVarNameInTable="columnStrategicLineName" msprop:Generator_ColumnPropNameInTable="StrategicLineNameColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="idKey" msprop:Generator_UserColumnName="idKey" msprop:Generator_ColumnPropNameInRow="idKey" msprop:Generator_ColumnVarNameInTable="columnidKey" msprop:Generator_ColumnPropNameInTable="idKeyColumn" type="xs:int" minOccurs="0" />
+              <xs:element name="isLastVersion" msprop:Generator_UserColumnName="isLastVersion" msprop:Generator_ColumnPropNameInRow="isLastVersion" msprop:Generator_ColumnVarNameInTable="columnisLastVersion" msprop:Generator_ColumnPropNameInTable="isLastVersionColumn" type="xs:boolean" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="vReportLocationsByProject" msprop:Generator_UserTableName="vReportLocationsByProject" msprop:Generator_RowDeletedName="vReportLocationsByProjectRowDeleted" msprop:Generator_RowChangedName="vReportLocationsByProjectRowChanged" msprop:Generator_RowClassName="vReportLocationsByProjectRow" msprop:Generator_RowChangingName="vReportLocationsByProjectRowChanging" msprop:Generator_RowEvArgName="vReportLocationsByProjectRowChangeEvent" msprop:Generator_RowEvHandlerName="vReportLocationsByProjectRowChangeEventHandler" msprop:Generator_TableClassName="vReportLocationsByProjectDataTable" msprop:Generator_TableVarName="tablevReportLocationsByProject" msprop:Generator_RowDeletingName="vReportLocationsByProjectRowDeleting" msprop:Generator_TablePropName="vReportLocationsByProject">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="IdProject" msprop:Generator_UserColumnName="IdProject" msprop:Generator_ColumnVarNameInTable="columnIdProject" msprop:Generator_ColumnPropNameInRow="IdProject" msprop:Generator_ColumnPropNameInTable="IdProjectColumn" type="xs:int" />
+              <xs:element name="CityName" msprop:Generator_UserColumnName="CityName" msprop:Generator_ColumnVarNameInTable="columnCityName" msprop:Generator_ColumnPropNameInRow="CityName" msprop:Generator_ColumnPropNameInTable="CityNameColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DeptoName" msprop:Generator_UserColumnName="DeptoName" msprop:Generator_ColumnVarNameInTable="columnDeptoName" msprop:Generator_ColumnPropNameInRow="DeptoName" msprop:Generator_ColumnPropNameInTable="DeptoNameColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="IdCity" msprop:Generator_UserColumnName="IdCity" msprop:Generator_ColumnVarNameInTable="columnIdCity" msprop:Generator_ColumnPropNameInRow="IdCity" msprop:Generator_ColumnPropNameInTable="IdCityColumn" type="xs:int" minOccurs="0" />
+              <xs:element name="IdDepto" msprop:Generator_UserColumnName="IdDepto" msprop:Generator_ColumnVarNameInTable="columnIdDepto" msprop:Generator_ColumnPropNameInRow="IdDepto" msprop:Generator_ColumnPropNameInTable="IdDeptoColumn" type="xs:int" minOccurs="0" />
+              <xs:element name="idKey" msprop:Generator_UserColumnName="idKey" msprop:Generator_ColumnVarNameInTable="columnidKey" msprop:Generator_ColumnPropNameInRow="idKey" msprop:Generator_ColumnPropNameInTable="idKeyColumn" type="xs:int" minOccurs="0" />
+              <xs:element name="isLastVersion" msprop:Generator_UserColumnName="isLastVersion" msprop:Generator_ColumnVarNameInTable="columnisLastVersion" msprop:Generator_ColumnPropNameInRow="isLastVersion" msprop:Generator_ColumnPropNameInTable="isLastVersionColumn" type="xs:boolean" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="vReportSourceByProject" msprop:Generator_UserTableName="vReportSourceByProject" msprop:Generator_RowDeletedName="vReportSourceByProjectRowDeleted" msprop:Generator_TableClassName="vReportSourceByProjectDataTable" msprop:Generator_RowChangedName="vReportSourceByProjectRowChanged" msprop:Generator_RowClassName="vReportSourceByProjectRow" msprop:Generator_RowChangingName="vReportSourceByProjectRowChanging" msprop:Generator_RowEvArgName="vReportSourceByProjectRowChangeEvent" msprop:Generator_RowEvHandlerName="vReportSourceByProjectRowChangeEventHandler" msprop:Generator_TablePropName="vReportSourceByProject" msprop:Generator_TableVarName="tablevReportSourceByProject" msprop:Generator_RowDeletingName="vReportSourceByProjectRowDeleting">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="IdProject" msprop:Generator_UserColumnName="IdProject" msprop:Generator_ColumnPropNameInRow="IdProject" msprop:Generator_ColumnVarNameInTable="columnIdProject" msprop:Generator_ColumnPropNameInTable="IdProjectColumn" type="xs:int" minOccurs="0" />
+              <xs:element name="IdSource" msprop:Generator_UserColumnName="IdSource" msprop:Generator_ColumnPropNameInRow="IdSource" msprop:Generator_ColumnVarNameInTable="columnIdSource" msprop:Generator_ColumnPropNameInTable="IdSourceColumn" type="xs:int" />
+              <xs:element name="nameSource" msprop:Generator_UserColumnName="nameSource" msprop:Generator_ColumnPropNameInRow="nameSource" msprop:Generator_ColumnVarNameInTable="columnnameSource" msprop:Generator_ColumnPropNameInTable="nameSourceColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="idKey" msprop:Generator_UserColumnName="idKey" msprop:Generator_ColumnPropNameInRow="idKey" msprop:Generator_ColumnVarNameInTable="columnidKey" msprop:Generator_ColumnPropNameInTable="idKeyColumn" type="xs:int" minOccurs="0" />
+              <xs:element name="isLastVersion" msprop:Generator_UserColumnName="isLastVersion" msprop:Generator_ColumnPropNameInRow="isLastVersion" msprop:Generator_ColumnVarNameInTable="columnisLastVersion" msprop:Generator_ColumnPropNameInTable="isLastVersionColumn" type="xs:boolean" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1">
+      <xs:selector xpath=".//mstns:vReportBasicProjectData" />
+      <xs:field xpath="mstns:IdProject" />
+      <xs:field xpath="mstns:IdStrategicLine" />
+    </xs:unique>
+    <xs:unique name="vReportSourceByProject_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:vReportSourceByProject" />
+      <xs:field xpath="mstns:IdSource" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

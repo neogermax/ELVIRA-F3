@@ -1,0 +1,71 @@
+/*
+
+jFlow Plus Demo CSS
+
+*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video { margin: 0; padding: 0; border: 0; font-size: 100%; font: inherit; vertical-align: baseline; }
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { display: block; }
+
+body { line-height: 1; }
+
+ol, ul { list-style: none; }
+
+blockquote, q { quotes: none; }
+
+blockquote:before, blockquote:after, q:before, q:after { content: ''; content: none; }
+
+table { border-collapse: collapse; border-spacing: 0; }
+
+body { font-family: 'Open Sans', sans-serif; margin: 0; padding: 0 50px 50px 50px; }
+
+a { color: #08c; text-decoration: none; }
+
+h1, h2, h3, h4, h5, h6 { font-weight: 700; }
+
+#container { background: #FFF; width: 940px; margin: 0 auto; -moz-box-shadow: 0 0 10px 5px #c3c3c3; -webkit-box-shadow: 0 0 10px 5px #c3c3c3; box-shadow: 0 0 10px 5px #c3c3c3; }
+
+/* header */
+
+#header { overflow: hidden; position: relative; height: 100px;}
+
+#logoWrap { background: url('../images/demo-page/jflow-logo.png') no-repeat top left transparent; float:left; margin: 5px 0 0 20px; width: 210px; height: 90px; position: relative; }
+
+#logoWrap h1 { display: none; }
+
+.github{ margin: 0 0 18px;}
+.github a { font-size: 24px; font-weight: 600; padding: 0; line-height: 25px; margin: 0 0 0 10px; color: #000;}
+.github a:hover { color: #08c; }
+.github a span { background: url('../images/demo-page/github-icon.png') no-repeat 0 0 transparent;  display: inline-block; margin: 0px 8px 0 0; height: 28px; width: 28px; position: relative; top: 7px;}
+
+#headerSocials { overflow: hidden; position: absolute; top: 9px; right: 40px; }
+
+.socialItem { float: left; }
+#twitter { width: 175px; }
+
+
+/* content */
+
+#content { padding: 20px 20px 30px; overflow: hidden; }
+
+#content p { font-size: 14px; color: #646464; line-height: 24px; margin: 0 0 10px; }
+
+#content h2, #content h3, #content h4 { font-size: 20px; font-weight: bold; padding: 15px 0 20px; }
+
+#main { float: left; width: 900px; }
+
+/* sidebar */
+
+.sidebar-widget { margin: 10px 0 20px; float: left; width: 260px; padding: 0 20px; }
+
+#sidebar .widgettitle { font: 24px/30px 'Rokkitt', serif; color: #4f4e4e; margin: 0 0 15px; padding: 0; }
+
+.ad-widget { padding: 20px 0 0; }
+
+/* checklist */
+
+.check-list { margin: 0; }
+
+.check-list li { background: url('../images/demo-page/checkmark.png') no-repeat 0 0 transparent; padding: 0 0 12px 20px; font-size: 14px; line-height: 20px; font-style: italic; }

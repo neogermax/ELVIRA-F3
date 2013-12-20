@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<menu>
+ <MenuItem ValueField="FSC" TextField="FSC" NavigateUrlField="" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+</MenuItem>
+ <MenuItem ValueField="Convocatorias" TextField="Convocatorias" NavigateUrlField="" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ <MenuItem ValueField="Propuesta" TextField="Propuesta" NavigateUrlField="" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ <MenuItem ValueField="Nueva Propuesta" TextField="Nueva Propuesta" NavigateUrlField="~/OperationalPlanning/addProposal.aspx?op=add" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ <MenuItem ValueField="Buscar Propuesta" TextField="Buscar Propuesta" NavigateUrlField="~/OperationalPlanning/searchProposal.aspx" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ </MenuItem>
+ <MenuItem ValueField="Convocatoria" TextField="Convocatoria" NavigateUrlField="" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ <MenuItem ValueField="Nueva Convocatoria" TextField="Nueva Convocatoria" NavigateUrlField="~/OperationalPlanning/addSummoning.aspx?op=add" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ <MenuItem ValueField="Buscar Convocatoria" TextField="Buscar Convocatoria" NavigateUrlField="~/OperationalPlanning/searchSummoning.aspx" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ </MenuItem>
+</MenuItem>
+ <MenuItem ValueField="Objetivo" TextField="Objetivo" NavigateUrlField="" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ <MenuItem ValueField="Nuevo Objetivo" TextField="Nuevo Objetivo" NavigateUrlField="~/FormulationAndAdoption/addObjective.aspx?op=add" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ <MenuItem ValueField="Buscar Objetivo" TextField="Buscar Objetivo" NavigateUrlField="~/FormulationAndAdoption/searchObjective.aspx" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+</MenuItem>
+ <MenuItem ValueField="Procesos" TextField="Procesos" NavigateUrlField="" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ <MenuItem ValueField="Lista de Tareas" TextField="Lista de Tareas" NavigateUrlField="~/Security/goto.aspx?op=TL" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+</MenuItem>
+ <MenuItem ValueField="Planeacion General" TextField="Planeacion General" NavigateUrlField="" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ <MenuItem ValueField="Perspectiva" TextField="Perspectiva" NavigateUrlField="" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ <MenuItem ValueField="Nueva Perspectiva" TextField="Nueva Perspectiva" NavigateUrlField="~/GeneralPlanning/addPERSPECTIVE.aspx?op=add" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ <MenuItem ValueField="Buscar Perspectiva" TextField="Buscar Perspectiva" NavigateUrlField="~/GeneralPlanning/searchPERSPECTIVE.aspx" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ </MenuItem>
+ <MenuItem ValueField="Objetivo Estrategico" TextField="Objetivo Estrategico" NavigateUrlField="" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ <MenuItem ValueField="Nuevo Objetivo Estrategico" TextField="Nuevo Objetivo Estrategico" NavigateUrlField="~/GeneralPlanning/addSTRATEGICOBJECTIVE.aspx?op=add" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ <MenuItem ValueField="Buscar Objetivo Estrategico" TextField="Buscar Objetivo Estrategico" NavigateUrlField="~/GeneralPlanning/searchSTRATEGICOBJECTIVE.aspx" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ </MenuItem>
+ <MenuItem ValueField="Gerencia" TextField="Gerencia" NavigateUrlField="" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ <MenuItem ValueField="Nueva Gerencia" TextField="Nueva Gerencia" NavigateUrlField="~/GeneralPlanning/addManagement.aspx?op=add" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ <MenuItem ValueField="Buscar Gerencia" TextField="Buscar Gerencia" NavigateUrlField="~/GeneralPlanning/searchMANAGEMENT.aspx" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ </MenuItem>
+ <MenuItem ValueField="Línea estratégica" TextField="Línea estratégica" NavigateUrlField="" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ <MenuItem ValueField="Nueva Linea Estrategica" TextField="Nueva Linea Estrategica" NavigateUrlField="~/GeneralPlanning/addStrategicLine.aspx?op=add" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ <MenuItem ValueField="Buscar Linea Estrategica" TextField="Buscar Linea Estrategica" NavigateUrlField="~/GeneralPlanning/searchStrategicLine.aspx" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ </MenuItem>
+ <MenuItem ValueField="Estrategia" TextField="Estrategia" NavigateUrlField="" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ <MenuItem ValueField="Nueva Estrategia" TextField="Nueva Estrategia" NavigateUrlField="~/GeneralPlanning/addSTRATEGY.aspx?op=add" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ <MenuItem ValueField="Buscar Estrategia" TextField="Buscar Estrategia" NavigateUrlField="~/GeneralPlanning/searchSTRATEGY.aspx" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ </MenuItem>
+ <MenuItem ValueField="Programa" TextField="Programa" NavigateUrlField="" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ <MenuItem ValueField="Nuevo Programa" TextField="Nuevo Programa" NavigateUrlField="~/GeneralPlanning/addProgram.aspx?op=add" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ <MenuItem ValueField="Buscar Programa" TextField="Buscar Programa" NavigateUrlField="~/GeneralPlanning/searchProgram.aspx" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ </MenuItem>
+ <MenuItem ValueField="Componentes de Programa" TextField="Componentes de Programa" NavigateUrlField="" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ <MenuItem ValueField="Nuevo Componente de Programa" TextField="Nuevo Componente de Programa" NavigateUrlField="~/GeneralPlanning/addProgramComponent.aspx?op=add" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ <MenuItem ValueField="Buscar Componente de Programa" TextField="Buscar Componente de Programa" NavigateUrlField="~/GeneralPlanning/searchprogramcomponent.aspx" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ </MenuItem>
+ <MenuItem ValueField="Indicador" TextField="Indicador" NavigateUrlField="" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ <MenuItem ValueField="Nuevo Indicador" TextField="Nuevo Indicador" NavigateUrlField="~/GeneralPlanning/addIndicator.aspx?op=add" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ <MenuItem ValueField="Buscar Indicador" TextField="Buscar Indicador" NavigateUrlField="~/GeneralPlanning/searchIndicator.aspx" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ </MenuItem>
+ <MenuItem ValueField="Actividad de la Estrategia" TextField="Actividad de la Estrategia" NavigateUrlField="" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ <MenuItem ValueField="Nueva Actividad de la Estrategia" TextField="Nueva Actividad de la Estrategia" NavigateUrlField="~/GeneralPlanning/addStrategicActivity.aspx?op=add" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ <MenuItem ValueField="Buscar Actividad de la Estrategia" TextField="Buscar Actividad de la Estrategia" NavigateUrlField="~/GeneralPlanning/searchStrategicActivity.aspx" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ </MenuItem>
+</MenuItem>
+ <MenuItem ValueField="Investigacion y Desarrollo" TextField="Investigacion y Desarrollo" NavigateUrlField="" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ <MenuItem ValueField="Idea" TextField="Idea" NavigateUrlField="" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ <MenuItem ValueField="Nueva Idea" TextField="Nueva Idea" NavigateUrlField="~/ResearchAndDevelopment/addIdea.aspx?op=add" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ <MenuItem ValueField="Buscar Idea" TextField="Buscar Idea" NavigateUrlField="~/ResearchAndDevelopment/searchIdea.aspx" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ </MenuItem>
+</MenuItem>
+ <MenuItem ValueField="Aprobación" TextField="Aprobación" NavigateUrlField="" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ <MenuItem ValueField="Registrar Aprobacion de Proyecto" TextField="Registrar Aprobacion de Proyecto" NavigateUrlField="" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ <MenuItem ValueField="Crear Registrar Aprobacion de Proyecto" TextField="Crear Registrar Aprobacion de Proyecto" NavigateUrlField="~/FormulationAndAdoption/addProjectApprovalRecord.aspx?op=add" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ <MenuItem ValueField="Buscar Registro de Aprobacion de Proyecto" TextField="Buscar Registro de Aprobacion de Proyecto" NavigateUrlField="~/FormulationAndAdoption/searchProjectApprovalRecord.aspx" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ </MenuItem>
+</MenuItem>
+ <MenuItem ValueField="Seguimiento" TextField="Seguimiento" NavigateUrlField="" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ <MenuItem ValueField="Listado de subactividades pendientes" TextField="Listado de subactividades pendientes" NavigateUrlField="~/Execution/subActivityMainPanelTODO-LIST.aspx" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ <MenuItem ValueField="Registrar testimonios, ajustes y aprendizajes" TextField="Registrar testimonios, ajustes y aprendizajes" NavigateUrlField="" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ <MenuItem ValueField="Registrar testimonios y aprendizajes" TextField="Registrar testimonios y aprendizajes" NavigateUrlField="~/Execution/addExecution.aspx?op=add" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ <MenuItem ValueField="Buscar Registro de Ejecucion " TextField="Buscar Registro de Ejecucion " NavigateUrlField="~/Execution/searchExecution.aspx" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ </MenuItem>
+ <MenuItem ValueField="Objetivo" TextField="Objetivo" NavigateUrlField="" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ <MenuItem ValueField="Nuevo Objetivo" TextField="Nuevo Objetivo" NavigateUrlField="~/FormulationAndAdoption/addObjective.aspx?op=add" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ <MenuItem ValueField="Buscar Objetivo" TextField="Buscar Objetivo" NavigateUrlField="~/FormulationAndAdoption/searchObjective.aspx" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ </MenuItem>
+ <MenuItem ValueField="Componente" TextField="Componente" NavigateUrlField="" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ <MenuItem ValueField="Nuevo Componente" TextField="Nuevo Componente" NavigateUrlField="~/FormulationAndAdoption/addComponent.aspx?op=add" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ <MenuItem ValueField="Buscar Componente" TextField="Buscar Componente" NavigateUrlField="~/FormulationAndAdoption/searchcomponent.aspx" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ </MenuItem>
+ <MenuItem ValueField="Actividad" TextField="Actividad" NavigateUrlField="" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ <MenuItem ValueField="Nueva Actividad" TextField="Nueva Actividad" NavigateUrlField="~/FormulationAndAdoption/addActivity.aspx?op=add" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ <MenuItem ValueField="Buscar Actividad" TextField="Buscar Actividad" NavigateUrlField="~/FormulationAndAdoption/searchActivity.aspx" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ </MenuItem>
+ <MenuItem ValueField="SubActividad" TextField="SubActividad" NavigateUrlField="" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ <MenuItem ValueField="Nueva SubActividad" TextField="Nueva SubActividad" NavigateUrlField="~/FormulationAndAdoption/addSubActivity.aspx?op=add" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ <MenuItem ValueField="Buscar SubActividad" TextField="Buscar SubActividad" NavigateUrlField="~/FormulationAndAdoption/searchSubActivity.aspx" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ </MenuItem>
+ <MenuItem ValueField="Riesgo" TextField="Riesgo" NavigateUrlField="" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ <MenuItem ValueField="Nuevo Riesgo" TextField="Nuevo Riesgo" NavigateUrlField="~/FormulationAndAdoption/addRisk.aspx?op=add" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ <MenuItem ValueField="Buscar Riesgo" TextField="Buscar Riesgo" NavigateUrlField="~/FormulationAndAdoption/searchRisk.aspx" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ </MenuItem>
+ <MenuItem ValueField="Mitigacion" TextField="Mitigacion" NavigateUrlField="" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ <MenuItem ValueField="Nueva Mitigacion" TextField="Nueva Mitigacion" NavigateUrlField="~/FormulationAndAdoption/addMitigation.aspx?op=add" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ <MenuItem ValueField="Buscar Mitigacion" TextField="Buscar Mitigacion" NavigateUrlField="~/FormulationAndAdoption/searchMitigation.aspx" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ </MenuItem>
+</MenuItem>
+ <MenuItem ValueField="Evaluación y cierre" TextField="Evaluación y cierre" NavigateUrlField="" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ <MenuItem ValueField="Registro de cierre" TextField="Registro de cierre" NavigateUrlField="" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ <MenuItem ValueField="Nueva Registro de cierre" TextField="Nueva Registro de cierre" NavigateUrlField="~/TestAndClosure/addCloseRegistry.aspx?op=add" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ <MenuItem ValueField="Buscar Registro de cierre" TextField="Buscar Registro de cierre" NavigateUrlField="~/TestAndClosure/searchCloseRegistry.aspx" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ </MenuItem>
+ <MenuItem ValueField="Evaluacion Proveedor" TextField="Evaluacion Proveedor" NavigateUrlField="" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ <MenuItem ValueField="Nueva Evaluacion Proveedor" TextField="Nueva Evaluacion Proveedor" NavigateUrlField="~/ResearchAndDevelopment/addSupplierEvaluation.aspx?op=add" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ <MenuItem ValueField="Buscar Evaluacion Proveedor" TextField="Buscar Evaluacion Proveedor" NavigateUrlField="~/ResearchAndDevelopment/searchSupplierEvaluation.aspx" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ </MenuItem>
+</MenuItem>
+ <MenuItem ValueField="Reportes" TextField="Reportes" NavigateUrlField="" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ <MenuItem ValueField="Planeacion General" TextField="Planeacion General" NavigateUrlField="" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ <MenuItem ValueField="Plan de Accion General" TextField="Plan de Accion General" NavigateUrlField="~/Report/reportGeneralPlanAction.aspx" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ <MenuItem ValueField="Detalle Estrategia" TextField="Detalle Estrategia" NavigateUrlField="~/Report/reportStrategyDetail.aspx" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ <MenuItem ValueField="Detalle Linea Estrategica" TextField="Detalle Linea Estrategica" NavigateUrlField="~/Report/reportStrategicLineDetail.aspx" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ <MenuItem ValueField="Inventario de Indicadores" TextField="Inventario de Indicadores" NavigateUrlField="~/Report/reportIndicatorInventory.aspx" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ <MenuItem ValueField="Gantt de Actividades de  Estrategia" TextField="Gantt de Actividades de  Estrategia" NavigateUrlField="~/Report/OperationalPlanning/StrategicActivityGantt.aspx" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ </MenuItem>
+ <MenuItem ValueField="Investigacion y Desarrollo" TextField="Investigacion y Desarrollo" NavigateUrlField="" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ <MenuItem ValueField="Inventario de Ideas" TextField="Inventario de Ideas" NavigateUrlField="~/Report/reportIdeaInventory.aspx" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ <MenuItem ValueField="Mapa de Actores" TextField="Mapa de Actores" NavigateUrlField="~/Report/reportActorsMap.aspx" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ </MenuItem>
+ <MenuItem ValueField="Formulacion y planeacion" TextField="Formulacion y planeacion" NavigateUrlField="" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ <MenuItem ValueField="Datos Basicos de Proyecto" TextField="Datos Basicos de Proyecto" NavigateUrlField="~/Report/FormulationAndAdoption/reportBasicProjectData.aspx" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ <MenuItem ValueField="Matriz de Indicadores" TextField="Matriz de Indicadores" NavigateUrlField="~/Report/FormulationAndAdoption/reporMatrixIndicator.aspx" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ <MenuItem ValueField="Plan de Ejecución" TextField="Plan de Ejecución" NavigateUrlField="~/Report/reportExecutionPlan.aspx" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ <MenuItem ValueField="Cronograma del Proyecto" TextField="Cronograma del Proyecto" NavigateUrlField="~/Report/FormulationAndAdoption/reportProjectChronogram.aspx" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ <MenuItem ValueField="Matriz de Riesgos" TextField="Matriz de Riesgos" NavigateUrlField="~/Report/FormulationAndAdoption/reportRiskMatrix.aspx" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ <MenuItem ValueField="Plan de contratación" TextField="Plan de contratación" NavigateUrlField="~/Report/OperationalPlanning/reportRecruitmentPlan.aspx" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ </MenuItem>
+ <MenuItem ValueField="Convocatorias" TextField="Convocatorias" NavigateUrlField="" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ <MenuItem ValueField="Estado Convocatorias" TextField="Estado Convocatorias" NavigateUrlField="~/Report/OperationalPlanning/StateSummoning.aspx" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ <MenuItem ValueField="Lista de Propuestas" TextField="Lista de Propuestas" NavigateUrlField="~/Report/OperationalPlanning/ProposalList.aspx" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ </MenuItem>
+ <MenuItem ValueField="Contratación" TextField="Contratación" NavigateUrlField="" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ <MenuItem ValueField="Estado de la solicitud de contratos" TextField="Estado de la solicitud de contratos" NavigateUrlField="~/Report/Engagement/reportContractsRequest.aspx" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ <MenuItem ValueField="Listado general de contratos" TextField="Listado general de contratos" NavigateUrlField="~/Report/Engagement/generalListContracts.aspx" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ <MenuItem ValueField="Plan de contratación" TextField="Plan de contratación" NavigateUrlField="~/Report/OperationalPlanning/reportRecruitmentPlan.aspx" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ </MenuItem>
+ <MenuItem ValueField="Ejecución" TextField="Ejecución" NavigateUrlField="" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ <MenuItem ValueField="Lista de Subactividades" TextField="Lista de Subactividades" NavigateUrlField="~/Report/Execution/reportActivities.aspx" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ <MenuItem ValueField="Banco de Documentos" TextField="Banco de Documentos" NavigateUrlField="~/Report/ResearchAndDevelopment/ReportDocuments.aspx" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ <MenuItem ValueField="Productos de Proyecto" TextField="Productos de Proyecto" NavigateUrlField="~/Report/ResearchAndDevelopment/ReportProducts.aspx" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ <MenuItem ValueField="Lista de Buenas Prácticas" TextField="Lista de Buenas Prácticas" NavigateUrlField="~/Report/ResearchAndDevelopment/ReportGoodPractice.aspx" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ <MenuItem ValueField="Actividades Vs Ejecución" TextField="Actividades Vs Ejecución" NavigateUrlField="~/Report/FormulationAndAdoption/ReportSubactivitiesVsExecution.aspx" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ <MenuItem ValueField="Aprendizaje, logros y ajustes" TextField="Aprendizaje, logros y ajustes" NavigateUrlField="~/Report/FormulationAndAdoption/reportlearning.aspx" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ <MenuItem ValueField="Estadísticas" TextField="Estadísticas" NavigateUrlField="~/Report/ResearchAndDevelopment/ReportStatistics.aspx" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ <MenuItem ValueField="Gráfica de Encuestas" TextField="Gráfica de Encuestas" NavigateUrlField="~/Report/ResearchAndDevelopment/ResultInquest.aspx" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ <MenuItem ValueField="Lista de Testimonios" TextField="Lista de Testimonios" NavigateUrlField="~/Report/FormulationAndAdoption/ReporTestimonyList.aspx" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ <MenuItem ValueField="Lista de Operadores" TextField="Lista de Operadores" NavigateUrlField="~/Report/FormulationAndAdoption/ReportOperatorList.aspx" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ <MenuItem ValueField="Lista de proyectos cerrados" TextField="Lista de proyectos cerrados" NavigateUrlField="~/Report/FormulationAndAdoption/reportClosedProjectsList.aspx" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ </MenuItem>
+ <MenuItem ValueField="Consulta General de Proyectos" TextField="Consulta General de Proyectos" NavigateUrlField="~/Report/generalConsultingProjects.aspx" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+</MenuItem>
+ <MenuItem ValueField="Herramientas" TextField="Herramientas" NavigateUrlField="" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ <MenuItem ValueField="Documentos" TextField="Documentos" NavigateUrlField="" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ <MenuItem ValueField="Nuevo Documento" TextField="Nuevo Documento" NavigateUrlField="~/ResearchAndDevelopment/addDocuments.aspx?op=add" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ <MenuItem ValueField="Buscar Documento" TextField="Buscar Documento" NavigateUrlField="~/ResearchAndDevelopment/searchDocuments.aspx" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ </MenuItem>
+ <MenuItem ValueField="Foro" TextField="Foro" NavigateUrlField="" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ <MenuItem ValueField="Foro del Proyecto" TextField="Foro del Proyecto" NavigateUrlField="~/FormulationAndAdoption/searchForum.aspx" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ <MenuItem ValueField="Nuevo Foro" TextField="Nuevo Foro" NavigateUrlField="~/FormulationAndAdoption/addForum.aspx?op=add" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ </MenuItem>
+</MenuItem>
+ <MenuItem ValueField="Salir" TextField="Salir" NavigateUrlField="~/Security/logout.aspx" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem></menu>

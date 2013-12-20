@@ -1,0 +1,2273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://www.workflowcolombia.com/eworkflow/Services/WorkFlowServices.asmx" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://www.workflowcolombia.com/eworkflow/Services/WorkFlowServices.asmx" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Servicios de BPM para Clientes COM</wsdl:documentation>
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://www.workflowcolombia.com/eworkflow/Services/WorkFlowServices.asmx">
+      <s:element name="TestTransmission">
+        <s:complexType />
+      </s:element>
+      <s:element name="TestTransmissionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="TestTransmissionResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPackages">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Client" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="UserID" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="IsOnlyEnabled" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPackagesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPackagesResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProcesses">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Client" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="UserID" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="IsOnlyEnabled" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProcessesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetProcessesResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProcessById">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Client" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="UserID" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="IdProcess" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProcessByIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetProcessByIdResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetActivityInstancesByUserId">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Client" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="UserID" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="Status" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="IdProcessInstance" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="MaxInstanceActivity" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="OrderBy" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetActivityInstancesByUserIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetActivityInstancesByUserIdResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetActivityInstanceByUserId">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Client" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="UserID" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="Status" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="IdActivity" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="IdProcessInstance" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="OrderBy" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetActivityInstanceByUserIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetActivityInstanceByUserIdResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProcessInstancesById">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Client" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="UserID" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="ProcessInstancesId" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProcessInstancesByIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetProcessInstancesByIdResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateProcessXML">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Client" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sXML" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateProcessXMLResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CreateProcessXMLResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="WMCreateProcessInstance">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Client" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="UserID" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="IDProcessCase" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="Sequence" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="EntryDataType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="IDEntryData" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EntryData" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="WMCreateProcessInstanceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="WMCreateProcessInstanceResult" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="WMStartProcessInstance">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Client" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="UserID" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="IDProcessInstance" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="WMStartProcessInstanceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="WMStartProcessInstanceResult" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="StartActivityInstance">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Client" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="activityInstanceID" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="StartActivityInstanceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="StartActivityInstanceResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EndActivityInstance">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Client" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="UserID" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="activityInstanceID" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="processInstanceID" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="selectedCondition" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="comments" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="outComments" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="entryDataType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="entryData" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="idEntryData" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EndActivityInstanceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EndActivityInstanceResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetConditionsByActivityInstance">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Client" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="UserID" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="ActivityInstanceID" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetConditionsByActivityInstanceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetConditionsByActivityInstanceResult" type="tns:ArrayOfListItem" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfListItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ListItem" nillable="true" type="tns:ListItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ListItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" default="true" name="Enabled" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" default="false" name="Selected" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" default="" name="Text" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" default="" name="Value" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetConditionsTypeActivityInstance">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Client" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="UserID" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="ActivityInstanceID" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetConditionsTypeActivityInstanceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetConditionsTypeActivityInstanceResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetConditions">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Client" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="UserID" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="ActivityInstanceID" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetConditionsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetConditionsResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AttachDataToActivityInstance">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Client" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="UserID" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="activityInstanceID" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="processInstanceID" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="entryDataType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="entryData" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="idEntryData" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AttachDataToActivityInstanceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="AttachDataToActivityInstanceResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AttachFileToActivityInstance">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Client" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="UserID" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="activityInstanceID" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="processInstanceID" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="FullFileName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AttachFileToActivityInstanceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="AttachFileToActivityInstanceResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AttachCommentToProcessInstance">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Client" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="UserID" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="processInstanceID" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="Comment" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AttachCommentToProcessInstanceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="AttachCommentToProcessInstanceResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProcessCasesByProcess">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Client" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="UserID" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="IdProcess" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="IsOnlyEnabled" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProcessCasesByProcessResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetProcessCasesByProcessResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFormsByProcessCase">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Client" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="UserID" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="IdProcessCase" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFormsByProcessCaseResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetFormsByProcessCaseResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProcessAttribute">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Client" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="UserID" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="lIdProcess" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProcessAttributeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetProcessAttributeResult" type="tns:ArrayOfProcessAttributeEntity" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfProcessAttributeEntity">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ProcessAttributeEntity" nillable="true" type="tns:ProcessAttributeEntity" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ProcessAttributeEntity">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdProcess" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdProcessInstance" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Value" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetProcessAttributeValue">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Client" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="UserID" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="IdProcessInstance" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProcessAttributeValueResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetProcessAttributeValueResult" type="tns:ArrayOfProcessAttributeEntity" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProcessAttributeValueById">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Client" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="UserID" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="lIdProcessInstance" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="lIdProcessAttribute" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProcessAttributeValueByIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetProcessAttributeValueByIdResult" type="tns:ArrayOfProcessAttributeEntity" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateProcessAttributeValue">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Client" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="UserID" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="lIdProcessInstance" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="lIdProcessAttribute" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="Value" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateProcessAttributeValueResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UpdateProcessAttributeValueResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="boolean" type="s:boolean" />
+      <s:element name="string" nillable="true" type="s:string" />
+      <s:element name="long" type="s:long" />
+      <s:element name="ArrayOfListItem" nillable="true" type="tns:ArrayOfListItem" />
+      <s:element name="ArrayOfProcessAttributeEntity" nillable="true" type="tns:ArrayOfProcessAttributeEntity" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="TestTransmissionSoapIn">
+    <wsdl:part name="parameters" element="tns:TestTransmission" />
+  </wsdl:message>
+  <wsdl:message name="TestTransmissionSoapOut">
+    <wsdl:part name="parameters" element="tns:TestTransmissionResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPackagesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPackages" />
+  </wsdl:message>
+  <wsdl:message name="GetPackagesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPackagesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetProcessesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetProcesses" />
+  </wsdl:message>
+  <wsdl:message name="GetProcessesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetProcessesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetProcessByIdSoapIn">
+    <wsdl:part name="parameters" element="tns:GetProcessById" />
+  </wsdl:message>
+  <wsdl:message name="GetProcessByIdSoapOut">
+    <wsdl:part name="parameters" element="tns:GetProcessByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetActivityInstancesByUserIdSoapIn">
+    <wsdl:part name="parameters" element="tns:GetActivityInstancesByUserId" />
+  </wsdl:message>
+  <wsdl:message name="GetActivityInstancesByUserIdSoapOut">
+    <wsdl:part name="parameters" element="tns:GetActivityInstancesByUserIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetActivityInstanceByUserIdSoapIn">
+    <wsdl:part name="parameters" element="tns:GetActivityInstanceByUserId" />
+  </wsdl:message>
+  <wsdl:message name="GetActivityInstanceByUserIdSoapOut">
+    <wsdl:part name="parameters" element="tns:GetActivityInstanceByUserIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetProcessInstancesByIdSoapIn">
+    <wsdl:part name="parameters" element="tns:GetProcessInstancesById" />
+  </wsdl:message>
+  <wsdl:message name="GetProcessInstancesByIdSoapOut">
+    <wsdl:part name="parameters" element="tns:GetProcessInstancesByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateProcessXMLSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateProcessXML" />
+  </wsdl:message>
+  <wsdl:message name="CreateProcessXMLSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateProcessXMLResponse" />
+  </wsdl:message>
+  <wsdl:message name="WMCreateProcessInstanceSoapIn">
+    <wsdl:part name="parameters" element="tns:WMCreateProcessInstance" />
+  </wsdl:message>
+  <wsdl:message name="WMCreateProcessInstanceSoapOut">
+    <wsdl:part name="parameters" element="tns:WMCreateProcessInstanceResponse" />
+  </wsdl:message>
+  <wsdl:message name="WMStartProcessInstanceSoapIn">
+    <wsdl:part name="parameters" element="tns:WMStartProcessInstance" />
+  </wsdl:message>
+  <wsdl:message name="WMStartProcessInstanceSoapOut">
+    <wsdl:part name="parameters" element="tns:WMStartProcessInstanceResponse" />
+  </wsdl:message>
+  <wsdl:message name="StartActivityInstanceSoapIn">
+    <wsdl:part name="parameters" element="tns:StartActivityInstance" />
+  </wsdl:message>
+  <wsdl:message name="StartActivityInstanceSoapOut">
+    <wsdl:part name="parameters" element="tns:StartActivityInstanceResponse" />
+  </wsdl:message>
+  <wsdl:message name="EndActivityInstanceSoapIn">
+    <wsdl:part name="parameters" element="tns:EndActivityInstance" />
+  </wsdl:message>
+  <wsdl:message name="EndActivityInstanceSoapOut">
+    <wsdl:part name="parameters" element="tns:EndActivityInstanceResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetConditionsByActivityInstanceSoapIn">
+    <wsdl:part name="parameters" element="tns:GetConditionsByActivityInstance" />
+  </wsdl:message>
+  <wsdl:message name="GetConditionsByActivityInstanceSoapOut">
+    <wsdl:part name="parameters" element="tns:GetConditionsByActivityInstanceResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetConditionsTypeActivityInstanceSoapIn">
+    <wsdl:part name="parameters" element="tns:GetConditionsTypeActivityInstance" />
+  </wsdl:message>
+  <wsdl:message name="GetConditionsTypeActivityInstanceSoapOut">
+    <wsdl:part name="parameters" element="tns:GetConditionsTypeActivityInstanceResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetConditionsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetConditions" />
+  </wsdl:message>
+  <wsdl:message name="GetConditionsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetConditionsResponse" />
+  </wsdl:message>
+  <wsdl:message name="AttachDataToActivityInstanceSoapIn">
+    <wsdl:part name="parameters" element="tns:AttachDataToActivityInstance" />
+  </wsdl:message>
+  <wsdl:message name="AttachDataToActivityInstanceSoapOut">
+    <wsdl:part name="parameters" element="tns:AttachDataToActivityInstanceResponse" />
+  </wsdl:message>
+  <wsdl:message name="AttachFileToActivityInstanceSoapIn">
+    <wsdl:part name="parameters" element="tns:AttachFileToActivityInstance" />
+  </wsdl:message>
+  <wsdl:message name="AttachFileToActivityInstanceSoapOut">
+    <wsdl:part name="parameters" element="tns:AttachFileToActivityInstanceResponse" />
+  </wsdl:message>
+  <wsdl:message name="AttachCommentToProcessInstanceSoapIn">
+    <wsdl:part name="parameters" element="tns:AttachCommentToProcessInstance" />
+  </wsdl:message>
+  <wsdl:message name="AttachCommentToProcessInstanceSoapOut">
+    <wsdl:part name="parameters" element="tns:AttachCommentToProcessInstanceResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetProcessCasesByProcessSoapIn">
+    <wsdl:part name="parameters" element="tns:GetProcessCasesByProcess" />
+  </wsdl:message>
+  <wsdl:message name="GetProcessCasesByProcessSoapOut">
+    <wsdl:part name="parameters" element="tns:GetProcessCasesByProcessResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetFormsByProcessCaseSoapIn">
+    <wsdl:part name="parameters" element="tns:GetFormsByProcessCase" />
+  </wsdl:message>
+  <wsdl:message name="GetFormsByProcessCaseSoapOut">
+    <wsdl:part name="parameters" element="tns:GetFormsByProcessCaseResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetProcessAttributeSoapIn">
+    <wsdl:part name="parameters" element="tns:GetProcessAttribute" />
+  </wsdl:message>
+  <wsdl:message name="GetProcessAttributeSoapOut">
+    <wsdl:part name="parameters" element="tns:GetProcessAttributeResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetProcessAttributeValueSoapIn">
+    <wsdl:part name="parameters" element="tns:GetProcessAttributeValue" />
+  </wsdl:message>
+  <wsdl:message name="GetProcessAttributeValueSoapOut">
+    <wsdl:part name="parameters" element="tns:GetProcessAttributeValueResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetProcessAttributeValueByIdSoapIn">
+    <wsdl:part name="parameters" element="tns:GetProcessAttributeValueById" />
+  </wsdl:message>
+  <wsdl:message name="GetProcessAttributeValueByIdSoapOut">
+    <wsdl:part name="parameters" element="tns:GetProcessAttributeValueByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateProcessAttributeValueSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateProcessAttributeValue" />
+  </wsdl:message>
+  <wsdl:message name="UpdateProcessAttributeValueSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateProcessAttributeValueResponse" />
+  </wsdl:message>
+  <wsdl:message name="TestTransmissionHttpGetIn" />
+  <wsdl:message name="TestTransmissionHttpGetOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="GetPackagesHttpGetIn">
+    <wsdl:part name="Client" type="s:string" />
+    <wsdl:part name="UserID" type="s:string" />
+    <wsdl:part name="IsOnlyEnabled" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetPackagesHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetProcessesHttpGetIn">
+    <wsdl:part name="Client" type="s:string" />
+    <wsdl:part name="UserID" type="s:string" />
+    <wsdl:part name="IsOnlyEnabled" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetProcessesHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetProcessByIdHttpGetIn">
+    <wsdl:part name="Client" type="s:string" />
+    <wsdl:part name="UserID" type="s:string" />
+    <wsdl:part name="IdProcess" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetProcessByIdHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetActivityInstancesByUserIdHttpGetIn">
+    <wsdl:part name="Client" type="s:string" />
+    <wsdl:part name="UserID" type="s:string" />
+    <wsdl:part name="Status" type="s:string" />
+    <wsdl:part name="IdProcessInstance" type="s:string" />
+    <wsdl:part name="MaxInstanceActivity" type="s:string" />
+    <wsdl:part name="OrderBy" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetActivityInstancesByUserIdHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetActivityInstanceByUserIdHttpGetIn">
+    <wsdl:part name="Client" type="s:string" />
+    <wsdl:part name="UserID" type="s:string" />
+    <wsdl:part name="Status" type="s:string" />
+    <wsdl:part name="IdActivity" type="s:string" />
+    <wsdl:part name="IdProcessInstance" type="s:string" />
+    <wsdl:part name="OrderBy" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetActivityInstanceByUserIdHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetProcessInstancesByIdHttpGetIn">
+    <wsdl:part name="Client" type="s:string" />
+    <wsdl:part name="UserID" type="s:string" />
+    <wsdl:part name="ProcessInstancesId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetProcessInstancesByIdHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="CreateProcessXMLHttpGetIn">
+    <wsdl:part name="Client" type="s:string" />
+    <wsdl:part name="sXML" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CreateProcessXMLHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="WMCreateProcessInstanceHttpGetIn">
+    <wsdl:part name="Client" type="s:string" />
+    <wsdl:part name="UserID" type="s:string" />
+    <wsdl:part name="IDProcessCase" type="s:string" />
+    <wsdl:part name="Sequence" type="s:string" />
+    <wsdl:part name="EntryDataType" type="s:string" />
+    <wsdl:part name="IDEntryData" type="s:string" />
+    <wsdl:part name="EntryData" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="WMCreateProcessInstanceHttpGetOut">
+    <wsdl:part name="Body" element="tns:long" />
+  </wsdl:message>
+  <wsdl:message name="WMStartProcessInstanceHttpGetIn">
+    <wsdl:part name="Client" type="s:string" />
+    <wsdl:part name="UserID" type="s:string" />
+    <wsdl:part name="IDProcessInstance" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="WMStartProcessInstanceHttpGetOut">
+    <wsdl:part name="Body" element="tns:long" />
+  </wsdl:message>
+  <wsdl:message name="StartActivityInstanceHttpGetIn">
+    <wsdl:part name="Client" type="s:string" />
+    <wsdl:part name="activityInstanceID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="StartActivityInstanceHttpGetOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="EndActivityInstanceHttpGetIn">
+    <wsdl:part name="Client" type="s:string" />
+    <wsdl:part name="UserID" type="s:string" />
+    <wsdl:part name="activityInstanceID" type="s:string" />
+    <wsdl:part name="processInstanceID" type="s:string" />
+    <wsdl:part name="selectedCondition" type="s:string" />
+    <wsdl:part name="comments" type="s:string" />
+    <wsdl:part name="outComments" type="s:string" />
+    <wsdl:part name="entryDataType" type="s:string" />
+    <wsdl:part name="entryData" type="s:string" />
+    <wsdl:part name="idEntryData" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="EndActivityInstanceHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetConditionsByActivityInstanceHttpGetIn">
+    <wsdl:part name="Client" type="s:string" />
+    <wsdl:part name="UserID" type="s:string" />
+    <wsdl:part name="ActivityInstanceID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetConditionsByActivityInstanceHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfListItem" />
+  </wsdl:message>
+  <wsdl:message name="GetConditionsTypeActivityInstanceHttpGetIn">
+    <wsdl:part name="Client" type="s:string" />
+    <wsdl:part name="UserID" type="s:string" />
+    <wsdl:part name="ActivityInstanceID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetConditionsTypeActivityInstanceHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetConditionsHttpGetIn">
+    <wsdl:part name="Client" type="s:string" />
+    <wsdl:part name="UserID" type="s:string" />
+    <wsdl:part name="ActivityInstanceID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetConditionsHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="AttachDataToActivityInstanceHttpGetIn">
+    <wsdl:part name="Client" type="s:string" />
+    <wsdl:part name="UserID" type="s:string" />
+    <wsdl:part name="activityInstanceID" type="s:string" />
+    <wsdl:part name="processInstanceID" type="s:string" />
+    <wsdl:part name="entryDataType" type="s:string" />
+    <wsdl:part name="entryData" type="s:string" />
+    <wsdl:part name="idEntryData" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="AttachDataToActivityInstanceHttpGetOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="AttachFileToActivityInstanceHttpGetIn">
+    <wsdl:part name="Client" type="s:string" />
+    <wsdl:part name="UserID" type="s:string" />
+    <wsdl:part name="activityInstanceID" type="s:string" />
+    <wsdl:part name="processInstanceID" type="s:string" />
+    <wsdl:part name="FullFileName" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="AttachFileToActivityInstanceHttpGetOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="AttachCommentToProcessInstanceHttpGetIn">
+    <wsdl:part name="Client" type="s:string" />
+    <wsdl:part name="UserID" type="s:string" />
+    <wsdl:part name="processInstanceID" type="s:string" />
+    <wsdl:part name="Comment" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="AttachCommentToProcessInstanceHttpGetOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="GetProcessCasesByProcessHttpGetIn">
+    <wsdl:part name="Client" type="s:string" />
+    <wsdl:part name="UserID" type="s:string" />
+    <wsdl:part name="IdProcess" type="s:string" />
+    <wsdl:part name="IsOnlyEnabled" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetProcessCasesByProcessHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetFormsByProcessCaseHttpGetIn">
+    <wsdl:part name="Client" type="s:string" />
+    <wsdl:part name="UserID" type="s:string" />
+    <wsdl:part name="IdProcessCase" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetFormsByProcessCaseHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetProcessAttributeHttpGetIn">
+    <wsdl:part name="Client" type="s:string" />
+    <wsdl:part name="UserID" type="s:string" />
+    <wsdl:part name="lIdProcess" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetProcessAttributeHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfProcessAttributeEntity" />
+  </wsdl:message>
+  <wsdl:message name="GetProcessAttributeValueHttpGetIn">
+    <wsdl:part name="Client" type="s:string" />
+    <wsdl:part name="UserID" type="s:string" />
+    <wsdl:part name="IdProcessInstance" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetProcessAttributeValueHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfProcessAttributeEntity" />
+  </wsdl:message>
+  <wsdl:message name="GetProcessAttributeValueByIdHttpGetIn">
+    <wsdl:part name="Client" type="s:string" />
+    <wsdl:part name="UserID" type="s:string" />
+    <wsdl:part name="lIdProcessInstance" type="s:string" />
+    <wsdl:part name="lIdProcessAttribute" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetProcessAttributeValueByIdHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfProcessAttributeEntity" />
+  </wsdl:message>
+  <wsdl:message name="UpdateProcessAttributeValueHttpGetIn">
+    <wsdl:part name="Client" type="s:string" />
+    <wsdl:part name="UserID" type="s:string" />
+    <wsdl:part name="lIdProcessInstance" type="s:string" />
+    <wsdl:part name="lIdProcessAttribute" type="s:string" />
+    <wsdl:part name="Value" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UpdateProcessAttributeValueHttpGetOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="TestTransmissionHttpPostIn" />
+  <wsdl:message name="TestTransmissionHttpPostOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="GetPackagesHttpPostIn">
+    <wsdl:part name="Client" type="s:string" />
+    <wsdl:part name="UserID" type="s:string" />
+    <wsdl:part name="IsOnlyEnabled" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetPackagesHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetProcessesHttpPostIn">
+    <wsdl:part name="Client" type="s:string" />
+    <wsdl:part name="UserID" type="s:string" />
+    <wsdl:part name="IsOnlyEnabled" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetProcessesHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetProcessByIdHttpPostIn">
+    <wsdl:part name="Client" type="s:string" />
+    <wsdl:part name="UserID" type="s:string" />
+    <wsdl:part name="IdProcess" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetProcessByIdHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetActivityInstancesByUserIdHttpPostIn">
+    <wsdl:part name="Client" type="s:string" />
+    <wsdl:part name="UserID" type="s:string" />
+    <wsdl:part name="Status" type="s:string" />
+    <wsdl:part name="IdProcessInstance" type="s:string" />
+    <wsdl:part name="MaxInstanceActivity" type="s:string" />
+    <wsdl:part name="OrderBy" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetActivityInstancesByUserIdHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetActivityInstanceByUserIdHttpPostIn">
+    <wsdl:part name="Client" type="s:string" />
+    <wsdl:part name="UserID" type="s:string" />
+    <wsdl:part name="Status" type="s:string" />
+    <wsdl:part name="IdActivity" type="s:string" />
+    <wsdl:part name="IdProcessInstance" type="s:string" />
+    <wsdl:part name="OrderBy" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetActivityInstanceByUserIdHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetProcessInstancesByIdHttpPostIn">
+    <wsdl:part name="Client" type="s:string" />
+    <wsdl:part name="UserID" type="s:string" />
+    <wsdl:part name="ProcessInstancesId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetProcessInstancesByIdHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="CreateProcessXMLHttpPostIn">
+    <wsdl:part name="Client" type="s:string" />
+    <wsdl:part name="sXML" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CreateProcessXMLHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="WMCreateProcessInstanceHttpPostIn">
+    <wsdl:part name="Client" type="s:string" />
+    <wsdl:part name="UserID" type="s:string" />
+    <wsdl:part name="IDProcessCase" type="s:string" />
+    <wsdl:part name="Sequence" type="s:string" />
+    <wsdl:part name="EntryDataType" type="s:string" />
+    <wsdl:part name="IDEntryData" type="s:string" />
+    <wsdl:part name="EntryData" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="WMCreateProcessInstanceHttpPostOut">
+    <wsdl:part name="Body" element="tns:long" />
+  </wsdl:message>
+  <wsdl:message name="WMStartProcessInstanceHttpPostIn">
+    <wsdl:part name="Client" type="s:string" />
+    <wsdl:part name="UserID" type="s:string" />
+    <wsdl:part name="IDProcessInstance" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="WMStartProcessInstanceHttpPostOut">
+    <wsdl:part name="Body" element="tns:long" />
+  </wsdl:message>
+  <wsdl:message name="StartActivityInstanceHttpPostIn">
+    <wsdl:part name="Client" type="s:string" />
+    <wsdl:part name="activityInstanceID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="StartActivityInstanceHttpPostOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="EndActivityInstanceHttpPostIn">
+    <wsdl:part name="Client" type="s:string" />
+    <wsdl:part name="UserID" type="s:string" />
+    <wsdl:part name="activityInstanceID" type="s:string" />
+    <wsdl:part name="processInstanceID" type="s:string" />
+    <wsdl:part name="selectedCondition" type="s:string" />
+    <wsdl:part name="comments" type="s:string" />
+    <wsdl:part name="outComments" type="s:string" />
+    <wsdl:part name="entryDataType" type="s:string" />
+    <wsdl:part name="entryData" type="s:string" />
+    <wsdl:part name="idEntryData" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="EndActivityInstanceHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetConditionsByActivityInstanceHttpPostIn">
+    <wsdl:part name="Client" type="s:string" />
+    <wsdl:part name="UserID" type="s:string" />
+    <wsdl:part name="ActivityInstanceID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetConditionsByActivityInstanceHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfListItem" />
+  </wsdl:message>
+  <wsdl:message name="GetConditionsTypeActivityInstanceHttpPostIn">
+    <wsdl:part name="Client" type="s:string" />
+    <wsdl:part name="UserID" type="s:string" />
+    <wsdl:part name="ActivityInstanceID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetConditionsTypeActivityInstanceHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetConditionsHttpPostIn">
+    <wsdl:part name="Client" type="s:string" />
+    <wsdl:part name="UserID" type="s:string" />
+    <wsdl:part name="ActivityInstanceID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetConditionsHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="AttachDataToActivityInstanceHttpPostIn">
+    <wsdl:part name="Client" type="s:string" />
+    <wsdl:part name="UserID" type="s:string" />
+    <wsdl:part name="activityInstanceID" type="s:string" />
+    <wsdl:part name="processInstanceID" type="s:string" />
+    <wsdl:part name="entryDataType" type="s:string" />
+    <wsdl:part name="entryData" type="s:string" />
+    <wsdl:part name="idEntryData" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="AttachDataToActivityInstanceHttpPostOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="AttachFileToActivityInstanceHttpPostIn">
+    <wsdl:part name="Client" type="s:string" />
+    <wsdl:part name="UserID" type="s:string" />
+    <wsdl:part name="activityInstanceID" type="s:string" />
+    <wsdl:part name="processInstanceID" type="s:string" />
+    <wsdl:part name="FullFileName" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="AttachFileToActivityInstanceHttpPostOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="AttachCommentToProcessInstanceHttpPostIn">
+    <wsdl:part name="Client" type="s:string" />
+    <wsdl:part name="UserID" type="s:string" />
+    <wsdl:part name="processInstanceID" type="s:string" />
+    <wsdl:part name="Comment" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="AttachCommentToProcessInstanceHttpPostOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="GetProcessCasesByProcessHttpPostIn">
+    <wsdl:part name="Client" type="s:string" />
+    <wsdl:part name="UserID" type="s:string" />
+    <wsdl:part name="IdProcess" type="s:string" />
+    <wsdl:part name="IsOnlyEnabled" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetProcessCasesByProcessHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetFormsByProcessCaseHttpPostIn">
+    <wsdl:part name="Client" type="s:string" />
+    <wsdl:part name="UserID" type="s:string" />
+    <wsdl:part name="IdProcessCase" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetFormsByProcessCaseHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetProcessAttributeHttpPostIn">
+    <wsdl:part name="Client" type="s:string" />
+    <wsdl:part name="UserID" type="s:string" />
+    <wsdl:part name="lIdProcess" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetProcessAttributeHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfProcessAttributeEntity" />
+  </wsdl:message>
+  <wsdl:message name="GetProcessAttributeValueHttpPostIn">
+    <wsdl:part name="Client" type="s:string" />
+    <wsdl:part name="UserID" type="s:string" />
+    <wsdl:part name="IdProcessInstance" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetProcessAttributeValueHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfProcessAttributeEntity" />
+  </wsdl:message>
+  <wsdl:message name="GetProcessAttributeValueByIdHttpPostIn">
+    <wsdl:part name="Client" type="s:string" />
+    <wsdl:part name="UserID" type="s:string" />
+    <wsdl:part name="lIdProcessInstance" type="s:string" />
+    <wsdl:part name="lIdProcessAttribute" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetProcessAttributeValueByIdHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfProcessAttributeEntity" />
+  </wsdl:message>
+  <wsdl:message name="UpdateProcessAttributeValueHttpPostIn">
+    <wsdl:part name="Client" type="s:string" />
+    <wsdl:part name="UserID" type="s:string" />
+    <wsdl:part name="lIdProcessInstance" type="s:string" />
+    <wsdl:part name="lIdProcessAttribute" type="s:string" />
+    <wsdl:part name="Value" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UpdateProcessAttributeValueHttpPostOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:portType name="Gattaca_x0020_BPM_x0020_Services_x0020_9.0.0.0Soap">
+    <wsdl:operation name="TestTransmission">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retorna True si la conexion al WS esta correcta</wsdl:documentation>
+      <wsdl:input message="tns:TestTransmissionSoapIn" />
+      <wsdl:output message="tns:TestTransmissionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPackages">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retorna XML con los Paquetes asociados al cliente</wsdl:documentation>
+      <wsdl:input message="tns:GetPackagesSoapIn" />
+      <wsdl:output message="tns:GetPackagesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProcesses">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retorna XML con los Procesos asociados al cliente</wsdl:documentation>
+      <wsdl:input message="tns:GetProcessesSoapIn" />
+      <wsdl:output message="tns:GetProcessesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProcessById">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retorna XML con los Procesos asociados al cliente</wsdl:documentation>
+      <wsdl:input message="tns:GetProcessByIdSoapIn" />
+      <wsdl:output message="tns:GetProcessByIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetActivityInstancesByUserId">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retorna XML con la Lista de Tareas asociados al usuario</wsdl:documentation>
+      <wsdl:input message="tns:GetActivityInstancesByUserIdSoapIn" />
+      <wsdl:output message="tns:GetActivityInstancesByUserIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetActivityInstanceByUserId">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retorna XML con la Ultima Tareas asociados al usuario</wsdl:documentation>
+      <wsdl:input message="tns:GetActivityInstanceByUserIdSoapIn" />
+      <wsdl:output message="tns:GetActivityInstanceByUserIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProcessInstancesById">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retorna XML con la Lista de Tareas asociados al usuario</wsdl:documentation>
+      <wsdl:input message="tns:GetProcessInstancesByIdSoapIn" />
+      <wsdl:output message="tns:GetProcessInstancesByIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateProcessXML">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Crear un proceso por medio del Generador</wsdl:documentation>
+      <wsdl:input message="tns:CreateProcessXMLSoapIn" />
+      <wsdl:output message="tns:CreateProcessXMLSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="WMCreateProcessInstance">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Crea una Instancia de Proceso</wsdl:documentation>
+      <wsdl:input message="tns:WMCreateProcessInstanceSoapIn" />
+      <wsdl:output message="tns:WMCreateProcessInstanceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="WMStartProcessInstance">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Inicia la ejecución de un proceso</wsdl:documentation>
+      <wsdl:input message="tns:WMStartProcessInstanceSoapIn" />
+      <wsdl:output message="tns:WMStartProcessInstanceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="StartActivityInstance">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Inicializar la ejecución de una tarea</wsdl:documentation>
+      <wsdl:input message="tns:StartActivityInstanceSoapIn" />
+      <wsdl:output message="tns:StartActivityInstanceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EndActivityInstance">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Finaliza la ejecución de una tarea</wsdl:documentation>
+      <wsdl:input message="tns:EndActivityInstanceSoapIn" />
+      <wsdl:output message="tns:EndActivityInstanceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetConditionsByActivityInstance">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retorna las Condiciones validas para una instancia de actividad</wsdl:documentation>
+      <wsdl:input message="tns:GetConditionsByActivityInstanceSoapIn" />
+      <wsdl:output message="tns:GetConditionsByActivityInstanceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetConditionsTypeActivityInstance">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retorna el tipo de condición de salida para una instancia de actividad</wsdl:documentation>
+      <wsdl:input message="tns:GetConditionsTypeActivityInstanceSoapIn" />
+      <wsdl:output message="tns:GetConditionsTypeActivityInstanceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetConditions">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retorna las Condiciones validas para una actividad</wsdl:documentation>
+      <wsdl:input message="tns:GetConditionsSoapIn" />
+      <wsdl:output message="tns:GetConditionsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AttachDataToActivityInstance">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Adjunta a una instancia de actividad una referencia de datos de una herramienta externa.</wsdl:documentation>
+      <wsdl:input message="tns:AttachDataToActivityInstanceSoapIn" />
+      <wsdl:output message="tns:AttachDataToActivityInstanceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AttachFileToActivityInstance">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Adjunta a una instancia de actividad un archivo.</wsdl:documentation>
+      <wsdl:input message="tns:AttachFileToActivityInstanceSoapIn" />
+      <wsdl:output message="tns:AttachFileToActivityInstanceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AttachCommentToProcessInstance">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Adjunta a un comentario a una instancia de proceso.</wsdl:documentation>
+      <wsdl:input message="tns:AttachCommentToProcessInstanceSoapIn" />
+      <wsdl:output message="tns:AttachCommentToProcessInstanceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProcessCasesByProcess">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retorna XML con los casos de procesos</wsdl:documentation>
+      <wsdl:input message="tns:GetProcessCasesByProcessSoapIn" />
+      <wsdl:output message="tns:GetProcessCasesByProcessSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFormsByProcessCase">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retorna XML con los Id de los formularios que contiene un caso de proceso</wsdl:documentation>
+      <wsdl:input message="tns:GetFormsByProcessCaseSoapIn" />
+      <wsdl:output message="tns:GetFormsByProcessCaseSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProcessAttribute">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Obtener todos los atributos del proceso. Retorna [Id, IdProcess, Name]</wsdl:documentation>
+      <wsdl:input message="tns:GetProcessAttributeSoapIn" />
+      <wsdl:output message="tns:GetProcessAttributeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProcessAttributeValue">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Optener todos los valores de los atributos del proceso. Retorna [Id, IdProcess, Name]</wsdl:documentation>
+      <wsdl:input message="tns:GetProcessAttributeValueSoapIn" />
+      <wsdl:output message="tns:GetProcessAttributeValueSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProcessAttributeValueById">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Optener un valor en especifico de los atributos del proceso. Retorna un DataTable</wsdl:documentation>
+      <wsdl:input message="tns:GetProcessAttributeValueByIdSoapIn" />
+      <wsdl:output message="tns:GetProcessAttributeValueByIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateProcessAttributeValue">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Actualizar un valor en especifico de los atributos del proceso, si este se ejecuto correctamente retorna True</wsdl:documentation>
+      <wsdl:input message="tns:UpdateProcessAttributeValueSoapIn" />
+      <wsdl:output message="tns:UpdateProcessAttributeValueSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="Gattaca_x0020_BPM_x0020_Services_x0020_9.0.0.0HttpGet">
+    <wsdl:operation name="TestTransmission">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retorna True si la conexion al WS esta correcta</wsdl:documentation>
+      <wsdl:input message="tns:TestTransmissionHttpGetIn" />
+      <wsdl:output message="tns:TestTransmissionHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPackages">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retorna XML con los Paquetes asociados al cliente</wsdl:documentation>
+      <wsdl:input message="tns:GetPackagesHttpGetIn" />
+      <wsdl:output message="tns:GetPackagesHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProcesses">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retorna XML con los Procesos asociados al cliente</wsdl:documentation>
+      <wsdl:input message="tns:GetProcessesHttpGetIn" />
+      <wsdl:output message="tns:GetProcessesHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProcessById">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retorna XML con los Procesos asociados al cliente</wsdl:documentation>
+      <wsdl:input message="tns:GetProcessByIdHttpGetIn" />
+      <wsdl:output message="tns:GetProcessByIdHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetActivityInstancesByUserId">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retorna XML con la Lista de Tareas asociados al usuario</wsdl:documentation>
+      <wsdl:input message="tns:GetActivityInstancesByUserIdHttpGetIn" />
+      <wsdl:output message="tns:GetActivityInstancesByUserIdHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetActivityInstanceByUserId">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retorna XML con la Ultima Tareas asociados al usuario</wsdl:documentation>
+      <wsdl:input message="tns:GetActivityInstanceByUserIdHttpGetIn" />
+      <wsdl:output message="tns:GetActivityInstanceByUserIdHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProcessInstancesById">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retorna XML con la Lista de Tareas asociados al usuario</wsdl:documentation>
+      <wsdl:input message="tns:GetProcessInstancesByIdHttpGetIn" />
+      <wsdl:output message="tns:GetProcessInstancesByIdHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateProcessXML">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Crear un proceso por medio del Generador</wsdl:documentation>
+      <wsdl:input message="tns:CreateProcessXMLHttpGetIn" />
+      <wsdl:output message="tns:CreateProcessXMLHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="WMCreateProcessInstance">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Crea una Instancia de Proceso</wsdl:documentation>
+      <wsdl:input message="tns:WMCreateProcessInstanceHttpGetIn" />
+      <wsdl:output message="tns:WMCreateProcessInstanceHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="WMStartProcessInstance">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Inicia la ejecución de un proceso</wsdl:documentation>
+      <wsdl:input message="tns:WMStartProcessInstanceHttpGetIn" />
+      <wsdl:output message="tns:WMStartProcessInstanceHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="StartActivityInstance">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Inicializar la ejecución de una tarea</wsdl:documentation>
+      <wsdl:input message="tns:StartActivityInstanceHttpGetIn" />
+      <wsdl:output message="tns:StartActivityInstanceHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EndActivityInstance">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Finaliza la ejecución de una tarea</wsdl:documentation>
+      <wsdl:input message="tns:EndActivityInstanceHttpGetIn" />
+      <wsdl:output message="tns:EndActivityInstanceHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetConditionsByActivityInstance">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retorna las Condiciones validas para una instancia de actividad</wsdl:documentation>
+      <wsdl:input message="tns:GetConditionsByActivityInstanceHttpGetIn" />
+      <wsdl:output message="tns:GetConditionsByActivityInstanceHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetConditionsTypeActivityInstance">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retorna el tipo de condición de salida para una instancia de actividad</wsdl:documentation>
+      <wsdl:input message="tns:GetConditionsTypeActivityInstanceHttpGetIn" />
+      <wsdl:output message="tns:GetConditionsTypeActivityInstanceHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetConditions">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retorna las Condiciones validas para una actividad</wsdl:documentation>
+      <wsdl:input message="tns:GetConditionsHttpGetIn" />
+      <wsdl:output message="tns:GetConditionsHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AttachDataToActivityInstance">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Adjunta a una instancia de actividad una referencia de datos de una herramienta externa.</wsdl:documentation>
+      <wsdl:input message="tns:AttachDataToActivityInstanceHttpGetIn" />
+      <wsdl:output message="tns:AttachDataToActivityInstanceHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AttachFileToActivityInstance">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Adjunta a una instancia de actividad un archivo.</wsdl:documentation>
+      <wsdl:input message="tns:AttachFileToActivityInstanceHttpGetIn" />
+      <wsdl:output message="tns:AttachFileToActivityInstanceHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AttachCommentToProcessInstance">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Adjunta a un comentario a una instancia de proceso.</wsdl:documentation>
+      <wsdl:input message="tns:AttachCommentToProcessInstanceHttpGetIn" />
+      <wsdl:output message="tns:AttachCommentToProcessInstanceHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProcessCasesByProcess">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retorna XML con los casos de procesos</wsdl:documentation>
+      <wsdl:input message="tns:GetProcessCasesByProcessHttpGetIn" />
+      <wsdl:output message="tns:GetProcessCasesByProcessHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFormsByProcessCase">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retorna XML con los Id de los formularios que contiene un caso de proceso</wsdl:documentation>
+      <wsdl:input message="tns:GetFormsByProcessCaseHttpGetIn" />
+      <wsdl:output message="tns:GetFormsByProcessCaseHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProcessAttribute">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Obtener todos los atributos del proceso. Retorna [Id, IdProcess, Name]</wsdl:documentation>
+      <wsdl:input message="tns:GetProcessAttributeHttpGetIn" />
+      <wsdl:output message="tns:GetProcessAttributeHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProcessAttributeValue">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Optener todos los valores de los atributos del proceso. Retorna [Id, IdProcess, Name]</wsdl:documentation>
+      <wsdl:input message="tns:GetProcessAttributeValueHttpGetIn" />
+      <wsdl:output message="tns:GetProcessAttributeValueHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProcessAttributeValueById">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Optener un valor en especifico de los atributos del proceso. Retorna un DataTable</wsdl:documentation>
+      <wsdl:input message="tns:GetProcessAttributeValueByIdHttpGetIn" />
+      <wsdl:output message="tns:GetProcessAttributeValueByIdHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateProcessAttributeValue">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Actualizar un valor en especifico de los atributos del proceso, si este se ejecuto correctamente retorna True</wsdl:documentation>
+      <wsdl:input message="tns:UpdateProcessAttributeValueHttpGetIn" />
+      <wsdl:output message="tns:UpdateProcessAttributeValueHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="Gattaca_x0020_BPM_x0020_Services_x0020_9.0.0.0HttpPost">
+    <wsdl:operation name="TestTransmission">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retorna True si la conexion al WS esta correcta</wsdl:documentation>
+      <wsdl:input message="tns:TestTransmissionHttpPostIn" />
+      <wsdl:output message="tns:TestTransmissionHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPackages">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retorna XML con los Paquetes asociados al cliente</wsdl:documentation>
+      <wsdl:input message="tns:GetPackagesHttpPostIn" />
+      <wsdl:output message="tns:GetPackagesHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProcesses">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retorna XML con los Procesos asociados al cliente</wsdl:documentation>
+      <wsdl:input message="tns:GetProcessesHttpPostIn" />
+      <wsdl:output message="tns:GetProcessesHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProcessById">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retorna XML con los Procesos asociados al cliente</wsdl:documentation>
+      <wsdl:input message="tns:GetProcessByIdHttpPostIn" />
+      <wsdl:output message="tns:GetProcessByIdHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetActivityInstancesByUserId">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retorna XML con la Lista de Tareas asociados al usuario</wsdl:documentation>
+      <wsdl:input message="tns:GetActivityInstancesByUserIdHttpPostIn" />
+      <wsdl:output message="tns:GetActivityInstancesByUserIdHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetActivityInstanceByUserId">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retorna XML con la Ultima Tareas asociados al usuario</wsdl:documentation>
+      <wsdl:input message="tns:GetActivityInstanceByUserIdHttpPostIn" />
+      <wsdl:output message="tns:GetActivityInstanceByUserIdHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProcessInstancesById">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retorna XML con la Lista de Tareas asociados al usuario</wsdl:documentation>
+      <wsdl:input message="tns:GetProcessInstancesByIdHttpPostIn" />
+      <wsdl:output message="tns:GetProcessInstancesByIdHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateProcessXML">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Crear un proceso por medio del Generador</wsdl:documentation>
+      <wsdl:input message="tns:CreateProcessXMLHttpPostIn" />
+      <wsdl:output message="tns:CreateProcessXMLHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="WMCreateProcessInstance">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Crea una Instancia de Proceso</wsdl:documentation>
+      <wsdl:input message="tns:WMCreateProcessInstanceHttpPostIn" />
+      <wsdl:output message="tns:WMCreateProcessInstanceHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="WMStartProcessInstance">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Inicia la ejecución de un proceso</wsdl:documentation>
+      <wsdl:input message="tns:WMStartProcessInstanceHttpPostIn" />
+      <wsdl:output message="tns:WMStartProcessInstanceHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="StartActivityInstance">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Inicializar la ejecución de una tarea</wsdl:documentation>
+      <wsdl:input message="tns:StartActivityInstanceHttpPostIn" />
+      <wsdl:output message="tns:StartActivityInstanceHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EndActivityInstance">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Finaliza la ejecución de una tarea</wsdl:documentation>
+      <wsdl:input message="tns:EndActivityInstanceHttpPostIn" />
+      <wsdl:output message="tns:EndActivityInstanceHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetConditionsByActivityInstance">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retorna las Condiciones validas para una instancia de actividad</wsdl:documentation>
+      <wsdl:input message="tns:GetConditionsByActivityInstanceHttpPostIn" />
+      <wsdl:output message="tns:GetConditionsByActivityInstanceHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetConditionsTypeActivityInstance">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retorna el tipo de condición de salida para una instancia de actividad</wsdl:documentation>
+      <wsdl:input message="tns:GetConditionsTypeActivityInstanceHttpPostIn" />
+      <wsdl:output message="tns:GetConditionsTypeActivityInstanceHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetConditions">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retorna las Condiciones validas para una actividad</wsdl:documentation>
+      <wsdl:input message="tns:GetConditionsHttpPostIn" />
+      <wsdl:output message="tns:GetConditionsHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AttachDataToActivityInstance">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Adjunta a una instancia de actividad una referencia de datos de una herramienta externa.</wsdl:documentation>
+      <wsdl:input message="tns:AttachDataToActivityInstanceHttpPostIn" />
+      <wsdl:output message="tns:AttachDataToActivityInstanceHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AttachFileToActivityInstance">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Adjunta a una instancia de actividad un archivo.</wsdl:documentation>
+      <wsdl:input message="tns:AttachFileToActivityInstanceHttpPostIn" />
+      <wsdl:output message="tns:AttachFileToActivityInstanceHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AttachCommentToProcessInstance">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Adjunta a un comentario a una instancia de proceso.</wsdl:documentation>
+      <wsdl:input message="tns:AttachCommentToProcessInstanceHttpPostIn" />
+      <wsdl:output message="tns:AttachCommentToProcessInstanceHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProcessCasesByProcess">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retorna XML con los casos de procesos</wsdl:documentation>
+      <wsdl:input message="tns:GetProcessCasesByProcessHttpPostIn" />
+      <wsdl:output message="tns:GetProcessCasesByProcessHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFormsByProcessCase">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retorna XML con los Id de los formularios que contiene un caso de proceso</wsdl:documentation>
+      <wsdl:input message="tns:GetFormsByProcessCaseHttpPostIn" />
+      <wsdl:output message="tns:GetFormsByProcessCaseHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProcessAttribute">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Obtener todos los atributos del proceso. Retorna [Id, IdProcess, Name]</wsdl:documentation>
+      <wsdl:input message="tns:GetProcessAttributeHttpPostIn" />
+      <wsdl:output message="tns:GetProcessAttributeHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProcessAttributeValue">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Optener todos los valores de los atributos del proceso. Retorna [Id, IdProcess, Name]</wsdl:documentation>
+      <wsdl:input message="tns:GetProcessAttributeValueHttpPostIn" />
+      <wsdl:output message="tns:GetProcessAttributeValueHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProcessAttributeValueById">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Optener un valor en especifico de los atributos del proceso. Retorna un DataTable</wsdl:documentation>
+      <wsdl:input message="tns:GetProcessAttributeValueByIdHttpPostIn" />
+      <wsdl:output message="tns:GetProcessAttributeValueByIdHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateProcessAttributeValue">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Actualizar un valor en especifico de los atributos del proceso, si este se ejecuto correctamente retorna True</wsdl:documentation>
+      <wsdl:input message="tns:UpdateProcessAttributeValueHttpPostIn" />
+      <wsdl:output message="tns:UpdateProcessAttributeValueHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="Gattaca_x0020_BPM_x0020_Services_x0020_9.0.0.0Soap" type="tns:Gattaca_x0020_BPM_x0020_Services_x0020_9.0.0.0Soap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="TestTransmission">
+      <soap:operation soapAction="http://www.workflowcolombia.com/eworkflow/Services/WorkFlowServices.asmx/TestTransmission" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPackages">
+      <soap:operation soapAction="http://www.workflowcolombia.com/eworkflow/Services/WorkFlowServices.asmx/GetPackages" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProcesses">
+      <soap:operation soapAction="http://www.workflowcolombia.com/eworkflow/Services/WorkFlowServices.asmx/GetProcesses" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProcessById">
+      <soap:operation soapAction="http://www.workflowcolombia.com/eworkflow/Services/WorkFlowServices.asmx/GetProcessById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetActivityInstancesByUserId">
+      <soap:operation soapAction="http://www.workflowcolombia.com/eworkflow/Services/WorkFlowServices.asmx/GetActivityInstancesByUserId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetActivityInstanceByUserId">
+      <soap:operation soapAction="http://www.workflowcolombia.com/eworkflow/Services/WorkFlowServices.asmx/GetActivityInstanceByUserId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProcessInstancesById">
+      <soap:operation soapAction="http://www.workflowcolombia.com/eworkflow/Services/WorkFlowServices.asmx/GetProcessInstancesById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateProcessXML">
+      <soap:operation soapAction="http://www.workflowcolombia.com/eworkflow/Services/WorkFlowServices.asmx/CreateProcessXML" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WMCreateProcessInstance">
+      <soap:operation soapAction="http://www.workflowcolombia.com/eworkflow/Services/WorkFlowServices.asmx/WMCreateProcessInstance" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WMStartProcessInstance">
+      <soap:operation soapAction="http://www.workflowcolombia.com/eworkflow/Services/WorkFlowServices.asmx/WMStartProcessInstance" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StartActivityInstance">
+      <soap:operation soapAction="http://www.workflowcolombia.com/eworkflow/Services/WorkFlowServices.asmx/StartActivityInstance" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EndActivityInstance">
+      <soap:operation soapAction="http://www.workflowcolombia.com/eworkflow/Services/WorkFlowServices.asmx/EndActivityInstance" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConditionsByActivityInstance">
+      <soap:operation soapAction="http://www.workflowcolombia.com/eworkflow/Services/WorkFlowServices.asmx/GetConditionsByActivityInstance" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConditionsTypeActivityInstance">
+      <soap:operation soapAction="http://www.workflowcolombia.com/eworkflow/Services/WorkFlowServices.asmx/GetConditionsTypeActivityInstance" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConditions">
+      <soap:operation soapAction="http://www.workflowcolombia.com/eworkflow/Services/WorkFlowServices.asmx/GetConditions" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AttachDataToActivityInstance">
+      <soap:operation soapAction="http://www.workflowcolombia.com/eworkflow/Services/WorkFlowServices.asmx/AttachDataToActivityInstance" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AttachFileToActivityInstance">
+      <soap:operation soapAction="http://www.workflowcolombia.com/eworkflow/Services/WorkFlowServices.asmx/AttachFileToActivityInstance" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AttachCommentToProcessInstance">
+      <soap:operation soapAction="http://www.workflowcolombia.com/eworkflow/Services/WorkFlowServices.asmx/AttachCommentToProcessInstance" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProcessCasesByProcess">
+      <soap:operation soapAction="http://www.workflowcolombia.com/eworkflow/Services/WorkFlowServices.asmx/GetProcessCasesByProcess" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFormsByProcessCase">
+      <soap:operation soapAction="http://www.workflowcolombia.com/eworkflow/Services/WorkFlowServices.asmx/GetFormsByProcessCase" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProcessAttribute">
+      <soap:operation soapAction="http://www.workflowcolombia.com/eworkflow/Services/WorkFlowServices.asmx/GetProcessAttribute" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProcessAttributeValue">
+      <soap:operation soapAction="http://www.workflowcolombia.com/eworkflow/Services/WorkFlowServices.asmx/GetProcessAttributeValue" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProcessAttributeValueById">
+      <soap:operation soapAction="http://www.workflowcolombia.com/eworkflow/Services/WorkFlowServices.asmx/GetProcessAttributeValueById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateProcessAttributeValue">
+      <soap:operation soapAction="http://www.workflowcolombia.com/eworkflow/Services/WorkFlowServices.asmx/UpdateProcessAttributeValue" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="Gattaca_x0020_BPM_x0020_Services_x0020_9.0.0.0Soap12" type="tns:Gattaca_x0020_BPM_x0020_Services_x0020_9.0.0.0Soap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="TestTransmission">
+      <soap12:operation soapAction="http://www.workflowcolombia.com/eworkflow/Services/WorkFlowServices.asmx/TestTransmission" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPackages">
+      <soap12:operation soapAction="http://www.workflowcolombia.com/eworkflow/Services/WorkFlowServices.asmx/GetPackages" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProcesses">
+      <soap12:operation soapAction="http://www.workflowcolombia.com/eworkflow/Services/WorkFlowServices.asmx/GetProcesses" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProcessById">
+      <soap12:operation soapAction="http://www.workflowcolombia.com/eworkflow/Services/WorkFlowServices.asmx/GetProcessById" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetActivityInstancesByUserId">
+      <soap12:operation soapAction="http://www.workflowcolombia.com/eworkflow/Services/WorkFlowServices.asmx/GetActivityInstancesByUserId" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetActivityInstanceByUserId">
+      <soap12:operation soapAction="http://www.workflowcolombia.com/eworkflow/Services/WorkFlowServices.asmx/GetActivityInstanceByUserId" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProcessInstancesById">
+      <soap12:operation soapAction="http://www.workflowcolombia.com/eworkflow/Services/WorkFlowServices.asmx/GetProcessInstancesById" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateProcessXML">
+      <soap12:operation soapAction="http://www.workflowcolombia.com/eworkflow/Services/WorkFlowServices.asmx/CreateProcessXML" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WMCreateProcessInstance">
+      <soap12:operation soapAction="http://www.workflowcolombia.com/eworkflow/Services/WorkFlowServices.asmx/WMCreateProcessInstance" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WMStartProcessInstance">
+      <soap12:operation soapAction="http://www.workflowcolombia.com/eworkflow/Services/WorkFlowServices.asmx/WMStartProcessInstance" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StartActivityInstance">
+      <soap12:operation soapAction="http://www.workflowcolombia.com/eworkflow/Services/WorkFlowServices.asmx/StartActivityInstance" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EndActivityInstance">
+      <soap12:operation soapAction="http://www.workflowcolombia.com/eworkflow/Services/WorkFlowServices.asmx/EndActivityInstance" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConditionsByActivityInstance">
+      <soap12:operation soapAction="http://www.workflowcolombia.com/eworkflow/Services/WorkFlowServices.asmx/GetConditionsByActivityInstance" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConditionsTypeActivityInstance">
+      <soap12:operation soapAction="http://www.workflowcolombia.com/eworkflow/Services/WorkFlowServices.asmx/GetConditionsTypeActivityInstance" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConditions">
+      <soap12:operation soapAction="http://www.workflowcolombia.com/eworkflow/Services/WorkFlowServices.asmx/GetConditions" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AttachDataToActivityInstance">
+      <soap12:operation soapAction="http://www.workflowcolombia.com/eworkflow/Services/WorkFlowServices.asmx/AttachDataToActivityInstance" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AttachFileToActivityInstance">
+      <soap12:operation soapAction="http://www.workflowcolombia.com/eworkflow/Services/WorkFlowServices.asmx/AttachFileToActivityInstance" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AttachCommentToProcessInstance">
+      <soap12:operation soapAction="http://www.workflowcolombia.com/eworkflow/Services/WorkFlowServices.asmx/AttachCommentToProcessInstance" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProcessCasesByProcess">
+      <soap12:operation soapAction="http://www.workflowcolombia.com/eworkflow/Services/WorkFlowServices.asmx/GetProcessCasesByProcess" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFormsByProcessCase">
+      <soap12:operation soapAction="http://www.workflowcolombia.com/eworkflow/Services/WorkFlowServices.asmx/GetFormsByProcessCase" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProcessAttribute">
+      <soap12:operation soapAction="http://www.workflowcolombia.com/eworkflow/Services/WorkFlowServices.asmx/GetProcessAttribute" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProcessAttributeValue">
+      <soap12:operation soapAction="http://www.workflowcolombia.com/eworkflow/Services/WorkFlowServices.asmx/GetProcessAttributeValue" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProcessAttributeValueById">
+      <soap12:operation soapAction="http://www.workflowcolombia.com/eworkflow/Services/WorkFlowServices.asmx/GetProcessAttributeValueById" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateProcessAttributeValue">
+      <soap12:operation soapAction="http://www.workflowcolombia.com/eworkflow/Services/WorkFlowServices.asmx/UpdateProcessAttributeValue" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="Gattaca_x0020_BPM_x0020_Services_x0020_9.0.0.0HttpGet" type="tns:Gattaca_x0020_BPM_x0020_Services_x0020_9.0.0.0HttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="TestTransmission">
+      <http:operation location="/TestTransmission" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPackages">
+      <http:operation location="/GetPackages" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProcesses">
+      <http:operation location="/GetProcesses" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProcessById">
+      <http:operation location="/GetProcessById" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetActivityInstancesByUserId">
+      <http:operation location="/GetActivityInstancesByUserId" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetActivityInstanceByUserId">
+      <http:operation location="/GetActivityInstanceByUserId" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProcessInstancesById">
+      <http:operation location="/GetProcessInstancesById" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateProcessXML">
+      <http:operation location="/CreateProcessXML" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WMCreateProcessInstance">
+      <http:operation location="/WMCreateProcessInstance" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WMStartProcessInstance">
+      <http:operation location="/WMStartProcessInstance" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StartActivityInstance">
+      <http:operation location="/StartActivityInstance" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EndActivityInstance">
+      <http:operation location="/EndActivityInstance" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConditionsByActivityInstance">
+      <http:operation location="/GetConditionsByActivityInstance" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConditionsTypeActivityInstance">
+      <http:operation location="/GetConditionsTypeActivityInstance" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConditions">
+      <http:operation location="/GetConditions" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AttachDataToActivityInstance">
+      <http:operation location="/AttachDataToActivityInstance" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AttachFileToActivityInstance">
+      <http:operation location="/AttachFileToActivityInstance" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AttachCommentToProcessInstance">
+      <http:operation location="/AttachCommentToProcessInstance" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProcessCasesByProcess">
+      <http:operation location="/GetProcessCasesByProcess" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFormsByProcessCase">
+      <http:operation location="/GetFormsByProcessCase" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProcessAttribute">
+      <http:operation location="/GetProcessAttribute" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProcessAttributeValue">
+      <http:operation location="/GetProcessAttributeValue" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProcessAttributeValueById">
+      <http:operation location="/GetProcessAttributeValueById" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateProcessAttributeValue">
+      <http:operation location="/UpdateProcessAttributeValue" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="Gattaca_x0020_BPM_x0020_Services_x0020_9.0.0.0HttpPost" type="tns:Gattaca_x0020_BPM_x0020_Services_x0020_9.0.0.0HttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="TestTransmission">
+      <http:operation location="/TestTransmission" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPackages">
+      <http:operation location="/GetPackages" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProcesses">
+      <http:operation location="/GetProcesses" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProcessById">
+      <http:operation location="/GetProcessById" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetActivityInstancesByUserId">
+      <http:operation location="/GetActivityInstancesByUserId" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetActivityInstanceByUserId">
+      <http:operation location="/GetActivityInstanceByUserId" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProcessInstancesById">
+      <http:operation location="/GetProcessInstancesById" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateProcessXML">
+      <http:operation location="/CreateProcessXML" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WMCreateProcessInstance">
+      <http:operation location="/WMCreateProcessInstance" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WMStartProcessInstance">
+      <http:operation location="/WMStartProcessInstance" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StartActivityInstance">
+      <http:operation location="/StartActivityInstance" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EndActivityInstance">
+      <http:operation location="/EndActivityInstance" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConditionsByActivityInstance">
+      <http:operation location="/GetConditionsByActivityInstance" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConditionsTypeActivityInstance">
+      <http:operation location="/GetConditionsTypeActivityInstance" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConditions">
+      <http:operation location="/GetConditions" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AttachDataToActivityInstance">
+      <http:operation location="/AttachDataToActivityInstance" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AttachFileToActivityInstance">
+      <http:operation location="/AttachFileToActivityInstance" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AttachCommentToProcessInstance">
+      <http:operation location="/AttachCommentToProcessInstance" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProcessCasesByProcess">
+      <http:operation location="/GetProcessCasesByProcess" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFormsByProcessCase">
+      <http:operation location="/GetFormsByProcessCase" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProcessAttribute">
+      <http:operation location="/GetProcessAttribute" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProcessAttributeValue">
+      <http:operation location="/GetProcessAttributeValue" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProcessAttributeValueById">
+      <http:operation location="/GetProcessAttributeValueById" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateProcessAttributeValue">
+      <http:operation location="/UpdateProcessAttributeValue" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Gattaca_x0020_BPM_x0020_Services_x0020_9.0.0.0">
+    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Servicios de BPM para Clientes COM</wsdl:documentation>
+    <wsdl:port name="Gattaca_x0020_BPM_x0020_Services_x0020_9.0.0.0Soap" binding="tns:Gattaca_x0020_BPM_x0020_Services_x0020_9.0.0.0Soap">
+      <soap:address location="http://www.gattacademos.com/GSF/BPM/services/bpmservices.asmx" />
+    </wsdl:port>
+    <wsdl:port name="Gattaca_x0020_BPM_x0020_Services_x0020_9.0.0.0Soap12" binding="tns:Gattaca_x0020_BPM_x0020_Services_x0020_9.0.0.0Soap12">
+      <soap12:address location="http://www.gattacademos.com/GSF/BPM/services/bpmservices.asmx" />
+    </wsdl:port>
+    <wsdl:port name="Gattaca_x0020_BPM_x0020_Services_x0020_9.0.0.0HttpGet" binding="tns:Gattaca_x0020_BPM_x0020_Services_x0020_9.0.0.0HttpGet">
+      <http:address location="http://www.gattacademos.com/GSF/BPM/services/bpmservices.asmx" />
+    </wsdl:port>
+    <wsdl:port name="Gattaca_x0020_BPM_x0020_Services_x0020_9.0.0.0HttpPost" binding="tns:Gattaca_x0020_BPM_x0020_Services_x0020_9.0.0.0HttpPost">
+      <http:address location="http://www.gattacademos.com/GSF/BPM/services/bpmservices.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

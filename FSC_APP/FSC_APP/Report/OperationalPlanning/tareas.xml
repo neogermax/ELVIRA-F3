@@ -1,0 +1,57 @@
+<project>
+    <task>
+        <pID>29</pID>
+        <pName>Desarrollar  acciones encaminadas a fortalecer canales de comunicación interna en la FSC
+</pName>
+        <pStart>01/01/2010</pStart>
+        <pEnd>31/12/2010</pEnd>
+        <pColor>ff00ff</pColor>
+        <pCaption>Desarrollar  acciones encaminadas a fortalecer canales de comunicación interna en la FSC
+</pCaption>
+        <pRes>Administrador Gattaca</pRes>
+    </task>
+    <task>
+        <pID>30</pID>
+        <pName>Fortalecer Programa de Bienestar  Ocupacional de la FSC
+</pName>
+        <pStart>01/01/2010</pStart>
+        <pEnd>31/12/2010</pEnd>
+        <pColor>ff00ff</pColor>
+        <pCaption>Fortalecer Programa de Bienestar  Ocupacional de la FSC
+</pCaption>
+        <pRes>Administrador Gattaca</pRes>
+    </task>
+    <task>
+        <pID>31</pID>
+        <pName>Realizar encuesta de clima laboral
+</pName>
+        <pStart>01/10/2010</pStart>
+        <pEnd>31/10/2010</pEnd>
+        <pColor>ff00ff</pColor>
+        <pCaption>Realizar encuesta de clima laboral
+</pCaption>
+        <pRes>Administrador Gattaca</pRes>
+    </task>
+    <task>
+        <pID>32</pID>
+        <pName>Realizar un taller de trabajo en equipo
+</pName>
+        <pStart>01/02/2010</pStart>
+        <pEnd>28/02/2010</pEnd>
+        <pColor>ff00ff</pColor>
+        <pCaption>Realizar un taller de trabajo en equipo
+</pCaption>
+        <pRes>Administrador Gattaca</pRes>
+    </task>
+    <task>
+        <pID>33</pID>
+        <pName>Realizar un taller de comunicación asertiva
+</pName>
+        <pStart>01/04/2010</pStart>
+        <pEnd>30/04/2010</pEnd>
+        <pColor>ff00ff</pColor>
+        <pCaption>Realizar un taller de comunicación asertiva
+</pCaption>
+        <pRes>Administrador Gattaca</pRes>
+    </task>
+</project>

@@ -1,0 +1,29 @@
+<project>
+    <task>
+        <pID>8764</pID>
+        <pName>SUB ACTIVIDAD_1</pName>
+        <pStart>16/09/2013</pStart>
+        <pEnd>21/09/2013</pEnd>
+        <pColor>ff00ff</pColor>
+        <pCaption>SUB ACTIVIDAD_1</pCaption>
+        <pRes>laura viviana cortez</pRes>
+    </task>
+    <task>
+        <pID>8765</pID>
+        <pName>SUB ACTIVIDAD_2</pName>
+        <pStart>23/09/2013</pStart>
+        <pEnd>28/09/2013</pEnd>
+        <pColor>ff00ff</pColor>
+        <pCaption>SUB ACTIVIDAD_2</pCaption>
+        <pRes>karen lizarazo</pRes>
+    </task>
+    <task>
+        <pID>8766</pID>
+        <pName>SUB ACTIVIDAD_1</pName>
+        <pStart>30/09/2013</pStart>
+        <pEnd>05/10/2013</pEnd>
+        <pColor>ff00ff</pColor>
+        <pCaption>SUB ACTIVIDAD_1</pCaption>
+        <pRes>xiomara sandobal</pRes>
+    </task>
+</project>

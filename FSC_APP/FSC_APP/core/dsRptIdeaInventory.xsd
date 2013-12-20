@@ -1,0 +1,236 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="dsRptIdeaInventory" targetNamespace="http://tempuri.org/dsRptIdeaInventory.xsd" xmlns:mstns="http://tempuri.org/dsRptIdeaInventory.xsd" xmlns="http://tempuri.org/dsRptIdeaInventory.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="FSC_eSecurity_DevConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="FSC_eSecurity_DevConnectionString (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.FSC_eSecurity_DevConnectionString.ConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="vReportAttachmentsByIdeaTableAdapter" GeneratorDataComponentClassName="vReportAttachmentsByIdeaTableAdapter" Name="vReportAttachmentsByIdea" UserDataComponentName="vReportAttachmentsByIdeaTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="FSC_eSecurity_DevConnectionString (Web.config)" DbObjectName="FSC_eSecurity_Dev.dbo.vReportAttachmentsByIdea" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT IdDocuments, IdIdea, EntityName, AttachFile FROM dbo.vReportAttachmentsByIdea</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="IdDocuments" DataSetColumn="IdDocuments" />
+              <Mapping SourceColumn="IdIdea" DataSetColumn="IdIdea" />
+              <Mapping SourceColumn="EntityName" DataSetColumn="EntityName" />
+              <Mapping SourceColumn="AttachFile" DataSetColumn="AttachFile" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="vReportLocationsByIdeaTableAdapter" GeneratorDataComponentClassName="vReportLocationsByIdeaTableAdapter" Name="vReportLocationsByIdea" UserDataComponentName="vReportLocationsByIdeaTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="FSC_eSecurity_DevConnectionString (Web.config)" DbObjectName="FSC_eSecurity_Dev.dbo.vReportLocationsByIdea" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT IdIdea, DeptoName, CityName, IdDepto, IdCity FROM dbo.vReportLocationsByIdea</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="IdIdea" DataSetColumn="IdIdea" />
+              <Mapping SourceColumn="DeptoName" DataSetColumn="DeptoName" />
+              <Mapping SourceColumn="CityName" DataSetColumn="CityName" />
+              <Mapping SourceColumn="IdDepto" DataSetColumn="IdDepto" />
+              <Mapping SourceColumn="IdCity" DataSetColumn="IdCity" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="vReportThirdByIdeaTableAdapter" GeneratorDataComponentClassName="vReportThirdByIdeaTableAdapter" Name="vReportThirdByIdea" UserDataComponentName="vReportThirdByIdeaTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="FSC_eSecurity_DevConnectionString (Web.config)" DbObjectName="FSC_eSecurity_Dev.dbo.vReportThirdByIdea" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT IdIdea, IdThird, Name, Type FROM dbo.vReportThirdByIdea</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="IdIdea" DataSetColumn="IdIdea" />
+              <Mapping SourceColumn="IdThird" DataSetColumn="IdThird" />
+              <Mapping SourceColumn="Name" DataSetColumn="Name" />
+              <Mapping SourceColumn="Type" DataSetColumn="Type" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="dsRptIdeaInventory" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_UserDSName="dsRptIdeaInventory" msprop:Generator_DataSetName="dsRptIdeaInventory">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="vReportAttachmentsByIdea" msprop:Generator_UserTableName="vReportAttachmentsByIdea" msprop:Generator_RowDeletedName="vReportAttachmentsByIdeaRowDeleted" msprop:Generator_RowChangedName="vReportAttachmentsByIdeaRowChanged" msprop:Generator_RowClassName="vReportAttachmentsByIdeaRow" msprop:Generator_RowChangingName="vReportAttachmentsByIdeaRowChanging" msprop:Generator_RowEvArgName="vReportAttachmentsByIdeaRowChangeEvent" msprop:Generator_RowEvHandlerName="vReportAttachmentsByIdeaRowChangeEventHandler" msprop:Generator_TableClassName="vReportAttachmentsByIdeaDataTable" msprop:Generator_TableVarName="tablevReportAttachmentsByIdea" msprop:Generator_RowDeletingName="vReportAttachmentsByIdeaRowDeleting" msprop:Generator_TablePropName="vReportAttachmentsByIdea">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="IdDocuments" msprop:Generator_UserColumnName="IdDocuments" msprop:Generator_ColumnPropNameInRow="IdDocuments" msprop:Generator_ColumnVarNameInTable="columnIdDocuments" msprop:Generator_ColumnPropNameInTable="IdDocumentsColumn" type="xs:int" minOccurs="0" />
+              <xs:element name="IdIdea" msprop:Generator_UserColumnName="IdIdea" msprop:Generator_ColumnPropNameInRow="IdIdea" msprop:Generator_ColumnVarNameInTable="columnIdIdea" msprop:Generator_ColumnPropNameInTable="IdIdeaColumn" type="xs:int" minOccurs="0" />
+              <xs:element name="EntityName" msprop:Generator_UserColumnName="EntityName" msprop:Generator_ColumnPropNameInRow="EntityName" msprop:Generator_ColumnVarNameInTable="columnEntityName" msprop:Generator_ColumnPropNameInTable="EntityNameColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="AttachFile" msprop:Generator_UserColumnName="AttachFile" msprop:Generator_ColumnPropNameInRow="AttachFile" msprop:Generator_ColumnVarNameInTable="columnAttachFile" msprop:Generator_ColumnPropNameInTable="AttachFileColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="200" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="vReportLocationsByIdea" msprop:Generator_UserTableName="vReportLocationsByIdea" msprop:Generator_RowDeletedName="vReportLocationsByIdeaRowDeleted" msprop:Generator_RowChangedName="vReportLocationsByIdeaRowChanged" msprop:Generator_RowClassName="vReportLocationsByIdeaRow" msprop:Generator_RowChangingName="vReportLocationsByIdeaRowChanging" msprop:Generator_RowEvArgName="vReportLocationsByIdeaRowChangeEvent" msprop:Generator_RowEvHandlerName="vReportLocationsByIdeaRowChangeEventHandler" msprop:Generator_TableClassName="vReportLocationsByIdeaDataTable" msprop:Generator_TableVarName="tablevReportLocationsByIdea" msprop:Generator_RowDeletingName="vReportLocationsByIdeaRowDeleting" msprop:Generator_TablePropName="vReportLocationsByIdea">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="IdIdea" msprop:Generator_UserColumnName="IdIdea" msprop:Generator_ColumnVarNameInTable="columnIdIdea" msprop:Generator_ColumnPropNameInRow="IdIdea" msprop:Generator_ColumnPropNameInTable="IdIdeaColumn" type="xs:int" minOccurs="0" />
+              <xs:element name="DeptoName" msprop:Generator_UserColumnName="DeptoName" msprop:Generator_ColumnVarNameInTable="columnDeptoName" msprop:Generator_ColumnPropNameInRow="DeptoName" msprop:Generator_ColumnPropNameInTable="DeptoNameColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CityName" msprop:Generator_UserColumnName="CityName" msprop:Generator_ColumnVarNameInTable="columnCityName" msprop:Generator_ColumnPropNameInRow="CityName" msprop:Generator_ColumnPropNameInTable="CityNameColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="IdDepto" msprop:Generator_UserColumnName="IdDepto" msprop:Generator_ColumnVarNameInTable="columnIdDepto" msprop:Generator_ColumnPropNameInRow="IdDepto" msprop:Generator_ColumnPropNameInTable="IdDeptoColumn" type="xs:int" minOccurs="0" />
+              <xs:element name="IdCity" msprop:Generator_UserColumnName="IdCity" msprop:Generator_ColumnVarNameInTable="columnIdCity" msprop:Generator_ColumnPropNameInRow="IdCity" msprop:Generator_ColumnPropNameInTable="IdCityColumn" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="vReportThirdByIdea" msprop:Generator_UserTableName="vReportThirdByIdea" msprop:Generator_RowDeletedName="vReportThirdByIdeaRowDeleted" msprop:Generator_RowChangedName="vReportThirdByIdeaRowChanged" msprop:Generator_RowClassName="vReportThirdByIdeaRow" msprop:Generator_RowChangingName="vReportThirdByIdeaRowChanging" msprop:Generator_RowEvArgName="vReportThirdByIdeaRowChangeEvent" msprop:Generator_RowEvHandlerName="vReportThirdByIdeaRowChangeEventHandler" msprop:Generator_TableClassName="vReportThirdByIdeaDataTable" msprop:Generator_TableVarName="tablevReportThirdByIdea" msprop:Generator_RowDeletingName="vReportThirdByIdeaRowDeleting" msprop:Generator_TablePropName="vReportThirdByIdea">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="IdIdea" msprop:Generator_UserColumnName="IdIdea" msprop:Generator_ColumnVarNameInTable="columnIdIdea" msprop:Generator_ColumnPropNameInRow="IdIdea" msprop:Generator_ColumnPropNameInTable="IdIdeaColumn" type="xs:int" minOccurs="0" />
+              <xs:element name="IdThird" msprop:Generator_UserColumnName="IdThird" msprop:Generator_ColumnVarNameInTable="columnIdThird" msprop:Generator_ColumnPropNameInRow="IdThird" msprop:Generator_ColumnPropNameInTable="IdThirdColumn" type="xs:int" minOccurs="0" />
+              <xs:element name="Name" msprop:Generator_UserColumnName="Name" msprop:Generator_ColumnVarNameInTable="columnName" msprop:Generator_ColumnPropNameInRow="Name" msprop:Generator_ColumnPropNameInTable="NameColumn">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Type" msprop:Generator_UserColumnName="Type" msprop:Generator_ColumnVarNameInTable="columnType" msprop:Generator_ColumnPropNameInRow="Type" msprop:Generator_ColumnPropNameInTable="TypeColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="vReportIdeaInventory" msprop:Generator_UserTableName="vReportIdeaInventory" msprop:Generator_RowDeletedName="vReportIdeaInventoryRowDeleted" msprop:Generator_RowChangedName="vReportIdeaInventoryRowChanged" msprop:Generator_RowClassName="vReportIdeaInventoryRow" msprop:Generator_RowChangingName="vReportIdeaInventoryRowChanging" msprop:Generator_RowEvArgName="vReportIdeaInventoryRowChangeEvent" msprop:Generator_RowEvHandlerName="vReportIdeaInventoryRowChangeEventHandler" msprop:Generator_TableClassName="vReportIdeaInventoryDataTable" msprop:Generator_TableVarName="tablevReportIdeaInventory" msprop:Generator_RowDeletingName="vReportIdeaInventoryRowDeleting" msprop:Generator_TablePropName="vReportIdeaInventory">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="IdIdea" msprop:Generator_UserColumnName="IdIdea" msprop:Generator_ColumnPropNameInRow="IdIdea" msprop:Generator_ColumnVarNameInTable="columnIdIdea" msprop:Generator_ColumnPropNameInTable="IdIdeaColumn" type="xs:int" />
+              <xs:element name="Code" msprop:Generator_UserColumnName="Code" msprop:Generator_ColumnPropNameInRow="Code" msprop:Generator_ColumnVarNameInTable="columnCode" msprop:Generator_ColumnPropNameInTable="CodeColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Name" msprop:Generator_UserColumnName="Name" msprop:Generator_ColumnPropNameInRow="Name" msprop:Generator_ColumnVarNameInTable="columnName" msprop:Generator_ColumnPropNameInTable="NameColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Objective" msprop:Generator_UserColumnName="Objective" msprop:Generator_ColumnPropNameInRow="Objective" msprop:Generator_ColumnVarNameInTable="columnObjective" msprop:Generator_ColumnPropNameInTable="ObjectiveColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="StartDate" msprop:Generator_UserColumnName="StartDate" msprop:Generator_ColumnPropNameInRow="StartDate" msprop:Generator_ColumnVarNameInTable="columnStartDate" msprop:Generator_ColumnPropNameInTable="StartDateColumn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Duration" msprop:Generator_UserColumnName="Duration" msprop:Generator_ColumnPropNameInRow="Duration" msprop:Generator_ColumnVarNameInTable="columnDuration" msprop:Generator_ColumnPropNameInTable="DurationColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="AreaDescription" msprop:Generator_UserColumnName="AreaDescription" msprop:Generator_ColumnPropNameInRow="AreaDescription" msprop:Generator_ColumnVarNameInTable="columnAreaDescription" msprop:Generator_ColumnPropNameInTable="AreaDescriptionColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Population" msprop:Generator_UserColumnName="Population" msprop:Generator_ColumnPropNameInRow="Population" msprop:Generator_ColumnVarNameInTable="columnPopulation" msprop:Generator_ColumnPropNameInTable="PopulationColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Cost" msprop:Generator_UserColumnName="Cost" msprop:Generator_ColumnPropNameInRow="Cost" msprop:Generator_ColumnVarNameInTable="columnCost" msprop:Generator_ColumnPropNameInTable="CostColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="StrategyDescription" msprop:Generator_UserColumnName="StrategyDescription" msprop:Generator_ColumnPropNameInRow="StrategyDescription" msprop:Generator_ColumnVarNameInTable="columnStrategyDescription" msprop:Generator_ColumnPropNameInTable="StrategyDescriptionColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Source" msprop:Generator_UserColumnName="Source" msprop:Generator_ColumnPropNameInRow="Source" msprop:Generator_ColumnVarNameInTable="columnSource" msprop:Generator_ColumnPropNameInTable="SourceColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Results" msprop:Generator_UserColumnName="Results" msprop:Generator_ColumnPropNameInRow="Results" msprop:Generator_ColumnVarNameInTable="columnResults" msprop:Generator_ColumnPropNameInTable="ResultsColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Enabled" msprop:Generator_UserColumnName="Enabled" msprop:Generator_ColumnPropNameInRow="Enabled" msprop:Generator_ColumnVarNameInTable="columnEnabled" msprop:Generator_ColumnPropNameInTable="EnabledColumn" type="xs:boolean" minOccurs="0" />
+              <xs:element name="CreateDate" msprop:Generator_UserColumnName="CreateDate" msprop:Generator_ColumnPropNameInRow="CreateDate" msprop:Generator_ColumnVarNameInTable="columnCreateDate" msprop:Generator_ColumnPropNameInTable="CreateDateColumn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="StrategicLineName" msprop:Generator_UserColumnName="StrategicLineName" msprop:Generator_ColumnPropNameInRow="StrategicLineName" msprop:Generator_ColumnVarNameInTable="columnStrategicLineName" msprop:Generator_ColumnPropNameInTable="StrategicLineNameColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="IdStrategicLine" msprop:Generator_UserColumnName="IdStrategicLine" msprop:Generator_ColumnPropNameInRow="IdStrategicLine" msprop:Generator_ColumnVarNameInTable="columnIdStrategicLine" msprop:Generator_ColumnPropNameInTable="IdStrategicLineColumn" type="xs:int" minOccurs="0" />
+              <xs:element name="FSCContribution" msprop:Generator_UserColumnName="FSCContribution" msprop:Generator_ColumnPropNameInRow="FSCContribution" msprop:Generator_ColumnVarNameInTable="columnFSCContribution" msprop:Generator_ColumnPropNameInTable="FSCContributionColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CounterpartValue" msprop:Generator_UserColumnName="CounterpartValue" msprop:Generator_ColumnPropNameInRow="CounterpartValue" msprop:Generator_ColumnVarNameInTable="columnCounterpartValue" msprop:Generator_ColumnPropNameInTable="CounterpartValueColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Justification" msprop:Generator_UserColumnName="Justification" msprop:Generator_ColumnPropNameInRow="Justification" msprop:Generator_ColumnVarNameInTable="columnJustification" msprop:Generator_ColumnPropNameInTable="JustificationColumn" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1">
+      <xs:selector xpath=".//mstns:vReportIdeaInventory" />
+      <xs:field xpath="mstns:IdIdea" />
+      <xs:field xpath="mstns:IdStrategicLine" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

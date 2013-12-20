@@ -1,0 +1,113 @@
+<%@ Master Language="VB" Inherits="FSC_APP.Master_mpClient" Codebehind="mpClient.master.vb" %>
+
+<%@ Register Src="../Controls/User.ascx" TagName="User" TagPrefix="uc1" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <title>Gattaca BPO - ClientForm</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <meta name="keywords" content="Keywords here" />
+    <meta name="Author" content="Diego Armando Gomez." />
+    <meta name="robots" content="index, follow, All" />
+    <meta name="revisit-after" content="30 days" />
+    <meta name="distribution" content="global" />
+    <meta name="rating" content="general" />
+    <meta name="Content-Language" content="english" />
+</head>
+<body id="imgLogo">
+    <form id="frmInternalParticipant" runat="server">
+    <asp:ScriptManager ID="smClient" runat="server" EnablePartialRendering="True">
+    </asp:ScriptManager>
+    <asp:UpdateProgress ID="upPrincipal" runat="server" DisplayAfter="0">
+        <ProgressTemplate>
+            <div id="MODAL_DIV_AJAX" style="width: 172px; height: 52px; position: absolute; z-index: 9999;">
+                <asp:Image ID="ProgressIndicator" SkinID="ProgressIndicator" runat="server" />
+            </div>
+            <div id="MODAL_DIV_AJAX_TOTAL" style="filter: alpha(opacity=60); background: #444;
+                position: absolute; z-index: 9998;">
+            </div>
+        </ProgressTemplate>
+    </asp:UpdateProgress>
+    <table border="0" cellpadding="0" cellspacing="0" style="margin: auto; width: 100%;">
+        <tr>
+            <td>
+                <table width="100%" border="0" cellpadding="0" cellspacing="0" class="cssHeaderBg">
+                    <tr>
+                        <td>
+                            <a href="#">
+                                <asp:Image ID="headerLeft" runat="Server" SkinID="headerLeftBPO" /></a>
+                        </td>
+                        <td align="right" class="cssHeaderRight">
+                            <uc1:User ID="ucUserData" runat="server" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="cssBgMenuTop">
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td class="cssBkgPageLeft">
+                <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td width="34">
+                            &nbsp;
+                        </td>
+                        <td>
+                            <table border="0" cellpadding="0" cellspacing="0" style="width: 100%">
+                                <tr>
+                                    <td>
+                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                            <tr>
+                                                <td class="cssTitleCategory">
+                                                    <asp:Label ID="lblTitle" runat="server" SkinID="LabelTitle"></asp:Label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="cssBkgWorkItem">
+                                                    <asp:ContentPlaceHolder ID="cphClient" runat="server">
+                                                    </asp:ContentPlaceHolder>
+                                                </td>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            &nbsp;<asp:XmlDataSource ID="InternalParticipantMenuDataSource" runat="server" DataFile="~/Include/Server/InternalParticipantMenu.xml"
+                                XPath="/*/*"></asp:XmlDataSource>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td width="10">
+                &nbsp;
+            </td>
+        </tr>
+    </table>
+    </td> </tr>
+    <tr>
+        <td colspan="3" align="right">
+            <table width="100%" border="0" cellpadding="0" cellspacing="0" class="cssFooterBg">
+                <tr>
+                    <td class="cssTxtFooter">
+                        
+                    </td>
+                    <td align="right" style="width: 50px;">
+                        
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    </table>
+    <map name="Gattaca" id="Gattaca">
+        <area alt="" shape="rect" coords="4,13,111,43" href="http://www.e-gattaca.com" target="_blank" />
+    </map>
+    </form>
+</body>
+</html>

@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="dsRptRecruitmentPlan" targetNamespace="http://tempuri.org/dsRptRecruitmentPlan.xsd" xmlns:mstns="http://tempuri.org/dsRptRecruitmentPlan.xsd" xmlns="http://tempuri.org/dsRptRecruitmentPlan.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="FSC_eSecurity_DevConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="FSC_eSecurity_DevConnectionString (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.FSC_eSecurity_DevConnectionString.ConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="vReportRecruitmentPlanTableAdapter" GeneratorDataComponentClassName="vReportRecruitmentPlanTableAdapter" Name="vReportRecruitmentPlan" UserDataComponentName="vReportRecruitmentPlanTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="FSC_eSecurity_DevConnectionString (Web.config)" DbObjectName="FSC_eSecurity_Dev.dbo.vReportRecruitmentPlan" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT IdProject, ProjectName, Concept, IdContractType, ContractTypeName, TotalCost, EngagementDate, Comments, CreateDate FROM dbo.vReportRecruitmentPlan</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="IdProject" DataSetColumn="IdProject" />
+              <Mapping SourceColumn="ProjectName" DataSetColumn="ProjectName" />
+              <Mapping SourceColumn="Concept" DataSetColumn="Concept" />
+              <Mapping SourceColumn="IdContractType" DataSetColumn="IdContractType" />
+              <Mapping SourceColumn="ContractTypeName" DataSetColumn="ContractTypeName" />
+              <Mapping SourceColumn="TotalCost" DataSetColumn="TotalCost" />
+              <Mapping SourceColumn="EngagementDate" DataSetColumn="EngagementDate" />
+              <Mapping SourceColumn="Comments" DataSetColumn="Comments" />
+              <Mapping SourceColumn="CreateDate" DataSetColumn="CreateDate" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="dsRptRecruitmentPlan" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_UserDSName="dsRptRecruitmentPlan" msprop:Generator_DataSetName="dsRptRecruitmentPlan">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="vReportRecruitmentPlan" msprop:Generator_UserTableName="vReportRecruitmentPlan" msprop:Generator_RowDeletedName="vReportRecruitmentPlanRowDeleted" msprop:Generator_TableClassName="vReportRecruitmentPlanDataTable" msprop:Generator_RowChangedName="vReportRecruitmentPlanRowChanged" msprop:Generator_RowClassName="vReportRecruitmentPlanRow" msprop:Generator_RowChangingName="vReportRecruitmentPlanRowChanging" msprop:Generator_RowEvArgName="vReportRecruitmentPlanRowChangeEvent" msprop:Generator_RowEvHandlerName="vReportRecruitmentPlanRowChangeEventHandler" msprop:Generator_TablePropName="vReportRecruitmentPlan" msprop:Generator_TableVarName="tablevReportRecruitmentPlan" msprop:Generator_RowDeletingName="vReportRecruitmentPlanRowDeleting">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="IdProject" msprop:Generator_UserColumnName="IdProject" msprop:Generator_ColumnPropNameInRow="IdProject" msprop:Generator_ColumnVarNameInTable="columnIdProject" msprop:Generator_ColumnPropNameInTable="IdProjectColumn" type="xs:int" />
+              <xs:element name="ProjectName" msprop:Generator_UserColumnName="ProjectName" msprop:Generator_ColumnPropNameInRow="ProjectName" msprop:Generator_ColumnVarNameInTable="columnProjectName" msprop:Generator_ColumnPropNameInTable="ProjectNameColumn">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Concept" msprop:Generator_UserColumnName="Concept" msprop:Generator_ColumnPropNameInRow="Concept" msprop:Generator_ColumnVarNameInTable="columnConcept" msprop:Generator_ColumnPropNameInTable="ConceptColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="300" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="IdContractType" msprop:Generator_UserColumnName="IdContractType" msprop:Generator_ColumnPropNameInRow="IdContractType" msprop:Generator_ColumnVarNameInTable="columnIdContractType" msprop:Generator_ColumnPropNameInTable="IdContractTypeColumn" type="xs:int" minOccurs="0" />
+              <xs:element name="ContractTypeName" msprop:Generator_UserColumnName="ContractTypeName" msprop:Generator_ColumnPropNameInRow="ContractTypeName" msprop:Generator_ColumnVarNameInTable="columnContractTypeName" msprop:Generator_ColumnPropNameInTable="ContractTypeNameColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="TotalCost" msprop:Generator_UserColumnName="TotalCost" msprop:Generator_ColumnPropNameInRow="TotalCost" msprop:Generator_ColumnVarNameInTable="columnTotalCost" msprop:Generator_ColumnPropNameInTable="TotalCostColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="EngagementDate" msprop:Generator_UserColumnName="EngagementDate" msprop:Generator_ColumnPropNameInRow="EngagementDate" msprop:Generator_ColumnVarNameInTable="columnEngagementDate" msprop:Generator_ColumnPropNameInTable="EngagementDateColumn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Comments" msprop:Generator_UserColumnName="Comments" msprop:Generator_ColumnPropNameInRow="Comments" msprop:Generator_ColumnVarNameInTable="columnComments" msprop:Generator_ColumnPropNameInTable="CommentsColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="300" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CreateDate" msprop:Generator_UserColumnName="CreateDate" msprop:Generator_ColumnPropNameInRow="CreateDate" msprop:Generator_ColumnVarNameInTable="columnCreateDate" msprop:Generator_ColumnPropNameInTable="CreateDateColumn" type="xs:dateTime" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

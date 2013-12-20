@@ -1,0 +1,22 @@
+Bienvenidos al tutorial de modificación FSC.
+
+-	Para empezar tenemos divididas las modificaciones de la base por tablas, vistas y procedimientos almacenados.
+-	Cada carpeta tiene su script de  reversa de la instrucción ejecutada.
+-	Por favor hacer un Back Up de la base de datos para poder revertir los cambios.
+
+1.	Lo primero es ejecutar los cambios en la tabla idea.
+2.	Teniendo en cuenta que hubo un cambio en el modelo de datos el orden es el siguiente:
+
+Eliminar primero las tablas thirdbyidea y thirdbyproject , después de hacer el paso anterior eliminamos la tabla third.
+Enseguida  corremos los cambios de third, thirdbyidea y thirdbyproject.
+
+3.	Ejecutar los cambios de projectapprovalrecord.
+4.	Ejecutar los cambios typecontract.
+5.	Ejecutar los cambios en temporaryactivities.
+6.	Ejecutarlos cambios en activity.
+7.	Ejecutar los cambios en subactivitybythird.
+
+Después ejecutamos las vistas (VIEWS).
+
+Y por último los procedimientos almacenados (PROCEDURES).
+

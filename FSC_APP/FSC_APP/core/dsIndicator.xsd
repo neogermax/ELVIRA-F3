@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="dsIndicator" targetNamespace="http://tempuri.org/dsIndicator.xsd" xmlns:mstns="http://tempuri.org/dsIndicator.xsd" xmlns="http://tempuri.org/dsIndicator.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="1" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="FSC_eSecurity_DevConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="FSC_eSecurity_DevConnectionString (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.FSC_eSecurity_DevConnectionString.ConnectionString" Provider="System.Data.SqlClient" />
+          <Connection ConnectionStringObject="Data Source=UMBRELLA;Initial Catalog=FSC_eSecurity;Integrated Security=True" IsAppSettingsProperty="false" Modifier="Assembly" Name="umbrella.FSC_eSecurity.dbo" ParameterPrefix="@" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="dsIndicator" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_UserDSName="dsIndicator" msprop:Generator_DataSetName="dsIndicator">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="vIndicatorInventory" msprop:Generator_UserTableName="vIndicatorInventory" msprop:Generator_RowDeletedName="vIndicatorInventoryRowDeleted" msprop:Generator_RowChangedName="vIndicatorInventoryRowChanged" msprop:Generator_RowClassName="vIndicatorInventoryRow" msprop:Generator_RowChangingName="vIndicatorInventoryRowChanging" msprop:Generator_RowEvArgName="vIndicatorInventoryRowChangeEvent" msprop:Generator_RowEvHandlerName="vIndicatorInventoryRowChangeEventHandler" msprop:Generator_TableClassName="vIndicatorInventoryDataTable" msprop:Generator_TableVarName="tablevIndicatorInventory" msprop:Generator_RowDeletingName="vIndicatorInventoryRowDeleting" msprop:Generator_TablePropName="vIndicatorInventory">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Id" msprop:Generator_UserColumnName="Id" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" type="xs:int" minOccurs="0" />
+              <xs:element name="Name" msprop:Generator_UserColumnName="Name" msprop:Generator_ColumnPropNameInRow="Name" msprop:Generator_ColumnVarNameInTable="columnName" msprop:Generator_ColumnPropNameInTable="NameColumn">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Description" msprop:Generator_UserColumnName="Description" msprop:Generator_ColumnPropNameInRow="Description" msprop:Generator_ColumnVarNameInTable="columnDescription" msprop:Generator_ColumnPropNameInTable="DescriptionColumn">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Goal" msprop:Generator_UserColumnName="Goal" msprop:Generator_ColumnPropNameInRow="Goal" msprop:Generator_ColumnVarNameInTable="columnGoal" msprop:Generator_ColumnPropNameInTable="GoalColumn" type="xs:int" />
+              <xs:element name="GreenValue" msprop:Generator_UserColumnName="GreenValue" msprop:Generator_ColumnPropNameInRow="GreenValue" msprop:Generator_ColumnVarNameInTable="columnGreenValue" msprop:Generator_ColumnPropNameInTable="GreenValueColumn" type="xs:int" />
+              <xs:element name="YellowValue" msprop:Generator_UserColumnName="YellowValue" msprop:Generator_ColumnPropNameInRow="YellowValue" msprop:Generator_ColumnVarNameInTable="columnYellowValue" msprop:Generator_ColumnPropNameInTable="YellowValueColumn" type="xs:int" />
+              <xs:element name="RedValue" msprop:Generator_UserColumnName="RedValue" msprop:Generator_ColumnPropNameInRow="RedValue" msprop:Generator_ColumnVarNameInTable="columnRedValue" msprop:Generator_ColumnPropNameInTable="RedValueColumn" type="xs:int" />
+              <xs:element name="measurementDate" msprop:Generator_UserColumnName="measurementDate" msprop:Generator_ColumnPropNameInRow="measurementDate" msprop:Generator_ColumnVarNameInTable="columnmeasurementDate" msprop:Generator_ColumnPropNameInTable="measurementDateColumn" type="xs:dateTime" />
+              <xs:element name="IndicatorType" msdata:ReadOnly="true" msprop:Generator_UserColumnName="IndicatorType" msprop:Generator_ColumnPropNameInRow="IndicatorType" msprop:Generator_ColumnVarNameInTable="columnIndicatorType" msprop:Generator_ColumnPropNameInTable="IndicatorTypeColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="35" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="MeasurementDateByIndicator" msprop:Generator_UserTableName="MeasurementDateByIndicator" msprop:Generator_RowDeletedName="MeasurementDateByIndicatorRowDeleted" msprop:Generator_RowChangedName="MeasurementDateByIndicatorRowChanged" msprop:Generator_RowClassName="MeasurementDateByIndicatorRow" msprop:Generator_RowChangingName="MeasurementDateByIndicatorRowChanging" msprop:Generator_RowEvArgName="MeasurementDateByIndicatorRowChangeEvent" msprop:Generator_RowEvHandlerName="MeasurementDateByIndicatorRowChangeEventHandler" msprop:Generator_TableClassName="MeasurementDateByIndicatorDataTable" msprop:Generator_TableVarName="tableMeasurementDateByIndicator" msprop:Generator_RowDeletingName="MeasurementDateByIndicatorRowDeleting" msprop:Generator_TablePropName="MeasurementDateByIndicator">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="measurementDate" msprop:Generator_UserColumnName="measurementDate" msprop:Generator_ColumnVarNameInTable="columnmeasurementDate" msprop:Generator_ColumnPropNameInRow="measurementDate" msprop:Generator_ColumnPropNameInTable="measurementDateColumn" type="xs:dateTime" />
+              <xs:element name="IdIndicator" msprop:Generator_UserColumnName="IdIndicator" msprop:Generator_ColumnVarNameInTable="columnIdIndicator" msprop:Generator_ColumnPropNameInRow="IdIndicator" msprop:Generator_ColumnPropNameInTable="IdIndicatorColumn" type="xs:int" />
+              <xs:element name="measure" msprop:Generator_UserColumnName="measure" msprop:Generator_ColumnPropNameInRow="measure" msprop:Generator_ColumnVarNameInTable="columnmeasure" msprop:Generator_ColumnPropNameInTable="measureColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="measuretype" msprop:Generator_UserColumnName="measuretype" msprop:Generator_ColumnPropNameInRow="measuretype" msprop:Generator_ColumnVarNameInTable="columnmeasuretype" msprop:Generator_ColumnPropNameInTable="measuretypeColumn" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

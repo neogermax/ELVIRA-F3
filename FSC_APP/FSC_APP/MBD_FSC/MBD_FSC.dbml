@@ -1,0 +1,1237 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database Name="FSC_eProject_TEST" Class="MBD_FSCDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=WIN-L7OZHNKZ7VC\SQLEXPRESS;Initial Catalog=FSC_eProject_TEST;Persist Security Info=True;User ID=dbusr_FSC" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="FSC_eProject_TESTConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.AccumulationIndicatorSet" Member="AccumulationIndicatorSet">
+    <Type Name="AccumulationIndicatorSet">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdIndicator" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Code" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="IdUser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="AccumulationIndicatorSet_IndicatorByAccumulationIndicatorSet" Member="IndicatorByAccumulationIndicatorSet" ThisKey="Id" OtherKey="IdAccumulationIndicatorSet" Type="IndicatorByAccumulationIndicatorSet" />
+    </Type>
+  </Table>
+  <Table Name="dbo.VisibilityLevel" Member="VisibilityLevel">
+    <Type Name="VisibilityLevel">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Code" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="IDUser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Enabled" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Activity" Member="Activity">
+    <Type Name="Activity">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Number" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="IdComponent" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="Enabled" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IdUser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="idKey" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="isLastVersion" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="IdPhase" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IdProyect" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Activity_SubActivity" Member="SubActivity" ThisKey="Id" OtherKey="IdActivity" Type="SubActivity" />
+      <Association Name="Component_Activity" Member="Component" ThisKey="IdComponent" OtherKey="Id" Type="Component" IsForeignKey="true" />
+      <Association Name="Project_Activity" Member="Project" ThisKey="IdProyect" OtherKey="Id" Type="Project" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Addressee" Member="Addressee">
+    <Type Name="Addressee">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="IdUserGroup" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Enabled" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="IdUser" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AnswersByQuestion" Member="AnswersByQuestion">
+    <Type Name="AnswersByQuestion">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdQuestionsByInquestContent" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IdInquestContent" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Answer" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Association Name="AnswersByQuestion_AnswersByResolvedInquest" Member="AnswersByResolvedInquest" ThisKey="Id" OtherKey="IdAnswersByQuestion" Type="AnswersByResolvedInquest" />
+      <Association Name="QuestionsByInquestContent_AnswersByQuestion" Member="QuestionsByInquestContent" ThisKey="IdQuestionsByInquestContent" OtherKey="Id" Type="QuestionsByInquestContent" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AnswersByResolvedInquest" Member="AnswersByResolvedInquest">
+    <Type Name="AnswersByResolvedInquest">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdResolvedInquest" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IdQuestionsByInquestContent" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IdAnswersByQuestion" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AnswerText" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Association Name="AnswersByQuestion_AnswersByResolvedInquest" Member="AnswersByQuestion" ThisKey="IdAnswersByQuestion" OtherKey="Id" Type="AnswersByQuestion" IsForeignKey="true" />
+      <Association Name="QuestionsByInquestContent_AnswersByResolvedInquest" Member="QuestionsByInquestContent" ThisKey="IdQuestionsByInquestContent" OtherKey="Id" Type="QuestionsByInquestContent" IsForeignKey="true" />
+      <Association Name="ResolvedInquest_AnswersByResolvedInquest" Member="ResolvedInquest" ThisKey="IdResolvedInquest" OtherKey="Id" Type="ResolvedInquest" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AttachFileFormat" Member="AttachFileFormat">
+    <Type Name="AttachFileFormat">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Code" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="IdUser" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Enabled" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CloseRegistry" Member="CloseRegistry">
+    <Type Name="CloseRegistry">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdProject" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ClosingDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Weakness" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="Opportunity" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="Strengths" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="LearningForNewProjects" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="GoodPractice" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="RegistrationDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Enabled" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IdUser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Project_CloseRegistry" Member="Project" ThisKey="IdProject" OtherKey="Id" Type="Project" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CommentsByContractRequest" Member="CommentsByContractRequest">
+    <Type Name="CommentsByContractRequest">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdContractRequest" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AdditionalComments" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="StartActRequires" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="DateNoticeExpiration" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ContractNumber" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PurchaseOrder" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="ContractRequest_CommentsByContractRequest" Member="ContractRequest" ThisKey="IdContractRequest" OtherKey="RequestNumber" Type="ContractRequest" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Component" Member="Component">
+    <Type Name="Component">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Code" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="IdObjective" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Enabled" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IdUser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="idKey" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="isLastVersion" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="IdPhase" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Component_Activity" Member="Activity" ThisKey="Id" OtherKey="IdComponent" Type="Activity" />
+      <Association Name="Component_ComponentByRisk" Member="ComponentByRisk" ThisKey="Id" OtherKey="IdComponent" Type="ComponentByRisk" />
+      <Association Name="Objective_Component" Member="Objective" ThisKey="IdObjective" OtherKey="Id" Type="Objective" IsForeignKey="true" />
+      <Association Name="ProjectPhase_Component" Member="ProjectPhase" ThisKey="IdPhase" OtherKey="id" Type="ProjectPhase" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ComponentByRisk" Member="ComponentByRisk">
+    <Type Name="ComponentByRisk">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdRisk" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IdComponent" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Component_ComponentByRisk" Member="Component" ThisKey="IdComponent" OtherKey="Id" Type="Component" IsForeignKey="true" />
+      <Association Name="Risk_ComponentByRisk" Member="Risk" ThisKey="IdRisk" OtherKey="Id" Type="Risk" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Compromise" Member="Compromise">
+    <Type Name="Compromise">
+      <Column Name="id" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="idproject" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
+      <Column Name="liabilities" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="responsible" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="tracingdate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="email" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Enddate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="IdUser" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="DateMod" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="proceeding_log_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Proceeding_Logs_Compromise" Member="Proceeding_Logs" ThisKey="proceeding_log_id" OtherKey="Id" Type="Proceeding_Logs" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ContractDataByContractRequest" Member="ContractDataByContractRequest">
+    <Type Name="ContractDataByContractRequest">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdContractRequest" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ContractDuration" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="StartDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="EndDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Supervisor" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="BudgetValidity" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="ContactData" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="Telephone" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="ContractRequest_ContractDataByContractRequest" Member="ContractRequest" ThisKey="IdContractRequest" OtherKey="RequestNumber" Type="ContractRequest" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ContractExecution" Member="ContractExecution">
+    <Type Name="ContractExecution">
+      <Column Name="IdContractRequest" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="StartDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="PaymentDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ContractNumber" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="OrderNumber" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ClosingComments" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="ClosingDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="FinalPaymentDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Value" Type="System.Decimal" DbType="Decimal(17,2)" CanBeNull="true" />
+      <Column Name="IdUser" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="ContractRequest_ContractExecution" Member="ContractRequest" ThisKey="IdContractRequest" OtherKey="RequestNumber" Type="ContractRequest" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ContractorLegalEntityByContractRequest" Member="ContractorLegalEntityByContractRequest">
+    <Type Name="ContractorLegalEntityByContractRequest">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdContractRequest" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="EntityNameDescription" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="Nit" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="LegalRepresentative" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="ContractorName" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="IdentificationNumber" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="ContractRequest_ContractorLegalEntityByContractRequest" Member="ContractRequest" ThisKey="IdContractRequest" OtherKey="RequestNumber" Type="ContractRequest" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ContractorNaturalPersonByContractRequest" Member="ContractorNaturalPersonByContractRequest">
+    <Type Name="ContractorNaturalPersonByContractRequest">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdContractRequest" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Nit" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="ContractorName" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Association Name="ContractRequest_ContractorNaturalPersonByContractRequest" Member="ContractRequest" ThisKey="IdContractRequest" OtherKey="RequestNumber" Type="ContractRequest" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ContractRequest" Member="ContractRequest">
+    <Type Name="ContractRequest">
+      <Column Name="RequestNumber" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdManagement" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IdProject" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IdContractNature" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ContractNumberAdjusted" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="IdProcessInstance" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IdActivityInstance" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Enabled" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="IdUser" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="PolizaId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SignedContract" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="StartDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="SuscriptDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Confidential" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Finished" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="MonthDuration" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="Supervisor" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Notes" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Association Name="ContractRequest_CommentsByContractRequest" Member="CommentsByContractRequest" ThisKey="RequestNumber" OtherKey="IdContractRequest" Type="CommentsByContractRequest" />
+      <Association Name="ContractRequest_ContractDataByContractRequest" Member="ContractDataByContractRequest" ThisKey="RequestNumber" OtherKey="IdContractRequest" Type="ContractDataByContractRequest" />
+      <Association Name="ContractRequest_ContractExecution" Member="ContractExecution" ThisKey="RequestNumber" OtherKey="IdContractRequest" Type="ContractExecution" Cardinality="One" />
+      <Association Name="ContractRequest_ContractorLegalEntityByContractRequest" Member="ContractorLegalEntityByContractRequest" ThisKey="RequestNumber" OtherKey="IdContractRequest" Type="ContractorLegalEntityByContractRequest" />
+      <Association Name="ContractRequest_ContractorNaturalPersonByContractRequest" Member="ContractorNaturalPersonByContractRequest" ThisKey="RequestNumber" OtherKey="IdContractRequest" Type="ContractorNaturalPersonByContractRequest" />
+      <Association Name="ContractRequest_PaymentsListByContractRequest" Member="PaymentsListByContractRequest" ThisKey="RequestNumber" OtherKey="IdContractRequest" Type="PaymentsListByContractRequest" />
+      <Association Name="ContractRequest_SubjectAndValueByContractRequest" Member="SubjectAndValueByContractRequest" ThisKey="RequestNumber" OtherKey="IdContractRequest" Type="SubjectAndValueByContractRequest" />
+      <Association Name="Management_ContractRequest" Member="Management" ThisKey="IdManagement" OtherKey="id" Type="Management" IsForeignKey="true" />
+      <Association Name="Project_ContractRequest" Member="Project" ThisKey="IdProject" OtherKey="Id" Type="Project" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ContractType" Member="ContractType">
+    <Type Name="ContractType">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="Enabled" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="IdUser" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="ContractType_ExecutionContractualPlanRegistryDetails" Member="ExecutionContractualPlanRegistryDetails" ThisKey="Id" OtherKey="IdContractType" Type="ExecutionContractualPlanRegistryDetails" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Documents" Member="Documents">
+    <Type Name="Documents">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="IdEditedFor" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IdVisibilityLevel" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IdDocumentType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="IdUser" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AttachFile" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="Enabled" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DocumentsByEntity" Member="DocumentsByEntity">
+    <Type Name="DocumentsByEntity">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdDocuments" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IdnEntity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="EntityName" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DocumentType" Member="DocumentType">
+    <Type Name="DocumentType">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Code" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="Enabled" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IDUser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Enterprise" Member="Enterprise">
+    <Type Name="Enterprise">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Code" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="IDUser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Enabled" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Enterprise_Management" Member="Management" ThisKey="Id" OtherKey="IdEnterprise" Type="Management" />
+      <Association Name="Enterprise_Perspective" Member="Perspective" ThisKey="Id" OtherKey="IdEnterprise" Type="Perspective" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Entities" Member="Entities">
+    <Type Name="Entities">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EntityName" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="Equivalence" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Execution" Member="Execution">
+    <Type Name="Execution">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdProject" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="QualitativeIndicators" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Learning" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
+      <Column Name="Adjust" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
+      <Column Name="achievements" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
+      <Column Name="Enable" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IdUser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Execution_Testimony" Member="Testimony" ThisKey="Id" OtherKey="IdExecution" Type="Testimony" />
+      <Association Name="Project_Execution" Member="Project" ThisKey="IdProject" OtherKey="Id" Type="Project" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ExecutionContractualPlanRegistry" Member="ExecutionContractualPlanRegistry">
+    <Type Name="ExecutionContractualPlanRegistry">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdUser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="ExecutionContractualPlanRegistry_ExecutionContractualPlanRegistryDetails" Member="ExecutionContractualPlanRegistryDetails" ThisKey="Id" OtherKey="IdExecutionContractualPlanRegistry" Type="ExecutionContractualPlanRegistryDetails" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ExecutionContractualPlanRegistryDetails" Member="ExecutionContractualPlanRegistryDetails">
+    <Type Name="ExecutionContractualPlanRegistryDetails">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdExecutionContractualPlanRegistry" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IdProject" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Concept" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="IdContractType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TotalCost" Type="System.Decimal" DbType="Decimal(18,3)" CanBeNull="true" />
+      <Column Name="EngagementDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Comments" Type="System.String" DbType="VarChar(300)" CanBeNull="true" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="ContractType_ExecutionContractualPlanRegistryDetails" Member="ContractType" ThisKey="IdContractType" OtherKey="Id" Type="ContractType" IsForeignKey="true" />
+      <Association Name="ExecutionContractualPlanRegistry_ExecutionContractualPlanRegistryDetails" Member="ExecutionContractualPlanRegistry" ThisKey="IdExecutionContractualPlanRegistry" OtherKey="Id" Type="ExecutionContractualPlanRegistry" IsForeignKey="true" />
+      <Association Name="Project_ExecutionContractualPlanRegistryDetails" Member="Project" ThisKey="IdProject" OtherKey="Id" Type="Project" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Explanatory" Member="Explanatory">
+    <Type Name="Explanatory">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="observation" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="fecha" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="idproject" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Project_Explanatory" Member="Project" ThisKey="idproject" OtherKey="Id" Type="Project" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Forum" Member="Forum">
+    <Type Name="Forum">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdProject" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Subject" Type="System.String" DbType="VarChar(150) NOT NULL" CanBeNull="false" />
+      <Column Name="Message" Type="System.String" DbType="VarChar(150) NOT NULL" CanBeNull="false" />
+      <Column Name="Attachment" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="UpdatedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Enabled" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IdUser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Forum_Reply" Member="Reply" ThisKey="Id" OtherKey="IdForum" Type="Reply" />
+      <Association Name="Project_Forum" Member="Project" ThisKey="IdProject" OtherKey="Id" Type="Project" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Idea" Member="Idea">
+    <Type Name="Idea">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Code" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Objective" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="StartDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Duration" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="AreaDescription" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Population" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Cost" Type="System.Decimal" DbType="Decimal(30,0)" CanBeNull="true" />
+      <Column Name="StrategyDescription" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Results" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Source" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="IdSummoning" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="StartProcess" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="IDUser" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Enabled" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="IdProcessInstance" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IdActivityInstance" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Justification" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="FSCContribution" Type="System.Decimal" DbType="Decimal(30,0)" CanBeNull="true" />
+      <Column Name="CounterpartValue" Type="System.Decimal" DbType="Decimal(30,0)" CanBeNull="true" />
+      <Column Name="ResultsKnowledgeManagement" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="ResultsInstalledCapacity" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Loadingobservations" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Idtypecontract" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Enddate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="Idea_ProjectApprovalRecord" Member="ProjectApprovalRecord" ThisKey="Id" OtherKey="Ididea" Type="ProjectApprovalRecord" />
+      <Association Name="Idea_ThirdByIdea" Member="ThirdByIdea" ThisKey="Id" OtherKey="IdIdea" Type="ThirdByIdea" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Indicator" Member="Indicator">
+    <Type Name="Indicator">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="LevelIndicator" Type="System.String" DbType="VarChar(3) NOT NULL" CanBeNull="false" />
+      <Column Name="IdEntities" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Code" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="Type" Type="System.String" DbType="Char(2) NOT NULL" CanBeNull="false" />
+      <Column Name="Goal" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="GreenValue" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="YellowValue" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="RedValue" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Assumptions" Type="System.String" DbType="VarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="SourceVerification" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Enabled" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IdUser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="IdResponsable" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Indicator_IndicatorByAccumulationIndicatorSet" Member="IndicatorByAccumulationIndicatorSet" ThisKey="Id" OtherKey="IdIndicator" Type="IndicatorByAccumulationIndicatorSet" />
+      <Association Name="Indicator_IndicatorInformation" Member="IndicatorInformation" ThisKey="Id" OtherKey="IdIndicator" Type="IndicatorInformation" />
+    </Type>
+  </Table>
+  <Table Name="dbo.IndicatorByAccumulationIndicatorSet" Member="IndicatorByAccumulationIndicatorSet">
+    <Type Name="IndicatorByAccumulationIndicatorSet">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdAccumulationIndicatorSet" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IdIndicator" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="AccumulationIndicatorSet_IndicatorByAccumulationIndicatorSet" Member="AccumulationIndicatorSet" ThisKey="IdAccumulationIndicatorSet" OtherKey="Id" Type="AccumulationIndicatorSet" IsForeignKey="true" />
+      <Association Name="Indicator_IndicatorByAccumulationIndicatorSet" Member="Indicator" ThisKey="IdIndicator" OtherKey="Id" Type="Indicator" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.IndicatorInformation" Member="IndicatorInformation">
+    <Type Name="IndicatorInformation">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdMeasurementDateByIndicator" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IdIndicator" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="Goal" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="Value" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="Comments" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="RegistrationDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="IdUser" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MeasureDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="Indicator_IndicatorInformation" Member="Indicator" ThisKey="IdIndicator" OtherKey="Id" Type="Indicator" IsForeignKey="true" />
+      <Association Name="MeasurementDateByIndicator_IndicatorInformation" Member="MeasurementDateByIndicator" ThisKey="IdMeasurementDateByIndicator" OtherKey="Id" Type="MeasurementDateByIndicator" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Inquest" Member="Inquest">
+    <Type Name="Inquest">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Code" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="IdProject" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ProjectPhase" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="IdUserGroup" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Enabled" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="Inquest_InquestContent" Member="InquestContent" ThisKey="Id" OtherKey="IdInquest" Type="InquestContent" />
+      <Association Name="Project_Inquest" Member="Project" ThisKey="IdProject" OtherKey="Id" Type="Project" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.InquestContent" Member="InquestContent">
+    <Type Name="InquestContent">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdInquest" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Code" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Enabled" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IdUser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="InquestContent_QuestionsByInquestContent" Member="QuestionsByInquestContent" ThisKey="Id" OtherKey="IdInquestContent" Type="QuestionsByInquestContent" />
+      <Association Name="InquestContent_ResolvedInquest" Member="ResolvedInquest" ThisKey="Id" OtherKey="IdInquestContent" Type="ResolvedInquest" />
+      <Association Name="Inquest_InquestContent" Member="Inquest" ThisKey="IdInquest" OtherKey="Id" Type="Inquest" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.LocationByIdea" Member="LocationByIdea">
+    <Type Name="LocationByIdea">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdIdea" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IdDepto" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IdCity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.LocationByProposal" Member="LocationByProposal">
+    <Type Name="LocationByProposal">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdProposal" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IdDepto" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IdCity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Proposal_LocationByProposal" Member="Proposal" ThisKey="IdProposal" OtherKey="Id" Type="Proposal" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Management" Member="Management">
+    <Type Name="Management">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Code" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="IdEnterprise" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Enabled" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IdUser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Management_ContractRequest" Member="ContractRequest" ThisKey="id" OtherKey="IdManagement" Type="ContractRequest" />
+      <Association Name="Management_StrategicLine" Member="StrategicLine" ThisKey="id" OtherKey="IdManagment" Type="StrategicLine" />
+      <Association Name="Management_Strategy" Member="Strategy" ThisKey="id" OtherKey="IdManagment" Type="Strategy" />
+      <Association Name="Enterprise_Management" Member="Enterprise" ThisKey="IdEnterprise" OtherKey="Id" Type="Enterprise" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.MeasurementDateByIndicator" Member="MeasurementDateByIndicator">
+    <Type Name="MeasurementDateByIndicator">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdIndicator" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="measurementDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Measure" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="MeasureType" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="MeasurementDateByIndicator_IndicatorInformation" Member="IndicatorInformation" ThisKey="Id" OtherKey="IdMeasurementDateByIndicator" Type="IndicatorInformation" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Mitigation" Member="Mitigation">
+    <Type Name="Mitigation">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Code" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="ImpactOnRisk" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="IdResponsible" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Enabled" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IdUser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Mitigation_MitigationByRisk" Member="MitigationByRisk" ThisKey="Id" OtherKey="IdMitigation" Type="MitigationByRisk" />
+    </Type>
+  </Table>
+  <Table Name="dbo.MitigationByRisk" Member="MitigationByRisk">
+    <Type Name="MitigationByRisk">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdRisk" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IdMitigation" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Mitigation_MitigationByRisk" Member="Mitigation" ThisKey="IdMitigation" OtherKey="Id" Type="Mitigation" IsForeignKey="true" />
+      <Association Name="Risk_MitigationByRisk" Member="Risk" ThisKey="IdRisk" OtherKey="Id" Type="Risk" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Objective" Member="Objective">
+    <Type Name="Objective">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Code" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(800) NOT NULL" CanBeNull="false" />
+      <Column Name="IdProject" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Enabled" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IdUser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="idKey" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="isLastVersion" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="IdPhase" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Objective_Component" Member="Component" ThisKey="Id" OtherKey="IdObjective" Type="Component" />
+      <Association Name="Project_Objective" Member="Project" ThisKey="IdProject" OtherKey="Id" Type="Project" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ObjectiveByActivity" Member="ObjectiveByActivity">
+    <Type Name="ObjectiveByActivity">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdActivity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IdObjective" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.OperatorByProject" Member="OperatorByProject">
+    <Type Name="OperatorByProject">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdProject" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IdOperator" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Project_OperatorByProject" Member="Project" ThisKey="IdProject" OtherKey="Id" Type="Project" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Paymentflow" Member="Paymentflow">
+    <Type Name="Paymentflow">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="idproject" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="fecha" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="porcentaje" Type="System.Decimal" DbType="Decimal(18,1)" CanBeNull="true" />
+      <Column Name="entregable" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="ididea" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="valorparcial" Type="System.Decimal" DbType="Decimal(18,1)" CanBeNull="true" />
+      <Column Name="valortotal" Type="System.Decimal" DbType="Decimal(18,1)" CanBeNull="true" />
+      <Column Name="idideaaproval" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Project_Paymentflow" Member="Project" ThisKey="idproject" OtherKey="Id" Type="Project" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PaymentsListByContractRequest" Member="PaymentsListByContractRequest">
+    <Type Name="PaymentsListByContractRequest">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdContractRequest" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Value" Type="System.Decimal" DbType="Decimal(17,2)" CanBeNull="true" />
+      <Column Name="Percentage" Type="System.Decimal" DbType="Decimal(4,2)" CanBeNull="true" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="FinalPaymentDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="FinalPaymentValue" Type="System.Decimal" DbType="Decimal(17,2)" CanBeNull="true" />
+      <Association Name="ContractRequest_PaymentsListByContractRequest" Member="ContractRequest" ThisKey="IdContractRequest" OtherKey="RequestNumber" Type="ContractRequest" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Perspective" Member="Perspective">
+    <Type Name="Perspective">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Code" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="IdEnterprise" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Enabled" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IdUser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Perspective_StrategicObjective" Member="StrategicObjective" ThisKey="Id" OtherKey="IdPerspective" Type="StrategicObjective" />
+      <Association Name="Enterprise_Perspective" Member="Enterprise" ThisKey="IdEnterprise" OtherKey="Id" Type="Enterprise" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Poliza" Member="Poliza">
+    <Type Name="Poliza">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="numero_poliza" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="consecutivo" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="contrato_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="fecha_exp" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="fecha_ven" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="aseguradora" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PolizaDetails" Member="PolizaDetails">
+    <Type Name="PolizaDetails">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Id_Poliza" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Concepto" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Consecutivo" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="aseguradora" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Proceeding_Logs" Member="Proceeding_Logs">
+    <Type Name="Proceeding_Logs">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Project_Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Acta_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Tipo_Acta_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="User_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Create_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="FileName" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Association Name="Proceeding_Logs_Compromise" Member="Compromise" ThisKey="Id" OtherKey="proceeding_log_id" Type="Compromise" />
+      <Association Name="Project_Proceeding_Logs" Member="Project" ThisKey="Project_Id" OtherKey="Id" Type="Project" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Program" Member="Program">
+    <Type Name="Program">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Code" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="IdStrategicLine" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Enabled" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IdUser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Program_ProgramComponent" Member="ProgramComponent" ThisKey="Id" OtherKey="IdProgram" Type="ProgramComponent" />
+      <Association Name="StrategicLine_Program" Member="StrategicLine" ThisKey="IdStrategicLine" OtherKey="Id" Type="StrategicLine" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ProgramComponent" Member="ProgramComponent">
+    <Type Name="ProgramComponent">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Code" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="IdProgram" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IdResponsible" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Enabled" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IdUser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="ProgramComponent_ProgramComponentByProject" Member="ProgramComponentByProject" ThisKey="Id" OtherKey="IdProgramComponent" Type="ProgramComponentByProject" />
+      <Association Name="Program_ProgramComponent" Member="Program" ThisKey="IdProgram" OtherKey="Id" Type="Program" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ProgramComponentByIdea" Member="ProgramComponentByIdea">
+    <Type Name="ProgramComponentByIdea">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdIdea" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IdProgramComponent" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ProgramComponentByProject" Member="ProgramComponentByProject">
+    <Type Name="ProgramComponentByProject">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdProject" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IdProgramComponent" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="ProgramComponent_ProgramComponentByProject" Member="ProgramComponent" ThisKey="IdProgramComponent" OtherKey="Id" Type="ProgramComponent" IsForeignKey="true" />
+      <Association Name="Project_ProgramComponentByProject" Member="Project" ThisKey="IdProject" OtherKey="Id" Type="Project" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Project" Member="Project">
+    <Type Name="Project">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdIdea" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Code" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Objective" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Antecedent" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Justification" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="BeginDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Duration" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="ZoneDescription" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Population" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="StrategicDescription" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Results" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Source" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Purpose" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="TotalCost" Type="System.Decimal" DbType="Decimal(30,0)" CanBeNull="true" />
+      <Column Name="FSCContribution" Type="System.Decimal" DbType="Decimal(30,3)" CanBeNull="true" />
+      <Column Name="CounterpartValue" Type="System.Decimal" DbType="Decimal(30,3)" CanBeNull="true" />
+      <Column Name="EffectiveBudget" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Attachment" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="IdPhase" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Enabled" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IdUser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="idKey" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="isLastVersion" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="IdProcessInstance" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IdActivityInstance" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Typeapproval" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="editablemoney" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="editabletime" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="editableresults" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="completiondate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ResultsKnowledgeManagement" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="ResultsInstalledCapacity" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Association Name="Project_Activity" Member="Activity" ThisKey="Id" OtherKey="IdProyect" Type="Activity" />
+      <Association Name="Project_CloseRegistry" Member="CloseRegistry" ThisKey="Id" OtherKey="IdProject" Type="CloseRegistry" />
+      <Association Name="Project_ContractRequest" Member="ContractRequest" ThisKey="Id" OtherKey="IdProject" Type="ContractRequest" />
+      <Association Name="Project_Execution" Member="Execution" ThisKey="Id" OtherKey="IdProject" Type="Execution" />
+      <Association Name="Project_ExecutionContractualPlanRegistryDetails" Member="ExecutionContractualPlanRegistryDetails" ThisKey="Id" OtherKey="IdProject" Type="ExecutionContractualPlanRegistryDetails" />
+      <Association Name="Project_Explanatory" Member="Explanatory" ThisKey="Id" OtherKey="idproject" Type="Explanatory" />
+      <Association Name="Project_Forum" Member="Forum" ThisKey="Id" OtherKey="IdProject" Type="Forum" />
+      <Association Name="Project_Inquest" Member="Inquest" ThisKey="Id" OtherKey="IdProject" Type="Inquest" />
+      <Association Name="Project_Objective" Member="Objective1" ThisKey="Id" OtherKey="IdProject" Type="Objective" />
+      <Association Name="Project_OperatorByProject" Member="OperatorByProject" ThisKey="Id" OtherKey="IdProject" Type="OperatorByProject" />
+      <Association Name="Project_Paymentflow" Member="Paymentflow" ThisKey="Id" OtherKey="idproject" Type="Paymentflow" />
+      <Association Name="Project_Proceeding_Logs" Member="Proceeding_Logs" ThisKey="Id" OtherKey="Project_Id" Type="Proceeding_Logs" />
+      <Association Name="Project_ProgramComponentByProject" Member="ProgramComponentByProject" ThisKey="Id" OtherKey="IdProject" Type="ProgramComponentByProject" />
+      <Association Name="Project_ProjectLocation" Member="ProjectLocation" ThisKey="Id" OtherKey="IdProject" Type="ProjectLocation" />
+      <Association Name="Project_SourceByProject" Member="SourceByProject" ThisKey="Id" OtherKey="IdProject" Type="SourceByProject" />
+      <Association Name="Project_ThirdByProject" Member="ThirdByProject" ThisKey="Id" OtherKey="IdProject" Type="ThirdByProject" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ProjectApprovalRecord" Member="ProjectApprovalRecord">
+    <Type Name="ProjectApprovalRecord">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdProject" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Code" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Comments" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="Attachment" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="ApprovalDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ActNumber" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ApprovedValue" Type="System.Decimal" DbType="Decimal(30,0)" CanBeNull="true" />
+      <Column Name="Approved" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Enabled" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IdUser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="IdProcessInstance" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IdActivityInstance" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="codeapprovedidea" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Ididea" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="aportFSC" Type="System.Decimal" DbType="Decimal(30,0)" CanBeNull="true" />
+      <Column Name="aportOtros" Type="System.Decimal" DbType="Decimal(30,0)" CanBeNull="true" />
+      <Association Name="Idea_ProjectApprovalRecord" Member="Idea" ThisKey="Ididea" OtherKey="Id" Type="Idea" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ProjectLocation" Member="ProjectLocation">
+    <Type Name="ProjectLocation">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdProject" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IdCity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="iddepto" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="deptoname" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="cityname" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="Project_ProjectLocation" Member="Project" ThisKey="IdProject" OtherKey="Id" Type="Project" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ProjectPhase" Member="ProjectPhase">
+    <Type Name="ProjectPhase">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="code" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="isEnabled" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="ProjectPhase_Component" Member="Component" ThisKey="id" OtherKey="IdPhase" Type="Component" />
+      <Association Name="ProjectPhase_SubActivity" Member="SubActivity" ThisKey="id" OtherKey="IdPhase" Type="SubActivity" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Proposal" Member="Proposal">
+    <Type Name="Proposal">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdSummoning" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Operator" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="OperatorNit" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ProjectName" Type="System.String" DbType="VarChar(1500)" CanBeNull="true" />
+      <Column Name="Target" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="TargetPopulation" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="ExpectedResults" Type="System.String" DbType="VarChar(1500)" CanBeNull="true" />
+      <Column Name="TotalValue" Type="System.Decimal" DbType="Decimal(17,2)" CanBeNull="true" />
+      <Column Name="InputFSC" Type="System.Decimal" DbType="Decimal(17,2)" CanBeNull="true" />
+      <Column Name="InputOtherSources" Type="System.Decimal" DbType="Decimal(17,2)" CanBeNull="true" />
+      <Column Name="BriefProjectDescription" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="Score" Type="System.Decimal" DbType="Decimal(17,2)" CanBeNull="true" />
+      <Column Name="Result" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="ResponsibleReview" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ReviewDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Enabled" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="IdProcessInstance" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IdActivityInstance" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IdUser" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Proposal_LocationByProposal" Member="LocationByProposal" ThisKey="Id" OtherKey="IdProposal" Type="LocationByProposal" />
+      <Association Name="Summoning_Proposal" Member="Summoning" ThisKey="IdSummoning" OtherKey="Id" Type="Summoning" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.QuestionsByInquestContent" Member="QuestionsByInquestContent">
+    <Type Name="QuestionsByInquestContent">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdInquestContent" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="QuestionText" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="QuestionType" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Association Name="QuestionsByInquestContent_AnswersByQuestion" Member="AnswersByQuestion" ThisKey="Id" OtherKey="IdQuestionsByInquestContent" Type="AnswersByQuestion" />
+      <Association Name="QuestionsByInquestContent_AnswersByResolvedInquest" Member="AnswersByResolvedInquest" ThisKey="Id" OtherKey="IdQuestionsByInquestContent" Type="AnswersByResolvedInquest" />
+      <Association Name="InquestContent_QuestionsByInquestContent" Member="InquestContent" ThisKey="IdInquestContent" OtherKey="Id" Type="InquestContent" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Reply" Member="Reply">
+    <Type Name="Reply">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdForum" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IdUser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Subject" Type="System.String" DbType="VarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="Attachment" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="UpdateDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Forum_Reply" Member="Forum" ThisKey="IdForum" OtherKey="Id" Type="Forum" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ResolvedInquest" Member="ResolvedInquest">
+    <Type Name="ResolvedInquest">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdInquestContent" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Comments" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="IdUser" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="ResolvedInquest_AnswersByResolvedInquest" Member="AnswersByResolvedInquest" ThisKey="Id" OtherKey="IdResolvedInquest" Type="AnswersByResolvedInquest" />
+      <Association Name="InquestContent_ResolvedInquest" Member="InquestContent" ThisKey="IdInquestContent" OtherKey="Id" Type="InquestContent" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.resultsmensaje" Member="resultsmensaje">
+    <Type Name="resultsmensaje">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="valuesresult" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Risk" Member="Risk">
+    <Type Name="Risk">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Code" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="WhatCanHappen" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="RiskImpact" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="OcurrenceProbability" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Enabled" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IdUser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Risk_ComponentByRisk" Member="ComponentByRisk" ThisKey="Id" OtherKey="IdRisk" Type="ComponentByRisk" />
+      <Association Name="Risk_MitigationByRisk" Member="MitigationByRisk" ThisKey="Id" OtherKey="IdRisk" Type="MitigationByRisk" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Source" Member="Source">
+    <Type Name="Source">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Code" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="Enabled" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="IdUser" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="Source_SourceByProject" Member="SourceByProject" ThisKey="Id" OtherKey="IdSource" Type="SourceByProject" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SourceByProject" Member="SourceByProject">
+    <Type Name="SourceByProject">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdSource" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IdProject" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Project_SourceByProject" Member="Project" ThisKey="IdProject" OtherKey="Id" Type="Project" IsForeignKey="true" />
+      <Association Name="Source_SourceByProject" Member="Source" ThisKey="IdSource" OtherKey="Id" Type="Source" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.StrategicActivity" Member="StrategicActivity">
+    <Type Name="StrategicActivity">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Code" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="IdStrategy" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BeginDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="EndDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="EstimatedValue" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="IdResponsible" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Enabled" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IdUser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Strategy_StrategicActivity" Member="Strategy" ThisKey="IdStrategy" OtherKey="Id" Type="Strategy" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.StrategicLine" Member="StrategicLine">
+    <Type Name="StrategicLine">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Code" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="IdStrategicObjective" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IdManagment" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Enabled" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IdUser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="StrategicLine_Program" Member="Program" ThisKey="Id" OtherKey="IdStrategicLine" Type="Program" />
+      <Association Name="Management_StrategicLine" Member="Management" ThisKey="IdManagment" OtherKey="id" Type="Management" IsForeignKey="true" />
+      <Association Name="StrategicObjective_StrategicLine" Member="StrategicObjective" ThisKey="IdStrategicObjective" OtherKey="id" Type="StrategicObjective" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.StrategicObjective" Member="StrategicObjective">
+    <Type Name="StrategicObjective">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Code" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="Year" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IdPerspective" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Enabled" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IdUser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="StrategicObjective_StrategicLine" Member="StrategicLine" ThisKey="id" OtherKey="IdStrategicObjective" Type="StrategicLine" />
+      <Association Name="StrategicObjective_Strategy" Member="Strategy" ThisKey="id" OtherKey="IdStrategicObjective" Type="Strategy" />
+      <Association Name="Perspective_StrategicObjective" Member="Perspective" ThisKey="IdPerspective" OtherKey="Id" Type="Perspective" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Strategy" Member="Strategy">
+    <Type Name="Strategy">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Code" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="IdStrategicObjective" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IdManagment" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Enabled" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IdUser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Strategy_StrategicActivity" Member="StrategicActivity" ThisKey="Id" OtherKey="IdStrategy" Type="StrategicActivity" />
+      <Association Name="Management_Strategy" Member="Management" ThisKey="IdManagment" OtherKey="id" Type="Management" IsForeignKey="true" />
+      <Association Name="StrategicObjective_Strategy" Member="StrategicObjective" ThisKey="IdStrategicObjective" OtherKey="id" Type="StrategicObjective" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SubActivity" Member="SubActivity">
+    <Type Name="SubActivity">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdActivity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Number" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="IdResponsible" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BeginDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="EndDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="TotalCost" Type="System.Decimal" DbType="Decimal(18,3)" CanBeNull="true" />
+      <Column Name="Duration" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FSCContribution" Type="System.Decimal" DbType="Decimal(18,3)" CanBeNull="true" />
+      <Column Name="OFContribution" Type="System.Decimal" DbType="Decimal(18,3)" CanBeNull="true" />
+      <Column Name="Attachment" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="CriticalPath" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="RequiresApproval" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Enabled" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IdUser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="idKey" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="isLastVersion" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="IdPhase" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="reponsible" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Association Name="SubActivity_SubactivityByThird" Member="SubactivityByThird" ThisKey="Id" OtherKey="IdSubActivity" Type="SubactivityByThird" />
+      <Association Name="SubActivity_SubActivityInformationRegistry" Member="SubActivityInformationRegistry" ThisKey="Id" OtherKey="IdSubActivity" Type="SubActivityInformationRegistry" />
+      <Association Name="Activity_SubActivity" Member="Activity" ThisKey="IdActivity" OtherKey="Id" Type="Activity" IsForeignKey="true" />
+      <Association Name="ProjectPhase_SubActivity" Member="ProjectPhase" ThisKey="IdPhase" OtherKey="id" Type="ProjectPhase" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SubactivityByThird" Member="SubactivityByThird">
+    <Type Name="SubactivityByThird">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdThird" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IdSubActivity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="SubActivity_SubactivityByThird" Member="SubActivity" ThisKey="IdSubActivity" OtherKey="Id" Type="SubActivity" IsForeignKey="true" />
+      <Association Name="Third_SubactivityByThird" Member="Third" ThisKey="IdThird" OtherKey="Id" Type="Third" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SubActivityInformationRegistry" Member="SubActivityInformationRegistry">
+    <Type Name="SubActivityInformationRegistry">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdSubActivity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="BeginDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="EndDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Comments" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="Attachment" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="IdUser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="State" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Observation" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Indicator" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="SubActivity_SubActivityInformationRegistry" Member="SubActivity" ThisKey="IdSubActivity" OtherKey="Id" Type="SubActivity" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SubjectAndValueByContractRequest" Member="SubjectAndValueByContractRequest">
+    <Type Name="SubjectAndValueByContractRequest">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdContractRequest" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SubjectContract" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="ProductsOrDeliverables" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="ContractValue" Type="System.Decimal" DbType="Decimal(17,2)" CanBeNull="true" />
+      <Column Name="ContributionAmount" Type="System.Decimal" DbType="Decimal(17,2)" CanBeNull="true" />
+      <Column Name="FeesConsultantByInstitution" Type="System.Decimal" DbType="Decimal(17,2)" CanBeNull="true" />
+      <Column Name="TotalFeesIntegralConsultant" Type="System.Decimal" DbType="Decimal(17,2)" CanBeNull="true" />
+      <Column Name="ContributionAmountRecipientInstitution" Type="System.Decimal" DbType="Decimal(17,2)" CanBeNull="true" />
+      <Column Name="IdCurrency" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="ContractRequest_SubjectAndValueByContractRequest" Member="ContractRequest" ThisKey="IdContractRequest" OtherKey="RequestNumber" Type="ContractRequest" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SubType" Member="SubType">
+    <Type Name="SubType">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="code" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="IdType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Type_SubType" Member="Type" ThisKey="IdType" OtherKey="id" Type="Type" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Summoning" Member="Summoning">
+    <Type Name="Summoning">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Code" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="IdProject" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BeginDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="EndDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Enabled" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IdUser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Summoning_Proposal" Member="Proposal" ThisKey="Id" OtherKey="IdSummoning" Type="Proposal" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SupplierEvaluation" Member="SupplierEvaluation">
+    <Type Name="SupplierEvaluation">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdSupplier" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ContractNumber" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ContractStartDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ContractEndDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ContractSubject" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="ContractValue" Type="System.Decimal" DbType="Decimal(17,2)" CanBeNull="true" />
+      <Column Name="IDUser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SupplierQualification" Member="SupplierQualification">
+    <Type Name="SupplierQualification">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdSupplierEvaluation" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ContractSubject" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ContractualObligations" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DefinedGoals" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AgreedDeadlines" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TotalityDeliveredProducts" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RequestsMadeByFSC" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DeliveryProductsServices" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Reporting" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ProductQuality" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ReportsQuality" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AccompanimentQuality" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AttentionComplaintsClaims" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ReturnedProducts" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ProductValueAdded" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AccompanimentValueAdded" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ReportsValueAdded" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ProjectPlaneacion" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MethodologyImplemented" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DevelopmentProjectOrganization" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="JointActivities" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ProjectControl" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ServiceStaffCompetence" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SupplierCompetence" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="InformationConfidentiality" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CompliancePercentage" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="OpportunityPercentage" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="QualityPercentage" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="AddedValuePercentage" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="MethodologyPercentage" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="ServiceStaffCompetencePercentage" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="ConfidentialityPercentage" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TEMP_BORRAR_DEF" Member="TEMP_BORRAR_DEF">
+    <Type Name="TEMP_BORRAR_DEF">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="idproyect" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TEMP_DEPURADOR" Member="TEMP_DEPURADOR">
+    <Type Name="TEMP_DEPURADOR">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="idproyect" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TemporaryActivities" Member="TemporaryActivities">
+    <Type Name="TemporaryActivities">
+      <Column Name="Cod_project" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Cod_activity" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Activity" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Cod_subactivity" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="subactivity" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Subactivity_previous" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Nit_Actors" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Actors" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="responsible" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Star_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="End_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Testimony" Member="Testimony">
+    <Type Name="Testimony">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdExecution" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Age" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Sex" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="IdCity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ProjectRole" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Association Name="Execution_Testimony" Member="Execution" ThisKey="IdExecution" OtherKey="Id" Type="Execution" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Third" Member="Third">
+    <Type Name="Third">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Code" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="contact" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="documents" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="phone" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="email" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="Actions" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Experiences" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Enabled" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IdUser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="PersonaNatural" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="RepresentanteLegal" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Association Name="Third_SubactivityByThird" Member="SubactivityByThird" ThisKey="Id" OtherKey="IdThird" Type="SubactivityByThird" />
+      <Association Name="Third_ThirdByIdea" Member="ThirdByIdea" ThisKey="Id" OtherKey="IdThird" Type="ThirdByIdea" />
+      <Association Name="Third_ThirdByProject" Member="ThirdByProject" ThisKey="Id" OtherKey="IdThird" Type="ThirdByProject" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ThirdByIdea" Member="ThirdByIdea">
+    <Type Name="ThirdByIdea">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdIdea" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IdThird" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Type" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="Vrmoney" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="VrSpecies" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="FSCorCounterpartContribution" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="Idea_ThirdByIdea" Member="Idea" ThisKey="IdIdea" OtherKey="Id" Type="Idea" IsForeignKey="true" />
+      <Association Name="Third_ThirdByIdea" Member="Third" ThisKey="IdThird" OtherKey="Id" Type="Third" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ThirdByProject" Member="ThirdByProject">
+    <Type Name="ThirdByProject">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdProject" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IdThird" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Type" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="Vrmoney" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="VrSpecies" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="FSCorCounterpartContribution" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="Project_ThirdByProject" Member="Project" ThisKey="IdProject" OtherKey="Id" Type="Project" IsForeignKey="true" />
+      <Association Name="Third_ThirdByProject" Member="Third" ThisKey="IdThird" OtherKey="Id" Type="Third" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TmpSubActivity" Member="TmpSubActivity">
+    <Type Name="TmpSubActivity">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdActivity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Number" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="IdResponsible" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BeginDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="EndDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="TotalCost" Type="System.Decimal" DbType="Decimal(18,3)" CanBeNull="true" />
+      <Column Name="Duration" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FSCContribution" Type="System.Decimal" DbType="Decimal(18,3)" CanBeNull="true" />
+      <Column Name="OFContribution" Type="System.Decimal" DbType="Decimal(18,3)" CanBeNull="true" />
+      <Column Name="Attachment" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="CriticalPath" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="RequiresApproval" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Enabled" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IdUser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="idKey" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="isLastVersion" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="IdPhase" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Type" Member="Type">
+    <Type Name="Type">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="code" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="Type_SubType" Member="SubType" ThisKey="id" OtherKey="IdType" Type="SubType" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TypeActas" Member="TypeActas">
+    <Type Name="TypeActas">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ActaName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TypeContract" Member="TypeContract">
+    <Type Name="TypeContract">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Contract" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UsersByMailGroup" Member="UsersByMailGroup">
+    <Type Name="UsersByMailGroup">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="MailGroup" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="User_Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+</Database>

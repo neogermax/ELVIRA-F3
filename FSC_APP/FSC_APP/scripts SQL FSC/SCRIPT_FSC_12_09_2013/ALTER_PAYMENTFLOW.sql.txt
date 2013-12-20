@@ -1,0 +1,5 @@
+--cambiar tipo de dato valorparcial
+
+USE [FSC_eProject]
+
+ALTER  table Paymentflow ALTER COLUMN valorparcial decimal(18,1);

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<discovery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/disco/">
+  <contractRef ref="http://www.gattacademos.com/GSF/BPM/services/bpmservices.asmx?wsdl" docRef="http://www.gattacademos.com/GSF/BPM/services/bpmservices.asmx" xmlns="http://schemas.xmlsoap.org/disco/scl/" />
+  <soap address="http://www.gattacademos.com/GSF/BPM/services/bpmservices.asmx" xmlns:q1="http://www.workflowcolombia.com/eworkflow/Services/WorkFlowServices.asmx" binding="q1:Gattaca_x005F_x0020_BPM_x005F_x0020_Services_x005F_x0020_9.0.0.0Soap" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+  <soap address="http://www.gattacademos.com/GSF/BPM/services/bpmservices.asmx" xmlns:q2="http://www.workflowcolombia.com/eworkflow/Services/WorkFlowServices.asmx" binding="q2:Gattaca_x005F_x0020_BPM_x005F_x0020_Services_x005F_x0020_9.0.0.0Soap12" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+</discovery>

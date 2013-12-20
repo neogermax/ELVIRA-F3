@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<menu>
+ <MenuItem ValueField="Procesos" TextField="Procesos" NavigateUrlField="" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ <MenuItem ValueField="Lista de Tareas" TextField="Lista de Tareas" NavigateUrlField="~/Security/goto.aspx?op=TL" EnabledField="True" FormatString="" ImageUrlField="" PopOutImageUrlField="" SelectableField="" SeparatorImageUrlField=""  TargetField="" ToolTipField = "" > 
+ </MenuItem>
+ </MenuItem></menu>

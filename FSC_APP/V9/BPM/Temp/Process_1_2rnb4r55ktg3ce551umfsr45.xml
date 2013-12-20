@@ -1,0 +1,1813 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WF_Process Version="8.3">
+  <Process Id="1" Code="PR01">
+    <Id>1</Id>
+    <Code>PR01</Code>
+    <Name>PR01-Proceso de Aprobacion de Ideas</Name>
+    <Description>PR01-Proceso de Aprobacion de Ideas</Description>
+    <Created>01/06/2010 03:03:07 p.m.</Created>
+    <Version />
+    <Author>1</Author>
+    <Responsible />
+    <Documentation>Process_1.PDF</Documentation>
+    <DurationUnit>4</DurationUnit>
+    <Duration>30</Duration>
+    <InitialActivity>486</InitialActivity>
+    <Enabled>T</Enabled>
+  </Process>
+  <Packages>
+    <Package Id="1" Code="FSC">
+      <Id>1</Id>
+      <Code>FSC</Code>
+      <Name>FSC</Name>
+      <Creator />
+      <Created />
+      <Description>FSC</Description>
+      <Documentation />
+      <Enabled>T</Enabled>
+    </Package>
+  </Packages>
+  <Activities>
+    <Activity Id="486" Code="PR01-AC001">
+      <Id>486</Id>
+      <Code>PR01-AC001</Code>
+      <Name>Validar Idea</Name>
+      <Description>Actividad Manual - Validar Idea</Description>
+      <Documentation />
+      <Icon />
+      <Cost>0</Cost>
+      <DurationUnit>4</DurationUnit>
+      <Duration>1</Duration>
+      <CalendarType>0</CalendarType>
+      <IDUserCalendar>0</IDUserCalendar>
+      <WaitingTime>0</WaitingTime>
+      <WorkingTime>0</WorkingTime>
+      <ActivityType>0</ActivityType>
+      <EntryDataType />
+      <EntryData />
+      <strJoin>2</strJoin>
+      <strSplit>2</strSplit>
+      <StartMode>0</StartMode>
+      <FinishMode>0</FinishMode>
+      <Priority>1</Priority>
+      <DistributionMode>1</DistributionMode>
+      <AddFile>F</AddFile>
+      <ModifyEntryData>F</ModifyEntryData>
+      <Enabled>T</Enabled>
+      <IDMessagePolicy>7</IDMessagePolicy>
+      <URLDataView />
+      <Tool />
+    </Activity>
+    <Activity Id="487" Code="PR01-AC002">
+      <Id>487</Id>
+      <Code>PR01-AC002</Code>
+      <Name>Ajustar Idea</Name>
+      <Description>Actividad Manual - Ajustar Idea</Description>
+      <Documentation />
+      <Icon />
+      <Cost>0</Cost>
+      <DurationUnit>4</DurationUnit>
+      <Duration>1</Duration>
+      <CalendarType>0</CalendarType>
+      <IDUserCalendar>0</IDUserCalendar>
+      <WaitingTime>0</WaitingTime>
+      <WorkingTime>0</WorkingTime>
+      <ActivityType>4</ActivityType>
+      <EntryDataType>WebForm</EntryDataType>
+      <EntryData>#</EntryData>
+      <strJoin>0</strJoin>
+      <strSplit>0</strSplit>
+      <StartMode>0</StartMode>
+      <FinishMode>0</FinishMode>
+      <Priority>1</Priority>
+      <DistributionMode>1</DistributionMode>
+      <AddFile>F</AddFile>
+      <ModifyEntryData>F</ModifyEntryData>
+      <Enabled>T</Enabled>
+      <IDMessagePolicy>7</IDMessagePolicy>
+      <URLDataView>http://74.112.248.66/FSC/Security/applicationLogin.aspx?ClientName=FSC&amp;op=editIdea&amp;</URLDataView>
+      <Tool Id="330" Code="PR01-AC002">
+        <Id>330</Id>
+        <IDActivity>487</IDActivity>
+        <Code>PR01-AC002</Code>
+        <Name>Formulario de Idea</Name>
+        <Type>2</Type>
+        <MainName>http://74.112.248.66/FSC/Security/applicationLogin.aspx?ClientName=FSC&amp;op=editIdea&amp;</MainName>
+        <Agent>WebForm</Agent>
+        <Method>http://74.112.248.66/FSC/Security/applicationLogin.aspx?ClientName=FSC&amp;op=editIdea&amp;</Method>
+        <Description>Formulario de Idea</Description>
+        <SecurityMode>0</SecurityMode>
+        <UserDomain />
+        <UserID />
+        <UserPassword />
+        <Enabled>T</Enabled>
+        <Application />
+      </Tool>
+    </Activity>
+    <Activity Id="488" Code="PR01-AC003">
+      <Id>488</Id>
+      <Code>PR01-AC003</Code>
+      <Name>Registrar Aprobacion</Name>
+      <Description>Actividad Manual - Registrar Aprobacion</Description>
+      <Documentation />
+      <Icon />
+      <Cost>0</Cost>
+      <DurationUnit>4</DurationUnit>
+      <Duration>1</Duration>
+      <CalendarType>0</CalendarType>
+      <IDUserCalendar>0</IDUserCalendar>
+      <WaitingTime>0</WaitingTime>
+      <WorkingTime>0</WorkingTime>
+      <ActivityType>0</ActivityType>
+      <EntryDataType />
+      <EntryData />
+      <strJoin>0</strJoin>
+      <strSplit>0</strSplit>
+      <StartMode>0</StartMode>
+      <FinishMode>0</FinishMode>
+      <Priority>1</Priority>
+      <DistributionMode>1</DistributionMode>
+      <AddFile>F</AddFile>
+      <ModifyEntryData>F</ModifyEntryData>
+      <Enabled>T</Enabled>
+      <IDMessagePolicy>7</IDMessagePolicy>
+      <URLDataView />
+      <Tool />
+    </Activity>
+    <Activity Id="489" Code="PR01-AC004">
+      <Id>489</Id>
+      <Code>PR01-AC004</Code>
+      <Name>Crear Proyecto, Crear Proceso Aprobacion de Proyecto</Name>
+      <Description>Actividad Manual - Crear Proyecto, Crear Proceso Aprobacion de Proyecto</Description>
+      <Documentation />
+      <Icon />
+      <Cost>0</Cost>
+      <DurationUnit>4</DurationUnit>
+      <Duration>1</Duration>
+      <CalendarType>0</CalendarType>
+      <IDUserCalendar>0</IDUserCalendar>
+      <WaitingTime>0</WaitingTime>
+      <WorkingTime>0</WorkingTime>
+      <ActivityType>4</ActivityType>
+      <EntryDataType>WebForm</EntryDataType>
+      <EntryData>#</EntryData>
+      <strJoin>0</strJoin>
+      <strSplit>0</strSplit>
+      <StartMode>0</StartMode>
+      <FinishMode>0</FinishMode>
+      <Priority>1</Priority>
+      <DistributionMode>1</DistributionMode>
+      <AddFile>F</AddFile>
+      <ModifyEntryData>F</ModifyEntryData>
+      <Enabled>T</Enabled>
+      <IDMessagePolicy>7</IDMessagePolicy>
+      <URLDataView>http://74.112.248.66/FSC/Security/applicationLogin.aspx?ClientName=FSC&amp;op=endIdea&amp;</URLDataView>
+      <Tool Id="331" Code="PR01-AC004">
+        <Id>331</Id>
+        <IDActivity>489</IDActivity>
+        <Code>PR01-AC004</Code>
+        <Name>Formulario Creacion Proyecto</Name>
+        <Type>2</Type>
+        <MainName>http://74.112.248.66/FSC/Security/applicationLogin.aspx?ClientName=FSC&amp;op=endIdea&amp;</MainName>
+        <Agent>WebForm</Agent>
+        <Method>http://74.112.248.66/FSC/Security/applicationLogin.aspx?ClientName=FSC&amp;op=endIdea&amp;</Method>
+        <Description>Formulario Creacion Proyecto</Description>
+        <SecurityMode>0</SecurityMode>
+        <UserDomain />
+        <UserID />
+        <UserPassword />
+        <Enabled>T</Enabled>
+        <Application />
+      </Tool>
+    </Activity>
+  </Activities>
+  <Conditions>
+    <Condition Id="286" Code="PR01-CD001">
+      <Id>286</Id>
+      <Code>PR01-CD001</Code>
+      <Name>Ajustar</Name>
+      <Description>Ajustar</Description>
+      <Weight>0</Weight>
+      <Type>0</Type>
+      <Enabled>T</Enabled>
+      <ConditionRule />
+      <IDTool>0</IDTool>
+      <DB />
+      <IsToolRequiered>F</IsToolRequiered>
+      <FormActivity />
+    </Condition>
+    <Condition Id="287" Code="PR01-CD002">
+      <Id>287</Id>
+      <Code>PR01-CD002</Code>
+      <Name>Validar</Name>
+      <Description>Validar</Description>
+      <Weight>0</Weight>
+      <Type>0</Type>
+      <Enabled>T</Enabled>
+      <ConditionRule />
+      <IDTool>0</IDTool>
+      <DB />
+      <IsToolRequiered>F</IsToolRequiered>
+      <FormActivity />
+    </Condition>
+    <Condition Id="288" Code="PR01-CD003">
+      <Id>288</Id>
+      <Code>PR01-CD003</Code>
+      <Name>Aprobar</Name>
+      <Description>Aprobar</Description>
+      <Weight>0</Weight>
+      <Type>0</Type>
+      <Enabled>T</Enabled>
+      <ConditionRule />
+      <IDTool>0</IDTool>
+      <DB />
+      <IsToolRequiered>F</IsToolRequiered>
+      <FormActivity />
+    </Condition>
+    <Condition Id="289" Code="PR01-CD004">
+      <Id>289</Id>
+      <Code>PR01-CD004</Code>
+      <Name>Ajustar Idea</Name>
+      <Description>Ajustar</Description>
+      <Weight>0</Weight>
+      <Type>0</Type>
+      <Enabled>T</Enabled>
+      <ConditionRule />
+      <IDTool>0</IDTool>
+      <DB />
+      <IsToolRequiered>F</IsToolRequiered>
+      <FormActivity />
+    </Condition>
+    <Condition Id="290" Code="PR01-CD005">
+      <Id>290</Id>
+      <Code>PR01-CD005</Code>
+      <Name>Crear Proyecto</Name>
+      <Description>Crear Proyecto</Description>
+      <Weight>0</Weight>
+      <Type>0</Type>
+      <Enabled>T</Enabled>
+      <ConditionRule />
+      <IDTool>0</IDTool>
+      <DB />
+      <IsToolRequiered>F</IsToolRequiered>
+      <FormActivity />
+    </Condition>
+    <Condition Id="291" Code="PR01-CD006">
+      <Id>291</Id>
+      <Code>PR01-CD006</Code>
+      <Name>Guardar idea en el banco de ideas</Name>
+      <Description>Guardar idea en el banco de ideas</Description>
+      <Weight>0</Weight>
+      <Type>0</Type>
+      <Enabled>T</Enabled>
+      <ConditionRule />
+      <IDTool>0</IDTool>
+      <DB />
+      <IsToolRequiered>F</IsToolRequiered>
+      <FormActivity />
+    </Condition>
+    <Condition Id="292" Code="PR01-CD007">
+      <Id>292</Id>
+      <Code>PR01-CD007</Code>
+      <Name>Finalizar</Name>
+      <Description>Finalizar</Description>
+      <Weight>0</Weight>
+      <Type>0</Type>
+      <Enabled>T</Enabled>
+      <ConditionRule />
+      <IDTool>0</IDTool>
+      <DB />
+      <IsToolRequiered>F</IsToolRequiered>
+      <FormActivity />
+    </Condition>
+  </Conditions>
+  <ConditionsByActivity>
+    <ConditionByActivity IdCondition="286" IdActivity="486" />
+    <ConditionByActivity IdCondition="287" IdActivity="487" />
+    <ConditionByActivity IdCondition="288" IdActivity="486" />
+    <ConditionByActivity IdCondition="289" IdActivity="488" />
+    <ConditionByActivity IdCondition="290" IdActivity="488" />
+    <ConditionByActivity IdCondition="291" IdActivity="488" />
+    <ConditionByActivity IdCondition="292" IdActivity="489" />
+  </ConditionsByActivity>
+  <Transitions>
+    <Transition Id="1110" Code="PR01-TR001">
+      <Id>1110</Id>
+      <Code>PR01-TR001</Code>
+      <Name>Ajustar</Name>
+      <IdFromActivity>486</IdFromActivity>
+      <IdToActivity>487</IdToActivity>
+      <Description>Ajustar</Description>
+      <Threshold>0</Threshold>
+      <Priority>1</Priority>
+      <Message>Ajustar</Message>
+      <Enabled>T</Enabled>
+    </Transition>
+    <Transition Id="1111" Code="PR01-TR002">
+      <Id>1111</Id>
+      <Code>PR01-TR002</Code>
+      <Name>Validar</Name>
+      <IdFromActivity>487</IdFromActivity>
+      <IdToActivity>486</IdToActivity>
+      <Description>Validar</Description>
+      <Threshold>0</Threshold>
+      <Priority>1</Priority>
+      <Message>Se realiz?  Ajustar Idea</Message>
+      <Enabled>T</Enabled>
+    </Transition>
+    <Transition Id="1112" Code="PR01-TR003">
+      <Id>1112</Id>
+      <Code>PR01-TR003</Code>
+      <Name>Aprobar</Name>
+      <IdFromActivity>486</IdFromActivity>
+      <IdToActivity>488</IdToActivity>
+      <Description>A  Registrar Aprobacion</Description>
+      <Threshold>0</Threshold>
+      <Priority>1</Priority>
+      <Message>Aprobar</Message>
+      <Enabled>T</Enabled>
+    </Transition>
+    <Transition Id="1113" Code="PR01-TR004">
+      <Id>1113</Id>
+      <Code>PR01-TR004</Code>
+      <Name>Ajustar</Name>
+      <IdFromActivity>488</IdFromActivity>
+      <IdToActivity>486</IdToActivity>
+      <Description>De  Registrar Aprobacion</Description>
+      <Threshold>0</Threshold>
+      <Priority>1</Priority>
+      <Message>Se realiz?  Registrar Aprobacion</Message>
+      <Enabled>T</Enabled>
+    </Transition>
+    <Transition Id="1114" Code="PR01-RT005">
+      <Id>1114</Id>
+      <Code>PR01-RT005</Code>
+      <Name>Crear Proyecto</Name>
+      <IdFromActivity>488</IdFromActivity>
+      <IdToActivity>489</IdToActivity>
+      <Description>De  Registrar Aprobacion A  Crear Proyecto, Crear Proceso Aprobacion de Proyecto</Description>
+      <Threshold>0</Threshold>
+      <Priority>1</Priority>
+      <Message>Se realiz?  Registrar Aprobacion</Message>
+      <Enabled>T</Enabled>
+    </Transition>
+    <Transition Id="1115" Code="PR01-TR006">
+      <Id>1115</Id>
+      <Code>PR01-TR006</Code>
+      <Name>Finalizar</Name>
+      <IdFromActivity>488</IdFromActivity>
+      <IdToActivity>0</IdToActivity>
+      <Description>De  Registrar Aprobacion A  Actividad final</Description>
+      <Threshold>0</Threshold>
+      <Priority>1</Priority>
+      <Message>Se realiz?  Registrar Aprobacion</Message>
+      <Enabled>T</Enabled>
+    </Transition>
+    <Transition Id="1116" Code="PR01-TR007">
+      <Id>1116</Id>
+      <Code>PR01-TR007</Code>
+      <Name>Finalizar</Name>
+      <IdFromActivity>489</IdFromActivity>
+      <IdToActivity>0</IdToActivity>
+      <Description>De  Crear Proyecto, Crear Proceso Aprobacion de Proyecto A  Actividad final</Description>
+      <Threshold>0</Threshold>
+      <Priority>1</Priority>
+      <Message>Se realiz?  Crear Proyecto, Crear Proceso Aprobacion de Proyecto</Message>
+      <Enabled>T</Enabled>
+    </Transition>
+  </Transitions>
+  <TransitionsRule>
+    <TransitionRule IdTransition="1110" IdCondition="286" />
+    <TransitionRule IdTransition="1111" IdCondition="287" />
+    <TransitionRule IdTransition="1112" IdCondition="288" />
+    <TransitionRule IdTransition="1113" IdCondition="289" />
+    <TransitionRule IdTransition="1114" IdCondition="290" />
+    <TransitionRule IdTransition="1115" IdCondition="291" />
+    <TransitionRule IdTransition="1116" IdCondition="292" />
+  </TransitionsRule>
+  <ProcessCases>
+    <ProcessCase Id="7" Code="PR01">
+      <Id>7</Id>
+      <Code>PR01</Code>
+      <Name>PR01-Proceso de Aprobacion de Ideas</Name>
+      <Description>PR01-Proceso de Aprobacion de Ideas</Description>
+      <Documentation />
+      <Author>1</Author>
+      <FromDate>01/06/2010 12:00:00 a.m.</FromDate>
+      <ToDate>01/06/2020 12:00:00 a.m.</ToDate>
+      <DurationUnit>4</DurationUnit>
+      <Duration>1</Duration>
+      <Limit />
+      <CalendarType>0</CalendarType>
+      <IDUserCalendar>0</IDUserCalendar>
+      <WaitingTime />
+      <WorkingTime />
+      <EntryDataType>Client Software</EntryDataType>
+      <EntryData>0</EntryData>
+      <email>dgomez@e-gattaca.com</email>
+      <cost />
+      <Priority>0</Priority>
+      <URLHelp>#</URLHelp>
+      <URLService>http://74.112.248.66/FSC/Security/applicationLogin.aspx?op=addIdea&amp;</URLService>
+      <URLDataView>http://74.112.248.66/FSC/Security/applicationLogin.aspx?showRequest=True&amp;</URLDataView>
+      <IDMessagePolicy>7</IDMessagePolicy>
+      <Enabled>T</Enabled>
+      <Status>T</Status>
+    </ProcessCase>
+  </ProcessCases>
+  <MailSettings>
+    <MailSetting />
+  </MailSettings>
+  <History>
+    <ProcessInstances>
+      <ProcessInstance Id="1" IdProcessCase="7">
+        <Id>1</Id>
+        <IdProcess>7</IdProcess>
+        <EntryDataType>WebForm</EntryDataType>
+        <EntryData>IdeaEntity</EntryData>
+        <IdEntryData>3</IdEntryData>
+        <IdApplicationUser>10</IdApplicationUser>
+        <InternalCode />
+        <NSequence>0</NSequence>
+        <Status>248</Status>
+        <CreateTime>10/11/2010 04:42:43 p.m.</CreateTime>
+        <StartTime>10/11/2010 04:42:44 p.m.</StartTime>
+        <EndTime>08/12/2010 04:43:26 p.m.</EndTime>
+        <Comment />
+      </ProcessInstance>
+      <ProcessInstance Id="2" IdProcessCase="7">
+        <Id>2</Id>
+        <IdProcess>7</IdProcess>
+        <EntryDataType>WebForm</EntryDataType>
+        <EntryData>IdeaEntity</EntryData>
+        <IdEntryData>2</IdEntryData>
+        <IdApplicationUser>11</IdApplicationUser>
+        <InternalCode />
+        <NSequence>0</NSequence>
+        <Status>248</Status>
+        <CreateTime>10/11/2010 04:48:12 p.m.</CreateTime>
+        <StartTime>10/11/2010 04:48:13 p.m.</StartTime>
+        <EndTime>02/12/2010 10:17:27 a.m.</EndTime>
+        <Comment />
+      </ProcessInstance>
+      <ProcessInstance Id="3" IdProcessCase="7">
+        <Id>3</Id>
+        <IdProcess>7</IdProcess>
+        <EntryDataType>WebForm</EntryDataType>
+        <EntryData>IdeaEntity</EntryData>
+        <IdEntryData>4</IdEntryData>
+        <IdApplicationUser>17</IdApplicationUser>
+        <InternalCode />
+        <NSequence>0</NSequence>
+        <Status>248</Status>
+        <CreateTime>10/11/2010 04:48:15 p.m.</CreateTime>
+        <StartTime>10/11/2010 04:48:15 p.m.</StartTime>
+        <EndTime>02/12/2010 10:17:07 a.m.</EndTime>
+        <Comment />
+      </ProcessInstance>
+      <ProcessInstance Id="4" IdProcessCase="7">
+        <Id>4</Id>
+        <IdProcess>7</IdProcess>
+        <EntryDataType>WebForm</EntryDataType>
+        <EntryData>IdeaEntity</EntryData>
+        <IdEntryData>1</IdEntryData>
+        <IdApplicationUser>9</IdApplicationUser>
+        <InternalCode />
+        <NSequence>0</NSequence>
+        <Status>248</Status>
+        <CreateTime>10/11/2010 04:50:01 p.m.</CreateTime>
+        <StartTime>10/11/2010 04:50:01 p.m.</StartTime>
+        <EndTime>29/11/2010 08:29:20 a.m.</EndTime>
+        <Comment />
+      </ProcessInstance>
+      <ProcessInstance Id="5" IdProcessCase="7">
+        <Id>5</Id>
+        <IdProcess>7</IdProcess>
+        <EntryDataType>WebForm</EntryDataType>
+        <EntryData>IdeaEntity</EntryData>
+        <IdEntryData>5</IdEntryData>
+        <IdApplicationUser>3</IdApplicationUser>
+        <InternalCode />
+        <NSequence>0</NSequence>
+        <Status>248</Status>
+        <CreateTime>23/11/2010 12:12:34 p.m.</CreateTime>
+        <StartTime>23/11/2010 12:12:35 p.m.</StartTime>
+        <EndTime>03/12/2010 10:19:57 a.m.</EndTime>
+        <Comment />
+      </ProcessInstance>
+      <ProcessInstance Id="6" IdProcessCase="7">
+        <Id>6</Id>
+        <IdProcess>7</IdProcess>
+        <EntryDataType>WebForm</EntryDataType>
+        <EntryData>IdeaEntity</EntryData>
+        <IdEntryData>6</IdEntryData>
+        <IdApplicationUser>3</IdApplicationUser>
+        <InternalCode />
+        <NSequence>0</NSequence>
+        <Status>248</Status>
+        <CreateTime>23/11/2010 12:23:02 p.m.</CreateTime>
+        <StartTime>23/11/2010 12:23:03 p.m.</StartTime>
+        <EndTime>03/12/2010 10:18:54 a.m.</EndTime>
+        <Comment />
+      </ProcessInstance>
+      <ProcessInstance Id="7" IdProcessCase="7">
+        <Id>7</Id>
+        <IdProcess>7</IdProcess>
+        <EntryDataType>WebForm</EntryDataType>
+        <EntryData>IdeaEntity</EntryData>
+        <IdEntryData>7</IdEntryData>
+        <IdApplicationUser>3</IdApplicationUser>
+        <InternalCode />
+        <NSequence>0</NSequence>
+        <Status>248</Status>
+        <CreateTime>23/11/2010 02:38:04 p.m.</CreateTime>
+        <StartTime>23/11/2010 02:38:05 p.m.</StartTime>
+        <EndTime>24/11/2010 11:22:55 a.m.</EndTime>
+        <Comment />
+      </ProcessInstance>
+      <ProcessInstance Id="8" IdProcessCase="7">
+        <Id>8</Id>
+        <IdProcess>7</IdProcess>
+        <EntryDataType>WebForm</EntryDataType>
+        <EntryData>IdeaEntity</EntryData>
+        <IdEntryData>8</IdEntryData>
+        <IdApplicationUser>3</IdApplicationUser>
+        <InternalCode />
+        <NSequence>0</NSequence>
+        <Status>248</Status>
+        <CreateTime>23/11/2010 02:39:08 p.m.</CreateTime>
+        <StartTime>23/11/2010 02:39:09 p.m.</StartTime>
+        <EndTime>23/11/2010 05:09:26 p.m.</EndTime>
+        <Comment />
+      </ProcessInstance>
+      <ProcessInstance Id="24" IdProcessCase="7">
+        <Id>24</Id>
+        <IdProcess>7</IdProcess>
+        <EntryDataType>WebForm</EntryDataType>
+        <EntryData>IdeaEntity</EntryData>
+        <IdEntryData>9</IdEntryData>
+        <IdApplicationUser>15</IdApplicationUser>
+        <InternalCode />
+        <NSequence>0</NSequence>
+        <Status>2</Status>
+        <CreateTime>07/12/2010 03:57:15 p.m.</CreateTime>
+        <StartTime>07/12/2010 03:57:15 p.m.</StartTime>
+        <EndTime />
+        <Comment />
+      </ProcessInstance>
+      <ProcessInstance Id="26" IdProcessCase="7">
+        <Id>26</Id>
+        <IdProcess>7</IdProcess>
+        <EntryDataType>WebForm</EntryDataType>
+        <EntryData>IdeaEntity</EntryData>
+        <IdEntryData>9</IdEntryData>
+        <IdApplicationUser>1</IdApplicationUser>
+        <InternalCode />
+        <NSequence>0</NSequence>
+        <Status>248</Status>
+        <CreateTime>07/12/2010 05:10:14 p.m.</CreateTime>
+        <StartTime>07/12/2010 05:10:16 p.m.</StartTime>
+        <EndTime>08/12/2010 04:30:28 p.m.</EndTime>
+        <Comment />
+      </ProcessInstance>
+      <ProcessInstance Id="28" IdProcessCase="7">
+        <Id>28</Id>
+        <IdProcess>7</IdProcess>
+        <EntryDataType>WebForm</EntryDataType>
+        <EntryData>IdeaEntity</EntryData>
+        <IdEntryData>10</IdEntryData>
+        <IdApplicationUser>9</IdApplicationUser>
+        <InternalCode />
+        <NSequence>0</NSequence>
+        <Status>248</Status>
+        <CreateTime>08/12/2010 04:15:52 p.m.</CreateTime>
+        <StartTime>08/12/2010 04:15:53 p.m.</StartTime>
+        <EndTime>08/12/2010 04:59:04 p.m.</EndTime>
+        <Comment />
+      </ProcessInstance>
+      <ProcessInstance Id="29" IdProcessCase="7">
+        <Id>29</Id>
+        <IdProcess>7</IdProcess>
+        <EntryDataType>WebForm</EntryDataType>
+        <EntryData>IdeaEntity</EntryData>
+        <IdEntryData>11</IdEntryData>
+        <IdApplicationUser>15</IdApplicationUser>
+        <InternalCode />
+        <NSequence>0</NSequence>
+        <Status>248</Status>
+        <CreateTime>08/12/2010 04:22:19 p.m.</CreateTime>
+        <StartTime>08/12/2010 04:22:19 p.m.</StartTime>
+        <EndTime>08/12/2010 04:41:20 p.m.</EndTime>
+        <Comment />
+      </ProcessInstance>
+      <ProcessInstance Id="37" IdProcessCase="7">
+        <Id>37</Id>
+        <IdProcess>7</IdProcess>
+        <EntryDataType>WebForm</EntryDataType>
+        <EntryData>IdeaEntity</EntryData>
+        <IdEntryData>13</IdEntryData>
+        <IdApplicationUser>15</IdApplicationUser>
+        <InternalCode />
+        <NSequence>0</NSequence>
+        <Status>2</Status>
+        <CreateTime>10/12/2010 07:27:05 a.m.</CreateTime>
+        <StartTime>10/12/2010 07:27:06 a.m.</StartTime>
+        <EndTime />
+        <Comment />
+      </ProcessInstance>
+      <ProcessInstance Id="38" IdProcessCase="7">
+        <Id>38</Id>
+        <IdProcess>7</IdProcess>
+        <EntryDataType>WebForm</EntryDataType>
+        <EntryData>IdeaEntity</EntryData>
+        <IdEntryData>14</IdEntryData>
+        <IdApplicationUser>15</IdApplicationUser>
+        <InternalCode />
+        <NSequence>0</NSequence>
+        <Status>2</Status>
+        <CreateTime>10/12/2010 07:31:06 a.m.</CreateTime>
+        <StartTime>10/12/2010 07:31:07 a.m.</StartTime>
+        <EndTime />
+        <Comment />
+      </ProcessInstance>
+      <ProcessInstance Id="42" IdProcessCase="7">
+        <Id>42</Id>
+        <IdProcess>7</IdProcess>
+        <EntryDataType>WebForm</EntryDataType>
+        <EntryData>IdeaEntity</EntryData>
+        <IdEntryData>16</IdEntryData>
+        <IdApplicationUser>3</IdApplicationUser>
+        <InternalCode />
+        <NSequence>0</NSequence>
+        <Status>248</Status>
+        <CreateTime>10/12/2010 09:16:18 a.m.</CreateTime>
+        <StartTime>10/12/2010 09:16:19 a.m.</StartTime>
+        <EndTime>10/12/2010 09:17:07 a.m.</EndTime>
+        <Comment />
+      </ProcessInstance>
+      <ProcessInstance Id="43" IdProcessCase="7">
+        <Id>43</Id>
+        <IdProcess>7</IdProcess>
+        <EntryDataType>WebForm</EntryDataType>
+        <EntryData>IdeaEntity</EntryData>
+        <IdEntryData>17</IdEntryData>
+        <IdApplicationUser>15</IdApplicationUser>
+        <InternalCode />
+        <NSequence>0</NSequence>
+        <Status>2</Status>
+        <CreateTime>10/12/2010 10:30:24 a.m.</CreateTime>
+        <StartTime>10/12/2010 10:30:25 a.m.</StartTime>
+        <EndTime />
+        <Comment />
+      </ProcessInstance>
+      <ProcessInstance Id="44" IdProcessCase="7">
+        <Id>44</Id>
+        <IdProcess>7</IdProcess>
+        <EntryDataType>WebForm</EntryDataType>
+        <EntryData>IdeaEntity</EntryData>
+        <IdEntryData>18</IdEntryData>
+        <IdApplicationUser>15</IdApplicationUser>
+        <InternalCode />
+        <NSequence>0</NSequence>
+        <Status>2</Status>
+        <CreateTime>10/12/2010 04:05:48 p.m.</CreateTime>
+        <StartTime>10/12/2010 04:05:48 p.m.</StartTime>
+        <EndTime />
+        <Comment />
+      </ProcessInstance>
+      <ProcessInstance Id="45" IdProcessCase="7">
+        <Id>45</Id>
+        <IdProcess>7</IdProcess>
+        <EntryDataType>WebForm</EntryDataType>
+        <EntryData>IdeaEntity</EntryData>
+        <IdEntryData>19</IdEntryData>
+        <IdApplicationUser>9</IdApplicationUser>
+        <InternalCode />
+        <NSequence>0</NSequence>
+        <Status>248</Status>
+        <CreateTime>13/12/2010 07:38:43 a.m.</CreateTime>
+        <StartTime>13/12/2010 07:38:44 a.m.</StartTime>
+        <EndTime>13/12/2010 07:50:49 a.m.</EndTime>
+        <Comment />
+      </ProcessInstance>
+    </ProcessInstances>
+    <ActivityInstances>
+      <ActivityInstance Id="1" IdActivity="486">
+        <Id>1</Id>
+        <IdActivity>486</IdActivity>
+        <IdProcessInstance>1</IdProcessInstance>
+        <IdParticipant>102</IdParticipant>
+        <EntryDataType />
+        <EntryData />
+        <IdEntryData />
+        <Status>248</Status>
+        <CreateTime>10/11/2010 04:42:44 p.m.</CreateTime>
+        <StartTime>23/11/2010 02:40:59 p.m.</StartTime>
+        <EndTime>08/12/2010 04:43:02 p.m.</EndTime>
+        <Comments />
+        <OutComments />
+        <FileName />
+        <ExpectedEndTime>11/11/2010 04:42:43 p.m.</ExpectedEndTime>
+        <IdCauseTransition>0</IdCauseTransition>
+      </ActivityInstance>
+      <ActivityInstance Id="2" IdActivity="486">
+        <Id>2</Id>
+        <IdActivity>486</IdActivity>
+        <IdProcessInstance>2</IdProcessInstance>
+        <IdParticipant>102</IdParticipant>
+        <EntryDataType />
+        <EntryData />
+        <IdEntryData />
+        <Status>248</Status>
+        <CreateTime>10/11/2010 04:48:13 p.m.</CreateTime>
+        <StartTime>23/11/2010 02:41:41 p.m.</StartTime>
+        <EndTime>23/11/2010 02:42:05 p.m.</EndTime>
+        <Comments />
+        <OutComments />
+        <FileName />
+        <ExpectedEndTime>11/11/2010 04:48:12 p.m.</ExpectedEndTime>
+        <IdCauseTransition>0</IdCauseTransition>
+      </ActivityInstance>
+      <ActivityInstance Id="3" IdActivity="486">
+        <Id>3</Id>
+        <IdActivity>486</IdActivity>
+        <IdProcessInstance>3</IdProcessInstance>
+        <IdParticipant>102</IdParticipant>
+        <EntryDataType />
+        <EntryData />
+        <IdEntryData />
+        <Status>248</Status>
+        <CreateTime>10/11/2010 04:48:16 p.m.</CreateTime>
+        <StartTime>23/11/2010 02:39:58 p.m.</StartTime>
+        <EndTime>23/11/2010 02:40:33 p.m.</EndTime>
+        <Comments />
+        <OutComments />
+        <FileName />
+        <ExpectedEndTime>11/11/2010 04:48:15 p.m.</ExpectedEndTime>
+        <IdCauseTransition>0</IdCauseTransition>
+      </ActivityInstance>
+      <ActivityInstance Id="4" IdActivity="486">
+        <Id>4</Id>
+        <IdActivity>486</IdActivity>
+        <IdProcessInstance>4</IdProcessInstance>
+        <IdParticipant>102</IdParticipant>
+        <EntryDataType />
+        <EntryData />
+        <IdEntryData />
+        <Status>248</Status>
+        <CreateTime>10/11/2010 04:50:02 p.m.</CreateTime>
+        <StartTime>23/11/2010 02:42:30 p.m.</StartTime>
+        <EndTime>23/11/2010 02:43:07 p.m.</EndTime>
+        <Comments />
+        <OutComments />
+        <FileName />
+        <ExpectedEndTime>11/11/2010 04:50:01 p.m.</ExpectedEndTime>
+        <IdCauseTransition>0</IdCauseTransition>
+      </ActivityInstance>
+      <ActivityInstance Id="5" IdActivity="486">
+        <Id>5</Id>
+        <IdActivity>486</IdActivity>
+        <IdProcessInstance>5</IdProcessInstance>
+        <IdParticipant>106</IdParticipant>
+        <EntryDataType />
+        <EntryData />
+        <IdEntryData />
+        <Status>248</Status>
+        <CreateTime>23/11/2010 12:12:38 p.m.</CreateTime>
+        <StartTime>29/11/2010 11:39:02 a.m.</StartTime>
+        <EndTime>29/11/2010 11:39:12 a.m.</EndTime>
+        <Comments />
+        <OutComments />
+        <FileName />
+        <ExpectedEndTime>24/11/2010 12:12:36 p.m.</ExpectedEndTime>
+        <IdCauseTransition>0</IdCauseTransition>
+      </ActivityInstance>
+      <ActivityInstance Id="6" IdActivity="486">
+        <Id>6</Id>
+        <IdActivity>486</IdActivity>
+        <IdProcessInstance>6</IdProcessInstance>
+        <IdParticipant>106</IdParticipant>
+        <EntryDataType />
+        <EntryData />
+        <IdEntryData />
+        <Status>248</Status>
+        <CreateTime>23/11/2010 12:23:04 p.m.</CreateTime>
+        <StartTime>02/12/2010 08:23:13 a.m.</StartTime>
+        <EndTime>02/12/2010 08:23:20 a.m.</EndTime>
+        <Comments />
+        <OutComments />
+        <FileName />
+        <ExpectedEndTime>24/11/2010 12:23:03 p.m.</ExpectedEndTime>
+        <IdCauseTransition>0</IdCauseTransition>
+      </ActivityInstance>
+      <ActivityInstance Id="7" IdActivity="486">
+        <Id>7</Id>
+        <IdActivity>486</IdActivity>
+        <IdProcessInstance>7</IdProcessInstance>
+        <IdParticipant>106</IdParticipant>
+        <EntryDataType />
+        <EntryData />
+        <IdEntryData />
+        <Status>248</Status>
+        <CreateTime>23/11/2010 02:38:06 p.m.</CreateTime>
+        <StartTime>24/11/2010 09:08:10 a.m.</StartTime>
+        <EndTime>24/11/2010 09:08:19 a.m.</EndTime>
+        <Comments />
+        <OutComments />
+        <FileName />
+        <ExpectedEndTime>24/11/2010 02:38:05 p.m.</ExpectedEndTime>
+        <IdCauseTransition>0</IdCauseTransition>
+      </ActivityInstance>
+      <ActivityInstance Id="8" IdActivity="486">
+        <Id>8</Id>
+        <IdActivity>486</IdActivity>
+        <IdProcessInstance>8</IdProcessInstance>
+        <IdParticipant>102</IdParticipant>
+        <EntryDataType />
+        <EntryData />
+        <IdEntryData />
+        <Status>248</Status>
+        <CreateTime>23/11/2010 02:39:10 p.m.</CreateTime>
+        <StartTime>23/11/2010 05:07:18 p.m.</StartTime>
+        <EndTime>23/11/2010 05:07:41 p.m.</EndTime>
+        <Comments />
+        <OutComments />
+        <FileName />
+        <ExpectedEndTime>24/11/2010 02:39:09 p.m.</ExpectedEndTime>
+        <IdCauseTransition>0</IdCauseTransition>
+      </ActivityInstance>
+      <ActivityInstance Id="9" IdActivity="487">
+        <Id>9</Id>
+        <IdActivity>487</IdActivity>
+        <IdProcessInstance>3</IdProcessInstance>
+        <IdParticipant>102</IdParticipant>
+        <EntryDataType />
+        <EntryData>0</EntryData>
+        <IdEntryData>0</IdEntryData>
+        <Status>248</Status>
+        <CreateTime>23/11/2010 02:40:35 p.m.</CreateTime>
+        <StartTime>23/11/2010 02:46:21 p.m.</StartTime>
+        <EndTime>23/11/2010 02:46:57 p.m.</EndTime>
+        <Comments>Se ha modificado la idea</Comments>
+        <OutComments />
+        <FileName />
+        <ExpectedEndTime>24/11/2010 02:40:34 p.m.</ExpectedEndTime>
+        <IdCauseTransition>1110</IdCauseTransition>
+      </ActivityInstance>
+      <ActivityInstance Id="10" IdActivity="488">
+        <Id>10</Id>
+        <IdActivity>488</IdActivity>
+        <IdProcessInstance>2</IdProcessInstance>
+        <IdParticipant>107</IdParticipant>
+        <EntryDataType />
+        <EntryData />
+        <IdEntryData />
+        <Status>248</Status>
+        <CreateTime>23/11/2010 02:42:07 p.m.</CreateTime>
+        <StartTime>02/12/2010 09:31:27 a.m.</StartTime>
+        <EndTime>02/12/2010 09:31:40 a.m.</EndTime>
+        <Comments />
+        <OutComments />
+        <FileName />
+        <ExpectedEndTime>24/11/2010 02:42:06 p.m.</ExpectedEndTime>
+        <IdCauseTransition>1112</IdCauseTransition>
+      </ActivityInstance>
+      <ActivityInstance Id="11" IdActivity="488">
+        <Id>11</Id>
+        <IdActivity>488</IdActivity>
+        <IdProcessInstance>4</IdProcessInstance>
+        <IdParticipant>107</IdParticipant>
+        <EntryDataType />
+        <EntryData />
+        <IdEntryData />
+        <Status>248</Status>
+        <CreateTime>23/11/2010 02:43:08 p.m.</CreateTime>
+        <StartTime>29/11/2010 08:28:01 a.m.</StartTime>
+        <EndTime>29/11/2010 08:28:10 a.m.</EndTime>
+        <Comments />
+        <OutComments />
+        <FileName />
+        <ExpectedEndTime>24/11/2010 02:43:07 p.m.</ExpectedEndTime>
+        <IdCauseTransition>1112</IdCauseTransition>
+      </ActivityInstance>
+      <ActivityInstance Id="12" IdActivity="486">
+        <Id>12</Id>
+        <IdActivity>486</IdActivity>
+        <IdProcessInstance>3</IdProcessInstance>
+        <IdParticipant>102</IdParticipant>
+        <EntryDataType />
+        <EntryData />
+        <IdEntryData />
+        <Status>248</Status>
+        <CreateTime>23/11/2010 02:47:00 p.m.</CreateTime>
+        <StartTime>23/11/2010 02:47:32 p.m.</StartTime>
+        <EndTime>23/11/2010 02:47:41 p.m.</EndTime>
+        <Comments />
+        <OutComments />
+        <FileName />
+        <ExpectedEndTime>24/11/2010 02:46:59 p.m.</ExpectedEndTime>
+        <IdCauseTransition>1111</IdCauseTransition>
+      </ActivityInstance>
+      <ActivityInstance Id="13" IdActivity="488">
+        <Id>13</Id>
+        <IdActivity>488</IdActivity>
+        <IdProcessInstance>3</IdProcessInstance>
+        <IdParticipant>107</IdParticipant>
+        <EntryDataType />
+        <EntryData />
+        <IdEntryData />
+        <Status>248</Status>
+        <CreateTime>23/11/2010 02:47:44 p.m.</CreateTime>
+        <StartTime>02/12/2010 09:32:18 a.m.</StartTime>
+        <EndTime>02/12/2010 10:15:28 a.m.</EndTime>
+        <Comments />
+        <OutComments />
+        <FileName />
+        <ExpectedEndTime>24/11/2010 02:47:43 p.m.</ExpectedEndTime>
+        <IdCauseTransition>1112</IdCauseTransition>
+      </ActivityInstance>
+      <ActivityInstance Id="14" IdActivity="488">
+        <Id>14</Id>
+        <IdActivity>488</IdActivity>
+        <IdProcessInstance>8</IdProcessInstance>
+        <IdParticipant>102</IdParticipant>
+        <EntryDataType />
+        <EntryData />
+        <IdEntryData />
+        <Status>248</Status>
+        <CreateTime>23/11/2010 05:07:43 p.m.</CreateTime>
+        <StartTime>23/11/2010 05:08:04 p.m.</StartTime>
+        <EndTime>23/11/2010 05:09:01 p.m.</EndTime>
+        <Comments />
+        <OutComments />
+        <FileName />
+        <ExpectedEndTime>24/11/2010 05:07:42 p.m.</ExpectedEndTime>
+        <IdCauseTransition>1112</IdCauseTransition>
+      </ActivityInstance>
+      <ActivityInstance Id="15" IdActivity="489">
+        <Id>15</Id>
+        <IdActivity>489</IdActivity>
+        <IdProcessInstance>8</IdProcessInstance>
+        <IdParticipant>102</IdParticipant>
+        <EntryDataType />
+        <EntryData>0</EntryData>
+        <IdEntryData>0</IdEntryData>
+        <Status>248</Status>
+        <CreateTime>23/11/2010 05:09:03 p.m.</CreateTime>
+        <StartTime>23/11/2010 05:09:11 p.m.</StartTime>
+        <EndTime>23/11/2010 05:09:25 p.m.</EndTime>
+        <Comments>Se ha finalizado el proceso de Idea</Comments>
+        <OutComments />
+        <FileName />
+        <ExpectedEndTime>24/11/2010 05:09:02 p.m.</ExpectedEndTime>
+        <IdCauseTransition>1114</IdCauseTransition>
+      </ActivityInstance>
+      <ActivityInstance Id="17" IdActivity="488">
+        <Id>17</Id>
+        <IdActivity>488</IdActivity>
+        <IdProcessInstance>7</IdProcessInstance>
+        <IdParticipant>107</IdParticipant>
+        <EntryDataType />
+        <EntryData />
+        <IdEntryData />
+        <Status>248</Status>
+        <CreateTime>24/11/2010 09:08:22 a.m.</CreateTime>
+        <StartTime>24/11/2010 11:21:56 a.m.</StartTime>
+        <EndTime>24/11/2010 11:22:07 a.m.</EndTime>
+        <Comments />
+        <OutComments />
+        <FileName />
+        <ExpectedEndTime>25/11/2010 09:08:21 a.m.</ExpectedEndTime>
+        <IdCauseTransition>1112</IdCauseTransition>
+      </ActivityInstance>
+      <ActivityInstance Id="18" IdActivity="489">
+        <Id>18</Id>
+        <IdActivity>489</IdActivity>
+        <IdProcessInstance>7</IdProcessInstance>
+        <IdParticipant>102</IdParticipant>
+        <EntryDataType />
+        <EntryData>0</EntryData>
+        <IdEntryData>0</IdEntryData>
+        <Status>248</Status>
+        <CreateTime>24/11/2010 11:22:09 a.m.</CreateTime>
+        <StartTime>24/11/2010 11:22:43 a.m.</StartTime>
+        <EndTime>24/11/2010 11:22:54 a.m.</EndTime>
+        <Comments>Se ha finalizado el proceso de Idea</Comments>
+        <OutComments />
+        <FileName />
+        <ExpectedEndTime>25/11/2010 11:22:08 a.m.</ExpectedEndTime>
+        <IdCauseTransition>1114</IdCauseTransition>
+      </ActivityInstance>
+      <ActivityInstance Id="36" IdActivity="489">
+        <Id>36</Id>
+        <IdActivity>489</IdActivity>
+        <IdProcessInstance>4</IdProcessInstance>
+        <IdParticipant>102</IdParticipant>
+        <EntryDataType />
+        <EntryData>0</EntryData>
+        <IdEntryData>0</IdEntryData>
+        <Status>248</Status>
+        <CreateTime>29/11/2010 08:28:12 a.m.</CreateTime>
+        <StartTime>29/11/2010 08:29:06 a.m.</StartTime>
+        <EndTime>29/11/2010 08:29:19 a.m.</EndTime>
+        <Comments>Se ha finalizado el proceso de Idea</Comments>
+        <OutComments />
+        <FileName />
+        <ExpectedEndTime>30/11/2010 08:28:11 a.m.</ExpectedEndTime>
+        <IdCauseTransition>1114</IdCauseTransition>
+      </ActivityInstance>
+      <ActivityInstance Id="56" IdActivity="488">
+        <Id>56</Id>
+        <IdActivity>488</IdActivity>
+        <IdProcessInstance>5</IdProcessInstance>
+        <IdParticipant>107</IdParticipant>
+        <EntryDataType />
+        <EntryData />
+        <IdEntryData />
+        <Status>248</Status>
+        <CreateTime>29/11/2010 11:39:15 a.m.</CreateTime>
+        <StartTime>02/12/2010 03:10:46 p.m.</StartTime>
+        <EndTime>02/12/2010 03:11:19 p.m.</EndTime>
+        <Comments />
+        <OutComments />
+        <FileName />
+        <ExpectedEndTime>30/11/2010 11:39:14 a.m.</ExpectedEndTime>
+        <IdCauseTransition>1112</IdCauseTransition>
+      </ActivityInstance>
+      <ActivityInstance Id="63" IdActivity="487">
+        <Id>63</Id>
+        <IdActivity>487</IdActivity>
+        <IdProcessInstance>6</IdProcessInstance>
+        <IdParticipant>104</IdParticipant>
+        <EntryDataType />
+        <EntryData>0</EntryData>
+        <IdEntryData>0</IdEntryData>
+        <Status>248</Status>
+        <CreateTime>02/12/2010 08:23:23 a.m.</CreateTime>
+        <StartTime>02/12/2010 08:24:44 a.m.</StartTime>
+        <EndTime>02/12/2010 08:30:39 a.m.</EndTime>
+        <Comments>Se ha modificado la idea</Comments>
+        <OutComments />
+        <FileName />
+        <ExpectedEndTime>03/12/2010 08:23:22 a.m.</ExpectedEndTime>
+        <IdCauseTransition>1110</IdCauseTransition>
+      </ActivityInstance>
+      <ActivityInstance Id="64" IdActivity="486">
+        <Id>64</Id>
+        <IdActivity>486</IdActivity>
+        <IdProcessInstance>6</IdProcessInstance>
+        <IdParticipant>106</IdParticipant>
+        <EntryDataType />
+        <EntryData />
+        <IdEntryData />
+        <Status>248</Status>
+        <CreateTime>02/12/2010 08:30:40 a.m.</CreateTime>
+        <StartTime>02/12/2010 08:33:06 a.m.</StartTime>
+        <EndTime>02/12/2010 09:19:29 a.m.</EndTime>
+        <Comments />
+        <OutComments />
+        <FileName />
+        <ExpectedEndTime>03/12/2010 08:30:39 a.m.</ExpectedEndTime>
+        <IdCauseTransition>1111</IdCauseTransition>
+      </ActivityInstance>
+      <ActivityInstance Id="65" IdActivity="488">
+        <Id>65</Id>
+        <IdActivity>488</IdActivity>
+        <IdProcessInstance>6</IdProcessInstance>
+        <IdParticipant>107</IdParticipant>
+        <EntryDataType />
+        <EntryData />
+        <IdEntryData />
+        <Status>248</Status>
+        <CreateTime>02/12/2010 09:19:31 a.m.</CreateTime>
+        <StartTime>02/12/2010 03:09:46 p.m.</StartTime>
+        <EndTime>02/12/2010 03:10:34 p.m.</EndTime>
+        <Comments />
+        <OutComments />
+        <FileName />
+        <ExpectedEndTime>03/12/2010 09:19:30 a.m.</ExpectedEndTime>
+        <IdCauseTransition>1112</IdCauseTransition>
+      </ActivityInstance>
+      <ActivityInstance Id="66" IdActivity="489">
+        <Id>66</Id>
+        <IdActivity>489</IdActivity>
+        <IdProcessInstance>2</IdProcessInstance>
+        <IdParticipant>102</IdParticipant>
+        <EntryDataType />
+        <EntryData>0</EntryData>
+        <IdEntryData>0</IdEntryData>
+        <Status>248</Status>
+        <CreateTime>02/12/2010 09:31:42 a.m.</CreateTime>
+        <StartTime>02/12/2010 10:17:16 a.m.</StartTime>
+        <EndTime>02/12/2010 10:17:26 a.m.</EndTime>
+        <Comments>Se ha finalizado el proceso de Idea</Comments>
+        <OutComments />
+        <FileName />
+        <ExpectedEndTime>03/12/2010 09:31:41 a.m.</ExpectedEndTime>
+        <IdCauseTransition>1114</IdCauseTransition>
+      </ActivityInstance>
+      <ActivityInstance Id="67" IdActivity="489">
+        <Id>67</Id>
+        <IdActivity>489</IdActivity>
+        <IdProcessInstance>3</IdProcessInstance>
+        <IdParticipant>102</IdParticipant>
+        <EntryDataType />
+        <EntryData>0</EntryData>
+        <IdEntryData>0</IdEntryData>
+        <Status>248</Status>
+        <CreateTime>02/12/2010 10:15:30 a.m.</CreateTime>
+        <StartTime>02/12/2010 10:16:53 a.m.</StartTime>
+        <EndTime>02/12/2010 10:17:06 a.m.</EndTime>
+        <Comments>Se ha finalizado el proceso de Idea</Comments>
+        <OutComments />
+        <FileName />
+        <ExpectedEndTime>03/12/2010 10:15:29 a.m.</ExpectedEndTime>
+        <IdCauseTransition>1114</IdCauseTransition>
+      </ActivityInstance>
+      <ActivityInstance Id="78" IdActivity="489">
+        <Id>78</Id>
+        <IdActivity>489</IdActivity>
+        <IdProcessInstance>6</IdProcessInstance>
+        <IdParticipant>102</IdParticipant>
+        <EntryDataType />
+        <EntryData>0</EntryData>
+        <IdEntryData>0</IdEntryData>
+        <Status>248</Status>
+        <CreateTime>02/12/2010 03:10:35 p.m.</CreateTime>
+        <StartTime>03/12/2010 09:37:23 a.m.</StartTime>
+        <EndTime>03/12/2010 10:18:53 a.m.</EndTime>
+        <Comments>Se ha finalizado el proceso de Idea</Comments>
+        <OutComments />
+        <FileName />
+        <ExpectedEndTime>03/12/2010 03:10:34 p.m.</ExpectedEndTime>
+        <IdCauseTransition>1114</IdCauseTransition>
+      </ActivityInstance>
+      <ActivityInstance Id="79" IdActivity="489">
+        <Id>79</Id>
+        <IdActivity>489</IdActivity>
+        <IdProcessInstance>5</IdProcessInstance>
+        <IdParticipant>102</IdParticipant>
+        <EntryDataType />
+        <EntryData>0</EntryData>
+        <IdEntryData>0</IdEntryData>
+        <Status>248</Status>
+        <CreateTime>02/12/2010 03:11:21 p.m.</CreateTime>
+        <StartTime>03/12/2010 10:19:43 a.m.</StartTime>
+        <EndTime>03/12/2010 10:19:56 a.m.</EndTime>
+        <Comments>Se ha finalizado el proceso de Idea</Comments>
+        <OutComments />
+        <FileName />
+        <ExpectedEndTime>03/12/2010 03:11:20 p.m.</ExpectedEndTime>
+        <IdCauseTransition>1114</IdCauseTransition>
+      </ActivityInstance>
+      <ActivityInstance Id="120" IdActivity="486">
+        <Id>120</Id>
+        <IdActivity>486</IdActivity>
+        <IdProcessInstance>24</IdProcessInstance>
+        <IdParticipant>106</IdParticipant>
+        <EntryDataType />
+        <EntryData />
+        <IdEntryData />
+        <Status>248</Status>
+        <CreateTime>07/12/2010 03:57:17 p.m.</CreateTime>
+        <StartTime>07/12/2010 03:59:13 p.m.</StartTime>
+        <EndTime>07/12/2010 03:59:20 p.m.</EndTime>
+        <Comments />
+        <OutComments />
+        <FileName />
+        <ExpectedEndTime>08/12/2010 03:57:15 p.m.</ExpectedEndTime>
+        <IdCauseTransition>0</IdCauseTransition>
+      </ActivityInstance>
+      <ActivityInstance Id="121" IdActivity="487">
+        <Id>121</Id>
+        <IdActivity>487</IdActivity>
+        <IdProcessInstance>24</IdProcessInstance>
+        <IdParticipant>104</IdParticipant>
+        <EntryDataType />
+        <EntryData />
+        <IdEntryData />
+        <Status>2</Status>
+        <CreateTime>07/12/2010 03:59:22 p.m.</CreateTime>
+        <StartTime>08/12/2010 04:19:38 p.m.</StartTime>
+        <EndTime />
+        <Comments />
+        <OutComments />
+        <FileName />
+        <ExpectedEndTime>08/12/2010 03:59:21 p.m.</ExpectedEndTime>
+        <IdCauseTransition>1110</IdCauseTransition>
+      </ActivityInstance>
+      <ActivityInstance Id="124" IdActivity="486">
+        <Id>124</Id>
+        <IdActivity>486</IdActivity>
+        <IdProcessInstance>26</IdProcessInstance>
+        <IdParticipant>106</IdParticipant>
+        <EntryDataType />
+        <EntryData />
+        <IdEntryData />
+        <Status>248</Status>
+        <CreateTime>07/12/2010 05:10:17 p.m.</CreateTime>
+        <StartTime>08/12/2010 04:17:30 p.m.</StartTime>
+        <EndTime>08/12/2010 04:17:40 p.m.</EndTime>
+        <Comments />
+        <OutComments />
+        <FileName />
+        <ExpectedEndTime>08/12/2010 05:10:16 p.m.</ExpectedEndTime>
+        <IdCauseTransition>0</IdCauseTransition>
+      </ActivityInstance>
+      <ActivityInstance Id="126" IdActivity="486">
+        <Id>126</Id>
+        <IdActivity>486</IdActivity>
+        <IdProcessInstance>28</IdProcessInstance>
+        <IdParticipant>106</IdParticipant>
+        <EntryDataType />
+        <EntryData />
+        <IdEntryData />
+        <Status>248</Status>
+        <CreateTime>08/12/2010 04:15:54 p.m.</CreateTime>
+        <StartTime>08/12/2010 04:16:57 p.m.</StartTime>
+        <EndTime>08/12/2010 04:17:14 p.m.</EndTime>
+        <Comments />
+        <OutComments>Ajustar el objetivo esta flojo</OutComments>
+        <FileName />
+        <ExpectedEndTime>09/12/2010 04:15:53 p.m.</ExpectedEndTime>
+        <IdCauseTransition>0</IdCauseTransition>
+      </ActivityInstance>
+      <ActivityInstance Id="127" IdActivity="487">
+        <Id>127</Id>
+        <IdActivity>487</IdActivity>
+        <IdProcessInstance>28</IdProcessInstance>
+        <IdParticipant>104</IdParticipant>
+        <EntryDataType />
+        <EntryData>0</EntryData>
+        <IdEntryData>0</IdEntryData>
+        <Status>248</Status>
+        <CreateTime>08/12/2010 04:17:16 p.m.</CreateTime>
+        <StartTime>08/12/2010 04:33:17 p.m.</StartTime>
+        <EndTime>08/12/2010 04:33:35 p.m.</EndTime>
+        <Comments>Se ha modificado la idea</Comments>
+        <OutComments />
+        <FileName />
+        <ExpectedEndTime>09/12/2010 04:17:15 p.m.</ExpectedEndTime>
+        <IdCauseTransition>1110</IdCauseTransition>
+      </ActivityInstance>
+      <ActivityInstance Id="128" IdActivity="488">
+        <Id>128</Id>
+        <IdActivity>488</IdActivity>
+        <IdProcessInstance>26</IdProcessInstance>
+        <IdParticipant>107</IdParticipant>
+        <EntryDataType />
+        <EntryData />
+        <IdEntryData />
+        <Status>248</Status>
+        <CreateTime>08/12/2010 04:17:42 p.m.</CreateTime>
+        <StartTime>08/12/2010 04:30:15 p.m.</StartTime>
+        <EndTime>08/12/2010 04:30:27 p.m.</EndTime>
+        <Comments />
+        <OutComments />
+        <FileName />
+        <ExpectedEndTime>09/12/2010 04:17:41 p.m.</ExpectedEndTime>
+        <IdCauseTransition>1112</IdCauseTransition>
+      </ActivityInstance>
+      <ActivityInstance Id="129" IdActivity="486">
+        <Id>129</Id>
+        <IdActivity>486</IdActivity>
+        <IdProcessInstance>29</IdProcessInstance>
+        <IdParticipant>106</IdParticipant>
+        <EntryDataType />
+        <EntryData />
+        <IdEntryData />
+        <Status>248</Status>
+        <CreateTime>08/12/2010 04:22:20 p.m.</CreateTime>
+        <StartTime>08/12/2010 04:23:31 p.m.</StartTime>
+        <EndTime>08/12/2010 04:23:40 p.m.</EndTime>
+        <Comments />
+        <OutComments />
+        <FileName />
+        <ExpectedEndTime>09/12/2010 04:22:19 p.m.</ExpectedEndTime>
+        <IdCauseTransition>0</IdCauseTransition>
+      </ActivityInstance>
+      <ActivityInstance Id="130" IdActivity="488">
+        <Id>130</Id>
+        <IdActivity>488</IdActivity>
+        <IdProcessInstance>29</IdProcessInstance>
+        <IdParticipant>107</IdParticipant>
+        <EntryDataType />
+        <EntryData />
+        <IdEntryData />
+        <Status>248</Status>
+        <CreateTime>08/12/2010 04:23:42 p.m.</CreateTime>
+        <StartTime>08/12/2010 04:29:33 p.m.</StartTime>
+        <EndTime>08/12/2010 04:30:07 p.m.</EndTime>
+        <Comments />
+        <OutComments />
+        <FileName />
+        <ExpectedEndTime>09/12/2010 04:23:41 p.m.</ExpectedEndTime>
+        <IdCauseTransition>1112</IdCauseTransition>
+      </ActivityInstance>
+      <ActivityInstance Id="131" IdActivity="489">
+        <Id>131</Id>
+        <IdActivity>489</IdActivity>
+        <IdProcessInstance>29</IdProcessInstance>
+        <IdParticipant>102</IdParticipant>
+        <EntryDataType />
+        <EntryData>0</EntryData>
+        <IdEntryData>0</IdEntryData>
+        <Status>248</Status>
+        <CreateTime>08/12/2010 04:30:09 p.m.</CreateTime>
+        <StartTime>08/12/2010 04:41:11 p.m.</StartTime>
+        <EndTime>08/12/2010 04:41:19 p.m.</EndTime>
+        <Comments>Se ha finalizado el proceso de Idea</Comments>
+        <OutComments />
+        <FileName />
+        <ExpectedEndTime>09/12/2010 04:30:08 p.m.</ExpectedEndTime>
+        <IdCauseTransition>1114</IdCauseTransition>
+      </ActivityInstance>
+      <ActivityInstance Id="132" IdActivity="486">
+        <Id>132</Id>
+        <IdActivity>486</IdActivity>
+        <IdProcessInstance>28</IdProcessInstance>
+        <IdParticipant>106</IdParticipant>
+        <EntryDataType />
+        <EntryData />
+        <IdEntryData />
+        <Status>248</Status>
+        <CreateTime>08/12/2010 04:33:36 p.m.</CreateTime>
+        <StartTime>08/12/2010 04:44:16 p.m.</StartTime>
+        <EndTime>08/12/2010 04:44:25 p.m.</EndTime>
+        <Comments />
+        <OutComments />
+        <FileName />
+        <ExpectedEndTime>09/12/2010 04:33:35 p.m.</ExpectedEndTime>
+        <IdCauseTransition>1111</IdCauseTransition>
+      </ActivityInstance>
+      <ActivityInstance Id="134" IdActivity="488">
+        <Id>134</Id>
+        <IdActivity>488</IdActivity>
+        <IdProcessInstance>1</IdProcessInstance>
+        <IdParticipant>102</IdParticipant>
+        <EntryDataType />
+        <EntryData />
+        <IdEntryData />
+        <Status>248</Status>
+        <CreateTime>08/12/2010 04:43:03 p.m.</CreateTime>
+        <StartTime>08/12/2010 04:43:13 p.m.</StartTime>
+        <EndTime>08/12/2010 04:43:26 p.m.</EndTime>
+        <Comments />
+        <OutComments />
+        <FileName />
+        <ExpectedEndTime>09/12/2010 04:43:02 p.m.</ExpectedEndTime>
+        <IdCauseTransition>1112</IdCauseTransition>
+      </ActivityInstance>
+      <ActivityInstance Id="135" IdActivity="488">
+        <Id>135</Id>
+        <IdActivity>488</IdActivity>
+        <IdProcessInstance>28</IdProcessInstance>
+        <IdParticipant>107</IdParticipant>
+        <EntryDataType />
+        <EntryData />
+        <IdEntryData />
+        <Status>248</Status>
+        <CreateTime>08/12/2010 04:44:26 p.m.</CreateTime>
+        <StartTime>08/12/2010 04:44:59 p.m.</StartTime>
+        <EndTime>08/12/2010 04:45:11 p.m.</EndTime>
+        <Comments />
+        <OutComments />
+        <FileName />
+        <ExpectedEndTime>09/12/2010 04:44:25 p.m.</ExpectedEndTime>
+        <IdCauseTransition>1112</IdCauseTransition>
+      </ActivityInstance>
+      <ActivityInstance Id="136" IdActivity="489">
+        <Id>136</Id>
+        <IdActivity>489</IdActivity>
+        <IdProcessInstance>28</IdProcessInstance>
+        <IdParticipant>102</IdParticipant>
+        <EntryDataType />
+        <EntryData>0</EntryData>
+        <IdEntryData>0</IdEntryData>
+        <Status>248</Status>
+        <CreateTime>08/12/2010 04:45:13 p.m.</CreateTime>
+        <StartTime>08/12/2010 04:58:55 p.m.</StartTime>
+        <EndTime>08/12/2010 04:59:03 p.m.</EndTime>
+        <Comments>Se ha finalizado el proceso de Idea</Comments>
+        <OutComments />
+        <FileName />
+        <ExpectedEndTime>09/12/2010 04:45:12 p.m.</ExpectedEndTime>
+        <IdCauseTransition>1114</IdCauseTransition>
+      </ActivityInstance>
+      <ActivityInstance Id="167" IdActivity="486">
+        <Id>167</Id>
+        <IdActivity>486</IdActivity>
+        <IdProcessInstance>37</IdProcessInstance>
+        <IdParticipant>106</IdParticipant>
+        <EntryDataType />
+        <EntryData />
+        <IdEntryData />
+        <Status>248</Status>
+        <CreateTime>10/12/2010 07:27:07 a.m.</CreateTime>
+        <StartTime>10/12/2010 07:38:14 a.m.</StartTime>
+        <EndTime>10/12/2010 07:40:16 a.m.</EndTime>
+        <Comments />
+        <OutComments />
+        <FileName />
+        <ExpectedEndTime>11/12/2010 07:27:06 a.m.</ExpectedEndTime>
+        <IdCauseTransition>0</IdCauseTransition>
+      </ActivityInstance>
+      <ActivityInstance Id="168" IdActivity="486">
+        <Id>168</Id>
+        <IdActivity>486</IdActivity>
+        <IdProcessInstance>38</IdProcessInstance>
+        <IdParticipant>106</IdParticipant>
+        <EntryDataType />
+        <EntryData />
+        <IdEntryData />
+        <Status>248</Status>
+        <CreateTime>10/12/2010 07:31:08 a.m.</CreateTime>
+        <StartTime>10/12/2010 07:36:42 a.m.</StartTime>
+        <EndTime>10/12/2010 07:37:00 a.m.</EndTime>
+        <Comments />
+        <OutComments />
+        <FileName />
+        <ExpectedEndTime>11/12/2010 07:31:07 a.m.</ExpectedEndTime>
+        <IdCauseTransition>0</IdCauseTransition>
+      </ActivityInstance>
+      <ActivityInstance Id="169" IdActivity="487">
+        <Id>169</Id>
+        <IdActivity>487</IdActivity>
+        <IdProcessInstance>38</IdProcessInstance>
+        <IdParticipant>104</IdParticipant>
+        <EntryDataType />
+        <EntryData>0</EntryData>
+        <IdEntryData>0</IdEntryData>
+        <Status>248</Status>
+        <CreateTime>10/12/2010 07:37:02 a.m.</CreateTime>
+        <StartTime>10/12/2010 07:41:32 a.m.</StartTime>
+        <EndTime>10/12/2010 07:41:45 a.m.</EndTime>
+        <Comments>Se ha modificado la idea</Comments>
+        <OutComments />
+        <FileName />
+        <ExpectedEndTime>11/12/2010 07:37:01 a.m.</ExpectedEndTime>
+        <IdCauseTransition>1110</IdCauseTransition>
+      </ActivityInstance>
+      <ActivityInstance Id="170" IdActivity="488">
+        <Id>170</Id>
+        <IdActivity>488</IdActivity>
+        <IdProcessInstance>37</IdProcessInstance>
+        <IdParticipant>107</IdParticipant>
+        <EntryDataType />
+        <EntryData />
+        <IdEntryData />
+        <Status>248</Status>
+        <CreateTime>10/12/2010 07:40:17 a.m.</CreateTime>
+        <StartTime>10/12/2010 08:14:36 a.m.</StartTime>
+        <EndTime>10/12/2010 08:14:45 a.m.</EndTime>
+        <Comments />
+        <OutComments />
+        <FileName />
+        <ExpectedEndTime>11/12/2010 07:40:16 a.m.</ExpectedEndTime>
+        <IdCauseTransition>1112</IdCauseTransition>
+      </ActivityInstance>
+      <ActivityInstance Id="171" IdActivity="486">
+        <Id>171</Id>
+        <IdActivity>486</IdActivity>
+        <IdProcessInstance>38</IdProcessInstance>
+        <IdParticipant>106</IdParticipant>
+        <EntryDataType />
+        <EntryData />
+        <IdEntryData />
+        <Status>248</Status>
+        <CreateTime>10/12/2010 07:41:47 a.m.</CreateTime>
+        <StartTime>10/12/2010 07:42:59 a.m.</StartTime>
+        <EndTime>10/12/2010 07:43:12 a.m.</EndTime>
+        <Comments />
+        <OutComments />
+        <FileName />
+        <ExpectedEndTime>11/12/2010 07:41:46 a.m.</ExpectedEndTime>
+        <IdCauseTransition>1111</IdCauseTransition>
+      </ActivityInstance>
+      <ActivityInstance Id="172" IdActivity="488">
+        <Id>172</Id>
+        <IdActivity>488</IdActivity>
+        <IdProcessInstance>38</IdProcessInstance>
+        <IdParticipant>107</IdParticipant>
+        <EntryDataType />
+        <EntryData />
+        <IdEntryData />
+        <Status>248</Status>
+        <CreateTime>10/12/2010 07:43:13 a.m.</CreateTime>
+        <StartTime>10/12/2010 07:44:17 a.m.</StartTime>
+        <EndTime>10/12/2010 07:44:27 a.m.</EndTime>
+        <Comments />
+        <OutComments />
+        <FileName />
+        <ExpectedEndTime>11/12/2010 07:43:12 a.m.</ExpectedEndTime>
+        <IdCauseTransition>1112</IdCauseTransition>
+      </ActivityInstance>
+      <ActivityInstance Id="173" IdActivity="486">
+        <Id>173</Id>
+        <IdActivity>486</IdActivity>
+        <IdProcessInstance>38</IdProcessInstance>
+        <IdParticipant>102</IdParticipant>
+        <EntryDataType />
+        <EntryData />
+        <IdEntryData />
+        <Status>2</Status>
+        <CreateTime>10/12/2010 07:44:29 a.m.</CreateTime>
+        <StartTime>10/12/2010 09:15:00 a.m.</StartTime>
+        <EndTime />
+        <Comments />
+        <OutComments />
+        <FileName />
+        <ExpectedEndTime>11/12/2010 07:44:28 a.m.</ExpectedEndTime>
+        <IdCauseTransition>1113</IdCauseTransition>
+      </ActivityInstance>
+      <ActivityInstance Id="174" IdActivity="489">
+        <Id>174</Id>
+        <IdActivity>489</IdActivity>
+        <IdProcessInstance>38</IdProcessInstance>
+        <IdParticipant>102</IdParticipant>
+        <EntryDataType />
+        <EntryData>0</EntryData>
+        <IdEntryData>0</IdEntryData>
+        <Status>248</Status>
+        <CreateTime>10/12/2010 07:44:31 a.m.</CreateTime>
+        <StartTime>10/12/2010 08:33:46 a.m.</StartTime>
+        <EndTime>10/12/2010 08:33:54 a.m.</EndTime>
+        <Comments>Se ha finalizado el proceso de Idea</Comments>
+        <OutComments />
+        <FileName />
+        <ExpectedEndTime>11/12/2010 07:44:30 a.m.</ExpectedEndTime>
+        <IdCauseTransition>1114</IdCauseTransition>
+      </ActivityInstance>
+      <ActivityInstance Id="175" IdActivity="486">
+        <Id>175</Id>
+        <IdActivity>486</IdActivity>
+        <IdProcessInstance>37</IdProcessInstance>
+        <IdParticipant />
+        <EntryDataType />
+        <EntryData />
+        <IdEntryData />
+        <Status>4</Status>
+        <CreateTime>10/12/2010 08:14:46 a.m.</CreateTime>
+        <StartTime />
+        <EndTime />
+        <Comments />
+        <OutComments />
+        <FileName />
+        <ExpectedEndTime>11/12/2010 08:14:45 a.m.</ExpectedEndTime>
+        <IdCauseTransition>1113</IdCauseTransition>
+      </ActivityInstance>
+      <ActivityInstance Id="176" IdActivity="489">
+        <Id>176</Id>
+        <IdActivity>489</IdActivity>
+        <IdProcessInstance>37</IdProcessInstance>
+        <IdParticipant />
+        <EntryDataType />
+        <EntryData />
+        <IdEntryData />
+        <Status>4</Status>
+        <CreateTime>10/12/2010 08:14:48 a.m.</CreateTime>
+        <StartTime />
+        <EndTime />
+        <Comments />
+        <OutComments />
+        <FileName />
+        <ExpectedEndTime>11/12/2010 08:14:46 a.m.</ExpectedEndTime>
+        <IdCauseTransition>1114</IdCauseTransition>
+      </ActivityInstance>
+      <ActivityInstance Id="190" IdActivity="486">
+        <Id>190</Id>
+        <IdActivity>486</IdActivity>
+        <IdProcessInstance>42</IdProcessInstance>
+        <IdParticipant>102</IdParticipant>
+        <EntryDataType />
+        <EntryData />
+        <IdEntryData />
+        <Status>248</Status>
+        <CreateTime>10/12/2010 09:16:20 a.m.</CreateTime>
+        <StartTime>10/12/2010 09:16:31 a.m.</StartTime>
+        <EndTime>10/12/2010 09:16:41 a.m.</EndTime>
+        <Comments />
+        <OutComments />
+        <FileName />
+        <ExpectedEndTime>11/12/2010 09:16:19 a.m.</ExpectedEndTime>
+        <IdCauseTransition>0</IdCauseTransition>
+      </ActivityInstance>
+      <ActivityInstance Id="191" IdActivity="488">
+        <Id>191</Id>
+        <IdActivity>488</IdActivity>
+        <IdProcessInstance>42</IdProcessInstance>
+        <IdParticipant>102</IdParticipant>
+        <EntryDataType />
+        <EntryData />
+        <IdEntryData />
+        <Status>248</Status>
+        <CreateTime>10/12/2010 09:16:43 a.m.</CreateTime>
+        <StartTime>10/12/2010 09:17:00 a.m.</StartTime>
+        <EndTime>10/12/2010 09:17:06 a.m.</EndTime>
+        <Comments />
+        <OutComments />
+        <FileName />
+        <ExpectedEndTime>11/12/2010 09:16:42 a.m.</ExpectedEndTime>
+        <IdCauseTransition>1112</IdCauseTransition>
+      </ActivityInstance>
+      <ActivityInstance Id="192" IdActivity="486">
+        <Id>192</Id>
+        <IdActivity>486</IdActivity>
+        <IdProcessInstance>43</IdProcessInstance>
+        <IdParticipant>106</IdParticipant>
+        <EntryDataType />
+        <EntryData />
+        <IdEntryData />
+        <Status>248</Status>
+        <CreateTime>10/12/2010 10:30:26 a.m.</CreateTime>
+        <StartTime>10/12/2010 10:31:58 a.m.</StartTime>
+        <EndTime>10/12/2010 10:32:29 a.m.</EndTime>
+        <Comments />
+        <OutComments />
+        <FileName />
+        <ExpectedEndTime>11/12/2010 10:30:25 a.m.</ExpectedEndTime>
+        <IdCauseTransition>0</IdCauseTransition>
+      </ActivityInstance>
+      <ActivityInstance Id="193" IdActivity="488">
+        <Id>193</Id>
+        <IdActivity>488</IdActivity>
+        <IdProcessInstance>43</IdProcessInstance>
+        <IdParticipant>107</IdParticipant>
+        <EntryDataType />
+        <EntryData />
+        <IdEntryData />
+        <Status>248</Status>
+        <CreateTime>10/12/2010 10:32:31 a.m.</CreateTime>
+        <StartTime>10/12/2010 10:34:19 a.m.</StartTime>
+        <EndTime>10/12/2010 10:36:52 a.m.</EndTime>
+        <Comments />
+        <OutComments />
+        <FileName />
+        <ExpectedEndTime>11/12/2010 10:32:30 a.m.</ExpectedEndTime>
+        <IdCauseTransition>1112</IdCauseTransition>
+      </ActivityInstance>
+      <ActivityInstance Id="194" IdActivity="486">
+        <Id>194</Id>
+        <IdActivity>486</IdActivity>
+        <IdProcessInstance>43</IdProcessInstance>
+        <IdParticipant>102</IdParticipant>
+        <EntryDataType />
+        <EntryData />
+        <IdEntryData />
+        <Status>2</Status>
+        <CreateTime>10/12/2010 10:36:54 a.m.</CreateTime>
+        <StartTime>13/12/2010 07:44:16 a.m.</StartTime>
+        <EndTime />
+        <Comments>[] </Comments>
+        <OutComments>[] </OutComments>
+        <FileName />
+        <ExpectedEndTime>11/12/2010 10:36:53 a.m.</ExpectedEndTime>
+        <IdCauseTransition>1113</IdCauseTransition>
+      </ActivityInstance>
+      <ActivityInstance Id="195" IdActivity="489">
+        <Id>195</Id>
+        <IdActivity>489</IdActivity>
+        <IdProcessInstance>43</IdProcessInstance>
+        <IdParticipant />
+        <EntryDataType />
+        <EntryData />
+        <IdEntryData />
+        <Status>4</Status>
+        <CreateTime>10/12/2010 10:36:56 a.m.</CreateTime>
+        <StartTime />
+        <EndTime />
+        <Comments />
+        <OutComments />
+        <FileName />
+        <ExpectedEndTime>11/12/2010 10:36:55 a.m.</ExpectedEndTime>
+        <IdCauseTransition>1114</IdCauseTransition>
+      </ActivityInstance>
+      <ActivityInstance Id="196" IdActivity="486">
+        <Id>196</Id>
+        <IdActivity>486</IdActivity>
+        <IdProcessInstance>44</IdProcessInstance>
+        <IdParticipant>106</IdParticipant>
+        <EntryDataType />
+        <EntryData />
+        <IdEntryData />
+        <Status>248</Status>
+        <CreateTime>10/12/2010 04:05:49 p.m.</CreateTime>
+        <StartTime>10/12/2010 04:06:44 p.m.</StartTime>
+        <EndTime>10/12/2010 04:06:53 p.m.</EndTime>
+        <Comments />
+        <OutComments />
+        <FileName />
+        <ExpectedEndTime>11/12/2010 04:05:48 p.m.</ExpectedEndTime>
+        <IdCauseTransition>0</IdCauseTransition>
+      </ActivityInstance>
+      <ActivityInstance Id="197" IdActivity="488">
+        <Id>197</Id>
+        <IdActivity>488</IdActivity>
+        <IdProcessInstance>44</IdProcessInstance>
+        <IdParticipant />
+        <EntryDataType />
+        <EntryData />
+        <IdEntryData />
+        <Status>4</Status>
+        <CreateTime>10/12/2010 04:06:55 p.m.</CreateTime>
+        <StartTime />
+        <EndTime />
+        <Comments />
+        <OutComments />
+        <FileName />
+        <ExpectedEndTime>11/12/2010 04:06:54 p.m.</ExpectedEndTime>
+        <IdCauseTransition>1112</IdCauseTransition>
+      </ActivityInstance>
+      <ActivityInstance Id="198" IdActivity="486">
+        <Id>198</Id>
+        <IdActivity>486</IdActivity>
+        <IdProcessInstance>45</IdProcessInstance>
+        <IdParticipant>106</IdParticipant>
+        <EntryDataType />
+        <EntryData />
+        <IdEntryData />
+        <Status>248</Status>
+        <CreateTime>13/12/2010 07:38:45 a.m.</CreateTime>
+        <StartTime>13/12/2010 07:40:35 a.m.</StartTime>
+        <EndTime>13/12/2010 07:41:01 a.m.</EndTime>
+        <Comments />
+        <OutComments>corregir valores del proyecto por favor</OutComments>
+        <FileName />
+        <ExpectedEndTime>14/12/2010 07:38:44 a.m.</ExpectedEndTime>
+        <IdCauseTransition>0</IdCauseTransition>
+      </ActivityInstance>
+      <ActivityInstance Id="199" IdActivity="487">
+        <Id>199</Id>
+        <IdActivity>487</IdActivity>
+        <IdProcessInstance>45</IdProcessInstance>
+        <IdParticipant>102</IdParticipant>
+        <EntryDataType />
+        <EntryData>0</EntryData>
+        <IdEntryData>0</IdEntryData>
+        <Status>248</Status>
+        <CreateTime>13/12/2010 07:41:02 a.m.</CreateTime>
+        <StartTime>13/12/2010 07:42:20 a.m.</StartTime>
+        <EndTime>13/12/2010 07:46:39 a.m.</EndTime>
+        <Comments>Se ha modificado la idea</Comments>
+        <OutComments />
+        <FileName />
+        <ExpectedEndTime>14/12/2010 07:41:01 a.m.</ExpectedEndTime>
+        <IdCauseTransition>1110</IdCauseTransition>
+      </ActivityInstance>
+      <ActivityInstance Id="200" IdActivity="486">
+        <Id>200</Id>
+        <IdActivity>486</IdActivity>
+        <IdProcessInstance>45</IdProcessInstance>
+        <IdParticipant>106</IdParticipant>
+        <EntryDataType />
+        <EntryData />
+        <IdEntryData />
+        <Status>248</Status>
+        <CreateTime>13/12/2010 07:46:41 a.m.</CreateTime>
+        <StartTime>13/12/2010 07:47:21 a.m.</StartTime>
+        <EndTime>13/12/2010 07:47:27 a.m.</EndTime>
+        <Comments />
+        <OutComments />
+        <FileName />
+        <ExpectedEndTime>14/12/2010 07:46:40 a.m.</ExpectedEndTime>
+        <IdCauseTransition>1111</IdCauseTransition>
+      </ActivityInstance>
+      <ActivityInstance Id="201" IdActivity="488">
+        <Id>201</Id>
+        <IdActivity>488</IdActivity>
+        <IdProcessInstance>45</IdProcessInstance>
+        <IdParticipant>107</IdParticipant>
+        <EntryDataType />
+        <EntryData />
+        <IdEntryData />
+        <Status>248</Status>
+        <CreateTime>13/12/2010 07:47:29 a.m.</CreateTime>
+        <StartTime>13/12/2010 07:49:21 a.m.</StartTime>
+        <EndTime>13/12/2010 07:49:31 a.m.</EndTime>
+        <Comments />
+        <OutComments />
+        <FileName />
+        <ExpectedEndTime>14/12/2010 07:47:28 a.m.</ExpectedEndTime>
+        <IdCauseTransition>1112</IdCauseTransition>
+      </ActivityInstance>
+      <ActivityInstance Id="202" IdActivity="489">
+        <Id>202</Id>
+        <IdActivity>489</IdActivity>
+        <IdProcessInstance>45</IdProcessInstance>
+        <IdParticipant>102</IdParticipant>
+        <EntryDataType />
+        <EntryData>0</EntryData>
+        <IdEntryData>0</IdEntryData>
+        <Status>248</Status>
+        <CreateTime>13/12/2010 07:49:33 a.m.</CreateTime>
+        <StartTime>13/12/2010 07:50:11 a.m.</StartTime>
+        <EndTime>13/12/2010 07:50:48 a.m.</EndTime>
+        <Comments>Se ha finalizado el proceso de Idea</Comments>
+        <OutComments />
+        <FileName />
+        <ExpectedEndTime>14/12/2010 07:49:32 a.m.</ExpectedEndTime>
+        <IdCauseTransition>1114</IdCauseTransition>
+      </ActivityInstance>
+    </ActivityInstances>
+  </History>
+</WF_Process>

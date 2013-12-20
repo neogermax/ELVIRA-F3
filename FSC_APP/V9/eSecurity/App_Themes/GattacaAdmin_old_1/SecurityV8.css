@@ -1,0 +1,273 @@
+/* CSS Document */
+
+body, html, head
+{
+	height: 100%;
+	font-family: "Trebuchet MS" , Tahoma, Arial;
+	font-size: 12px;
+	color: #666666;
+	text-align: left;
+	margin: 0px;
+}
+body
+{
+	background-color: #EFEFEF;
+}
+img
+{
+	border: none;
+}
+a
+{
+    text-decoration: underline;
+    color: #000080;
+}
+a:hover
+{
+	text-decoration: none;
+	color: #333333;
+}
+
+input, select
+{
+	font-family: "Trebuchet MS" , Tahoma, Arial;
+	color: #666666;
+	font-size: 12px;
+}
+
+input
+{
+	border: none;
+}
+
+
+
+
+.cssTextBox
+{
+	border: 1px solid #CCCCCC;
+	background: url(Images/Template/BgRow.jpg) top left repeat-x #FFF;
+}
+
+.cssLeftBg
+{
+	background: url( 'Images/Template/L.jpg' ) repeat-y right;
+}
+.cssRightBg
+{
+	background: url( 'Images/Template/R.jpg' ) left repeat-y;
+}
+.cssFooterBg
+{
+	background: url( 'Images/Template/BM.jpg' ) top repeat-x #FFFFFF;
+}
+.cssTxtFooter
+{
+	font-size: 10px;
+	color: #999999;
+	padding-top: 16px;
+}
+.cssLabelTitle
+{
+    font-family: "Trebuchet MS" , Tahoma, Arial;
+    font-size: 14px;
+    font-weight: bold;
+    color: #00377C;
+}
+
+
+
+.cssLabelForm
+{
+	font-family: "Trebuchet MS" , Tahoma, Arial;
+	font-size: 11px;
+	font-weight: bold;
+	color: #666666;
+}
+
+
+/* Control de Grilla */
+
+.cssGridTitle
+{
+	background: url(Images/Template/BgRow.jpg) top #FFFFFF repeat-x;
+	padding: 10px;
+	border-top: solid 1px #CCCCCC;
+	border-bottom: solid 1px #CCCCCC;
+	margin-bottom: 5px;
+	font-weight: bold;
+}
+.cssGridViewHeader {
+	height: 32px;
+	vertical-align: middle;
+	text-align: center;
+	background: url(Images/Template/GridHeaderBg.jpg) bottom #FFFFFF repeat-x;
+	font-weight: normal;
+	color: #1F5978;
+}
+.cssGridViewHeader th
+{
+	border-top: solid 1px #CCCCCC;
+	border-bottom: solid 1px #CCCCCC;
+}
+.cssGridViewFooter
+{
+}
+.cssGridViewRow
+{
+	color: #666666;
+	background: url(Images/Template/BgRow.jpg) top #FFFFFF repeat-x;
+	vertical-align: top;
+}
+.cssGridViewRow td
+{
+	padding: 5px;
+}
+.cssGridViewRowP1
+{
+	background: #FFA4A4;
+}
+.cssGridViewRowP2
+{
+	background: #FECBCB;
+}
+.cssGridViewRowP3
+{
+	background: #FFCFA4;
+}
+.cssGridViewRowP4
+{
+	background: #FEFDCB;
+}
+.cssGridViewRowP5
+{
+	background: #D1FEC3;
+}
+.cssGridViewRowP6
+{
+	background: #CBFEFD;
+}
+.cssGridViewRowP7
+{
+	background: #EBFEFD;
+}
+.cssGridViewAlternatingRow
+{
+	color: #666666;
+	background: url(Images/Template/BgAlternatingRow.jpg) top #F9F9F9 repeat-x;
+	vertical-align: top;
+}
+.cssGridViewAlternatingRow td
+{
+	padding: 5px;
+}
+
+/* Control Data List*/
+.cssDataListAlternatingItem
+{
+	color: #666666;
+	background: url(Images/Template/BgAlternatingRow.jpg) top #F9F9F9 repeat-x;
+	vertical-align: top;
+}
+.cssDataListEditItem
+{
+}
+.cssDataListFooter
+{
+}
+.cssDataListHeader
+{
+	height: 32px;
+	vertical-align: middle;
+	text-align: center;
+	background: url(Images/Template/GridHeaderBg.jpg) bottom #FFFFFF repeat-x;
+	font-weight: normal;
+	color: #009999;
+}
+.cssDataListItem
+{
+	color: #666666;
+	background: url(Images/Template/BgRow.jpg) top #FFFFFF repeat-x;
+	vertical-align: top;
+}
+.cssDataListSelectedItem
+{
+}
+.cssDataListSeparator
+{
+}
+
+
+.cssConfigTitle
+{
+	font-size: 14px;
+	font-weight: bold;
+	color: #003366;
+	padding-bottom: 3px;
+}
+.cssErrorTitle
+{
+	font-size: 33px;
+	font-weight: bold;
+	color: #003366;
+}
+.cssErrorBox
+{
+	background: #F5F5F5;
+	border-left: solid 1px #C4C4C4;
+	border-right: solid 1px #C4C4C4;
+	border-bottom: solid 1px #C4C4C4;
+}
+.cssButton
+{
+    font-style: italic;
+    background-color: #01377D;
+    color: #FFFFFF;
+}
+.cssFormFieldName {}
+
+/* Control de Menú */
+
+.cssMenuStaticMenuStyle
+{
+	border-left: 1px solid #CCCCCC;
+	border-top: 1px solid #CCCCCC;
+	margin-right: 15px;
+}
+.cssMenuStaticMenuItemStyle
+{
+	padding-top: 3px;
+	font-size: 14px;
+	font-weight: normal;
+	padding-left: 5px;
+	border-right: 1px solid #CCCCCC;
+	background: url(Images/Template/BgRow.jpg) top left repeat-x #FFF;
+}
+.cssMenuDynamicHoverStyle
+{
+}
+.cssMenuDynamicMenuStyle
+{
+	border: 1px solid #ccc;
+	margin-left: -1px;
+	margin-top: 0px;
+	border-bottom: none;
+}
+.cssMenuDynamicMenuItemStyle
+{
+	background: url(Images/Template/BgRow.jpg) top left repeat-x;
+	padding: 2px;
+	padding-left: 5px;
+	border-bottom: 1px solid #ccc;
+	padding-right: 5px;
+}
+.cssMenuStaticSelectedStyle
+{
+	color: #009999;
+}
+.cssMenuDynamicSelectedStyle
+{
+}
+.cssMenuStaticHoverStyle
+{
+}

@@ -1,0 +1,207 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="dsRptGeneralListContracts" targetNamespace="http://tempuri.org/dsRptGeneralListContracts.xsd" xmlns:mstns="http://tempuri.org/dsRptGeneralListContracts.xsd" xmlns="http://tempuri.org/dsRptGeneralListContracts.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="FSC_eSecurity_DevConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="FSC_eSecurity_DevConnectionString (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.FSC_eSecurity_DevConnectionString.ConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="vReportGeneralListContractsTableAdapter" GeneratorDataComponentClassName="vReportGeneralListContractsTableAdapter" Name="vReportGeneralListContracts" UserDataComponentName="vReportGeneralListContractsTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="FSC_eSecurity_DevConnectionString (Web.config)" DbObjectName="FSC_eSecurity_Dev.dbo.vReportGeneralListContracts" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT RequestNumber, ContractNumber, IdManagement, ManagementName, IdStrategicLine, StrategicLineName, IdProject, ProjectName, ContractValue, SubjectContract, ClosingDate, IdContractNature, ContractNumberAdjusted, ProductsOrDeliverables, Supervisor, StartDate, EndDate, ContractState, EffectiveBudget FROM dbo.vReportGeneralListContracts</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="RequestNumber" DataSetColumn="RequestNumber" />
+              <Mapping SourceColumn="ContractNumber" DataSetColumn="ContractNumber" />
+              <Mapping SourceColumn="IdManagement" DataSetColumn="IdManagement" />
+              <Mapping SourceColumn="ManagementName" DataSetColumn="ManagementName" />
+              <Mapping SourceColumn="IdStrategicLine" DataSetColumn="IdStrategicLine" />
+              <Mapping SourceColumn="StrategicLineName" DataSetColumn="StrategicLineName" />
+              <Mapping SourceColumn="IdProject" DataSetColumn="IdProject" />
+              <Mapping SourceColumn="ProjectName" DataSetColumn="ProjectName" />
+              <Mapping SourceColumn="ContractValue" DataSetColumn="ContractValue" />
+              <Mapping SourceColumn="SubjectContract" DataSetColumn="SubjectContract" />
+              <Mapping SourceColumn="ClosingDate" DataSetColumn="ClosingDate" />
+              <Mapping SourceColumn="IdContractNature" DataSetColumn="IdContractNature" />
+              <Mapping SourceColumn="ContractNumberAdjusted" DataSetColumn="ContractNumberAdjusted" />
+              <Mapping SourceColumn="ProductsOrDeliverables" DataSetColumn="ProductsOrDeliverables" />
+              <Mapping SourceColumn="Supervisor" DataSetColumn="Supervisor" />
+              <Mapping SourceColumn="StartDate" DataSetColumn="StartDate" />
+              <Mapping SourceColumn="EndDate" DataSetColumn="EndDate" />
+              <Mapping SourceColumn="ContractState" DataSetColumn="ContractState" />
+              <Mapping SourceColumn="EffectiveBudget" DataSetColumn="EffectiveBudget" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="vReportContractorByGeneralListContractsTableAdapter" GeneratorDataComponentClassName="vReportContractorByGeneralListContractsTableAdapter" Name="vReportContractorByGeneralListContracts" UserDataComponentName="vReportContractorByGeneralListContractsTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="FSC_eSecurity_DevConnectionString (Web.config)" DbObjectName="FSC_eSecurity_Dev.dbo.vReportContractorByGeneralListContracts" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT IdContractRequest, ContractorName, Nit FROM dbo.vReportContractorByGeneralListContracts</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="IdContractRequest" DataSetColumn="IdContractRequest" />
+              <Mapping SourceColumn="ContractorName" DataSetColumn="ContractorName" />
+              <Mapping SourceColumn="Nit" DataSetColumn="Nit" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="vReportPaymentsListByGeneralListContractsTableAdapter" GeneratorDataComponentClassName="vReportPaymentsListByGeneralListContractsTableAdapter" Name="vReportPaymentsListByGeneralListContracts" UserDataComponentName="vReportPaymentsListByGeneralListContractsTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="FSC_eSecurity_DevConnectionString (Web.config)" DbObjectName="FSC_eSecurity_Dev.dbo.vReportPaymentsListByGeneralListContracts" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT IdContractRequest, Percentage, Value, Date FROM dbo.vReportPaymentsListByGeneralListContracts</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="IdContractRequest" DataSetColumn="IdContractRequest" />
+              <Mapping SourceColumn="Percentage" DataSetColumn="Percentage" />
+              <Mapping SourceColumn="Value" DataSetColumn="Value" />
+              <Mapping SourceColumn="Date" DataSetColumn="Date" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="dsRptGeneralListContracts" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_UserDSName="dsRptGeneralListContracts" msprop:Generator_DataSetName="dsRptGeneralListContracts">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="vReportGeneralListContracts" msprop:Generator_UserTableName="vReportGeneralListContracts" msprop:Generator_RowDeletedName="vReportGeneralListContractsRowDeleted" msprop:Generator_TableClassName="vReportGeneralListContractsDataTable" msprop:Generator_RowChangedName="vReportGeneralListContractsRowChanged" msprop:Generator_RowClassName="vReportGeneralListContractsRow" msprop:Generator_RowChangingName="vReportGeneralListContractsRowChanging" msprop:Generator_RowEvArgName="vReportGeneralListContractsRowChangeEvent" msprop:Generator_RowEvHandlerName="vReportGeneralListContractsRowChangeEventHandler" msprop:Generator_TablePropName="vReportGeneralListContracts" msprop:Generator_TableVarName="tablevReportGeneralListContracts" msprop:Generator_RowDeletingName="vReportGeneralListContractsRowDeleting">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="RequestNumber" msprop:Generator_UserColumnName="RequestNumber" msprop:Generator_ColumnPropNameInRow="RequestNumber" msprop:Generator_ColumnVarNameInTable="columnRequestNumber" msprop:Generator_ColumnPropNameInTable="RequestNumberColumn" type="xs:int" />
+              <xs:element name="ContractNumber" msprop:Generator_UserColumnName="ContractNumber" msprop:Generator_ColumnPropNameInRow="ContractNumber" msprop:Generator_ColumnVarNameInTable="columnContractNumber" msprop:Generator_ColumnPropNameInTable="ContractNumberColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="IdManagement" msprop:Generator_UserColumnName="IdManagement" msprop:Generator_ColumnPropNameInRow="IdManagement" msprop:Generator_ColumnVarNameInTable="columnIdManagement" msprop:Generator_ColumnPropNameInTable="IdManagementColumn" type="xs:int" minOccurs="0" />
+              <xs:element name="ManagementName" msprop:Generator_UserColumnName="ManagementName" msprop:Generator_ColumnPropNameInRow="ManagementName" msprop:Generator_ColumnVarNameInTable="columnManagementName" msprop:Generator_ColumnPropNameInTable="ManagementNameColumn">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="IdStrategicLine" msprop:Generator_UserColumnName="IdStrategicLine" msprop:Generator_ColumnPropNameInRow="IdStrategicLine" msprop:Generator_ColumnVarNameInTable="columnIdStrategicLine" msprop:Generator_ColumnPropNameInTable="IdStrategicLineColumn" type="xs:int" minOccurs="0" />
+              <xs:element name="StrategicLineName" msprop:Generator_UserColumnName="StrategicLineName" msprop:Generator_ColumnPropNameInRow="StrategicLineName" msprop:Generator_ColumnVarNameInTable="columnStrategicLineName" msprop:Generator_ColumnPropNameInTable="StrategicLineNameColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="IdProject" msprop:Generator_UserColumnName="IdProject" msprop:Generator_ColumnPropNameInRow="IdProject" msprop:Generator_ColumnVarNameInTable="columnIdProject" msprop:Generator_ColumnPropNameInTable="IdProjectColumn" type="xs:int" minOccurs="0" />
+              <xs:element name="ProjectName" msprop:Generator_UserColumnName="ProjectName" msprop:Generator_ColumnPropNameInRow="ProjectName" msprop:Generator_ColumnVarNameInTable="columnProjectName" msprop:Generator_ColumnPropNameInTable="ProjectNameColumn">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ContractValue" msprop:Generator_UserColumnName="ContractValue" msprop:Generator_ColumnPropNameInRow="ContractValue" msprop:Generator_ColumnVarNameInTable="columnContractValue" msprop:Generator_ColumnPropNameInTable="ContractValueColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="SubjectContract" msprop:Generator_UserColumnName="SubjectContract" msprop:Generator_ColumnPropNameInRow="SubjectContract" msprop:Generator_ColumnVarNameInTable="columnSubjectContract" msprop:Generator_ColumnPropNameInTable="SubjectContractColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ClosingDate" msprop:Generator_UserColumnName="ClosingDate" msprop:Generator_ColumnPropNameInRow="ClosingDate" msprop:Generator_ColumnVarNameInTable="columnClosingDate" msprop:Generator_ColumnPropNameInTable="ClosingDateColumn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="IdContractNature" msprop:Generator_UserColumnName="IdContractNature" msprop:Generator_ColumnPropNameInRow="IdContractNature" msprop:Generator_ColumnVarNameInTable="columnIdContractNature" msprop:Generator_ColumnPropNameInTable="IdContractNatureColumn" type="xs:int" minOccurs="0" />
+              <xs:element name="ContractNumberAdjusted" msprop:Generator_UserColumnName="ContractNumberAdjusted" msprop:Generator_ColumnPropNameInRow="ContractNumberAdjusted" msprop:Generator_ColumnVarNameInTable="columnContractNumberAdjusted" msprop:Generator_ColumnPropNameInTable="ContractNumberAdjustedColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ProductsOrDeliverables" msprop:Generator_UserColumnName="ProductsOrDeliverables" msprop:Generator_ColumnPropNameInRow="ProductsOrDeliverables" msprop:Generator_ColumnVarNameInTable="columnProductsOrDeliverables" msprop:Generator_ColumnPropNameInTable="ProductsOrDeliverablesColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Supervisor" msprop:Generator_UserColumnName="Supervisor" msprop:Generator_ColumnPropNameInRow="Supervisor" msprop:Generator_ColumnVarNameInTable="columnSupervisor" msprop:Generator_ColumnPropNameInTable="SupervisorColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="StartDate" msprop:Generator_UserColumnName="StartDate" msprop:Generator_ColumnPropNameInRow="StartDate" msprop:Generator_ColumnVarNameInTable="columnStartDate" msprop:Generator_ColumnPropNameInTable="StartDateColumn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="EndDate" msprop:Generator_UserColumnName="EndDate" msprop:Generator_ColumnPropNameInRow="EndDate" msprop:Generator_ColumnVarNameInTable="columnEndDate" msprop:Generator_ColumnPropNameInTable="EndDateColumn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ContractState" msdata:ReadOnly="true" msprop:Generator_UserColumnName="ContractState" msprop:Generator_ColumnPropNameInRow="ContractState" msprop:Generator_ColumnVarNameInTable="columnContractState" msprop:Generator_ColumnPropNameInTable="ContractStateColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="7" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="EffectiveBudget" msprop:Generator_UserColumnName="EffectiveBudget" msprop:Generator_ColumnPropNameInRow="EffectiveBudget" msprop:Generator_ColumnVarNameInTable="columnEffectiveBudget" msprop:Generator_ColumnPropNameInTable="EffectiveBudgetColumn" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="vReportContractorByGeneralListContracts" msprop:Generator_UserTableName="vReportContractorByGeneralListContracts" msprop:Generator_RowDeletedName="vReportContractorByGeneralListContractsRowDeleted" msprop:Generator_TableClassName="vReportContractorByGeneralListContractsDataTable" msprop:Generator_RowChangedName="vReportContractorByGeneralListContractsRowChanged" msprop:Generator_RowClassName="vReportContractorByGeneralListContractsRow" msprop:Generator_RowChangingName="vReportContractorByGeneralListContractsRowChanging" msprop:Generator_RowEvArgName="vReportContractorByGeneralListContractsRowChangeEvent" msprop:Generator_RowEvHandlerName="vReportContractorByGeneralListContractsRowChangeEventHandler" msprop:Generator_TablePropName="vReportContractorByGeneralListContracts" msprop:Generator_TableVarName="tablevReportContractorByGeneralListContracts" msprop:Generator_RowDeletingName="vReportContractorByGeneralListContractsRowDeleting">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="IdContractRequest" msprop:Generator_UserColumnName="IdContractRequest" msprop:Generator_ColumnPropNameInRow="IdContractRequest" msprop:Generator_ColumnVarNameInTable="columnIdContractRequest" msprop:Generator_ColumnPropNameInTable="IdContractRequestColumn" type="xs:int" />
+              <xs:element name="ContractorName" msprop:Generator_UserColumnName="ContractorName" msprop:Generator_ColumnPropNameInRow="ContractorName" msprop:Generator_ColumnVarNameInTable="columnContractorName" msprop:Generator_ColumnPropNameInTable="ContractorNameColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="150" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Nit" msprop:Generator_UserColumnName="Nit" msprop:Generator_ColumnPropNameInRow="Nit" msprop:Generator_ColumnVarNameInTable="columnNit" msprop:Generator_ColumnPropNameInTable="NitColumn">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="vReportPaymentsListByGeneralListContracts" msprop:Generator_UserTableName="vReportPaymentsListByGeneralListContracts" msprop:Generator_RowDeletedName="vReportPaymentsListByGeneralListContractsRowDeleted" msprop:Generator_TableClassName="vReportPaymentsListByGeneralListContractsDataTable" msprop:Generator_RowChangedName="vReportPaymentsListByGeneralListContractsRowChanged" msprop:Generator_RowClassName="vReportPaymentsListByGeneralListContractsRow" msprop:Generator_RowChangingName="vReportPaymentsListByGeneralListContractsRowChanging" msprop:Generator_RowEvArgName="vReportPaymentsListByGeneralListContractsRowChangeEvent" msprop:Generator_RowEvHandlerName="vReportPaymentsListByGeneralListContractsRowChangeEventHandler" msprop:Generator_TablePropName="vReportPaymentsListByGeneralListContracts" msprop:Generator_TableVarName="tablevReportPaymentsListByGeneralListContracts" msprop:Generator_RowDeletingName="vReportPaymentsListByGeneralListContractsRowDeleting">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="IdContractRequest" msprop:Generator_UserColumnName="IdContractRequest" msprop:Generator_ColumnPropNameInRow="IdContractRequest" msprop:Generator_ColumnVarNameInTable="columnIdContractRequest" msprop:Generator_ColumnPropNameInTable="IdContractRequestColumn" type="xs:int" />
+              <xs:element name="Percentage" msprop:Generator_UserColumnName="Percentage" msprop:Generator_ColumnPropNameInRow="Percentage" msprop:Generator_ColumnVarNameInTable="columnPercentage" msprop:Generator_ColumnPropNameInTable="PercentageColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Value" msprop:Generator_UserColumnName="Value" msprop:Generator_ColumnPropNameInRow="Value" msprop:Generator_ColumnVarNameInTable="columnValue" msprop:Generator_ColumnPropNameInTable="ValueColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Date" msprop:Generator_UserColumnName="Date" msprop:Generator_ColumnPropNameInRow="_Date" msprop:Generator_ColumnVarNameInTable="columnDate" msprop:Generator_ColumnPropNameInTable="DateColumn" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1">
+      <xs:selector xpath=".//mstns:vReportGeneralListContracts" />
+      <xs:field xpath="mstns:RequestNumber" />
+      <xs:field xpath="mstns:IdStrategicLine" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>
