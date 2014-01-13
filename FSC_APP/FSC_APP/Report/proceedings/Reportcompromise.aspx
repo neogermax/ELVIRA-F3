@@ -124,7 +124,7 @@
         </tr>
         <tr>
             <td style="text-align: center; width: 5%; background-color: #f3ab32; display: none;">
-                <span style="color: #ffffff;"><strong>Idor: #ffffff;"><strong>Id</strong></span>
+                <span style="color: #ffffff;"><strong>Id</strong></span>
             </td>
             <td style="text-align: center; width: 25%; background-color: #f3ab32;">
                 <span style="color: #ffffff;"><strong>Responsable</strong></span>
@@ -176,7 +176,7 @@
         </tr>
         <tr>
             <td style="text-align: center; width: 5%; background-color: #f3ab32; display: none;">
-                <span style="color: #ffffff;"><strong>Idor: #ffffff;"><strong>Id</strong></span>
+                <span style="color: #ffffff;"><strong>Id</strong></span>
             </td>
             <td style="text-align: center; width: 25%; background-color: #f3ab32;">
                 <span style="color: #ffffff;"><strong>Responsable</strong></span>

@@ -58,7 +58,7 @@ german rodriguez y pedro cruz-->
                     operacionesIdea();
                     comboactor();
                     validafecha();
-
+                    separarvaloresFSC();
                 }
                 //sentencias para ejecutar jquery por modulo aprobacion idea - German Rodriguez
                 if ($("#ctl00_cphPrincipal_HDaaprovalr").length > 0) {

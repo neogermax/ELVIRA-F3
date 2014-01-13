@@ -3484,6 +3484,7 @@
       <DependentUpon>ResearchAndDevelopment.xsd</DependentUpon>
     </None>
     <None Include="core\Services\vssver2.scc" />
+    <None Include="css\datatables\images\Sorting icons.psd" />
     <None Include="Engagement\vssver2.scc" />
     <None Include="Errors\vssver2.scc" />
     <None Include="Execution\vssver2.scc" />
@@ -3587,6 +3588,39 @@
     <Content Include="App_Themes\GattacaAdmin\Styles\LightStyle.css" />
     <Content Include="App_Themes\GattacaAdmin\WorkFlowV8.css" />
     <Content Include="App_WebReferences\BPMServices\bpmservices.disco" />
+    <Content Include="css\datatables\images\back_disabled.png" />
+    <Content Include="css\datatables\images\back_enabled.png" />
+    <Content Include="css\datatables\images\back_enabled_hover.png" />
+    <Content Include="css\datatables\images\favicon.ico" />
+    <Content Include="css\datatables\images\forward_disabled.png" />
+    <Content Include="css\datatables\images\forward_enabled.png" />
+    <Content Include="css\datatables\images\forward_enabled_hover.png" />
+    <Content Include="css\datatables\images\sort_asc.png" />
+    <Content Include="css\datatables\images\sort_asc_disabled.png" />
+    <Content Include="css\datatables\images\sort_both.png" />
+    <Content Include="css\datatables\images\sort_desc.png" />
+    <Content Include="css\datatables\images\sort_desc_disabled.png" />
+    <Content Include="css\images\animated-overlay.gif" />
+    <Content Include="css\images\ui-bg_diagonals-small_40_db4865_40x40.png" />
+    <Content Include="css\images\ui-bg_diagonals-small_50_93c3cd_40x40.png" />
+    <Content Include="css\images\ui-bg_diagonals-small_50_ff3853_40x40.png" />
+    <Content Include="css\images\ui-bg_diagonals-small_75_ccd232_40x40.png" />
+    <Content Include="css\images\ui-bg_dots-medium_80_ffff38_4x4.png" />
+    <Content Include="css\images\ui-bg_dots-small_35_35414f_2x2.png" />
+    <Content Include="css\images\ui-bg_flat_75_ba9217_40x100.png" />
+    <Content Include="css\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="css\images\ui-bg_white-lines_85_f7f7ba_40x100.png" />
+    <Content Include="css\images\ui-icons_454545_256x240.png" />
+    <Content Include="css\images\ui-icons_88a206_256x240.png" />
+    <Content Include="css\images\ui-icons_c02669_256x240.png" />
+    <Content Include="css\images\ui-icons_e1e463_256x240.png" />
+    <Content Include="css\images\ui-icons_ffeb33_256x240.png" />
+    <Content Include="css\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="css\jquery-ui-1.10.3.custom.min.css" />
+    <Content Include="css\datatables\jquery.dataTables.css" />
+    <Content Include="css\datatables\jquery.dataTables_themeroller.css" />
+    <Content Include="js\jquery-ui-1.10.3.custom.min.js" />
+    <Content Include="js\jquery.dataTables.min.js" />
     <Content Include="Master\mpAdmin.master" />
     <Content Include="Master\mpClient.master" />
     <Content Include="Master\mpClientPlain.master" />
