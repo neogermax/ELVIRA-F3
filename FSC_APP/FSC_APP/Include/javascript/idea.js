@@ -9,12 +9,18 @@ $(document).ready(function() {
     comboactor();
     var timer = setTimeout("fix();", 2000);
     validafecha();
+    validafecha2();
     separarvaloresFSC();
 });
 
 
-
 function fix() {
+
+    if ($.trim($("#ctl00_cphPrincipal_Txtday").val()).length > 0) {
+        var timer = setTimeout("fix();", 2000);
+        $("#ctl00_cphPrincipal_Txtday").trigger("blur");
+        clearTimeout(timer);
+    }
 
     if ($.trim($("#ctl00_cphPrincipal_txtduration").val()).length > 0) {
         var timer = setTimeout("fix();", 2000);
@@ -24,23 +30,72 @@ function fix() {
 }
 
 function validafecha() {
-    $("#ctl00_cphPrincipal_txtduration").blur(function() {
-        //Ejecutar el calculo de la fecha
-        $.ajax({
-            url: "AjaxAddIdea.aspx",
-            type: "GET",
-            data: { "action": "calculafechas", "fecha": $("#ctl00_cphPrincipal_txtstartdate").val(), "duracion": $(this).val() },
-            success: function(result) {
-                $("#ctl00_cphPrincipal_Txtdatecierre").val(result);
-                $("#ctl00_cphPrincipal_HFEndDate").val(result);
-                $("#ctl00_cphPrincipal_HFdate").val(result);
-            },
-            error: function() {
-                $("#ctl00_cphPrincipal_txtduration").val("");
-            }
-        });
+    $("#ctl00_cphPrincipal_Txtday").blur(function() {
+        if ($("#ctl00_cphPrincipal_txtstartdate").val() == '') {
+            alert("El campo fecha de inicio debe estar diligenciado!");
+            $("#ctl00_cphPrincipal_Txtday").val("");
+            $("#ctl00_cphPrincipal_txtduration").val("");
+            $("#ctl00_cphPrincipal_txtstartdate").focus();
+        }
+        else {
+            //Ejecutar el calculo de la fecha
+            $.ajax({
+                url: "AjaxAddIdea.aspx",
+                type: "GET",
+                data: { "action": "calculafechas",
+                    "fecha": $("#ctl00_cphPrincipal_txtstartdate").val(),
+                    "duracion": $("#ctl00_cphPrincipal_txtduration").val(),
+                    "dias": $(this).val()
+                },
+                success: function(result) {
+                    $("#ctl00_cphPrincipal_Txtdatecierre").val(result);
+                    $("#ctl00_cphPrincipal_HFEndDate").val(result);
+                    $("#ctl00_cphPrincipal_HFdate").val(result);
+                },
+                error: function() {
+                    $("#ctl00_cphPrincipal_txtduration").val("");
+                    $("#ctl00_cphPrincipal_Txtday").val("");
+                }
+            });
+
+        }
     })
 }
+
+function validafecha2() {
+    $("#ctl00_cphPrincipal_txtduration").blur(function() {
+        if ($("#ctl00_cphPrincipal_txtstartdate").val() == '') {
+            alert("El campo fecha de inicio debe estar diligenciado!");
+            $("#ctl00_cphPrincipal_Txtday").val("");
+            $("#ctl00_cphPrincipal_txtduration").val("");
+            $("#ctl00_cphPrincipal_txtstartdate").focus();
+        }
+        else {
+
+            //Ejecutar el calculo de la fecha
+            $.ajax({
+                url: "AjaxAddIdea.aspx",
+                type: "GET",
+                data: { "action": "calculafechas",
+                    "fecha": $("#ctl00_cphPrincipal_txtstartdate").val(),
+                    "duracion": $(this).val(),
+                    "dias": $("#ctl00_cphPrincipal_Txtday").val()
+                },
+                success: function(result) {
+                    $("#ctl00_cphPrincipal_Txtdatecierre").val(result);
+                    $("#ctl00_cphPrincipal_HFEndDate").val(result);
+                    $("#ctl00_cphPrincipal_HFdate").val(result);
+                },
+                error: function() {
+                    $("#ctl00_cphPrincipal_txtduration").val("");
+                    $("#ctl00_cphPrincipal_Txtday").val("");
+
+                }
+            });
+        }
+    })
+}
+
 
 function operacionesIdea() {
 
@@ -138,6 +193,21 @@ function operacionesIdea() {
             $(this).css("border", "2px solid #DEDEDE");
         }
     });
+
+    $("#ctl00_cphPrincipal_Txtday").blur(function() {
+        var rev = $(this).val();
+        var printer = rev.replace(/"."/gi, '');
+
+        if (isNaN(printer)) {
+            $(this).css("border", "2px solid red");
+            alert("El campo diligenciado no puede tener valores texto solo numericos.");
+            $(this).val("");
+            $(this).focus();
+        } else {
+            $(this).css("border", "2px solid #DEDEDE");
+        }
+    });
+
 
     //montaje de jquery para LOS TRES CAMPOS DE RESULTADO
     //31-05-2013 GERMAN RODRIGUEZ

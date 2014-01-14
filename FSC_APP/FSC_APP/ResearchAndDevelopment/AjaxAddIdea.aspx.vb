@@ -18,7 +18,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
         Dim id_b As Integer
         Dim fecha As Date
-        Dim duracion As String
+        Dim duracion, dia As String
         Dim S_code, S_linea_estrategica, S_programa, S_nombre, S_justificacion, S_objetivo, S_objetivo_esp, S_Resultados_Benef, S_Resultados_Ges_c, S_Resultados_Cap_i, S_Fecha_inicio, S_mes, S_dia, S_Fecha_fin, S_Población, S_contratacion, S_A_Mfsc, S_A_Efsc, S_A_Mcounter, S_A_Ecounter, S_cost As String
         Dim id_lineStrategic, id_depto As Integer
         'trae el jquery para hacer todo por debajo del servidor
@@ -34,8 +34,9 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
                 fecha = Convert.ToDateTime(Request.QueryString("fecha").ToString())
                 duracion = Request.QueryString("duracion").ToString()
+                dia = Request.QueryString("dias").ToString()
+                calculafechas(fecha, duracion, dia)
 
-                calculafechas(fecha, duracion)
             Case "save"
 
                 'S_code = Request.QueryString("code").ToString
@@ -378,7 +379,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
     End Function
 
 
-    Public Function calculafechas(ByVal fecha As DateTime, ByVal duracion As String) As String
+    Public Function calculafechas(ByVal fecha As DateTime, ByVal duracion As String, ByVal dias_ope As String) As String
 
         Dim objResult As String
 
@@ -401,7 +402,12 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                 meses = CInt(arrdias(0))
             Else
                 meses = duracion
-                dias = 0
+                If dias_ope = "" Then
+                    dias = 0
+                Else
+                    dias = dias_ope
+                End If
+
             End If
 
             Dim fechafinal As Date

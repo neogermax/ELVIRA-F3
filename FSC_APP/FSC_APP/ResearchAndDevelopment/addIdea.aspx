@@ -106,7 +106,7 @@
     <script type="text/javascript">
 
         var arrayUbicacion = Array.prototype;
-    
+
         function format(input) {
             var num = input.value.replace(/\./g, "");
             if (!isNaN(num)) {
@@ -149,8 +149,8 @@
                 url: "AjaxAddIdea.aspx",
                 type: "GET",
                 data: { "action": "save", "code": $("#ctl00_cphPrincipal_txtcode").val(),
-                    "linea_estrategica": $("#ctl00_cphPrincipal_ddlStrategicLines").val(),
-                    "programa": $("#ctl00_cphPrincipal_ddlPrograms").val(),
+                    "linea_estrategica": $("#ddlStrategicLines").val(),
+                    "programa": $("#ddlPrograms").val(),
                     "nombre": $("#ctl00_cphPrincipal_txtname").val(),
                     "justificacion": $("#ctl00_cphPrincipal_txtjustification").val(),
                     "objetivo": $("#ctl00_cphPrincipal_txtobjective").val(),
@@ -163,7 +163,7 @@
                     "dia": $("#ctl00_cphPrincipal_Txtday").val(),
                     "Fecha_fin": $("#ctl00_cphPrincipal_Txtdatecierre").val(),
                     "Población": $("#ctl00_cphPrincipal_ddlPupulation").val(),
-                    "contratacion": $("#ctl00_cphPrincipal_ddlmodcontract").val(),
+                    "contratacion": $("#ddlmodcontract").val(),
                     "A_Mfsc": $("#ctl00_cphPrincipal_ValueMoneyFSC").val(),
                     "A_Efsc": $("#ctl00_cphPrincipal_ValueEspeciesFSC").val(),
                     "A_Mcounter": $("#ctl00_cphPrincipal_ValueMoneyCounter").val(),
@@ -195,21 +195,22 @@
 
             var htmlTable = "<table id='T_location' border='2' cellpadding='2' cellspacing='2' style='width: 100%;'><thead><tr><th>Departamento</th><th>Ciudad</th><th>Eliminar</th></tr></thead> <tbody>";
 
-           for (itemArray in arrayUbicacion) {
-               htmlTable += "<tr><td>" + arrayUbicacion[itemArray].DeptoName + "</td><td>" + arrayUbicacion[itemArray].CityName + "</td><td><button>Eliminar</button></td></tr>";
-           }
+            for (itemArray in arrayUbicacion) {
+                htmlTable += "<tr><td>" + arrayUbicacion[itemArray].DeptoName + "</td><td>" + arrayUbicacion[itemArray].CityName + "</td><td><button>Eliminar</button></td></tr>";
+            }
 
-           htmlTable += "</tbody></table>";
+            htmlTable += "</tbody></table>";
+            
+            $("#T_locationContainer").html("");
+            $("#T_locationContainer").html(htmlTable);
 
-           $("#T_locationContainer").html(htmlTable);
+            //console.log(htmlTable);
 
-           console.log(htmlTable);
-           
-           $("#T_location").dataTable({
-               "bJQueryUI": true,
-               "bDestroy": true
-           });
-                
+            /*$("#T_location").dataTable({
+                "bJQueryUI": true,
+                "bDestroy": true
+            });*/
+
         }
 
 
@@ -221,6 +222,7 @@
                 data: { "action": "C_linestrategic" },
                 success: function(result) {
                     $("#ddlStrategicLines").html(result);
+                    $("#ddlStrategicLines").trigger("liszt:updated");
                 },
                 error: function(msg) {
                     alert("No se pueden cargar las lineas strategicas.");
@@ -288,6 +290,7 @@
                 data: { "action": "C_Actors" },
                 success: function(result) {
                     $("#ddlactors").html(result);
+                    $("#ddlactors").trigger("liszt:updated");
                 },
                 error: function(msg) {
                     alert("No se pueden cargar los actores.");
@@ -437,11 +440,6 @@
                 <li>
                     <asp:Label ID="lblduration" runat="server" Text="Mes"></asp:Label>
                     <asp:TextBox ID="txtduration" runat="server" MaxLength="5" Width="100px" Rows="2"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" ControlToValidate="txtname"
-                        ErrorMessage="*" ValidationGroup="infoGenral" SetFocusOnError="true"></asp:RequiredFieldValidator>
-                    <asp:Label ID="lblHelpduration" runat="server"></asp:Label>
-                </li>
-                <li>
                     <asp:Label ID="Lbldia" runat="server" Text="Dia"></asp:Label>
                     <asp:TextBox ID="Txtday" runat="server" MaxLength="5" Width="100px" Rows="2"></asp:TextBox>
                 </li>
@@ -684,7 +682,7 @@
             </ul>
             <br />
             <div id="T_locationContainer">
-                <table id="T_location"  border="2" cellpadding="2" cellspacing="2" style="width: 100%;">
+                <table id="T_location" border="2" cellpadding="2" cellspacing="2" style="width: 100%;">
                     <thead>
                         <tr>
                             <th>
