@@ -214,9 +214,9 @@ function operacionesIdea() {
     $("#ctl00_cphPrincipal_txtresults, #ctl00_cphPrincipal_txtresulgc, #ctl00_cphPrincipal_txtresulci, #ctl00_cphPrincipal_txtstartdate ").blur(function() {
         if ($("#ctl00_cphPrincipal_txtresults").val() == '' && $("#ctl00_cphPrincipal_txtresulgc").val() == '' && $("#ctl00_cphPrincipal_txtresulci").val() == '') {
             $(this).css("border", "2px solid red");
-            $("#ctl00_cphPrincipal_lblHelpresults").text("Algunos de los resultados debe ser diligenciado por favor.")
-            $("#ctl00_cphPrincipal_Label10").text("Algunos de los resultados debe ser diligenciado por favor.")
-            $("#ctl00_cphPrincipal_Label11").text("Algunos de los resultados debe ser diligenciado por favor.")
+            $("#ctl00_cphPrincipal_lblHelpresults").text("Algunos de los resultados debe ser diligenciado.")
+            $("#ctl00_cphPrincipal_Label10").text("Algunos de los resultados debe ser diligenciado.")
+            $("#ctl00_cphPrincipal_Label11").text("Algunos de los resultados debe ser diligenciado.")
         } else {
             $(this).css("border", "2px solid #DEDEDE");
             $("#ctl00_cphPrincipal_lblHelpresults").text("")

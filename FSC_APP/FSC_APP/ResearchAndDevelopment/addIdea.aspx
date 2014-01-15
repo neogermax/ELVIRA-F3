@@ -145,41 +145,80 @@
         //funcion de refactorizacion idea fase 3 ---- autor:German Rodriguez MGgroup
         //guardar idea
         function SaveIdea_onclick() {
-            $.ajax({
-                url: "AjaxAddIdea.aspx",
-                type: "GET",
-                data: { "action": "save", "code": $("#ctl00_cphPrincipal_txtcode").val(),
-                    "linea_estrategica": $("#ddlStrategicLines").val(),
-                    "programa": $("#ddlPrograms").val(),
-                    "nombre": $("#ctl00_cphPrincipal_txtname").val(),
-                    "justificacion": $("#ctl00_cphPrincipal_txtjustification").val(),
-                    "objetivo": $("#ctl00_cphPrincipal_txtobjective").val(),
-                    "objetivo_esp": $("#ctl00_cphPrincipal_txtareadescription").val(),
-                    "Resultados_Benef": $("#ctl00_cphPrincipal_txtresults").val(),
-                    "Resultados_Ges_c": $("#ctl00_cphPrincipal_txtresulgc").val(),
-                    "Resultados_Cap_i": $("#ctl00_cphPrincipal_txtresulci").val(),
-                    "Fecha_inicio": $("#ctl00_cphPrincipal_txtstartdate").val(),
-                    "mes": $("#ctl00_cphPrincipal_txtduration").val(),
-                    "dia": $("#ctl00_cphPrincipal_Txtday").val(),
-                    "Fecha_fin": $("#ctl00_cphPrincipal_Txtdatecierre").val(),
-                    "Población": $("#ctl00_cphPrincipal_ddlPupulation").val(),
-                    "contratacion": $("#ddlmodcontract").val(),
-                    "A_Mfsc": $("#ctl00_cphPrincipal_ValueMoneyFSC").val(),
-                    "A_Efsc": $("#ctl00_cphPrincipal_ValueEspeciesFSC").val(),
-                    "A_Mcounter": $("#ctl00_cphPrincipal_ValueMoneyCounter").val(),
-                    "A_Ecounter": $("#ctl00_cphPrincipal_ValueEspeciesCounter").val(),
-                    "cost": $("#ctl00_cphPrincipal_ValueCostotal").val()
-                },
-                success: function(result) {
-                    $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
-                    $("#ctl00_cphPrincipal_lblsaveinformation").text(result);
-                },
-                error: function() {
-                    $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
-                    $("#ctl00_cphPrincipal_lblsaveinformation").text("Se genero error al entrar a la operacion Ajax");
+
+            if ($("#ddlStrategicLines").val() == 'Seleccione...' || $("#ddlPrograms").val() == 'Seleccione...' || $("#ctl00_cphPrincipal_txtname").val() == '' || $("#ctl00_cphPrincipal_txtjustification").val() == '' || $("#ctl00_cphPrincipal_txtobjective").val() == '' || $("#ctl00_cphPrincipal_txtstartdate").val() == '' || $("#ctl00_cphPrincipal_txtduration").val() == '') {
+
+                if ($("#ddlStrategicLines").val() == 'Seleccione...') {
+                    $("#ctl00_cphPrincipal_lblinfls").val("Campo es requerido");
                 }
-            });
+                if ($("#ddlPrograms").val() == 'Seleccione...') {
+                    $("#ctl00_cphPrincipal_lblinpro").val("Campo es requerido");
+                }
+                if ($("#ctl00_cphPrincipal_txtname").val() == '') {
+                    $("#ctl00_cphPrincipal_lblHelpname").text("Campo es requerido");
+                }
+                if ($("#ctl00_cphPrincipal_txtjustification").val() == '') {
+                    $("#ctl00_cphPrincipal_lblHelpjustification").text("Campo es requerido");
+                }
+                if ($("#ctl00_cphPrincipal_txtobjective").val() == '') {
+                    $("#ctl00_cphPrincipal_lblHelpobjective").text("Campo es requerido");
+                }
+                if ($("#ctl00_cphPrincipal_txtstartdate").val() == '') {
+                    $("#ctl00_cphPrincipal_lblHelpstartdate").text("Campo es requerido");
+                }
+                if ($("#ctl00_cphPrincipal_txtduration").val() == '') {
+                    $("#ctl00_cphPrincipal_lbldia").text("Campo es requerido");
+                }
+
+            }
+
+            else {
+
+                $("#ctl00_cphPrincipal_lblinfls").val("");
+                $("#ctl0_cphPrincipal_lblinpro").val("");
+                $("#ctl00_cphPrincipal_lblHelpname").text("");
+                $("#ctl00_cphPrincipal_lblHelpjustification").text("");
+                $("#ctl00_cphPrincipal_lblHelpobjective").text("");
+                $("#ctl00_cphPrincipal_lblHelpstartdate").text("");
+                $("#ctl00_cphPrincipal_lbldia").text("");
+
+                $.ajax({
+                    url: "AjaxAddIdea.aspx",
+                    type: "GET",
+                    data: { "action": "save", "code": $("#ctl00_cphPrincipal_txtcode").val(),
+                        "linea_estrategica": $("#ddlStrategicLines").val(),
+                        "programa": $("#ddlPrograms").val(),
+                        "nombre": $("#ctl00_cphPrincipal_txtname").val(),
+                        "justificacion": $("#ctl00_cphPrincipal_txtjustification").val(),
+                        "objetivo": $("#ctl00_cphPrincipal_txtobjective").val(),
+                        "objetivo_esp": $("#ctl00_cphPrincipal_txtareadescription").val(),
+                        "Resultados_Benef": $("#ctl00_cphPrincipal_txtresults").val(),
+                        "Resultados_Ges_c": $("#ctl00_cphPrincipal_txtresulgc").val(),
+                        "Resultados_Cap_i": $("#ctl00_cphPrincipal_txtresulci").val(),
+                        "Fecha_inicio": $("#ctl00_cphPrincipal_txtstartdate").val(),
+                        "mes": $("#ctl00_cphPrincipal_txtduration").val(),
+                        "dia": $("#ctl00_cphPrincipal_Txtday").val(),
+                        "Fecha_fin": $("#ctl00_cphPrincipal_Txtdatecierre").val(),
+                        "Población": $("#ctl00_cphPrincipal_ddlPupulation").val(),
+                        "contratacion": $("#ddlmodcontract").val(),
+                        "A_Mfsc": $("#ctl00_cphPrincipal_ValueMoneyFSC").val(),
+                        "A_Efsc": $("#ctl00_cphPrincipal_ValueEspeciesFSC").val(),
+                        "A_Mcounter": $("#ctl00_cphPrincipal_ValueMoneyCounter").val(),
+                        "A_Ecounter": $("#ctl00_cphPrincipal_ValueEspeciesCounter").val(),
+                        "cost": $("#ctl00_cphPrincipal_ValueCostotal").val()
+                    },
+                    success: function(result) {
+                        $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
+                        $("#ctl00_cphPrincipal_lblsaveinformation").text(result);
+                    },
+                    error: function() {
+                        $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
+                        $("#ctl00_cphPrincipal_lblsaveinformation").text("Se genero error al entrar a la operacion Ajax");
+                    }
+                });
+            }
         }
+
 
         function Add_location_onclick() {
 
@@ -200,15 +239,15 @@
             }
 
             htmlTable += "</tbody></table>";
-            
+
             $("#T_locationContainer").html("");
             $("#T_locationContainer").html(htmlTable);
 
             //console.log(htmlTable);
 
             /*$("#T_location").dataTable({
-                "bJQueryUI": true,
-                "bDestroy": true
+            "bJQueryUI": true,
+            "bDestroy": true
             });*/
 
         }
@@ -354,6 +393,7 @@
                         <asp:DropDownList ID="ddlStrategicLines" runat="server">
                         </asp:DropDownList>
                     </select>
+                    <asp:Label ID="lblinfls" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
                 <li>
                     <asp:Label ID="Label8" runat="server" Text="Programa"></asp:Label>
@@ -361,6 +401,7 @@
                         <asp:DropDownList ID="ddlPrograms" runat="server">
                         </asp:DropDownList>
                     </select>
+                    <asp:Label ID="lblinpro" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
                 <li visible="false">
                     <asp:Label ID="lblid" runat="server" Text="Id"></asp:Label>
@@ -383,7 +424,7 @@
                     <asp:TextBox ID="txtname" runat="server" MaxLength="255" Width="400px" Rows="2" TextMode="MultiLine"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="rfvname" runat="server" ControlToValidate="txtname"
                         ErrorMessage="*" ValidationGroup="infoGenral" SetFocusOnError="true"></asp:RequiredFieldValidator>
-                    <asp:Label ID="lblHelpname" runat="server"></asp:Label>
+                    <asp:Label ID="lblHelpname" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
                 <li>
                     <asp:Label ID="lblJustificacion" runat="server" Text="Justificación"></asp:Label>
@@ -391,7 +432,7 @@
                         TextMode="MultiLine"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="txtjustification"
                         ErrorMessage="*" ValidationGroup="infoGenral" SetFocusOnError="true"></asp:RequiredFieldValidator>
-                    <asp:Label ID="lblHelpjustification" runat="server"></asp:Label>
+                    <asp:Label ID="lblHelpjustification" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
                 <li>
                     <asp:Label ID="lblobjective" runat="server" Text="Objetivo"></asp:Label>
@@ -399,7 +440,7 @@
                         TextMode="MultiLine"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ControlToValidate="txtobjective"
                         ErrorMessage="*" ValidationGroup="infoGenral" SetFocusOnError="true"></asp:RequiredFieldValidator>
-                    <asp:Label ID="lblHelpobjective" runat="server"></asp:Label>
+                    <asp:Label ID="lblHelpobjective" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
                 <li>
                     <asp:Label ID="lblareadescription" runat="server" Text="Objetivos Específicos"></asp:Label>
@@ -435,7 +476,7 @@
                         ErrorMessage="*" ValidationGroup="infoGenral" SetFocusOnError="true"></asp:RequiredFieldValidator>
                     <asp:CompareValidator ID="cvstartdate" runat="server" ControlToValidate="txtstartdate"
                         ErrorMessage="yyyy/MM/dd" Operator="DataTypeCheck" SetFocusOnError="true" Type="Date"></asp:CompareValidator>
-                    <asp:Label ID="lblHelpstartdate" runat="server"></asp:Label>
+                    <asp:Label ID="lblHelpstartdate" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
                 <li>
                     <asp:Label ID="lblduration" runat="server" Text="Mes"></asp:Label>
