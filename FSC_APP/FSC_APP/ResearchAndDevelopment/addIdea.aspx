@@ -146,30 +146,56 @@
         //guardar idea
         function SaveIdea_onclick() {
 
-            if ($("#ddlStrategicLines").val() == 'Seleccione...' || $("#ddlPrograms").val() == 'Seleccione...' || $("#ctl00_cphPrincipal_txtname").val() == '' || $("#ctl00_cphPrincipal_txtjustification").val() == '' || $("#ctl00_cphPrincipal_txtobjective").val() == '' || $("#ctl00_cphPrincipal_txtstartdate").val() == '' || $("#ctl00_cphPrincipal_txtduration").val() == '') {
+            if ($("#ddlStrategicLines :selected").text() == 'Seleccione...' || $("#ddlPrograms :selected").text() == 'Seleccione...' || $("#ctl00_cphPrincipal_txtname").val() == '' || $("#ctl00_cphPrincipal_txtjustification").val() == '' || $("#ctl00_cphPrincipal_txtobjective").val() == '' || $("#ctl00_cphPrincipal_txtstartdate").val() == '' || $("#ctl00_cphPrincipal_txtduration").val() == '') {
 
-                if ($("#ddlStrategicLines").val() == 'Seleccione...') {
-                    $("#ctl00_cphPrincipal_lblinfls").val("Campo Requerido");
+                if ($("#ddlStrategicLines :selected").text() == 'Seleccione...') {
+                    $("#ctl00_cphPrincipal_lblinfls").text("Campo Requerido");
                 }
-                if ($("#ddlPrograms").val() == 'Seleccione...') {
-                    $("#ctl00_cphPrincipal_lblinpro").val("Campo Requerido");
+                else {
+                    $("#ctl00_cphPrincipal_lblinfls").text("");
                 }
+                if ($("#ddlPrograms :selected").text() == 'Seleccione...') {
+                    $("#ctl00_cphPrincipal_lblinpro").text("Campo Requerido");
+                }
+                else {
+                    $("#ctl00_cphPrincipal_lblinpro").text("");
+                }
+                
                 if ($("#ctl00_cphPrincipal_txtname").val() == '') {
-                    $("#ctl00_cphPrincipal_lblHelpname").val("Campo Requerido");
+                    $("#ctl00_cphPrincipal_lblHelpname").text("Campo Requerido");
                 }
+                else {
+                    $("#ctl00_cphPrincipal_lblHelpname").text("");
+                }
+                
                 if ($("#ctl00_cphPrincipal_txtjustification").val() == '') {
                     $("#ctl00_cphPrincipal_lblHelpjustification").text("Campo Requerido");
                 }
+                else {
+                    $("#ctl00_cphPrincipal_lblHelpjustification").text("");
+                }
+                
                 if ($("#ctl00_cphPrincipal_txtobjective").val() == '') {
                     $("#ctl00_cphPrincipal_lblHelpobjective").text("Campo Requerido");
                 }
+                else {
+                    $("#ctl00_cphPrincipal_lblHelpobjective").text("");
+                }
+             
                 if ($("#ctl00_cphPrincipal_txtstartdate").val() == '') {
                     $("#ctl00_cphPrincipal_lblHelpstartdate").text("Campo Requerido");
                 }
+                else {
+                    $("#ctl00_cphPrincipal_lblHelpstartdate").text("");
+                }
+             
                 if ($("#ctl00_cphPrincipal_txtduration").val() == '') {
                     $("#ctl00_cphPrincipal_lbldia").text("Campo Requerido");
                 }
-
+                else {
+                    $("#ctl00_cphPrincipal_lbldia").text("");
+                }
+             
             }
 
             else {
