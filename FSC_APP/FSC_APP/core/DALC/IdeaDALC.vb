@@ -190,8 +190,11 @@ Public Class IdeaDALC
              "ResultsInstalledCapacity," & _
              "Loadingobservations," & _
              "idtypecontract," & _
-             "Enddate" & _
+             "Enddate," & _
+             "ideaappliesIVA," & _
+             "obligationsoftheparties" & _
              ")")
+
             sql.AppendLine("VALUES (")
             sql.AppendLine("'" & Idea.name & "',")
             sql.AppendLine("'" & Idea.objective & "',")
@@ -217,7 +220,9 @@ Public Class IdeaDALC
             sql.AppendLine("'" & Idea.ResultsInstalledCapacity & "',")
             sql.AppendLine("'" & Idea.Loadingobservations & "',")
             sql.AppendLine("'" & Idea.idtypecontract & "',")
-            sql.AppendLine("'" & Idea.Enddate.ToString("yyyyMMdd") & "')")
+            sql.AppendLine("'" & Idea.Enddate.ToString("yyyyMMdd") & "',")
+            sql.AppendLine("'" & Idea.iva & "',")
+            sql.AppendLine("'" & Idea.Obligaciones & "')")
 
             ' TODO: 17 ideadalc add se crean nuevos campos
             ' Autor: German Rodriguez MGgroup
@@ -295,7 +300,7 @@ Public Class IdeaDALC
 
             If data.Rows.Count > 0 Then
 
-                
+
                 ' cargar los datos
                 objIdea.id = data.Rows(0)("id")
                 objIdea.code = data.Rows(0)("code")
@@ -950,7 +955,7 @@ Public Class IdeaDALC
 
     End Function
 
-    
+
 
     ''' <summary>
     ''' Modificar un objeto de tipo Idea

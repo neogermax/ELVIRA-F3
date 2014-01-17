@@ -37213,14 +37213,6 @@ Control txtname.
 Campo generado automáticamente.
 Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 </remarks>
-</member><member name="F:FSC_APP.addIdea.rfvname">
-	<summary>
-Control rfvname.
-</summary>
-	<remarks>
-Campo generado automáticamente.
-Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-</remarks>
 </member><member name="F:FSC_APP.addIdea.lblHelpname">
 	<summary>
 Control lblHelpname.
@@ -37245,14 +37237,6 @@ Control txtjustification.
 Campo generado automáticamente.
 Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 </remarks>
-</member><member name="F:FSC_APP.addIdea.RequiredFieldValidator6">
-	<summary>
-Control RequiredFieldValidator6.
-</summary>
-	<remarks>
-Campo generado automáticamente.
-Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-</remarks>
 </member><member name="F:FSC_APP.addIdea.lblHelpjustification">
 	<summary>
 Control lblHelpjustification.
@@ -37272,14 +37256,6 @@ Para modificarlo, mueva la declaración del campo del archivo del diseñador al 
 </member><member name="F:FSC_APP.addIdea.txtobjective">
 	<summary>
 Control txtobjective.
-</summary>
-	<remarks>
-Campo generado automáticamente.
-Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-</remarks>
-</member><member name="F:FSC_APP.addIdea.RequiredFieldValidator7">
-	<summary>
-Control RequiredFieldValidator7.
 </summary>
 	<remarks>
 Campo generado automáticamente.
@@ -37389,6 +37365,30 @@ Control Label11.
 Campo generado automáticamente.
 Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 </remarks>
+</member><member name="F:FSC_APP.addIdea.Lblobligationsoftheparties">
+	<summary>
+Control Lblobligationsoftheparties.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addIdea.Txtobligationsoftheparties">
+	<summary>
+Control Txtobligationsoftheparties.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addIdea.Label24">
+	<summary>
+Control Label24.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
 </member><member name="F:FSC_APP.addIdea.lblstartdate">
 	<summary>
 Control lblstartdate.
@@ -37408,14 +37408,6 @@ Para modificarlo, mueva la declaración del campo del archivo del diseñador al 
 </member><member name="F:FSC_APP.addIdea.cestartdate">
 	<summary>
 Control cestartdate.
-</summary>
-	<remarks>
-Campo generado automáticamente.
-Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-</remarks>
-</member><member name="F:FSC_APP.addIdea.RequiredFieldValidator3">
-	<summary>
-Control RequiredFieldValidator3.
 </summary>
 	<remarks>
 Campo generado automáticamente.
@@ -37541,6 +37533,22 @@ Control Label20.
 Campo generado automáticamente.
 Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 </remarks>
+</member><member name="F:FSC_APP.addIdea.Label21">
+	<summary>
+Control Label21.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addIdea.Chkiva">
+	<summary>
+Control Chkiva.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
 </member><member name="F:FSC_APP.addIdea.ValueMoneyFSC">
 	<summary>
 Control ValueMoneyFSC.
@@ -37608,6 +37616,14 @@ Para modificarlo, mueva la declaración del campo del archivo del diseñador al 
 </member><member name="F:FSC_APP.addIdea.ValueCostotal">
 	<summary>
 Control ValueCostotal.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addIdea.li3333">
+	<summary>
+Control li3333.
 </summary>
 	<remarks>
 Campo generado automáticamente.
@@ -37696,14 +37712,6 @@ Para modificarlo, mueva la declaración del campo del archivo del diseñador al 
 </member><member name="F:FSC_APP.addIdea.ddlSummoning">
 	<summary>
 Control ddlSummoning.
-</summary>
-	<remarks>
-Campo generado automáticamente.
-Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-</remarks>
-</member><member name="F:FSC_APP.addIdea.RequiredFieldValidator5">
-	<summary>
-Control RequiredFieldValidator5.
 </summary>
 	<remarks>
 Campo generado automáticamente.
@@ -38016,6 +38024,22 @@ Para modificarlo, mueva la declaración del campo del archivo del diseñador al 
 </member><member name="F:FSC_APP.addIdea.btnAgregarubicacion">
 	<summary>
 Control btnAgregarubicacion.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addIdea.Lblinfubicacion">
+	<summary>
+Control Lblinfubicacion.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addIdea.LblubicacionRep">
+	<summary>
+Control LblubicacionRep.
 </summary>
 	<remarks>
 Campo generado automáticamente.
@@ -38535,7 +38559,7 @@ Para modificarlo, mueva la declaración del campo del archivo del diseñador al 
  </summary>
 	<returns></returns>
 	<remarks></remarks>
-</member><member name="M:FSC_APP.ResearchAndDevelopment_AjaxAddIdea.save_IDEA(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+</member><member name="M:FSC_APP.ResearchAndDevelopment_AjaxAddIdea.save_IDEA(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
 	<summary>
  funcion para guardar la idea
  Autor: German Rodriguez MGgroup

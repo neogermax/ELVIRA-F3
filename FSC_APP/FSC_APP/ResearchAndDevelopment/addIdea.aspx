@@ -27,17 +27,6 @@
             color: #333333;
             font-family: Tahoma, Geneva, sans-serif;
         }
-        #informacion ul
-        {
-            width: 100%;
-            columns: 2;
-            -webkit-columns: 2;
-            -moz-columns: 2;
-        }
-        #informacion li
-        {
-            width: 100%;
-        }
         #informacion label, input[type='text'], textarea, select, span
         {
             display: block;
@@ -101,11 +90,19 @@
             display: block;
             margin-bottom: 1em;
         }
+        .left
+        {
+            float: left;
+            width: 46%;
+        }
+        .right
+        {
+            float: right;
+            width: 46%;
+        }
     </style>
 
     <script type="text/javascript">
-
-        var arrayUbicacion = Array.prototype;
 
         function format(input) {
             var num = input.value.replace(/\./g, "");
@@ -121,264 +118,9 @@
             }
         }
 
-        $(document).ready(function() {
-            ClineEstrategic();
-            Cprogram();
-            Cdeptos();
-            Cmunip();
-            Cactors();
-            CtypeContract();
-            $("#ctl00_cphPrincipal_containerSuccess").css("display", "none");
-            $("#tabsIdea").tabs();
-            $("#matriz").dataTable({
-                "bJQueryUI": true
-            });
-            $("#T_location").dataTable({
-                "bJQueryUI": true,
-                "bDestroy": true
-            });
 
+       
 
-
-        });
-
-        //funcion de refactorizacion idea fase 3 ---- autor:German Rodriguez MGgroup
-        //guardar idea
-        function SaveIdea_onclick() {
-
-            if ($("#ddlStrategicLines :selected").text() == 'Seleccione...' || $("#ddlPrograms :selected").text() == 'Seleccione...' || $("#ctl00_cphPrincipal_txtname").val() == '' || $("#ctl00_cphPrincipal_txtjustification").val() == '' || $("#ctl00_cphPrincipal_txtobjective").val() == '' || $("#ctl00_cphPrincipal_txtstartdate").val() == '' || $("#ctl00_cphPrincipal_txtduration").val() == '') {
-
-                if ($("#ddlStrategicLines :selected").text() == 'Seleccione...') {
-                    $("#ctl00_cphPrincipal_lblinfls").text("Campo Requerido");
-                }
-                else {
-                    $("#ctl00_cphPrincipal_lblinfls").text("");
-                }
-                if ($("#ddlPrograms :selected").text() == 'Seleccione...') {
-                    $("#ctl00_cphPrincipal_lblinpro").text("Campo Requerido");
-                }
-                else {
-                    $("#ctl00_cphPrincipal_lblinpro").text("");
-                }
-                
-                if ($("#ctl00_cphPrincipal_txtname").val() == '') {
-                    $("#ctl00_cphPrincipal_lblHelpname").text("Campo Requerido");
-                }
-                else {
-                    $("#ctl00_cphPrincipal_lblHelpname").text("");
-                }
-                
-                if ($("#ctl00_cphPrincipal_txtjustification").val() == '') {
-                    $("#ctl00_cphPrincipal_lblHelpjustification").text("Campo Requerido");
-                }
-                else {
-                    $("#ctl00_cphPrincipal_lblHelpjustification").text("");
-                }
-                
-                if ($("#ctl00_cphPrincipal_txtobjective").val() == '') {
-                    $("#ctl00_cphPrincipal_lblHelpobjective").text("Campo Requerido");
-                }
-                else {
-                    $("#ctl00_cphPrincipal_lblHelpobjective").text("");
-                }
-             
-                if ($("#ctl00_cphPrincipal_txtstartdate").val() == '') {
-                    $("#ctl00_cphPrincipal_lblHelpstartdate").text("Campo Requerido");
-                }
-                else {
-                    $("#ctl00_cphPrincipal_lblHelpstartdate").text("");
-                }
-             
-                if ($("#ctl00_cphPrincipal_txtduration").val() == '') {
-                    $("#ctl00_cphPrincipal_lbldia").text("Campo Requerido");
-                }
-                else {
-                    $("#ctl00_cphPrincipal_lbldia").text("");
-                }
-             
-            }
-
-            else {
-
-                $("#ctl00_cphPrincipal_lblinfls").val("");
-                $("#ctl0_cphPrincipal_lblinpro").val("");
-                $("#ctl00_cphPrincipal_lblHelpname").text("");
-                $("#ctl00_cphPrincipal_lblHelpjustification").text("");
-                $("#ctl00_cphPrincipal_lblHelpobjective").text("");
-                $("#ctl00_cphPrincipal_lblHelpstartdate").text("");
-                $("#ctl00_cphPrincipal_lbldia").text("");
-
-                $.ajax({
-                    url: "AjaxAddIdea.aspx",
-                    type: "GET",
-                    data: { "action": "save", "code": $("#ctl00_cphPrincipal_txtcode").val(),
-                        "linea_estrategica": $("#ddlStrategicLines").val(),
-                        "programa": $("#ddlPrograms").val(),
-                        "nombre": $("#ctl00_cphPrincipal_txtname").val(),
-                        "justificacion": $("#ctl00_cphPrincipal_txtjustification").val(),
-                        "objetivo": $("#ctl00_cphPrincipal_txtobjective").val(),
-                        "objetivo_esp": $("#ctl00_cphPrincipal_txtareadescription").val(),
-                        "Resultados_Benef": $("#ctl00_cphPrincipal_txtresults").val(),
-                        "Resultados_Ges_c": $("#ctl00_cphPrincipal_txtresulgc").val(),
-                        "Resultados_Cap_i": $("#ctl00_cphPrincipal_txtresulci").val(),
-                        "Fecha_inicio": $("#ctl00_cphPrincipal_txtstartdate").val(),
-                        "mes": $("#ctl00_cphPrincipal_txtduration").val(),
-                        "dia": $("#ctl00_cphPrincipal_Txtday").val(),
-                        "Fecha_fin": $("#ctl00_cphPrincipal_Txtdatecierre").val(),
-                        "Población": $("#ctl00_cphPrincipal_ddlPupulation").val(),
-                        "contratacion": $("#ddlmodcontract").val(),
-                        "A_Mfsc": $("#ctl00_cphPrincipal_ValueMoneyFSC").val(),
-                        "A_Efsc": $("#ctl00_cphPrincipal_ValueEspeciesFSC").val(),
-                        "A_Mcounter": $("#ctl00_cphPrincipal_ValueMoneyCounter").val(),
-                        "A_Ecounter": $("#ctl00_cphPrincipal_ValueEspeciesCounter").val(),
-                        "cost": $("#ctl00_cphPrincipal_ValueCostotal").val()
-                    },
-                    success: function(result) {
-                        $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
-                        $("#ctl00_cphPrincipal_lblsaveinformation").text(result);
-                    },
-                    error: function() {
-                        $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
-                        $("#ctl00_cphPrincipal_lblsaveinformation").text("Se genero error al entrar a la operacion Ajax");
-                    }
-                });
-            }
-        }
-
-
-        function Add_location_onclick() {
-
-            var deptoVal = $("#ddlDepto").val();
-            var deptoName = $("#ddlDepto :selected").text();
-
-            var cityVal = $("#ddlCity").val();
-            var cityName = $("#ddlCity :selected").text();
-
-            var jsonUbicacion = { "DeptoVal": deptoVal, "DeptoName": deptoName, "CityVal": cityVal, "CityName": cityName };
-
-            arrayUbicacion.push(jsonUbicacion);
-
-            var htmlTable = "<table id='T_location' border='2' cellpadding='2' cellspacing='2' style='width: 100%;'><thead><tr><th>Departamento</th><th>Ciudad</th><th>Eliminar</th></tr></thead> <tbody>";
-
-            for (itemArray in arrayUbicacion) {
-                htmlTable += "<tr><td>" + arrayUbicacion[itemArray].DeptoName + "</td><td>" + arrayUbicacion[itemArray].CityName + "</td><td><button>Eliminar</button></td></tr>";
-            }
-
-            htmlTable += "</tbody></table>";
-
-            $("#T_locationContainer").html("");
-            $("#T_locationContainer").html(htmlTable);
-
-            //console.log(htmlTable);
-
-            /*$("#T_location").dataTable({
-            "bJQueryUI": true,
-            "bDestroy": true
-            });*/
-
-        }
-
-
-        //cargar combo de lineas estrategicas
-        function ClineEstrategic() {
-            $.ajax({
-                url: "AjaxAddIdea.aspx",
-                type: "GET",
-                data: { "action": "C_linestrategic" },
-                success: function(result) {
-                    $("#ddlStrategicLines").html(result);
-                    $("#ddlStrategicLines").trigger("liszt:updated");
-                },
-                error: function(msg) {
-                    alert("No se pueden cargar las lineas strategicas.");
-                }
-            });
-        }
-
-        //cargar combo de programas
-        function Cprogram() {
-            $("#ddlStrategicLines").change(function() {
-                $.ajax({
-                    url: "AjaxAddIdea.aspx",
-                    type: "GET",
-                    data: { "action": "C_program", "idlinestrategic": $(this).val() },
-                    success: function(result) {
-                        $("#ddlPrograms").html(result);
-                        $("#ddlPrograms").trigger("liszt:updated");
-                    },
-                    error: function(msg) {
-                        alert("No se pueden cargar los programas de la linea estrategica selecionada.");
-                    }
-                });
-            });
-        }
-
-        //cargar combo de departamentos
-        function Cdeptos() {
-            $.ajax({
-                url: "AjaxAddIdea.aspx",
-                type: "GET",
-                data: { "action": "C_deptos" },
-                success: function(result) {
-                    $("#ddlDepto").html(result);
-                    $("#ddlDepto").trigger("liszt:updated");
-                },
-                error: function(msg) {
-                    alert("No se pueden cargar los departamentos.");
-                }
-            });
-        }
-
-        //cargar combo de municipios 
-        function Cmunip() {
-            $("#ddlDepto").change(function() {
-                $.ajax({
-                    url: "AjaxAddIdea.aspx",
-                    type: "GET",
-                    data: { "action": "C_munip", "iddepto": $(this).val() },
-                    success: function(result) {
-                        $("#ddlCity").html(result);
-                        $("#ddlCity").trigger("liszt:updated");
-                    },
-                    error: function(msg) {
-                        alert("No se pueden cargar los municipios del departamento seleccionado.");
-                    }
-                });
-            });
-        }
-
-        //cargar combo actores
-        function Cactors() {
-            $.ajax({
-                url: "AjaxAddIdea.aspx",
-                type: "GET",
-                data: { "action": "C_Actors" },
-                success: function(result) {
-                    $("#ddlactors").html(result);
-                    $("#ddlactors").trigger("liszt:updated");
-                },
-                error: function(msg) {
-                    alert("No se pueden cargar los actores.");
-                }
-            });
-        }
-
-        //cargar combo tipos de contratos
-        function CtypeContract() {
-            $.ajax({
-                url: "AjaxAddIdea.aspx",
-                type: "GET",
-                data: { "action": "C_typecontract" },
-                success: function(result) {
-                    $("#ddlmodcontract").html(result);
-                    $("#ddlmodcontract").trigger("liszt:updated");
-                },
-                error: function(msg) {
-                    alert("No se pueden cargar los tipos de contrato.");
-                }
-            });
-        }
- 
     </script>
 
     <br />
@@ -412,7 +154,7 @@
             <li><a href="#flujos">Flujos de pago</a></li>
         </ul>
         <div id="informacion">
-            <ul>
+            <ul class="left">
                 <li>
                     <asp:Label ID="Label7" runat="server" Text="Línea Estrátegica "></asp:Label>
                     <select id="ddlStrategicLines" class="Ccombo">
@@ -448,24 +190,18 @@
                 <li>
                     <asp:Label ID="lblname" runat="server" Text="Nombre"></asp:Label>
                     <asp:TextBox ID="txtname" runat="server" MaxLength="255" Width="400px" Rows="2" TextMode="MultiLine"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="rfvname" runat="server" ControlToValidate="txtname"
-                        ErrorMessage="*" ValidationGroup="infoGenral" SetFocusOnError="true"></asp:RequiredFieldValidator>
                     <asp:Label ID="lblHelpname" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
                 <li>
                     <asp:Label ID="lblJustificacion" runat="server" Text="Justificación"></asp:Label>
                     <asp:TextBox ID="txtjustification" runat="server" MaxLength="255" Width="400px" Rows="2"
                         TextMode="MultiLine"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="txtjustification"
-                        ErrorMessage="*" ValidationGroup="infoGenral" SetFocusOnError="true"></asp:RequiredFieldValidator>
                     <asp:Label ID="lblHelpjustification" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
                 <li>
                     <asp:Label ID="lblobjective" runat="server" Text="Objetivo"></asp:Label>
                     <asp:TextBox ID="txtobjective" runat="server" MaxLength="255" Width="400px" Rows="2"
                         TextMode="MultiLine"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ControlToValidate="txtobjective"
-                        ErrorMessage="*" ValidationGroup="infoGenral" SetFocusOnError="true"></asp:RequiredFieldValidator>
                     <asp:Label ID="lblHelpobjective" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
                 <li>
@@ -492,14 +228,20 @@
                         TextMode="MultiLine"></asp:TextBox>
                     <asp:Label ID="Label11" runat="server" ForeColor="#CC0000"></asp:Label>
                 </li>
+            </ul>
+            <ul class="right">
+                <li>
+                    <asp:Label ID="Lblobligationsoftheparties" runat="server" Text="Obligaciones de las partes"></asp:Label>
+                    <asp:TextBox ID="Txtobligationsoftheparties" runat="server" MaxLength="4000" Width="400px"
+                        Rows="6" TextMode="MultiLine"></asp:TextBox>
+                    <asp:Label ID="Label24" runat="server" ForeColor="#CC0000"></asp:Label>
+                </li>
                 <li>
                     <asp:Label ID="lblstartdate" runat="server" Text="Fecha de inicio"></asp:Label>
                     <asp:TextBox ID="txtstartdate" runat="server" MaxLength="50" Width="200px"></asp:TextBox>
                     <cc1:CalendarExtender ID="cestartdate" runat="server" Enabled="true" Format="yyyy/MM/dd"
                         TargetControlID="txtstartdate">
                     </cc1:CalendarExtender>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="txtstartdate"
-                        ErrorMessage="*" ValidationGroup="infoGenral" SetFocusOnError="true"></asp:RequiredFieldValidator>
                     <asp:CompareValidator ID="cvstartdate" runat="server" ControlToValidate="txtstartdate"
                         ErrorMessage="yyyy/MM/dd" Operator="DataTypeCheck" SetFocusOnError="true" Type="Date"></asp:CompareValidator>
                     <asp:Label ID="lblHelpstartdate" runat="server" ForeColor="#990000"></asp:Label>
@@ -547,9 +289,14 @@
                     </select>
                     <asp:Label ID="Label20" runat="server"></asp:Label>
                 </li>
+                <li>
+                    <asp:Label ID="Label21" runat="server" Text="Esta idea aplica IVA"></asp:Label>
+                    <asp:CheckBox ID="Chkiva" runat="server" />
+                </li>
             </ul>
             <br />
-            <table id="matriz" border="2" cellpadding="2" cellspacing="2" style="width: 100%;">
+            <table id="matriz" border="2" cellpadding="2" cellspacing="2" style="clear: both;
+                width: 100%;">
                 <thead>
                     <tr>
                         <th>
@@ -611,7 +358,7 @@
                 </tbody>
             </table>
             <ul>
-                <li>
+                <li id="li3333" runat="server" visible="False">
                     <asp:Label ID="lblcost" runat="server" Text="Valor Total"></asp:Label>
                     <asp:Label ID="txtcost" runat="server" Width="400px"></asp:Label>
                     <asp:Label ID="lblHelpcost" runat="server"></asp:Label>
@@ -631,8 +378,6 @@
                     <asp:Label ID="lblconvocatory" runat="server" Text="Convocatoria"></asp:Label>
                     <asp:DropDownList ID="ddlSummoning" runat="server">
                     </asp:DropDownList>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="ddlSummoning"
-                        Display="Dynamic" ErrorMessage="*" SetFocusOnError="true" ValidationGroup="infoGenral"></asp:RequiredFieldValidator>
                     <asp:Label ID="lblHelpconvocatory" runat="server"></asp:Label>
                 </li>
                 <li id="li7" runat="server" visible="False">
@@ -742,9 +487,16 @@
                     </select>
                 </li>
                 <li>
-                    <asp:Button ID="btnAgregarubicacion" runat="server" CausesValidation="False" Text="Agregar Ubicación" />
+                    <asp:Button ID="btnAgregarubicacion" runat="server" Visible="false" CausesValidation="False"
+                        Text="Agregar Ubicación" />
                     <input id="B_add_location" type="button" value="Agregar Ubicación" name="Add_location"
                         onclick="Add_location_onclick()" />
+                </li>
+                <li>
+                    <asp:Label ID="Lblinfubicacion" runat="server" ForeColor="#990000"></asp:Label>
+                </li>
+                <li>
+                    <asp:Label ID="LblubicacionRep" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
             </ul>
             <br />
@@ -860,9 +612,77 @@
                 </li>
                 <li>
                     <asp:Button ID="btnAddThird" runat="server" Text="Agregar Actor" ValidationGroup="thirdBYIdea" />
+                    <input id="BtnaddActors" type="button" value="Agregar Actor" name="Add_actors" onclick="return BtnaddActors_onclick()" />
                     <asp:Label ID="lblavertenactors" runat="server" Font-Bold="True" Font-Names="Arial Narrow"
                         ForeColor="Red"></asp:Label>
                 </li>
+                <div id="T_ActorsContainer">
+                    <table id="T_Actors" align="center" border="1" cellpadding="1" cellspacing="1" style="width: 100%;">
+                        <thead>
+                            <tr>
+                                <th>
+                                    id
+                                </th>
+                                <th>
+                                    Actores
+                                </th>
+                                <th>
+                                    Tipo
+                                </th>
+                                <th>
+                                    Contacto
+                                </th>
+                                <th>
+                                    Documento Identidad
+                                </th>
+                                <th>
+                                    Tel&eacute;fono
+                                </th>
+                                <th>
+                                    Correo electr&oacute;nico
+                                </th>
+                                <th>
+                                    Vr Dinero
+                                </th>
+                                <th>
+                                    Vr Especie
+                                </th>
+                                <th>
+                                    Vr Especie
+                                </th>
+                                <th>
+                                    Eliminar
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
                 <li>
                     <asp:GridView ID="gvThirds" runat="server" Width="100%" AutoGenerateColumns="False">
                         <Columns>
