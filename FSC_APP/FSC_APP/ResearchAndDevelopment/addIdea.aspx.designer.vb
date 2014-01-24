@@ -475,6 +475,15 @@ Partial Public Class addIdea
     Protected WithEvents lblHelpstartdate As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
+    '''Control Lbltitleduracion.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Lbltitleduracion As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
     '''Control lblduration.
     '''</summary>
     '''<remarks>
@@ -608,87 +617,6 @@ Partial Public Class addIdea
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
     Protected WithEvents Chkiva As Global.System.Web.UI.WebControls.CheckBox
-
-    '''<summary>
-    '''Control ValueMoneyFSC.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents ValueMoneyFSC As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''Control ValueEspeciesFSC.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents ValueEspeciesFSC As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''Control ValueCostFSC.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents ValueCostFSC As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''Control ValueMoneyCounter.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents ValueMoneyCounter As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''Control ValueEspeciesCounter.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents ValueEspeciesCounter As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''Control ValueCostCounter.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents ValueCostCounter As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''Control valueMoneytotal.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents valueMoneytotal As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''Control ValueEspeciestotal.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents ValueEspeciestotal As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''Control ValueCostotal.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents ValueCostotal As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''Control li3333.
@@ -1013,6 +941,15 @@ Partial Public Class addIdea
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
     Protected WithEvents btnexportword As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''Control Lbladvertencia.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Lbladvertencia As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''Control btnConfirmDelete.
@@ -1420,6 +1357,15 @@ Partial Public Class addIdea
     Protected WithEvents lblavertenactors As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
+    '''Control Lblactorrep.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Lblactorrep As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
     '''Control gvThirds.
     '''</summary>
     '''<remarks>
@@ -1625,15 +1571,6 @@ Partial Public Class addIdea
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
     Protected WithEvents RequiredFieldValidator2 As Global.System.Web.UI.WebControls.RequiredFieldValidator
-
-    '''<summary>
-    '''Control BtnAddPayment.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents BtnAddPayment As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
     '''Control gvPaymentFlow.

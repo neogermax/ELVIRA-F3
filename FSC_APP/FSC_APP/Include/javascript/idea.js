@@ -54,6 +54,8 @@ $(document).ready(function() {
     $("#SaveIdea").button();
     $("#B_add_location").button();
     $("#BtnaddActors").button();
+    $("#Btn_add_flujo").button();
+    
     
 });
 
@@ -319,17 +321,17 @@ function BtnaddActors_onclick() {
         arrayActor.push(jsonActor);
 
         var htmlTableActores = "<table id='T_Actors' align='center' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr><th>id</th><th>Actores</th><th>Tipo</th><th>Contacto</th><th>Documento Identidad</th><th>Tel&eacute;fono</th><th>Correo electr&oacute;nico</th><th>Vr Dinero</th><th>Vr Especie</th><th>Vr Especie</th><th>Eliminar</th></tr></thead><tbody>";
-        var htmltableAflujos = "<table id='T_Act0orsflujos' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr><th>Id</th><th>Aportante</th><th>Valor en efectivo</th><th>Valor a cancelar</th></tr><thead><tbody>";
+        var htmltableAflujos = "<table id='T_Actorsflujos' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr><th>Id</th><th>Aportante</th><th>Valor en efectivo</th><th>Valor a cancelar</th></tr></thead><tbody>";
 
 
         for (itemArray in arrayActor) {
             htmlTableActores += "<tr><td>" + arrayActor[itemArray].actorsVal + "</td><td>" + arrayActor[itemArray].actorsName + "</td><td>" + arrayActor[itemArray].tipoactors + "</td><td>" + arrayActor[itemArray].contact + "</td><td>" + arrayActor[itemArray].cedula + "</td><td>" + arrayActor[itemArray].telefono + "</td><td>" + arrayActor[itemArray].email + "</td><td>" + arrayActor[itemArray].diner + "</td><td>" + arrayActor[itemArray].especie + "</td><td>" + arrayActor[itemArray].total + "</td><td><button>Eliminar</button></td></tr>";
-            htmltableAflujos += "<tr><td>" + arrayActor[itemArray].actorsVal + "</td><td>" + arrayActor[itemArray].actorsName + "</td><td>" + arrayActor[itemArray].diner + "</td><td><input id=" + arrayActor[itemArray].actorsVal + "></input></td></tr>";   
+            htmltableAflujos += "<tr><td>" + arrayActor[itemArray].actorsVal + "</td><td>" + arrayActor[itemArray].actorsName + "</td><td>" + arrayActor[itemArray].diner + "</td><td><input id=" + arrayActor[itemArray].actorsVal + " onkeyup='format(this)' onchange='format(this)'></input></td></tr>";   
         }
 
 
         htmlTableActores += "<tr><td>1000</td><td>Total</td><td></td><td></td><td></td><td></td><td></td><td id='val1'></td><td id='val2'>0</td><td id='val3'>0</td><td></td></tr>";
-        htmltableAflujos += "<tr><td>1000</td><td>Total</td><td></td><td>0</td id='totalflujos'></tr>";
+        htmltableAflujos += "<tr><td>1000</td><td>Total</td><td id='tflujosing'></td><td id='totalflujos'>0</td></tr>";
         htmlTableActores += "</tbody></table>";
         htmltableAflujos += "</tbody></table>";
 
@@ -352,6 +354,8 @@ function BtnaddActors_onclick() {
                 valtotal = valtotal + parseInt($(arrayValuesActors[2]).html().replace(/\./gi, ''));
 
                 $("#val1").text(addCommasrefactor(valdiner));
+                $("#tflujosing").text(addCommasrefactor(valdiner));
+               
                 $("#val2").text(addCommasrefactor(valespecie));
                 $("#val3").text(addCommasrefactor(valtotal));
 

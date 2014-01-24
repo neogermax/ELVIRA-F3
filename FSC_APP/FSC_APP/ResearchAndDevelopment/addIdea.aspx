@@ -151,8 +151,8 @@
             <li><a href="#anexos">Archivos Anexos</a></li>
             <li><a href="#ubicacion">Ubicación</a></li>
             <li><a href="#actores">Actores</a></li>
-            <li><a href="#componentes">Componentes de Programa</a></li>
             <li><a href="#flujos">Flujos de pago</a></li>
+            <li><a href="#componentes">Componentes de Programa</a></li>
         </ul>
         <div id="informacion">
             <ul class="left">
@@ -754,13 +754,6 @@
                 </li>
             </ul>
         </div>
-        <div id="componentes">
-            <ul>
-                <li>
-                    <cc2:DoubleListBox ID="dlbActivity" runat="server" Width="100%" />
-                </li>
-            </ul>
-        </div>
         <div id="flujos">
             <ul>
                 <li>
@@ -812,22 +805,23 @@
                                     Valor a cancelar
                                 </th>
                             </tr>
-                            <thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                        </td>
-                                        <td>
-                                        </td>
-                                        <td>
-                                        </td>
-                                        <td>
-                                        </td>
-                                    </tr>
-                                </tbody>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
                 <li>
+                    <input id="Btn_add_flujo" type="button" value="Agregar pago" name="Add_flujo" />
                     <%--    <asp:Button ID="BtnAddPayment" runat="server" Text="Agregar Pago" />--%>
                 </li>
                 <div id="T_flujosContainer">
@@ -959,6 +953,13 @@
                 <li>
                     <asp:Label ID="lblExceed100" runat="server" Font-Bold="True" Font-Names="Arial Narrow"
                         Font-Size="1.2em" ForeColor="Red"></asp:Label>
+                </li>
+            </ul>
+        </div>
+        <div id="componentes">
+            <ul>
+                <li>
+                    <cc2:DoubleListBox ID="dlbActivity" runat="server" Width="100%" />
                 </li>
             </ul>
         </div>
