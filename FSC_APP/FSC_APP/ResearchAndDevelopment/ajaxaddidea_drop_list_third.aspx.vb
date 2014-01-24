@@ -25,7 +25,7 @@ Partial Class ResearchAndDevelopment_ajaxaddidea_drop_list_third
         Select Case action
             Case "cargarthird"
                 'convierte la variable y llama funcion para ACTUALIZAR EL COMBO
-                cargardatethird(applicationCredentials, Request.QueryString("id"))
+                cargardatethird(applicationCredentials)
 
             Case "loadthirdcontract"
                 loadthirdcontract(applicationCredentials, Request.QueryString("id"), Request.QueryString("type"))
@@ -38,8 +38,7 @@ Partial Class ResearchAndDevelopment_ajaxaddidea_drop_list_third
 
 
     ' FUNCION QUE CONSULTA Y CARGA LOS DATOS EN UN HTML
-    Public Function cargardatethird(ByVal objApplicationCredentials As Gattaca.Application.Credentials.ApplicationCredentials, _
-      ByVal idThird As Integer) As String
+    Public Function cargardatethird(ByVal objApplicationCredentials As Gattaca.Application.Credentials.ApplicationCredentials) As String
 
 
         Dim ThirdList As New List(Of ThirdEntity)

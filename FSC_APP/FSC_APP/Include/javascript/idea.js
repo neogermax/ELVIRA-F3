@@ -202,11 +202,11 @@ function SaveIdea_onclick() {
                     "Fecha_fin": $("#ctl00_cphPrincipal_Txtdatecierre").val(),
                     "Población": $("#ctl00_cphPrincipal_ddlPupulation").val(),
                     "contratacion": $("#ddlmodcontract").val(),
-                    "A_Mfsc": $("#ctl00_cphPrincipal_ValueMoneyFSC").val(),
-                    "A_Efsc": $("#ctl00_cphPrincipal_ValueEspeciesFSC").val(),
-                    "A_Mcounter": $("#ctl00_cphPrincipal_ValueMoneyCounter").val(),
-                    "A_Ecounter": $("#ctl00_cphPrincipal_ValueEspeciesCounter").val(),
-                    "cost": $("#ctl00_cphPrincipal_ValueCostotal").val(),
+                    "A_Mfsc": $("#ValueMoneyFSC").val(),
+                    "A_Efsc": $("#ValueEspeciesFSC").val(),
+                    "A_Mcounter": $("#ValueMoneyCounter").val(),
+                    "A_Ecounter": $("#ValueEspeciesCounter").val(),
+                    "cost": $("#ValueCostotal").val(),
                     "obligaciones": $("#ctl00_cphPrincipal_Txtobligationsoftheparties").val(),
                     "iva": $("#ctl00_cphPrincipal_Chkiva").val(),
                     "listubicaciones": listubicaciones.toString(),
@@ -617,7 +617,7 @@ function cargarcomponente() {
     });
 }
 
-//par}sar de un list box al otro
+//pasar de un list box al otro
 function addcomponent() {
     $("#ctl00_cphPrincipal_dlbActivity_ctl10").click(function() {
         if ($("#ctl00_cphPrincipal_dlbActivity_ctl08").val() == "") {
@@ -840,7 +840,7 @@ function operacionesIdea() {
             $.ajax({
                 url: "ajaxaddidea_drop_list_third.aspx",
                 type: "GET",
-                data: { "action": "cargarthird", "id": $("#ddlactors").val() },
+                data: { "action": "cargarthird" },
                 success: function(result) {
                     $("#ddlactors").html(result);
                     $("#ddlactors").trigger("liszt:updated");
