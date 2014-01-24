@@ -13,7 +13,7 @@
 
     <script src="../Include/javascript/idea.js" type="text/javascript"></script>
 
-    <link href="../css/jquery-ui-1.10.3.custom.min.css" rel="stylesheet" type="text/css" />
+    <link href="../css/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" type="text/css" />
 
     <script src="../js/jquery-ui-1.10.3.custom.min.js" type="text/javascript"></script>
 
@@ -118,14 +118,15 @@
             }
         }
 
-
-       
+        //        function list() {
+        //            $("#basic").pickList();
+        //        }
 
     </script>
 
     <br />
     <div id="containerSuccess" runat="server" visible="true" style="width: 100%; text-align: center;
-        border: 2px solid #cecece; background: #E8E8DC; height: 40px; line-height: 40px;
+        border: 2px solid #cecece; background: #E8E8DC; height: 80px; line-height: 40px;
         vertical-align: middle;">
         <img style="margin-top: 5px;" src="/images/save_icon.png" width="24px" alt="Save" />
         <asp:Label ID="lblsaveinformation" runat="server" Style="font-size: 14pt; color: #9bbb58;"></asp:Label>
@@ -247,9 +248,12 @@
                     <asp:Label ID="lblHelpstartdate" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
                 <li>
-                    <asp:Label ID="lblduration" runat="server" Text="Mes"></asp:Label>
+                    <asp:Label ID="Lbltitleduracion" runat="server" Text="Duración"></asp:Label>
+                </li>
+                <li>
+                    <asp:Label ID="lblduration" runat="server" Text="Meses"></asp:Label>
                     <asp:TextBox ID="txtduration" runat="server" MaxLength="5" Width="100px" Rows="2"></asp:TextBox>
-                    <asp:Label ID="Lbldia" runat="server" Text="Dia"></asp:Label>
+                    <asp:Label ID="Lbldia" runat="server" Text="Días"></asp:Label>
                     <asp:TextBox ID="Txtday" runat="server" MaxLength="5" Width="100px" Rows="2"></asp:TextBox>
                 </li>
                 <li>
@@ -290,7 +294,7 @@
                     <asp:Label ID="Label20" runat="server"></asp:Label>
                 </li>
                 <li>
-                    <asp:Label ID="Label21" runat="server" Text="Esta idea aplica IVA"></asp:Label>
+                    <asp:Label ID="Label21" runat="server" Text="Esta idea no aplica IVA"></asp:Label>
                     <asp:CheckBox ID="Chkiva" runat="server" />
                 </li>
             </ul>
@@ -315,44 +319,35 @@
                 <tbody>
                     <tr>
                         <td>
-                            <span><strong style="font-size: large">Aportes FSC&nbsp;</strong> </span>
+                            <span><strong style="font-size: small">Aportes FSC&nbsp;</strong> </span>
                         </td>
-                        <td>
-                            <asp:Label ID="ValueMoneyFSC" runat="server"></asp:Label>
+                        <td id="ValueMoneyFSC">
                         </td>
-                        <td>
-                            <asp:Label ID="ValueEspeciesFSC" runat="server"></asp:Label>
+                        <td id="ValueEspeciesFSC">
                         </td>
-                        <td>
-                            <asp:Label ID="ValueCostFSC" runat="server"></asp:Label>
+                        <td id="ValueCostFSC">
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <span><strong style="font-size: large">Aportes Socios&nbsp;</strong> </span>
+                            <span><strong style="font-size: small">Aportes Socios&nbsp;</strong> </span>
                         </td>
-                        <td>
-                            <asp:Label ID="ValueMoneyCounter" runat="server"></asp:Label>
+                        <td id="ValueMoneyCounter">
                         </td>
-                        <td>
-                            <asp:Label ID="ValueEspeciesCounter" runat="server" BorderStyle="Solid"></asp:Label>
+                        <td id="ValueEspeciesCounter">
                         </td>
-                        <td>
-                            <asp:Label ID="ValueCostCounter" runat="server"></asp:Label>
+                        <td id="ValueCostCounter">
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <span><strong style="font-size: large">Valor Total&nbsp;</strong> </span>
+                            <span><strong style="font-size: small">Valor Total&nbsp;</strong> </span>
                         </td>
-                        <td>
-                            <asp:Label ID="valueMoneytotal" runat="server"></asp:Label>
+                        <td id="valueMoneytotal">
                         </td>
-                        <td>
-                            <asp:Label ID="ValueEspeciestotal" runat="server"></asp:Label>
+                        <td id="ValueEspeciestotal">
                         </td>
-                        <td>
-                            <asp:Label ID="ValueCostotal" runat="server"></asp:Label>
+                        <td id="ValueCostotal">
                         </td>
                     </tr>
                 </tbody>
@@ -418,6 +413,7 @@
                     <asp:Button ID="btnexportword" runat="server" Text="Exportar términos de referencia"
                         ValidationGroup="infoGenral" />
                     <input id="SaveIdea" type="button" value="Crear Idea" name="Save_Idea" onclick="SaveIdea_onclick()" /></li>
+                <asp:Label ID="Lbladvertencia" runat="server" ForeColor="#990000"></asp:Label>
                 <li>
                     <asp:Button ID="btnConfirmDelete" runat="server" Text="Eliminar" CausesValidation="False" />
                     <asp:Button ID="btnCancelDelete" runat="server" Text="Cancelar" CausesValidation="False" />
@@ -611,10 +607,14 @@
                         Enabled="False"></asp:TextBox>
                 </li>
                 <li>
-                    <asp:Button ID="btnAddThird" runat="server" Text="Agregar Actor" ValidationGroup="thirdBYIdea" />
+                    <asp:Button ID="btnAddThird" Visible="false" runat="server" Text="Agregar Actor"
+                        ValidationGroup="thirdBYIdea" />
                     <input id="BtnaddActors" type="button" value="Agregar Actor" name="Add_actors" onclick="return BtnaddActors_onclick()" />
                     <asp:Label ID="lblavertenactors" runat="server" Font-Bold="True" Font-Names="Arial Narrow"
                         ForeColor="Red"></asp:Label>
+                </li>
+                <li>
+                    <asp:Label ID="Lblactorrep" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
                 <div id="T_ActorsContainer">
                     <table id="T_Actors" align="center" border="1" cellpadding="1" cellspacing="1" style="width: 100%;">
@@ -636,10 +636,10 @@
                                     Documento Identidad
                                 </th>
                                 <th>
-                                    Tel&eacute;fono
+                                    Teléfono
                                 </th>
                                 <th>
-                                    Correo electr&oacute;nico
+                                    Correo electrónico
                                 </th>
                                 <th>
                                     Vr Dinero
@@ -795,9 +795,113 @@
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtentregable"
                         ErrorMessage="el campo esta vacio" ValidationGroup="validat"></asp:RequiredFieldValidator>
                 </li>
+                <div id="T_AflujosContainer">
+                    <table id="T_Actorsflujos" border="1" cellpadding="1" cellspacing="1" style="width: 100%;">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Id
+                                </th>
+                                <th>
+                                    Aportante
+                                </th>
+                                <th>
+                                    Valor en efectivo
+                                </th>
+                                <th>
+                                    Valor a cancelar
+                                </th>
+                            </tr>
+                            <thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                        </td>
+                                        <td>
+                                        </td>
+                                        <td>
+                                        </td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                    </table>
+                </div>
                 <li>
-                    <asp:Button ID="BtnAddPayment" runat="server" Text="Agregar Pago" />
+                    <%--    <asp:Button ID="BtnAddPayment" runat="server" Text="Agregar Pago" />--%>
                 </li>
+                <div id="T_flujosContainer">
+                    <table id="T_flujos" border="1" cellpadding="1" cellspacing="1" style="width: 100%;">
+                        <thead>
+                            <tr>
+                                <th style="text-align: center;">
+                                    id
+                                </th>
+                                <th style="text-align: center;">
+                                    idproject
+                                </th>
+                                <th style="text-align: center;">
+                                    Fecha
+                                </th>
+                                <th style="text-align: center;">
+                                    Porcentaje
+                                </th>
+                                <th style="text-align: center;">
+                                    Entregable
+                                </th>
+                                <th style="text-align: center;">
+                                    ididea
+                                </th>
+                                <th style="text-align: center;">
+                                    Valor parcial
+                                </th>
+                                <th style="text-align: center;">
+                                    Detalle
+                                </th>
+                                <th style="text-align: center;">
+                                    Editar
+                                </th>
+                                <th style="text-align: center;">
+                                    Eliminar
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="text-align: center;">
+                                    &nbsp;
+                                </td>
+                                <td style="text-align: center;">
+                                    &nbsp;
+                                </td>
+                                <td style="text-align: center;">
+                                    &nbsp;
+                                </td>
+                                <td style="text-align: center;">
+                                    &nbsp;
+                                </td>
+                                <td style="text-align: center;">
+                                    &nbsp;
+                                </td>
+                                <td style="text-align: center;">
+                                    &nbsp;
+                                </td>
+                                <td style="text-align: center;">
+                                    &nbsp;
+                                </td>
+                                <td style="text-align: center;">
+                                    &nbsp;
+                                </td>
+                                <td style="text-align: center;">
+                                    &nbsp;
+                                </td>
+                                <td style="text-align: center;">
+                                    &nbsp;
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
                 <li>
                     <asp:GridView ID="gvPaymentFlow" runat="server" Width="100%" AutoGenerateColumns="False">
                         <Columns>

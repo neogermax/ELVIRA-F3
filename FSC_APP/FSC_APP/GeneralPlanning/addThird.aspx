@@ -1,4 +1,5 @@
-<%@ Page Language="VB" MasterPageFile="~/Master/mpAdmin.master" AutoEventWireup="false" Inherits="FSC_APP.addThird" Title="addThird" Codebehind="addThird.aspx.vb" %>
+<%@ Page Language="VB" MasterPageFile="~/Master/mpAdmin.master" AutoEventWireup="false"
+    Inherits="FSC_APP.addThird" Title="addThird" CodeBehind="addThird.aspx.vb" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="cphPrincipal" runat="Server">
 
@@ -6,24 +7,39 @@
 
     <script src="../Include/javascript/third.js" type="text/javascript"></script>
 
-<script type="text/javascript">
-    //Función que permite solo Números
-    function ValidaSoloNumeros() {
-        if ((event.keyCode < 48) || (event.keyCode > 57))
-            event.returnValue = false;
-    }
-</script>
-
+    <script type="text/javascript">
+        //Función que permite solo Números
+        function ValidaSoloNumeros() {
+            if ((event.keyCode < 48) || (event.keyCode > 57))
+                event.returnValue = false;
+        }
+    </script>
 
     <br />
-    <div id="containerSuccess" runat="server" visible="false" style="width: 100%; text-align: center;
+    <div id="containerSuccess" runat="server" visible="true" style="width: 100%; text-align: center;
         border: 2px solid #cecece; background: #E8E8DC; height: 40px; line-height: 40px;
         vertical-align: middle;">
         <img style="margin-top: 5px;" src="/images/save_icon.png" width="24px" alt="Save" />
-        <asp:Label ID="lblexit" runat="server" Style="font-size: 1.1em;"></asp:Label>
+        <asp:Label ID="lblexit" runat="server" Style="font-size: 14pt; color: #9bbb58;"></asp:Label>
+        <asp:Label ID="lblexit2" runat="server" Style="font-size: 14pt; color: #FF0040;"></asp:Label>
     </div>
     <br />
     <table style="width: 100%">
+        <tr>
+            <td>
+                <asp:Label ID="Label9" runat="server" Text="Tipo de Persona"></asp:Label>
+            </td>
+            <td>
+                <asp:DropDownList ID="DDLtypepeople" runat="server">
+                    <asp:ListItem Text="Seleccione..." Value="-1"></asp:ListItem>
+                    <asp:ListItem Text="Persona Natural" Value="True"></asp:ListItem>
+                    <asp:ListItem Text="Persona Juridica" Value="False"></asp:ListItem>
+                </asp:DropDownList>
+            </td>
+            <td>
+                <asp:Label ID="Label10" runat="server" Text=""></asp:Label>
+            </td>
+        </tr>
         <tr>
             <td>
                 <asp:Label ID="lblid" runat="server" Text="Id"></asp:Label>
@@ -38,11 +54,12 @@
         </tr>
         <tr>
             <td>
-                <asp:Label ID="lblcode" runat="server" Text="NIT"></asp:Label>
+                <asp:Label ID="lblcode" runat="server" Text="NIT, Sin guiones, puntos ó espacios. Incluye digito de verificación"></asp:Label>
             </td>
             <td>
-                <asp:TextBox ID="txtcode" runat="server" Width="400px" MaxLength="50" AutoPostBack="True" onkeypress="ValidaSoloNumeros()" onkeychange="ValidaSoloNumeros()" onkeyup="ValidaSoloNumeros()"></asp:TextBox>
-                <asp:Label ID="lblinf" runat="server" ></asp:Label>
+                <asp:TextBox ID="txtcode" runat="server" Width="400px" MaxLength="50" onkeypress="ValidaSoloNumeros()"
+                    onkeychange="ValidaSoloNumeros()" onkeyup="ValidaSoloNumeros()"></asp:TextBox>
+                <asp:Label ID="lblinf" runat="server"></asp:Label>
             </td>
             <td>
                 <asp:Label ID="lblHelpcode" runat="server" Text=""></asp:Label>
@@ -63,25 +80,60 @@
         </tr>
         <tr>
             <td>
-                <asp:Label ID="Label9" runat="server" Text="Tipo de Persona"></asp:Label>
+                <asp:Label ID="Lbltitle1" runat="server" Text="Información del representante legal"
+                    Font-Bold="True" Font-Size="Medium"></asp:Label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <asp:Label ID="Lbltipodocument" runat="server" Text="Tipo de documento"></asp:Label>
             </td>
             <td>
-                <asp:DropDownList ID="DDLtypepeople" runat="server">
-                    <asp:ListItem Text="Persona Natural" Value="True"></asp:ListItem>
-                    <asp:ListItem Text="Persona Juridica" Value="False"></asp:ListItem>
+                <asp:DropDownList ID="DDL_tipo_doc" runat="server">
+                    <asp:ListItem Text="Seleccione..." Value="-1"></asp:ListItem>
+                    <asp:ListItem Text="Cedula de ciudadania" Value="0"></asp:ListItem>
+                    <asp:ListItem Text="Cedula extranjera" Value="1"></asp:ListItem>
+                    <asp:ListItem Text="Pasaporte" Value="2"></asp:ListItem>
                 </asp:DropDownList>
             </td>
             <td>
-                <asp:Label ID="Label10" runat="server" Text=""></asp:Label>
+                <asp:Label ID="Label7" runat="server" Text=""></asp:Label>
             </td>
         </tr>
-        
         <tr>
             <td>
-                <asp:Label ID="Lblcontact" runat="server" Text="Contacto"></asp:Label>
+                <asp:Label ID="Lbldocrep" runat="server" Text="N° documento"></asp:Label>
             </td>
             <td>
-                <asp:TextBox ID="Txtcontact" runat="server" Width="400px" MaxLength="255" TextMode="MultiLine"></asp:TextBox>
+                <asp:TextBox ID="Txtdocrep" runat="server" Width="400px" MaxLength="255"></asp:TextBox>
+            </td>
+            <td>
+                <asp:Label ID="Label5" runat="server" Text=""></asp:Label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <asp:Label ID="lblreplegal" runat="server" Text="Representante legal"></asp:Label>
+            </td>
+            <td>
+                <asp:TextBox ID="Txtreplegal" runat="server" Width="400px" MaxLength="255"></asp:TextBox>
+            </td>
+            <td>
+                <asp:Label ID="Label8" runat="server" Text=""></asp:Label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <asp:Label ID="Lbltitle2" runat="server" Text="Información del contacto" Font-Bold="True"
+                    Font-Size="Medium"></asp:Label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <asp:Label ID="Lblcontact" runat="server" Text="Nombre"></asp:Label>
+            </td>
+            <td>
+                <asp:TextBox ID="Txtcontact" runat="server" Width="400px" MaxLength="255"></asp:TextBox>
             </td>
             <td>
                 <asp:Label ID="Label3" runat="server" Text=""></asp:Label>
@@ -100,7 +152,7 @@
         </tr>
         <tr>
             <td>
-                <asp:Label ID="Label1" runat="server" Text="Telefono"></asp:Label>
+                <asp:Label ID="Lblphone" runat="server" Text="Telefono"></asp:Label>
             </td>
             <td>
                 <asp:TextBox ID="Txtphone" runat="server" Width="400px" MaxLength="255"></asp:TextBox>
@@ -111,24 +163,13 @@
         </tr>
         <tr>
             <td>
-                <asp:Label ID="Label5" runat="server" Text="Email"></asp:Label>
+                <asp:Label ID="Lblmail" runat="server" Text="Email"></asp:Label>
             </td>
             <td>
                 <asp:TextBox ID="Txtemail" runat="server" Width="400px" MaxLength="255"></asp:TextBox>
             </td>
             <td>
                 <asp:Label ID="Label6" runat="server" Text=""></asp:Label>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <asp:Label ID="Label7" runat="server" Text="Representante legal"></asp:Label>
-            </td>
-            <td>
-                <asp:TextBox ID="Txtreplegal" runat="server" Width="400px" MaxLength="255"></asp:TextBox>
-            </td>
-            <td>
-                <asp:Label ID="Label8" runat="server" Text=""></asp:Label>
             </td>
         </tr>
         <tr runat="server" visible="false">

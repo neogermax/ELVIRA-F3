@@ -174,9 +174,9 @@ Partial Class addThird
             Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
             Dim V_NIT As String
             'Post-verificación de código
-            If Not verifyCode() Then
-                Return
-            End If
+            'If Not verifyCode() Then
+            '    Return
+            'End If
 
             Try
                 ' cargar los valores registrados por el usuario
@@ -206,15 +206,19 @@ Partial Class addThird
                 objThird.representantelegal = clean_vbCrLf(Me.Txtreplegal.Text)
                 objThird.createdate = Now
 
+                objThird.tipodocumento = Me.DDL_tipo_doc.SelectedValue
+                objThird.docrepresentante = Me.Txtdocrep.Text
+
+
                 ' almacenar la entidad
                 objThird.id = facade.addThird(applicationCredentials, objThird)
 
                 ' ir al administrador
 
-                Me.lblexit.Text = " El Actor se creó Exitosamente "
-                Me.btnAddData.Visible = "False"
-                Me.containerSuccess.Visible = "True"
-                Me.lblexit.ForeColor = Drawing.Color.Green
+                'Me.lblexit.Text = " El Actor se creó Exitosamente "
+                'Me.btnAddData.Visible = "False"
+                'Me.containerSuccess.Visible = "True"
+                'Me.lblexit.ForeColor = Drawing.Color.Green
 
 
 
@@ -256,9 +260,9 @@ Partial Class addThird
         Dim V_NIT As String
 
         'Post-verificación de código
-        If Not verifyCode() Then
-            Return
-        End If
+        'If Not verifyCode() Then
+        '    Return
+        'End If
 
         'Cargar el objeto referenciado
         objThird = facade.loadThird(applicationCredentials, Request.QueryString("Id"))
@@ -375,71 +379,70 @@ Partial Class addThird
 
     End Sub
 
-    Protected Sub txtcode_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtcode.TextChanged
-        'Verificar código
-        verifyCode()
-    End Sub
+    '    Protected Sub txtcode_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtcode.TextChanged
+    '        'Verificar código
+    '        verifyCode()
+    '    End Sub
 
 #End Region
 
 #Region "Metodos"
 
-    Private Function verifyCode() As Boolean
-        ' definir los objetos
-        Dim facade As New Facade
-        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+    '    Private Function verifyCode() As Boolean
+    '        ' definir los objetos
+    '        Dim facade As New Facade
+    '        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
 
-        ' obtener los parametos
-        Dim op As String = Request.QueryString("op")
+    '        ' obtener los parametos
+    '        Dim op As String = Request.QueryString("op")
 
-        Try
+    '        Try
 
-            If facade.verifyThirdCode(applicationCredentials, Me.txtcode.Text) Then
-                Me.lblexit.Text = "El Actor ya existe, verificar la información "
-                Me.containerSuccess.Visible = "True"
-                Me.lblexit.ForeColor = Drawing.Color.Red
-                Me.txtcode.Text = ""
-                Me.txtname.Text = ""
-                Me.Txtcontact.Text = ""
-                Me.Txtactions.Text = ""
-                Me.Txtphone.Text = ""
-                Me.Txtemail.Text = ""
-                Me.txtcode.Focus()
+    '            If facade.verifyThirdCode(applicationCredentials, Me.txtcode.Text) Then
+    '                Me.lblexit.Text = "El Actor ya existe, verificar la información "
+    '                Me.containerSuccess.Visible = "True"
+    '                Me.lblexit.ForeColor = Drawing.Color.Red
+    '                Me.txtcode.Text = ""
+    '                Me.txtname.Text = ""
+    '                Me.Txtcontact.Text = ""
+    '                Me.Txtactions.Text = ""
+    '                Me.Txtphone.Text = ""
+    '                Me.Txtemail.Text = ""
+    '                Me.txtcode.Focus()
 
-                'rfvcode.IsValid = 0
-                verifyCode = 0
-            Else
-                lblexit.Text = ""
-                Me.containerSuccess.Visible = "False"
+    '                'rfvcode.IsValid = 0
+    '                verifyCode = 0
+    '            Else
+    '                lblexit.Text = ""
+    '                Me.containerSuccess.Visible = "False"
 
-                'rfvcode.IsValid = 1
-                verifyCode = 1
-            End If
+    '                'rfvcode.IsValid = 1
+    '                verifyCode = 1
+    '            End If
 
-        Catch oex As Threading.ThreadAbortException
-            ' no hacer nada
+    '        Catch oex As Threading.ThreadAbortException
+    '            ' no hacer nada
 
-        Catch ex As Exception
+    '        Catch ex As Exception
 
-            ' ir a error
-            Session("sError") = ex.Message
-            Session("sUrl") = Request.UrlReferrer.PathAndQuery
-            Response.Redirect("~/errors/error.aspx")
-            Response.End()
+    '            ' ir a error
+    '            Session("sError") = ex.Message
+    '            Session("sUrl") = Request.UrlReferrer.PathAndQuery
+    '            Response.Redirect("~/errors/error.aspx")
+    '            Response.End()
 
-        Finally
+    '        Finally
 
-            ' liberar recursos
-            facade = Nothing
+    '            ' liberar recursos
+    '            facade = Nothing
 
-        End Try
-    End Function
+    '        End Try
+    '    End Function
 
     'TODO:31 FUNCION DE VALIDACION PARA NIT
     'AUTOR:GERMAN RODRIGUEZ 28/06/2013
 
     Public Function validate_NIT_provicional(ByVal nit As String) As String
-
 
         Dim sql As New StringBuilder
         Dim objSqlCommand As New SqlCommand

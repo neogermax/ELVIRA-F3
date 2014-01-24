@@ -7,6 +7,9 @@ Imports Gattaca.Interfaces.eSecurity
 Imports Gattaca.Application.ExceptionManager
 Imports System.Data
 Imports System.Data.SqlClient
+Imports System.Web.Script.Serialization
+Imports System.IO
+Imports System.Runtime.Serialization.Json
 
 Partial Class ResearchAndDevelopment_AjaxAddIdea
     Inherits System.Web.UI.Page
@@ -19,8 +22,11 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         Dim id_b As Integer
         Dim fecha As Date
         Dim duracion, dia As String
-        Dim S_code, S_linea_estrategica, S_programa, S_nombre, S_justificacion, S_objetivo, S_objetivo_esp, S_Resultados_Benef, S_Resultados_Ges_c, S_Resultados_Cap_i, S_Fecha_inicio, S_mes, S_dia, S_Fecha_fin, S_Población, S_contratacion, S_A_Mfsc, S_A_Efsc, S_A_Mcounter, S_A_Ecounter, S_cost, S_obligaciones, S_iva, S_listubicaciones As String
-        Dim id_lineStrategic, id_depto As Integer
+        Dim S_code, S_linea_estrategica, S_programa, S_nombre, S_justificacion, S_objetivo, S_objetivo_esp, S_Resultados_Benef, S_Resultados_Ges_c, S_Resultados_Cap_i, S_Fecha_inicio, S_mes, S_dia, S_Fecha_fin, S_Población, S_contratacion, S_A_Mfsc, S_A_Efsc, S_A_Mcounter, S_A_Ecounter, S_cost, S_obligaciones, S_iva, S_listubicaciones, S_listactors As String
+        Dim id_lineStrategic, id_depto, idprogram As Integer
+
+        Session("locationByIdeaList") = New List(Of LocationByIdeaEntity)
+
         'trae el jquery para hacer todo por debajo del servidor
         action = Request.QueryString("action").ToString()
 
@@ -63,7 +69,9 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                 S_iva = Request.QueryString("iva").ToString
                 S_obligaciones = Request.QueryString("obligaciones").ToString
                 S_listubicaciones = Request.QueryString("listubicaciones").ToString
-                save_IDEA(S_code, S_linea_estrategica, S_programa, S_nombre, S_justificacion, S_objetivo, S_objetivo_esp, S_Resultados_Benef, S_Resultados_Ges_c, S_Resultados_Cap_i, S_Fecha_inicio, S_mes, S_dia, S_Fecha_fin, S_Población, S_contratacion, S_A_Mfsc, S_A_Efsc, S_A_Mcounter, S_A_Ecounter, S_cost, S_obligaciones, S_iva, S_listubicaciones)
+                S_listactors = Request.QueryString("listactores").ToString
+
+                save_IDEA(S_code, S_linea_estrategica, S_programa, S_nombre, S_justificacion, S_objetivo, S_objetivo_esp, S_Resultados_Benef, S_Resultados_Ges_c, S_Resultados_Cap_i, S_Fecha_inicio, S_mes, S_dia, S_Fecha_fin, S_Población, S_contratacion, S_A_Mfsc, S_A_Efsc, S_A_Mcounter, S_A_Ecounter, S_cost, S_obligaciones, S_iva, S_listubicaciones, S_listactors)
 
             Case "C_linestrategic"
 
@@ -91,14 +99,42 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
                 Charge_typeContract()
 
- 
+            Case "C_component"
+
+                idprogram = Convert.ToInt32(Request.QueryString("idprogram").ToString)
+                charge_component(idprogram)
+
             Case Else
 
         End Select
 
     End Sub
 
-  
+
+    Public Function charge_component(ByVal idprogram As Integer)
+
+        Dim facade As New Facade
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+        Dim Data_programcomponent As List(Of ProgramComponentEntity)
+
+        Dim htmlresults As String = ""
+        Dim id, code As String
+
+        Data_programcomponent = facade.getProgramComponentList(applicationCredentials, idProgram:=idprogram, enabled:="1", order:="Code")
+
+        For Each row In Data_programcomponent
+            ' cargar el valor del campo
+            id = row.id
+            code = row.code
+            htmlresults &= String.Format("<option value='{0}'>{1}</option>", id, code)
+
+        Next
+        Response.Write(htmlresults)
+
+    End Function
+
+
+
 
     ''' <summary>
     ''' funcion que carga el combo de tipo de contrato
@@ -116,7 +152,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         Dim htmlresults As String = ""
         Dim id, contract As String
 
-        data_typecontect = Facade.gettypecontract(applicationCredentials, order:="id")
+        data_typecontect = facade.gettypecontract(applicationCredentials, order:="id")
 
         For Each row In data_typecontect
             ' cargar el valor del campo
@@ -300,15 +336,181 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
     ''' <param name="cost"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Function save_IDEA(ByVal code As String, ByVal line_strategic As String, ByVal program As String, ByVal name As String, ByVal justify As String, ByVal objetive As String, ByVal obj_esp As String, ByVal resul_bef As String, ByVal resul_ges_c As String, ByVal resul_cap_i As String, ByVal fecha_i As String, ByVal mes As String, ByVal dia As String, ByVal fecha_f As String, ByVal poblacion As String, ByVal contratacion As String, ByVal A_Mfsc As String, ByVal A_Efsc As String, ByVal A_Mcounter As String, ByVal A_Ecounter As String, ByVal cost As String, ByVal obligaciones As String, ByVal iva As String, ByVal list_ubicacion As String)
+    Public Function save_IDEA(ByVal code As String, ByVal line_strategic As String, ByVal program As String, ByVal name As String, ByVal justify As String, ByVal objetive As String, ByVal obj_esp As String, ByVal resul_bef As String, ByVal resul_ges_c As String, ByVal resul_cap_i As String, ByVal fecha_i As String, ByVal mes As String, ByVal dia As String, ByVal fecha_f As String, ByVal poblacion As String, ByVal contratacion As String, ByVal A_Mfsc As String, ByVal A_Efsc As String, ByVal A_Mcounter As String, ByVal A_Ecounter As String, ByVal cost As String, ByVal obligaciones As String, ByVal iva As String, ByVal list_ubicacion As String, ByVal list_actor As String)
+
 
         Dim facade As New Facade
         Dim objIdea As New IdeaEntity
         Dim myProgramComponentByIdeaList As List(Of ProgramComponentByIdeaEntity) = New List(Of ProgramComponentByIdeaEntity)
+        Dim objlocationidea As New LocationByIdeaEntity
+        
+        Dim locationByIdeaList As List(Of LocationByIdeaEntity)
+        Dim thirdByIdeaList As List(Of ThirdByIdeaEntity)
+
+        Dim arrayubicacion, arrayactor As String()
+        Dim deptovalexist, Cityvalexist As Integer
+        Dim existactorsVal, existactorsName, existtipoactors, existcontact, existcedula, existtelefono, existemail, existdiner, existespecie, existtotal As String
+
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
 
         Try
+            locationByIdeaList = DirectCast(Session("locationByIdeaList"), List(Of LocationByIdeaEntity))
+            thirdByIdeaList = DirectCast(Session("thirdByIdeaList"), List(Of ThirdByIdeaEntity))
+
+
+            list_ubicacion = Replace(list_ubicacion, "{", " ", 1)
+            list_ubicacion = Replace(list_ubicacion, "}", " ", 1)
+            list_ubicacion = Replace(list_ubicacion, """", " ", 1)
+            'convertimos el string en un array de datos
+            arrayubicacion = list_ubicacion.Split(New [Char]() {","c})
+
+            list_actor = Replace(list_actor, "{", " ", 1)
+            list_actor = Replace(list_actor, "}", " ", 1)
+            list_actor = Replace(list_actor, """", " ", 1)
+
+            arrayactor = list_actor.Split(New [Char]() {","c})
+
+            Dim contador As Integer = 0
+            Dim contadoractor As Integer = 0
+
+            Dim swicth As Integer = 0
+            Dim swicthactor As Integer = 0
+
+            Dim objDeptoEntity As DeptoEntity = New DeptoEntity()
+            Dim objCityEntity As CityEntity = New CityEntity()
+            Dim thirdByIdea As ThirdByIdeaEntity = New ThirdByIdeaEntity()
+
+
+
+            For Each row In arrayubicacion
+
+                deptovalexist = InStr(arrayubicacion(contador), "DeptoVal")
+                Cityvalexist = InStr(arrayubicacion(contador), "CityVal")
+
+                If deptovalexist > 0 Then
+
+                    deptovalexist = Replace(arrayubicacion(contador), " DeptoVal : ", " ", 1)
+                    objDeptoEntity.id = deptovalexist
+                    objlocationidea.DEPTO = objDeptoEntity
+
+                End If
+
+                If Cityvalexist > 0 Then
+
+                    Cityvalexist = Replace(arrayubicacion(contador), "CityVal : ", " ", 1)
+                    objCityEntity.id = Cityvalexist
+                    objlocationidea.CITY = objCityEntity
+                    swicth = 1
+
+                End If
+
+                If swicth = 1 Then
+                    locationByIdeaList.Add(objlocationidea)
+                    swicth = 0
+                End If
+
+                contador = contador + 1
+
+            Next
+
+
+            For Each row In arrayactor
+
+                existactorsVal = InStr(arrayactor(contadoractor), "actorsVal") 'y
+                existactorsName = InStr(arrayactor(contadoractor), "actorsName") 'y
+                existtipoactors = InStr(arrayactor(contadoractor), "tipoactors")
+                existcontact = InStr(arrayactor(contadoractor), "contact") 'y
+                existcedula = InStr(arrayactor(contadoractor), "cedula") 'y
+                existtelefono = InStr(arrayactor(contadoractor), "telefono") 'y
+                existemail = InStr(arrayactor(contadoractor), "email") 'y
+                existdiner = InStr(arrayactor(contadoractor), "diner")
+                existespecie = InStr(arrayactor(contadoractor), "especie")
+                existtotal = InStr(arrayactor(contadoractor), "total")
+
+
+                If existactorsVal > 0 Then
+
+                    existactorsVal = Replace(arrayactor(contadoractor), " actorsVal : ", " ", 1)
+                    thirdByIdea.idthird = existactorsVal
+
+                End If
+
+                If existactorsName > 0 Then
+
+                    existactorsName = Replace(arrayactor(contadoractor), "actorsName : ", " ", 1)
+                    thirdByIdea.THIRD.name = existactorsName
+
+                End If
+
+                If existtipoactors > 0 Then
+
+                    existtipoactors = Replace(arrayactor(contadoractor), "tipoactors : ", " ", 1)
+                    thirdByIdea.type = existtipoactors
+
+                End If
+
+                If existcontact > 0 Then
+
+                    existcontact = Replace(arrayactor(contadoractor), "contact : ", " ", 1)
+                    thirdByIdea.THIRD.contact = existcontact
+
+                End If
+
+                If existcedula > 0 Then
+
+                    existcedula = Replace(arrayactor(contadoractor), "cedula : ", " ", 1)
+                    thirdByIdea.THIRD.documents = existcedula
+
+                End If
+
+                If existtelefono > 0 Then
+
+                    existtelefono = Replace(arrayactor(contadoractor), "telefono : ", " ", 1)
+                    thirdByIdea.THIRD.phone = existtelefono
+
+                End If
+
+                If existemail > 0 Then
+
+                    existemail = Replace(arrayactor(contadoractor), "email : ", " ", 1)
+                    thirdByIdea.THIRD.email = existemail
+
+                End If
+
+                If existdiner > 0 Then
+
+                    existdiner = Replace(arrayactor(contadoractor), "diner : ", " ", 1)
+                    thirdByIdea.Vrmoney = existdiner
+
+                End If
+
+                If existespecie > 0 Then
+
+                    existespecie = Replace(arrayactor(contadoractor), "especie : ", " ", 1)
+                    thirdByIdea.VrSpecies = existespecie
+
+                End If
+
+                If existtotal > 0 Then
+
+                    existtotal = Replace(arrayactor(contadoractor), "total : ", " ", 1)
+                    thirdByIdea.FSCorCounterpartContribution = existtotal
+                    swicthactor = 1
+
+                End If
+
+
+                If swicthactor = 1 Then
+                    thirdByIdeaList.Add(thirdByIdea)
+                    swicthactor = 0
+                End If
+
+                contadoractor = contadoractor + 1
+
+            Next
+
             Dim codeidea = code
+
             objIdea.code = Replace(codeidea, vbCrLf, " ")
 
             objIdea.name = clean_vbCrLf(name)
@@ -320,9 +522,6 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
             objIdea.population = poblacion
             objIdea.cost = PublicFunction.ConvertStringToDouble(cost)
             objIdea.results = clean_vbCrLf(resul_bef)
-            'objIdea.source = Me.ddlSource.SelectedValue
-            'objIdea.idsummoning = Me.ddlSummoning.SelectedValue
-            'objIdea.startprocess = Me.chkStartProcess.Checked
             objIdea.createdate = Now
             objIdea.iduser = applicationCredentials.UserID
 
@@ -361,6 +560,10 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
             objIdea.ProgramComponentBYIDEALIST = myProgramComponentByIdeaList
 
             objIdea.id = facade.addIdea(applicationCredentials, objIdea)
+
+
+
+
 
             Dim Result As String
 

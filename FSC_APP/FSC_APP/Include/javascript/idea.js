@@ -25,6 +25,9 @@ $(document).ready(function() {
     Cmunip();
     Cactors();
     CtypeContract();
+    cargarcomponente();
+    addcomponent();
+
     $("#ctl00_cphPrincipal_containerSuccess").css("display", "none");
     $("#tabsIdea").tabs();
     $("#matriz").dataTable({
@@ -38,9 +41,22 @@ $(document).ready(function() {
         "bJQueryUI": true,
         "bDestroy": true
     });
-
-
+    $("#T_flujos").dataTable({
+        "bJQueryUI": true,
+        "bDestroy": true
+    });
+    
+    $("#T_Actorsflujos").dataTable({
+        "bJQueryUI": true,
+        "bDestroy": true
+    });
+   
+    $("#SaveIdea").button();
+    $("#B_add_location").button();
+    $("#BtnaddActors").button();
+    
 });
+
 
 
 function fix() {
@@ -59,126 +75,163 @@ function fix() {
 }
 
 
+
 //funcion de refactorizacion idea fase 3 ---- autor:German Rodriguez MGgroup
 //guardar idea
 function SaveIdea_onclick() {
 
-    if ($("#ddlStrategicLines :selected").text() == 'Seleccione...' || $("#ddlPrograms :selected").text() == 'Seleccione...' || $("#ctl00_cphPrincipal_txtname").val() == '' || $("#ctl00_cphPrincipal_txtjustification").val() == '' || $("#ctl00_cphPrincipal_txtobjective").val() == '' || $("#ctl00_cphPrincipal_txtstartdate").val() == '' || $("#ctl00_cphPrincipal_txtduration").val() == '' || arrayUbicacion.length == 0) {
+    var fsc_exist = 0;
 
-        if ($("#ddlStrategicLines :selected").text() == 'Seleccione...') {
-            $("#ctl00_cphPrincipal_lblinfls").text("Campo Requerido");
-        }
-        else {
-            $("#ctl00_cphPrincipal_lblinfls").text("");
-        }
-        if ($("#ddlPrograms :selected").text() == 'Seleccione...') {
-            $("#ctl00_cphPrincipal_lblinpro").text("Campo Requerido");
-        }
-        else {
-            $("#ctl00_cphPrincipal_lblinpro").text("");
-        }
-
-        if ($("#ctl00_cphPrincipal_txtname").val() == '') {
-            $("#ctl00_cphPrincipal_lblHelpname").text("Campo Requerido");
-        }
-        else {
-            $("#ctl00_cphPrincipal_lblHelpname").text("");
-        }
-
-        if ($("#ctl00_cphPrincipal_txtjustification").val() == '') {
-            $("#ctl00_cphPrincipal_lblHelpjustification").text("Campo Requerido");
-        }
-        else {
-            $("#ctl00_cphPrincipal_lblHelpjustification").text("");
-        }
-
-        if ($("#ctl00_cphPrincipal_txtobjective").val() == '') {
-            $("#ctl00_cphPrincipal_lblHelpobjective").text("Campo Requerido");
-        }
-        else {
-            $("#ctl00_cphPrincipal_lblHelpobjective").text("");
-        }
-
-        if ($("#ctl00_cphPrincipal_txtstartdate").val() == '') {
-            $("#ctl00_cphPrincipal_lblHelpstartdate").text("Campo Requerido");
-        }
-        else {
-            $("#ctl00_cphPrincipal_lblHelpstartdate").text("");
-        }
-
-        if ($("#ctl00_cphPrincipal_txtduration").val() == '') {
-            $("#ctl00_cphPrincipal_lbldia").text("Campo Requerido");
-        }
-        else {
-            $("#ctl00_cphPrincipal_lbldia").text("");
-        }
-        if (arrayUbicacion.length == 0) {
-            $("#ctl00_cphPrincipal_Lblinfubicacion").text("Debe almenos tener una ubicación");
-        }
-        else {
-            $("#ctl00_cphPrincipal_Lblinfubicacion").text("");
-        }
-
+    if (arrayActor.length == 0) {
+        $("#ctl00_cphPrincipal_Lblactorrep").text("Debe almenos tener un actor");
+        $("#ctl00_cphPrincipal_Lbladvertencia").text("Revisar ubicaciones, actores, componentes o flujos de pagos estos modulos son obligatorios");
     }
-
     else {
-        var listubicaciones = [];
-
-        $("#ctl00_cphPrincipal_lblinfls").val("");
-        $("#ctl0_cphPrincipal_lblinpro").val("");
-        $("#ctl00_cphPrincipal_lblHelpname").text("");
-        $("#ctl00_cphPrincipal_lblHelpjustification").text("");
-        $("#ctl00_cphPrincipal_lblHelpobjective").text("");
-        $("#ctl00_cphPrincipal_lblHelpstartdate").text("");
-        $("#ctl00_cphPrincipal_lbldia").text("");
-
-        for (item in arrayUbicacion) {
-            listubicaciones.push(JSON.stringify(arrayUbicacion[item]));
+        for (iArray in arrayActor) {
+            if (4 == arrayActor[iArray].actorsVal) {
+                fsc_exist = 1;
+            }
         }
 
-        $.ajax({
-            url: "AjaxAddIdea.aspx",
-            type: "GET",
-            data: { "action": "save", "code": $("#ctl00_cphPrincipal_txtcode").val(),
-                "linea_estrategica": $("#ddlStrategicLines").val(),
-                "programa": $("#ddlPrograms").val(),
-                "nombre": $("#ctl00_cphPrincipal_txtname").val(),
-                "justificacion": $("#ctl00_cphPrincipal_txtjustification").val(),
-                "objetivo": $("#ctl00_cphPrincipal_txtobjective").val(),
-                "objetivo_esp": $("#ctl00_cphPrincipal_txtareadescription").val(),
-                "Resultados_Benef": $("#ctl00_cphPrincipal_txtresults").val(),
-                "Resultados_Ges_c": $("#ctl00_cphPrincipal_txtresulgc").val(),
-                "Resultados_Cap_i": $("#ctl00_cphPrincipal_txtresulci").val(),
-                "Fecha_inicio": $("#ctl00_cphPrincipal_txtstartdate").val(),
-                "mes": $("#ctl00_cphPrincipal_txtduration").val(),
-                "dia": $("#ctl00_cphPrincipal_Txtday").val(),
-                "Fecha_fin": $("#ctl00_cphPrincipal_Txtdatecierre").val(),
-                "Población": $("#ctl00_cphPrincipal_ddlPupulation").val(),
-                "contratacion": $("#ddlmodcontract").val(),
-                "A_Mfsc": $("#ctl00_cphPrincipal_ValueMoneyFSC").val(),
-                "A_Efsc": $("#ctl00_cphPrincipal_ValueEspeciesFSC").val(),
-                "A_Mcounter": $("#ctl00_cphPrincipal_ValueMoneyCounter").val(),
-                "A_Ecounter": $("#ctl00_cphPrincipal_ValueEspeciesCounter").val(),
-                "cost": $("#ctl00_cphPrincipal_ValueCostotal").val(),
-                "obligaciones": $("#ctl00_cphPrincipal_Txtobligationsoftheparties").val(),
-                "iva": $("#ctl00_cphPrincipal_Chkiva").val(),
-                "listubicaciones": listubicaciones.toString()
+        if ($("#ddlStrategicLines :selected").text() == 'Seleccione...' || $("#ddlPrograms :selected").text() == 'Seleccione...' || $("#ctl00_cphPrincipal_txtname").val() == '' || $("#ctl00_cphPrincipal_txtjustification").val() == '' || $("#ctl00_cphPrincipal_txtobjective").val() == '' || $("#ctl00_cphPrincipal_txtstartdate").val() == '' || $("#ctl00_cphPrincipal_txtduration").val() == '' || arrayUbicacion.length == 0 || fsc_exist == 0) {
 
-            },
-            success: function(result) {
-                $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
-                $("#ctl00_cphPrincipal_lblsaveinformation").text(result);
-            },
-            error: function() {
-                $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
-                $("#ctl00_cphPrincipal_lblsaveinformation").text("Se genero error al entrar a la operacion Ajax");
+            if ($("#ddlStrategicLines :selected").text() == 'Seleccione...') {
+                $("#ctl00_cphPrincipal_lblinfls").text("Campo Requerido");
             }
-        });
+            else {
+                $("#ctl00_cphPrincipal_lblinfls").text("");
+            }
+            if ($("#ddlPrograms :selected").text() == 'Seleccione...') {
+                $("#ctl00_cphPrincipal_lblinpro").text("Campo Requerido");
+            }
+            else {
+                $("#ctl00_cphPrincipal_lblinpro").text("");
+            }
+
+            if ($("#ctl00_cphPrincipal_txtname").val() == '') {
+                $("#ctl00_cphPrincipal_lblHelpname").text("Campo Requerido");
+            }
+            else {
+                $("#ctl00_cphPrincipal_lblHelpname").text("");
+            }
+
+            if ($("#ctl00_cphPrincipal_txtjustification").val() == '') {
+                $("#ctl00_cphPrincipal_lblHelpjustification").text("Campo Requerido");
+            }
+            else {
+                $("#ctl00_cphPrincipal_lblHelpjustification").text("");
+            }
+
+            if ($("#ctl00_cphPrincipal_txtobjective").val() == '') {
+                $("#ctl00_cphPrincipal_lblHelpobjective").text("Campo Requerido");
+            }
+            else {
+                $("#ctl00_cphPrincipal_lblHelpobjective").text("");
+            }
+
+            if ($("#ctl00_cphPrincipal_txtstartdate").val() == '') {
+                $("#ctl00_cphPrincipal_lblHelpstartdate").text("Campo Requerido");
+            }
+            else {
+                $("#ctl00_cphPrincipal_lblHelpstartdate").text("");
+            }
+
+            if ($("#ctl00_cphPrincipal_txtduration").val() == '') {
+                $("#ctl00_cphPrincipal_lbldia").text("Campo Requerido");
+            }
+            else {
+                $("#ctl00_cphPrincipal_lbldia").text("");
+            }
+            if (arrayUbicacion.length == 0) {
+                $("#ctl00_cphPrincipal_Lblinfubicacion").text("Debe almenos tener una ubicación");
+                $("#ctl00_cphPrincipal_Lbladvertencia").text("Revisar ubicaciones, actores, componentes o flujos de pagos estos modulos son obligatorios");
+            }
+            else {
+                $("#ctl00_cphPrincipal_Lblinfubicacion").text("");
+                $("#ctl00_cphPrincipal_Lbladvertencia").text("");
+            }
+            if (fsc_exist == 1) {
+                $("#ctl00_cphPrincipal_Lblactorrep").text("");
+                $("#ctl00_cphPrincipal_Lbladvertencia").text("");
+            }
+            else {
+                $("#ctl00_cphPrincipal_Lblactorrep").text("la FSC debe ser un actor obligatorio");
+                $("#ctl00_cphPrincipal_Lbladvertencia").text("la FSC debe ser un actor obligatorio");
+            }
+
+        }
+
+        else {
+            var listubicaciones = [];
+            var listactores = [];
+
+            $("#ctl00_cphPrincipal_lblinfls").val("");
+            $("#ctl0_cphPrincipal_lblinpro").val("");
+            $("#ctl00_cphPrincipal_lblHelpname").text("");
+            $("#ctl00_cphPrincipal_lblHelpjustification").text("");
+            $("#ctl00_cphPrincipal_lblHelpobjective").text("");
+            $("#ctl00_cphPrincipal_lblHelpstartdate").text("");
+            $("#ctl00_cphPrincipal_lbldia").text("");
+
+            for (item in arrayUbicacion) {
+                listubicaciones.push(JSON.stringify(arrayUbicacion[item]));
+            }
+
+            for (item in arrayActor) {
+                listactores.push(JSON.stringify(arrayActor[item]));
+            }
+
+            $.ajax({
+                url: "AjaxAddIdea.aspx",
+                type: "GET",
+                data: { "action": "save", "code": $("#ctl00_cphPrincipal_txtcode").val(),
+                    "linea_estrategica": $("#ddlStrategicLines").val(),
+                    "programa": $("#ddlPrograms").val(),
+                    "nombre": $("#ctl00_cphPrincipal_txtname").val(),
+                    "justificacion": $("#ctl00_cphPrincipal_txtjustification").val(),
+                    "objetivo": $("#ctl00_cphPrincipal_txtobjective").val(),
+                    "objetivo_esp": $("#ctl00_cphPrincipal_txtareadescription").val(),
+                    "Resultados_Benef": $("#ctl00_cphPrincipal_txtresults").val(),
+                    "Resultados_Ges_c": $("#ctl00_cphPrincipal_txtresulgc").val(),
+                    "Resultados_Cap_i": $("#ctl00_cphPrincipal_txtresulci").val(),
+                    "Fecha_inicio": $("#ctl00_cphPrincipal_txtstartdate").val(),
+                    "mes": $("#ctl00_cphPrincipal_txtduration").val(),
+                    "dia": $("#ctl00_cphPrincipal_Txtday").val(),
+                    "Fecha_fin": $("#ctl00_cphPrincipal_Txtdatecierre").val(),
+                    "Población": $("#ctl00_cphPrincipal_ddlPupulation").val(),
+                    "contratacion": $("#ddlmodcontract").val(),
+                    "A_Mfsc": $("#ctl00_cphPrincipal_ValueMoneyFSC").val(),
+                    "A_Efsc": $("#ctl00_cphPrincipal_ValueEspeciesFSC").val(),
+                    "A_Mcounter": $("#ctl00_cphPrincipal_ValueMoneyCounter").val(),
+                    "A_Ecounter": $("#ctl00_cphPrincipal_ValueEspeciesCounter").val(),
+                    "cost": $("#ctl00_cphPrincipal_ValueCostotal").val(),
+                    "obligaciones": $("#ctl00_cphPrincipal_Txtobligationsoftheparties").val(),
+                    "iva": $("#ctl00_cphPrincipal_Chkiva").val(),
+                    "listubicaciones": listubicaciones.toString(),
+                    "listactores": listactores.toString()
+
+                },
+                success: function(result) {
+                    $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
+                    $("#ctl00_cphPrincipal_lblsaveinformation").text(result);
+                    $("#ctl00_cphPrincipal_lblsaveinformation").focus();
+                },
+                error: function() {
+                    $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
+                    $("#ctl00_cphPrincipal_lblsaveinformation").text("Se genero error al entrar a la operacion Ajax");
+                }
+            });
+
+        }
+
     }
+
 }
 
 
 function Add_location_onclick() {
+
+    $("#ctl00_cphPrincipal_Lblinfubicacion").text("");
 
     var deptoVal = $("#ddlDepto").val();
     var deptoName = $("#ddlDepto :selected").text();
@@ -187,43 +240,56 @@ function Add_location_onclick() {
     var cityName = $("#ddlCity :selected").text();
 
     var jsonUbicacion = { "DeptoVal": deptoVal, "DeptoName": deptoName, "CityVal": cityVal, "CityName": cityName };
+    var validerepetido = 0;
 
-    //    for (iArray in arrayUbicacion) {
-    //        if (deptoName == arrayUbicacion[iArray].DeptoName && cityName == arrayUbicacion[iArray].CityName) {
-    //            $("#ctl00_cphPrincipal_LblubicacionRep").text("La ubicación ya fue ingresada");
-    //            break;
-    //        }
-    //    }
-    //    $("#ctl00_cphPrincipal_LblubicacionRep").text("");
-
-    arrayUbicacion.push(jsonUbicacion);
-    var htmlTable = "<table id='T_location' border='2' cellpadding='2' cellspacing='2' style='width: 100%;'><thead><tr><th>Departamento</th><th>Ciudad</th><th>Eliminar</th></tr></thead><tbody>";
-
-
-    for (itemArray in arrayUbicacion) {
-        htmlTable += "<tr><td>" + arrayUbicacion[itemArray].DeptoName + "</td><td>" + arrayUbicacion[itemArray].CityName + "</td><td><button>Eliminar</button></td></tr>";
+    for (iArray in arrayUbicacion) {
+        if (deptoName == arrayUbicacion[iArray].DeptoName && cityName == arrayUbicacion[iArray].CityName) {
+            validerepetido = 1;
+        }
     }
 
-    htmlTable += "</tbody></table>";
+    if (validerepetido == 1) {
+        $("#ctl00_cphPrincipal_LblubicacionRep").text("La ubicación ya fue ingresada");
+    }
+    else {
+        $("#ctl00_cphPrincipal_LblubicacionRep").text("");
 
-    $("#T_locationContainer").html("");
-    $("#T_locationContainer").html(htmlTable);
+        arrayUbicacion.push(jsonUbicacion);
+        var htmlTable = "<table id='T_location' border='2' cellpadding='2' cellspacing='2' style='width: 100%;'><thead><tr><th>Departamento</th><th>Ciudad</th><th>Eliminar</th></tr></thead><tbody>";
 
-    $("#T_location").dataTable({
-        "bJQueryUI": true,
-        "bDestroy": true
-    });
+
+        for (itemArray in arrayUbicacion) {
+            htmlTable += "<tr><td>" + arrayUbicacion[itemArray].DeptoName + "</td><td>" + arrayUbicacion[itemArray].CityName + "</td><td><button>Eliminar</button></td></tr>";
+        }
+
+        htmlTable += "</tbody></table>";
+
+        $("#T_locationContainer").html("");
+        $("#T_locationContainer").html(htmlTable);
+
+        $("#T_location").dataTable({
+            "bJQueryUI": true,
+            "bDestroy": true
+        });
+
+    }
 
 }
 
-var valdinerIni = 0;
-var valdiner = 0;
-var valdinerope = 0;
-var valespecie;
-var valtotal;
 
 function BtnaddActors_onclick() {
 
+    var valdiner = 0;
+    var valespecie = 0;
+    var valtotal = 0;
+
+    var valdinergrid = 0;
+    var valespeciegrid = 0;
+    var valtotalgrid = 0;
+
+    var valdinergridfsc = 0;
+    var valespeciegridfsc = 0;
+    var valtotalgridfsc = 0;
 
     var actorsVal = $("#ddlactors").val();
     var actorsName = $("#ddlactors :selected").text();
@@ -237,60 +303,195 @@ function BtnaddActors_onclick() {
     var total = $("#ctl00_cphPrincipal_Txtaportfscocomp").val();
 
     var jsonActor = { "actorsVal": actorsVal, "actorsName": actorsName, "tipoactors": tipoactors, "contact": contact, "cedula": cedula, "telefono": telefono, "email": email, "diner": diner, "especie": especie, "total": total };
+    var validerepetido = 0;
 
-    arrayActor.push(jsonActor);
-
-    var htmlTableActores = "<table id='T_Actors' align='center' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr><th>id</th><th>Actores</th><th>Tipo</th><th>Contacto</th><th>Documento Identidad</th><th>Tel&eacute;fono</th><th>Correo electr&oacute;nico</th><th>Vr Dinero</th><th>Vr Especie</th><th>Vr Especie</th><th>Eliminar</th></tr></thead>";
-
-    for (itemArray in arrayActor) {
-        htmlTableActores += "<tr><td>" + arrayActor[itemArray].actorsVal + "</td><td>" + arrayActor[itemArray].actorsName + "</td><td>" + arrayActor[itemArray].tipoactors + "</td><td>" + arrayActor[itemArray].contact + "</td><td>" + arrayActor[itemArray].cedula + "</td><td>" + arrayActor[itemArray].telefono + "</td><td>" + arrayActor[itemArray].email + "</td><td>" + arrayActor[itemArray].diner + "</td><td>" + arrayActor[itemArray].especie + "</td><td>" + arrayActor[itemArray].total + "</td><td><button>Eliminar</button></td></tr>";
+    for (iArray in arrayActor) {
+        if (actorsVal == arrayActor[iArray].actorsVal) {
+            validerepetido = 1;
+        }
     }
 
-    htmlTableActores += "<tr><td>1000</td><td>Total</td><td></td><td></td><td></td><td></td><td></td><td id='val1'></td><td id='val2'>0</td><td id='val3'>0</td><td></td></tr>";
+    if (validerepetido == 1) {
+        $("#ctl00_cphPrincipal_Lblactorrep").text("El actor ya fue ingresado");
+    }
+    else {
+        $("#ctl00_cphPrincipal_Lblactorrep").text("");
+        arrayActor.push(jsonActor);
 
-    htmlTableActores += "</tbody></table>";
+        var htmlTableActores = "<table id='T_Actors' align='center' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr><th>id</th><th>Actores</th><th>Tipo</th><th>Contacto</th><th>Documento Identidad</th><th>Tel&eacute;fono</th><th>Correo electr&oacute;nico</th><th>Vr Dinero</th><th>Vr Especie</th><th>Vr Especie</th><th>Eliminar</th></tr></thead><tbody>";
+        var htmltableAflujos = "<table id='T_Act0orsflujos' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr><th>Id</th><th>Aportante</th><th>Valor en efectivo</th><th>Valor a cancelar</th></tr><thead><tbody>";
 
 
-    $("#T_ActorsContainer").html("");
-    $("#T_ActorsContainer").html(htmlTableActores);
+        for (itemArray in arrayActor) {
+            htmlTableActores += "<tr><td>" + arrayActor[itemArray].actorsVal + "</td><td>" + arrayActor[itemArray].actorsName + "</td><td>" + arrayActor[itemArray].tipoactors + "</td><td>" + arrayActor[itemArray].contact + "</td><td>" + arrayActor[itemArray].cedula + "</td><td>" + arrayActor[itemArray].telefono + "</td><td>" + arrayActor[itemArray].email + "</td><td>" + arrayActor[itemArray].diner + "</td><td>" + arrayActor[itemArray].especie + "</td><td>" + arrayActor[itemArray].total + "</td><td><button>Eliminar</button></td></tr>";
+            htmltableAflujos += "<tr><td>" + arrayActor[itemArray].actorsVal + "</td><td>" + arrayActor[itemArray].actorsName + "</td><td>" + arrayActor[itemArray].diner + "</td><td><input id=" + arrayActor[itemArray].actorsVal + "></input></td></tr>";   
+        }
 
-    $("#T_Actors tr").each(function() {
 
-        var arrayValuesActors = $(this).find("td").slice(7, 10);
+        htmlTableActores += "<tr><td>1000</td><td>Total</td><td></td><td></td><td></td><td></td><td></td><td id='val1'></td><td id='val2'>0</td><td id='val3'>0</td><td></td></tr>";
+        htmltableAflujos += "<tr><td>1000</td><td>Total</td><td></td><td>0</td id='totalflujos'></tr>";
+        htmlTableActores += "</tbody></table>";
+        htmltableAflujos += "</tbody></table>";
 
-        if ($(arrayValuesActors[0]).html() != null) {
+        $("#T_ActorsContainer").html("");
+        $("#T_ActorsContainer").html(htmlTableActores);
 
-            var countactors = arrayActor.length;
-            if (countactors == 1) {
-                valdinerIni = parseInt($(arrayValuesActors[0]).html().replace(/\./gi, ''));
-                valdiner = valdinerIni;
+        $("#T_AflujosContainer").html("");
+        $("#T_AflujosContainer").html(htmltableAflujos);
+
+        
+
+        $("#T_Actors tr").slice(0, $("#T_Actors tr").length - 1).each(function() {
+
+            var arrayValuesActors = $(this).find("td").slice(7, 10);
+
+            if ($(arrayValuesActors[0]).html() != null) {
+
+                valdiner = valdiner + parseInt($(arrayValuesActors[0]).html().replace(/\./gi, ''));
+                valespecie = valespecie + parseInt($(arrayValuesActors[1]).html().replace(/\./gi, ''));
+                valtotal = valtotal + parseInt($(arrayValuesActors[2]).html().replace(/\./gi, ''));
+
+                $("#val1").text(addCommasrefactor(valdiner));
+                $("#val2").text(addCommasrefactor(valespecie));
+                $("#val3").text(addCommasrefactor(valtotal));
+
+            }
+
+        });
+
+       
+
+        var switch_fsc = 0;
+        //buscar la fsc para guardar en el grid principal
+        $("#T_Actors tr").slice(0, $("#T_Actors tr").length - 1).each(function() {
+            var arrayValuesActors2 = $(this).find("td").slice(0, 10);
+            if ($(arrayValuesActors2[0]).html() != null) {
+                if ($(arrayValuesActors2[0]).html() == 4) {
+
+                    valdinergridfsc =  parseInt($(arrayValuesActors2[7]).html().replace(/\./gi, ''));
+                    valespeciegridfsc = parseInt($(arrayValuesActors2[8]).html().replace(/\./gi, ''));
+                    valtotalgridfsc = parseInt($(arrayValuesActors2[9]).html().replace(/\./gi, ''));
+
+                    $("#ValueMoneyFSC").text(addCommasrefactor(valdinergridfsc));
+                    $("#ValueEspeciesFSC").text(addCommasrefactor(valespeciegridfsc));
+                    $("#ValueCostFSC").text(addCommasrefactor(valtotalgridfsc));
+                }
+            }
+        });
+
+
+        
+        //buscar todos los q son actores diferentes a la fsc y sumarlos
+        $("#T_Actors tr").slice(0, $("#T_Actors tr").length - 1).each(function() {
+            var arrayValuesActors2 = $(this).find("td").slice(0, 10);
+            if ($(arrayValuesActors2[0]).html() != null) {
+                if ($(arrayValuesActors2[0]).html() != 4) {
+
+                    valdinergrid = valdinergrid + parseInt($(arrayValuesActors2[7]).html().replace(/\./gi, ''));
+                    valespeciegrid = valespeciegrid + parseInt($(arrayValuesActors2[8]).html().replace(/\./gi, ''));
+                    valtotalgrid = valtotalgrid + parseInt($(arrayValuesActors2[9]).html().replace(/\./gi, ''));
+
+                    $("#ValueMoneyCounter").text(addCommasrefactor(valdinergrid));
+                    $("#ValueEspeciesCounter").text(addCommasrefactor(valespeciegrid));
+                    $("#ValueCostCounter").text(addCommasrefactor(valtotalgrid));
+                }
+            }
+        });
+
+        //suma de primera columna
+        var dinerfsc = $("#ValueMoneyFSC").text();
+        dinerfsc = dinerfsc.replace(/\./gi, '');
+        var opedinerfsc = parseInt(dinerfsc);
+
+        var dinerothers = $("#ValueMoneyCounter").text();
+        dinerothers = dinerothers.replace(/\./gi, '');
+        var opedinerothers = parseInt(dinerothers);
+
+        if (isNaN(opedinerfsc)) {
+            opedinerfsc = 0;
+            $("#ValueMoneyFSC").val(opedinerfsc);
+        }
+        else {
+            if (isNaN(opedinerothers)) {
+                opedinerothers = 0;
+                $("#ValueMoneyCounter").val(opedinerothers);
             }
             else {
-                valdinerope = parseInt($(arrayValuesActors[0]).html().replace(/\./gi, ''));
-                valdinerIni = valdinerIni + valdinerope;
-                valdiner = valdinerIni;
-               
+                var sumadiner = 0;
+                sumadiner = opedinerfsc + opedinerothers;
+                $("#valueMoneytotal").text(addCommasrefactor(sumadiner));
+                $("#ctl00_cphPrincipal_txtvalortotalflow").val(addCommasrefactor(sumadiner));
             }
-
-            //        valespecie = parseInt($(arrayValuesActors[1]).html().replace(/\./gi, ''));
-            //      valtotal = parseInt($(arrayValuesActors[2]).html().replace(/\./gi, ''));
-
-            console.log(valdiner);
-            //    console.log(valespecie);
-            //    console.log(valtotal);
-
-            $("#val1").text(valdiner);
-            //   $("#val2").text(addCommasrefactor(valespecie));
-            //   $("#val3").text(addCommasrefactor(valtotal));
-
         }
-            
-    });
+        sumadiner = opedinerfsc + opedinerothers;
+        $("#valueMoneytotal").text(addCommasrefactor(sumadiner));
+        $("#ctl00_cphPrincipal_txtvalortotalflow").val(addCommasrefactor(sumadiner));
 
-    $("#T_Actors").dataTable({
-        "bJQueryUI": true,
-        "bDestroy": true
-    });
+        //suma segunda columna
+        var especiefsc = $("#ValueEspeciesFSC").text();
+        especiefsc = especiefsc.replace(/\./gi, '');
+        var opeespeciefsc = parseInt(especiefsc);
+
+        var especieothers = $("#ValueEspeciesCounter").text();
+        especieothers = especieothers.replace(/\./gi, '');
+        var opeespecieothers = parseInt(especieothers);
+
+        if (isNaN(opeespeciefsc)) {
+            opeespeciefsc = 0;
+            $("#ValueEspeciesFSC").val(opeespeciefsc);
+        }
+        else {
+            if (isNaN(opeespecieothers)) {
+                opeespecieothers = 0;
+                $("#ValueEspeciesCounter").val(opeespecieothers);
+            }
+            else {
+                var sumaespecie = 0;
+                sumaespecie = opeespeciefsc + opeespecieothers;
+                $("#ValueEspeciestotal").text(addCommasrefactor(sumaespecie));
+            }
+        }
+        sumaespecie = opeespeciefsc + opeespecieothers;
+        $("#ValueEspeciestotal").text(addCommasrefactor(sumaespecie));
+
+        //suma tercera columna
+        var totalfsc = $("#ValueCostFSC").text();
+        totalfsc = totalfsc.replace(/\./gi, '');
+        var opetotalfsc = parseInt(totalfsc);
+
+        var totalothers = $("#ValueCostCounter").text();
+        totalothers = totalothers.replace(/\./gi, '');
+        var opetotalothers = parseInt(totalothers);
+
+        if (isNaN(opetotalfsc)) {
+            opetotalfsc = 0;
+            $("#ValueCostFSC").val(opetotalfsc);
+        }
+        else {
+            if (isNaN(opetotalothers)) {
+                opetotalothers = 0;
+                $("#ValueCostCounter").val(opetotalothers);
+            }
+            else {
+                var sumatotal = 0;
+                sumatotal = opetotalfsc + opetotalothers;
+                $("#ValueCostotal").text(addCommasrefactor(sumatotal));
+            }
+        }
+        sumatotal = opetotalfsc + opetotalothers;
+        $("#ValueCostotal").text(addCommasrefactor(sumatotal));
+
+        $("#T_Actors").dataTable({
+            "bJQueryUI": true,
+            "bDestroy": true
+        });
+
+        $("#T_Actorsflujos").dataTable({
+            "bJQueryUI": true,
+            "bDestroy": true
+        });
+
+    }
 
 }
 
@@ -393,6 +594,41 @@ function CtypeContract() {
         }
     });
 }
+
+
+//cargar double lisbox componentes de programa
+function cargarcomponente() {
+    $("#ddlPrograms").change(function() {
+        $.ajax({
+            url: "AjaxAddIdea.aspx",
+            type: "GET",
+            data: { "action": "C_component", "idprogram": $(this).val() },
+            success: function(result) {
+                $("#ctl00_cphPrincipal_dlbActivity_ctl08").html(result);
+            },
+            error: function(msg) {
+                alert("No se pueden cargar los componentes del programa selecionado.");
+            }
+        });
+    });
+}
+
+//par}sar de un list box al otro
+function addcomponent() {
+    $("#ctl00_cphPrincipal_dlbActivity_ctl10").click(function() {
+        if ($("#ctl00_cphPrincipal_dlbActivity_ctl08").val() == "") {
+
+        }
+        else {
+            var valcomp = $("#ctl00_cphPrincipal_dlbActivity_ctl08").val()
+            var textcomp = $("#ctl00_cphPrincipal_dlbActivity_ctl08 :selected").text()
+            $("#ctl00_cphPrincipal_dlbActivity_ctl14").val(valcomp)
+            $("#ctl00_cphPrincipal_dlbActivity_ctl14").text(textcomp)
+        }
+    });
+
+}
+
 
 
 function validafecha() {

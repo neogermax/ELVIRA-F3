@@ -18,7 +18,10 @@
     <script type="text/javascript" src="../Include/javascript/jquery-1.6.1.min.js"></script>
 
     <script src="../Include/javascript/chosen.jquery.min.js" type="text/javascript"></script>
-    
+<%--
+    <link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+--%>
+
     <link href="../Include/javascript/jfm/styles/style.css" rel="stylesheet" type="text/css" />
     <link href="../Include/javascript/jfm/styles/jflow.style.css" rel="stylesheet" type="text/css" />
     <script src="../Include/javascript/jfm/jflow.plus.min.js" type="text/javascript"></script>

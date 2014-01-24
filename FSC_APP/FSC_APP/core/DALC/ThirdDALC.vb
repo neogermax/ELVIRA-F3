@@ -108,6 +108,8 @@ Public Class ThirdDALC
              "personanatural," & _
              "representantelegal," & _
              "iduser," & _
+             "tipodocumento," & _
+             "docrepresentante," & _
              "createdate" & _
             ")")
             sql.AppendLine("VALUES (")
@@ -123,6 +125,8 @@ Public Class ThirdDALC
             sql.AppendLine("'" & Third.PersonaNatural & "',")
             sql.AppendLine("'" & Third.representantelegal & "',")
             sql.AppendLine("'" & Third.iduser & "',")
+            sql.AppendLine("'" & Third.tipodocumento & "',")
+            sql.AppendLine("'" & Third.docrepresentante & "',")
             sql.AppendLine("'" & Third.createdate.ToString("yyyy/MM/dd HH:mm:ss") & "')")
 
             ' intruccion para obtener el registro insertado

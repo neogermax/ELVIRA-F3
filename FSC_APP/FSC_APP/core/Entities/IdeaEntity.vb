@@ -51,7 +51,8 @@ Public Class IdeaEntity
     ' TODO: 21 ideaEntity se crean nuevos campos 
     ' Autor: German Rodriguez MGgroup
     ' cierre de modificación
-
+    Private _OBLIGACIONES As String
+    Private _IVA As Boolean
 
 #End Region
 
@@ -355,6 +356,22 @@ Public Class IdeaEntity
     ' TODO: 22 ideaEntity se crean nuevos campos
     ' Autor: German Rodriguez MGgroup
     ' cierre de modificacion
+    Public Property Obligaciones() As String
+        Get
+            Return Me._OBLIGACIONES
+        End Get
+        Set(ByVal value As String)
+            Me._OBLIGACIONES = value
+        End Set
+    End Property
+    Public Property iva() As Boolean
+        Get
+            Return Me._IVA
+        End Get
+        Set(ByVal value As Boolean)
+            Me._IVA = value
+        End Set
+    End Property
 
 #End Region
 

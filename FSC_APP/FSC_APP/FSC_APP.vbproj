@@ -2441,6 +2441,13 @@
       <DependentUpon>addThird.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="GeneralPlanning\AjaxAddThird.aspx.designer.vb">
+      <DependentUpon>AjaxAddThird.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GeneralPlanning\AjaxAddThird.aspx.vb">
+      <DependentUpon>AjaxAddThird.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
     <Compile Include="GeneralPlanning\searchENTERPRISE.aspx.designer.vb">
       <DependentUpon>searchENTERPRISE.aspx</DependentUpon>
     </Compile>
@@ -3601,6 +3608,7 @@
     <Content Include="css\datatables\images\sort_desc.png" />
     <Content Include="css\datatables\images\sort_desc_disabled.png" />
     <Content Include="css\images\animated-overlay.gif" />
+    <Content Include="css\jquery-ui-1.10.4.custom.min.css" />
     <Content Include="css\images\ui-bg_diagonals-small_40_db4865_40x40.png" />
     <Content Include="css\images\ui-bg_diagonals-small_50_93c3cd_40x40.png" />
     <Content Include="css\images\ui-bg_diagonals-small_50_ff3853_40x40.png" />
@@ -3616,9 +3624,9 @@
     <Content Include="css\images\ui-icons_e1e463_256x240.png" />
     <Content Include="css\images\ui-icons_ffeb33_256x240.png" />
     <Content Include="css\images\ui-icons_ffffff_256x240.png" />
-    <Content Include="css\jquery-ui-1.10.3.custom.min.css" />
     <Content Include="css\datatables\jquery.dataTables.css" />
     <Content Include="css\datatables\jquery.dataTables_themeroller.css" />
+    <Content Include="GeneralPlanning\AjaxAddThird.aspx" />
     <Content Include="js\jquery-ui-1.10.3.custom.min.js" />
     <Content Include="js\jquery.dataTables.min.js" />
     <Content Include="Master\mpAdmin.master" />

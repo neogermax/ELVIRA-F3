@@ -232,15 +232,6 @@ Partial Public Class addIdea
     Protected WithEvents txtname As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''Control rfvname.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents rfvname As Global.System.Web.UI.WebControls.RequiredFieldValidator
-
-    '''<summary>
     '''Control lblHelpname.
     '''</summary>
     '''<remarks>
@@ -268,15 +259,6 @@ Partial Public Class addIdea
     Protected WithEvents txtjustification As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''Control RequiredFieldValidator6.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents RequiredFieldValidator6 As Global.System.Web.UI.WebControls.RequiredFieldValidator
-
-    '''<summary>
     '''Control lblHelpjustification.
     '''</summary>
     '''<remarks>
@@ -302,15 +284,6 @@ Partial Public Class addIdea
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
     Protected WithEvents txtobjective As Global.System.Web.UI.WebControls.TextBox
-
-    '''<summary>
-    '''Control RequiredFieldValidator7.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents RequiredFieldValidator7 As Global.System.Web.UI.WebControls.RequiredFieldValidator
 
     '''<summary>
     '''Control lblHelpobjective.
@@ -430,6 +403,33 @@ Partial Public Class addIdea
     Protected WithEvents Label11 As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
+    '''Control Lblobligationsoftheparties.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Lblobligationsoftheparties As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''Control Txtobligationsoftheparties.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Txtobligationsoftheparties As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''Control Label24.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Label24 As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
     '''Control lblstartdate.
     '''</summary>
     '''<remarks>
@@ -455,15 +455,6 @@ Partial Public Class addIdea
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
     Protected WithEvents cestartdate As Global.AjaxControlToolkit.CalendarExtender
-
-    '''<summary>
-    '''Control RequiredFieldValidator3.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents RequiredFieldValidator3 As Global.System.Web.UI.WebControls.RequiredFieldValidator
 
     '''<summary>
     '''Control cvstartdate.
@@ -601,6 +592,24 @@ Partial Public Class addIdea
     Protected WithEvents Label20 As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
+    '''Control Label21.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Label21 As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''Control Chkiva.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Chkiva As Global.System.Web.UI.WebControls.CheckBox
+
+    '''<summary>
     '''Control ValueMoneyFSC.
     '''</summary>
     '''<remarks>
@@ -680,6 +689,15 @@ Partial Public Class addIdea
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
     Protected WithEvents ValueCostotal As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''Control li3333.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents li3333 As Global.System.Web.UI.HtmlControls.HtmlGenericControl
 
     '''<summary>
     '''Control lblcost.
@@ -779,15 +797,6 @@ Partial Public Class addIdea
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
     Protected WithEvents ddlSummoning As Global.System.Web.UI.WebControls.DropDownList
-
-    '''<summary>
-    '''Control RequiredFieldValidator5.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents RequiredFieldValidator5 As Global.System.Web.UI.WebControls.RequiredFieldValidator
 
     '''<summary>
     '''Control lblHelpconvocatory.
@@ -1139,6 +1148,24 @@ Partial Public Class addIdea
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
     Protected WithEvents btnAgregarubicacion As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''Control Lblinfubicacion.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Lblinfubicacion As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''Control LblubicacionRep.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents LblubicacionRep As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''Control gvLocations.

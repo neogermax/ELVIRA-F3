@@ -42,6 +42,9 @@ Public Class ThirdEntity
     'AUTOR:Autor: Pedro Cruz MGgroup
     'cierre de cambios 
 
+    Private _tipodocumento As String
+    Private _docrepresentante As String
+
 #End Region
 
 #Region "Propiedades"
@@ -161,13 +164,28 @@ Public Class ThirdEntity
             Me._personanatural = value
         End Set
     End Property
-
     Public Property representantelegal() As String
         Get
             Return Me._representantelegal
         End Get
         Set(ByVal value As String)
             Me._representantelegal = value
+        End Set
+    End Property
+    Public Property tipodocumento() As String
+        Get
+            Return Me._tipodocumento
+        End Get
+        Set(ByVal value As String)
+            Me._tipodocumento = value
+        End Set
+    End Property
+    Public Property docrepresentante() As String
+        Get
+            Return Me._docrepresentante
+        End Get
+        Set(ByVal value As String)
+            Me._docrepresentante = value
         End Set
     End Property
 
