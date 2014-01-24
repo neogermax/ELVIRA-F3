@@ -7,6 +7,10 @@
 
     <script src="../Include/javascript/third.js" type="text/javascript"></script>
 
+    <link href="../css/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" type="text/css" />
+
+    <script src="../js/jquery-ui-1.10.3.custom.min.js" type="text/javascript"></script>
+
     <script type="text/javascript">
         //Función que permite solo Números
         function ValidaSoloNumeros() {

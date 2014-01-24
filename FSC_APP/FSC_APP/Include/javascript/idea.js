@@ -45,18 +45,18 @@ $(document).ready(function() {
         "bJQueryUI": true,
         "bDestroy": true
     });
-    
+
     $("#T_Actorsflujos").dataTable({
         "bJQueryUI": true,
         "bDestroy": true
     });
-   
+
     $("#SaveIdea").button();
     $("#B_add_location").button();
     $("#BtnaddActors").button();
     $("#Btn_add_flujo").button();
-    
-    
+
+
 });
 
 
@@ -84,83 +84,104 @@ function SaveIdea_onclick() {
 
     var fsc_exist = 0;
 
-    if (arrayActor.length == 0) {
-        $("#ctl00_cphPrincipal_Lblactorrep").text("Debe almenos tener un actor");
-        $("#ctl00_cphPrincipal_Lbladvertencia").text("Revisar ubicaciones, actores, componentes o flujos de pagos estos modulos son obligatorios");
+    if (arrayActor.length == 0 || arrayUbicacion.length == 0) {
+        if (arrayActor.length == 0 && arrayUbicacion.length != 0) {
+            $("#ctl00_cphPrincipal_Lblactorrep").text("Debe almenos tener un actor");
+            $("#ctl00_cphPrincipal_Lbladvertencia").text("Revisar la pestaña actores");
+        }
+        if (arrayActor.length != 0 && arrayUbicacion.length == 0) {
+            $("#ctl00_cphPrincipal_Lblinfubicacion").text("debe tener almenos una ubicación");
+            $("#ctl00_cphPrincipal_Lbladvertencia").text("Revisar la pestaña ubicación");
+        }
+        if (arrayActor.length == 0 && arrayUbicacion.length == 0) {
+            $("#ctl00_cphPrincipal_Lbladvertencia").text("Revisar la pestaña actores y ubicaciones");
+            $("#ctl00_cphPrincipal_Lblactorrep").text("Debe almenos tener un actor");
+            $("#ctl00_cphPrincipal_Lblinfubicacion").text("debe tener almenos una ubicación");
+        }
+
     }
+
     else {
         for (iArray in arrayActor) {
             if (4 == arrayActor[iArray].actorsVal) {
                 fsc_exist = 1;
             }
         }
+        $("#ctl00_cphPrincipal_Lblinfubicacion").text("");
+        $("#ctl00_cphPrincipal_Lblactorrep").text("");
 
         if ($("#ddlStrategicLines :selected").text() == 'Seleccione...' || $("#ddlPrograms :selected").text() == 'Seleccione...' || $("#ctl00_cphPrincipal_txtname").val() == '' || $("#ctl00_cphPrincipal_txtjustification").val() == '' || $("#ctl00_cphPrincipal_txtobjective").val() == '' || $("#ctl00_cphPrincipal_txtstartdate").val() == '' || $("#ctl00_cphPrincipal_txtduration").val() == '' || arrayUbicacion.length == 0 || fsc_exist == 0) {
 
             if ($("#ddlStrategicLines :selected").text() == 'Seleccione...') {
                 $("#ctl00_cphPrincipal_lblinfls").text("Campo Requerido");
+                $("#ctl00_cphPrincipal_Lbladvertencia").text("Revisar la pestaña información");
             }
             else {
                 $("#ctl00_cphPrincipal_lblinfls").text("");
+                $("#ctl00_cphPrincipal_Lbladvertencia").text("");
             }
+           
             if ($("#ddlPrograms :selected").text() == 'Seleccione...') {
                 $("#ctl00_cphPrincipal_lblinpro").text("Campo Requerido");
+                $("#ctl00_cphPrincipal_Lbladvertencia").text("Revisar la pestaña información");
             }
             else {
                 $("#ctl00_cphPrincipal_lblinpro").text("");
+                $("#ctl00_cphPrincipal_Lbladvertencia").text("");
             }
-
+           
             if ($("#ctl00_cphPrincipal_txtname").val() == '') {
                 $("#ctl00_cphPrincipal_lblHelpname").text("Campo Requerido");
+                $("#ctl00_cphPrincipal_Lbladvertencia").text("Revisar la pestaña información");
             }
             else {
                 $("#ctl00_cphPrincipal_lblHelpname").text("");
+                $("#ctl00_cphPrincipal_Lbladvertencia").text("");
             }
-
+           
             if ($("#ctl00_cphPrincipal_txtjustification").val() == '') {
                 $("#ctl00_cphPrincipal_lblHelpjustification").text("Campo Requerido");
+                $("#ctl00_cphPrincipal_Lbladvertencia").text("Revisar la pestaña información");
             }
             else {
                 $("#ctl00_cphPrincipal_lblHelpjustification").text("");
+                $("#ctl00_cphPrincipal_Lbladvertencia").text("");
             }
-
+           
             if ($("#ctl00_cphPrincipal_txtobjective").val() == '') {
                 $("#ctl00_cphPrincipal_lblHelpobjective").text("Campo Requerido");
+                $("#ctl00_cphPrincipal_Lbladvertencia").text("Revisar la pestaña información");
             }
             else {
                 $("#ctl00_cphPrincipal_lblHelpobjective").text("");
+                $("#ctl00_cphPrincipal_Lbladvertencia").text("");
             }
-
+           
             if ($("#ctl00_cphPrincipal_txtstartdate").val() == '') {
                 $("#ctl00_cphPrincipal_lblHelpstartdate").text("Campo Requerido");
+                $("#ctl00_cphPrincipal_Lbladvertencia").text("Revisar la pestaña información");
             }
             else {
                 $("#ctl00_cphPrincipal_lblHelpstartdate").text("");
+                $("#ctl00_cphPrincipal_Lbladvertencia").text("");
             }
-
+           
             if ($("#ctl00_cphPrincipal_txtduration").val() == '') {
                 $("#ctl00_cphPrincipal_lbldia").text("Campo Requerido");
+                $("#ctl00_cphPrincipal_Lbladvertencia").text("Revisar la pestaña información");
             }
             else {
                 $("#ctl00_cphPrincipal_lbldia").text("");
-            }
-            if (arrayUbicacion.length == 0) {
-                $("#ctl00_cphPrincipal_Lblinfubicacion").text("Debe almenos tener una ubicación");
-                $("#ctl00_cphPrincipal_Lbladvertencia").text("Revisar ubicaciones, actores, componentes o flujos de pagos estos modulos son obligatorios");
-            }
-            else {
-                $("#ctl00_cphPrincipal_Lblinfubicacion").text("");
                 $("#ctl00_cphPrincipal_Lbladvertencia").text("");
             }
+           
             if (fsc_exist == 1) {
                 $("#ctl00_cphPrincipal_Lblactorrep").text("");
-                $("#ctl00_cphPrincipal_Lbladvertencia").text("");
             }
             else {
                 $("#ctl00_cphPrincipal_Lblactorrep").text("la FSC debe ser un actor obligatorio");
                 $("#ctl00_cphPrincipal_Lbladvertencia").text("la FSC debe ser un actor obligatorio");
             }
-
         }
 
         else {
@@ -216,7 +237,8 @@ function SaveIdea_onclick() {
                 success: function(result) {
                     $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
                     $("#ctl00_cphPrincipal_lblsaveinformation").text(result);
-                    $("#ctl00_cphPrincipal_lblsaveinformation").focus();
+                    $("#ctl00_cphPrincipal_Lbladvertencia").text("");
+                    $("#ddlStrategicLines").focus();
                 },
                 error: function() {
                     $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
@@ -326,7 +348,7 @@ function BtnaddActors_onclick() {
 
         for (itemArray in arrayActor) {
             htmlTableActores += "<tr><td>" + arrayActor[itemArray].actorsVal + "</td><td>" + arrayActor[itemArray].actorsName + "</td><td>" + arrayActor[itemArray].tipoactors + "</td><td>" + arrayActor[itemArray].contact + "</td><td>" + arrayActor[itemArray].cedula + "</td><td>" + arrayActor[itemArray].telefono + "</td><td>" + arrayActor[itemArray].email + "</td><td>" + arrayActor[itemArray].diner + "</td><td>" + arrayActor[itemArray].especie + "</td><td>" + arrayActor[itemArray].total + "</td><td><button>Eliminar</button></td></tr>";
-            htmltableAflujos += "<tr><td>" + arrayActor[itemArray].actorsVal + "</td><td>" + arrayActor[itemArray].actorsName + "</td><td>" + arrayActor[itemArray].diner + "</td><td><input id=" + arrayActor[itemArray].actorsVal + " onkeyup='format(this)' onchange='format(this)'></input></td></tr>";   
+            htmltableAflujos += "<tr><td>" + arrayActor[itemArray].actorsVal + "</td><td>" + arrayActor[itemArray].actorsName + "</td><td>" + arrayActor[itemArray].diner + "</td><td><input id=" + arrayActor[itemArray].actorsVal + " onkeyup='format(this)' onchange='format(this)'></input></td></tr>";
         }
 
 
@@ -341,7 +363,7 @@ function BtnaddActors_onclick() {
         $("#T_AflujosContainer").html("");
         $("#T_AflujosContainer").html(htmltableAflujos);
 
-        
+
 
         $("#T_Actors tr").slice(0, $("#T_Actors tr").length - 1).each(function() {
 
@@ -355,7 +377,7 @@ function BtnaddActors_onclick() {
 
                 $("#val1").text(addCommasrefactor(valdiner));
                 $("#tflujosing").text(addCommasrefactor(valdiner));
-               
+
                 $("#val2").text(addCommasrefactor(valespecie));
                 $("#val3").text(addCommasrefactor(valtotal));
 
@@ -363,7 +385,7 @@ function BtnaddActors_onclick() {
 
         });
 
-       
+
 
         var switch_fsc = 0;
         //buscar la fsc para guardar en el grid principal
@@ -372,7 +394,7 @@ function BtnaddActors_onclick() {
             if ($(arrayValuesActors2[0]).html() != null) {
                 if ($(arrayValuesActors2[0]).html() == 4) {
 
-                    valdinergridfsc =  parseInt($(arrayValuesActors2[7]).html().replace(/\./gi, ''));
+                    valdinergridfsc = parseInt($(arrayValuesActors2[7]).html().replace(/\./gi, ''));
                     valespeciegridfsc = parseInt($(arrayValuesActors2[8]).html().replace(/\./gi, ''));
                     valtotalgridfsc = parseInt($(arrayValuesActors2[9]).html().replace(/\./gi, ''));
 
@@ -384,7 +406,7 @@ function BtnaddActors_onclick() {
         });
 
 
-        
+
         //buscar todos los q son actores diferentes a la fsc y sumarlos
         $("#T_Actors tr").slice(0, $("#T_Actors tr").length - 1).each(function() {
             var arrayValuesActors2 = $(this).find("td").slice(0, 10);

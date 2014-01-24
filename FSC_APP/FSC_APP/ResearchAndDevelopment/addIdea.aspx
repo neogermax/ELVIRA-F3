@@ -118,9 +118,11 @@
             }
         }
 
-        //        function list() {
-        //            $("#basic").pickList();
-        //        }
+        //Función que permite solo Números
+        function ValidaSoloNumeros() {
+            if ((event.keyCode < 48) || (event.keyCode > 57))
+                event.returnValue = false;
+        }
 
     </script>
 
@@ -252,9 +254,11 @@
                 </li>
                 <li>
                     <asp:Label ID="lblduration" runat="server" Text="Meses"></asp:Label>
-                    <asp:TextBox ID="txtduration" runat="server" MaxLength="5" Width="100px" Rows="2"></asp:TextBox>
+                    <asp:TextBox ID="txtduration" runat="server" MaxLength="5" Width="100px" Rows="2" onkeypress="ValidaSoloNumeros()"
+                    onkeychange="ValidaSoloNumeros()" onkeyup="ValidaSoloNumeros()"></asp:TextBox>
                     <asp:Label ID="Lbldia" runat="server" Text="Días"></asp:Label>
-                    <asp:TextBox ID="Txtday" runat="server" MaxLength="5" Width="100px" Rows="2"></asp:TextBox>
+                    <asp:TextBox ID="Txtday" runat="server" MaxLength="5" Width="100px" Rows="2" onkeypress="ValidaSoloNumeros()"
+                    onkeychange="ValidaSoloNumeros()" onkeyup="ValidaSoloNumeros()"></asp:TextBox>
                 </li>
                 <li>
                     <asp:Label ID="Lbldateend" runat="server" Text="Fecha de Finalización"></asp:Label>
