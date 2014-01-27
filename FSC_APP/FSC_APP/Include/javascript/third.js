@@ -31,6 +31,7 @@ $(document).ready(function() {
     $("#ctl00_cphPrincipal_Lbltitle1").css("display", "none");
     $("#ctl00_cphPrincipal_Lbltitle2").css("display", "none");
 
+    $("#tabsthird").tabs();
 
     validartipo();
     verificode();
@@ -46,7 +47,7 @@ function validartipo() {
             $("#ctl00_cphPrincipal_Lbltitle1").css("display", "none");
             $("#ctl00_cphPrincipal_Lbltitle2").css("display", "block");
 
-            $("#ctl00_cphPrincipal_lblcode").text("Nombre, Sin guiones, puntos ó espacios. Incluye digito de verificación");
+            $("#ctl00_cphPrincipal_lblcode").text("Documento, Sin guiones, puntos o espacios. Incluye digito de verificación");
             $("#ctl00_cphPrincipal_lblname").text("Nombre del actor");
 
             $("#ctl00_cphPrincipal_Lblcontact").css("display", "block");
@@ -76,7 +77,7 @@ function validartipo() {
             $("#ctl00_cphPrincipal_Lbltitle1").css("display", "block");
             $("#ctl00_cphPrincipal_Lbltitle2").css("display", "block");
 
-            $("#ctl00_cphPrincipal_lblcode").text("Nit, Sin guiones, puntos ó espacios. Incluye digito de verificación");
+            $("#ctl00_cphPrincipal_lblcode").text("Nit, Sin guiones, puntos o espacios. Incluye digito de verificación");
             $("#ctl00_cphPrincipal_lblname").text("Razón social");
 
             $("#ctl00_cphPrincipal_Lblcontact").css("display", "block");
@@ -134,7 +135,7 @@ function guardar() {
        
         $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
         $("#ctl00_cphPrincipal_lblexit").text("El Actor se creó Exitosamente");
-
+        $("#ctl00_cphPrincipal_btnAddData").css("display", "none");
     });
 
 }

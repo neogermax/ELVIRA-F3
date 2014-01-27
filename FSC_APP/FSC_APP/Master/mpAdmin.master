@@ -1,4 +1,5 @@
-<%@ Master Language="VB" Inherits="FSC_APP.Master_mpAdmin" Codebehind="mpAdmin.master.vb" %>
+<%@ Master Language="VB" Inherits="FSC_APP.Master_mpAdmin" CodeBehind="mpAdmin.master.vb" %>
+
 <%@ Register Src="../Controls/User.ascx" TagName="User" TagPrefix="uc1" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -18,14 +19,15 @@
     <script type="text/javascript" src="../Include/javascript/jquery-1.6.1.min.js"></script>
 
     <script src="../Include/javascript/chosen.jquery.min.js" type="text/javascript"></script>
-<%--
+
+    <%--
     <link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 --%>
-
     <link href="../Include/javascript/jfm/styles/style.css" rel="stylesheet" type="text/css" />
     <link href="../Include/javascript/jfm/styles/jflow.style.css" rel="stylesheet" type="text/css" />
+
     <script src="../Include/javascript/jfm/jflow.plus.min.js" type="text/javascript"></script>
-    
+
     <%--FUNCIONES JAVASCRIPT--%>
     <!--para la solucion de la navegacion en chrome se creo una carpeta 
 app_browsers en la cual se genera un archivo browserfile.browser y se agrega una 
@@ -37,11 +39,18 @@ german rodriguez y pedro cruz-->
     <asp:ScriptManager ID="smPrincipal" runat="server" EnableScriptGlobalization="True"
         EnableScriptLocalization="True">
     </asp:ScriptManager>
-    
+
     <script type="text/javascript">
         Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(function(evt, args) {
             $(document).ready(function() {
                 $(".Ccombo").chosen({ width: "80%", search_contains: true });
+
+                //sentencias para ejecutar jquery por modulo actores - German Rodriguez
+                if ($("#ctl00_cphPrincipal_HFswchit").length > 0) {
+                    validartipo();
+                }
+
+                //sentencias para ejecutar jquery por modulo compromisos - German Rodriguez
                 if ($("#ctl00_cphPrincipal_HDreportact").length > 0) {
                     consultcompromise();
                 }

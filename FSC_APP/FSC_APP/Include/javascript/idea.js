@@ -27,6 +27,7 @@ $(document).ready(function() {
     CtypeContract();
     cargarcomponente();
     addcomponent();
+ //   deleteUbicacion();
 
     $("#ctl00_cphPrincipal_containerSuccess").css("display", "none");
     $("#tabsIdea").tabs();
@@ -55,8 +56,11 @@ $(document).ready(function() {
     $("#B_add_location").button();
     $("#BtnaddActors").button();
     $("#Btn_add_flujo").button();
-
-
+    
+    $(".deleteUbicacion").click(function() {
+        $(this).parent().parent().remove();
+    });
+   
 });
 
 
@@ -120,7 +124,7 @@ function SaveIdea_onclick() {
                 $("#ctl00_cphPrincipal_lblinfls").text("");
                 $("#ctl00_cphPrincipal_Lbladvertencia").text("");
             }
-           
+
             if ($("#ddlPrograms :selected").text() == 'Seleccione...') {
                 $("#ctl00_cphPrincipal_lblinpro").text("Campo Requerido");
                 $("#ctl00_cphPrincipal_Lbladvertencia").text("Revisar la pestaña información");
@@ -129,7 +133,7 @@ function SaveIdea_onclick() {
                 $("#ctl00_cphPrincipal_lblinpro").text("");
                 $("#ctl00_cphPrincipal_Lbladvertencia").text("");
             }
-           
+
             if ($("#ctl00_cphPrincipal_txtname").val() == '') {
                 $("#ctl00_cphPrincipal_lblHelpname").text("Campo Requerido");
                 $("#ctl00_cphPrincipal_Lbladvertencia").text("Revisar la pestaña información");
@@ -138,7 +142,7 @@ function SaveIdea_onclick() {
                 $("#ctl00_cphPrincipal_lblHelpname").text("");
                 $("#ctl00_cphPrincipal_Lbladvertencia").text("");
             }
-           
+
             if ($("#ctl00_cphPrincipal_txtjustification").val() == '') {
                 $("#ctl00_cphPrincipal_lblHelpjustification").text("Campo Requerido");
                 $("#ctl00_cphPrincipal_Lbladvertencia").text("Revisar la pestaña información");
@@ -147,7 +151,7 @@ function SaveIdea_onclick() {
                 $("#ctl00_cphPrincipal_lblHelpjustification").text("");
                 $("#ctl00_cphPrincipal_Lbladvertencia").text("");
             }
-           
+
             if ($("#ctl00_cphPrincipal_txtobjective").val() == '') {
                 $("#ctl00_cphPrincipal_lblHelpobjective").text("Campo Requerido");
                 $("#ctl00_cphPrincipal_Lbladvertencia").text("Revisar la pestaña información");
@@ -156,7 +160,7 @@ function SaveIdea_onclick() {
                 $("#ctl00_cphPrincipal_lblHelpobjective").text("");
                 $("#ctl00_cphPrincipal_Lbladvertencia").text("");
             }
-           
+
             if ($("#ctl00_cphPrincipal_txtstartdate").val() == '') {
                 $("#ctl00_cphPrincipal_lblHelpstartdate").text("Campo Requerido");
                 $("#ctl00_cphPrincipal_Lbladvertencia").text("Revisar la pestaña información");
@@ -165,7 +169,7 @@ function SaveIdea_onclick() {
                 $("#ctl00_cphPrincipal_lblHelpstartdate").text("");
                 $("#ctl00_cphPrincipal_Lbladvertencia").text("");
             }
-           
+
             if ($("#ctl00_cphPrincipal_txtduration").val() == '') {
                 $("#ctl00_cphPrincipal_lbldia").text("Campo Requerido");
                 $("#ctl00_cphPrincipal_Lbladvertencia").text("Revisar la pestaña información");
@@ -174,7 +178,7 @@ function SaveIdea_onclick() {
                 $("#ctl00_cphPrincipal_lbldia").text("");
                 $("#ctl00_cphPrincipal_Lbladvertencia").text("");
             }
-           
+
             if (fsc_exist == 1) {
                 $("#ctl00_cphPrincipal_Lblactorrep").text("");
             }
@@ -252,7 +256,7 @@ function SaveIdea_onclick() {
 
 }
 
-
+//agregar ubicaciones por el metodo de tablas html
 function Add_location_onclick() {
 
     $("#ctl00_cphPrincipal_Lblinfubicacion").text("");
@@ -283,7 +287,7 @@ function Add_location_onclick() {
 
 
         for (itemArray in arrayUbicacion) {
-            htmlTable += "<tr><td>" + arrayUbicacion[itemArray].DeptoName + "</td><td>" + arrayUbicacion[itemArray].CityName + "</td><td><button>Eliminar</button></td></tr>";
+            htmlTable += "<tr><td>" + arrayUbicacion[itemArray].DeptoName + "</td><td>" + arrayUbicacion[itemArray].CityName + "</td><td><input type ='button' class= 'deleteUbicacion' value= 'Eliminar' ></input></td></tr>";
         }
 
         htmlTable += "</tbody></table>";
@@ -295,10 +299,22 @@ function Add_location_onclick() {
             "bJQueryUI": true,
             "bDestroy": true
         });
-
     }
-
 }
+
+//function deleteUbicacion(str) {
+//    var fila= new String(str);
+
+//    for (itemArray in arrayUbicacion) {
+//        var id = arrayUbicacion[itemArray].DeptoName + "_" + arrayUbicacion[itemArray].CityName;
+//        if (fila == id) {
+//            arrayUbicacion.splice(arrayUbicacion[itemArray].CityName, 1);
+//        }
+//    }
+
+   // $(this).parent().parent().remove();
+
+//}
 
 
 function BtnaddActors_onclick() {
@@ -342,12 +358,12 @@ function BtnaddActors_onclick() {
         $("#ctl00_cphPrincipal_Lblactorrep").text("");
         arrayActor.push(jsonActor);
 
-        var htmlTableActores = "<table id='T_Actors' align='center' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr><th>id</th><th>Actores</th><th>Tipo</th><th>Contacto</th><th>Documento Identidad</th><th>Tel&eacute;fono</th><th>Correo electr&oacute;nico</th><th>Vr Dinero</th><th>Vr Especie</th><th>Vr Especie</th><th>Eliminar</th></tr></thead><tbody>";
+        var htmlTableActores = "<table id='T_Actors' align='center' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr><th>id</th><th>Actores</th><th>Tipo</th><th>Contacto</th><th>Documento Identidad</th><th>Tel&eacute;fono</th><th>Correo electr&oacute;nico</th><th>Vr Dinero</th><th>Vr Especie</th><th>Vr Total</th><th>Eliminar</th></tr></thead><tbody>";
         var htmltableAflujos = "<table id='T_Actorsflujos' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr><th>Id</th><th>Aportante</th><th>Valor en efectivo</th><th>Valor a cancelar</th></tr></thead><tbody>";
 
 
         for (itemArray in arrayActor) {
-            htmlTableActores += "<tr><td>" + arrayActor[itemArray].actorsVal + "</td><td>" + arrayActor[itemArray].actorsName + "</td><td>" + arrayActor[itemArray].tipoactors + "</td><td>" + arrayActor[itemArray].contact + "</td><td>" + arrayActor[itemArray].cedula + "</td><td>" + arrayActor[itemArray].telefono + "</td><td>" + arrayActor[itemArray].email + "</td><td>" + arrayActor[itemArray].diner + "</td><td>" + arrayActor[itemArray].especie + "</td><td>" + arrayActor[itemArray].total + "</td><td><button>Eliminar</button></td></tr>";
+            htmlTableActores += "<tr><td>" + arrayActor[itemArray].actorsVal + "</td><td>" + arrayActor[itemArray].actorsName + "</td><td>" + arrayActor[itemArray].tipoactors + "</td><td>" + arrayActor[itemArray].contact + "</td><td>" + arrayActor[itemArray].cedula + "</td><td>" + arrayActor[itemArray].telefono + "</td><td>" + arrayActor[itemArray].email + "</td><td>" + arrayActor[itemArray].diner + "</td><td>" + arrayActor[itemArray].especie + "</td><td>" + arrayActor[itemArray].total + "</td><td><input type ='button' value= 'Eliminar'></input></td></tr>";
             htmltableAflujos += "<tr><td>" + arrayActor[itemArray].actorsVal + "</td><td>" + arrayActor[itemArray].actorsName + "</td><td>" + arrayActor[itemArray].diner + "</td><td><input id=" + arrayActor[itemArray].actorsVal + " onkeyup='format(this)' onchange='format(this)'></input></td></tr>";
         }
 
@@ -362,8 +378,6 @@ function BtnaddActors_onclick() {
 
         $("#T_AflujosContainer").html("");
         $("#T_AflujosContainer").html(htmltableAflujos);
-
-
 
         $("#T_Actors tr").slice(0, $("#T_Actors tr").length - 1).each(function() {
 
@@ -385,8 +399,6 @@ function BtnaddActors_onclick() {
 
         });
 
-
-
         var switch_fsc = 0;
         //buscar la fsc para guardar en el grid principal
         $("#T_Actors tr").slice(0, $("#T_Actors tr").length - 1).each(function() {
@@ -404,8 +416,6 @@ function BtnaddActors_onclick() {
                 }
             }
         });
-
-
 
         //buscar todos los q son actores diferentes a la fsc y sumarlos
         $("#T_Actors tr").slice(0, $("#T_Actors tr").length - 1).each(function() {
@@ -516,7 +526,14 @@ function BtnaddActors_onclick() {
             "bJQueryUI": true,
             "bDestroy": true
         });
-
+        $("#ctl00_cphPrincipal_Txtcontact").val("");
+        $("#ctl00_cphPrincipal_Txtcedulacont").val("");
+        $("#ctl00_cphPrincipal_Txttelcont").val("");
+        $("#ctl00_cphPrincipal_Txtemail").val("");
+        $("#ctl00_cphPrincipal_Txtvrdiner").val("");
+        $("#ctl00_cphPrincipal_Txtvresp").val("");
+        $("#ctl00_cphPrincipal_Txtaportfscocomp").val("");
+     
     }
 
 }

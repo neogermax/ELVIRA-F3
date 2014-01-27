@@ -1420,15 +1420,6 @@ Partial Public Class addIdea
     Protected WithEvents Txtsub3 As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''Control dlbActivity.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents dlbActivity As Global.DoubleListBox.DoubleListBox
-
-    '''<summary>
     '''Control lblvalortotal.
     '''</summary>
     '''<remarks>
@@ -1625,4 +1616,13 @@ Partial Public Class addIdea
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
     Protected WithEvents lblExceed100 As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''Control dlbActivity.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents dlbActivity As Global.DoubleListBox.DoubleListBox
 End Class

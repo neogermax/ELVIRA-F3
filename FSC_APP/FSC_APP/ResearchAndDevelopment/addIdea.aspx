@@ -652,7 +652,7 @@
                                     Vr Especie
                                 </th>
                                 <th>
-                                    Vr Especie
+                                    Vr total
                                 </th>
                                 <th>
                                     Eliminar
