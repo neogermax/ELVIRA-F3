@@ -7374,6 +7374,14 @@ Control lblexit.
 Campo generado automáticamente.
 Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 </remarks>
+</member><member name="F:FSC_APP.addThird.lblexit2">
+	<summary>
+Control lblexit2.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
 </member><member name="F:FSC_APP.addThird.Label9">
 	<summary>
 Control Label9.
@@ -7494,6 +7502,14 @@ Control lblHelpname.
 Campo generado automáticamente.
 Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 </remarks>
+</member><member name="F:FSC_APP.addThird.Lbltitle1">
+	<summary>
+Control Lbltitle1.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
 </member><member name="F:FSC_APP.addThird.Lbltipodocument">
 	<summary>
 Control Lbltipodocument.
@@ -7561,6 +7577,14 @@ Para modificarlo, mueva la declaración del campo del archivo del diseñador al 
 </member><member name="F:FSC_APP.addThird.Label8">
 	<summary>
 Control Label8.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addThird.Lbltitle2">
+	<summary>
+Control Lbltitle2.
 </summary>
 	<remarks>
 Campo generado automáticamente.
@@ -7657,6 +7681,14 @@ Para modificarlo, mueva la declaración del campo del archivo del diseñador al 
 </member><member name="F:FSC_APP.addThird.Label6">
 	<summary>
 Control Label6.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addThird.t1">
+	<summary>
+Control t1.
 </summary>
 	<remarks>
 Campo generado automáticamente.

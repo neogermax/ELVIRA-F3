@@ -195,6 +195,18 @@ Partial Class addThird
                     objThird.code = Me.txtcode.Text
                 End If
 
+
+                If Me.txtname.Text = "FSC" Or txtname.Text = "Fsc" Or txtname.Text = "Fsc" Then
+                    Me.lblHelpname.Text = "El actor Fundacion Saldarriaga Concha ya existe en el sistema!"
+                    Me.txtcode.Text = ""
+                    Me.txtname.Text = ""
+                    Me.txtname.Focus()
+                    Exit Sub
+                Else
+                    Me.lblHelpname.Text = ""
+                End If
+
+
                 objThird.name = clean_vbCrLf(Me.txtname.Text)
                 objThird.documents = clean_vbCrLf(Me.Txtactions.Text)
                 objThird.contact = clean_vbCrLf(Me.Txtcontact.Text)
@@ -279,6 +291,16 @@ Partial Class addThird
             Else
                 objThird.code = Me.txtcode.Text
             End If
+
+            If Me.txtname.Text = "FSC" Or txtname.Text = "Fsc" Or txtname.Text = "Fsc" Then
+                Me.lblHelpname.Text = "El actor Fundacion Saldarriaga Concha ya existe en el sistema!"
+                Me.txtcode.Text = ""
+                Me.txtcode.Focus()
+                Exit Sub
+            Else
+                Me.lblHelpname.Text = ""
+            End If
+
 
             objThird.name = clean_vbCrLf(Me.txtname.Text)
             objThird.documents = clean_vbCrLf(Me.Txtactions.Text)

@@ -81,11 +81,11 @@
                 <asp:Label ID="lblHelpcode" runat="server" Text=""></asp:Label>
             </li>
             <li>
-                <asp:Label ID="lblname" runat="server" Text="Nombre"></asp:Label>
+                <asp:Label ID="lblname" runat="server" Text="Nombre Actor"></asp:Label>
                 <asp:TextBox ID="txtname" runat="server" Width="80%" MaxLength="255" TextMode="MultiLine"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="rfvname" runat="server" ControlToValidate="txtname"
                     ErrorMessage="*"></asp:RequiredFieldValidator>
-                <asp:Label ID="lblHelpname" runat="server" Text=""></asp:Label>
+                <asp:Label ID="lblHelpname" runat="server" Font-Bold="True" ForeColor="Maroon"></asp:Label>
             </li>
             <li>
                 <asp:Label ID="Lbltitle1" runat="server" Text="Información del representante legal"

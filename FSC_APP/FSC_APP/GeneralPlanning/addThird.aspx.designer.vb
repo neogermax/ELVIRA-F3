@@ -34,6 +34,15 @@ Partial Public Class addThird
     Protected WithEvents lblexit As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
+    '''Control lblexit2.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents lblexit2 As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
     '''Control Label9.
     '''</summary>
     '''<remarks>
@@ -169,6 +178,15 @@ Partial Public Class addThird
     Protected WithEvents lblHelpname As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
+    '''Control Lbltitle1.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Lbltitle1 As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
     '''Control Lbltipodocument.
     '''</summary>
     '''<remarks>
@@ -248,6 +266,15 @@ Partial Public Class addThird
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
     Protected WithEvents Label8 As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''Control Lbltitle2.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Lbltitle2 As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''Control Lblcontact.
@@ -356,6 +383,15 @@ Partial Public Class addThird
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
     Protected WithEvents Label6 As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''Control t1.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents t1 As Global.System.Web.UI.HtmlControls.HtmlGenericControl
 
     '''<summary>
     '''Control lblenabled.
