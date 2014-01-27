@@ -71,7 +71,7 @@ Partial Class FormulationAndAdoption_addProjectApproval
         Try
             ' construir la sentencia
 
-            sql.Append(" select id, convert(varchar(50),IdIdea) + '_' + Name + '_' + convert(varchar(50),id)  as code from  project  where Typeapproval <> 1  ")
+            sql.Append(" select id, convert(varchar(50),IdIdea) + '_' + Name + '_' + convert(varchar(50),id)  as code from  project  where Typeapproval = 4  ")
             sql.Append(" order by (CreateDate) DESC  ")
 
             ' ejecutar la intruccion

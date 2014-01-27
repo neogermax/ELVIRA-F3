@@ -27,7 +27,8 @@ $(document).ready(function() {
     CtypeContract();
     cargarcomponente();
     addcomponent();
- //   deleteUbicacion();
+    startdate();
+    //   deleteUbicacion();
 
     $("#ctl00_cphPrincipal_containerSuccess").css("display", "none");
     $("#tabsIdea").tabs();
@@ -56,11 +57,11 @@ $(document).ready(function() {
     $("#B_add_location").button();
     $("#BtnaddActors").button();
     $("#Btn_add_flujo").button();
-    
+
     $(".deleteUbicacion").click(function() {
         $(this).parent().parent().remove();
     });
-   
+
 });
 
 
@@ -78,6 +79,8 @@ function fix() {
         $("#ctl00_cphPrincipal_txtduration").trigger("blur");
         clearTimeout(timer);
     }
+
+
 }
 
 
@@ -312,7 +315,7 @@ function Add_location_onclick() {
 //        }
 //    }
 
-   // $(this).parent().parent().remove();
+// $(this).parent().parent().remove();
 
 //}
 
@@ -533,7 +536,7 @@ function BtnaddActors_onclick() {
         $("#ctl00_cphPrincipal_Txtvrdiner").val("");
         $("#ctl00_cphPrincipal_Txtvresp").val("");
         $("#ctl00_cphPrincipal_Txtaportfscocomp").val("");
-     
+
     }
 
 }
@@ -741,6 +744,59 @@ function validafecha2() {
     })
 }
 
+function startdate() {
+    $("#ctl00_cphPrincipal_txtstartdate").blur(function() {
+        if ($("#ctl00_cphPrincipal_txtstartdate").val() != "") {
+            if ($("#ctl00_cphPrincipal_txtduration").val() == "" && $("#ctl00_cphPrincipal_Txtday").val() == "") {
+                $("#ctl00_cphPrincipal_Txtdatecierre").val($("#ctl00_cphPrincipal_txtstartdate").val());
+            }
+            else {
+                if ($("#ctl00_cphPrincipal_txtduration").val() != "") {
+                    $.ajax({
+                        url: "AjaxAddIdea.aspx",
+                        type: "GET",
+                        data: { "action": "calculafechas",
+                            "fecha": $(this).val(),
+                            "duracion": $("#ctl00_cphPrincipal_txtduration").val(),
+                            "dias": $("#ctl00_cphPrincipal_Txtday").val()
+                        },
+                        success: function(result) {
+                            $("#ctl00_cphPrincipal_Txtdatecierre").val(result);
+                            $("#ctl00_cphPrincipal_HFEndDate").val(result);
+                            $("#ctl00_cphPrincipal_HFdate").val(result);
+                        },
+                        error: function() {
+                            $("#ctl00_cphPrincipal_txtduration").val("");
+                            $("#ctl00_cphPrincipal_Txtday").val("");
+
+                        }
+                    });
+                }
+                else {
+                    $.ajax({
+                        url: "AjaxAddIdea.aspx",
+                        type: "GET",
+                        data: { "action": "calculafechas",
+                            "fecha": $(this).val(),
+                            "duracion": $("#ctl00_cphPrincipal_txtduration").val(),
+                            "dias": $("#ctl00_cphPrincipal_Txtday").val()
+                        },
+                        success: function(result) {
+                            $("#ctl00_cphPrincipal_Txtdatecierre").val(result);
+                            $("#ctl00_cphPrincipal_HFEndDate").val(result);
+                            $("#ctl00_cphPrincipal_HFdate").val(result);
+                        },
+                        error: function() {
+                            $("#ctl00_cphPrincipal_txtduration").val("");
+                            $("#ctl00_cphPrincipal_Txtday").val("");
+                        }
+                    });
+                }
+            }
+        }
+
+    })
+}
 
 function operacionesIdea() {
 
