@@ -37573,6 +37573,30 @@ Control Label22.
 Campo generado automáticamente.
 Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 </remarks>
+</member><member name="F:FSC_APP.addIdea.Lbltype_project">
+	<summary>
+Control Lbltype_project.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addIdea.ddltype_proyect">
+	<summary>
+Control ddltype_proyect.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addIdea.Lblhelptproyect">
+	<summary>
+Control Lblhelptproyect.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
 </member><member name="F:FSC_APP.addIdea.lblpopulation">
 	<summary>
 Control lblpopulation.
@@ -37952,6 +37976,14 @@ Para modificarlo, mueva la declaración del campo del archivo del diseñador al 
 </member><member name="F:FSC_APP.addIdea.lblDelete">
 	<summary>
 Control lblDelete.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addIdea.dlbActivity">
+	<summary>
+Control dlbActivity.
 </summary>
 	<remarks>
 Campo generado automáticamente.
@@ -38525,14 +38557,32 @@ Control lblExceed100.
 Campo generado automáticamente.
 Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 </remarks>
-</member><member name="F:FSC_APP.addIdea.dlbActivity">
+</member><member name="M:FSC_APP.ResearchAndDevelopment_AjaxAddIdea.Charge_population(System.Int32)">
 	<summary>
-Control dlbActivity.
-</summary>
-	<remarks>
-Campo generado automáticamente.
-Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-</remarks>
+ funcion que carga el combo de tipo de poblacion segun la selección del tipo de proyecto
+ Autor: German Rodriguez MGgroup
+ 28-01-2014
+ </summary>
+	<param name="id_population"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:FSC_APP.ResearchAndDevelopment_AjaxAddIdea.Charge_project_type">
+	<summary>
+ funcion que carga el combo de tipo de proyectos
+ Autor: German Rodriguez MGgroup
+ 28-01-2014
+ </summary>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:FSC_APP.ResearchAndDevelopment_AjaxAddIdea.charge_component(System.Int32)">
+	<summary>
+ funcion que carga el combo de tipo de componente de programa
+ Autor: German Rodriguez MGgroup
+ 12-01-2014
+ </summary>
+	<param name="idprogram"></param>
+	<returns></returns>
+	<remarks></remarks>
 </member><member name="M:FSC_APP.ResearchAndDevelopment_AjaxAddIdea.Charge_typeContract">
 	<summary>
  funcion que carga el combo de tipo de contrato

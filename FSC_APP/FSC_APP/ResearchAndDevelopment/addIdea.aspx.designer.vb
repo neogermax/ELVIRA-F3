@@ -547,6 +547,33 @@ Partial Public Class addIdea
     Protected WithEvents Label22 As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
+    '''Control Lbltype_project.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Lbltype_project As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''Control ddltype_proyect.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents ddltype_proyect As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''Control Lblhelptproyect.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Lblhelptproyect As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
     '''Control lblpopulation.
     '''</summary>
     '''<remarks>
@@ -977,6 +1004,15 @@ Partial Public Class addIdea
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
     Protected WithEvents lblDelete As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''Control dlbActivity.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents dlbActivity As Global.DoubleListBox.DoubleListBox
 
     '''<summary>
     '''Control lblattachfile.
@@ -1616,13 +1652,4 @@ Partial Public Class addIdea
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
     Protected WithEvents lblExceed100 As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''Control dlbActivity.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents dlbActivity As Global.DoubleListBox.DoubleListBox
 End Class

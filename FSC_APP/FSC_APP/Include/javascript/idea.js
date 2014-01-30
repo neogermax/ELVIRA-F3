@@ -7,6 +7,10 @@
 
 var arrayUbicacion = [];
 var arrayActor = [];
+var arraycomponente = [];
+var arraycomponentedesechado = [];
+
+
 var valI1;
 var valI2;
 var valI3;
@@ -26,19 +30,23 @@ $(document).ready(function() {
     Cactors();
     CtypeContract();
     cargarcomponente();
-    addcomponent();
     startdate();
-    //   deleteUbicacion();
+    Ctype_project();
+    Cpopulation();
 
     $("#ctl00_cphPrincipal_containerSuccess").css("display", "none");
+
     $("#tabsIdea").tabs();
+
     $("#matriz").dataTable({
         "bJQueryUI": true
     });
+
     $("#T_location").dataTable({
         "bJQueryUI": true,
         "bDestroy": true
     });
+
     $("#T_Actors").dataTable({
         "bJQueryUI": true,
         "bDestroy": true
@@ -57,12 +65,21 @@ $(document).ready(function() {
     $("#B_add_location").button();
     $("#BtnaddActors").button();
     $("#Btn_add_flujo").button();
+    $("#Btnaddcomponent").button();
+    $("#Btndeletecomponent").button();
+
+
 
     $(".deleteUbicacion").click(function() {
         $(this).parent().parent().remove();
     });
 
+
+
+
 });
+
+var contadorarray = 0;
 
 
 
@@ -79,11 +96,7 @@ function fix() {
         $("#ctl00_cphPrincipal_txtduration").trigger("blur");
         clearTimeout(timer);
     }
-
-
 }
-
-
 
 //funcion de refactorizacion idea fase 3 ---- autor:German Rodriguez MGgroup
 //guardar idea
@@ -105,7 +118,6 @@ function SaveIdea_onclick() {
             $("#ctl00_cphPrincipal_Lblactorrep").text("Debe almenos tener un actor");
             $("#ctl00_cphPrincipal_Lblinfubicacion").text("debe tener almenos una ubicación");
         }
-
     }
 
     else {
@@ -114,10 +126,25 @@ function SaveIdea_onclick() {
                 fsc_exist = 1;
             }
         }
+
+//        var textoLista = $("#componentesseleccionados").text();
+//        alert(textoLista);
+
+//        if (textoLista == "") {
+//            $("#ctl00_cphPrincipal_Lblinformationcomponent").text("");
+//            alert(1);
+//            alert(textoLista);
+//        }
+//        else {
+//            $("#ctl00_cphPrincipal_Lblinformationcomponent").text("debe tener almenos un componente");
+//            alert(2);
+//            alert(textoLista);
+//        }
+
         $("#ctl00_cphPrincipal_Lblinfubicacion").text("");
         $("#ctl00_cphPrincipal_Lblactorrep").text("");
 
-        if ($("#ddlStrategicLines :selected").text() == 'Seleccione...' || $("#ddlPrograms :selected").text() == 'Seleccione...' || $("#ctl00_cphPrincipal_txtname").val() == '' || $("#ctl00_cphPrincipal_txtjustification").val() == '' || $("#ctl00_cphPrincipal_txtobjective").val() == '' || $("#ctl00_cphPrincipal_txtstartdate").val() == '' || $("#ctl00_cphPrincipal_txtduration").val() == '' || arrayUbicacion.length == 0 || fsc_exist == 0) {
+        if ($("#ddltype_proyect :selected").text() == 'Seleccione....' || $("#ddlPupulation :selected").text() == 'Seleccione...' || $("#ddlmodcontract :selected").text() == 'Seleccione...' || $("#ddlStrategicLines :selected").text() == 'Seleccione...' || $("#ddlPrograms :selected").text() == 'Seleccione...' || $("#ctl00_cphPrincipal_txtname").val() == '' || $("#ctl00_cphPrincipal_txtjustification").val() == '' || $("#ctl00_cphPrincipal_txtobjective").val() == '' || $("#ctl00_cphPrincipal_txtstartdate").val() == '' || $("#ctl00_cphPrincipal_txtduration").val() == '' || arrayUbicacion.length == 0 || fsc_exist == 0) {
 
             if ($("#ddlStrategicLines :selected").text() == 'Seleccione...') {
                 $("#ctl00_cphPrincipal_lblinfls").text("Campo Requerido");
@@ -134,6 +161,33 @@ function SaveIdea_onclick() {
             }
             else {
                 $("#ctl00_cphPrincipal_lblinpro").text("");
+                $("#ctl00_cphPrincipal_Lbladvertencia").text("");
+            }
+
+            if ($("#ddltype_proyect :selected").text() == 'Seleccione...') {
+                $("#ctl00_cphPrincipal_Lblhelptproyect").text("Campo Requerido");
+                $("#ctl00_cphPrincipal_Lbladvertencia").text("Revisar la pestaña información");
+            }
+            else {
+                $("#ctl00_cphPrincipal_Lblhelptproyect").text("");
+                $("#ctl00_cphPrincipal_Lbladvertencia").text("");
+            }
+
+            if ($("#ddlPupulation :selected").text() == 'Seleccione...') {
+                $("#ctl00_cphPrincipal_lblHelppopulation").text("Campo Requerido");
+                $("#ctl00_cphPrincipal_Lbladvertencia").text("Revisar la pestaña información");
+            }
+            else {
+                $("#ctl00_cphPrincipal_lblHelppopulation").text("");
+                $("#ctl00_cphPrincipal_Lbladvertencia").text("");
+            }
+
+            if ($("#ddlmodcontract :selected").text() == 'Seleccione....') {
+                $("#ctl00_cphPrincipal_Lblmodcontract").text("Campo Requerido");
+                $("#ctl00_cphPrincipal_Lbladvertencia").text("Revisar la pestaña información");
+            }
+            else {
+                $("#ctl00_cphPrincipal_Lblmodcontract").text("");
                 $("#ctl00_cphPrincipal_Lbladvertencia").text("");
             }
 
@@ -264,46 +318,63 @@ function Add_location_onclick() {
 
     $("#ctl00_cphPrincipal_Lblinfubicacion").text("");
 
-    var deptoVal = $("#ddlDepto").val();
-    var deptoName = $("#ddlDepto :selected").text();
 
-    var cityVal = $("#ddlCity").val();
-    var cityName = $("#ddlCity :selected").text();
-
-    var jsonUbicacion = { "DeptoVal": deptoVal, "DeptoName": deptoName, "CityVal": cityVal, "CityName": cityName };
-    var validerepetido = 0;
-
-    for (iArray in arrayUbicacion) {
-        if (deptoName == arrayUbicacion[iArray].DeptoName && cityName == arrayUbicacion[iArray].CityName) {
-            validerepetido = 1;
-        }
-    }
-
-    if (validerepetido == 1) {
-        $("#ctl00_cphPrincipal_LblubicacionRep").text("La ubicación ya fue ingresada");
+    if ($("#ddlDepto :selected").text() == 'Seleccione...') {
+        $("#ctl00_cphPrincipal_LblubicacionRep").text("debe seleccionar almenos un departamento");
     }
     else {
-        $("#ctl00_cphPrincipal_LblubicacionRep").text("");
-
-        arrayUbicacion.push(jsonUbicacion);
-        var htmlTable = "<table id='T_location' border='2' cellpadding='2' cellspacing='2' style='width: 100%;'><thead><tr><th>Departamento</th><th>Ciudad</th><th>Eliminar</th></tr></thead><tbody>";
-
-
-        for (itemArray in arrayUbicacion) {
-            htmlTable += "<tr><td>" + arrayUbicacion[itemArray].DeptoName + "</td><td>" + arrayUbicacion[itemArray].CityName + "</td><td><input type ='button' class= 'deleteUbicacion' value= 'Eliminar' ></input></td></tr>";
+        if ($("#ddlCity :selected").text() == 'Seleccione...') {
+            $("#ctl00_cphPrincipal_LblubicacionRep").text("");
+            $("#ctl00_cphPrincipal_LblubicacionRep").text("debe seleccionar almenos un municipio");
         }
+        else {
 
-        htmlTable += "</tbody></table>";
+            $("#ctl00_cphPrincipal_LblubicacionRep").text("");
 
-        $("#T_locationContainer").html("");
-        $("#T_locationContainer").html(htmlTable);
+            var deptoVal = $("#ddlDepto").val();
+            var deptoName = $("#ddlDepto :selected").text();
 
-        $("#T_location").dataTable({
-            "bJQueryUI": true,
-            "bDestroy": true
-        });
+            var cityVal = $("#ddlCity").val();
+            var cityName = $("#ddlCity :selected").text();
+
+            var jsonUbicacion = { "DeptoVal": deptoVal, "DeptoName": deptoName, "CityVal": cityVal, "CityName": cityName };
+            var validerepetido = 0;
+
+            for (iArray in arrayUbicacion) {
+                if (deptoName == arrayUbicacion[iArray].DeptoName && cityName == arrayUbicacion[iArray].CityName) {
+                    validerepetido = 1;
+                }
+            }
+
+            if (validerepetido == 1) {
+                $("#ctl00_cphPrincipal_LblubicacionRep").text("La ubicación ya fue ingresada");
+            }
+            else {
+                $("#ctl00_cphPrincipal_LblubicacionRep").text("");
+
+                arrayUbicacion.push(jsonUbicacion);
+                var htmlTable = "<table id='T_location' border='2' cellpadding='2' cellspacing='2' style='width: 100%;'><thead><tr><th>Departamento</th><th>Ciudad</th><th>Eliminar</th></tr></thead><tbody>";
+
+
+                for (itemArray in arrayUbicacion) {
+                    htmlTable += "<tr><td>" + arrayUbicacion[itemArray].DeptoName + "</td><td>" + arrayUbicacion[itemArray].CityName + "</td><td><input type ='button' class= 'deleteUbicacion' value= 'Eliminar' ></input></td></tr>";
+                }
+
+                htmlTable += "</tbody></table>";
+
+                $("#T_locationContainer").html("");
+                $("#T_locationContainer").html(htmlTable);
+
+                $("#T_location").dataTable({
+                    "bJQueryUI": true,
+                    "bDestroy": true
+                });
+            }
+        }
     }
 }
+
+
 
 //function deleteUbicacion(str) {
 //    var fila= new String(str);
@@ -334,211 +405,255 @@ function BtnaddActors_onclick() {
     var valespeciegridfsc = 0;
     var valtotalgridfsc = 0;
 
-    var actorsVal = $("#ddlactors").val();
-    var actorsName = $("#ddlactors :selected").text();
-    var tipoactors = $("#ctl00_cphPrincipal_ddlType :selected").text();
-    var contact = $("#ctl00_cphPrincipal_Txtcontact").val();
-    var cedula = $("#ctl00_cphPrincipal_Txtcedulacont").val();
-    var telefono = $("#ctl00_cphPrincipal_Txttelcont").val();
-    var email = $("#ctl00_cphPrincipal_Txtemail").val();
-    var diner = $("#ctl00_cphPrincipal_Txtvrdiner").val();
-    var especie = $("#ctl00_cphPrincipal_Txtvresp").val();
-    var total = $("#ctl00_cphPrincipal_Txtaportfscocomp").val();
 
-    var jsonActor = { "actorsVal": actorsVal, "actorsName": actorsName, "tipoactors": tipoactors, "contact": contact, "cedula": cedula, "telefono": telefono, "email": email, "diner": diner, "especie": especie, "total": total };
-    var validerepetido = 0;
-
-    for (iArray in arrayActor) {
-        if (actorsVal == arrayActor[iArray].actorsVal) {
-            validerepetido = 1;
-        }
-    }
-
-    if (validerepetido == 1) {
-        $("#ctl00_cphPrincipal_Lblactorrep").text("El actor ya fue ingresado");
+    if ($("#ddlactors :selected").text() == 'Seleccione...') {
+        $("#ctl00_cphPrincipal_Lblactorrep").text("debe seleccionar almenos un actor");
     }
     else {
+
         $("#ctl00_cphPrincipal_Lblactorrep").text("");
-        arrayActor.push(jsonActor);
+        var actorsVal = $("#ddlactors").val();
+        var actorsName = $("#ddlactors :selected").text();
+        var tipoactors = $("#ctl00_cphPrincipal_ddlType :selected").text();
+        var contact = $("#ctl00_cphPrincipal_Txtcontact").val();
+        var cedula = $("#ctl00_cphPrincipal_Txtcedulacont").val();
+        var telefono = $("#ctl00_cphPrincipal_Txttelcont").val();
+        var email = $("#ctl00_cphPrincipal_Txtemail").val();
+        var diner = $("#ctl00_cphPrincipal_Txtvrdiner").val();
+        var especie = $("#ctl00_cphPrincipal_Txtvresp").val();
+        var total = $("#ctl00_cphPrincipal_Txtaportfscocomp").val();
 
-        var htmlTableActores = "<table id='T_Actors' align='center' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr><th>id</th><th>Actores</th><th>Tipo</th><th>Contacto</th><th>Documento Identidad</th><th>Tel&eacute;fono</th><th>Correo electr&oacute;nico</th><th>Vr Dinero</th><th>Vr Especie</th><th>Vr Total</th><th>Eliminar</th></tr></thead><tbody>";
-        var htmltableAflujos = "<table id='T_Actorsflujos' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr><th>Id</th><th>Aportante</th><th>Valor en efectivo</th><th>Valor a cancelar</th></tr></thead><tbody>";
+        var jsonActor = { "actorsVal": actorsVal, "actorsName": actorsName, "tipoactors": tipoactors, "contact": contact, "cedula": cedula, "telefono": telefono, "email": email, "diner": diner, "especie": especie, "total": total };
+        var validerepetido = 0;
 
-
-        for (itemArray in arrayActor) {
-            htmlTableActores += "<tr><td>" + arrayActor[itemArray].actorsVal + "</td><td>" + arrayActor[itemArray].actorsName + "</td><td>" + arrayActor[itemArray].tipoactors + "</td><td>" + arrayActor[itemArray].contact + "</td><td>" + arrayActor[itemArray].cedula + "</td><td>" + arrayActor[itemArray].telefono + "</td><td>" + arrayActor[itemArray].email + "</td><td>" + arrayActor[itemArray].diner + "</td><td>" + arrayActor[itemArray].especie + "</td><td>" + arrayActor[itemArray].total + "</td><td><input type ='button' value= 'Eliminar'></input></td></tr>";
-            htmltableAflujos += "<tr><td>" + arrayActor[itemArray].actorsVal + "</td><td>" + arrayActor[itemArray].actorsName + "</td><td>" + arrayActor[itemArray].diner + "</td><td><input id=" + arrayActor[itemArray].actorsVal + " onkeyup='format(this)' onchange='format(this)'></input></td></tr>";
+        for (iArray in arrayActor) {
+            if (actorsVal == arrayActor[iArray].actorsVal) {
+                validerepetido = 1;
+            }
         }
 
+        if (validerepetido == 1) {
+            $("#ctl00_cphPrincipal_Lblactorrep").text("El actor ya fue ingresado");
+        }
+        else {
+            $("#ctl00_cphPrincipal_Lblactorrep").text("");
+            arrayActor.push(jsonActor);
 
-        htmlTableActores += "<tr><td>1000</td><td>Total</td><td></td><td></td><td></td><td></td><td></td><td id='val1'></td><td id='val2'>0</td><td id='val3'>0</td><td></td></tr>";
-        htmltableAflujos += "<tr><td>1000</td><td>Total</td><td id='tflujosing'></td><td id='totalflujos'>0</td></tr>";
-        htmlTableActores += "</tbody></table>";
-        htmltableAflujos += "</tbody></table>";
+            var htmlTableActores = "<table id='T_Actors' align='center' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr><th>id</th><th>Actores</th><th>Tipo</th><th>Contacto</th><th>Documento Identidad</th><th>Tel&eacute;fono</th><th>Correo electr&oacute;nico</th><th>Vr Dinero</th><th>Vr Especie</th><th>Vr Total</th><th>Eliminar</th></tr></thead><tbody>";
+            var htmltableAflujos = "<table id='T_Actorsflujos' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr><th>Id</th><th>Aportante</th><th>Valor en efectivo</th><th>Valor a cancelar</th></tr></thead><tbody>";
 
-        $("#T_ActorsContainer").html("");
-        $("#T_ActorsContainer").html(htmlTableActores);
 
-        $("#T_AflujosContainer").html("");
-        $("#T_AflujosContainer").html(htmltableAflujos);
-
-        $("#T_Actors tr").slice(0, $("#T_Actors tr").length - 1).each(function() {
-
-            var arrayValuesActors = $(this).find("td").slice(7, 10);
-
-            if ($(arrayValuesActors[0]).html() != null) {
-
-                valdiner = valdiner + parseInt($(arrayValuesActors[0]).html().replace(/\./gi, ''));
-                valespecie = valespecie + parseInt($(arrayValuesActors[1]).html().replace(/\./gi, ''));
-                valtotal = valtotal + parseInt($(arrayValuesActors[2]).html().replace(/\./gi, ''));
-
-                $("#val1").text(addCommasrefactor(valdiner));
-                $("#tflujosing").text(addCommasrefactor(valdiner));
-
-                $("#val2").text(addCommasrefactor(valespecie));
-                $("#val3").text(addCommasrefactor(valtotal));
-
+            for (itemArray in arrayActor) {
+                htmlTableActores += "<tr><td>" + arrayActor[itemArray].actorsVal + "</td><td>" + arrayActor[itemArray].actorsName + "</td><td>" + arrayActor[itemArray].tipoactors + "</td><td>" + arrayActor[itemArray].contact + "</td><td>" + arrayActor[itemArray].cedula + "</td><td>" + arrayActor[itemArray].telefono + "</td><td>" + arrayActor[itemArray].email + "</td><td>" + arrayActor[itemArray].diner + "</td><td>" + arrayActor[itemArray].especie + "</td><td>" + arrayActor[itemArray].total + "</td><td><input type ='button' value= 'Eliminar'></input></td></tr>";
+                htmltableAflujos += "<tr><td>" + arrayActor[itemArray].actorsVal + "</td><td>" + arrayActor[itemArray].actorsName + "</td><td>" + arrayActor[itemArray].diner + "</td><td><input id=" + arrayActor[itemArray].actorsVal + " onkeyup='format(this)' onchange='format(this)'></input></td></tr>";
             }
 
-        });
 
-        var switch_fsc = 0;
-        //buscar la fsc para guardar en el grid principal
-        $("#T_Actors tr").slice(0, $("#T_Actors tr").length - 1).each(function() {
-            var arrayValuesActors2 = $(this).find("td").slice(0, 10);
-            if ($(arrayValuesActors2[0]).html() != null) {
-                if ($(arrayValuesActors2[0]).html() == 4) {
+            htmlTableActores += "<tr><td>1000</td><td>Total</td><td></td><td></td><td></td><td></td><td></td><td id='val1'></td><td id='val2'>0</td><td id='val3'>0</td><td></td></tr>";
+            htmltableAflujos += "<tr><td>1000</td><td>Total</td><td id='tflujosing'></td><td id='totalflujos'>0</td></tr>";
+            htmlTableActores += "</tbody></table>";
+            htmltableAflujos += "</tbody></table>";
 
-                    valdinergridfsc = parseInt($(arrayValuesActors2[7]).html().replace(/\./gi, ''));
-                    valespeciegridfsc = parseInt($(arrayValuesActors2[8]).html().replace(/\./gi, ''));
-                    valtotalgridfsc = parseInt($(arrayValuesActors2[9]).html().replace(/\./gi, ''));
+            $("#T_ActorsContainer").html("");
+            $("#T_ActorsContainer").html(htmlTableActores);
 
-                    $("#ValueMoneyFSC").text(addCommasrefactor(valdinergridfsc));
-                    $("#ValueEspeciesFSC").text(addCommasrefactor(valespeciegridfsc));
-                    $("#ValueCostFSC").text(addCommasrefactor(valtotalgridfsc));
+            $("#T_AflujosContainer").html("");
+            $("#T_AflujosContainer").html(htmltableAflujos);
+
+            $("#T_Actors tr").slice(0, $("#T_Actors tr").length - 1).each(function() {
+
+                var arrayValuesActors = $(this).find("td").slice(7, 10);
+
+                if ($(arrayValuesActors[0]).html() != null) {
+
+                    valdiner = valdiner + parseInt($(arrayValuesActors[0]).html().replace(/\./gi, ''));
+                    valespecie = valespecie + parseInt($(arrayValuesActors[1]).html().replace(/\./gi, ''));
+                    valtotal = valtotal + parseInt($(arrayValuesActors[2]).html().replace(/\./gi, ''));
+
+                    if (isNaN(valdiner)) {
+                        valdiner = 0;
+                    }
+
+                    if (isNaN(valespecie)) {
+                        valespecie = 0;
+                    }
+
+                    if (isNaN(valtotal)) {
+                        valtotal = 0;
+                    }
+
+                    $("#val1").text(addCommasrefactor(valdiner));
+                    $("#tflujosing").text(addCommasrefactor(valdiner));
+
+                    $("#val2").text(addCommasrefactor(valespecie));
+                    $("#val3").text(addCommasrefactor(valtotal));
+
+                }
+
+            });
+
+            var switch_fsc = 0;
+            //buscar la fsc para guardar en el grid principal
+            $("#T_Actors tr").slice(0, $("#T_Actors tr").length - 1).each(function() {
+                var arrayValuesActors2 = $(this).find("td").slice(0, 10);
+                if ($(arrayValuesActors2[0]).html() != null) {
+                    if ($(arrayValuesActors2[0]).html() == 4) {
+
+                        valdinergridfsc = parseInt($(arrayValuesActors2[7]).html().replace(/\./gi, ''));
+                        valespeciegridfsc = parseInt($(arrayValuesActors2[8]).html().replace(/\./gi, ''));
+                        valtotalgridfsc = parseInt($(arrayValuesActors2[9]).html().replace(/\./gi, ''));
+
+                        if (isNaN(valdinergridfsc)) {
+                            valdinergridfsc = 0;
+                        }
+
+                        if (isNaN(valespeciegridfsc)) {
+                            valespeciegridfsc = 0;
+                        }
+
+                        if (isNaN(valtotalgridfsc)) {
+                            valtotalgridfsc = 0;
+                        }
+                       
+                        $("#ValueMoneyFSC").text(addCommasrefactor(valdinergridfsc));
+                        $("#ValueEspeciesFSC").text(addCommasrefactor(valespeciegridfsc));
+                        $("#ValueCostFSC").text(addCommasrefactor(valtotalgridfsc));
+                    }
+                }
+            });
+
+            //buscar todos los q son actores diferentes a la fsc y sumarlos
+            $("#T_Actors tr").slice(0, $("#T_Actors tr").length - 1).each(function() {
+                var arrayValuesActors2 = $(this).find("td").slice(0, 10);
+                if ($(arrayValuesActors2[0]).html() != null) {
+                    if ($(arrayValuesActors2[0]).html() != 4) {
+
+                        valdinergrid = valdinergrid + parseInt($(arrayValuesActors2[7]).html().replace(/\./gi, ''));
+                        valespeciegrid = valespeciegrid + parseInt($(arrayValuesActors2[8]).html().replace(/\./gi, ''));
+                        valtotalgrid = valtotalgrid + parseInt($(arrayValuesActors2[9]).html().replace(/\./gi, ''));
+
+                        if (isNaN(valdinergrid)) {
+                            valdinergrid = 0;
+                        }
+
+                        if (isNaN(valespeciegrid)) {
+                            valespeciegrid = 0;
+                        }
+
+                        if (isNaN(valtotalgrid)) {
+                            valtotalgrid = 0;
+                        }
+                       
+                       
+                        $("#ValueMoneyCounter").text(addCommasrefactor(valdinergrid));
+                        $("#ValueEspeciesCounter").text(addCommasrefactor(valespeciegrid));
+                        $("#ValueCostCounter").text(addCommasrefactor(valtotalgrid));
+                    }
+                }
+            });
+
+            //suma de primera columna
+            var dinerfsc = $("#ValueMoneyFSC").text();
+            dinerfsc = dinerfsc.replace(/\./gi, '');
+            var opedinerfsc = parseInt(dinerfsc);
+
+            var dinerothers = $("#ValueMoneyCounter").text();
+            dinerothers = dinerothers.replace(/\./gi, '');
+            var opedinerothers = parseInt(dinerothers);
+
+            if (isNaN(opedinerfsc)) {
+                opedinerfsc = 0;
+                $("#ValueMoneyFSC").val(opedinerfsc);
+            }
+            else {
+                if (isNaN(opedinerothers)) {
+                    opedinerothers = 0;
+                    $("#ValueMoneyCounter").val(opedinerothers);
+                }
+                else {
+                    var sumadiner = 0;
+                    sumadiner = opedinerfsc + opedinerothers;
+                    $("#valueMoneytotal").text(addCommasrefactor(sumadiner));
+                    $("#ctl00_cphPrincipal_txtvalortotalflow").val(addCommasrefactor(sumadiner));
                 }
             }
-        });
+            sumadiner = opedinerfsc + opedinerothers;
+            $("#valueMoneytotal").text(addCommasrefactor(sumadiner));
+            $("#ctl00_cphPrincipal_txtvalortotalflow").val(addCommasrefactor(sumadiner));
 
-        //buscar todos los q son actores diferentes a la fsc y sumarlos
-        $("#T_Actors tr").slice(0, $("#T_Actors tr").length - 1).each(function() {
-            var arrayValuesActors2 = $(this).find("td").slice(0, 10);
-            if ($(arrayValuesActors2[0]).html() != null) {
-                if ($(arrayValuesActors2[0]).html() != 4) {
+            //suma segunda columna
+            var especiefsc = $("#ValueEspeciesFSC").text();
+            especiefsc = especiefsc.replace(/\./gi, '');
+            var opeespeciefsc = parseInt(especiefsc);
 
-                    valdinergrid = valdinergrid + parseInt($(arrayValuesActors2[7]).html().replace(/\./gi, ''));
-                    valespeciegrid = valespeciegrid + parseInt($(arrayValuesActors2[8]).html().replace(/\./gi, ''));
-                    valtotalgrid = valtotalgrid + parseInt($(arrayValuesActors2[9]).html().replace(/\./gi, ''));
+            var especieothers = $("#ValueEspeciesCounter").text();
+            especieothers = especieothers.replace(/\./gi, '');
+            var opeespecieothers = parseInt(especieothers);
 
-                    $("#ValueMoneyCounter").text(addCommasrefactor(valdinergrid));
-                    $("#ValueEspeciesCounter").text(addCommasrefactor(valespeciegrid));
-                    $("#ValueCostCounter").text(addCommasrefactor(valtotalgrid));
+            if (isNaN(opeespeciefsc)) {
+                opeespeciefsc = 0;
+                $("#ValueEspeciesFSC").val(opeespeciefsc);
+            }
+            else {
+                if (isNaN(opeespecieothers)) {
+                    opeespecieothers = 0;
+                    $("#ValueEspeciesCounter").val(opeespecieothers);
+                }
+                else {
+                    var sumaespecie = 0;
+                    sumaespecie = opeespeciefsc + opeespecieothers;
+                    $("#ValueEspeciestotal").text(addCommasrefactor(sumaespecie));
                 }
             }
-        });
+            sumaespecie = opeespeciefsc + opeespecieothers;
+            $("#ValueEspeciestotal").text(addCommasrefactor(sumaespecie));
 
-        //suma de primera columna
-        var dinerfsc = $("#ValueMoneyFSC").text();
-        dinerfsc = dinerfsc.replace(/\./gi, '');
-        var opedinerfsc = parseInt(dinerfsc);
+            //suma tercera columna
+            var totalfsc = $("#ValueCostFSC").text();
+            totalfsc = totalfsc.replace(/\./gi, '');
+            var opetotalfsc = parseInt(totalfsc);
 
-        var dinerothers = $("#ValueMoneyCounter").text();
-        dinerothers = dinerothers.replace(/\./gi, '');
-        var opedinerothers = parseInt(dinerothers);
+            var totalothers = $("#ValueCostCounter").text();
+            totalothers = totalothers.replace(/\./gi, '');
+            var opetotalothers = parseInt(totalothers);
 
-        if (isNaN(opedinerfsc)) {
-            opedinerfsc = 0;
-            $("#ValueMoneyFSC").val(opedinerfsc);
-        }
-        else {
-            if (isNaN(opedinerothers)) {
-                opedinerothers = 0;
-                $("#ValueMoneyCounter").val(opedinerothers);
+            if (isNaN(opetotalfsc)) {
+                opetotalfsc = 0;
+                $("#ValueCostFSC").val(opetotalfsc);
             }
             else {
-                var sumadiner = 0;
-                sumadiner = opedinerfsc + opedinerothers;
-                $("#valueMoneytotal").text(addCommasrefactor(sumadiner));
-                $("#ctl00_cphPrincipal_txtvalortotalflow").val(addCommasrefactor(sumadiner));
+                if (isNaN(opetotalothers)) {
+                    opetotalothers = 0;
+                    $("#ValueCostCounter").val(opetotalothers);
+                }
+                else {
+                    var sumatotal = 0;
+                    sumatotal = opetotalfsc + opetotalothers;
+                    $("#ValueCostotal").text(addCommasrefactor(sumatotal));
+                }
             }
+            sumatotal = opetotalfsc + opetotalothers;
+            $("#ValueCostotal").text(addCommasrefactor(sumatotal));
+
+            $("#T_Actors").dataTable({
+                "bJQueryUI": true,
+                "bDestroy": true
+            });
+
+            $("#T_Actorsflujos").dataTable({
+                "bJQueryUI": true,
+                "bDestroy": true
+            });
+            $("#ctl00_cphPrincipal_Txtcontact").val("");
+            $("#ctl00_cphPrincipal_Txtcedulacont").val("");
+            $("#ctl00_cphPrincipal_Txttelcont").val("");
+            $("#ctl00_cphPrincipal_Txtemail").val("");
+            $("#ctl00_cphPrincipal_Txtvrdiner").val("");
+            $("#ctl00_cphPrincipal_Txtvresp").val("");
+            $("#ctl00_cphPrincipal_Txtaportfscocomp").val("");
+
         }
-        sumadiner = opedinerfsc + opedinerothers;
-        $("#valueMoneytotal").text(addCommasrefactor(sumadiner));
-        $("#ctl00_cphPrincipal_txtvalortotalflow").val(addCommasrefactor(sumadiner));
-
-        //suma segunda columna
-        var especiefsc = $("#ValueEspeciesFSC").text();
-        especiefsc = especiefsc.replace(/\./gi, '');
-        var opeespeciefsc = parseInt(especiefsc);
-
-        var especieothers = $("#ValueEspeciesCounter").text();
-        especieothers = especieothers.replace(/\./gi, '');
-        var opeespecieothers = parseInt(especieothers);
-
-        if (isNaN(opeespeciefsc)) {
-            opeespeciefsc = 0;
-            $("#ValueEspeciesFSC").val(opeespeciefsc);
-        }
-        else {
-            if (isNaN(opeespecieothers)) {
-                opeespecieothers = 0;
-                $("#ValueEspeciesCounter").val(opeespecieothers);
-            }
-            else {
-                var sumaespecie = 0;
-                sumaespecie = opeespeciefsc + opeespecieothers;
-                $("#ValueEspeciestotal").text(addCommasrefactor(sumaespecie));
-            }
-        }
-        sumaespecie = opeespeciefsc + opeespecieothers;
-        $("#ValueEspeciestotal").text(addCommasrefactor(sumaespecie));
-
-        //suma tercera columna
-        var totalfsc = $("#ValueCostFSC").text();
-        totalfsc = totalfsc.replace(/\./gi, '');
-        var opetotalfsc = parseInt(totalfsc);
-
-        var totalothers = $("#ValueCostCounter").text();
-        totalothers = totalothers.replace(/\./gi, '');
-        var opetotalothers = parseInt(totalothers);
-
-        if (isNaN(opetotalfsc)) {
-            opetotalfsc = 0;
-            $("#ValueCostFSC").val(opetotalfsc);
-        }
-        else {
-            if (isNaN(opetotalothers)) {
-                opetotalothers = 0;
-                $("#ValueCostCounter").val(opetotalothers);
-            }
-            else {
-                var sumatotal = 0;
-                sumatotal = opetotalfsc + opetotalothers;
-                $("#ValueCostotal").text(addCommasrefactor(sumatotal));
-            }
-        }
-        sumatotal = opetotalfsc + opetotalothers;
-        $("#ValueCostotal").text(addCommasrefactor(sumatotal));
-
-        $("#T_Actors").dataTable({
-            "bJQueryUI": true,
-            "bDestroy": true
-        });
-
-        $("#T_Actorsflujos").dataTable({
-            "bJQueryUI": true,
-            "bDestroy": true
-        });
-        $("#ctl00_cphPrincipal_Txtcontact").val("");
-        $("#ctl00_cphPrincipal_Txtcedulacont").val("");
-        $("#ctl00_cphPrincipal_Txttelcont").val("");
-        $("#ctl00_cphPrincipal_Txtemail").val("");
-        $("#ctl00_cphPrincipal_Txtvrdiner").val("");
-        $("#ctl00_cphPrincipal_Txtvresp").val("");
-        $("#ctl00_cphPrincipal_Txtaportfscocomp").val("");
-
     }
-
 }
 
 //cargar combo de lineas estrategicas
@@ -625,6 +740,40 @@ function Cactors() {
     });
 }
 
+//cargar combo tipos de  proyecto
+function Ctype_project() {
+    $.ajax({
+        url: "AjaxAddIdea.aspx",
+        type: "GET",
+        data: { "action": "C_type_project" },
+        success: function(result) {
+            $("#ddltype_proyect").html(result);
+            $("#ddltype_proyect").trigger("liszt:updated");
+        },
+        error: function(msg) {
+            alert("No se pueden cargar los tipos de proyecto.");
+        }
+    });
+}
+
+//cargar combo tipos de  poblacion segun el proyecto seleccionado
+function Cpopulation() {
+    $("#ddltype_proyect").change(function() {
+        $.ajax({
+            url: "AjaxAddIdea.aspx",
+            type: "GET",
+            data: { "action": "C_population", "idpopulation": $(this).val() },
+            success: function(result) {
+                $("#ddlPupulation").html(result);
+                $("#ddlPupulation").trigger("liszt:updated");
+            },
+            error: function(msg) {
+                alert("No se pueden cargar los municipios del departamento seleccionado.");
+            }
+        });
+    });
+}
+
 //cargar combo tipos de contratos
 function CtypeContract() {
     $.ajax({
@@ -644,13 +793,21 @@ function CtypeContract() {
 
 //cargar double lisbox componentes de programa
 function cargarcomponente() {
+
     $("#ddlPrograms").change(function() {
         $.ajax({
             url: "AjaxAddIdea.aspx",
             type: "GET",
             data: { "action": "C_component", "idprogram": $(this).val() },
             success: function(result) {
-                $("#ctl00_cphPrincipal_dlbActivity_ctl08").html(result);
+
+                $("#seleccionarcomponente").html(result);
+
+                //darle atributos de seleccione
+                $(".seleccione").click(function() {
+                    arraycomponente.push($(this).attr("id"));
+                });
+
             },
             error: function(msg) {
                 alert("No se pueden cargar los componentes del programa selecionado.");
@@ -659,25 +816,59 @@ function cargarcomponente() {
     });
 }
 
-//pasar de un list box al otro
-function addcomponent() {
-    $("#ctl00_cphPrincipal_dlbActivity_ctl10").click(function() {
-        if ($("#ctl00_cphPrincipal_dlbActivity_ctl08").val() == "") {
+// agregar componentes al <ul componentesseleccionados>
+function Btnaddcomponent_onclick() {
 
-        }
-        else {
-            var valcomp = $("#ctl00_cphPrincipal_dlbActivity_ctl08").val()
-            var textcomp = $("#ctl00_cphPrincipal_dlbActivity_ctl08 :selected").text()
-            $("#ctl00_cphPrincipal_dlbActivity_ctl14").val(valcomp)
-            $("#ctl00_cphPrincipal_dlbActivity_ctl14").text(textcomp)
-        }
+    for (itemArray in arraycomponente) {
+
+
+        var htmlcomponente = $("#" + arraycomponente[itemArray]).html();
+
+        //crea la lista nueva
+        var htmlresult = "<li id = 'select" + arraycomponente[itemArray] + "' class = 'des_seleccionar' >" + htmlcomponente + "</li>";
+        //se asigna la lista al ul
+        $("#componentesseleccionados").append(htmlresult);
+
+        //eliminar del ul de seleccionar
+        $("#" + arraycomponente[itemArray]).remove();
+
+    }
+    //darle atributos de seleccione
+    $(".des_seleccionar").click(function() {
+        arraycomponentedesechado.push($(this).attr("id"));
     });
+
+    arraycomponente.length = 0;
+}
+
+// agregar componentes al <ul seleccionarcomponente>
+function Btndeletecomponent_onclick() {
+
+    for (itemArray in arraycomponentedesechado) {
+
+        var htmlcomponente = $("#" + arraycomponentedesechado[itemArray]).html();
+
+        var htmlresult = "<li id = '" + arraycomponentedesechado[itemArray].replace('select', '') + "' class = 'seleccione' >" + htmlcomponente + "</li>";
+
+        //se asigna la lista al ul
+        $("#seleccionarcomponente").append(htmlresult);
+
+        //eliminar del ul de seleccionado
+        $("#" + arraycomponentedesechado[itemArray]).remove();
+
+    }
+    //darle atributos de seleccione
+    $(".seleccione").click(function() {
+        arraycomponente.push($(this).attr("id"));
+    });
+
+    arraycomponentedesechado.length = 0;
 
 }
 
 
-
 function validafecha() {
+
     $("#ctl00_cphPrincipal_Txtday").blur(function() {
         if ($("#ctl00_cphPrincipal_txtstartdate").val() == '') {
             alert("El campo fecha de inicio debe estar diligenciado!");
@@ -711,6 +902,7 @@ function validafecha() {
 }
 
 function validafecha2() {
+
     $("#ctl00_cphPrincipal_txtduration").blur(function() {
         if ($("#ctl00_cphPrincipal_txtstartdate").val() == '') {
             alert("El campo fecha de inicio debe estar diligenciado!");

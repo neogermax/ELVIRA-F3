@@ -23,7 +23,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         Dim fecha As Date
         Dim duracion, dia As String
         Dim S_code, S_linea_estrategica, S_programa, S_nombre, S_justificacion, S_objetivo, S_objetivo_esp, S_Resultados_Benef, S_Resultados_Ges_c, S_Resultados_Cap_i, S_Fecha_inicio, S_mes, S_dia, S_Fecha_fin, S_Población, S_contratacion, S_A_Mfsc, S_A_Efsc, S_A_Mcounter, S_A_Ecounter, S_cost, S_obligaciones, S_iva, S_listubicaciones, S_listactors As String
-        Dim id_lineStrategic, id_depto, idprogram As Integer
+        Dim id_lineStrategic, id_depto, idprogram, idpopulation As Integer
 
         Session("locationByIdeaList") = New List(Of LocationByIdeaEntity)
 
@@ -104,13 +104,91 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                 idprogram = Convert.ToInt32(Request.QueryString("idprogram").ToString)
                 charge_component(idprogram)
 
+            Case "C_type_project"
+
+                Charge_project_type()
+
+            Case "C_population"
+
+                idpopulation = Convert.ToInt32(Request.QueryString("idpopulation").ToString)
+                Charge_population(idpopulation)
+
+
             Case Else
 
         End Select
 
     End Sub
+    ''' <summary>
+    ''' funcion que carga el combo de tipo de poblacion segun la selección del tipo de proyecto
+    ''' Autor: German Rodriguez MGgroup
+    ''' 28-01-2014
+    ''' </summary>
+    ''' <param name="id_population"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Public Function Charge_population(ByVal id_population As Integer)
+
+        Dim sql As New StringBuilder
+        Dim objSqlCommand As New SqlCommand
+        Dim data As DataTable
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+
+        sql.Append(" select p.ID, p.pupulation  from  population p ")
+        sql.Append(" where p.id_proyect_type = " & id_population)
+        sql.Append(" order by p.id_proyect_type asc ")
+
+        data = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+        Dim html As String = "<option>Seleccione...</opption>"
+        For Each row As DataRow In data.Rows
+            html &= String.Format("<option value = ""{0}"">{1}</option>", row(0).ToString(), row(1).ToString())
+        Next
+
+        ' retornar el objeto
+        Response.Write(html)
+
+    End Function
+
+    ''' <summary>
+    ''' funcion que carga el combo de tipo de proyectos
+    ''' Autor: German Rodriguez MGgroup
+    ''' 28-01-2014
+    ''' </summary>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Public Function Charge_project_type()
+
+        Dim sql As New StringBuilder
+        Dim objSqlCommand As New SqlCommand
+        Dim data As DataTable
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
 
 
+        sql.Append(" select pt.ID,pt.Project_Type  from  ProjectType pt ")
+        sql.Append(" order by pt.Project_Type asc")
+
+        ' ejecutar la intruccion
+        data = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+        Dim html As String = "<option>Seleccione...</opption>"
+        For Each row As DataRow In data.Rows
+            html &= String.Format("<option value = ""{0}"">{1}</option>", row(0).ToString(), row(1).ToString())
+        Next
+
+        ' retornar el objeto
+        Response.Write(html)
+
+    End Function
+
+    ''' <summary>
+    ''' funcion que carga el combo de tipo de componente de programa
+    ''' Autor: German Rodriguez MGgroup
+    ''' 12-01-2014
+    ''' </summary>
+    ''' <param name="idprogram"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
     Public Function charge_component(ByVal idprogram As Integer)
 
         Dim facade As New Facade
@@ -126,8 +204,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
             ' cargar el valor del campo
             id = row.id
             code = row.code
-            htmlresults &= String.Format("<option value='{0}'>{1}</option>", id, code)
-
+            htmlresults &= "<li id= add" + id + " class='seleccione'>" + code + "</li>"
         Next
         Response.Write(htmlresults)
 

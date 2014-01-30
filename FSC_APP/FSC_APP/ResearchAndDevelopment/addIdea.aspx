@@ -124,6 +124,8 @@
                 event.returnValue = false;
         }
 
+
+       
     </script>
 
     <br />
@@ -150,11 +152,11 @@
     <div id="tabsIdea">
         <ul>
             <li><a href="#informacion">Información Principal</a></li>
-            <li><a href="#anexos">Archivos Anexos</a></li>
+            <li><a href="#componentes">Componentes de Programa</a></li>
             <li><a href="#ubicacion">Ubicación</a></li>
             <li><a href="#actores">Actores</a></li>
             <li><a href="#flujos">Flujos de pago</a></li>
-            <li><a href="#componentes">Componentes de Programa</a></li>
+            <li><a href="#anexos">Archivos Anexos</a></li>
         </ul>
         <div id="informacion">
             <ul class="left">
@@ -254,11 +256,11 @@
                 </li>
                 <li>
                     <asp:Label ID="lblduration" runat="server" Text="Meses"></asp:Label>
-                    <asp:TextBox ID="txtduration" runat="server" MaxLength="5" Width="100px" Rows="2" onkeypress="ValidaSoloNumeros()"
-                    onkeychange="ValidaSoloNumeros()" onkeyup="ValidaSoloNumeros()"></asp:TextBox>
+                    <asp:TextBox ID="txtduration" runat="server" MaxLength="5" Width="100px" Rows="2"
+                        onkeypress="ValidaSoloNumeros()" onkeychange="ValidaSoloNumeros()" onkeyup="ValidaSoloNumeros()"></asp:TextBox>
                     <asp:Label ID="Lbldia" runat="server" Text="Días"></asp:Label>
                     <asp:TextBox ID="Txtday" runat="server" MaxLength="5" Width="100px" Rows="2" onkeypress="ValidaSoloNumeros()"
-                    onkeychange="ValidaSoloNumeros()" onkeyup="ValidaSoloNumeros()"></asp:TextBox>
+                        onkeychange="ValidaSoloNumeros()" onkeyup="ValidaSoloNumeros()"></asp:TextBox>
                 </li>
                 <li>
                     <asp:Label ID="Lbldateend" runat="server" Text="Fecha de Finalización"></asp:Label>
@@ -267,14 +269,20 @@
                     <asp:Label ID="Label22" runat="server"></asp:Label>
                 </li>
                 <li>
+                    <asp:Label ID="Lbltype_project" runat="server" Text="Tipo de proyecto"></asp:Label>
+                    <select id="ddltype_proyect" class="Ccombo">
+                        <asp:DropDownList ID="ddltype_proyect" runat="server">
+                        </asp:DropDownList>
+                        <asp:Label ID="Lblhelptproyect" runat="server" ForeColor="#990000"></asp:Label>
+                    </select>
+                </li>
+                <li>
                     <asp:Label ID="lblpopulation" runat="server" Text="Población"></asp:Label>
-                    <asp:DropDownList ID="ddlPupulation" runat="server" CssClass="Ccombo">
-                        <asp:ListItem Value="1">Personas con Discapacidad</asp:ListItem>
-                        <asp:ListItem Value="2">Personas Mayores</asp:ListItem>
-                        <asp:ListItem Value="3">Persona con discapacidad y personas mayores</asp:ListItem>
-                        <asp:ListItem Value="4">Otros</asp:ListItem>
-                    </asp:DropDownList>
-                    <asp:Label ID="lblHelppopulation" runat="server"></asp:Label>
+                    <select id="ddlPupulation" class="Ccombo">
+                        <asp:DropDownList ID="ddlPupulation" runat="server">
+                        </asp:DropDownList>
+                    </select>
+                    <asp:Label ID="lblHelppopulation" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
                 <%-- <li>
                     <asp:Label ID="lblfsccontribution" runat="server" Text="Aporte FSC"></asp:Label>
@@ -295,7 +303,7 @@
                         <asp:DropDownList ID="ddlmodcontract" runat="server">
                         </asp:DropDownList>
                     </select>
-                    <asp:Label ID="Label20" runat="server"></asp:Label>
+                    <asp:Label ID="Lblmodcontract" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
                 <li>
                     <asp:Label ID="Label21" runat="server" Text="Esta idea no aplica IVA"></asp:Label>
@@ -426,48 +434,22 @@
                 </li>
             </ul>
         </div>
-        <div id="anexos">
+        <div id="componentes">
             <ul>
-                <li id="tableAttachments">
-                    <asp:Label ID="lblattachfile" runat="server" Text="Archivo anexo"></asp:Label>
-                </li>
                 <li>
-                    <img src="../App_Themes/GattacaAdmin/Images/attach.gif" alt="" />
-                    <a id="lnkAttch" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'"
-                        style="cursor: hand" onclick="AddFileInput()">Adjuntar un archivo</a>
-                    <asp:Label ID="Label12" runat="server"></asp:Label>
+                    <cc2:DoubleListBox ID="dlbActivity" runat="server"  Visible ="false" Width="100%" />
+                     <asp:Label ID="Lblinformationcomponent" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
+            </ul>
+            <ul id="seleccionarcomponente">
+            </ul>
+            <ul>
                 <li>
-                    <asp:Label ID="obser" runat="server" Text="Descripción"></asp:Label>
-                    <asp:TextBox ID="txtobser" runat="server" MaxLength="500" Width="400px"></asp:TextBox>
+                    <input id="Btnaddcomponent" type="button" value=">>" name="Add_Componente" onclick="return Btnaddcomponent_onclick()" />
+                    <input id="Btndeletecomponent" type="button" value="<<" name="Delete_Componente"  onclick="return Btndeletecomponent_onclick()" />
                 </li>
-                <li id="tdFileInputs">
-                    <asp:UpdatePanel ID="upData" runat="server" UpdateMode="Conditional">
-                        <ContentTemplate>
-                            <asp:GridView ID="gvDocuments" runat="server" AutoGenerateColumns="False" Width="100%">
-                                <Columns>
-                                    <asp:HyperLinkField DataNavigateUrlFields="id" DataNavigateUrlFormatString="addDocuments.aspx?op=edit&id={0}&isPopup=True"
-                                        HeaderText="Edición" Text="Editar" Target="_blank" />
-                                    <asp:TemplateField HeaderText="Eliminación" ShowHeader="False">
-                                        <ItemTemplate>
-                                            <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandName="Delete"
-                                                OnClientClick="return confirm('Esta seguro?')" Text="Eliminar"></asp:LinkButton></ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:BoundField DataField="title" HeaderText="Título" />
-                                    <asp:BoundField DataField="description" HeaderText="Descripción" />
-                                    <asp:BoundField DataField="EDITEDFORNAME" HeaderText="Editado por" />
-                                    <asp:BoundField DataField="VISIBILITYLEVELNAME" HeaderText="Nivel visibilidad" />
-                                    <asp:BoundField DataField="DOCUMENTTYPENAME" HeaderText="Tipo documento" />
-                                    <asp:BoundField DataField="createdate" HeaderText="Fecha" />
-                                    <asp:BoundField DataField="USERNAME" HeaderText="Usuario" />
-                                    <asp:HyperLinkField DataNavigateUrlFields="attachfile" DataTextField="attachfile"
-                                        HeaderText="Anexo" Target="_blank" />
-                                </Columns>
-                            </asp:GridView>
-                            <br />
-                            <asp:Button ID="btnRefresh" runat="server" Text="Actualizar Listado" /></ContentTemplate>
-                    </asp:UpdatePanel>
-                </li>
+            </ul>
+            <ul id="componentesseleccionados">
             </ul>
         </div>
         <div id="ubicacion">
@@ -960,10 +942,47 @@
                 </li>
             </ul>
         </div>
-        <div id="componentes">
+        <div id="anexos">
             <ul>
+                <li id="tableAttachments">
+                    <asp:Label ID="lblattachfile" runat="server" Text="Archivo anexo"></asp:Label>
+                </li>
                 <li>
-                    <cc2:DoubleListBox ID="dlbActivity" runat="server" Width="100%" />
+                    <img src="../App_Themes/GattacaAdmin/Images/attach.gif" alt="" />
+                    <a id="lnkAttch" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'"
+                        style="cursor: hand" onclick="AddFileInput()">Adjuntar un archivo</a>
+                    <asp:Label ID="Label12" runat="server"></asp:Label>
+                </li>
+                <li>
+                    <asp:Label ID="obser" runat="server" Text="Descripción"></asp:Label>
+                    <asp:TextBox ID="txtobser" runat="server" MaxLength="500" Width="400px"></asp:TextBox>
+                </li>
+                <li id="tdFileInputs">
+                    <asp:UpdatePanel ID="upData" runat="server" UpdateMode="Conditional">
+                        <ContentTemplate>
+                            <asp:GridView ID="gvDocuments" runat="server" AutoGenerateColumns="False" Width="100%">
+                                <Columns>
+                                    <asp:HyperLinkField DataNavigateUrlFields="id" DataNavigateUrlFormatString="addDocuments.aspx?op=edit&id={0}&isPopup=True"
+                                        HeaderText="Edición" Text="Editar" Target="_blank" />
+                                    <asp:TemplateField HeaderText="Eliminación" ShowHeader="False">
+                                        <ItemTemplate>
+                                            <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandName="Delete"
+                                                OnClientClick="return confirm('Esta seguro?')" Text="Eliminar"></asp:LinkButton></ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:BoundField DataField="title" HeaderText="Título" />
+                                    <asp:BoundField DataField="description" HeaderText="Descripción" />
+                                    <asp:BoundField DataField="EDITEDFORNAME" HeaderText="Editado por" />
+                                    <asp:BoundField DataField="VISIBILITYLEVELNAME" HeaderText="Nivel visibilidad" />
+                                    <asp:BoundField DataField="DOCUMENTTYPENAME" HeaderText="Tipo documento" />
+                                    <asp:BoundField DataField="createdate" HeaderText="Fecha" />
+                                    <asp:BoundField DataField="USERNAME" HeaderText="Usuario" />
+                                    <asp:HyperLinkField DataNavigateUrlFields="attachfile" DataTextField="attachfile"
+                                        HeaderText="Anexo" Target="_blank" />
+                                </Columns>
+                            </asp:GridView>
+                            <br />
+                            <asp:Button ID="btnRefresh" runat="server" Text="Actualizar Listado" /></ContentTemplate>
+                    </asp:UpdatePanel>
                 </li>
             </ul>
         </div>

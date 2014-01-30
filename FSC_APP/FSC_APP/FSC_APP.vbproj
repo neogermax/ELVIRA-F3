@@ -1914,6 +1914,7 @@
     <Compile Include="core\Entities\ProjectEntity.vb" />
     <Compile Include="core\Entities\ProjectLocationEntity.vb" />
     <Compile Include="core\Entities\ProjectPhaseEntity.vb" />
+    <Compile Include="core\Entities\ProjectTypeEntity.vb" />
     <Compile Include="core\Entities\ProposalEntity.vb" />
     <Compile Include="core\Entities\QuestionsByInquestContentEntity.vb" />
     <Compile Include="core\Entities\ReplyEntity.vb" />
@@ -3626,9 +3627,12 @@
     <Content Include="css\images\ui-icons_ffffff_256x240.png" />
     <Content Include="css\datatables\jquery.dataTables.css" />
     <Content Include="css\datatables\jquery.dataTables_themeroller.css" />
+    <Content Include="css\jquery.multiselect2side.css" />
     <Content Include="GeneralPlanning\AjaxAddThird.aspx" />
     <Content Include="js\jquery-ui-1.10.3.custom.min.js" />
     <Content Include="js\jquery.dataTables.min.js" />
+    <Content Include="js\jquery.js" />
+    <Content Include="js\jquery.multiselect2side.js" />
     <Content Include="Master\mpAdmin.master" />
     <Content Include="Master\mpClient.master" />
     <Content Include="Master\mpClientPlain.master" />
