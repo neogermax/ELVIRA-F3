@@ -21,6 +21,14 @@
 
     <script src="../js/jquery.dataTables.min.js" type="text/javascript"></script>
 
+    <script src="../Include/javascript/numeral.min.js"></script>
+
+    <script src="../js/jquery.fileupload.js" type="text/javascript"></script>
+
+    <script src="../js/jquery.iframe-transport.js" type="text/javascript"></script>
+
+    <%--<script src="../js/bootstrap-modal.js" type="text/javascript"></script>
+--%>
     <style>
         #informacion
         {
@@ -90,6 +98,11 @@
             display: block;
             margin-bottom: 1em;
         }
+        #componentes
+        {
+        	width: 100%;        	
+        	text-align. center;
+        }
         .left
         {
             float: left;
@@ -99,6 +112,37 @@
         {
             float: right;
             width: 46%;
+        }
+        .bar
+        {
+            height: 18px;
+            background: green;
+        }
+        #seleccionarcomponente, #componentesseleccionados
+        {
+        	width: 300px;
+        	display: inline-block;
+        	background: #fff;
+        	border: 2px solid #3c3c3c;
+            height: 500px;
+            overflow: scroll-y;
+        	margin: 0px;
+        	vertical-align: middle;
+        }
+        #seleccionarcomponente li , #componentesseleccionados li
+        {
+        	cursor: pointer;
+        }
+        #seleccionarcomponente li:hover , #componentesseleccionados li:hover
+        {
+        	background: #191919;
+        	color: #fff;
+        }
+        #listFlujosPagos li
+        {
+        	display: inline-block;
+        	float:left;
+        	margin-right: 3em;
         }
     </style>
 
@@ -125,7 +169,54 @@
         }
 
 
-       
+//        function seleccionado() {
+
+//            var archivos = document.getElementById("archivos"); //Damos el valor del input tipo file
+//            var archivo = archivos.files; //Obtenemos el valor del input (los arcchivos) en modo de arreglo
+
+//            /* Creamos el objeto que hara la petición AJAX al servidor, debemos de validar 
+//            si existe el objeto “ XMLHttpRequest” ya que en internet explorer viejito no esta,
+//            y si no esta usamos “ActiveXObject” */
+
+//            if (window.XMLHttpRequest) {
+//                var Req = new XMLHttpRequest();
+//            } else if (window.ActiveXObject) {
+//                var Req = new ActiveXObject("Microsoft.XMLHTTP");
+//            }
+
+//            //El objeto FormData nos permite crear un formulario pasandole clave/valor para poder enviarlo, 
+//            //este tipo de objeto ya tiene la propiedad multipart/form-data para poder subir archivos
+//            var data = new FormData();
+
+//            //Como no sabemos cuantos archivos subira el usuario, iteramos la variable y al
+//            //objeto de FormData con el metodo "append" le pasamos calve/valor, usamos el indice "i" para
+//            //que no se repita, si no lo usamos solo tendra el valor de la ultima iteración
+//            for (i = 0; i < archivo.length; i++) {
+//                data.append('archivo' + i, archivo[i]);
+//            }
+
+//            //Pasándole la url a la que haremos la petición
+//            Req.open("POST", "subir.php", true);
+
+//            /* Le damos un evento al request, esto quiere decir que cuando termine de hacer la petición,
+//            se ejecutara este fragmento de código */
+
+//            Req.onload = function(Event) {
+//                //Validamos que el status http sea ok 
+//                if (Req.status == 200) {
+//                    //Recibimos la respuesta de php
+//                    var msg = Req.responseText;
+//                    $("#tdFileInputs").append(msg);
+//                } else {
+//                    console.log(Req.status); //Vemos que paso. 
+//                }
+//            };
+
+//            //Enviamos la petición 
+//            Req.send(data);
+//        }
+      
+      
     </script>
 
     <br />
@@ -435,22 +526,25 @@
             </ul>
         </div>
         <div id="componentes">
-            <ul>
-                <li>
-                    <cc2:DoubleListBox ID="dlbActivity" runat="server"  Visible ="false" Width="100%" />
-                     <asp:Label ID="Lblinformationcomponent" runat="server" ForeColor="#990000"></asp:Label>
-                </li>
-            </ul>
-            <ul id="seleccionarcomponente">
-            </ul>
-            <ul>
-                <li>
-                    <input id="Btnaddcomponent" type="button" value=">>" name="Add_Componente" onclick="return Btnaddcomponent_onclick()" />
-                    <input id="Btndeletecomponent" type="button" value="<<" name="Delete_Componente"  onclick="return Btndeletecomponent_onclick()" />
-                </li>
-            </ul>
-            <ul id="componentesseleccionados">
-            </ul>
+            <table style="margin: 0 auto;">
+                <tr>
+                    <td>
+                    <ul id="seleccionarcomponente">
+                </ul>
+                    </td>
+                    <td>
+                         <input id="Btnaddcomponent" type="button" value=">>" name="Add_Componente" onclick="return Btnaddcomponent_onclick()" />
+                        <input id="Btndeletecomponent" type="button" value="<<" name="Delete_Componente"
+                            onclick="return Btndeletecomponent_onclick()" />
+                    </td>
+                    <td>
+                    <ul id="componentesseleccionados">
+                </ul>
+                    </td>
+                </tr>
+            </table>
+                
+            <cc2:DoubleListBox ID="dlbActivity" runat="server" Visible="false" Width="100%" />
         </div>
         <div id="ubicacion">
             <ul>
@@ -741,39 +835,38 @@
             </ul>
         </div>
         <div id="flujos">
-            <ul>
+            <ul id="listFlujosPagos">
                 <li>
-                    <asp:Label ID="lblvalortotal" runat="server" Text="Valor Total"></asp:Label>
-                    <asp:TextBox ID="txtvalortotalflow" runat="server" Width="186px" MaxLength="50" Text="0"></asp:TextBox>
+                    <asp:Label ID="lblvalortotal" runat="server" Text="Pago No"></asp:Label>
+                    <asp:TextBox ID="txtvalortotalflow" runat="server" Width="100px" MaxLength="50" onkeychange="ValidaSoloNumeros()"
+                        onkeyup="ValidaSoloNumeros()" onkeypress="ValidaSoloNumeros()"></asp:TextBox>
+                    <asp:Label ID="Lblinformationexist" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
                 <li>
                     <asp:Label ID="lblfechapago" runat="server" Text="Fecha de pago"></asp:Label>
-                    <asp:TextBox ID="txtfechapago" runat="server" Width="400px" MaxLength="50"></asp:TextBox>
+                    <asp:TextBox ID="txtfechapago" runat="server" Width="100px" MaxLength="50"></asp:TextBox>
                     <cc1:CalendarExtender ID="cesfechapago" runat="server" TargetControlID="txtfechapago"
                         Format="yyyy/MM/dd" Enabled="True">
                     </cc1:CalendarExtender>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtfechapago"
-                        ErrorMessage="el campo fecha esta vacio" ValidationGroup="validat"></asp:RequiredFieldValidator>
-                    <asp:Label ID="lblhelpfechapago" runat="server"></asp:Label>
                 </li>
                 <li>
                     <asp:Label ID="lblporcentaje" runat="server" Text="Porcentaje"></asp:Label>
-                    <asp:TextBox ID="txtporcentaje" Text="0" runat="server" MaxLength="50" Width="95px"></asp:TextBox>
-                    <asp:Label ID="lblFlowNfo" runat="server" Text="." ForeColor="White"></asp:Label>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidatorPorcent" runat="server" ControlToValidate="txtporcentaje"
-                        ErrorMessage="el campo esta vacio" ValidationGroup="validat"></asp:RequiredFieldValidator>
+                    <asp:TextBox ID="txtporcentaje" runat="server" MaxLength="50" Width="100px"></asp:TextBox>
+                    <asp:Label ID="Lblhelpporcentaje" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
                 <li>
                     <asp:Label ID="lblvalor" runat="server" Text="Valor"></asp:Label>
-                    <asp:TextBox ID="txtvalorpartial" runat="server" MaxLength="50" ReadOnly="true" Width="182px"></asp:TextBox>
+                    <asp:Label ID="Lbltotalvalor" runat="server"></asp:Label>
+                    <asp:TextBox ID="txtvalorpartial" runat="server" MaxLength="50" ReadOnly="true" Width="182px"
+                        Visible="false"></asp:TextBox>
                 </li>
-                <li>
-                    <asp:Label ID="lblentregable" runat="server" Text="Entregable"></asp:Label>
-                    <asp:TextBox ID="txtentregable" runat="server" Height="100px" MaxLength="8000" onkeypress="return textboxMultilineMaxNumber(this,800)"
-                        TextMode="MultiLine" Width="450px"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtentregable"
-                        ErrorMessage="el campo esta vacio" ValidationGroup="validat"></asp:RequiredFieldValidator>
-                </li>
+                </ul>
+                <br />
+                    <asp:Label style="clear: both;" ID="lblentregable" runat="server" Text="Entregable"></asp:Label>
+                    <asp:TextBox ID="txtentregable" runat="server" Height="100px" MaxLength="8000" TextMode="MultiLine"
+                        Width="90%"></asp:TextBox>
+                    <asp:HiddenField ID="HDvalorpagoflujo" runat="server" />
+                <ul>
                 <div id="T_AflujosContainer">
                     <table id="T_Actorsflujos" border="1" cellpadding="1" cellspacing="1" style="width: 100%;">
                         <thead>
@@ -785,7 +878,10 @@
                                     Aportante
                                 </th>
                                 <th>
-                                    Valor en efectivo
+                                    Valor inicial
+                                </th>
+                                <th>
+                                    Valor desembolsado
                                 </th>
                                 <th>
                                     Valor a cancelar
@@ -802,23 +898,24 @@
                                 </td>
                                 <td>
                                 </td>
+                                <td>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
                 <li>
-                    <input id="Btn_add_flujo" type="button" value="Agregar pago" name="Add_flujo" />
-                    <%--    <asp:Button ID="BtnAddPayment" runat="server" Text="Agregar Pago" />--%>
+                    <asp:Label ID="Lblinformation_flujos" runat="server" ForeColor="#990000"></asp:Label>
+                </li>
+                <li>
+                    <input id="Btn_add_flujo" type="button" value="Agregar pago" name="Add_flujo" onclick="return Btn_add_flujo_onclick()" />
                 </li>
                 <div id="T_flujosContainer">
                     <table id="T_flujos" border="1" cellpadding="1" cellspacing="1" style="width: 100%;">
                         <thead>
                             <tr>
                                 <th style="text-align: center;">
-                                    id
-                                </th>
-                                <th style="text-align: center;">
-                                    idproject
+                                    No pago
                                 </th>
                                 <th style="text-align: center;">
                                     Fecha
@@ -830,33 +927,18 @@
                                     Entregable
                                 </th>
                                 <th style="text-align: center;">
-                                    ididea
-                                </th>
-                                <th style="text-align: center;">
                                     Valor parcial
                                 </th>
                                 <th style="text-align: center;">
+                                    Editar/Eliminar
+                                </th>
+                                <th style="text-align: center;">
                                     Detalle
-                                </th>
-                                <th style="text-align: center;">
-                                    Editar
-                                </th>
-                                <th style="text-align: center;">
-                                    Eliminar
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td style="text-align: center;">
-                                    &nbsp;
-                                </td>
-                                <td style="text-align: center;">
-                                    &nbsp;
-                                </td>
-                                <td style="text-align: center;">
-                                    &nbsp;
-                                </td>
                                 <td style="text-align: center;">
                                     &nbsp;
                                 </td>
@@ -945,15 +1027,14 @@
         <div id="anexos">
             <ul>
                 <li id="tableAttachments">
-                    <asp:Label ID="lblattachfile" runat="server" Text="Archivo anexo"></asp:Label>
+                    <input id="F1" type="file" name="archivos[]" multiple="multiple" onchange="seleccionado();" />
                 </li>
                 <li>
-                    <img src="../App_Themes/GattacaAdmin/Images/attach.gif" alt="" />
-                    <a id="lnkAttch" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'"
-                        style="cursor: hand" onclick="AddFileInput()">Adjuntar un archivo</a>
+                    <%-- <img src="../App_Themes/GattacaAdmin/Images/attach.gif" alt="" />--%>
+                    <a id="lnkAttch" style="cursor: hand" onclick="AddFileInput(F1)">Adjuntar un archivo</a>
                     <asp:Label ID="Label12" runat="server"></asp:Label>
                 </li>
-                <li>
+                <li id="li5000"  runat="server" visible="false">
                     <asp:Label ID="obser" runat="server" Text="Descripción"></asp:Label>
                     <asp:TextBox ID="txtobser" runat="server" MaxLength="500" Width="400px"></asp:TextBox>
                 </li>
@@ -987,4 +1068,37 @@
             </ul>
         </div>
     </div>
+    <div id="dialog" title="Desembolso detallado">
+        <table id="T_detalle_desembolso" border="1" cellpadding="1" cellspacing="1" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th>
+                        No pago
+                    </th>
+                    <th>
+                        Id aportante
+                    </th>
+                    <th>
+                        Aportante
+                    </th>
+                    <th>
+                        desembolso
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- /.modal -->
 </asp:Content>

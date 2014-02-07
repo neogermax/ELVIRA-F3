@@ -619,13 +619,13 @@ Partial Public Class addIdea
     Protected WithEvents ddlmodcontract As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''Control Label20.
+    '''Control Lblmodcontract.
     '''</summary>
     '''<remarks>
     '''Campo generado automáticamente.
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
-    Protected WithEvents Label20 As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents Lblmodcontract As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''Control Label21.
@@ -1015,67 +1015,13 @@ Partial Public Class addIdea
     Protected WithEvents dlbActivity As Global.DoubleListBox.DoubleListBox
 
     '''<summary>
-    '''Control lblattachfile.
+    '''Control Lblinformationcomponent.
     '''</summary>
     '''<remarks>
     '''Campo generado automáticamente.
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
-    Protected WithEvents lblattachfile As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''Control Label12.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents Label12 As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''Control obser.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents obser As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''Control txtobser.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents txtobser As Global.System.Web.UI.WebControls.TextBox
-
-    '''<summary>
-    '''Control upData.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents upData As Global.System.Web.UI.UpdatePanel
-
-    '''<summary>
-    '''Control gvDocuments.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents gvDocuments As Global.System.Web.UI.WebControls.GridView
-
-    '''<summary>
-    '''Control btnRefresh.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents btnRefresh As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents Lblinformationcomponent As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''Control Label1.
@@ -1474,6 +1420,15 @@ Partial Public Class addIdea
     Protected WithEvents txtvalortotalflow As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
+    '''Control Lblinformationexist.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Lblinformationexist As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
     '''Control lblfechapago.
     '''</summary>
     '''<remarks>
@@ -1501,24 +1456,6 @@ Partial Public Class addIdea
     Protected WithEvents cesfechapago As Global.AjaxControlToolkit.CalendarExtender
 
     '''<summary>
-    '''Control RequiredFieldValidator1.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents RequiredFieldValidator1 As Global.System.Web.UI.WebControls.RequiredFieldValidator
-
-    '''<summary>
-    '''Control lblhelpfechapago.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents lblhelpfechapago As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
     '''Control lblporcentaje.
     '''</summary>
     '''<remarks>
@@ -1537,22 +1474,13 @@ Partial Public Class addIdea
     Protected WithEvents txtporcentaje As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''Control lblFlowNfo.
+    '''Control Lblhelpporcentaje.
     '''</summary>
     '''<remarks>
     '''Campo generado automáticamente.
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
-    Protected WithEvents lblFlowNfo As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''Control RequiredFieldValidatorPorcent.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents RequiredFieldValidatorPorcent As Global.System.Web.UI.WebControls.RequiredFieldValidator
+    Protected WithEvents Lblhelpporcentaje As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''Control lblvalor.
@@ -1562,6 +1490,15 @@ Partial Public Class addIdea
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
     Protected WithEvents lblvalor As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''Control Lbltotalvalor.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Lbltotalvalor As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''Control txtvalorpartial.
@@ -1591,13 +1528,22 @@ Partial Public Class addIdea
     Protected WithEvents txtentregable As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''Control RequiredFieldValidator2.
+    '''Control HDvalorpagoflujo.
     '''</summary>
     '''<remarks>
     '''Campo generado automáticamente.
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
-    Protected WithEvents RequiredFieldValidator2 As Global.System.Web.UI.WebControls.RequiredFieldValidator
+    Protected WithEvents HDvalorpagoflujo As Global.System.Web.UI.WebControls.HiddenField
+
+    '''<summary>
+    '''Control Lblinformation_flujos.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Lblinformation_flujos As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''Control gvPaymentFlow.
@@ -1652,4 +1598,67 @@ Partial Public Class addIdea
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
     Protected WithEvents lblExceed100 As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''Control Label12.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Label12 As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''Control li5000.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents li5000 As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+    '''<summary>
+    '''Control obser.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents obser As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''Control txtobser.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents txtobser As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''Control upData.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents upData As Global.System.Web.UI.UpdatePanel
+
+    '''<summary>
+    '''Control gvDocuments.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents gvDocuments As Global.System.Web.UI.WebControls.GridView
+
+    '''<summary>
+    '''Control btnRefresh.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents btnRefresh As Global.System.Web.UI.WebControls.Button
 End Class

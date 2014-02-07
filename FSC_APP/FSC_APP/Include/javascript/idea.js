@@ -9,13 +9,19 @@ var arrayUbicacion = [];
 var arrayActor = [];
 var arraycomponente = [];
 var arraycomponentedesechado = [];
-
+var arrayValorflujoTotal = [];
+var arrayinputflujos = [];
+var arrayflujosdepago = [];
+var matriz_flujos = [];
+var reversedesembolsos = [];
 
 var valI1;
 var valI2;
 var valI3;
 
 $(document).ready(function() {
+
+
     operacionesIdea();
     comboactor();
     var timer = setTimeout("fix();", 2000);
@@ -33,6 +39,7 @@ $(document).ready(function() {
     startdate();
     Ctype_project();
     Cpopulation();
+    validarporcentaje();
 
     $("#ctl00_cphPrincipal_containerSuccess").css("display", "none");
 
@@ -61,28 +68,34 @@ $(document).ready(function() {
         "bDestroy": true
     });
 
+    $("#T_detalle_desembolso").dataTable({
+        "bJQueryUI": true,
+        "bDestroy": true
+    });
+
+
     $("#SaveIdea").button();
     $("#B_add_location").button();
     $("#BtnaddActors").button();
     $("#Btn_add_flujo").button();
     $("#Btnaddcomponent").button();
     $("#Btndeletecomponent").button();
+    $("#ctl00_cphPrincipal_linkactors").button();
+    $("#lnkAttch").button();
+    $("#F1").button();
 
 
-
-    $(".deleteUbicacion").click(function() {
-        $(this).parent().parent().remove();
+    //generar el la ventana emergente
+    $("#dialog").dialog({
+        modal: true,
+        minWidth: 700,
+        autoOpen: false
     });
-
-
-
 
 });
 
-var contadorarray = 0;
 
-
-
+//funcion para dispara en el autoload fuciones de fechas
 function fix() {
 
     if ($.trim($("#ctl00_cphPrincipal_Txtday").val()).length > 0) {
@@ -99,218 +112,221 @@ function fix() {
 }
 
 //funcion de refactorizacion idea fase 3 ---- autor:German Rodriguez MGgroup
-//guardar idea
+
+//--------------------------------------------------------------------------crear idea-----------------------------------------------------------------------------------------------
 function SaveIdea_onclick() {
 
     var fsc_exist = 0;
-
+    //validar si las pestañas ubicacion, actores estan diligenciadas
     if (arrayActor.length == 0 || arrayUbicacion.length == 0) {
         if (arrayActor.length == 0 && arrayUbicacion.length != 0) {
             $("#ctl00_cphPrincipal_Lblactorrep").text("Debe almenos tener un actor");
-            $("#ctl00_cphPrincipal_Lbladvertencia").text("Revisar la pestaña actores");
+            $("#ctl00_cphPrincipal_Lbladvertencia").text("La idea no guardo con exito: Revisar la pestaña actores");
         }
         if (arrayActor.length != 0 && arrayUbicacion.length == 0) {
-            $("#ctl00_cphPrincipal_Lblinfubicacion").text("debe tener almenos una ubicación");
-            $("#ctl00_cphPrincipal_Lbladvertencia").text("Revisar la pestaña ubicación");
+            $("#ctl00_cphPrincipal_Lblinfubicacion").text("Debe tener almenos una ubicación");
+            $("#ctl00_cphPrincipal_Lbladvertencia").text("La idea no guardo con exito: Revisar la pestaña ubicación");
         }
         if (arrayActor.length == 0 && arrayUbicacion.length == 0) {
-            $("#ctl00_cphPrincipal_Lbladvertencia").text("Revisar la pestaña actores y ubicaciones");
+            $("#ctl00_cphPrincipal_Lbladvertencia").text("La idea no guardo con exito: Revisar la pestaña actores y ubicaciones");
             $("#ctl00_cphPrincipal_Lblactorrep").text("Debe almenos tener un actor");
-            $("#ctl00_cphPrincipal_Lblinfubicacion").text("debe tener almenos una ubicación");
+            $("#ctl00_cphPrincipal_Lblinfubicacion").text("Debe tener almenos una ubicación");
         }
     }
 
     else {
+        //recorrer actores revisando si la FSC fue ingresada
         for (iArray in arrayActor) {
             if (4 == arrayActor[iArray].actorsVal) {
                 fsc_exist = 1;
             }
         }
+        //validar si un componente fue ingresado
+        var textoLista = $("#componentesseleccionados").html();
 
-//        var textoLista = $("#componentesseleccionados").text();
-//        alert(textoLista);
+        if (textoLista == "") {
+            $("#ctl00_cphPrincipal_Lblinformationcomponent").text("Debe tener almenos un componente");
+            $("#ctl00_cphPrincipal_Lbladvertencia").text("La idea no guardo con exito: Revisar la pestaña componentes");
 
-//        if (textoLista == "") {
-//            $("#ctl00_cphPrincipal_Lblinformationcomponent").text("");
-//            alert(1);
-//            alert(textoLista);
-//        }
-//        else {
-//            $("#ctl00_cphPrincipal_Lblinformationcomponent").text("debe tener almenos un componente");
-//            alert(2);
-//            alert(textoLista);
-//        }
-
-        $("#ctl00_cphPrincipal_Lblinfubicacion").text("");
-        $("#ctl00_cphPrincipal_Lblactorrep").text("");
-
-        if ($("#ddltype_proyect :selected").text() == 'Seleccione....' || $("#ddlPupulation :selected").text() == 'Seleccione...' || $("#ddlmodcontract :selected").text() == 'Seleccione...' || $("#ddlStrategicLines :selected").text() == 'Seleccione...' || $("#ddlPrograms :selected").text() == 'Seleccione...' || $("#ctl00_cphPrincipal_txtname").val() == '' || $("#ctl00_cphPrincipal_txtjustification").val() == '' || $("#ctl00_cphPrincipal_txtobjective").val() == '' || $("#ctl00_cphPrincipal_txtstartdate").val() == '' || $("#ctl00_cphPrincipal_txtduration").val() == '' || arrayUbicacion.length == 0 || fsc_exist == 0) {
-
-            if ($("#ddlStrategicLines :selected").text() == 'Seleccione...') {
-                $("#ctl00_cphPrincipal_lblinfls").text("Campo Requerido");
-                $("#ctl00_cphPrincipal_Lbladvertencia").text("Revisar la pestaña información");
-            }
-            else {
-                $("#ctl00_cphPrincipal_lblinfls").text("");
-                $("#ctl00_cphPrincipal_Lbladvertencia").text("");
-            }
-
-            if ($("#ddlPrograms :selected").text() == 'Seleccione...') {
-                $("#ctl00_cphPrincipal_lblinpro").text("Campo Requerido");
-                $("#ctl00_cphPrincipal_Lbladvertencia").text("Revisar la pestaña información");
-            }
-            else {
-                $("#ctl00_cphPrincipal_lblinpro").text("");
-                $("#ctl00_cphPrincipal_Lbladvertencia").text("");
-            }
-
-            if ($("#ddltype_proyect :selected").text() == 'Seleccione...') {
-                $("#ctl00_cphPrincipal_Lblhelptproyect").text("Campo Requerido");
-                $("#ctl00_cphPrincipal_Lbladvertencia").text("Revisar la pestaña información");
-            }
-            else {
-                $("#ctl00_cphPrincipal_Lblhelptproyect").text("");
-                $("#ctl00_cphPrincipal_Lbladvertencia").text("");
-            }
-
-            if ($("#ddlPupulation :selected").text() == 'Seleccione...') {
-                $("#ctl00_cphPrincipal_lblHelppopulation").text("Campo Requerido");
-                $("#ctl00_cphPrincipal_Lbladvertencia").text("Revisar la pestaña información");
-            }
-            else {
-                $("#ctl00_cphPrincipal_lblHelppopulation").text("");
-                $("#ctl00_cphPrincipal_Lbladvertencia").text("");
-            }
-
-            if ($("#ddlmodcontract :selected").text() == 'Seleccione....') {
-                $("#ctl00_cphPrincipal_Lblmodcontract").text("Campo Requerido");
-                $("#ctl00_cphPrincipal_Lbladvertencia").text("Revisar la pestaña información");
-            }
-            else {
-                $("#ctl00_cphPrincipal_Lblmodcontract").text("");
-                $("#ctl00_cphPrincipal_Lbladvertencia").text("");
-            }
-
-            if ($("#ctl00_cphPrincipal_txtname").val() == '') {
-                $("#ctl00_cphPrincipal_lblHelpname").text("Campo Requerido");
-                $("#ctl00_cphPrincipal_Lbladvertencia").text("Revisar la pestaña información");
-            }
-            else {
-                $("#ctl00_cphPrincipal_lblHelpname").text("");
-                $("#ctl00_cphPrincipal_Lbladvertencia").text("");
-            }
-
-            if ($("#ctl00_cphPrincipal_txtjustification").val() == '') {
-                $("#ctl00_cphPrincipal_lblHelpjustification").text("Campo Requerido");
-                $("#ctl00_cphPrincipal_Lbladvertencia").text("Revisar la pestaña información");
-            }
-            else {
-                $("#ctl00_cphPrincipal_lblHelpjustification").text("");
-                $("#ctl00_cphPrincipal_Lbladvertencia").text("");
-            }
-
-            if ($("#ctl00_cphPrincipal_txtobjective").val() == '') {
-                $("#ctl00_cphPrincipal_lblHelpobjective").text("Campo Requerido");
-                $("#ctl00_cphPrincipal_Lbladvertencia").text("Revisar la pestaña información");
-            }
-            else {
-                $("#ctl00_cphPrincipal_lblHelpobjective").text("");
-                $("#ctl00_cphPrincipal_Lbladvertencia").text("");
-            }
-
-            if ($("#ctl00_cphPrincipal_txtstartdate").val() == '') {
-                $("#ctl00_cphPrincipal_lblHelpstartdate").text("Campo Requerido");
-                $("#ctl00_cphPrincipal_Lbladvertencia").text("Revisar la pestaña información");
-            }
-            else {
-                $("#ctl00_cphPrincipal_lblHelpstartdate").text("");
-                $("#ctl00_cphPrincipal_Lbladvertencia").text("");
-            }
-
-            if ($("#ctl00_cphPrincipal_txtduration").val() == '') {
-                $("#ctl00_cphPrincipal_lbldia").text("Campo Requerido");
-                $("#ctl00_cphPrincipal_Lbladvertencia").text("Revisar la pestaña información");
-            }
-            else {
-                $("#ctl00_cphPrincipal_lbldia").text("");
-                $("#ctl00_cphPrincipal_Lbladvertencia").text("");
-            }
-
-            if (fsc_exist == 1) {
-                $("#ctl00_cphPrincipal_Lblactorrep").text("");
-            }
-            else {
-                $("#ctl00_cphPrincipal_Lblactorrep").text("la FSC debe ser un actor obligatorio");
-                $("#ctl00_cphPrincipal_Lbladvertencia").text("la FSC debe ser un actor obligatorio");
-            }
         }
-
         else {
-            var listubicaciones = [];
-            var listactores = [];
+            $("#ctl00_cphPrincipal_Lblinformationcomponent").text("");
+            $("#ctl00_cphPrincipal_Lblinfubicacion").text("");
+            $("#ctl00_cphPrincipal_Lblactorrep").text("");
 
-            $("#ctl00_cphPrincipal_lblinfls").val("");
-            $("#ctl0_cphPrincipal_lblinpro").val("");
-            $("#ctl00_cphPrincipal_lblHelpname").text("");
-            $("#ctl00_cphPrincipal_lblHelpjustification").text("");
-            $("#ctl00_cphPrincipal_lblHelpobjective").text("");
-            $("#ctl00_cphPrincipal_lblHelpstartdate").text("");
-            $("#ctl00_cphPrincipal_lbldia").text("");
+            //validar si los campos obligatorios fueron dilegenciados
+            if ($("#ddltype_proyect :selected").text() == 'Seleccione....' || $("#ddlPupulation :selected").text() == 'Seleccione...' || $("#ddlmodcontract :selected").text() == 'Seleccione...' || $("#ddlStrategicLines :selected").text() == 'Seleccione...' || $("#ddlPrograms :selected").text() == 'Seleccione...' || $("#ctl00_cphPrincipal_txtname").val() == '' || $("#ctl00_cphPrincipal_txtjustification").val() == '' || $("#ctl00_cphPrincipal_txtobjective").val() == '' || $("#ctl00_cphPrincipal_txtstartdate").val() == '' || $("#ctl00_cphPrincipal_txtduration").val() == '' || arrayUbicacion.length == 0 || fsc_exist == 0) {
 
-            for (item in arrayUbicacion) {
-                listubicaciones.push(JSON.stringify(arrayUbicacion[item]));
-            }
-
-            for (item in arrayActor) {
-                listactores.push(JSON.stringify(arrayActor[item]));
-            }
-
-            $.ajax({
-                url: "AjaxAddIdea.aspx",
-                type: "GET",
-                data: { "action": "save", "code": $("#ctl00_cphPrincipal_txtcode").val(),
-                    "linea_estrategica": $("#ddlStrategicLines").val(),
-                    "programa": $("#ddlPrograms").val(),
-                    "nombre": $("#ctl00_cphPrincipal_txtname").val(),
-                    "justificacion": $("#ctl00_cphPrincipal_txtjustification").val(),
-                    "objetivo": $("#ctl00_cphPrincipal_txtobjective").val(),
-                    "objetivo_esp": $("#ctl00_cphPrincipal_txtareadescription").val(),
-                    "Resultados_Benef": $("#ctl00_cphPrincipal_txtresults").val(),
-                    "Resultados_Ges_c": $("#ctl00_cphPrincipal_txtresulgc").val(),
-                    "Resultados_Cap_i": $("#ctl00_cphPrincipal_txtresulci").val(),
-                    "Fecha_inicio": $("#ctl00_cphPrincipal_txtstartdate").val(),
-                    "mes": $("#ctl00_cphPrincipal_txtduration").val(),
-                    "dia": $("#ctl00_cphPrincipal_Txtday").val(),
-                    "Fecha_fin": $("#ctl00_cphPrincipal_Txtdatecierre").val(),
-                    "Población": $("#ctl00_cphPrincipal_ddlPupulation").val(),
-                    "contratacion": $("#ddlmodcontract").val(),
-                    "A_Mfsc": $("#ValueMoneyFSC").val(),
-                    "A_Efsc": $("#ValueEspeciesFSC").val(),
-                    "A_Mcounter": $("#ValueMoneyCounter").val(),
-                    "A_Ecounter": $("#ValueEspeciesCounter").val(),
-                    "cost": $("#ValueCostotal").val(),
-                    "obligaciones": $("#ctl00_cphPrincipal_Txtobligationsoftheparties").val(),
-                    "iva": $("#ctl00_cphPrincipal_Chkiva").val(),
-                    "listubicaciones": listubicaciones.toString(),
-                    "listactores": listactores.toString()
-
-                },
-                success: function(result) {
-                    $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
-                    $("#ctl00_cphPrincipal_lblsaveinformation").text(result);
-                    $("#ctl00_cphPrincipal_Lbladvertencia").text("");
-                    $("#ddlStrategicLines").focus();
-                },
-                error: function() {
-                    $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
-                    $("#ctl00_cphPrincipal_lblsaveinformation").text("Se genero error al entrar a la operacion Ajax");
+                //validar linea estrategica
+                if ($("#ddlStrategicLines :selected").text() == 'Seleccione...') {
+                    $("#ctl00_cphPrincipal_lblinfls").text("Campo Requerido");
+                    $("#ctl00_cphPrincipal_Lbladvertencia").text("La idea no guardo con exito: Revisar la pestaña información");
                 }
-            });
+                else {
+                    $("#ctl00_cphPrincipal_lblinfls").text("");
+                    $("#ctl00_cphPrincipal_Lbladvertencia").text("");
+                }
+                //validar programas
+                if ($("#ddlPrograms :selected").text() == 'Seleccione...') {
+                    $("#ctl00_cphPrincipal_lblinpro").text("Campo Requerido");
+                    $("#ctl00_cphPrincipal_Lbladvertencia").text("La idea no guardo con exito: Revisar la pestaña información");
+                }
+                else {
+                    $("#ctl00_cphPrincipal_lblinpro").text("");
+                    $("#ctl00_cphPrincipal_Lbladvertencia").text("");
+                }
+                //validar tipo de proyectos
+                if ($("#ddltype_proyect :selected").text() == 'Seleccione...') {
+                    $("#ctl00_cphPrincipal_Lblhelptproyect").text("Campo Requerido");
+                    $("#ctl00_cphPrincipal_Lbladvertencia").text("La idea no guardo con exito: Revisar la pestaña información");
+                }
+                else {
+                    $("#ctl00_cphPrincipal_Lblhelptproyect").text("");
+                    $("#ctl00_cphPrincipal_Lbladvertencia").text("");
+                }
+                //validar poblacion
+                if ($("#ddlPupulation :selected").text() == 'Seleccione...') {
+                    $("#ctl00_cphPrincipal_lblHelppopulation").text("Campo Requerido");
+                    $("#ctl00_cphPrincipal_Lbladvertencia").text("La idea no guardo con exito: Revisar la pestaña información");
+                }
+                else {
+                    $("#ctl00_cphPrincipal_lblHelppopulation").text("");
+                    $("#ctl00_cphPrincipal_Lbladvertencia").text("");
+                }
+                //validar tipo de contratacion
+                if ($("#ddlmodcontract :selected").text() == 'Seleccione....') {
+                    $("#ctl00_cphPrincipal_Lblmodcontract").text("Campo Requerido");
+                    $("#ctl00_cphPrincipal_Lbladvertencia").text("La idea no guardo con exito: Revisar la pestaña información");
+                }
+                else {
+                    $("#ctl00_cphPrincipal_Lblmodcontract").text("");
+                    $("#ctl00_cphPrincipal_Lbladvertencia").text("");
+                }
+                //validar nombre
+                if ($("#ctl00_cphPrincipal_txtname").val() == '') {
+                    $("#ctl00_cphPrincipal_lblHelpname").text("Campo Requerido");
+                    $("#ctl00_cphPrincipal_Lbladvertencia").text("La idea no guardo con exito: Revisar la pestaña información");
+                }
+                else {
+                    $("#ctl00_cphPrincipal_lblHelpname").text("");
+                    $("#ctl00_cphPrincipal_Lbladvertencia").text("");
+                }
+                //validar justificacion
+                if ($("#ctl00_cphPrincipal_txtjustification").val() == '') {
+                    $("#ctl00_cphPrincipal_lblHelpjustification").text("Campo Requerido");
+                    $("#ctl00_cphPrincipal_Lbladvertencia").text("La idea no guardo con exito: Revisar la pestaña información");
+                }
+                else {
+                    $("#ctl00_cphPrincipal_lblHelpjustification").text("");
+                    $("#ctl00_cphPrincipal_Lbladvertencia").text("");
+                }
+                //validarobjetivos
+                if ($("#ctl00_cphPrincipal_txtobjective").val() == '') {
+                    $("#ctl00_cphPrincipal_lblHelpobjective").text("Campo Requerido");
+                    $("#ctl00_cphPrincipal_Lbladvertencia").text("La idea no guardo con exito: Revisar la pestaña información");
+                }
+                else {
+                    $("#ctl00_cphPrincipal_lblHelpobjective").text("");
+                    $("#ctl00_cphPrincipal_Lbladvertencia").text("");
+                }
+                //validar fecha de inicio
+                if ($("#ctl00_cphPrincipal_txtstartdate").val() == '') {
+                    $("#ctl00_cphPrincipal_lblHelpstartdate").text("Campo Requerido");
+                    $("#ctl00_cphPrincipal_Lbladvertencia").text("La idea no guardo con exito: Revisar la pestaña información");
+                }
+                else {
+                    $("#ctl00_cphPrincipal_lblHelpstartdate").text("");
+                    $("#ctl00_cphPrincipal_Lbladvertencia").text("");
+                }
+                //validar duracion en dias
+                if ($("#ctl00_cphPrincipal_txtduration").val() == '') {
+                    $("#ctl00_cphPrincipal_lbldia").text("Campo Requerido");
+                    $("#ctl00_cphPrincipal_Lbladvertencia").text("La idea no guardo con exito: Revisar la pestaña información");
+                }
+                else {
+                    $("#ctl00_cphPrincipal_lbldia").text("");
+                    $("#ctl00_cphPrincipal_Lbladvertencia").text("");
+                }
+                //validar  si la FSC fue ingresada
+                if (fsc_exist == 1) {
+                    $("#ctl00_cphPrincipal_Lblactorrep").text("");
+                }
+                else {
+                    $("#ctl00_cphPrincipal_Lblactorrep").text("La idea no guardo con exito: la FSC debe ser un actor obligatorio");
+                    $("#ctl00_cphPrincipal_Lbladvertencia").text("La idea no guardo con exito: la FSC debe ser un actor obligatorio");
+                }
+            }
 
+            else {
+
+                //crear arrays para el ingreso de las listas de json
+                var listubicaciones = [];
+                var listactores = [];
+                var componentes = [];
+
+                $("#ctl00_cphPrincipal_lblinfls").val("");
+                $("#ctl0_cphPrincipal_lblinpro").val("");
+                $("#ctl00_cphPrincipal_lblHelpname").text("");
+                $("#ctl00_cphPrincipal_lblHelpjustification").text("");
+                $("#ctl00_cphPrincipal_lblHelpobjective").text("");
+                $("#ctl00_cphPrincipal_lblHelpstartdate").text("");
+                $("#ctl00_cphPrincipal_lbldia").text("");
+
+                //recorer array para el ingreso de ubicaciones
+                for (item in arrayUbicacion) {
+                    listubicaciones.push(JSON.stringify(arrayUbicacion[item]));
+                }
+                //recorer array para el ingreso de actores
+                for (item in arrayActor) {
+                    listactores.push(JSON.stringify(arrayActor[item]));
+                }
+
+                //crear comunicacion ajax para el ingreso de los datos de la idea
+                $.ajax({
+                    url: "AjaxAddIdea.aspx",
+                    type: "GET",
+                    //crear json
+                    data: { "action": "save", "code": $("#ctl00_cphPrincipal_txtcode").val(),
+                        "linea_estrategica": $("#ddlStrategicLines").val(),
+                        "programa": $("#ddlPrograms").val(),
+                        "nombre": $("#ctl00_cphPrincipal_txtname").val(),
+                        "justificacion": $("#ctl00_cphPrincipal_txtjustification").val(),
+                        "objetivo": $("#ctl00_cphPrincipal_txtobjective").val(),
+                        "objetivo_esp": $("#ctl00_cphPrincipal_txtareadescription").val(),
+                        "Resultados_Benef": $("#ctl00_cphPrincipal_txtresults").val(),
+                        "Resultados_Ges_c": $("#ctl00_cphPrincipal_txtresulgc").val(),
+                        "Resultados_Cap_i": $("#ctl00_cphPrincipal_txtresulci").val(),
+                        "Fecha_inicio": $("#ctl00_cphPrincipal_txtstartdate").val(),
+                        "mes": $("#ctl00_cphPrincipal_txtduration").val(),
+                        "dia": $("#ctl00_cphPrincipal_Txtday").val(),
+                        "Fecha_fin": $("#ctl00_cphPrincipal_Txtdatecierre").val(),
+                        "Población": $("#ddlPupulation").val(),
+                        "contratacion": $("#ddlmodcontract").val(),
+                        "A_Mfsc": $("#ValueMoneyFSC").val(),
+                        "A_Efsc": $("#ValueEspeciesFSC").val(),
+                        "A_Mcounter": $("#ValueMoneyCounter").val(),
+                        "A_Ecounter": $("#ValueEspeciesCounter").val(),
+                        "cost": $("#ValueCostotal").val(),
+                        "obligaciones": $("#ctl00_cphPrincipal_Txtobligationsoftheparties").val(),
+                        "iva": $("#ctl00_cphPrincipal_Chkiva").val(),
+                        "listubicaciones": listubicaciones.toString(),
+                        "listactores": listactores.toString()
+                    },
+                    //mostrar resultados de la creacion de la idea
+                    success: function(result) {
+                        $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
+                        $("#ctl00_cphPrincipal_lblsaveinformation").text(result);
+                        $("#ctl00_cphPrincipal_Lbladvertencia").text("");
+                        $("#ddlStrategicLines").focus();
+                    },
+                    error: function() {
+                        $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
+                        $("#ctl00_cphPrincipal_lblsaveinformation").text("Se genero error al entrar a la operacion Ajax");
+                    }
+                });
+            }
         }
-
     }
-
 }
 
 //agregar ubicaciones por el metodo de tablas html
@@ -318,53 +334,67 @@ function Add_location_onclick() {
 
     $("#ctl00_cphPrincipal_Lblinfubicacion").text("");
 
-
+    //validamos si el combo departamento este selecionado
     if ($("#ddlDepto :selected").text() == 'Seleccione...') {
-        $("#ctl00_cphPrincipal_LblubicacionRep").text("debe seleccionar almenos un departamento");
+        $("#ctl00_cphPrincipal_LblubicacionRep").text("Debe seleccionar almenos un departamento");
     }
     else {
+        //validamos si el combo municipio este selecionado
         if ($("#ddlCity :selected").text() == 'Seleccione...') {
             $("#ctl00_cphPrincipal_LblubicacionRep").text("");
-            $("#ctl00_cphPrincipal_LblubicacionRep").text("debe seleccionar almenos un municipio");
+            $("#ctl00_cphPrincipal_LblubicacionRep").text("Debe seleccionar almenos un municipio");
         }
         else {
 
             $("#ctl00_cphPrincipal_LblubicacionRep").text("");
 
+            //capturamos los valores de los combos
             var deptoVal = $("#ddlDepto").val();
             var deptoName = $("#ddlDepto :selected").text();
-
             var cityVal = $("#ddlCity").val();
             var cityName = $("#ddlCity :selected").text();
 
+            //creamos json para guardarlos en un array
             var jsonUbicacion = { "DeptoVal": deptoVal, "DeptoName": deptoName, "CityVal": cityVal, "CityName": cityName };
-            var validerepetido = 0;
 
+            //recorremos el array para revisar repetidos
+            var validerepetido = 0;
             for (iArray in arrayUbicacion) {
                 if (deptoName == arrayUbicacion[iArray].DeptoName && cityName == arrayUbicacion[iArray].CityName) {
                     validerepetido = 1;
                 }
             }
 
+            //validamos si hay repetidos 
             if (validerepetido == 1) {
                 $("#ctl00_cphPrincipal_LblubicacionRep").text("La ubicación ya fue ingresada");
             }
             else {
                 $("#ctl00_cphPrincipal_LblubicacionRep").text("");
 
+                //cargamos el array con el json
                 arrayUbicacion.push(jsonUbicacion);
+
+                //creamos la tabla de ubicaciones
+
                 var htmlTable = "<table id='T_location' border='2' cellpadding='2' cellspacing='2' style='width: 100%;'><thead><tr><th>Departamento</th><th>Ciudad</th><th>Eliminar</th></tr></thead><tbody>";
 
-
                 for (itemArray in arrayUbicacion) {
-                    htmlTable += "<tr><td>" + arrayUbicacion[itemArray].DeptoName + "</td><td>" + arrayUbicacion[itemArray].CityName + "</td><td><input type ='button' class= 'deleteUbicacion' value= 'Eliminar' ></input></td></tr>";
+                    var strdelete = arrayUbicacion[itemArray].DeptoName + "_" + arrayUbicacion[itemArray].CityName;
+                    htmlTable += "<tr><td>" + arrayUbicacion[itemArray].DeptoName + "</td><td>" + arrayUbicacion[itemArray].CityName + "</td><td><input type ='button' class= 'deleteUbicacion' value= 'Eliminar' onclick='deleteUbicacion(/" + strdelete + "/)' ></input></td></tr>";
                 }
-
                 htmlTable += "</tbody></table>";
 
+                //cargamos el div donde se generara la tabla
                 $("#T_locationContainer").html("");
                 $("#T_locationContainer").html(htmlTable);
 
+                //agregamos atributos de eliminar fila
+                $(".deleteUbicacion").click(function() {
+                    $(this).parent().parent().remove();
+                });
+
+                //reconstruimos la tabla con los datos 
                 $("#T_location").dataTable({
                     "bJQueryUI": true,
                     "bDestroy": true
@@ -374,44 +404,44 @@ function Add_location_onclick() {
     }
 }
 
+//borrar de la grilla html de ubicaciones 
+function deleteUbicacion(str) {
+    //recorremos el array
+    for (itemArray in arrayUbicacion) {
+        //construimos la llave de validacion
+        var id = "/" + arrayUbicacion[itemArray].DeptoName + "_" + arrayUbicacion[itemArray].CityName + "/";
+        //validamos el dato q nos trae la funcion
+        if (str == id) {
+            //borramos la ubicacion deseada
+            delete arrayUbicacion[itemArray];
+            //arrayUbicacion.splice(arrayUbicacion[itemArray].CityName, 1);
+        }
+    }
+}
 
 
-//function deleteUbicacion(str) {
-//    var fila= new String(str);
-
-//    for (itemArray in arrayUbicacion) {
-//        var id = arrayUbicacion[itemArray].DeptoName + "_" + arrayUbicacion[itemArray].CityName;
-//        if (fila == id) {
-//            arrayUbicacion.splice(arrayUbicacion[itemArray].CityName, 1);
-//        }
-//    }
-
-// $(this).parent().parent().remove();
-
-//}
-
-
+//agregar ubicaciones por el metodo de tablas html
 function BtnaddActors_onclick() {
 
+    //inicializamos las variables
     var valdiner = 0;
     var valespecie = 0;
     var valtotal = 0;
-
     var valdinergrid = 0;
     var valespeciegrid = 0;
     var valtotalgrid = 0;
-
     var valdinergridfsc = 0;
     var valespeciegridfsc = 0;
     var valtotalgridfsc = 0;
 
-
+    //validamos si el combo actor este selecionado
     if ($("#ddlactors :selected").text() == 'Seleccione...') {
         $("#ctl00_cphPrincipal_Lblactorrep").text("debe seleccionar almenos un actor");
     }
     else {
-
         $("#ctl00_cphPrincipal_Lblactorrep").text("");
+
+        //capturamos los valores de deseados
         var actorsVal = $("#ddlactors").val();
         var actorsName = $("#ddlactors :selected").text();
         var tipoactors = $("#ctl00_cphPrincipal_ddlType :selected").text();
@@ -423,227 +453,82 @@ function BtnaddActors_onclick() {
         var especie = $("#ctl00_cphPrincipal_Txtvresp").val();
         var total = $("#ctl00_cphPrincipal_Txtaportfscocomp").val();
 
+        //creamos json para guardarlos en un array
         var jsonActor = { "actorsVal": actorsVal, "actorsName": actorsName, "tipoactors": tipoactors, "contact": contact, "cedula": cedula, "telefono": telefono, "email": email, "diner": diner, "especie": especie, "total": total };
-        var validerepetido = 0;
 
+        //recorremos el array para revisar repetidos        
+        var validerepetido = 0;
         for (iArray in arrayActor) {
             if (actorsVal == arrayActor[iArray].actorsVal) {
                 validerepetido = 1;
             }
         }
 
+        //validamos si hay repetidos 
         if (validerepetido == 1) {
             $("#ctl00_cphPrincipal_Lblactorrep").text("El actor ya fue ingresado");
         }
         else {
             $("#ctl00_cphPrincipal_Lblactorrep").text("");
+
+            //cargamos el array con el json
             arrayActor.push(jsonActor);
 
+            //creamos la tabla de actores
             var htmlTableActores = "<table id='T_Actors' align='center' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr><th>id</th><th>Actores</th><th>Tipo</th><th>Contacto</th><th>Documento Identidad</th><th>Tel&eacute;fono</th><th>Correo electr&oacute;nico</th><th>Vr Dinero</th><th>Vr Especie</th><th>Vr Total</th><th>Eliminar</th></tr></thead><tbody>";
-            var htmltableAflujos = "<table id='T_Actorsflujos' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr><th>Id</th><th>Aportante</th><th>Valor en efectivo</th><th>Valor a cancelar</th></tr></thead><tbody>";
-
+            //creamos la tabla de flujo actores
+            var htmltableAflujos = "<table id='T_Actorsflujos' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr><th>Id</th><th>Aportante</th><th>Valor inicial</th><th>Valor desembolsado</th><th>Valor a cancelar</th></tr></thead><tbody>";
 
             for (itemArray in arrayActor) {
-                htmlTableActores += "<tr><td>" + arrayActor[itemArray].actorsVal + "</td><td>" + arrayActor[itemArray].actorsName + "</td><td>" + arrayActor[itemArray].tipoactors + "</td><td>" + arrayActor[itemArray].contact + "</td><td>" + arrayActor[itemArray].cedula + "</td><td>" + arrayActor[itemArray].telefono + "</td><td>" + arrayActor[itemArray].email + "</td><td>" + arrayActor[itemArray].diner + "</td><td>" + arrayActor[itemArray].especie + "</td><td>" + arrayActor[itemArray].total + "</td><td><input type ='button' value= 'Eliminar'></input></td></tr>";
-                htmltableAflujos += "<tr><td>" + arrayActor[itemArray].actorsVal + "</td><td>" + arrayActor[itemArray].actorsName + "</td><td>" + arrayActor[itemArray].diner + "</td><td><input id=" + arrayActor[itemArray].actorsVal + " onkeyup='format(this)' onchange='format(this)'></input></td></tr>";
+                htmlTableActores += "<tr><td>" + arrayActor[itemArray].actorsVal + "</td><td>" + arrayActor[itemArray].actorsName + "</td><td>" + arrayActor[itemArray].tipoactors + "</td><td>" + arrayActor[itemArray].contact + "</td><td>" + arrayActor[itemArray].cedula + "</td><td>" + arrayActor[itemArray].telefono + "</td><td>" + arrayActor[itemArray].email + "</td><td>" + arrayActor[itemArray].diner + "</td><td>" + arrayActor[itemArray].especie + "</td><td>" + arrayActor[itemArray].total + "</td><td><input type ='button' value= 'Eliminar' onclick=\"deleteActor('" + arrayActor[itemArray].actorsVal + "', this)\"></input></td></tr>";
+                htmltableAflujos += "<tr id='" + arrayActor[itemArray].actorsVal + "'><td>" + arrayActor[itemArray].actorsVal + "</td><td>" + arrayActor[itemArray].actorsName + "</td><td id= 'value" + arrayActor[itemArray].actorsVal + "' >" + arrayActor[itemArray].diner + "</td><td id='desenbolso" + arrayActor[itemArray].actorsVal + "'>" + arrayActor[itemArray].diner + "</td><td><input id='" + "txtinput" + arrayActor[itemArray].actorsVal + "' onkeyup='formatvercionsuma(this)' onchange='formatvercionsuma(this)'  onblur=\"sumar_flujos('" + arrayActor[itemArray].actorsVal + "')\" onfocus=\"restar_flujos('" + arrayActor[itemArray].actorsVal + "')\"></input></td></tr>";
             }
-
-
+            //se anexa columna para totales
             htmlTableActores += "<tr><td>1000</td><td>Total</td><td></td><td></td><td></td><td></td><td></td><td id='val1'></td><td id='val2'>0</td><td id='val3'>0</td><td></td></tr>";
-            htmltableAflujos += "<tr><td>1000</td><td>Total</td><td id='tflujosing'></td><td id='totalflujos'>0</td></tr>";
+            htmltableAflujos += "<tr><td>1000</td><td>Total</td><td id='tflujosing'></td id='tflujosdesen'><td></td><td id='totalflujos'>0</td></tr>";
             htmlTableActores += "</tbody></table>";
             htmltableAflujos += "</tbody></table>";
 
+            //cargamos el div donde se generara la tabla actores
             $("#T_ActorsContainer").html("");
             $("#T_ActorsContainer").html(htmlTableActores);
 
+            //cargamos el div donde se generara la tabla flujo de actores
             $("#T_AflujosContainer").html("");
             $("#T_AflujosContainer").html(htmltableAflujos);
 
-            $("#T_Actors tr").slice(0, $("#T_Actors tr").length - 1).each(function() {
 
-                var arrayValuesActors = $(this).find("td").slice(7, 10);
+            //llama la funcion sumar en la grilla de actores
+            sumar_grid_actores();
 
-                if ($(arrayValuesActors[0]).html() != null) {
+            //llama la funcion de buscar la FSC 
+            buscarFSC();
 
-                    valdiner = valdiner + parseInt($(arrayValuesActors[0]).html().replace(/\./gi, ''));
-                    valespecie = valespecie + parseInt($(arrayValuesActors[1]).html().replace(/\./gi, ''));
-                    valtotal = valtotal + parseInt($(arrayValuesActors[2]).html().replace(/\./gi, ''));
+            //llamar la funcion de buscar diferentes a la FSC
+            buscarothers();
 
-                    if (isNaN(valdiner)) {
-                        valdiner = 0;
-                    }
+            //llamar la funcion suma de primera columna efectivo
+            sumavalores_gridprincipal();
 
-                    if (isNaN(valespecie)) {
-                        valespecie = 0;
-                    }
+            //llamar la funcion suma segunda columna especie
+            sumaespecie_gridprincipal();
 
-                    if (isNaN(valtotal)) {
-                        valtotal = 0;
-                    }
+            //llamar la funcion suma tercera columna total
+            sumatotal_gridprincipal();
 
-                    $("#val1").text(addCommasrefactor(valdiner));
-                    $("#tflujosing").text(addCommasrefactor(valdiner));
-
-                    $("#val2").text(addCommasrefactor(valespecie));
-                    $("#val3").text(addCommasrefactor(valtotal));
-
-                }
-
-            });
-
-            var switch_fsc = 0;
-            //buscar la fsc para guardar en el grid principal
-            $("#T_Actors tr").slice(0, $("#T_Actors tr").length - 1).each(function() {
-                var arrayValuesActors2 = $(this).find("td").slice(0, 10);
-                if ($(arrayValuesActors2[0]).html() != null) {
-                    if ($(arrayValuesActors2[0]).html() == 4) {
-
-                        valdinergridfsc = parseInt($(arrayValuesActors2[7]).html().replace(/\./gi, ''));
-                        valespeciegridfsc = parseInt($(arrayValuesActors2[8]).html().replace(/\./gi, ''));
-                        valtotalgridfsc = parseInt($(arrayValuesActors2[9]).html().replace(/\./gi, ''));
-
-                        if (isNaN(valdinergridfsc)) {
-                            valdinergridfsc = 0;
-                        }
-
-                        if (isNaN(valespeciegridfsc)) {
-                            valespeciegridfsc = 0;
-                        }
-
-                        if (isNaN(valtotalgridfsc)) {
-                            valtotalgridfsc = 0;
-                        }
-                       
-                        $("#ValueMoneyFSC").text(addCommasrefactor(valdinergridfsc));
-                        $("#ValueEspeciesFSC").text(addCommasrefactor(valespeciegridfsc));
-                        $("#ValueCostFSC").text(addCommasrefactor(valtotalgridfsc));
-                    }
-                }
-            });
-
-            //buscar todos los q son actores diferentes a la fsc y sumarlos
-            $("#T_Actors tr").slice(0, $("#T_Actors tr").length - 1).each(function() {
-                var arrayValuesActors2 = $(this).find("td").slice(0, 10);
-                if ($(arrayValuesActors2[0]).html() != null) {
-                    if ($(arrayValuesActors2[0]).html() != 4) {
-
-                        valdinergrid = valdinergrid + parseInt($(arrayValuesActors2[7]).html().replace(/\./gi, ''));
-                        valespeciegrid = valespeciegrid + parseInt($(arrayValuesActors2[8]).html().replace(/\./gi, ''));
-                        valtotalgrid = valtotalgrid + parseInt($(arrayValuesActors2[9]).html().replace(/\./gi, ''));
-
-                        if (isNaN(valdinergrid)) {
-                            valdinergrid = 0;
-                        }
-
-                        if (isNaN(valespeciegrid)) {
-                            valespeciegrid = 0;
-                        }
-
-                        if (isNaN(valtotalgrid)) {
-                            valtotalgrid = 0;
-                        }
-                       
-                       
-                        $("#ValueMoneyCounter").text(addCommasrefactor(valdinergrid));
-                        $("#ValueEspeciesCounter").text(addCommasrefactor(valespeciegrid));
-                        $("#ValueCostCounter").text(addCommasrefactor(valtotalgrid));
-                    }
-                }
-            });
-
-            //suma de primera columna
-            var dinerfsc = $("#ValueMoneyFSC").text();
-            dinerfsc = dinerfsc.replace(/\./gi, '');
-            var opedinerfsc = parseInt(dinerfsc);
-
-            var dinerothers = $("#ValueMoneyCounter").text();
-            dinerothers = dinerothers.replace(/\./gi, '');
-            var opedinerothers = parseInt(dinerothers);
-
-            if (isNaN(opedinerfsc)) {
-                opedinerfsc = 0;
-                $("#ValueMoneyFSC").val(opedinerfsc);
-            }
-            else {
-                if (isNaN(opedinerothers)) {
-                    opedinerothers = 0;
-                    $("#ValueMoneyCounter").val(opedinerothers);
-                }
-                else {
-                    var sumadiner = 0;
-                    sumadiner = opedinerfsc + opedinerothers;
-                    $("#valueMoneytotal").text(addCommasrefactor(sumadiner));
-                    $("#ctl00_cphPrincipal_txtvalortotalflow").val(addCommasrefactor(sumadiner));
-                }
-            }
-            sumadiner = opedinerfsc + opedinerothers;
-            $("#valueMoneytotal").text(addCommasrefactor(sumadiner));
-            $("#ctl00_cphPrincipal_txtvalortotalflow").val(addCommasrefactor(sumadiner));
-
-            //suma segunda columna
-            var especiefsc = $("#ValueEspeciesFSC").text();
-            especiefsc = especiefsc.replace(/\./gi, '');
-            var opeespeciefsc = parseInt(especiefsc);
-
-            var especieothers = $("#ValueEspeciesCounter").text();
-            especieothers = especieothers.replace(/\./gi, '');
-            var opeespecieothers = parseInt(especieothers);
-
-            if (isNaN(opeespeciefsc)) {
-                opeespeciefsc = 0;
-                $("#ValueEspeciesFSC").val(opeespeciefsc);
-            }
-            else {
-                if (isNaN(opeespecieothers)) {
-                    opeespecieothers = 0;
-                    $("#ValueEspeciesCounter").val(opeespecieothers);
-                }
-                else {
-                    var sumaespecie = 0;
-                    sumaespecie = opeespeciefsc + opeespecieothers;
-                    $("#ValueEspeciestotal").text(addCommasrefactor(sumaespecie));
-                }
-            }
-            sumaespecie = opeespeciefsc + opeespecieothers;
-            $("#ValueEspeciestotal").text(addCommasrefactor(sumaespecie));
-
-            //suma tercera columna
-            var totalfsc = $("#ValueCostFSC").text();
-            totalfsc = totalfsc.replace(/\./gi, '');
-            var opetotalfsc = parseInt(totalfsc);
-
-            var totalothers = $("#ValueCostCounter").text();
-            totalothers = totalothers.replace(/\./gi, '');
-            var opetotalothers = parseInt(totalothers);
-
-            if (isNaN(opetotalfsc)) {
-                opetotalfsc = 0;
-                $("#ValueCostFSC").val(opetotalfsc);
-            }
-            else {
-                if (isNaN(opetotalothers)) {
-                    opetotalothers = 0;
-                    $("#ValueCostCounter").val(opetotalothers);
-                }
-                else {
-                    var sumatotal = 0;
-                    sumatotal = opetotalfsc + opetotalothers;
-                    $("#ValueCostotal").text(addCommasrefactor(sumatotal));
-                }
-            }
-            sumatotal = opetotalfsc + opetotalothers;
-            $("#ValueCostotal").text(addCommasrefactor(sumatotal));
-
+            //reconstruimos la tabla con los datos 
             $("#T_Actors").dataTable({
                 "bJQueryUI": true,
                 "bDestroy": true
             });
 
+            //reconstruimos la tabla con los datos 
             $("#T_Actorsflujos").dataTable({
                 "bJQueryUI": true,
                 "bDestroy": true
             });
+
+            //limpiamos los campos para empesar el ciclo de nuevo
             $("#ctl00_cphPrincipal_Txtcontact").val("");
             $("#ctl00_cphPrincipal_Txtcedulacont").val("");
             $("#ctl00_cphPrincipal_Txttelcont").val("");
@@ -654,6 +539,912 @@ function BtnaddActors_onclick() {
 
         }
     }
+}
+
+//funcion que valida los miles en tiempo real
+function formatvercionsuma(input) {
+
+    var num = input.value.replace(/\./g, "");
+    if (!isNaN(num)) {
+        num = num.toString().split("").reverse().join("").replace(/(?=\d*\.?)(\d{3})/g, "$1.");
+        num = num.split("").reverse().join("").replace(/^[\.]/, "");
+        input.value = num;
+    }
+
+    else {
+        alert('Solo se permiten numeros');
+        input.value = input.value.replace(/[^\d\.]*/g, "");
+    }
+}
+
+
+//agregar pagos al grid general de flujos
+function Btn_add_flujo_onclick() {
+
+    //inicializamos variables
+    var valuecomparative = $("#ctl00_cphPrincipal_Lbltotalvalor").text();
+    //quitamos el valor decimal
+    var arrseparar = valuecomparative.split('.');
+    valuecomparative = arrseparar[0].replace(/\,/gi, '');
+
+    var sumapagos = $("#totalflujos").text();
+    sumapagos = sumapagos.replace(/\./gi, '');
+
+    //validamos si el valor a guardar concorda con el porcentaje deseado
+    if (valuecomparative == sumapagos) {
+
+        //capturamos campos para guardar en el grid flujos
+        var tflujos = $("#totalflujos").text();
+        var N_pago = $("#ctl00_cphPrincipal_txtvalortotalflow").val();
+        var fecha_pago = $("#ctl00_cphPrincipal_txtfechapago").val();
+        var porcentaje = $("#ctl00_cphPrincipal_txtporcentaje").val() + " %";
+        var valor_pago = $("#ctl00_cphPrincipal_Lbltotalvalor").text();
+        var entrega = $("#ctl00_cphPrincipal_txtentregable").val();
+
+        var idpago;
+        var Aportante;
+        var desembolso;
+        var idaportante;
+
+        //creamos json para guardarlos en un array
+        var jsonflujo = { "N_pago": N_pago, "fecha_pago": fecha_pago, "porcentaje": porcentaje, "entrega": entrega, "tflujos": tflujos };
+
+
+        //recorremos el array para revisar repetidos        
+        var validerepetido = 0;
+        for (iArray in arrayflujosdepago) {
+            if (N_pago == arrayflujosdepago[iArray].N_pago) {
+                validerepetido = 1;
+            }
+        }
+
+
+        //validamos si hay repetidos
+        if (validerepetido == 1) {
+            $("#ctl00_cphPrincipal_Lblinformation_flujos").text("El pago No " + N_pago + " ya fue registrado");
+        }
+        else {
+            $("#ctl00_cphPrincipal_Lblinformation_flujos").text("");
+
+            //inicializamos las variables
+            var validaporcentaje = 0;
+
+            //capturamos los porcentaje registrados
+            validaporcentaje = $("#porcentaje").text();
+            validaporcentaje = validaporcentaje.replace('%', '');
+
+
+            //capturamos el porcentaje a ingresar
+            var anticipaporcentaje = $("#ctl00_cphPrincipal_txtporcentaje").val();
+            //sumamos los valores
+            validaporcentaje = parseInt(validaporcentaje) + parseInt(anticipaporcentaje);
+
+            //validamos que no ingresen mas del 100% del valor ingresado
+            if (validaporcentaje > 100) {
+                $("#ctl00_cphPrincipal_Lblinformation_flujos").text("Los desembolsos no deben superar el 100%");
+            }
+            else {
+                //cargamos el array con el json
+                arrayflujosdepago.push(jsonflujo);
+                //creamos la tabla de flujo de pagos      
+                var htmlTableflujos = "<table id='T_flujos' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr><th style='text-align: center;'>No pago</th><th style='text-align: center;'>Fecha</th><th style='text-align: center;'>Porcentaje</th><th style='text-align: center;'>Entregable</th><th style='text-align: center;'>Valor parcial</th><th style='text-align: center;'>Editar/Eliminar</th><th style='text-align: center;' >Detalle</th></tr></thead><tbody>";
+
+                for (itemArray in arrayflujosdepago) {
+                    htmlTableflujos += "<tr id='flow" + arrayflujosdepago[itemArray].N_pago + "' ><td>" + arrayflujosdepago[itemArray].N_pago + "</td><td>" + arrayflujosdepago[itemArray].fecha_pago + "</td><td>" + arrayflujosdepago[itemArray].porcentaje + "</td><td>" + arrayflujosdepago[itemArray].entrega + "</td><td>" + arrayflujosdepago[itemArray].tflujos + "</td><td><input type ='button' value= 'Editar' onclick=\"editflujo('" + arrayflujosdepago[itemArray].N_pago + "','" + arrayflujosdepago[itemArray].fecha_pago + "',' " + arrayflujosdepago[itemArray].porcentaje + "','" + arrayflujosdepago[itemArray].entrega + "','" + arrayflujosdepago[itemArray].tflujos + "')\" ></input><input type ='button' value= 'Eliminar' onclick=\" eliminarflujo('" + arrayflujosdepago[itemArray].N_pago + "')\"></input></td><td><input type ='button' value= 'Detalle' onclick=\"traerdetalles('" + arrayflujosdepago[itemArray].N_pago + "',this)\"></input></td></tr>";
+                }
+                htmlTableflujos += "<tr><td>1000</td><td>Porcentaje acumulado</td><td id='porcentaje'>0 %</td><td>Total</td><td id='totalflujospagos'>0</td><td></td><td></td></tr></tbody></table>";
+
+                htmlTableflujos += "</tbody></table>";
+                //cargamos el div donde se generara la tabla actores
+                $("#T_flujosContainer").html("");
+                $("#T_flujosContainer").html(htmlTableflujos);
+
+
+                swhich_flujos_exist = 1;
+
+                //reconstruimos la tabla con los datos
+                $("#T_flujos").dataTable({
+                    "bJQueryUI": true,
+                    "bDestroy": true
+                });
+            }
+
+
+            var contadormatriz = 0;
+            //recorremos la tabla de flujo de pagos para guardar los detalles
+            $("#T_Actorsflujos tr").slice(0, $("#T_Actorsflujos tr").length - 1).each(function() {
+
+                arrayinputflujos = $(this).find("td").slice(0, 3);
+
+                if ($(arrayinputflujos[0]).html() != null) {
+
+
+                    idpago = $("#ctl00_cphPrincipal_txtvalortotalflow").val();
+                    idaportante = $(arrayinputflujos[0]).html();
+                    Aportante = $(arrayinputflujos[1]).html();
+                    var idflujo = "#txtinput" + $(arrayinputflujos[0]).html();
+
+                    desembolso = $(idflujo).val();
+                    var jsonflujodetalle = { "idpago": idpago, "idaportante": idaportante, "Aportante": Aportante, "desembolso": desembolso };
+
+                    //cargamos el array con el json
+                    matriz_flujos.push(jsonflujodetalle);
+
+                }
+            });
+
+            //recorremos la tabla de flujo de pagos  borrar los pagos
+            $("#T_Actorsflujos tr").slice(0, $("#T_Actorsflujos tr").length - 1).each(function() {
+
+                arrayinputflujos = $(this).find("td").slice(0, 1);
+
+                if ($(arrayinputflujos[0]).html() != null) {
+                    var idflujo = "#txtinput" + $(arrayinputflujos[0]).html();
+                    $(idflujo).val("");
+                }
+
+            });
+
+
+            //limpiamos campos
+            arrayValorflujoTotal[0] = 0;
+            $("#totalflujos").text(0);
+            $("#ctl00_cphPrincipal_txtvalortotalflow").val("");
+            $("#ctl00_cphPrincipal_txtfechapago").val("");
+            $("#ctl00_cphPrincipal_txtporcentaje").val("");
+            $("#ctl00_cphPrincipal_Lbltotalvalor").text("");
+            $("#ctl00_cphPrincipal_txtentregable").val("");
+
+            //lamar funcion para la suma de los subtotales de flujos de pagos
+            sumarflujospagos();
+            //validamos si los desembolsos son del 100%
+            if (validaporcentaje == 100) {
+                $("#Btn_add_flujo").attr("disabled", "disabled");
+            }
+        }
+
+    }
+    else {
+
+        alert("el valor total de los actores debe ser igual al porcentaje calculado");
+
+        //inicializamos el array
+        arrayValorflujoTotal[0] = 0;
+        $("#totalflujos").text(0);
+        $("#ctl00_cphPrincipal_txtvalortotalflow").val("");
+        $("#ctl00_cphPrincipal_txtfechapago").val("");
+        $("#ctl00_cphPrincipal_txtporcentaje").val("");
+        $("#ctl00_cphPrincipal_Lbltotalvalor").text("");
+        $("#ctl00_cphPrincipal_txtentregable").val("");
+
+        //recorremos la tabla de flujo de pagos
+        $("#T_Actorsflujos tr").slice(0, $("#T_Actorsflujos tr").length - 1).each(function() {
+
+            arrayinputflujos = $(this).find("td").slice(0, 1);
+
+            if ($(arrayinputflujos[0]).html() != null) {
+                var idflujo = "#txtinput" + $(arrayinputflujos[0]).html();
+                var iddesembolso = "#desenbolso" + $(arrayinputflujos[0]).html();
+
+                var desembolso = $(idflujo).val();
+                desembolso = desembolso.replace(/\./gi, '');
+
+                var datgriddes = $(iddesembolso).html();
+                datgriddes = datgriddes.replace(/\./gi, '');
+
+                var summadesen;
+                summadesen = parseInt(desembolso) + parseInt(datgriddes);
+                $(iddesembolso).text(addCommasrefactor(summadesen));
+                $(idflujo).val("");
+            }
+        });
+
+    }
+}
+
+//funcion detalles de desembolsos para el grid flujo de pagos
+function traerdetalles(str_idpago) {
+
+    var htmlTableflujosdetalles = "<table id='T_detalle_desembolso' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr><th>No pago</th><th>Id aportante</th><th>Aportante</th><th>desembolso</th></tr></thead><tbody>";
+
+
+    for (itemArray in matriz_flujos) {
+        if (matriz_flujos[itemArray].idpago == str_idpago) {
+            htmlTableflujosdetalles += "<tr><td>" + matriz_flujos[itemArray].idpago + "</td><td>" + matriz_flujos[itemArray].idaportante + "</td><td>" + matriz_flujos[itemArray].Aportante + "</td><td>" + matriz_flujos[itemArray].desembolso + "</td></tr>";
+        }
+    }
+
+    htmlTableflujosdetalles += "</tbody></table>";
+
+    //cargamos el div donde se generara la tabla actores
+    $("#dialog").html("");
+    $("#dialog").html(htmlTableflujosdetalles);
+
+
+    $("#T_detalle_desembolso").dataTable({
+        "bJQueryUI": true,
+        "bDestroy": true
+    });
+
+    $("#dialog").dialog("open", "show");
+
+}
+
+//funcion para editar
+function editflujo(strN_pago, fecha_pago, porcentaje, entrega, tflujos) {
+
+    //capturamos los datos otraves para la edicion
+    $("#ctl00_cphPrincipal_txtvalortotalflow").val(strN_pago);
+    $("#ctl00_cphPrincipal_txtfechapago").val(fecha_pago);
+    porcentaje = porcentaje.replace(' %', '');
+    porcentaje = porcentaje.replace(' ', '');
+    $("#ctl00_cphPrincipal_txtporcentaje").val(porcentaje);
+    tflujos = tflujos.replace(/\./gi, ',');
+    $("#ctl00_cphPrincipal_Lbltotalvalor").text(tflujos + ".0");
+    $("#ctl00_cphPrincipal_txtentregable").val(entrega);
+
+    //lamar funcion borrar flujos de pagos
+    eliminarflujo(strN_pago);
+    //llamar suma de pagos
+    sumarflujospagos();
+}
+
+
+//funcion para eliminar los flujos de pagos en el grid
+function eliminarflujo(strN_pago) {
+
+    //recorremos el array de flujos de pagos
+    for (itemArray in arrayflujosdepago) {
+        //construimos la llave de validacion
+        var id = arrayflujosdepago[itemArray].N_pago;
+        //validamos el dato q nos trae la funcion
+
+        if (strN_pago == id) {
+            //borramos el actor deseado
+            delete arrayflujosdepago[itemArray];
+        }
+    }
+
+    //recorremos el array detalles de pagos
+    for (itemArraymatriz in matriz_flujos) {
+        //construimos la llave de validacion
+        var idmatriz = matriz_flujos[itemArraymatriz].idpago;
+        //validamos el dato q nos trae la funcion
+
+        if (strN_pago == idmatriz) {
+            //borramos el actor deseado
+
+            var actorsreverse;
+            var desembolsorev;
+
+            actorsreverse = matriz_flujos[itemArraymatriz].idaportante;
+            alert(actorsreverse);
+            desembolsorev = matriz_flujos[itemArraymatriz].desembolso;
+            alert(desembolsorev);
+            var jsonreverdesembolsos = { "actorsreverse": actorsreverse, "desembolsorev": desembolsorev };
+
+            //cargamos el array con el json
+            reversedesembolsos.push(jsonreverdesembolsos);
+
+            delete matriz_flujos[itemArraymatriz];
+        }
+    }
+
+
+    $("#T_Actorsflujos tr").slice(0, $("#T_Actorsflujos tr").length - 1).each(function() {
+
+        arrayinputflujos = $(this).find("td").slice(0, 1);
+
+        if ($(arrayinputflujos[0]).html() != null) {
+
+            var idflujo = "#value" + $(arrayinputflujos[0]).html();
+
+            var input = "#txtinput" + $(arrayinputflujos[0]).html();
+            var input = $(input).val();
+            input = input.replace(/\./gi, '');
+
+
+            for (itemdesembolsos in reversedesembolsos) {
+
+                alert($(arrayinputflujos[0]).html() + " ==  " + reversedesembolsos[itemdesembolsos].actorsreverse);
+                if ($(arrayinputflujos[0]).html() == reversedesembolsos[itemdesembolsos].actorsreverse) {
+
+                    var iddesembolso = "#desenbolso" + $(arrayinputflujos[0]).html();
+                    var desembosoreal = $(iddesembolso).html();
+                    desembosoreal = desembosoreal.replace(/\./gi, '');
+                    var demvolsobsumar = reversedesembolsos[itemdesembolsos].desembolsorev;
+                    demvolsobsumar = demvolsobsumar.replace(/\./gi, '');
+
+                    var sumarever;
+
+                    sumarever = parseInt(desembosoreal) + parseInt(demvolsobsumar);
+                    $(iddesembolso).text(sumarever);
+
+                }
+
+            }
+
+            $(input).text("");
+        }
+    });
+
+    reversedesembolsos = [];
+
+    var idflow = "#flow" + strN_pago;
+    //borramos de la vista el td seleccionado 
+    $(idflow).remove();
+
+    //habilitamos el botn de agregar pagos
+    $("#Btn_add_flujo").removeAttr("disabled");
+    //llamar suma de pagos
+    sumarflujospagos();
+}
+
+
+//funcion para restar los valores ingresados erronamente en los input de grilla de actores
+function restar_flujos(str) {
+    //construimos el input a validar
+    var idflujo = "#txtinput" + str;
+    var iddesenbolso = "#desenbolso" + str;
+    //validamos si el input esta vacio
+    if ($(idflujo).val() != "") {
+
+        //capturamos valores
+        var restaoperador = $(idflujo).val();
+        restaoperador = restaoperador.replace(/\./gi, '');
+        var valorarraytotal = arrayValorflujoTotal[0];
+
+        var desenbolso = $(iddesenbolso).html();
+        desenbolso = desenbolso.replace(/\./gi, '');
+
+        //restamos del array de operacion
+        valorarraytotal = parseInt(valorarraytotal) - parseInt(restaoperador);
+        arrayValorflujoTotal[0] = valorarraytotal;
+
+        var desembolsototal = parseInt(desenbolso) + parseInt(restaoperador);
+
+        $(iddesenbolso).text(addCommasrefactor(desembolsototal));
+        $(idflujo).val("");
+
+    }
+
+}
+
+//sumar flujos de pagos
+function sumar_flujos(str) {
+
+    //inicializamos las variables
+    var valdinerflujo = 0;
+    var valorlimite = 0;
+    var valtotaldiner = 0;
+    var totaldesembolso = 0;
+
+    var tr_Id = "#value" + str;
+    var valuesActorslimit = $(tr_Id).html();
+    valuesActorslimit = valuesActorslimit.replace(/\./gi, '');
+    var opevaluesActorslimit = parseInt(valuesActorslimit);
+
+    var tr_Iddes = "#desenbolso" + str;
+    var valuesActorsdesembolso = $(tr_Iddes).html();
+    valuesActorsdesembolso = valuesActorsdesembolso.replace(/\./gi, '');
+    var opevaluesActorsdesembolso = parseInt(valuesActorsdesembolso);
+
+    //capturamos el valor deseado
+    var id = "#txtinput" + str;
+    var ValuesActorsflujos = $(id).val();
+    ValuesActorsflujos = ValuesActorsflujos.replace(/\./gi, '');
+    var opeValuesActorsflujos = parseInt(ValuesActorsflujos);
+
+    if (isNaN(opeValuesActorsflujos)) {
+        opeValuesActorsflujos = 0;
+    }
+
+
+    //validamos que hallan llenado la casillas correpondientes
+    if ($("#ctl00_cphPrincipal_txtporcentaje").val() == "" || $("#ctl00_cphPrincipal_txtvalortotalflow").val() == "" || $("#ctl00_cphPrincipal_txtfechapago").val() == "") {
+        $("#ctl00_cphPrincipal_Lblinformationexist").text("estos campos deben ser diligenciados antes de ingresar algún valor en la grilla de flujos!");
+        $(id).val("");
+
+    }
+    else {
+
+        $("#ctl00_cphPrincipal_Lblinformationexist").text("");
+        //capturamos el valor limite del actor
+
+        $("#T_Actorsflujos tr").slice(0, $("#T_Actorsflujos tr").length - 1).each(function() {
+
+            //validamos que el valor deseado no supere al limite
+            if (opevaluesActorslimit < opeValuesActorsflujos) {
+                alert("el valor ingresado no debe superar al ingresado en los actores");
+
+                if (opevaluesActorsdesembolso != opevaluesActorslimit) {
+                    var desembolsototal2 = parseInt(opevaluesActorsdesembolso) + parseInt(opeValuesActorsflujos);
+                    $(tr_Iddes).text(addCommasrefactor(desembolsototal2));
+                }
+
+                $(id).val("");
+                opeValuesActorsflujos = 0;
+            }
+
+
+            if (opevaluesActorslimit == opevaluesActorsdesembolso) {
+                totaldesembolso = opevaluesActorsdesembolso - opeValuesActorsflujos;
+                $(tr_Iddes).text(addCommasrefactor(totaldesembolso));
+            }
+            else {
+                totaldesembolso = opevaluesActorsdesembolso - opeValuesActorsflujos;
+                $(tr_Iddes).text(addCommasrefactor(totaldesembolso));
+            }
+
+
+            if (opevaluesActorsdesembolso < opeValuesActorsflujos) {
+                alert("el valor ingresado no debe superar al desembolso disponible");
+                $(id).val("");
+                opeValuesActorsflujos = 0;
+            }
+
+
+        });
+
+        var test2 = $(tr_Iddes).html();
+        test2 = test2.replace(/\./gi, '');
+
+
+        //validamos si es el primer registro del array
+        if (arrayValorflujoTotal.length == 0) {
+            valtotaldiner = valtotaldiner + opeValuesActorsflujos;
+            //ingresamos el valor en un array estatico
+            arrayValorflujoTotal[0] = valtotaldiner;
+            $("#totalflujos").text(addCommasrefactor(valtotaldiner));
+        }
+        else {
+            valtotaldiner = arrayValorflujoTotal[0];
+            valtotaldiner = valtotaldiner + opeValuesActorsflujos;
+            //ingresamos el valor en un array estatico
+            arrayValorflujoTotal[0] = valtotaldiner;
+            $("#totalflujos").text(addCommasrefactor(valtotaldiner));
+        }
+
+        //capturo valores de nuevo
+        var valuecomparative = $("#ctl00_cphPrincipal_Lbltotalvalor").text();
+
+        //quitamos el valor decimal
+        var arrseparar = valuecomparative.split('.');
+        valuecomparative = arrseparar[0].replace(/\,/gi, '');
+
+        var sumapagos = $("#totalflujos").text();
+        var opesumagos = sumapagos.replace(/\./gi, '');
+
+        //comparo los valor contra el porcentaje seleccionado
+
+        if (parseInt(valuecomparative) < parseInt(opesumagos)) {
+            alert("el valor no debe ser mayor que el porcentaje aprobado");
+
+            //comparo el limite con tra el campo desembolso para ver si es el inicial o no
+            if (test2 != opevaluesActorslimit) {
+                var desembolsototal2 = parseInt(test2) + parseInt(opeValuesActorsflujos);
+                $(tr_Iddes).text(addCommasrefactor(desembolsototal2));
+            }
+
+            $(id).val("");
+            valtotaldiner = arrayValorflujoTotal[0];
+            valtotaldiner = valtotaldiner - opeValuesActorsflujos;
+            arrayValorflujoTotal[0] = valtotaldiner;
+            $("#totalflujos").text(addCommasrefactor(valtotaldiner));
+        }
+
+    }
+}
+
+
+var swhich_flujos_exist;
+
+//funcion suma de flujos de pagos
+function sumarflujospagos() {
+
+    //inicializamos las variables
+    var valporcentaje = 0;
+    var valtotalflujo = 0;
+    //recorremos la tabla actores para calcular los totales
+    $("#T_flujos tr").slice(0, $("#T_flujos tr").length - 1).each(function() {
+        var arrayValueflujos = $(this).find("td").slice(2, 7);
+
+        //validamos si hay campos null en la tabla actores
+        if ($(arrayValueflujos[0]).html() != null) {
+
+            //capturamos e incrementamos los valores para la suma
+            valporcentaje = valporcentaje + parseInt($(arrayValueflujos[0]).html().replace('%', ''));
+            valtotalflujo = valtotalflujo + parseInt($(arrayValueflujos[2]).html().replace(/\./gi, ''));
+
+            //validamos valores si vienen vacios
+            if (isNaN(valporcentaje)) {
+                valporcentaje = 0;
+            }
+            if (isNaN(valtotalflujo)) {
+                valtotalflujo = 0;
+            }
+
+            //cargamos los campos con la operacion realizada
+            $("#porcentaje").text(valporcentaje + " %");
+            $("#totalflujospagos").text(addCommasrefactor(valtotalflujo));
+        }
+        else {
+
+            $("#porcentaje").text("0 %");
+            $("#totalflujospagos").text("0");
+        }
+    });
+
+
+}
+
+
+
+
+//borrar de la grilla html de actores
+function deleteActor(str, objbutton) {
+
+    if (swhich_flujos_exist == 1) {
+        alert("Se ha detectado información el la pestaña de flujos de pagos, al eliminar el actor toda la información se perdera!");
+        arrayValorflujoTotal[0] = 0;
+
+        $("#totalflujos").text(0);
+        //recorremos la tabla de flujo de pagos
+        $("#T_Actorsflujos tr").slice(0, $("#T_Actorsflujos tr").length - 1).each(function() {
+
+            arrayinputflujos = $(this).find("td").slice(0, 1);
+
+            if ($(arrayinputflujos[0]).html() != null) {
+                var idflujo = "#txtinput" + $(arrayinputflujos[0]).html();
+                $(idflujo).val("");
+            }
+        });
+
+    }
+
+    $(objbutton).parent().parent().remove();
+    var idflujo = "#" + str;
+    $(idflujo).remove();
+
+    //recorremos el array
+    for (itemArray in arrayActor) {
+        //construimos la llave de validacion
+        var id = arrayActor[itemArray].actorsVal;
+        //validamos el dato q nos trae la funcion
+
+        if (str == id) {
+            //borramos el actor deseado
+            delete arrayActor[itemArray];
+            //arrayActor.splice(arrayActor[itemArray].actorsName, 1);
+        }
+    }
+    //llamar la funcion de suma de actores
+    sumar_grid_actores();
+    //llamar la funcion  de buscar la FSC
+    buscarFSC();
+    //llamar la funcion de buscar diferentes a la FSC
+    buscarothers();
+    //llamar la funcion suma de primera columna efectivo
+    sumavalores_gridprincipal();
+    //llamar la funcion suma de segunda columna especie
+    sumaespecie_gridprincipal();
+    //llamar la funcion suma tercera columna total
+    sumatotal_gridprincipal();
+}
+
+
+
+//funcion para la suma de valoes en el grid de actores
+function sumar_grid_actores() {
+
+    //inicializamos las variables
+    var valdiner = 0;
+    var valespecie = 0;
+    var valtotal = 0;
+
+    //recorremos la tabla actores para calcular los totales
+    $("#T_Actors tr").slice(0, $("#T_Actors tr").length - 1).each(function() {
+        var arrayValuesActors = $(this).find("td").slice(7, 10);
+
+        //validamos si hay campos null en la tabla actores
+        if ($(arrayValuesActors[0]).html() != null) {
+
+            //capturamos e incrementamos los valores para la suma
+            valdiner = valdiner + parseInt($(arrayValuesActors[0]).html().replace(/\./gi, ''));
+            valespecie = valespecie + parseInt($(arrayValuesActors[1]).html().replace(/\./gi, ''));
+            valtotal = valtotal + parseInt($(arrayValuesActors[2]).html().replace(/\./gi, ''));
+            //validamos valores si vienen vacios
+            if (isNaN(valdiner)) {
+                valdiner = 0;
+            }
+            if (isNaN(valespecie)) {
+                valespecie = 0;
+            }
+            if (isNaN(valtotal)) {
+                valtotal = 0;
+            }
+
+            //cargamos los campos con la operacion realizada
+            $("#val1").text(addCommasrefactor(valdiner));
+            $("#tflujosing").text(addCommasrefactor(valdiner));
+            $("#val2").text(addCommasrefactor(valespecie));
+            $("#val3").text(addCommasrefactor(valtotal));
+        }
+        else {
+            $("#val1").text(0);
+            $("#tflujosing").text(0);
+            $("#val2").text(0);
+            $("#val3").text(0);
+
+
+        }
+    });
+}
+
+//funcion de buscar en la grilla de actores  la FSC para el grid principal
+function buscarFSC() {
+
+    var valdinergridfsc = 0;
+    var valespeciegridfsc = 0;
+    var valtotalgridfsc = 0;
+    var option_0 = 0;
+
+    //recorremos la tabla actores para calcular los totales
+    $("#T_Actors tr").slice(0, $("#T_Actors tr").length - 1).each(function() {
+        var arrayValuesActors2 = $(this).find("td").slice(0, 10);
+        //validamos si hay campos null en la tabla actores
+        if ($(arrayValuesActors2[0]).html() != null) {
+            //validamos si es la FSC
+            if ($(arrayValuesActors2[0]).html() == 4) {
+
+                option_0 = 1;
+                //capturamos e incrementamos los valores para la suma
+                valdinergridfsc = parseInt($(arrayValuesActors2[7]).html().replace(/\./gi, ''));
+                valespeciegridfsc = parseInt($(arrayValuesActors2[8]).html().replace(/\./gi, ''));
+                valtotalgridfsc = parseInt($(arrayValuesActors2[9]).html().replace(/\./gi, ''));
+
+                //validamos valores si vienen vacios
+                if (isNaN(valdinergridfsc)) {
+                    valdinergridfsc = 0;
+                }
+                if (isNaN(valespeciegridfsc)) {
+                    valespeciegridfsc = 0;
+                }
+                if (isNaN(valtotalgridfsc)) {
+                    valtotalgridfsc = 0;
+                }
+
+                //cargamos los campos con la operacion realizada
+                $("#ValueMoneyFSC").text(addCommasrefactor(valdinergridfsc));
+                $("#ValueEspeciesFSC").text(addCommasrefactor(valespeciegridfsc));
+                $("#ValueCostFSC").text(addCommasrefactor(valtotalgridfsc));
+            }
+        }
+        //validamos si la opcion escojida esta vacia y le asignamos 0
+        if (option_0 == 0) {
+            $("#ValueMoneyFSC").text(0);
+            $("#ValueEspeciesFSC").text(0);
+            $("#ValueCostFSC").text(0);
+        }
+
+    });
+
+}
+
+// funcion de todos los q son actores diferentes a la fsc y sumarlos en el grid principal
+function buscarothers() {
+
+    var valdinergrid = 0;
+    var valespeciegrid = 0;
+    var valtotalgrid = 0;
+    var option_0 = 0;
+
+    //recorremos la tabla actores para calcular los totales
+    $("#T_Actors tr").slice(0, $("#T_Actors tr").length - 1).each(function() {
+        var arrayValuesActors3 = $(this).find("td").slice(0, 10);
+        //validamos si hay campos null en la tabla actores
+
+        if ($(arrayValuesActors3[0]).html() != null) {
+            //validamos si es diferente a la FSC
+            if ($(arrayValuesActors3[0]).html() != 4) {
+
+                option_0 = 1;
+                //capturamos e incrementamos los valores para la suma
+                valdinergrid = valdinergrid + parseInt($(arrayValuesActors3[7]).html().replace(/\./gi, ''));
+                valespeciegrid = valespeciegrid + parseInt($(arrayValuesActors3[8]).html().replace(/\./gi, ''));
+                valtotalgrid = valtotalgrid + parseInt($(arrayValuesActors3[9]).html().replace(/\./gi, ''));
+
+                //validamos valores si vienen vacios
+                if (isNaN(valdinergrid)) {
+                    valdinergrid = 0;
+                }
+                if (isNaN(valespeciegrid)) {
+                    valespeciegrid = 0;
+                }
+                if (isNaN(valtotalgrid)) {
+                    valtotalgrid = 0;
+                }
+
+                //cargamos los campos con la operacion realizada
+                $("#ValueMoneyCounter").text(addCommasrefactor(valdinergrid));
+                $("#ValueEspeciesCounter").text(addCommasrefactor(valespeciegrid));
+                $("#ValueCostCounter").text(addCommasrefactor(valtotalgrid));
+            }
+        }
+        //validamos si la opcion escojida esta vacia y le asignamos 0
+        if (option_0 == 0) {
+            $("#ValueMoneyCounter").text(0);
+            $("#ValueEspeciesCounter").text(0);
+            $("#ValueCostCounter").text(0);
+        }
+
+
+    });
+}
+
+//funcion suma de primera columna efectivo
+function sumavalores_gridprincipal() {
+    //captura los valores 
+    var dinerfsc = $("#ValueMoneyFSC").text();
+    dinerfsc = dinerfsc.replace(/\./gi, '');
+    var opedinerfsc = parseInt(dinerfsc);
+    //captura los valores 
+    var dinerothers = $("#ValueMoneyCounter").text();
+    dinerothers = dinerothers.replace(/\./gi, '');
+    var opedinerothers = parseInt(dinerothers);
+
+    //validar campo vacio
+    if (isNaN(opedinerfsc)) {
+        opedinerfsc = 0;
+        $("#ValueMoneyFSC").val(opedinerfsc);
+    }
+    else {
+        //validar campo vacio
+        if (isNaN(opedinerothers)) {
+            opedinerothers = 0;
+            $("#ValueMoneyCounter").val(opedinerothers);
+        }
+        else {
+            //realizar suma con los valores deseados
+            var sumadiner = 0;
+            sumadiner = opedinerfsc + opedinerothers;
+            $("#valueMoneytotal").text(addCommasrefactor(sumadiner));
+            $("#ctl00_cphPrincipal_HDvalorpagoflujo").val(addCommasrefactor(sumadiner));
+        }
+    }
+    //realizar suma con los valores deseados
+    sumadiner = opedinerfsc + opedinerothers;
+    $("#valueMoneytotal").text(addCommasrefactor(sumadiner));
+    $("#ctl00_cphPrincipal_HDvalorpagoflujo").val(addCommasrefactor(sumadiner));
+}
+
+// funcion suma de segunda columna especie
+function sumaespecie_gridprincipal() {
+
+    //captura los valores 
+    var especiefsc = $("#ValueEspeciesFSC").text();
+    especiefsc = especiefsc.replace(/\./gi, '');
+    var opeespeciefsc = parseInt(especiefsc);
+
+    //captura los valores 
+    var especieothers = $("#ValueEspeciesCounter").text();
+    especieothers = especieothers.replace(/\./gi, '');
+    var opeespecieothers = parseInt(especieothers);
+
+    //validar campo vacio
+    if (isNaN(opeespeciefsc)) {
+        opeespeciefsc = 0;
+        $("#ValueEspeciesFSC").val(opeespeciefsc);
+    }
+    else {
+        //validar campo vacio
+        if (isNaN(opeespecieothers)) {
+            opeespecieothers = 0;
+            $("#ValueEspeciesCounter").val(opeespecieothers);
+        }
+        else {
+            //realizar suma con los valores deseados
+            var sumaespecie = 0;
+            sumaespecie = opeespeciefsc + opeespecieothers;
+            $("#ValueEspeciestotal").text(addCommasrefactor(sumaespecie));
+        }
+    }
+    //realizar suma con los valores deseados
+    sumaespecie = opeespeciefsc + opeespecieothers;
+    $("#ValueEspeciestotal").text(addCommasrefactor(sumaespecie));
+}
+
+//funcion suma tercera columna total
+function sumatotal_gridprincipal() {
+
+    //captura los valores 
+    var totalfsc = $("#ValueCostFSC").text();
+    totalfsc = totalfsc.replace(/\./gi, '');
+    var opetotalfsc = parseInt(totalfsc);
+
+    //captura los valores 
+    var totalothers = $("#ValueCostCounter").text();
+    totalothers = totalothers.replace(/\./gi, '');
+    var opetotalothers = parseInt(totalothers);
+
+    //validar campo vacio
+    if (isNaN(opetotalfsc)) {
+        opetotalfsc = 0;
+        $("#ValueCostFSC").val(opetotalfsc);
+    }
+    else {
+        //validar campo vacio
+        if (isNaN(opetotalothers)) {
+            opetotalothers = 0;
+            $("#ValueCostCounter").val(opetotalothers);
+        }
+        else {
+            //realizar suma con los valores deseados
+            var sumatotal = 0;
+            sumatotal = opetotalfsc + opetotalothers;
+            $("#ValueCostotal").text(addCommasrefactor(sumatotal));
+        }
+    }
+    //realizar suma con los valores deseados
+    sumatotal = opetotalfsc + opetotalothers;
+    $("#ValueCostotal").text(addCommasrefactor(sumatotal));
+}
+
+//funcion valida las operaciones de flujo de pagos
+function validarporcentaje() {
+
+    // evento que verifica si han registrado actores para el flujo de pagos
+    $("#ctl00_cphPrincipal_txtvalortotalflow").focusout(function() {
+        var existvalueactors = $("#ctl00_cphPrincipal_HDvalorpagoflujo").val();
+
+        //valida actores
+        if (existvalueactors == "") {
+            $("#ctl00_cphPrincipal_Lblinformationexist").text("No se han agregado actores! debe ingresarlos");
+            $("#ctl00_cphPrincipal_txtporcentaje").attr("disabled", "disabled");
+            $("#ctl00_cphPrincipal_txtfechapago").attr("disabled", "disabled");
+        }
+        else {
+            $("#ctl00_cphPrincipal_Lblinformationexist").text("");
+            $("#ctl00_cphPrincipal_txtporcentaje").removeAttr("disabled");
+            $("#ctl00_cphPrincipal_txtfechapago").removeAttr("disabled");
+
+        }
+    });
+
+    // calcular campo valor despues de salir del foco de porcentaje
+    $("#ctl00_cphPrincipal_txtporcentaje").focusout(function() {
+
+        var porc = $("#ctl00_cphPrincipal_txtporcentaje").val();
+        //calcula el porcentaje
+        porc = Math.round(porc * 10) / 10;
+        $("#ctl00_cphPrincipal_txtporcentaje").val(porc);
+
+        var valortotalflow;
+        var txtvalortotalflow = $("#ctl00_cphPrincipal_HDvalorpagoflujo").val();
+
+        valortotalflow = txtvalortotalflow.replace(/\./gi, '');
+        valortotalflow = parseInt(valortotalflow);
+
+        //realiza la operacion del porcentaje seleccionado
+        var parcial = (parseFloat(porc) * parseFloat(valortotalflow)) / 100;
+        parcial = numeral(parcial).format('0,0.0');
+
+        $("#ctl00_cphPrincipal_Lbltotalvalor").text(parcial)
+    });
+
+    //Validar que el porcentaje no supere el 100 por ciento, no tenga comas ni tenga mas de 2 decimas
+    $("#ctl00_cphPrincipal_txtporcentaje").change(function() {
+        var expresion = /(^100(\.0{1,2})?$)|(^([1-9]([0-9])?|0)(\.[0-9])?$)/
+
+        if (!expresion.test($("#ctl00_cphPrincipal_txtporcentaje").val())) {
+            $("#ctl00_cphPrincipal_Lblhelpporcentaje").text("El porcentaje debe ser menor o igual a 100");
+            $("#ctl00_cphPrincipal_txtporcentaje").val("");
+            $("#ctl00_cphPrincipal_txtporcentaje").focus();
+        }
+        else {
+            $("#ctl00_cphPrincipal_Lblhelpporcentaje").text("");
+        }
+    });
 }
 
 //cargar combo de lineas estrategicas
@@ -805,9 +1596,19 @@ function cargarcomponente() {
 
                 //darle atributos de seleccione
                 $(".seleccione").click(function() {
-                    arraycomponente.push($(this).attr("id"));
-                });
 
+                    var validaarray = arraycomponente.indexOf("id");
+                    console.log(validaarray);
+                    if (validaarray == -1) {
+                        arraycomponente.push($(this).attr("id"));
+                    }
+                    
+                });
+                //Compoentes Style
+                $("#seleccionarcomponente li, #componentesseleccionados li").click(function() {
+                    $(this).css("background", "#191919");
+                    $(this).css("color", "#fff");
+                });
             },
             error: function(msg) {
                 alert("No se pueden cargar los componentes del programa selecionado.");
@@ -819,8 +1620,9 @@ function cargarcomponente() {
 // agregar componentes al <ul componentesseleccionados>
 function Btnaddcomponent_onclick() {
 
-    for (itemArray in arraycomponente) {
+    $("#ctl00_cphPrincipal_Lblinformationcomponent").text("");
 
+    for (itemArray in arraycomponente) {
 
         var htmlcomponente = $("#" + arraycomponente[itemArray]).html();
 
@@ -848,6 +1650,7 @@ function Btndeletecomponent_onclick() {
 
         var htmlcomponente = $("#" + arraycomponentedesechado[itemArray]).html();
 
+        //crea la lista nueva
         var htmlresult = "<li id = '" + arraycomponentedesechado[itemArray].replace('select', '') + "' class = 'seleccione' >" + htmlcomponente + "</li>";
 
         //se asigna la lista al ul
@@ -1143,7 +1946,7 @@ function operacionesIdea() {
 
 
 }
-
+//cargar el combo actor
 function comboactor() {
     $("#ddlactors").change(function() {
         $.ajax({
@@ -1195,6 +1998,7 @@ function addCommas2(str) {
     $("#ctl00_cphPrincipal_ValueCostFSC").val(output);
 }
 
+//fucion para añadir los miles a los numeros refactorizada
 function addCommasrefactor(str) {
     var amount = new String(str);
     amount = amount.split("").reverse();
@@ -1205,7 +2009,7 @@ function addCommasrefactor(str) {
         if ((i + 1) % 3 == 0 && (amount.length - 1) !== i) output = '.' + output;
     }
     return output;
-    //$("#ctl00_cphPrincipal_ValueCostFSC").val(output);
+
 }
 
 

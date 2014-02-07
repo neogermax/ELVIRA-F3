@@ -37637,9 +37637,9 @@ Control ddlmodcontract.
 Campo generado automáticamente.
 Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 </remarks>
-</member><member name="F:FSC_APP.addIdea.Label20">
+</member><member name="F:FSC_APP.addIdea.Lblmodcontract">
 	<summary>
-Control Label20.
+Control Lblmodcontract.
 </summary>
 	<remarks>
 Campo generado automáticamente.
@@ -37989,57 +37989,9 @@ Control dlbActivity.
 Campo generado automáticamente.
 Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 </remarks>
-</member><member name="F:FSC_APP.addIdea.lblattachfile">
+</member><member name="F:FSC_APP.addIdea.Lblinformationcomponent">
 	<summary>
-Control lblattachfile.
-</summary>
-	<remarks>
-Campo generado automáticamente.
-Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-</remarks>
-</member><member name="F:FSC_APP.addIdea.Label12">
-	<summary>
-Control Label12.
-</summary>
-	<remarks>
-Campo generado automáticamente.
-Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-</remarks>
-</member><member name="F:FSC_APP.addIdea.obser">
-	<summary>
-Control obser.
-</summary>
-	<remarks>
-Campo generado automáticamente.
-Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-</remarks>
-</member><member name="F:FSC_APP.addIdea.txtobser">
-	<summary>
-Control txtobser.
-</summary>
-	<remarks>
-Campo generado automáticamente.
-Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-</remarks>
-</member><member name="F:FSC_APP.addIdea.upData">
-	<summary>
-Control upData.
-</summary>
-	<remarks>
-Campo generado automáticamente.
-Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-</remarks>
-</member><member name="F:FSC_APP.addIdea.gvDocuments">
-	<summary>
-Control gvDocuments.
-</summary>
-	<remarks>
-Campo generado automáticamente.
-Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-</remarks>
-</member><member name="F:FSC_APP.addIdea.btnRefresh">
-	<summary>
-Control btnRefresh.
+Control Lblinformationcomponent.
 </summary>
 	<remarks>
 Campo generado automáticamente.
@@ -38397,6 +38349,14 @@ Control txtvalortotalflow.
 Campo generado automáticamente.
 Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 </remarks>
+</member><member name="F:FSC_APP.addIdea.Lblinformationexist">
+	<summary>
+Control Lblinformationexist.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
 </member><member name="F:FSC_APP.addIdea.lblfechapago">
 	<summary>
 Control lblfechapago.
@@ -38421,22 +38381,6 @@ Control cesfechapago.
 Campo generado automáticamente.
 Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 </remarks>
-</member><member name="F:FSC_APP.addIdea.RequiredFieldValidator1">
-	<summary>
-Control RequiredFieldValidator1.
-</summary>
-	<remarks>
-Campo generado automáticamente.
-Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-</remarks>
-</member><member name="F:FSC_APP.addIdea.lblhelpfechapago">
-	<summary>
-Control lblhelpfechapago.
-</summary>
-	<remarks>
-Campo generado automáticamente.
-Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-</remarks>
 </member><member name="F:FSC_APP.addIdea.lblporcentaje">
 	<summary>
 Control lblporcentaje.
@@ -38453,17 +38397,9 @@ Control txtporcentaje.
 Campo generado automáticamente.
 Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 </remarks>
-</member><member name="F:FSC_APP.addIdea.lblFlowNfo">
+</member><member name="F:FSC_APP.addIdea.Lblhelpporcentaje">
 	<summary>
-Control lblFlowNfo.
-</summary>
-	<remarks>
-Campo generado automáticamente.
-Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-</remarks>
-</member><member name="F:FSC_APP.addIdea.RequiredFieldValidatorPorcent">
-	<summary>
-Control RequiredFieldValidatorPorcent.
+Control Lblhelpporcentaje.
 </summary>
 	<remarks>
 Campo generado automáticamente.
@@ -38472,6 +38408,14 @@ Para modificarlo, mueva la declaración del campo del archivo del diseñador al 
 </member><member name="F:FSC_APP.addIdea.lblvalor">
 	<summary>
 Control lblvalor.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addIdea.Lbltotalvalor">
+	<summary>
+Control Lbltotalvalor.
 </summary>
 	<remarks>
 Campo generado automáticamente.
@@ -38501,9 +38445,17 @@ Control txtentregable.
 Campo generado automáticamente.
 Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 </remarks>
-</member><member name="F:FSC_APP.addIdea.RequiredFieldValidator2">
+</member><member name="F:FSC_APP.addIdea.HDvalorpagoflujo">
 	<summary>
-Control RequiredFieldValidator2.
+Control HDvalorpagoflujo.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addIdea.Lblinformation_flujos">
+	<summary>
+Control Lblinformation_flujos.
 </summary>
 	<remarks>
 Campo generado automáticamente.
@@ -38552,6 +38504,62 @@ Para modificarlo, mueva la declaración del campo del archivo del diseñador al 
 </member><member name="F:FSC_APP.addIdea.lblExceed100">
 	<summary>
 Control lblExceed100.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addIdea.Label12">
+	<summary>
+Control Label12.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addIdea.li5000">
+	<summary>
+Control li5000.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addIdea.obser">
+	<summary>
+Control obser.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addIdea.txtobser">
+	<summary>
+Control txtobser.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addIdea.upData">
+	<summary>
+Control upData.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addIdea.gvDocuments">
+	<summary>
+Control gvDocuments.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addIdea.btnRefresh">
+	<summary>
+Control btnRefresh.
 </summary>
 	<remarks>
 Campo generado automáticamente.
