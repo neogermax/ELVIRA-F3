@@ -1473,6 +1473,7 @@ function Cprogram() {
             success: function(result) {
                 $("#ddlPrograms").html(result);
                 $("#ddlPrograms").trigger("liszt:updated");
+                $("#componentesseleccionados").html("");
             },
             error: function(msg) {
                 alert("No se pueden cargar los programas de la linea estrategica selecionada.");
@@ -1596,13 +1597,28 @@ function cargarcomponente() {
 
                 //darle atributos de seleccione
                 $(".seleccione").click(function() {
+                    var swhich_array_component_exist = 0;
 
-                    var validaarray = arraycomponente.indexOf("id");
-                    console.log(validaarray);
-                    if (validaarray == -1) {
+                    var validaarray = $(this).attr("id");
+
+                    if (arraycomponente.length == 0) {
                         arraycomponente.push($(this).attr("id"));
                     }
-                    
+                    else {
+
+                        for (itemArray in arraycomponente) {
+                            if (validaarray == arraycomponente[itemArray]) {
+                                swhich_array_component_exist = 1;
+
+                            }
+                        }
+                        if (swhich_array_component_exist == 0) {
+                            arraycomponente.push($(this).attr("id"));
+                        }
+
+                    }
+
+
                 });
                 //Compoentes Style
                 $("#seleccionarcomponente li, #componentesseleccionados li").click(function() {
@@ -1635,12 +1651,34 @@ function Btnaddcomponent_onclick() {
         $("#" + arraycomponente[itemArray]).remove();
 
     }
+
+    arraycomponente = [];
+
     //darle atributos de seleccione
     $(".des_seleccionar").click(function() {
-        arraycomponentedesechado.push($(this).attr("id"));
+
+        var swhich_array_componentdesechado_exist = 0;
+
+        var validaarray = $(this).attr("id");
+
+        if (arraycomponentedesechado.length == 0) {
+            arraycomponentedesechado.push($(this).attr("id"));
+        }
+        else {
+
+            for (itemArray in arraycomponentedesechado) {
+                if (validaarray == arraycomponentedesechado[itemArray]) {
+                    swhich_array_componentdesechado_exist = 1;
+
+                }
+            }
+            if (swhich_array_componentdesechado_exist == 0) {
+                arraycomponentedesechado.push($(this).attr("id"));
+            }
+
+        }
     });
 
-    arraycomponente.length = 0;
 }
 
 // agregar componentes al <ul seleccionarcomponente>
@@ -1660,12 +1698,34 @@ function Btndeletecomponent_onclick() {
         $("#" + arraycomponentedesechado[itemArray]).remove();
 
     }
+
+    arraycomponentedesechado = [];
+
     //darle atributos de seleccione
     $(".seleccione").click(function() {
-        arraycomponente.push($(this).attr("id"));
-    });
 
-    arraycomponentedesechado.length = 0;
+        var swhich_array_component_exist = 0;
+
+        var validaarray = $(this).attr("id");
+
+        if (arraycomponente.length == 0) {
+            arraycomponente.push($(this).attr("id"));
+        }
+        else {
+
+            for (itemArray in arraycomponente) {
+                if (validaarray == arraycomponente[itemArray]) {
+                    swhich_array_component_exist = 1;
+
+                }
+            }
+            if (swhich_array_component_exist == 0) {
+                arraycomponente.push($(this).attr("id"));
+            }
+
+        }
+
+    });
 
 }
 

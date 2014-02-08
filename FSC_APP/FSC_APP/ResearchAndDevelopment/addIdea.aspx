@@ -100,8 +100,8 @@
         }
         #componentes
         {
-        	width: 100%;        	
-        	text-align. center;
+            width: 100%;
+            text-align: center;
         }
         .left
         {
@@ -120,29 +120,30 @@
         }
         #seleccionarcomponente, #componentesseleccionados
         {
-        	width: 300px;
-        	display: inline-block;
-        	background: #fff;
-        	border: 2px solid #3c3c3c;
-            height: 500px;
+            width: 500px;
+            display: inline-block;
+            background: #fff;
+            border: 2px solid #9bbb58;
+            height: 350px;
             overflow: scroll-y;
-        	margin: 0px;
-        	vertical-align: middle;
+            margin: 0px;
+            vertical-align: middle;
+            text-align: left;
         }
-        #seleccionarcomponente li , #componentesseleccionados li
+        #seleccionarcomponente li, #componentesseleccionados li
         {
-        	cursor: pointer;
+            cursor: pointer;
         }
-        #seleccionarcomponente li:hover , #componentesseleccionados li:hover
+        #seleccionarcomponente li:hover, #componentesseleccionados li:hover
         {
-        	background: #191919;
-        	color: #fff;
+            background: #9bbb58;
+            color: #fff;
         }
         #listFlujosPagos li
         {
-        	display: inline-block;
-        	float:left;
-        	margin-right: 3em;
+            display: inline-block;
+            float: left;
+            margin-right: 3em;
         }
     </style>
 
@@ -169,52 +170,52 @@
         }
 
 
-//        function seleccionado() {
+        //        function seleccionado() {
 
-//            var archivos = document.getElementById("archivos"); //Damos el valor del input tipo file
-//            var archivo = archivos.files; //Obtenemos el valor del input (los arcchivos) en modo de arreglo
+        //            var archivos = document.getElementById("archivos"); //Damos el valor del input tipo file
+        //            var archivo = archivos.files; //Obtenemos el valor del input (los arcchivos) en modo de arreglo
 
-//            /* Creamos el objeto que hara la petición AJAX al servidor, debemos de validar 
-//            si existe el objeto “ XMLHttpRequest” ya que en internet explorer viejito no esta,
-//            y si no esta usamos “ActiveXObject” */
+        //            /* Creamos el objeto que hara la petición AJAX al servidor, debemos de validar 
+        //            si existe el objeto “ XMLHttpRequest” ya que en internet explorer viejito no esta,
+        //            y si no esta usamos “ActiveXObject” */
 
-//            if (window.XMLHttpRequest) {
-//                var Req = new XMLHttpRequest();
-//            } else if (window.ActiveXObject) {
-//                var Req = new ActiveXObject("Microsoft.XMLHTTP");
-//            }
+        //            if (window.XMLHttpRequest) {
+        //                var Req = new XMLHttpRequest();
+        //            } else if (window.ActiveXObject) {
+        //                var Req = new ActiveXObject("Microsoft.XMLHTTP");
+        //            }
 
-//            //El objeto FormData nos permite crear un formulario pasandole clave/valor para poder enviarlo, 
-//            //este tipo de objeto ya tiene la propiedad multipart/form-data para poder subir archivos
-//            var data = new FormData();
+        //            //El objeto FormData nos permite crear un formulario pasandole clave/valor para poder enviarlo, 
+        //            //este tipo de objeto ya tiene la propiedad multipart/form-data para poder subir archivos
+        //            var data = new FormData();
 
-//            //Como no sabemos cuantos archivos subira el usuario, iteramos la variable y al
-//            //objeto de FormData con el metodo "append" le pasamos calve/valor, usamos el indice "i" para
-//            //que no se repita, si no lo usamos solo tendra el valor de la ultima iteración
-//            for (i = 0; i < archivo.length; i++) {
-//                data.append('archivo' + i, archivo[i]);
-//            }
+        //            //Como no sabemos cuantos archivos subira el usuario, iteramos la variable y al
+        //            //objeto de FormData con el metodo "append" le pasamos calve/valor, usamos el indice "i" para
+        //            //que no se repita, si no lo usamos solo tendra el valor de la ultima iteración
+        //            for (i = 0; i < archivo.length; i++) {
+        //                data.append('archivo' + i, archivo[i]);
+        //            }
 
-//            //Pasándole la url a la que haremos la petición
-//            Req.open("POST", "subir.php", true);
+        //            //Pasándole la url a la que haremos la petición
+        //            Req.open("POST", "subir.php", true);
 
-//            /* Le damos un evento al request, esto quiere decir que cuando termine de hacer la petición,
-//            se ejecutara este fragmento de código */
+        //            /* Le damos un evento al request, esto quiere decir que cuando termine de hacer la petición,
+        //            se ejecutara este fragmento de código */
 
-//            Req.onload = function(Event) {
-//                //Validamos que el status http sea ok 
-//                if (Req.status == 200) {
-//                    //Recibimos la respuesta de php
-//                    var msg = Req.responseText;
-//                    $("#tdFileInputs").append(msg);
-//                } else {
-//                    console.log(Req.status); //Vemos que paso. 
-//                }
-//            };
+        //            Req.onload = function(Event) {
+        //                //Validamos que el status http sea ok 
+        //                if (Req.status == 200) {
+        //                    //Recibimos la respuesta de php
+        //                    var msg = Req.responseText;
+        //                    $("#tdFileInputs").append(msg);
+        //                } else {
+        //                    console.log(Req.status); //Vemos que paso. 
+        //                }
+        //            };
 
-//            //Enviamos la petición 
-//            Req.send(data);
-//        }
+        //            //Enviamos la petición 
+        //            Req.send(data);
+        //        }
       
       
     </script>
@@ -529,21 +530,24 @@
             <table style="margin: 0 auto;">
                 <tr>
                     <td>
-                    <ul id="seleccionarcomponente">
-                </ul>
+                        <ul id="seleccionarcomponente">
+                        </ul>
                     </td>
-                    <td>
-                         <input id="Btnaddcomponent" type="button" value=">>" name="Add_Componente" onclick="return Btnaddcomponent_onclick()" />
+                    <td style="width: 200px">
+                        <input id="Btnaddcomponent" type="button" value=">>" name="Add_Componente" onclick="return Btnaddcomponent_onclick()" />
                         <input id="Btndeletecomponent" type="button" value="<<" name="Delete_Componente"
                             onclick="return Btndeletecomponent_onclick()" />
                     </td>
                     <td>
-                    <ul id="componentesseleccionados">
-                </ul>
+                        <ul id="componentesseleccionados"></ul>
                     </td>
                 </tr>
             </table>
-                
+            <ul>
+                <li>
+                <asp:Label ID="Lblinformationcomponent" runat="server" ForeColor="#990000"></asp:Label>
+                </li>
+            </ul>
             <cc2:DoubleListBox ID="dlbActivity" runat="server" Visible="false" Width="100%" />
         </div>
         <div id="ubicacion">
@@ -860,13 +864,13 @@
                     <asp:TextBox ID="txtvalorpartial" runat="server" MaxLength="50" ReadOnly="true" Width="182px"
                         Visible="false"></asp:TextBox>
                 </li>
-                </ul>
-                <br />
-                    <asp:Label style="clear: both;" ID="lblentregable" runat="server" Text="Entregable"></asp:Label>
-                    <asp:TextBox ID="txtentregable" runat="server" Height="100px" MaxLength="8000" TextMode="MultiLine"
-                        Width="90%"></asp:TextBox>
-                    <asp:HiddenField ID="HDvalorpagoflujo" runat="server" />
-                <ul>
+            </ul>
+            <br />
+            <asp:Label Style="clear: both;" ID="lblentregable" runat="server" Text="Entregable"></asp:Label>
+            <asp:TextBox ID="txtentregable" runat="server" Height="100px" MaxLength="8000" TextMode="MultiLine"
+                Width="90%"></asp:TextBox>
+            <asp:HiddenField ID="HDvalorpagoflujo" runat="server" />
+            <ul>
                 <div id="T_AflujosContainer">
                     <table id="T_Actorsflujos" border="1" cellpadding="1" cellspacing="1" style="width: 100%;">
                         <thead>
@@ -1034,7 +1038,7 @@
                     <a id="lnkAttch" style="cursor: hand" onclick="AddFileInput(F1)">Adjuntar un archivo</a>
                     <asp:Label ID="Label12" runat="server"></asp:Label>
                 </li>
-                <li id="li5000"  runat="server" visible="false">
+                <li id="li5000" runat="server" visible="false">
                     <asp:Label ID="obser" runat="server" Text="Descripción"></asp:Label>
                     <asp:TextBox ID="txtobser" runat="server" MaxLength="500" Width="400px"></asp:TextBox>
                 </li>
