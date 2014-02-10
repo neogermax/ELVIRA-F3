@@ -155,7 +155,7 @@ function SaveIdea_onclick() {
             $("#ctl00_cphPrincipal_Lblactorrep").text("");
 
             //validar si los campos obligatorios fueron dilegenciados
-            if ($("#ddltype_proyect :selected").text() == 'Seleccione....' || $("#ddlPupulation :selected").text() == 'Seleccione...' || $("#ddlmodcontract :selected").text() == 'Seleccione...' || $("#ddlStrategicLines :selected").text() == 'Seleccione...' || $("#ddlPrograms :selected").text() == 'Seleccione...' || $("#ctl00_cphPrincipal_txtname").val() == '' || $("#ctl00_cphPrincipal_txtjustification").val() == '' || $("#ctl00_cphPrincipal_txtobjective").val() == '' || $("#ctl00_cphPrincipal_txtstartdate").val() == '' || $("#ctl00_cphPrincipal_txtduration").val() == '' || arrayUbicacion.length == 0 || fsc_exist == 0) {
+            if ($("#ddltype_proyect :selected").text() == 'Seleccione....' || $("#ddlPupulation :selected").text() == 'Seleccione...' || $("#ddlmodcontract :selected").text() == 'Seleccione...' || $("#ddlStrategicLines :selected").text() == 'Seleccione...' || $("#ddlPrograms :selected").text() == 'Seleccione...' || $("#ctl00_cphPrincipal_txtname").val() == '' || $("#ctl00_cphPrincipal_txtjustification").val() == '' || $("#ctl00_cphPrincipal_txtobjective").val() == '' || $("#ctl00_cphPrincipal_txtstartdate").val() == '' || $("#ctl00_cphPrincipal_Txtdatecierre").val() == '' || arrayUbicacion.length == 0 || fsc_exist == 0) {
 
                 //validar linea estrategica
                 if ($("#ddlStrategicLines :selected").text() == 'Seleccione...') {
@@ -239,12 +239,12 @@ function SaveIdea_onclick() {
                     $("#ctl00_cphPrincipal_Lbladvertencia").text("");
                 }
                 //validar duracion en dias
-                if ($("#ctl00_cphPrincipal_txtduration").val() == '') {
-                    $("#ctl00_cphPrincipal_lbldia").text("Campo Requerido");
+                if ($("#ctl00_cphPrincipal_Lbldateend").val() == '') {
+                    $("#ctl00_cphPrincipal_Lblhelpenddate").text("Campo Requerido");
                     $("#ctl00_cphPrincipal_Lbladvertencia").text("La idea no guardo con exito: Revisar la pestaña información");
                 }
                 else {
-                    $("#ctl00_cphPrincipal_lbldia").text("");
+                    $("#ctl00_cphPrincipal_Lblhelpenddate").text("");
                     $("#ctl00_cphPrincipal_Lbladvertencia").text("");
                 }
                 //validar  si la FSC fue ingresada
@@ -561,6 +561,8 @@ function formatvercionsuma(input) {
 //agregar pagos al grid general de flujos
 function Btn_add_flujo_onclick() {
 
+
+
     //inicializamos variables
     var valuecomparative = $("#ctl00_cphPrincipal_Lbltotalvalor").text();
     //quitamos el valor decimal
@@ -711,11 +713,11 @@ function Btn_add_flujo_onclick() {
         //inicializamos el array
         arrayValorflujoTotal[0] = 0;
         $("#totalflujos").text(0);
-        $("#ctl00_cphPrincipal_txtvalortotalflow").val("");
-        $("#ctl00_cphPrincipal_txtfechapago").val("");
-        $("#ctl00_cphPrincipal_txtporcentaje").val("");
-        $("#ctl00_cphPrincipal_Lbltotalvalor").text("");
-        $("#ctl00_cphPrincipal_txtentregable").val("");
+        //   $("#ctl00_cphPrincipal_txtvalortotalflow").val("");
+        //      $("#ctl00_cphPrincipal_txtfechapago").val("");
+        //      $("#ctl00_cphPrincipal_txtporcentaje").val("");
+        //     $("#ctl00_cphPrincipal_Lbltotalvalor").text("");
+        //   $("#ctl00_cphPrincipal_txtentregable").val("");
 
         //recorremos la tabla de flujo de pagos
         $("#T_Actorsflujos tr").slice(0, $("#T_Actorsflujos tr").length - 1).each(function() {
@@ -846,7 +848,6 @@ function eliminarflujo(strN_pago) {
 
             for (itemdesembolsos in reversedesembolsos) {
 
-                alert($(arrayinputflujos[0]).html() + " ==  " + reversedesembolsos[itemdesembolsos].actorsreverse);
                 if ($(arrayinputflujos[0]).html() == reversedesembolsos[itemdesembolsos].actorsreverse) {
 
                     var iddesembolso = "#desenbolso" + $(arrayinputflujos[0]).html();
@@ -941,7 +942,7 @@ function sumar_flujos(str) {
 
 
     //validamos que hallan llenado la casillas correpondientes
-    if ($("#ctl00_cphPrincipal_txtporcentaje").val() == "" || $("#ctl00_cphPrincipal_txtvalortotalflow").val() == "" || $("#ctl00_cphPrincipal_txtfechapago").val() == "") {
+    if ($("#ctl00_cphPrincipal_txtporcentaje").val() == "" || $("#ctl00_cphPrincipal_txtvalortotalflow").val() == "" || $("#ctl00_cphPrincipal_txtfechapago").val() == "" || $("#ctl00_cphPrincipal_txtentregable").val() == "") {
         $("#ctl00_cphPrincipal_Lblinformationexist").text("estos campos deben ser diligenciados antes de ingresar algún valor en la grilla de flujos!");
         $(id).val("");
 
@@ -1075,10 +1076,7 @@ function sumarflujospagos() {
         }
     });
 
-
 }
-
-
 
 
 //borrar de la grilla html de actores
@@ -1087,6 +1085,11 @@ function deleteActor(str, objbutton) {
     if (swhich_flujos_exist == 1) {
         alert("Se ha detectado información el la pestaña de flujos de pagos, al eliminar el actor toda la información se perdera!");
         arrayValorflujoTotal[0] = 0;
+
+        arrayflujosdepago = [];
+        arrayinputflujos = [];
+        matriz_flujos = [];
+        reversedesembolsos = [];
 
         $("#totalflujos").text(0);
         //recorremos la tabla de flujo de pagos
@@ -1100,7 +1103,25 @@ function deleteActor(str, objbutton) {
             }
         });
 
+        var htmlTableflujos = "<table id='T_flujos' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr><th style='text-align: center;'>No pago</th><th style='text-align: center;'>Fecha</th><th style='text-align: center;'>Porcentaje</th><th style='text-align: center;'>Entregable</th><th style='text-align: center;'>Valor parcial</th><th style='text-align: center;'>Editar/Eliminar</th><th style='text-align: center;' >Detalle</th></tr></thead><tbody>";
+        htmlTableflujos += "<tr><td>1000</td><td>Porcentaje acumulado</td><td id='porcentaje'>0 %</td><td>Total</td><td id='totalflujospagos'>0</td><td></td><td></td></tr></tbody></table>";
+
+        //cargamos el div donde se generara la tabla actores
+        $("#T_flujosContainer").html("");
+        $("#T_flujosContainer").html(htmlTableflujos);
+
+
+        swhich_flujos_exist = 0;
+
+        //reconstruimos la tabla con los datos
+        $("#T_flujos").dataTable({
+            "bJQueryUI": true,
+            "bDestroy": true
+        });
+
     }
+
+
 
     $(objbutton).parent().parent().remove();
     var idflujo = "#" + str;
@@ -1510,7 +1531,9 @@ function Cmunip() {
                 $("#ddlCity").trigger("liszt:updated");
             },
             error: function(msg) {
-                alert("No se pueden cargar los municipios del departamento seleccionado.");
+                alert("No ha seleccionado el departamento.");
+                $("#ddlCity").html("<option>Seleccione...</opption>");
+                $("#ddlCity").trigger("liszt:updated");
             }
         });
     });
@@ -1600,12 +1623,12 @@ function cargarcomponente() {
                     var swhich_array_component_exist = 0;
 
                     var validaarray = $(this).attr("id");
-
+                    //validamos si el array esta vacio
                     if (arraycomponente.length == 0) {
                         arraycomponente.push($(this).attr("id"));
                     }
                     else {
-
+                        //recorremos elarray si ya habiamos ingresado el componente
                         for (itemArray in arraycomponente) {
                             if (validaarray == arraycomponente[itemArray]) {
                                 swhich_array_component_exist = 1;
@@ -1622,7 +1645,7 @@ function cargarcomponente() {
                 });
                 //Compoentes Style
                 $("#seleccionarcomponente li, #componentesseleccionados li").click(function() {
-                    $(this).css("background", "#191919");
+                    $(this).css("background", "#9bbb58");
                     $(this).css("color", "#fff");
                 });
             },
@@ -1660,12 +1683,12 @@ function Btnaddcomponent_onclick() {
         var swhich_array_componentdesechado_exist = 0;
 
         var validaarray = $(this).attr("id");
-
+        //validamos si el array esta vacio
         if (arraycomponentedesechado.length == 0) {
             arraycomponentedesechado.push($(this).attr("id"));
         }
         else {
-
+            //recorremos elarray si ya habiamos ingresado el componente
             for (itemArray in arraycomponentedesechado) {
                 if (validaarray == arraycomponentedesechado[itemArray]) {
                     swhich_array_componentdesechado_exist = 1;
@@ -1678,6 +1701,12 @@ function Btnaddcomponent_onclick() {
 
         }
     });
+    //Compoentes Style
+    $("#seleccionarcomponente li, #componentesseleccionados li").click(function() {
+        $(this).css("background", "#9bbb58");
+        $(this).css("color", "#fff");
+    });
+
 
 }
 
@@ -1707,12 +1736,12 @@ function Btndeletecomponent_onclick() {
         var swhich_array_component_exist = 0;
 
         var validaarray = $(this).attr("id");
-
+        //validamos si el array esta vacio
         if (arraycomponente.length == 0) {
             arraycomponente.push($(this).attr("id"));
         }
         else {
-
+            //recorremos elarray si ya habiamos ingresado el componente
             for (itemArray in arraycomponente) {
                 if (validaarray == arraycomponente[itemArray]) {
                     swhich_array_component_exist = 1;
@@ -1725,6 +1754,11 @@ function Btndeletecomponent_onclick() {
 
         }
 
+    });
+    //Compoentes Style
+    $("#seleccionarcomponente li, #componentesseleccionados li").click(function() {
+        $(this).css("background", "#9bbb58");
+        $(this).css("color", "#fff");
     });
 
 }

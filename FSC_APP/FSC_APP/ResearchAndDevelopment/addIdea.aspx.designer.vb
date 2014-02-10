@@ -538,13 +538,13 @@ Partial Public Class addIdea
     Protected WithEvents Txtdatecierre As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''Control Label22.
+    '''Control Lblhelpenddate.
     '''</summary>
     '''<remarks>
     '''Campo generado automáticamente.
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
-    Protected WithEvents Label22 As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents Lblhelpenddate As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''Control Lbltype_project.
@@ -1006,15 +1006,6 @@ Partial Public Class addIdea
     Protected WithEvents lblDelete As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''Control dlbActivity.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents dlbActivity As Global.DoubleListBox.DoubleListBox
-
-    '''<summary>
     '''Control Lblinformationcomponent.
     '''</summary>
     '''<remarks>
@@ -1022,6 +1013,15 @@ Partial Public Class addIdea
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
     Protected WithEvents Lblinformationcomponent As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''Control dlbActivity.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents dlbActivity As Global.DoubleListBox.DoubleListBox
 
     '''<summary>
     '''Control Label1.

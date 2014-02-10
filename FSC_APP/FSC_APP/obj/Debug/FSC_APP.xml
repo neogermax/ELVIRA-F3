@@ -37565,9 +37565,9 @@ Control Txtdatecierre.
 Campo generado automáticamente.
 Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 </remarks>
-</member><member name="F:FSC_APP.addIdea.Label22">
+</member><member name="F:FSC_APP.addIdea.Lblhelpenddate">
 	<summary>
-Control Label22.
+Control Lblhelpenddate.
 </summary>
 	<remarks>
 Campo generado automáticamente.
@@ -37981,17 +37981,17 @@ Control lblDelete.
 Campo generado automáticamente.
 Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 </remarks>
-</member><member name="F:FSC_APP.addIdea.dlbActivity">
+</member><member name="F:FSC_APP.addIdea.Lblinformationcomponent">
 	<summary>
-Control dlbActivity.
+Control Lblinformationcomponent.
 </summary>
 	<remarks>
 Campo generado automáticamente.
 Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 </remarks>
-</member><member name="F:FSC_APP.addIdea.Lblinformationcomponent">
+</member><member name="F:FSC_APP.addIdea.dlbActivity">
 	<summary>
-Control Lblinformationcomponent.
+Control dlbActivity.
 </summary>
 	<remarks>
 Campo generado automáticamente.

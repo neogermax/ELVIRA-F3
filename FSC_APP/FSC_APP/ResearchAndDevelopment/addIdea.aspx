@@ -123,7 +123,11 @@
             width: 500px;
             display: inline-block;
             background: #fff;
-            border: 2px solid #9bbb58;
+            border: 2px solid #  //Compoentes Style
+                $("#seleccionarcomponente li, #componentesseleccionados li").click(function() {
+                    $(this).css("background", "#191919");
+                    $(this).css("color", "#fff");
+                });;
             height: 350px;
             overflow: scroll-y;
             margin: 0px;
@@ -358,7 +362,7 @@
                     <asp:Label ID="Lbldateend" runat="server" Text="Fecha de Finalización"></asp:Label>
                     <asp:TextBox ID="Txtdatecierre" runat="server" MaxLength="255" Width="100px" Rows="2"
                         Enabled="False"></asp:TextBox>
-                    <asp:Label ID="Label22" runat="server"></asp:Label>
+                    <asp:Label ID="Lblhelpenddate" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
                 <li>
                     <asp:Label ID="Lbltype_project" runat="server" Text="Tipo de proyecto"></asp:Label>
