@@ -123,17 +123,10 @@
             width: 500px;
             display: inline-block;
             background: #fff;
-            border: 2px solid #  //Compoentes Style
-                $("#seleccionarcomponente li, #componentesseleccionados li").click(function() {
+            border: 2px solid # //Compoentes Style $("#seleccionarcomponente li, #componentesseleccionados li").click(function() {
                     $(this).css("background", "#191919");
                     $(this).css("color", "#fff");
-                });;
-            height: 350px;
-            overflow: scroll-y;
-            margin: 0px;
-            vertical-align: middle;
-            text-align: left;
-        }
+                }); ;height:350px;overflow:scroll-y;margin:0px;vertical-align:middle;text-align:left;}
         #seleccionarcomponente li, #componentesseleccionados li
         {
             cursor: pointer;
@@ -174,52 +167,6 @@
         }
 
 
-        //        function seleccionado() {
-
-        //            var archivos = document.getElementById("archivos"); //Damos el valor del input tipo file
-        //            var archivo = archivos.files; //Obtenemos el valor del input (los arcchivos) en modo de arreglo
-
-        //            /* Creamos el objeto que hara la petición AJAX al servidor, debemos de validar 
-        //            si existe el objeto “ XMLHttpRequest” ya que en internet explorer viejito no esta,
-        //            y si no esta usamos “ActiveXObject” */
-
-        //            if (window.XMLHttpRequest) {
-        //                var Req = new XMLHttpRequest();
-        //            } else if (window.ActiveXObject) {
-        //                var Req = new ActiveXObject("Microsoft.XMLHTTP");
-        //            }
-
-        //            //El objeto FormData nos permite crear un formulario pasandole clave/valor para poder enviarlo, 
-        //            //este tipo de objeto ya tiene la propiedad multipart/form-data para poder subir archivos
-        //            var data = new FormData();
-
-        //            //Como no sabemos cuantos archivos subira el usuario, iteramos la variable y al
-        //            //objeto de FormData con el metodo "append" le pasamos calve/valor, usamos el indice "i" para
-        //            //que no se repita, si no lo usamos solo tendra el valor de la ultima iteración
-        //            for (i = 0; i < archivo.length; i++) {
-        //                data.append('archivo' + i, archivo[i]);
-        //            }
-
-        //            //Pasándole la url a la que haremos la petición
-        //            Req.open("POST", "subir.php", true);
-
-        //            /* Le damos un evento al request, esto quiere decir que cuando termine de hacer la petición,
-        //            se ejecutara este fragmento de código */
-
-        //            Req.onload = function(Event) {
-        //                //Validamos que el status http sea ok 
-        //                if (Req.status == 200) {
-        //                    //Recibimos la respuesta de php
-        //                    var msg = Req.responseText;
-        //                    $("#tdFileInputs").append(msg);
-        //                } else {
-        //                    console.log(Req.status); //Vemos que paso. 
-        //                }
-        //            };
-
-        //            //Enviamos la petición 
-        //            Req.send(data);
-        //        }
       
       
     </script>
@@ -406,60 +353,43 @@
                     <asp:CheckBox ID="Chkiva" runat="server" />
                 </li>
             </ul>
-            <br />
-            <table id="matriz" border="2" cellpadding="2" cellspacing="2" style="clear: both;
-                width: 100%;">
-                <thead>
-                    <tr>
-                        <th>
-                        </th>
-                        <th>
-                            <span><strong style="font-size: large">Efectivo&nbsp;</strong> </span>
-                        </th>
-                        <th>
-                            <span><strong style="font-size: large">Especie&nbsp;</strong> </span>
-                        </th>
-                        <th>
-                            <span><strong style="font-size: large">Total&nbsp;</strong> </span>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <span><strong style="font-size: small">Aportes FSC&nbsp;</strong> </span>
-                        </td>
-                        <td id="ValueMoneyFSC">
-                        </td>
-                        <td id="ValueEspeciesFSC">
-                        </td>
-                        <td id="ValueCostFSC">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span><strong style="font-size: small">Aportes Socios&nbsp;</strong> </span>
-                        </td>
-                        <td id="ValueMoneyCounter">
-                        </td>
-                        <td id="ValueEspeciesCounter">
-                        </td>
-                        <td id="ValueCostCounter">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span><strong style="font-size: small">Valor Total&nbsp;</strong> </span>
-                        </td>
-                        <td id="valueMoneytotal">
-                        </td>
-                        <td id="ValueEspeciestotal">
-                        </td>
-                        <td id="ValueCostotal">
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <ul>
+                <div id="T_matrizcontainer">
+                    <table id="matriz" border="1" cellpadding="1" cellspacing="1" style="width: 100%">
+                        <thead>
+                            <tr>
+                                <th>
+                                </th>
+                                <th>
+                                </th>
+                                <th>
+                                    Efectivo
+                                </th>
+                                <th>
+                                    Especie
+                                </th>
+                                <th>
+                                    Total
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </ul>
             <ul>
                 <li id="li3333" runat="server" visible="False">
                     <asp:Label ID="lblcost" runat="server" Text="Valor Total"></asp:Label>
@@ -543,13 +473,14 @@
                             onclick="return Btndeletecomponent_onclick()" />
                     </td>
                     <td>
-                        <ul id="componentesseleccionados"></ul>
+                        <ul id="componentesseleccionados">
+                        </ul>
                     </td>
                 </tr>
             </table>
             <ul>
                 <li>
-                <asp:Label ID="Lblinformationcomponent" runat="server" ForeColor="#990000"></asp:Label>
+                    <asp:Label ID="Lblinformationcomponent" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
             </ul>
             <cc2:DoubleListBox ID="dlbActivity" runat="server" Visible="false" Width="100%" />
@@ -843,12 +774,15 @@
             </ul>
         </div>
         <div id="flujos">
+            <li>
+                <asp:Label ID="Lbltitleflujo1" runat="server" Text="Infomación general del desembolso"
+                    Font-Bold="True" Font-Size="Large"></asp:Label>
+            </li>
             <ul id="listFlujosPagos">
                 <li>
                     <asp:Label ID="lblvalortotal" runat="server" Text="Pago No"></asp:Label>
                     <asp:TextBox ID="txtvalortotalflow" runat="server" Width="100px" MaxLength="50" onkeychange="ValidaSoloNumeros()"
                         onkeyup="ValidaSoloNumeros()" onkeypress="ValidaSoloNumeros()"></asp:TextBox>
-                    <asp:Label ID="Lblinformationexist" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
                 <li>
                     <asp:Label ID="lblfechapago" runat="server" Text="Fecha de pago"></asp:Label>
@@ -874,9 +808,15 @@
             <asp:TextBox ID="txtentregable" runat="server" Height="100px" MaxLength="8000" TextMode="MultiLine"
                 Width="90%"></asp:TextBox>
             <asp:HiddenField ID="HDvalorpagoflujo" runat="server" />
+            <asp:Label ID="Lblinformationexist" runat="server" ForeColor="#990000"></asp:Label>
+            <li>
+                
+                <asp:Label ID="Lbltitleflujo2" runat="server" Text="Ingrese el detalle por cada socio. "
+                    Font-Bold="True" Font-Size="Large"></asp:Label>
+            </li>
             <ul>
                 <div id="T_AflujosContainer">
-                    <table id="T_Actorsflujos" border="1" cellpadding="1" cellspacing="1" style="width: 100%;">
+                    <table id="T_Actorsflujos" border="1" cellpadding="1" cellspacing="1" style="width: 100%">
                         <thead>
                             <tr>
                                 <th>
