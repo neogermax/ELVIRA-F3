@@ -98,6 +98,7 @@ Partial Class FormulationAndAdoption_ajaxChargeTextfieldProject
 
             If IsDBNull(data.Rows(0)("Name")) = False Then
                 lineEstrategic = data.Rows(0)("Name")
+                lineEstrategic = lineEstrategic.Replace("""", "\""")
             End If
             objResult &= lineEstrategic
 
@@ -110,6 +111,7 @@ Partial Class FormulationAndAdoption_ajaxChargeTextfieldProject
             objResult &= """, ""Objective"": """
             If IsDBNull(data.Rows(0)("Objective")) = False Then
                 Objective = data.Rows(0)("Objective")
+                Objective = Objective.Replace("""", "\""")
             End If
             objResult &= Objective
 
@@ -118,6 +120,7 @@ Partial Class FormulationAndAdoption_ajaxChargeTextfieldProject
             objResult &= """, ""Justification"": """
             If IsDBNull(data.Rows(0)("Justification")) = False Then
                 Justification = data.Rows(0)("Justification")
+                Justification = Justification.Replace("""", "\""")
             End If
             objResult &= Justification
 
@@ -125,6 +128,8 @@ Partial Class FormulationAndAdoption_ajaxChargeTextfieldProject
             objResult &= """, ""AreaDescription"": """
             If IsDBNull(data.Rows(0)("AreaDescription")) = False Then
                 AreaDescription = data.Rows(0)("AreaDescription")
+                AreaDescription = AreaDescription.Replace("""", "\""")
+
             End If
             objResult &= AreaDescription
 
@@ -133,6 +138,7 @@ Partial Class FormulationAndAdoption_ajaxChargeTextfieldProject
             objResult &= """, ""Results"": """
             If IsDBNull(data.Rows(0)("Results")) = False Then
                 ResultsBenef = data.Rows(0)("Results")
+                ResultsBenef = ResultsBenef.Replace("""", "\""")
             End If
             objResult &= ResultsBenef
 
@@ -140,6 +146,7 @@ Partial Class FormulationAndAdoption_ajaxChargeTextfieldProject
             objResult &= """, ""ResultsKnowledgeManagement"": """
             If IsDBNull(data.Rows(0)("ResultsKnowledgeManagement")) = False Then
                 ResultsKnowledgeManagement = data.Rows(0)("ResultsKnowledgeManagement")
+                ResultsKnowledgeManagement = ResultsKnowledgeManagement.Replace("""", "\""")
             End If
             objResult &= ResultsKnowledgeManagement
 
@@ -147,6 +154,7 @@ Partial Class FormulationAndAdoption_ajaxChargeTextfieldProject
             objResult &= """, ""ResultsInstalledCapacity"": """
             If IsDBNull(data.Rows(0)("ResultsInstalledCapacity")) = False Then
                 ResultsInstalledCapacity = data.Rows(0)("ResultsInstalledCapacity")
+                ResultsInstalledCapacity = ResultsInstalledCapacity.Replace("""", "\""")
             End If
             objResult &= ResultsInstalledCapacity
 

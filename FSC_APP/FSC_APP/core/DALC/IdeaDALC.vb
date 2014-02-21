@@ -173,12 +173,12 @@ Public Class IdeaDALC
              "areadescription," & _
              "population," & _
              "cost," & _
-              "fsccontribution," & _
+             "fsccontribution," & _
              "counterpartvalue," & _
              "strategydescription," & _
              "results," & _
              "source," & _
-            "justification," & _
+             "justification," & _
              "idsummoning," & _
              "startprocess," & _
              "createdate," & _
@@ -191,8 +191,10 @@ Public Class IdeaDALC
              "Loadingobservations," & _
              "idtypecontract," & _
              "Enddate," & _
-             "ideaappliesIVA," & _
-             "obligationsoftheparties" & _
+             "obligationsoftheparties," & _
+             "RiskMitigation," & _
+             "RisksIdentified," & _
+             "BudgetRoute" & _
              ")")
 
             sql.AppendLine("VALUES (")
@@ -221,8 +223,10 @@ Public Class IdeaDALC
             sql.AppendLine("'" & Idea.Loadingobservations & "',")
             sql.AppendLine("'" & Idea.idtypecontract & "',")
             sql.AppendLine("'" & Idea.Enddate.ToString("yyyyMMdd") & "',")
-            sql.AppendLine("'" & Idea.iva & "',")
-            sql.AppendLine("'" & Idea.Obligaciones & "')")
+            sql.AppendLine("'" & Idea.Obligaciones & "',")
+            sql.AppendLine("'" & Idea.riesgos & "',")
+            sql.AppendLine("'" & Idea.mitigacion & "',")
+            sql.AppendLine("'" & Idea.presupuestal & "')")
 
             ' TODO: 17 ideadalc add se crean nuevos campos
             ' Autor: German Rodriguez MGgroup

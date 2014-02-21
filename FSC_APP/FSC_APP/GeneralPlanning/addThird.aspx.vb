@@ -31,6 +31,15 @@ Partial Class addThird
 
         If Not Page.IsPostBack Then
 
+            Dim pretty As String = Request.QueryString("prety")
+
+            If pretty = 1 Then
+                Me.btnCancel.Enabled = False
+                Session("pretty") = 1
+            Else
+                Me.btnCancel.Enabled = True
+            End If
+
             ' obtener los parametos
             Dim op As String = Request.QueryString("op")
             Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
@@ -218,13 +227,40 @@ Partial Class addThird
                 objThird.representantelegal = clean_vbCrLf(Me.Txtreplegal.Text)
                 objThird.createdate = Now
 
+                If DDL_tipo_doc1.SelectedValue = "-1" Then
+                    objThird.tipodocumento = Me.DDL_tipo_doc.SelectedValue
+                Else
+                    objThird.tipodocumento = Me.DDL_tipo_doc1.SelectedValue
+                End If
+
                 objThird.tipodocumento = Me.DDL_tipo_doc.SelectedValue
                 objThird.docrepresentante = Me.Txtdocrep.Text
+                objThird.direccion = Me.Txtdireccion.Text
 
+                Dim sexo As Integer = Me.DDL_sex.SelectedValue
+
+                If Me.HFperson.Value = 0 Then
+                    If sexo = "-1" Then
+                        Me.LblHELPSEX.Text = "no se selecciono singun genero , el actor no se genero"
+                        Exit Sub
+                    Else
+                        Me.LblHELPSEX.Text = ""
+                        If sexo = 0 Then
+                            objThird.sex = "F"
+                        Else
+                            objThird.sex = "M"
+                        End If
+                    End If
+                Else
+                    If sexo = "-1" Then
+                        objThird.sex = "n/a"
+                    End If
+                End If
 
                 ' almacenar la entidad
                 objThird.id = facade.addThird(applicationCredentials, objThird)
 
+                Me.LblHELPSEX.Text = "El Actor se creó Exitosamente"
                 ' ir al administrador
 
                 'Me.lblexit.Text = " El Actor se creó Exitosamente "

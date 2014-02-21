@@ -70,6 +70,33 @@ Partial Public Class addThird
     Protected WithEvents Label10 As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
+    '''Control Lbltipodocument1.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Lbltipodocument1 As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''Control DDL_tipo_doc1.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents DDL_tipo_doc1 As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''Control Label11.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Label11 As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
     '''Control lblid.
     '''</summary>
     '''<remarks>
@@ -176,6 +203,33 @@ Partial Public Class addThird
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
     Protected WithEvents lblHelpname As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''Control Lblsex.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Lblsex As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''Control DDL_sex.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents DDL_sex As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''Control LblHELPSEX.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents LblHELPSEX As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''Control Lbltitle1.
@@ -356,6 +410,33 @@ Partial Public Class addThird
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
     Protected WithEvents Label4 As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''Control Lbldireccion.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Lbldireccion As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''Control Txtdireccion.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Txtdireccion As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''Control Lblhelpdireccion.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Lblhelpdireccion As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''Control Lblmail.
@@ -563,4 +644,22 @@ Partial Public Class addThird
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
     Protected WithEvents HFswchit As Global.System.Web.UI.WebControls.HiddenField
+
+    '''<summary>
+    '''Control HFpretty.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents HFpretty As Global.System.Web.UI.WebControls.HiddenField
+
+    '''<summary>
+    '''Control HFperson.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents HFperson As Global.System.Web.UI.WebControls.HiddenField
 End Class

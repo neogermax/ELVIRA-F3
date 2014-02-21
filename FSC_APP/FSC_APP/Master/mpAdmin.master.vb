@@ -22,7 +22,7 @@ Partial Class Master_mpAdmin
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
 
-
+      
         ' verificar que este vigente la session
         If Session Is Nothing Or Session.Count = 0 Then
 
@@ -35,6 +35,24 @@ Partial Class Master_mpAdmin
         'Ocultar div
         Me.divMenu.Visible = False
 
+        If Session("pretty") IsNot Nothing Then
+
+
+            Dim validar As String = Session("pretty").ToString
+
+            If validar = "1" Then
+                Me.ucUserData.Visible = False
+                Session("pretty") = 0
+            Else
+                Me.ucUserData.Visible = True
+
+            End If
+
+
+        End If
+
+        
+
         ' 
         If Session("lblTitle") IsNot Nothing Then
 
@@ -45,6 +63,7 @@ Partial Class Master_mpAdmin
         End If
 
         If Not Page.IsPostBack Then
+
 
             ' desabilitar mostrar el menu
             If CBool(Session("showMenu")) Then

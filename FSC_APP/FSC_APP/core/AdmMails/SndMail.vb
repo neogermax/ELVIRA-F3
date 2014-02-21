@@ -32,7 +32,7 @@ Namespace PostMail
                 smtp.Credentials = New System.Net.NetworkCredential("elvira@saldarriagaconcha.org", "Saldarriaga2013")
 
                 'Enviar el mensaje
-                smtp.Send(correo)
+                'smtp.Send(correo)
 
                 Return "Ok"
             Catch ex As Exception

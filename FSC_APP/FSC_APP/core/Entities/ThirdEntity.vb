@@ -44,6 +44,8 @@ Public Class ThirdEntity
 
     Private _tipodocumento As String
     Private _docrepresentante As String
+    Private _direccion As String
+    Private _sex As String
 
 #End Region
 
@@ -186,6 +188,22 @@ Public Class ThirdEntity
         End Get
         Set(ByVal value As String)
             Me._docrepresentante = value
+        End Set
+    End Property
+    Public Property direccion() As String
+        Get
+            Return Me._direccion
+        End Get
+        Set(ByVal value As String)
+            Me._direccion = value
+        End Set
+    End Property
+    Public Property sex() As String
+        Get
+            Return Me._sex
+        End Get
+        Set(ByVal value As String)
+            Me._sex = value
         End Set
     End Property
 

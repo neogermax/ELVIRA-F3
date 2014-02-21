@@ -265,6 +265,7 @@ Partial Class FormulationAndAdoption_ajaxaddProjectApprovalRecord
 
             If IsDBNull(data.Rows(0)("Name")) = False Then
                 name = data.Rows(0)("Name")
+                name = name.Replace("""", "\""")
             End If
 
             objResult &= name

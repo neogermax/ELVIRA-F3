@@ -3642,6 +3642,16 @@
     <Content Include="Master\mpError.master" />
     <Content Include="Master\mpLogin.master" />
     <Content Include="Master\mplogOut.master" />
+    <Content Include="ResearchAndDevelopment\server\gae-go\static\favicon.ico" />
+    <Content Include="ResearchAndDevelopment\server\gae-go\static\robots.txt" />
+    <Content Include="ResearchAndDevelopment\server\gae-python\static\favicon.ico" />
+    <Content Include="ResearchAndDevelopment\server\gae-python\static\robots.txt" />
+    <Content Include="ResearchAndDevelopment\server\node\.gitignore" />
+    <Content Include="ResearchAndDevelopment\server\node\public\files\.gitignore" />
+    <Content Include="ResearchAndDevelopment\server\node\public\files\thumbnail\.gitignore" />
+    <Content Include="ResearchAndDevelopment\server\node\server.js" />
+    <Content Include="ResearchAndDevelopment\server\node\tmp\.gitignore" />
+    <Content Include="ResearchAndDevelopment\server\php\files\.gitignore" />
     <None Include="MBD_FSC\MBD_FSC.dbml">
       <SubType>Designer</SubType>
       <Generator>MSLinqToSQLGenerator</Generator>
@@ -3650,6 +3660,14 @@
     <None Include="MBD_FSC\MBD_FSC.dbml.layout">
       <DependentUpon>MBD_FSC.dbml</DependentUpon>
     </None>
+    <None Include="ResearchAndDevelopment\server\gae-go\app.yaml" />
+    <None Include="ResearchAndDevelopment\server\gae-go\app\main.go" />
+    <None Include="ResearchAndDevelopment\server\gae-python\app.yaml" />
+    <None Include="ResearchAndDevelopment\server\gae-python\main.py" />
+    <None Include="ResearchAndDevelopment\server\node\package.json" />
+    <None Include="ResearchAndDevelopment\server\php\files\.htaccess" />
+    <None Include="ResearchAndDevelopment\server\php\index.php" />
+    <None Include="ResearchAndDevelopment\server\php\UploadHandler.php" />
     <None Include="Web References\localhost1\BPMServices.disco" />
     <None Include="Web References\localhost1\BPMServices.wsdl" />
     <None Include="Web References\localhost1\ListItem.datasource">

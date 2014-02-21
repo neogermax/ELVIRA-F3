@@ -110,7 +110,9 @@ Public Class ThirdDALC
              "iduser," & _
              "tipodocumento," & _
              "docrepresentante," & _
-             "createdate" & _
+             "createdate," & _
+             "direccion," & _
+             "sex" & _
             ")")
             sql.AppendLine("VALUES (")
             sql.AppendLine("'" & Third.code & "',")
@@ -127,7 +129,9 @@ Public Class ThirdDALC
             sql.AppendLine("'" & Third.iduser & "',")
             sql.AppendLine("'" & Third.tipodocumento & "',")
             sql.AppendLine("'" & Third.docrepresentante & "',")
-            sql.AppendLine("'" & Third.createdate.ToString("yyyy/MM/dd HH:mm:ss") & "')")
+            sql.AppendLine("'" & Third.createdate.ToString("yyyy/MM/dd HH:mm:ss") & "',")
+            sql.AppendLine("'" & Third.direccion & "',")
+            sql.AppendLine("'" & Third.sex & "')")
 
             ' intruccion para obtener el registro insertado
             sql.AppendLine(" SELECT SCOPE_IDENTITY() AS Id")

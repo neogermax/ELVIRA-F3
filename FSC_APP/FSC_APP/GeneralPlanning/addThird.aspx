@@ -17,6 +17,8 @@
             if ((event.keyCode < 48) || (event.keyCode > 57))
                 event.returnValue = false;
         }
+        
+        
     </script>
 
     <style>
@@ -43,7 +45,6 @@
             text-align: center;
         }
     </style>
-   
     <div id="containerSuccess" runat="server" visible="true" style="width: 100%; text-align: center;
         border: 2px solid #cecece; background: #E8E8DC; height: 40px; line-height: 40px;
         vertical-align: middle;">
@@ -53,7 +54,7 @@
     </div>
     <div id="tabsthird">
         <ul>
-            <li><a href="#informacion">Crear actor</a></li>
+            <li><a href="#informacion">Información</a></li>
         </ul>
     </div>
     <div id="informacion">
@@ -66,6 +67,16 @@
                     <asp:ListItem Text="Persona Juridica" Value="False"></asp:ListItem>
                 </asp:DropDownList>
                 <asp:Label ID="Label10" runat="server" Text=""></asp:Label>
+            </li>
+            <li>
+                <asp:Label ID="Lbltipodocument1" runat="server" Text="Tipo de documento" CssClass="Ccombo"></asp:Label>
+                <asp:DropDownList ID="DDL_tipo_doc1" runat="server">
+                    <asp:ListItem Text="Seleccione..." Value="-1"></asp:ListItem>
+                    <asp:ListItem Text="Cedula de ciudadania" Value="0"></asp:ListItem>
+                    <asp:ListItem Text="Cedula extranjera" Value="1"></asp:ListItem>
+                    <asp:ListItem Text="Pasaporte" Value="2"></asp:ListItem>
+                </asp:DropDownList>
+                <asp:Label ID="Label11" runat="server" Text=""></asp:Label>
             </li>
             <li>
                 <asp:Label ID="lblid" runat="server" Text="Id"></asp:Label>
@@ -86,6 +97,15 @@
                 <asp:RequiredFieldValidator ID="rfvname" runat="server" ControlToValidate="txtname"
                     ErrorMessage="*"></asp:RequiredFieldValidator>
                 <asp:Label ID="lblHelpname" runat="server" Font-Bold="True" ForeColor="Maroon"></asp:Label>
+            </li>
+            <li>
+                <asp:Label ID="Lblsex" runat="server" Text="Genero"></asp:Label>
+                <asp:DropDownList ID="DDL_sex" runat="server">
+                    <asp:ListItem Text="Seleccione..." Value="-1"></asp:ListItem>
+                    <asp:ListItem Text="Femenino" Value="0"></asp:ListItem>
+                    <asp:ListItem Text="Masculino" Value="1"></asp:ListItem>
+                </asp:DropDownList>
+                <asp:Label ID="LblHELPSEX" runat="server" Font-Bold="True" ForeColor="Maroon"></asp:Label>
             </li>
             <li>
                 <asp:Label ID="Lbltitle1" runat="server" Text="Información del representante legal"
@@ -126,9 +146,14 @@
                 <asp:Label ID="Label2" runat="server" Text=""></asp:Label>
             </li>
             <li>
-                <asp:Label ID="Lblphone" runat="server" Text="Telefono"></asp:Label>
+                <asp:Label ID="Lblphone" runat="server" Text="Teléfono"></asp:Label>
                 <asp:TextBox ID="Txtphone" runat="server" Width="80%" MaxLength="255"></asp:TextBox>
                 <asp:Label ID="Label4" runat="server" Text=""></asp:Label>
+            </li>
+            <li>
+                <asp:Label ID="Lbldireccion" runat="server" Text="Dirección"></asp:Label>
+                <asp:TextBox ID="Txtdireccion" runat="server" Width="80%" MaxLength="255"></asp:TextBox>
+                <asp:Label ID="Lblhelpdireccion" runat="server" Text=""></asp:Label>
             </li>
             <li>
                 <asp:Label ID="Lblmail" runat="server" Text="Email"></asp:Label>
@@ -166,8 +191,10 @@
             <li>
                 <asp:Button ID="btnConfirmDelete" runat="server" Text="Eliminar" CausesValidation="False" />
                 <asp:Button ID="btnCancelDelete" runat="server" Text="Cancelar" CausesValidation="False" />
-                &nbsp;<asp:Label ID="lblDelete" runat="server" Text="Esta seguro que desea eliminar el registro?"
+                <asp:Label ID="lblDelete" runat="server" Text="Esta seguro que desea eliminar el registro?"
                     ForeColor="Red"></asp:Label><asp:HiddenField ID="HFswchit" runat="server" />
+                <asp:HiddenField ID="HFpretty" runat="server" />
+                <asp:HiddenField ID="HFperson" runat="server" />
             </li>
         </ul>
     </div>

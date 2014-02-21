@@ -53,6 +53,9 @@ Public Class IdeaEntity
     ' cierre de modificación
     Private _OBLIGACIONES As String
     Private _IVA As Boolean
+    Private _riesgos As String
+    Private _mitigacion As String
+    Private _presupuestal As String
 
 #End Region
 
@@ -370,6 +373,30 @@ Public Class IdeaEntity
         End Get
         Set(ByVal value As Boolean)
             Me._IVA = value
+        End Set
+    End Property
+        Public Property riesgos() As String
+        Get
+            Return Me._riesgos
+        End Get
+        Set(ByVal value As String)
+            Me._riesgos = value
+        End Set
+    End Property
+    Public Property mitigacion() As String
+        Get
+            Return Me._mitigacion
+        End Get
+        Set(ByVal value As String)
+            Me._mitigacion = value
+        End Set
+    End Property
+    Public Property presupuestal() As String
+        Get
+            Return Me._presupuestal
+        End Get
+        Set(ByVal value As String)
+            Me._presupuestal = value
         End Set
     End Property
 

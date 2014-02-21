@@ -165,10 +165,8 @@
             if ((event.keyCode < 48) || (event.keyCode > 57))
                 event.returnValue = false;
         }
+       
 
-
-      
-      
     </script>
 
     <br />
@@ -285,6 +283,24 @@
                     <asp:Label ID="Label24" runat="server" ForeColor="#CC0000"></asp:Label>
                 </li>
                 <li>
+                    <asp:Label ID="Lblroutepresupuestal" runat="server" Text="Ruta presupuestal"></asp:Label>
+                    <asp:TextBox ID="Txtroutepresupuestal" runat="server" MaxLength="4000" Width="400px"
+                        Rows="6" TextMode="MultiLine"></asp:TextBox>
+                    <asp:Label ID="Lblhelproutepresupuestal" runat="server" ForeColor="#CC0000"></asp:Label>
+                </li>
+                <li>
+                    <asp:Label ID="Lblriesgos" runat="server" Text=" Riesgos identificados"></asp:Label>
+                    <asp:TextBox ID="Txtriesgos" runat="server" MaxLength="4000" Width="400px" Rows="6"
+                        TextMode="MultiLine"></asp:TextBox>
+                    <asp:Label ID="Lblhelpriesgos" runat="server" ForeColor="#CC0000"></asp:Label>
+                </li>
+                <li>
+                    <asp:Label ID="Lblaccionmitig" runat="server" Text="Mitigación del riesgo"></asp:Label>
+                    <asp:TextBox ID="Txtaccionmitig" runat="server" MaxLength="4000" Width="400px" Rows="6"
+                        TextMode="MultiLine"></asp:TextBox>
+                    <asp:Label ID="Lblhelpaccionmitig" runat="server" ForeColor="#CC0000"></asp:Label>
+                </li>
+                <li>
                     <asp:Label ID="lblstartdate" runat="server" Text="Fecha de inicio"></asp:Label>
                     <asp:TextBox ID="txtstartdate" runat="server" MaxLength="50" Width="200px"></asp:TextBox>
                     <cc1:CalendarExtender ID="cestartdate" runat="server" Enabled="true" Format="yyyy/MM/dd"
@@ -311,8 +327,8 @@
                         Enabled="False"></asp:TextBox>
                     <asp:Label ID="Lblhelpenddate" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
-                <li>
-                    <asp:Label ID="Lbltype_project" runat="server" Text="Tipo de proyecto"></asp:Label>
+                <li id="liproyecttype" runat="server" visible="false">
+                    <asp:Label ID="Lbltype_project" runat="server" Text="Tipo de proyecto"> </asp:Label>
                     <select id="ddltype_proyect" class="Ccombo">
                         <asp:DropDownList ID="ddltype_proyect" runat="server">
                         </asp:DropDownList>
@@ -349,8 +365,12 @@
                     <asp:Label ID="Lblmodcontract" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
                 <li>
-                    <asp:Label ID="Label21" runat="server" Text="Esta idea no aplica IVA"></asp:Label>
-                    <asp:CheckBox ID="Chkiva" runat="server" />
+                    <asp:Label ID="Label21" runat="server" Text="Aplica IVA :"></asp:Label>
+                    <asp:RadioButtonList ID="RBnList_iva" runat="server" Height="53px" RepeatDirection="Horizontal"
+                        ValidationGroup="iva" Width="86px">
+                        <asp:ListItem Value="1">Si</asp:ListItem>
+                        <asp:ListItem Value="0">No</asp:ListItem>
+                    </asp:RadioButtonList>
                 </li>
             </ul>
             <ul>
@@ -572,7 +592,7 @@
                         <asp:DropDownList ID="ddlactors" runat="server">
                         </asp:DropDownList>
                     </select>
-                    <a id="linkactors" runat="server" href="~/GeneralPlanning/addThird.aspx?op=add?iframe=true&width=100%&height=100%"
+                    <a id="linkactors" runat="server" href="~/GeneralPlanning/addThird.aspx?prety=1&op=add&iframe=true&width=100%&height=100%"
                         title="Nuevo actor" class="pretty">CREAR NUEVO ACTOR</a> </li>
                 <li>
                     <asp:Label ID="Label6" runat="server" Text="Tipo"></asp:Label>
@@ -614,6 +634,7 @@
                     <asp:Label ID="vrdiner" runat="server" Text="Vr Dinero"></asp:Label>
                     <asp:TextBox ID="Txtvrdiner" runat="server" Width="200px" MaxLength="22" Rows="3"
                         onkeyup="format(this)" onchange="format(this)"></asp:TextBox>
+                    <asp:Label ID="Lblhelpdinner" runat="server"></asp:Label>
                 </li>
                 <li>
                     <asp:Label ID="Label13" runat="server" Text="Vr Especie"></asp:Label>
@@ -624,6 +645,11 @@
                     <asp:Label ID="Label14" runat="server" Text="Total Aporte del Actor"></asp:Label>
                     <asp:TextBox ID="Txtaportfscocomp" runat="server" Width="200px" MaxLength="30" Rows="3"
                         Enabled="False"></asp:TextBox>
+                </li>
+                <li>
+                   <asp:Label ID="LblinformationFlujo" runat="server" Text="Flujo de pago"></asp:Label>
+                  <asp:CheckBox ID="Chkflujo" runat="server" />
+                
                 </li>
                 <li>
                     <asp:Button ID="btnAddThird" Visible="false" runat="server" Text="Agregar Actor"
@@ -640,8 +666,7 @@
                         <thead>
                             <tr>
                                 <th>
-                                    id
-                                </th>
+                                    id                                 </th>
                                 <th>
                                     Actores
                                 </th>
@@ -810,7 +835,6 @@
             <asp:HiddenField ID="HDvalorpagoflujo" runat="server" />
             <asp:Label ID="Lblinformationexist" runat="server" ForeColor="#990000"></asp:Label>
             <li>
-                
                 <asp:Label ID="Lbltitleflujo2" runat="server" Text="Ingrese el detalle por cada socio. "
                     Font-Bold="True" Font-Size="Large"></asp:Label>
             </li>
@@ -819,7 +843,7 @@
                     <table id="T_Actorsflujos" border="1" cellpadding="1" cellspacing="1" style="width: 100%">
                         <thead>
                             <tr>
-                                <th>
+                                <th style="width: 1px">
                                     Id
                                 </th>
                                 <th>
@@ -838,7 +862,7 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td>
+                                <td style="width: 1px">
                                 </td>
                                 <td>
                                 </td>
@@ -857,6 +881,7 @@
                 </li>
                 <li>
                     <input id="Btn_add_flujo" type="button" value="Agregar pago" name="Add_flujo" onclick="return Btn_add_flujo_onclick()" />
+                    <asp:TextBox ID="Txtpruebas" runat="server" MaxLength="50" ReadOnly="true" Width="182px"></asp:TextBox>
                 </li>
                 <div id="T_flujosContainer">
                     <table id="T_flujos" border="1" cellpadding="1" cellspacing="1" style="width: 100%;">
@@ -974,19 +999,43 @@
         </div>
         <div id="anexos">
             <ul>
-                <li id="tableAttachments">
-                    <input id="F1" type="file" name="archivos[]" multiple="multiple" onchange="seleccionado();" />
-                </li>
+                <li id="tableAttachments"></li>
+                <input id="fileupload" type="file" name="files[]" multiple="multiple">
+                <input id="Btncharge_file" type="button" value="Adjuntar un archivo" name="Add_files"
+                    onclick="subirArchivos()" />
                 <li>
                     <%-- <img src="../App_Themes/GattacaAdmin/Images/attach.gif" alt="" />--%>
-                    <a id="lnkAttch" style="cursor: hand" onclick="AddFileInput(F1)">Adjuntar un archivo</a>
-                    <asp:Label ID="Label12" runat="server"></asp:Label>
-                </li>
+                    <a id="lnkAttch" style="cursor: hand" onclick="AddFileInput(F1)" visible="false">
+                    </a></li>
                 <li id="li5000" runat="server" visible="false">
                     <asp:Label ID="obser" runat="server" Text="Descripción"></asp:Label>
                     <asp:TextBox ID="txtobser" runat="server" MaxLength="500" Width="400px"></asp:TextBox>
                 </li>
                 <li id="tdFileInputs">
+                    <table id="T_files" border="1" cellpadding="1" cellspacing="1" style="width: 100%;">
+                        <thead>
+                            <tr>
+                                <th style="text-align: center;">
+                                </th>
+                                <th style="text-align: center;">
+                                    Archivo
+                                </th>
+                                <th style="text-align: center;">
+                                    Eliminar
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                     <asp:UpdatePanel ID="upData" runat="server" UpdateMode="Conditional">
                         <ContentTemplate>
                             <asp:GridView ID="gvDocuments" runat="server" AutoGenerateColumns="False" Width="100%">
@@ -1047,6 +1096,8 @@
                 </tr>
             </tbody>
         </table>
+        <div>
+            <input id="close_dialog" type="button" value="Cerrar X" name="close_dialog" />
+        </div>
     </div>
-    <!-- /.modal -->
 </asp:Content>

@@ -22,14 +22,36 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         Dim id_b As Integer
         Dim fecha As Date
         Dim duracion, dia As String
-        Dim S_code, S_linea_estrategica, S_programa, S_nombre, S_justificacion, S_objetivo, S_objetivo_esp, S_Resultados_Benef, S_Resultados_Ges_c, S_Resultados_Cap_i, S_Fecha_inicio, S_mes, S_dia, S_Fecha_fin, S_Población, S_contratacion, S_A_Mfsc, S_A_Efsc, S_A_Mcounter, S_A_Ecounter, S_cost, S_obligaciones, S_iva, S_listubicaciones, S_listactors As String
+        Dim S_code, S_linea_estrategica, S_programa, S_nombre, S_justificacion, S_objetivo, S_objetivo_esp, S_Resultados_Benef, S_Resultados_Ges_c, S_Resultados_Cap_i, S_Fecha_inicio, S_mes, S_dia, S_Fecha_fin, S_Población, S_contratacion, S_A_Mfsc, S_A_Efsc, S_A_Mcounter, S_A_Ecounter, S_cost, S_obligaciones, S_iva, S_listubicaciones, S_listactors, S_mitigacion, S_riesgos, S_presupuestal As String
         Dim id_lineStrategic, id_depto, idprogram, idpopulation As Integer
+        Dim Files As HttpFileCollection
+        Dim item_file As Integer
 
         Session("locationByIdeaList") = New List(Of LocationByIdeaEntity)
 
+
+        If Request.Files.Count() > 0 Then
+
+            Dim fileName As String
+            Files = Request.Files
+          
+            Dim htmlarchives As String
+
+            For item_file = 0 To Files.Count - 1
+
+                fileName = Files(item_file).FileName
+
+               
+            Next item_file
+
+            Response.Write(fileName)
+
+            Exit Sub
+
+        End If
+
         'trae el jquery para hacer todo por debajo del servidor
         action = Request.QueryString("action").ToString()
-
         Select Case action
             Case "buscar"
                 'convierte la variable y llama funcion para la validacion de la idea
@@ -61,17 +83,16 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                 S_Fecha_fin = Request.QueryString("Fecha_fin").ToString
                 S_Población = Request.QueryString("Población").ToString
                 S_contratacion = Request.QueryString("contratacion").ToString
-                S_A_Mfsc = Request.QueryString("A_Mfsc").ToString
-                S_A_Efsc = Request.QueryString("A_Efsc").ToString
-                S_A_Mcounter = Request.QueryString("A_Mcounter").ToString
-                S_A_Ecounter = Request.QueryString("A_Ecounter").ToString
+                S_riesgos = Request.QueryString("riesgo").ToString
+                S_mitigacion = Request.QueryString("mitigacion").ToString
+                S_presupuestal = Request.QueryString("presupuestal").ToString
                 S_cost = Request.QueryString("cost").ToString
                 S_iva = Request.QueryString("iva").ToString
                 S_obligaciones = Request.QueryString("obligaciones").ToString
                 S_listubicaciones = Request.QueryString("listubicaciones").ToString
                 S_listactors = Request.QueryString("listactores").ToString
 
-                save_IDEA(S_code, S_linea_estrategica, S_programa, S_nombre, S_justificacion, S_objetivo, S_objetivo_esp, S_Resultados_Benef, S_Resultados_Ges_c, S_Resultados_Cap_i, S_Fecha_inicio, S_mes, S_dia, S_Fecha_fin, S_Población, S_contratacion, S_A_Mfsc, S_A_Efsc, S_A_Mcounter, S_A_Ecounter, S_cost, S_obligaciones, S_iva, S_listubicaciones, S_listactors)
+                save_IDEA(S_code, S_linea_estrategica, S_programa, S_nombre, S_justificacion, S_objetivo, S_objetivo_esp, S_Resultados_Benef, S_Resultados_Ges_c, S_Resultados_Cap_i, S_Fecha_inicio, S_mes, S_dia, S_Fecha_fin, S_Población, S_contratacion, S_riesgos, S_mitigacion, S_presupuestal, S_cost, S_obligaciones, S_iva, S_listubicaciones, S_listactors)
 
             Case "C_linestrategic"
 
@@ -113,12 +134,14 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                 idpopulation = Convert.ToInt32(Request.QueryString("idpopulation").ToString)
                 Charge_population(idpopulation)
 
-
             Case Else
 
         End Select
 
+
     End Sub
+
+
     ''' <summary>
     ''' funcion que carga el combo de tipo de poblacion segun la selección del tipo de proyecto
     ''' Autor: German Rodriguez MGgroup
@@ -210,9 +233,6 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
     End Function
 
-
-
-
     ''' <summary>
     ''' funcion que carga el combo de tipo de contrato
     ''' Autor: German Rodriguez MGgroup
@@ -242,6 +262,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
 
     End Function
+
     ''' <summary>
     ''' funcion que carga el combo de actores
     ''' Autor: German Rodriguez MGgroup
@@ -413,14 +434,13 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
     ''' <param name="cost"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Function save_IDEA(ByVal code As String, ByVal line_strategic As String, ByVal program As String, ByVal name As String, ByVal justify As String, ByVal objetive As String, ByVal obj_esp As String, ByVal resul_bef As String, ByVal resul_ges_c As String, ByVal resul_cap_i As String, ByVal fecha_i As String, ByVal mes As String, ByVal dia As String, ByVal fecha_f As String, ByVal poblacion As String, ByVal contratacion As String, ByVal A_Mfsc As String, ByVal A_Efsc As String, ByVal A_Mcounter As String, ByVal A_Ecounter As String, ByVal cost As String, ByVal obligaciones As String, ByVal iva As String, ByVal list_ubicacion As String, ByVal list_actor As String)
-
+    Public Function save_IDEA(ByVal code As String, ByVal line_strategic As String, ByVal program As String, ByVal name As String, ByVal justify As String, ByVal objetive As String, ByVal obj_esp As String, ByVal resul_bef As String, ByVal resul_ges_c As String, ByVal resul_cap_i As String, ByVal fecha_i As String, ByVal mes As String, ByVal dia As String, ByVal fecha_f As String, ByVal poblacion As String, ByVal contratacion As String, ByVal riesgos As String, ByVal mitigacion As String, ByVal presupuestal As String, ByVal cost As String, ByVal obligaciones As String, ByVal iva As String, ByVal list_ubicacion As String, ByVal list_actor As String)
 
         Dim facade As New Facade
         Dim objIdea As New IdeaEntity
         Dim myProgramComponentByIdeaList As List(Of ProgramComponentByIdeaEntity) = New List(Of ProgramComponentByIdeaEntity)
         Dim objlocationidea As New LocationByIdeaEntity
-        
+
         Dim locationByIdeaList As List(Of LocationByIdeaEntity)
         Dim thirdByIdeaList As List(Of ThirdByIdeaEntity)
 
@@ -444,7 +464,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
             list_actor = Replace(list_actor, "{", " ", 1)
             list_actor = Replace(list_actor, "}", " ", 1)
             list_actor = Replace(list_actor, """", " ", 1)
-
+            'convertimos el string en un array de datos
             arrayactor = list_actor.Split(New [Char]() {","c})
 
             Dim contador As Integer = 0
@@ -614,6 +634,9 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
             objIdea.idtypecontract = contratacion
 
             objIdea.Obligaciones = obligaciones
+            objIdea.mitigacion = mitigacion
+            objIdea.riesgos = riesgos
+            objIdea.presupuestal = presupuestal
 
             If iva = "on" Then
                 objIdea.iva = True
@@ -819,6 +842,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         Dim replacement As String = " "
         Dim rgx As New Regex(pattern)
         Dim result As String = rgx.Replace(text, replacement)
+        Dim comillas As String
 
         Return result
 
