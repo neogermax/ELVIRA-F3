@@ -493,7 +493,8 @@
                             onclick="return Btndeletecomponent_onclick()" />
                     </td>
                     <td>
-                        <ul id="componentesseleccionados"></ul>
+                        <ul id="componentesseleccionados">
+                        </ul>
                     </td>
                 </tr>
             </table>
@@ -520,6 +521,9 @@
                         </asp:DropDownList>
                     </select>
                 </li>
+            </ul>
+            <br />
+            <ul>
                 <li>
                     <asp:Button ID="btnAgregarubicacion" runat="server" Visible="false" CausesValidation="False"
                         Text="Agregar Ubicación" />
@@ -646,9 +650,13 @@
                         Enabled="False"></asp:TextBox>
                 </li>
                 <li>
-                   <asp:Label ID="LblinformationFlujo" runat="server" Text="Flujo de pago"></asp:Label>
-                  <asp:CheckBox ID="Chkflujo" runat="server" />
-                
+                    <asp:Label ID="LblinformationFlujo" runat="server" Text="Requiere flujo de pago:"></asp:Label>
+                    <asp:RadioButtonList ID="RBListflujo" runat="server" Height="53px" RepeatDirection="Horizontal"
+                        ValidationGroup="flujo" Width="86px">
+                        <asp:ListItem Value="1">Si</asp:ListItem>
+                        <asp:ListItem Value="0">No</asp:ListItem>
+                    </asp:RadioButtonList>
+                    <asp:Label ID="Lblflujosinf" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
                 <li>
                     <asp:Button ID="btnAddThird" Visible="false" runat="server" Text="Agregar Actor"
@@ -665,7 +673,8 @@
                         <thead>
                             <tr>
                                 <th>
-                                    id                                 </th>
+                                    id
+                                </th>
                                 <th>
                                     Actores
                                 </th>
@@ -999,9 +1008,9 @@
         <div id="anexos">
             <ul>
                 <li id="tableAttachments"></li>
-                <input id="fileupload" type="file" name="files[]" multiple="multiple">
-                <input id="Btncharge_file" type="button" value="Adjuntar un archivo" name="Add_files"
-                    onclick="subirArchivos()" />
+                <input id="fileupload" type="file" name="files[]" multiple/>
+               <%-- <input id="Btncharge_file" type="button" value="Adjuntar un archivo" name="Add_files"
+                    onclick="subirArchivos()" />--%>
                 <li>
                     <%-- <img src="../App_Themes/GattacaAdmin/Images/attach.gif" alt="" />--%>
                     <a id="lnkAttch" style="cursor: hand" onclick="AddFileInput(F1)" visible="false">
@@ -1010,6 +1019,11 @@
                     <asp:Label ID="obser" runat="server" Text="Descripción"></asp:Label>
                     <asp:TextBox ID="txtobser" runat="server" MaxLength="500" Width="400px"></asp:TextBox>
                 </li>
+            </ul>
+            <div id="gif_charge_Container">
+            
+            </div>
+            <ul>
                 <li id="tdFileInputs">
                     <table id="T_files" border="1" cellpadding="1" cellspacing="1" style="width: 100%;">
                         <thead>

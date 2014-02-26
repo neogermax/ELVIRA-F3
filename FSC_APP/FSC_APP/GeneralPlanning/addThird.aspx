@@ -99,7 +99,7 @@
                 <asp:Label ID="lblHelpname" runat="server" Font-Bold="True" ForeColor="Maroon"></asp:Label>
             </li>
             <li>
-                <asp:Label ID="Lblsex" runat="server" Text="Genero"></asp:Label>
+                <asp:Label ID="Lblsex" runat="server" Text="Sexo"></asp:Label>
                 <asp:DropDownList ID="DDL_sex" runat="server">
                     <asp:ListItem Text="Seleccione..." Value="-1"></asp:ListItem>
                     <asp:ListItem Text="Femenino" Value="0"></asp:ListItem>

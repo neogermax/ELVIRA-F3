@@ -34,10 +34,10 @@ Partial Class addThird
             Dim pretty As String = Request.QueryString("prety")
 
             If pretty = 1 Then
-                Me.btnCancel.Enabled = False
+                Me.btnCancel.Visible = False
                 Session("pretty") = 1
             Else
-                Me.btnCancel.Enabled = True
+                Me.btnCancel.Visible = True
             End If
 
             ' obtener los parametos

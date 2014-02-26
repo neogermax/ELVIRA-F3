@@ -7,6 +7,7 @@
 
 var arrayUbicacion = [];
 var arrayActor = [];
+var arrayActorFlujo = [];
 var arraycomponente = [];
 var arraycomponentedesechado = [];
 var arrayValorflujoTotal = [];
@@ -14,7 +15,7 @@ var arrayinputflujos = [];
 var arrayflujosdepago = [];
 var matriz_flujos = [];
 var reversedesembolsos = [];
-var arrayFiles = [];
+//var arrayFiles = [];
 
 var valI1;
 var valI2;
@@ -22,6 +23,17 @@ var valI3;
 var idfile;
 var switch_editar = 0;
 var swhich_validar_estado_1 = 0;
+var s_revisarflujos = 0;
+var filescharge = [];
+
+filescharge.remove = function(from, to) {
+
+    var rest = this.slice((to || from) + 1 || this.length);
+    this.length = from < 0 ? this.length + from : from;
+    return this.push.apply(this, rest);
+
+};
+
 
 $(document).ready(function() {
 
@@ -47,7 +59,7 @@ $(document).ready(function() {
 
     $("#ctl00_cphPrincipal_containerSuccess").css("display", "none");
 
-    $("#tabsIdea").tabs();
+    //$("#tabsIdea").tabs();
 
     $("#matriz").dataTable({
         "bJQueryUI": true,
@@ -105,13 +117,14 @@ $(document).ready(function() {
     });
 
 
+
     //validar el option buton del iva
     $("#ctl00_cphPrincipal_RBnList_iva").click(function() {
 
         var option_iva = $("#ctl00_cphPrincipal_RBnList_iva :checked").val();
 
         if (option_iva == 1) {
-            $("#ctl00_cphPrincipal_vrdiner").text("Vr Dinero  *Ingrese los valores incluyendo el IVA");
+            $("#ctl00_cphPrincipal_vrdiner").text("Vr Dinero  (Ingrese los valores incluyendo el IVA)");
         }
         else {
             $("#ctl00_cphPrincipal_vrdiner").text("Vr Dinero");
@@ -119,9 +132,63 @@ $(document).ready(function() {
 
     });
 
+    $("#tabsIdea").tabs();
 
-    $(".selector").dialog("option", "buttons", [{ text: "Ok", click: function() { $(this).dialog("close"); } }]);
-    var buttons = $(".selector").dialog("option", "buttons");
+    var entradaflujos = 0;
+    //validar que pestaña esta ingresando
+    $("#tabsIdea").click(function() {
+
+        var active = $("#tabsIdea").tabs("option", "active");
+        var idtabs = $("#tabsIdea ul>li a").eq(active).attr('href');
+        //validar si esl la de flujos de pago
+        if (idtabs == "#flujos") {
+            //validar si es la primera entrada       
+            if (entradaflujos == 0) {
+                var tamaño_flujos = $("#T_Actorsflujos tr").length - 2;
+                //validar la cantidad de actores
+                if (tamaño_flujos == 1) {
+                    var Aflujos = arrayActorFlujo[itemarrayflujos].actorsVal;
+                    $("#txtinput" + Aflujos).attr("disabled", "disabled");
+                    entradaflujos = 1;
+                    s_revisarflujos = 1;
+                }
+            }
+            // $("#tabsIdea").tabs({ active: 4});
+        }
+        else { entradaflujos = 0; }
+    });
+
+    //capturar el nombre y crear tabla de anexos
+    function eventFileSelect(evt) {
+
+        filescharge = evt.target.files;
+
+        var htmlTablefiles = "<table id='T_files' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr><th style='text-align: center;'>Archivo</th><th style='text-align: center;'>Eliminar</th></tr></thead><tbody>";
+        //recorremos el array para generar datos del la tabla anexos
+        for (i = 0; i < filescharge.length; i++) {
+            htmlTablefiles += "<tr id='" + i + "'><td>" + filescharge[i].name + "</td><td><input type ='button' value= 'Eliminar' onclick=\"deletefile('" + i + "', this)\"></input></td></tr>";
+        }
+
+        htmlTablefiles += "</tbody></table>";
+
+        //cargamos el div donde se generara la tabla anexos
+        $("#tdFileInputs").html("");
+        $("#tdFileInputs").html(htmlTablefiles);
+
+        //reconstruimos el pluging de la tabla
+        $("#T_files").dataTable({
+            "bJQueryUI": true,
+            "bDestroy": true
+        });
+        //vaciamos el contenedor del input files
+        // $("#fileupload").val("");
+    }
+
+    //crear evento change en el inputfiles de los archivos
+    document.getElementById("fileupload").addEventListener('change', eventFileSelect, false);
+
+    
+
 });
 
 
@@ -469,143 +536,166 @@ function BtnaddActors_onclick() {
     var valespeciegridfsc = 0;
     var valtotalgridfsc = 0;
 
-    //validamos si el combo actor este selecionado
-    if ($("#ddlactors :selected").text() == 'Seleccione...') {
-        $("#ctl00_cphPrincipal_Lblactorrep").text("debe seleccionar almenos un actor");
+
+    if ($("#ctl00_cphPrincipal_RBListflujo :checked").val() == null) {
+        $("#ctl00_cphPrincipal_Lblflujosinf").text("Escoja si o no");
     }
     else {
-        $("#ctl00_cphPrincipal_Lblactorrep").text("");
-
-        //capturamos los valores de deseados
-        var actorsVal = $("#ddlactors").val();
-        var actorsName = $("#ddlactors :selected").text();
-        var tipoactors = $("#ctl00_cphPrincipal_ddlType :selected").text();
-        var contact = $("#ctl00_cphPrincipal_Txtcontact").val();
-        var cedula = $("#ctl00_cphPrincipal_Txtcedulacont").val();
-        var telefono = $("#ctl00_cphPrincipal_Txttelcont").val();
-        var email = $("#ctl00_cphPrincipal_Txtemail").val();
-        if ($("#ctl00_cphPrincipal_Txtvrdiner").val() == "") {
-            var diner = 0;
-        }
-        else {
-            var diner = $("#ctl00_cphPrincipal_Txtvrdiner").val();
-        }
-
-        if ($("#ctl00_cphPrincipal_Txtvresp").val() == "") {
-            var especie = 0;
-        }
-        else {
-            var especie = $("#ctl00_cphPrincipal_Txtvresp").val();
-        }
-
-        if ($("#ctl00_cphPrincipal_Txtaportfscocomp").val() == "") {
-            var total = 0;
-        }
-        else {
-            var total = $("#ctl00_cphPrincipal_Txtaportfscocomp").val();
-        }
-
-
-
-        //creamos json para guardarlos en un array
-        var jsonActor = { "actorsVal": actorsVal, "actorsName": actorsName, "tipoactors": tipoactors, "contact": contact, "cedula": cedula, "telefono": telefono, "email": email, "diner": diner, "especie": especie, "total": total };
-
-        //recorremos el array para revisar repetidos        
-        var validerepetido = 0;
-        for (iArray in arrayActor) {
-            if (actorsVal == arrayActor[iArray].actorsVal) {
-                validerepetido = 1;
-            }
-        }
-
-        //validamos si hay repetidos 
-        if (validerepetido == 1) {
-            $("#ctl00_cphPrincipal_Lblactorrep").text("El actor ya fue ingresado");
+        $("#ctl00_cphPrincipal_Lblflujosinf").text("");
+        //validamos si el combo actor este selecionado
+        if ($("#ddlactors :selected").text() == 'Seleccione...') {
+            $("#ctl00_cphPrincipal_Lblactorrep").text("debe seleccionar almenos un actor");
         }
         else {
             $("#ctl00_cphPrincipal_Lblactorrep").text("");
 
-            //cargamos el array con el json
-            arrayActor.push(jsonActor);
+            //capturamos los valores de deseados
+            var actorsVal = $("#ddlactors").val();
+            var actorsName = $("#ddlactors :selected").text();
+            var tipoactors = $("#ctl00_cphPrincipal_ddlType :selected").text();
+            var contact = $("#ctl00_cphPrincipal_Txtcontact").val();
+            var cedula = $("#ctl00_cphPrincipal_Txtcedulacont").val();
+            var telefono = $("#ctl00_cphPrincipal_Txttelcont").val();
+            var email = $("#ctl00_cphPrincipal_Txtemail").val();
+            if ($("#ctl00_cphPrincipal_Txtvrdiner").val() == "") {
+                var diner = 0;
+            }
+            else {
+                var diner = $("#ctl00_cphPrincipal_Txtvrdiner").val();
+            }
 
-            //creamos la tabla de actores
-            var htmlTableActores = "<table id='T_Actors' align='center' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr><th>id</th><th>Actores</th><th>Tipo</th><th>Contacto</th><th>Documento Identidad</th><th>Tel&eacute;fono</th><th>Correo electr&oacute;nico</th><th>Vr Dinero</th><th>Vr Especie</th><th>Vr Total</th><th>Eliminar</th></tr></thead><tbody>";
-            //creamos la tabla de flujo actores
-            var htmltableAflujos = "<table id='T_Actorsflujos' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr><th>Id</th><th>Aportante</th><th>Valor inicial</th><th>Valor desembolsado</th><th>Valor a cancelar</th></tr></thead><tbody>";
-            //creamos la tabla matrizde informacion principal
-            var htmltablamatriz = "<table id='matriz' border='1' cellpadding='1' cellspacing='1' style='width: 100%'><thead><tr><th width='1'></th><th></th><th>Efectivo</th><th>Especie</th><th>Total</th></tr></thead><tbody>";
+            if ($("#ctl00_cphPrincipal_Txtvresp").val() == "") {
+                var especie = 0;
+            }
+            else {
+                var especie = $("#ctl00_cphPrincipal_Txtvresp").val();
+            }
 
-            for (itemArray in arrayActor) {
-                htmlTableActores += "<tr><td>" + arrayActor[itemArray].actorsVal + "</td><td>" + arrayActor[itemArray].actorsName + "</td><td>" + arrayActor[itemArray].tipoactors + "</td><td>" + arrayActor[itemArray].contact + "</td><td>" + arrayActor[itemArray].cedula + "</td><td>" + arrayActor[itemArray].telefono + "</td><td>" + arrayActor[itemArray].email + "</td><td>" + arrayActor[itemArray].diner + "</td><td>" + arrayActor[itemArray].especie + "</td><td>" + arrayActor[itemArray].total + "</td><td><input type ='button' value= 'Eliminar' onclick=\"deleteActor('" + arrayActor[itemArray].actorsVal + "', this)\"></input></td></tr>";
-                htmltableAflujos += "<tr id='" + arrayActor[itemArray].actorsVal + "'><td>" + arrayActor[itemArray].actorsVal + "</td><td>" + arrayActor[itemArray].actorsName + "</td><td id= 'value" + arrayActor[itemArray].actorsVal + "' >" + arrayActor[itemArray].diner + "</td><td id='desenbolso" + arrayActor[itemArray].actorsVal + "'>" + arrayActor[itemArray].diner + "</td><td><input id='" + "txtinput" + arrayActor[itemArray].actorsVal + "' onkeyup='formatvercionsuma(this)' onchange='formatvercionsuma(this)'  onblur=\"sumar_flujos('" + arrayActor[itemArray].actorsVal + "')\" onfocus=\"restar_flujos('" + arrayActor[itemArray].actorsVal + "')\"></input></td></tr>";
-                htmltablamatriz += "<tr id= 'matriz" + arrayActor[itemArray].actorsVal + "'><td width= '1'>" + arrayActor[itemArray].actorsVal + "</td><td style='text-align: left'>" + arrayActor[itemArray].actorsName + "</td><td>" + arrayActor[itemArray].diner + "</td><td> " + arrayActor[itemArray].especie + "</td><td> " + arrayActor[itemArray].total + " </td></tr>";
+            if ($("#ctl00_cphPrincipal_Txtaportfscocomp").val() == "") {
+                var total = 0;
+            }
+            else {
+                var total = $("#ctl00_cphPrincipal_Txtaportfscocomp").val();
+            }
+
+
+
+            //creamos json para guardarlos en un array
+            var jsonActor = { "actorsVal": actorsVal, "actorsName": actorsName, "tipoactors": tipoactors, "contact": contact, "cedula": cedula, "telefono": telefono, "email": email, "diner": diner, "especie": especie, "total": total };
+
+            //recorremos el array para revisar repetidos        
+            var validerepetido = 0;
+            for (iArray in arrayActor) {
+                if (actorsVal == arrayActor[iArray].actorsVal) {
+                    validerepetido = 1;
+                }
+            }
+
+            //validamos si hay repetidos 
+            if (validerepetido == 1) {
+                $("#ctl00_cphPrincipal_Lblactorrep").text("El actor ya fue ingresado");
+            }
+            else {
+                $("#ctl00_cphPrincipal_Lblactorrep").text("");
+
+
+                var flujo_in = $("#ctl00_cphPrincipal_RBListflujo :checked").val();
+
+                //cargamos el array con el json
+                if (flujo_in == 1) {
+                    arrayActorFlujo.push(jsonActor);
+                }
+                //cargamos el array con el json
+                arrayActor.push(jsonActor);
+
+                //creamos la tabla de actores
+                var htmlTableActores = "<table id='T_Actors' align='center' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr><th>id</th><th>Actores</th><th>Tipo</th><th>Contacto</th><th>Documento Identidad</th><th>Tel&eacute;fono</th><th>Correo electr&oacute;nico</th><th>Vr Dinero</th><th>Vr Especie</th><th>Vr Total</th><th>Eliminar</th></tr></thead><tbody>";
+                //creamos la tabla de flujo actores
+                if (flujo_in == 1) {
+                    var htmltableAflujos = "<table id='T_Actorsflujos' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr><th>Id</th><th>Aportante</th><th>Valor inicial</th><th>Valor desembolsado</th><th>Valor a cancelar</th></tr></thead><tbody>";
+                }
+                //creamos la tabla matrizde informacion principal
+                var htmltablamatriz = "<table id='matriz' border='1' cellpadding='1' cellspacing='1' style='width: 100%'><thead><tr><th width='1'></th><th></th><th>Efectivo</th><th>Especie</th><th>Total</th></tr></thead><tbody>";
+
+                for (itemArray in arrayActor) {
+                    htmlTableActores += "<tr id='actor" + arrayActor[itemArray].actorsVal + "' ><td>" + arrayActor[itemArray].actorsVal + "</td><td>" + arrayActor[itemArray].actorsName + "</td><td>" + arrayActor[itemArray].tipoactors + "</td><td>" + arrayActor[itemArray].contact + "</td><td>" + arrayActor[itemArray].cedula + "</td><td>" + arrayActor[itemArray].telefono + "</td><td>" + arrayActor[itemArray].email + "</td><td>" + arrayActor[itemArray].diner + "</td><td>" + arrayActor[itemArray].especie + "</td><td>" + arrayActor[itemArray].total + "</td><td><input type ='button' value= 'Eliminar' onclick=\"deleteActor('" + arrayActor[itemArray].actorsVal + "')\"></input></td></tr>";
+                    htmltablamatriz += "<tr id= 'matriz" + arrayActor[itemArray].actorsVal + "'><td width= '1'>" + arrayActor[itemArray].actorsVal + "</td><td style='text-align: left'>" + arrayActor[itemArray].actorsName + "</td><td>" + arrayActor[itemArray].diner + "</td><td> " + arrayActor[itemArray].especie + "</td><td> " + arrayActor[itemArray].total + " </td></tr>";
+
+                }
+                //creamos ciclo para los actores que si tienen flujo de pago
+                for (itemarrayflujos in arrayActorFlujo) {
+                    if (flujo_in == 1) {
+                        htmltableAflujos += "<tr id='flujo" + arrayActorFlujo[itemarrayflujos].actorsVal + "'><td>" + arrayActorFlujo[itemarrayflujos].actorsVal + "</td><td>" + arrayActorFlujo[itemarrayflujos].actorsName + "</td><td id= 'value" + arrayActorFlujo[itemarrayflujos].actorsVal + "' >" + arrayActorFlujo[itemarrayflujos].diner + "</td><td id='desenbolso" + arrayActorFlujo[itemarrayflujos].actorsVal + "'>" + arrayActorFlujo[itemarrayflujos].diner + "</td><td><input id='" + "txtinput" + arrayActorFlujo[itemarrayflujos].actorsVal + "' onkeyup='formatvercionsuma(this)' onchange='formatvercionsuma(this)'  onblur=\"sumar_flujos('" + arrayActorFlujo[itemarrayflujos].actorsVal + "')\" onfocus=\"restar_flujos('" + arrayActorFlujo[itemarrayflujos].actorsVal + "')\"></input></td></tr>";
+                    }
+                }
+                //se anexa columna para totales
+                htmlTableActores += "<tr><td>1000</td><td>Total</td><td></td><td></td><td></td><td></td><td></td><td id='val1'></td><td id='val2'>0</td><td id='val3'>0</td><td></td></tr></tbody></table>";
+
+                if (flujo_in == 1) {
+                    htmltableAflujos += "<tr><td>1000</td><td>Total</td><td id='tflujosing'></td id='tflujosdesen'><td></td><td id='totalflujos'>0</td></tr></tbody></table>";
+                }
+                htmltablamatriz += "<tr><td width= '1'>1000</td><td>Valor Total</td><td id='valueMoneytotal'>0</td><td id='ValueEspeciestotal'>0</td><td id='ValueCostotal'>0</td></tr></tbody></table>";
+
+                //cargamos el div donde se generara la tabla actores
+                $("#T_ActorsContainer").html("");
+                $("#T_ActorsContainer").html(htmlTableActores);
+
+                if (flujo_in == 1) {
+                    //cargamos el div donde se generara la tabla flujo de actores
+                    $("#T_AflujosContainer").html("");
+                    $("#T_AflujosContainer").html(htmltableAflujos);
+                }
+
+                $("#T_matrizcontainer").html("");
+                $("#T_matrizcontainer").html(htmltablamatriz);
+
+
+                //llama la funcion sumar en la grilla de actores
+                sumar_grid_actores();
+
+                //llama la funcion de buscar la FSC 
+                // buscarFSC();
+
+                //llamar la funcion de buscar diferentes a la FSC
+                // buscarothers();
+
+                //llamar la funcion suma de primera columna efectivo
+                sumavalores_gridprincipal();
+
+                //llamar la funcion suma segunda columna especie
+                //sumaespecie_gridprincipal();
+
+                //llamar la funcion suma tercera columna total
+                //sumatotal_gridprincipal();
+
+                //reconstruimos la tabla con los datos 
+                $("#T_Actors").dataTable({
+                    "bJQueryUI": true,
+                    "bDestroy": true
+                });
+
+                if (flujo_in == 1) {
+                    //reconstruimos la tabla con los datos 
+                    $("#T_Actorsflujos").dataTable({
+                        "bJQueryUI": true,
+                        "bDestroy": true
+                    });
+                }
+                //reconstruimos la tabla con los datos
+                $("#matriz").dataTable({
+                    "bJQueryUI": true,
+                    "bDestroy": true
+                });
+                //limpiamos los campos para empesar el ciclo de nuevo
+                $("#ctl00_cphPrincipal_Txtcontact").val("");
+                $("#ctl00_cphPrincipal_Txtcedulacont").val("");
+                $("#ctl00_cphPrincipal_Txttelcont").val("");
+                $("#ctl00_cphPrincipal_Txtemail").val("");
+                $("#ctl00_cphPrincipal_Txtvrdiner").val("");
+                $("#ctl00_cphPrincipal_Txtvresp").val("");
+                $("#ctl00_cphPrincipal_Txtaportfscocomp").val("");
 
             }
-            //se anexa columna para totales
-            htmlTableActores += "<tr><td>1000</td><td>Total</td><td></td><td></td><td></td><td></td><td></td><td id='val1'></td><td id='val2'>0</td><td id='val3'>0</td><td></td></tr>";
-            htmltableAflujos += "<tr><td>1000</td><td>Total</td><td id='tflujosing'></td id='tflujosdesen'><td></td><td id='totalflujos'>0</td></tr>";
-            htmltablamatriz += "<tr><td width= '1'>1000</td><td>Valor Total</td><td id='valueMoneytotal'>0</td><td id='ValueEspeciestotal'>0</td><td id='ValueCostotal'>0</td></tr></tbody></table>";
-
-            htmlTableActores += "</tbody></table>";
-            htmltableAflujos += "</tbody></table>";
-
-            //cargamos el div donde se generara la tabla actores
-            $("#T_ActorsContainer").html("");
-            $("#T_ActorsContainer").html(htmlTableActores);
-
-            //cargamos el div donde se generara la tabla flujo de actores
-            $("#T_AflujosContainer").html("");
-            $("#T_AflujosContainer").html(htmltableAflujos);
-
-
-            $("#T_matrizcontainer").html("");
-            $("#T_matrizcontainer").html(htmltablamatriz);
-
-
-            //llama la funcion sumar en la grilla de actores
-            sumar_grid_actores();
-
-            //llama la funcion de buscar la FSC 
-            // buscarFSC();
-
-            //llamar la funcion de buscar diferentes a la FSC
-            // buscarothers();
-
-            //llamar la funcion suma de primera columna efectivo
-            sumavalores_gridprincipal();
-
-            //llamar la funcion suma segunda columna especie
-            //sumaespecie_gridprincipal();
-
-            //llamar la funcion suma tercera columna total
-            //sumatotal_gridprincipal();
-
-            //reconstruimos la tabla con los datos 
-            $("#T_Actors").dataTable({
-                "bJQueryUI": true,
-                "bDestroy": true
-            });
-
-            //reconstruimos la tabla con los datos 
-            $("#T_Actorsflujos").dataTable({
-                "bJQueryUI": true,
-                "bDestroy": true
-            });
-
-            //reconstruimos la tabla con los datos
-            $("#matriz").dataTable({
-                "bJQueryUI": true,
-                "bDestroy": true
-            });
-            //limpiamos los campos para empesar el ciclo de nuevo
-            $("#ctl00_cphPrincipal_Txtcontact").val("");
-            $("#ctl00_cphPrincipal_Txtcedulacont").val("");
-            $("#ctl00_cphPrincipal_Txttelcont").val("");
-            $("#ctl00_cphPrincipal_Txtemail").val("");
-            $("#ctl00_cphPrincipal_Txtvrdiner").val("");
-            $("#ctl00_cphPrincipal_Txtvresp").val("");
-            $("#ctl00_cphPrincipal_Txtaportfscocomp").val("");
-
         }
     }
 }
@@ -842,7 +932,7 @@ function traerdetalles(str_idpago) {
     $("#dialog").dialog("open", "show");
 
 }
-
+//fnucion para cerrar la ventana de detalles
 function x() {
     $("#dialog").dialog("close");
 }
@@ -951,7 +1041,9 @@ function eliminarflujo(strN_pago) {
     else {
         //boton editar
         switch_editar = 0;
+        var totalreverdesenbolso = 0;
 
+        //recorremos la tabla flujo de actores
         $("#T_Actorsflujos tr").slice(0, $("#T_Actorsflujos tr").length - 1).each(function() {
 
             arrayinputflujos = $(this).find("td").slice(0, 1);
@@ -960,20 +1052,23 @@ function eliminarflujo(strN_pago) {
 
                 var idflujo = "#value" + $(arrayinputflujos[0]).html();
 
-                // var input = $(input).val();
-                //input = input.replace(/\./gi, '');
-
+                //RECORREMOS EL ARRAY DE REVERSA DESEMBOLSOS
                 for (itemdesembolsos in reversedesembolsos) {
 
+                    //validamos si el codigo del actor del array es igual al de la tabla
                     if ($(arrayinputflujos[0]).html() == reversedesembolsos[itemdesembolsos].actorsreverse) {
 
                         var input = "#txtinput" + $(arrayinputflujos[0]).html();
 
+                        //capturamos el valor del array y lo llevamos al campo de texto deseado
                         var demvolsobsumar = reversedesembolsos[itemdesembolsos].desembolsorev;
                         $(input).val(demvolsobsumar);
+
+                        //totalizamos valores y asctualizamos el campo de total
+                        totalreverdesenbolso = totalreverdesenbolso + parseInt(reversedesembolsos[itemdesembolsos].desembolsorev.replace(/\./gi, ''));
+                        $("#totalflujos").text(addCommasrefactor(totalreverdesenbolso));
                     }
                 }
-
             }
         });
     }
@@ -996,7 +1091,7 @@ function restar_flujos(str) {
     //construimos el input a validar
     var idflujo = "#txtinput" + str;
     var iddesenbolso = "#desenbolso" + str;
-    var idinicial = "#value" + str
+    var idinicial = "#value" + str;
 
     //validamos si el input esta vacio
     if ($(idflujo).val() != "") {
@@ -1031,9 +1126,7 @@ function restar_flujos(str) {
                 swhich_validar_estado_1 = 0;
             }
         }
-
         //        $(idflujo).val("");
-
     }
 
 }
@@ -1068,8 +1161,6 @@ function sumar_flujos(str) {
         ValuesActorsflujos = ValuesActorsflujos.replace(/\./gi, '');
     }
 
-
-
     var opeValuesActorsflujos = parseInt(ValuesActorsflujos);
 
 
@@ -1091,7 +1182,6 @@ function sumar_flujos(str) {
             opeValuesActorsflujos = 0;
         }
 
-
         if (opevaluesActorslimit == opevaluesActorsdesembolso) {
             totaldesembolso = opevaluesActorsdesembolso - opeValuesActorsflujos;
             $(tr_Iddes).text(addCommasrefactor(totaldesembolso));
@@ -1103,7 +1193,6 @@ function sumar_flujos(str) {
 
         }
 
-
         if (opevaluesActorsdesembolso < opeValuesActorsflujos) {
             alert("el valor ingresado no debe superar al desembolso disponible");
             //$(id).val("");
@@ -1111,12 +1200,10 @@ function sumar_flujos(str) {
             opeValuesActorsflujos = 0;
         }
 
-
     });
 
     var test2 = $(tr_Iddes).html();
     test2 = test2.replace(/\./gi, '');
-
 
     //validamos si es el primer registro del array
     if (arrayValorflujoTotal.length == 0) {
@@ -1169,8 +1256,6 @@ function sumar_flujos(str) {
         arrayValorflujoTotal[0] = valtotaldiner;
         $("#totalflujos").text(addCommasrefactor(valtotaldiner));
     }
-
-
 }
 
 
@@ -1211,21 +1296,23 @@ function sumarflujospagos() {
             $("#totalflujospagos").text("0");
         }
     });
-
 }
 
 
 //borrar de la grilla html de actores
-function deleteActor(str, objbutton) {
+function deleteActor(str) {
 
+    // $(objbutton).parent().parent().remove();
     if (swhich_flujos_exist == 1) {
         alert("Se ha detectado información el la pestaña de flujos de pagos, al eliminar el actor toda la información se perdera!");
 
+        var idactor = "#actor" + str;
+        $(idactor).remove();
 
-        $(objbutton).parent().parent().remove();
-        var idflujo = "#" + str;
-        var idmatriz = "#matriz" + str;
+        var idflujo = "#flujo" + str;
         $(idflujo).remove();
+
+        var idmatriz = "#matriz" + str;
         $(idmatriz).remove();
         //recorremos el array
         for (itemArray in arrayActor) {
@@ -1239,8 +1326,17 @@ function deleteActor(str, objbutton) {
                 //arrayActor.splice(arrayActor[itemArray].actorsName, 1);
             }
         }
+        //recorremos el array
+        for (itemArrayflujo in arrayActorFlujo) {
+            //construimos la llave de validacion
+            var idflujo = arrayActorFlujo[itemArrayflujo].actorsVal;
+            //validamos el dato q nos trae la funcion
 
-
+            if (str == idflujo) {
+                //borramos el actor deseado
+                delete arrayActorFlujo[itemArrayflujo];
+            }
+        }
 
         $("#totalflujos").text(0);
         //recorremos la tabla de flujo de pagos
@@ -1276,34 +1372,41 @@ function deleteActor(str, objbutton) {
             "bDestroy": true
         });
 
+        //lamar la funcionsumar actores
+        sumar_grid_actores();
+        //llamar la funcion suma de grid principal
         sumavalores_gridprincipal();
 
-        $("#T_Actors").dataTable({
-            "bJQueryUI": true,
-            "bDestroy": true
-        });
+        //        $("#T_Actors").dataTable({
+        //            "bJQueryUI": true,
+        //            "bDestroy": true
+        //        });
 
-        //reconstruimos la tabla con los datos 
-        $("#T_Actorsflujos").dataTable({
-            "bJQueryUI": true,
-            "bDestroy": true
-        });
+        //        //reconstruimos la tabla con los datos 
+        //        $("#T_Actorsflujos").dataTable({
+        //            "bJQueryUI": true,
+        //            "bDestroy": true
+        //        });
 
-        //reconstruimos la tabla con los datos
-        $("#matriz").dataTable({
-            "bJQueryUI": true,
-            "bDestroy": true
-        });
+        //        //reconstruimos la tabla con los datos
+        //        $("#matriz").dataTable({
+        //            "bJQueryUI": true,
+        //            "bDestroy": true
+        //        });
 
 
     }
     else {
 
-        $(objbutton).parent().parent().remove();
-        var idflujo = "#" + str;
-        var idmatriz = "#matriz" + str;
+        var idflujo = "#flujo" + str;
         $(idflujo).remove();
+
+        var idmatriz = "#matriz" + str;
         $(idmatriz).remove();
+
+        var idactor = "#actor" + str;
+        $(idactor).remove();
+
         //recorremos el array
         for (itemArray in arrayActor) {
             //construimos la llave de validacion
@@ -1315,28 +1418,40 @@ function deleteActor(str, objbutton) {
                 delete arrayActor[itemArray];
                 //arrayActor.splice(arrayActor[itemArray].actorsName, 1);
             }
-
-
         }
+        //recorremos el array
+        for (itemArrayflujo in arrayActorFlujo) {
+            //construimos la llave de validacion
+            var idflujo = arrayActorFlujo[itemArrayflujo].actorsVal;
+            //validamos el dato q nos trae la funcion
+
+            if (str == idflujo) {
+                //borramos el actor deseado
+                delete arrayActorFlujo[itemArrayflujo];
+            }
+        }
+        //lamar la funcionsumar actores
+        sumar_grid_actores();
         //llamar la funcion suma de grid principal
         sumavalores_gridprincipal();
 
-        $("#T_Actors").dataTable({
-            "bJQueryUI": true,
-            "bDestroy": true
-        });
 
-        //reconstruimos la tabla con los datos 
-        $("#T_Actorsflujos").dataTable({
-            "bJQueryUI": true,
-            "bDestroy": true
-        });
+        //        $("#T_Actors").dataTable({
+        //            "bJQueryUI": true,
+        //            "bDestroy": true
+        //        });
 
-        //reconstruimos la tabla con los datos
-        $("#matriz").dataTable({
-            "bJQueryUI": true,
-            "bDestroy": true
-        });
+        //        //reconstruimos la tabla con los datos 
+        //        $("#T_Actorsflujos").dataTable({
+        //            "bJQueryUI": true,
+        //            "bDestroy": true
+        //        });
+
+        //        //reconstruimos la tabla con los datos
+        //        $("#matriz").dataTable({
+        //            "bJQueryUI": true,
+        //            "bDestroy": true
+        //        });
 
     }
 
@@ -1349,18 +1464,22 @@ function sumar_grid_actores() {
 
     //inicializamos las variables
     var valdiner = 0;
+    var valdinerflujos = 0;
     var valespecie = 0;
     var valtotal = 0;
+
+
+
 
     //recorremos la tabla actores para calcular los totales
     $("#T_Actors tr").slice(0, $("#T_Actors tr").length - 1).each(function() {
         var arrayValuesActors = $(this).find("td").slice(7, 10);
-
         //validamos si hay campos null en la tabla actores
         if ($(arrayValuesActors[0]).html() != null) {
 
             //capturamos e incrementamos los valores para la suma
             valdiner = valdiner + parseInt($(arrayValuesActors[0]).html().replace(/\./gi, ''));
+
             valespecie = valespecie + parseInt($(arrayValuesActors[1]).html().replace(/\./gi, ''));
             valtotal = valtotal + parseInt($(arrayValuesActors[2]).html().replace(/\./gi, ''));
             //validamos valores si vienen vacios
@@ -1376,19 +1495,37 @@ function sumar_grid_actores() {
 
             //cargamos los campos con la operacion realizada
             $("#val1").text(addCommasrefactor(valdiner));
-            $("#tflujosing").text(addCommasrefactor(valdiner));
             $("#val2").text(addCommasrefactor(valespecie));
             $("#val3").text(addCommasrefactor(valtotal));
         }
         else {
             $("#val1").text(0);
-            $("#tflujosing").text(0);
             $("#val2").text(0);
             $("#val3").text(0);
-
-
         }
     });
+
+    //recorremos la tabla flujo de actores para calcular los totales
+    $("#T_Actorsflujos tr").slice(0, $("#T_Actorsflujos tr").length - 1).each(function() {
+        var arrayValuesflujos = $(this).find("td").slice(0, 4);
+        //validamos si hay campos null en la tabla flujos actores
+        if ($(arrayValuesflujos[0]).html() != null) {
+            //capturamos e incrementamos los valores para la suma
+
+            valdinerflujos = valdinerflujos + parseInt($(arrayValuesflujos[3]).html().replace(/\./gi, ''));
+
+            if (isNaN(valdinerflujos)) {
+                valdinerflujos = 0;
+            }
+            //cargamos los campos con la operacion realizada
+            $("#tflujosing").text(addCommasrefactor(valdinerflujos));
+        }
+        else {
+            $("#tflujosing").text(0);
+        }
+    });
+
+
 }
 
 //funcion de buscar en la grilla de actores  la FSC para el grid principal
@@ -1530,7 +1667,7 @@ function sumavalores_gridprincipal() {
             $("#ValueEspeciestotal").text(addCommasrefactor(valespeciegridprincipal));
             $("#ValueCostotal").text(addCommasrefactor(valtotalgridprincipal));
 
-            $("#ctl00_cphPrincipal_HDvalorpagoflujo").val(addCommasrefactor(valdinergridprincipal))
+            $("#ctl00_cphPrincipal_HDvalorpagoflujo").val(addCommasrefactor(valdinergridprincipal));
         }
 
         //validamos si la opcion escojida esta vacia y le asignamos 0
@@ -1688,7 +1825,19 @@ function validarporcentaje() {
         var parcial = (parseFloat(porc) * parseFloat(valortotalflow)) / 100;
         parcial = numeral(parcial).format('0,0.0');
 
-        $("#ctl00_cphPrincipal_Lbltotalvalor").text(parcial)
+        $("#ctl00_cphPrincipal_Lbltotalvalor").text(parcial);
+
+        if (s_revisarflujos == 1) {
+            var idflujos = arrayActorFlujo[itemarrayflujos].actorsVal;
+
+            var arrseparar = parcial.split('.');
+            valuecomparative = arrseparar[0].replace(/\,/gi, '.');
+
+            $("#txtinput" + idflujos).val(valuecomparative);
+            $("#totalflujos").text(valuecomparative);
+        }
+
+
     });
 
     //Validar que el porcentaje no supere el 100 por ciento, no tenga comas ni tenga mas de 2 decimas
@@ -1702,6 +1851,7 @@ function validarporcentaje() {
         }
         else {
             $("#ctl00_cphPrincipal_Lblhelpporcentaje").text("");
+
         }
         if ($("#ctl00_cphPrincipal_txtporcentaje").val() == 0) {
             $("#ctl00_cphPrincipal_Lblhelpporcentaje").text("El porcentaje debe ser meayor a 0");
@@ -1887,8 +2037,6 @@ function cargarcomponente() {
                         }
 
                     }
-
-
                 });
                 //Compoentes Style
                 $("#seleccionarcomponente li, #componentesseleccionados li").click(function() {
@@ -2252,14 +2400,14 @@ function operacionesIdea() {
     $("#ctl00_cphPrincipal_txtresults, #ctl00_cphPrincipal_txtresulgc, #ctl00_cphPrincipal_txtresulci, #ctl00_cphPrincipal_txtstartdate ").blur(function() {
         if ($("#ctl00_cphPrincipal_txtresults").val() == '' && $("#ctl00_cphPrincipal_txtresulgc").val() == '' && $("#ctl00_cphPrincipal_txtresulci").val() == '') {
             $(this).css("border", "2px solid red");
-            $("#ctl00_cphPrincipal_lblHelpresults").text("Algunos de los resultados debe ser diligenciado.")
-            $("#ctl00_cphPrincipal_Label10").text("Algunos de los resultados debe ser diligenciado.")
-            $("#ctl00_cphPrincipal_Label11").text("Algunos de los resultados debe ser diligenciado.")
+            $("#ctl00_cphPrincipal_lblHelpresults").text("Algunos de los resultados debe ser diligenciado.");
+            $("#ctl00_cphPrincipal_Label10").text("Algunos de los resultados debe ser diligenciado.");
+            $("#ctl00_cphPrincipal_Label11").text("Algunos de los resultados debe ser diligenciado.");
         } else {
             $(this).css("border", "2px solid #DEDEDE");
-            $("#ctl00_cphPrincipal_lblHelpresults").text("")
-            $("#ctl00_cphPrincipal_Label10").text("")
-            $("#ctl00_cphPrincipal_Label11").text("")
+            $("#ctl00_cphPrincipal_lblHelpresults").text("");
+            $("#ctl00_cphPrincipal_Label10").text("");
+            $("#ctl00_cphPrincipal_Label11").text("");
 
         }
     });
@@ -2395,102 +2543,67 @@ function separarvaloresFSC() {
 }
 
 
-function subirArchivos() {
-    //validamos si seleccionaron un archivo
-    if ($("#fileupload").val() != "") {
 
-        //capturamos los datos del input file
-        var file = $("#fileupload");
-        var dataFile = $("#fileupload")[0].files[0];
+//function subirArchivos() {
+//validamos si seleccionaron un archivo
+//    if ($("#fileupload").val() != "") {
 
-        //inicializamos el fordata para transferencia de archivos
-        var data = new FormData();
-        //asinamos el datafile a la variable archivo 
-        data.append('archivo', dataFile);
+//capturamos los datos del input file
+///       var file = $("#fileupload");
+//      var dataFile = $("#fileupload")[0].files[0];
 
-        //transacion ajax
-        $.ajax({
-            url: "AjaxAddIdea.aspx",
-            type: "POST",
-            contentType: false,
-            data: data,
-            processData: false,
-            success: function(result) {
-                //verificamos si el resultado de la transaccion ajax viene con datos
-                if (result != "") {
-                    //validamos e inicializamos contador
-                    if (arrayFiles.length == 0) {
-                        idfile = 0;
-                        idfile = idfile + 1;
-                    }
+//inicializamos el fordata para transferencia de archivos
+//   var data = new FormData();
+//asinamos el datafile a la variable archivo 
+// data.append('archivo', dataFile);
 
-                    else {
-                        idfile = idfile + 1;
-                    }
-                    //creamos variables
-                    var filename = result;
-                    var objectfile = data;
+// data.ajaxStart(inicioEnvio);
+//transacion ajax
+//        $.ajax({
+//            url: "AjaxAddIdea.aspx",
+//            type: "POST",
+//            contentType: false,
+//            data: data,
+//            processData: false,
+//            success: function(result) {
+//                //verificamos si el resultado de la transaccion ajax viene con datos
+//creamos variables
+//      var filename = result;
+//     var objectfile = data;
 
-                    //creamos json para guardarlos en un array
-                    var jsonFiles = { "idfile": idfile, "filename": filename, "objectfile": objectfile };
-                    //cargamos el array con el json
-                    arrayFiles.push(jsonFiles);
+//creamos json para guardarlos en un array
+//      var jsonFiles = { "idfile": idfile, "filename": filename, "objectfile": objectfile };
+//cargamos el array con el json
+//     arrayFiles.push(jsonFiles);
 
-                    //creamos tabla de anexos
-                    var htmlTablefiles = "<table id='T_files' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr><th style='text-align: center;'></th><th style='text-align: center;'>Archivo</th><th style='text-align: center;'>Eliminar</th></tr></thead><tbody>";
-                    //recorremos el array para generar datos del la tabla anexos
-                    for (itemArray in arrayFiles) {
-                        htmlTablefiles += "<tr id='" + arrayFiles[itemArray].idfile + "'><td>" + arrayFiles[itemArray].idfile + "</td><td>" + arrayFiles[itemArray].filename + "</td><td><input type ='button' value= 'Eliminar' onclick=\"deletefile('" + arrayFiles[itemArray].idfile + "', this)\"></input></td></tr>";
-                    }
+//creamos tabla de anexos
+// }
+// else {
+//       alert("Ocurrió un error inesperado, por favor intente de nuevo mas tarde.");
+//   }
+//            },
+//            error: function() {
+//                alert("Ocurrió un error inesperado, por favor intente de nuevo mas tarde.");
+//            }
+//        });
 
-                    htmlTablefiles += "</tbody></table>";
-
-                    //cargamos el div donde se generara la tabla anexos
-                    $("#tdFileInputs").html("");
-                    $("#tdFileInputs").html(htmlTablefiles);
-
-                    //reconstruimos el pluging de la tabla
-                    $("#T_files").dataTable({
-                        "bJQueryUI": true,
-                        "bDestroy": true
-                    });
-                    //vaciamos el contenedor del input files
-                    $("#fileupload").val("");
-                }
-                else {
-                    alert("Ocurrió un error inesperado, por favor intente de nuevo mas tarde.");
-                }
-            },
-            error: function() {
-                alert("Ocurrió un error inesperado, por favor intente de nuevo mas tarde.");
-            }
-        });
-    }
-    else {
-        //aletarmos al usuario de ninguna seleccion
-        alert("No ha seleccionado ningún archivo!");
-    }
-
-}
+//}
 
 
 function deletefile(stridfile, objbutton) {
 
     $(objbutton).parent().parent().remove();
     //recorremos el array
-    for (itemArray in arrayFiles) {
-        //construimos la llave de validacion
-        var id = arrayFiles[itemArray].idfile;
-        //validamos el dato q nos trae la funcion
+    //borramos el actor deseado
+    filescharge.remove[stridfile]; 
+   // delete filescharge[stridfile];
 
-        if (stridfile == id) {
-            //borramos el actor deseado
-            delete arrayFiles[itemArray];
-            //arrayActor.splice(arrayActor[itemArray].actorsName, 1);
-        }
-    }
+}
 
-
+function inicioEnvio() {
+    //
+    var x = $("#gif_charge_Container");
+    x.html('<img src="../cargando.gif">');
 
 }
 
