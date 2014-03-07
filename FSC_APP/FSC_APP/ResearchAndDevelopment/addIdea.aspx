@@ -912,8 +912,8 @@
                 <br />
                 <ul>
                     <li style="margin-left: 3em;">
-                        <asp:Label ID="Lblpaso3" runat="server" Text="Resumen programación desembolsos"
-                            Font-Bold="True" Font-Size="Large"></asp:Label>
+                        <asp:Label ID="Lblpaso3" runat="server" Text="Resumen programación desembolsos" Font-Bold="True"
+                            Font-Size="Large"></asp:Label>
                     </li>
                 </ul>
                 <div id="T_flujosContainer" style="margin-left: 3em; margin-right: 3em">
@@ -970,12 +970,14 @@
             <ul>
                 <li id="tableAttachments"></li>
                 <input id="fileupload" type="file" name="files[]" multiple />
-                <%-- <input id="Btncharge_file" type="button" value="Adjuntar un archivo" name="Add_files"
-                    onclick="subirArchivos()" />--%>
+                <input id="Btncharge_file" type="button" value="Adjuntar un archivo" name="Add_files"
+                    onclick="subirArchivos()" />
                 <li>
-                    <%-- <img src="../App_Themes/GattacaAdmin/Images/attach.gif" alt="" />--%>
                     <a id="lnkAttch" style="cursor: hand" onclick="AddFileInput(F1)" visible="false">
                     </a></li>
+                <li>
+                    <asp:Label ID="LblHELPARCHIVE" runat="server" ForeColor="#990000"></asp:Label>
+                </li>
                 <li id="li5000" runat="server" visible="false">
                     <asp:Label ID="obser" runat="server" Text="Descripción"></asp:Label>
                     <asp:TextBox ID="txtobser" runat="server" MaxLength="500" Width="400px"></asp:TextBox>
@@ -993,7 +995,7 @@
                                 <th style="text-align: center;">
                                     Archivo
                                 </th>
-                                 <th style="text-align: center;">
+                                <th style="text-align: center;">
                                     Ver
                                 </th>
                                 <th style="text-align: center;">

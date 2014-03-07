@@ -15,9 +15,10 @@ var arrayinputflujos = [];
 var arrayflujosdepago = [];
 var matriz_flujos = [];
 var reversedesembolsos = [];
+var arrayFiles = [];
+
 var filescharge = [];
 var args = [];
-
 var valI1;
 var valI2;
 var valI3;
@@ -26,6 +27,7 @@ var switch_editar = 0;
 var swhich_validar_estado_1 = 0;
 var s_revisarflujos = 0;
 
+var idfile;
 var S_eliminar;
 
 //Array.prototype.remove = function(from, to) {
@@ -158,40 +160,6 @@ $(document).ready(function() {
         else { entradaflujos = 0; }
     });
 
-    //capturar el nombre y crear tabla de anexos
-    function eventFileSelect(evt) {
-        S_eliminar = 0;
-
-        filescharge = evt.target.files;
-        //convertimos en un array
-        args = Array.prototype.slice.call(filescharge, 0);
-
-        var dataFile = $("#fileupload")[0].files[0];
-        //inicializamos el fordata para transferencia de archivos
-        var data = new FormData();
-        //asinamos el datafile a la variable archivo 
-        data.append('archivo', dataFile);
-
-        $.ajax({
-            url: "AjaxAddIdea.aspx",
-            type: "POST",
-            contentType: false,
-            data: data,
-            processData: false,
-            success: function(result) {
-                alert("carga exitosa");
-            },
-            error: function(msg) {
-                alert("no subieron los archivos seleccionados.");
-            }
-        });
-
-        //llamamos la fucion q construye la tabla
-        Cons_T_Anexos();
-              
-    }
-    //crear evento change en el inputfiles de los archivos
-    document.getElementById("fileupload").addEventListener('change', eventFileSelect, false);
 
 });
 
@@ -2548,60 +2516,82 @@ function separarvaloresFSC() {
 
 
 
-//function subirArchivos() {
-//validamos si seleccionaron un archivo
-//    if ($("#fileupload").val() != "") {
+function subirArchivos() {
+    //validamos si seleccionaron un archivo
+    if ($("#fileupload").val() != "") {
+        $("#ctl00_cphPrincipal_LblHELPARCHIVE").text("");
+        //capturamos los datos del input file
+        var file = $("#fileupload");
+        var dataFile = $("#fileupload")[0].files[0];
 
-//capturamos los datos del input file
-///       var file = $("#fileupload");
-//      var dataFile = $("#fileupload")[0].files[0];
+        //inicializamos el fordata para transferencia de archivos
+        var data = new FormData();
+        //asinamos el datafile a la variable archivo 
+        data.append('archivo', dataFile);
 
-//inicializamos el fordata para transferencia de archivos
-//   var data = new FormData();
-//asinamos el datafile a la variable archivo 
-// data.append('archivo', dataFile);
+        // data.ajaxStart(inicioEnvio);
+        //transacion ajax
+        $.ajax({
+            url: "AjaxAddIdea.aspx",
+            type: "POST",
+            contentType: false,
+            data: data,
+            processData: false,
+            success: function(result) {
 
-// data.ajaxStart(inicioEnvio);
-//transacion ajax
-//        $.ajax({
-//            url: "AjaxAddIdea.aspx",
-//            type: "POST",
-//            contentType: false,
-//            data: data,
-//            processData: false,
-//            success: function(result) {
-//                //verificamos si el resultado de la transaccion ajax viene con datos
-//creamos variables
-//      var filename = result;
-//     var objectfile = data;
+                //creamos variables
+                var filename = result;
+                var objectfile = data;
 
-//creamos json para guardarlos en un array
-//      var jsonFiles = { "idfile": idfile, "filename": filename, "objectfile": objectfile };
-//cargamos el array con el json
-//     arrayFiles.push(jsonFiles);
+                if (idfile == null) {
+                    idfile = 1;
+                }
+                else {
+                    idfile = idfile + 1;
+                }
 
-//creamos tabla de anexos
-// }
-// else {
-//       alert("Ocurrió un error inesperado, por favor intente de nuevo mas tarde.");
-//   }
-//            },
-//            error: function() {
-//                alert("Ocurrió un error inesperado, por favor intente de nuevo mas tarde.");
-//            }
-//        });
-//}
+                //creamos json para guardarlos en un array
+                var jsonFiles = { "idfile": idfile, "filename": filename, "objectfile": objectfile };
+                //            //cargamos el array con el json
+                arrayFiles.push(jsonFiles);
 
+                var htmlTablefiles = "<table id='T_files' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr><th style='text-align: center;'>Archivo</th><th style='text-align: center;'>Observaciones</th><th style='text-align: center;'>Eliminar</th></tr></thead><tbody>";
+                //recorremos el array para generar datos del la tabla anexos
+                for (itemArray in arrayFiles) {
+                    htmlTablefiles += "<tr id='archivo" + arrayFiles[itemArray].idfile + "'><td><a id='linkarchives' runat='server' href='/FSC_APP/document/temp/" + arrayFiles[itemArray].filename + "' target= '_blank' title='link'>" + arrayFiles[itemArray].filename + "</a></td><td style='text-align: center;'><input id='txtinputobser" + arrayFiles[itemArray].idfile + "' ></input></td><td style='text-align: center;'><input type ='button' value= 'Eliminar' onclick=\"deletefile('" + arrayFiles[itemArray].idfile + "')\"></input></td></tr>";
+                }
+                htmlTablefiles += "</tbody></table>";
+
+                //cargamos el div donde se generara la tabla anexos
+                $("#tdFileInputs").html("");
+                $("#tdFileInputs").html(htmlTablefiles);
+
+                //reconstruimos el pluging de la tabla
+                $("#T_files").dataTable({
+                    "bJQueryUI": true,
+                    "bDestroy": true
+                });
+
+                $("#fileupload").val("");
+
+            },
+            error: function() {
+                alert("Ocurrió un error inesperado, por favor intente de nuevo mas tarde.");
+            }
+        });
+    }
+    else {
+        $("#ctl00_cphPrincipal_LblHELPARCHIVE").text("No ha seleccionado ningún archivo");
+        
+    }
+
+}
 
 function deletefile(stridfile) {
-
-    //borramos el actor deseado
-    args.remove(stridfile);
 
     var idarchivo = "#archivo" + stridfile;
     $(idarchivo).remove();
 
-    Cons_T_Anexos();
 
 }
 
@@ -2613,24 +2603,25 @@ function inicioEnvio() {
 }
 
 
-function Cons_T_Anexos() {
+//function Cons_T_Anexos() {
 
-    var htmlTablefiles = "<table id='T_files' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr><th style='text-align: center;'>Archivo</th><th style='text-align: center;'>Observaciones</th><th style='text-align: center;'>Eliminar</th></tr></thead><tbody>";
-    //recorremos el array para generar datos del la tabla anexos
-    for (i = 0; i < args.length; i++) {
-        htmlTablefiles += "<tr id='archivo" + i + "'><td><a id='linkarchives' runat='server' href='/FSC_APP/document/temp/" + args[i].name + "' target= '_blank' title='link'>" + args[i].name + "</a></td><td style='text-align: center;'><input id='txtinputobser" + i + "' ></input></td><td style='text-align: center;'><input type ='button' value= 'Eliminar' onclick=\"deletefile('" + i + "')\"></input></td></tr>";
-    }
+//    var htmlTablefiles = "<table id='T_files' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr><th style='text-align: center;'>Archivo</th><th style='text-align: center;'>Observaciones</th><th style='text-align: center;'>Eliminar</th></tr></thead><tbody>";
+//    //recorremos el array para generar datos del la tabla anexos
 
-    htmlTablefiles += "</tbody></table>";
+//    for (i = 0; i < args.length; i++) {
+//        htmlTablefiles += "<tr id='archivo" + i + "'><td><a id='linkarchives' runat='server' href='/FSC_APP/document/temp/" + args[i].name + "' target= '_blank' title='link'>" + args[i].name + "</a></td><td style='text-align: center;'><input id='txtinputobser" + i + "' ></input></td><td style='text-align: center;'><input type ='button' value= 'Eliminar' onclick=\"deletefile('" + i + "')\"></input></td></tr>";
+//    }
 
-    //cargamos el div donde se generara la tabla anexos
-    $("#tdFileInputs").html("");
-    $("#tdFileInputs").html(htmlTablefiles);
+//    htmlTablefiles += "</tbody></table>";
 
-    //reconstruimos el pluging de la tabla
-    $("#T_files").dataTable({
-        "bJQueryUI": true,
-        "bDestroy": true
-    });
-    
-}
+//    //cargamos el div donde se generara la tabla anexos
+//    $("#tdFileInputs").html("");
+//    $("#tdFileInputs").html(htmlTablefiles);
+
+//    //reconstruimos el pluging de la tabla
+//    $("#T_files").dataTable({
+//        "bJQueryUI": true,
+//        "bDestroy": true
+//    });
+
+//}

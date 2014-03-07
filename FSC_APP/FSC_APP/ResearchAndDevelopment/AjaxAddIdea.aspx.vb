@@ -25,8 +25,6 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         Dim S_code, S_linea_estrategica, S_programa, S_nombre, S_justificacion, S_objetivo, S_objetivo_esp, S_Resultados_Benef, S_Resultados_Ges_c, S_Resultados_Cap_i, S_Fecha_inicio, S_mes, S_dia, S_Fecha_fin, S_Población, S_contratacion, S_A_Mfsc, S_A_Efsc, S_A_Mcounter, S_A_Ecounter, S_cost, S_obligaciones, S_iva, S_listubicaciones, S_listactors, S_mitigacion, S_riesgos, S_presupuestal As String
         Dim id_lineStrategic, id_depto, idprogram, idpopulation, Countarchivo As Integer
 
-        Dim item_file As Integer
-
         Dim strFileName() As String
         Dim fileName As String = String.Empty
         Dim files As HttpFileCollection = Request.Files
@@ -34,14 +32,14 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
         Session("locationByIdeaList") = New List(Of LocationByIdeaEntity)
 
-
+        
         If Request.Files.Count() > 0 Then
 
 
             'Se recorre la lista de archivos cargados al servidor
             For i As Integer = 0 To files.Count - 1
 
-                Dim file As HttpPostedFile = files(i)
+                Dim file As HttpPostedFile = Request.Files.[Get](i)
 
                 If file.ContentLength > 0 Then
 
@@ -64,6 +62,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                     DocumentsTmpList.Add(objDocument)
                     Session("DocumentsTmp") = DocumentsTmpList
 
+                    Response.Write(fileName)
                 End If
 
             Next
