@@ -2618,7 +2618,7 @@ function Cons_T_Anexos() {
     var htmlTablefiles = "<table id='T_files' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr><th style='text-align: center;'>Archivo</th><th style='text-align: center;'>Observaciones</th><th style='text-align: center;'>Eliminar</th></tr></thead><tbody>";
     //recorremos el array para generar datos del la tabla anexos
     for (i = 0; i < args.length; i++) {
-        htmlTablefiles += "<tr id='archivo" + i + "'><td><a id='linkarchives' runat='server' href='/document/temp/" + args[i].name + "' title='link'>" + args[i].name + "</a></td><td style='text-align: center;'><input id='txtinputobser" + i + "' ></input></td><td style='text-align: center;'><input type ='button' value= 'Eliminar' onclick=\"deletefile('" + i + "')\"></input></td></tr>";
+        htmlTablefiles += "<tr id='archivo" + i + "'><td><a id='linkarchives' runat='server' href='/FSC_APP/document/temp/" + args[i].name + "' title='link'>" + args[i].name + "</a></td><td style='text-align: center;'><input id='txtinputobser" + i + "' ></input></td><td style='text-align: center;'><input type ='button' value= 'Eliminar' onclick=\"deletefile('" + i + "')\"></input></td></tr>";
     }
 
     htmlTablefiles += "</tbody></table>";
