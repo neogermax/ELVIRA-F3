@@ -35,15 +35,28 @@ Public Class ThirdByIdeaDALC
             "type," & _
             "Vrmoney," & _
             "VrSpecies," & _
-            "FSCorCounterpartContribution" & _
-            ")")
+            "FSCorCounterpartContribution," & _
+            "Name," & _
+            "Contact," & _
+            "Documents," & _
+            "Phone," & _
+            "Email," & _
+            "CreateDate" & _
+             ")")
+
             sql.AppendLine("VALUES (")
             sql.AppendLine("'" & ThirdByIdea.ididea & "',")
             sql.AppendLine("'" & ThirdByIdea.idthird & "',")
             sql.AppendLine("'" & ThirdByIdea.type & "',")
             sql.AppendLine("'" & ThirdByIdea.Vrmoney & "',")
             sql.AppendLine("'" & ThirdByIdea.VrSpecies & "',")
-            sql.AppendLine("'" & ThirdByIdea.FSCorCounterpartContribution & "')")
+            sql.AppendLine("'" & ThirdByIdea.FSCorCounterpartContribution & "',")
+            sql.AppendLine("'" & ThirdByIdea.Name & "',")
+            sql.AppendLine("'" & ThirdByIdea.contact & "',")
+            sql.AppendLine("'" & ThirdByIdea.Documents & "',")
+            sql.AppendLine("'" & ThirdByIdea.Phone & "',")
+            sql.AppendLine("'" & ThirdByIdea.Email & "',")
+            sql.AppendLine("'" & ThirdByIdea.CreateDate.ToString("yyyy/MM/dd HH:mm:ss") & "')")
 
             'TODO: 18 MODIFICACION DE MODELO POR ACTORES
             'AUTOR: GERMAN RODRIGUEZ 19/06/2013 MGgroup

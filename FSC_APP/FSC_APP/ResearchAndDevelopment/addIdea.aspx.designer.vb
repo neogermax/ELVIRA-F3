@@ -1429,13 +1429,22 @@ Partial Public Class addIdea
     Protected WithEvents LblinformationFlujo As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''Control Chkflujo.
+    '''Control RBListflujo.
     '''</summary>
     '''<remarks>
     '''Campo generado automáticamente.
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
-    Protected WithEvents Chkflujo As Global.System.Web.UI.WebControls.CheckBox
+    Protected WithEvents RBListflujo As Global.System.Web.UI.WebControls.RadioButtonList
+
+    '''<summary>
+    '''Control Lblflujosinf.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Lblflujosinf As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''Control btnAddThird.
@@ -1688,60 +1697,6 @@ Partial Public Class addIdea
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
     Protected WithEvents Txtpruebas As Global.System.Web.UI.WebControls.TextBox
-
-    '''<summary>
-    '''Control gvPaymentFlow.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents gvPaymentFlow As Global.System.Web.UI.WebControls.GridView
-
-    '''<summary>
-    '''Control lblmsjporcent.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents lblmsjporcent As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''Control LblFlujodePagoPorcentajeIzquierda.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents LblFlujodePagoPorcentajeIzquierda As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''Control lblmensajeexitoerror.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents lblmensajeexitoerror As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''Control LblFlujodePagoPorcentajeDerecha.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents LblFlujodePagoPorcentajeDerecha As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''Control lblExceed100.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents lblExceed100 As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''Control li5000.

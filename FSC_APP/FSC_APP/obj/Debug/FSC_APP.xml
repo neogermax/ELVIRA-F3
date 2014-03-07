@@ -38445,9 +38445,17 @@ Control LblinformationFlujo.
 Campo generado automáticamente.
 Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 </remarks>
-</member><member name="F:FSC_APP.addIdea.Chkflujo">
+</member><member name="F:FSC_APP.addIdea.RBListflujo">
 	<summary>
-Control Chkflujo.
+Control RBListflujo.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addIdea.Lblflujosinf">
+	<summary>
+Control Lblflujosinf.
 </summary>
 	<remarks>
 Campo generado automáticamente.
@@ -38672,54 +38680,6 @@ Para modificarlo, mueva la declaración del campo del archivo del diseñador al 
 </member><member name="F:FSC_APP.addIdea.Txtpruebas">
 	<summary>
 Control Txtpruebas.
-</summary>
-	<remarks>
-Campo generado automáticamente.
-Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-</remarks>
-</member><member name="F:FSC_APP.addIdea.gvPaymentFlow">
-	<summary>
-Control gvPaymentFlow.
-</summary>
-	<remarks>
-Campo generado automáticamente.
-Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-</remarks>
-</member><member name="F:FSC_APP.addIdea.lblmsjporcent">
-	<summary>
-Control lblmsjporcent.
-</summary>
-	<remarks>
-Campo generado automáticamente.
-Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-</remarks>
-</member><member name="F:FSC_APP.addIdea.LblFlujodePagoPorcentajeIzquierda">
-	<summary>
-Control LblFlujodePagoPorcentajeIzquierda.
-</summary>
-	<remarks>
-Campo generado automáticamente.
-Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-</remarks>
-</member><member name="F:FSC_APP.addIdea.lblmensajeexitoerror">
-	<summary>
-Control lblmensajeexitoerror.
-</summary>
-	<remarks>
-Campo generado automáticamente.
-Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-</remarks>
-</member><member name="F:FSC_APP.addIdea.LblFlujodePagoPorcentajeDerecha">
-	<summary>
-Control LblFlujodePagoPorcentajeDerecha.
-</summary>
-	<remarks>
-Campo generado automáticamente.
-Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-</remarks>
-</member><member name="F:FSC_APP.addIdea.lblExceed100">
-	<summary>
-Control lblExceed100.
 </summary>
 	<remarks>
 Campo generado automáticamente.

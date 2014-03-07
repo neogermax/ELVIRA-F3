@@ -60,7 +60,7 @@ function validartipo() {
             $("#ctl00_cphPrincipal_Lbltitle1").css("display", "none");
             $("#ctl00_cphPrincipal_Lbltitle2").css("display", "block");
 
-            $("#ctl00_cphPrincipal_lblcode").text("Documento, Sin guiones, puntos o espacios. Incluye digito de verificación");
+            $("#ctl00_cphPrincipal_lblcode").text("Documento (Ingresar sin guiones, puntos o espacios)");
             $("#ctl00_cphPrincipal_lblname").text("Nombre del actor");
 
             $("#ctl00_cphPrincipal_Lblcontact").css("display", "none");

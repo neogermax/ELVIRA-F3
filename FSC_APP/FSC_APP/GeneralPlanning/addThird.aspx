@@ -85,7 +85,7 @@
                 <asp:Label ID="lblHelpid" runat="server" Text=""></asp:Label>
             </li>
             <li>
-                <asp:Label ID="lblcode" runat="server" Text="NIT, Sin guiones, puntos ó espacios. Incluye digito de verificación"></asp:Label>
+                <asp:Label ID="lblcode" runat="server" Text="NIT (Ingresar sin guiones, puntos o espacios. Incluir dígito de verificación)"></asp:Label>
                 <asp:TextBox ID="txtcode" runat="server" Width="80%" MaxLength="50" onkeypress="ValidaSoloNumeros()"
                     onkeychange="ValidaSoloNumeros()" onkeyup="ValidaSoloNumeros()"></asp:TextBox>
                 <asp:Label ID="lblinf" runat="server"></asp:Label>
@@ -132,7 +132,7 @@
                 <asp:Label ID="Label8" runat="server" Text=""></asp:Label>
             </li>
             <li>
-                <asp:Label ID="Lbltitle2" runat="server" Text="Información del contacto" Font-Bold="True"
+                <asp:Label ID="Lbltitle2" runat="server" Text="Información de Contacto" Font-Bold="True"
                     Font-Size="Medium"></asp:Label>
             </li>
             <li>
@@ -151,12 +151,12 @@
                 <asp:Label ID="Label4" runat="server" Text=""></asp:Label>
             </li>
             <li>
-                <asp:Label ID="Lbldireccion" runat="server" Text="Dirección"></asp:Label>
+                <asp:Label ID="Lbldireccion" runat="server" Text="Dirección de Domicilio"></asp:Label>
                 <asp:TextBox ID="Txtdireccion" runat="server" Width="80%" MaxLength="255"></asp:TextBox>
                 <asp:Label ID="Lblhelpdireccion" runat="server" Text=""></asp:Label>
             </li>
             <li>
-                <asp:Label ID="Lblmail" runat="server" Text="Email"></asp:Label>
+                <asp:Label ID="Lblmail" runat="server" Text="Correo Electrónico"></asp:Label>
                 <asp:TextBox ID="Txtemail" runat="server" Width="80%" MaxLength="255"></asp:TextBox>
                 <asp:Label ID="Label6" runat="server" Text=""></asp:Label>
             </li>

@@ -15,7 +15,8 @@ var arrayinputflujos = [];
 var arrayflujosdepago = [];
 var matriz_flujos = [];
 var reversedesembolsos = [];
-//var arrayFiles = [];
+var filescharge = [];
+var args = [];
 
 var valI1;
 var valI2;
@@ -24,15 +25,14 @@ var idfile;
 var switch_editar = 0;
 var swhich_validar_estado_1 = 0;
 var s_revisarflujos = 0;
-var filescharge = [];
 
-filescharge.remove = function(from, to) {
+var S_eliminar;
 
-    var rest = this.slice((to || from) + 1 || this.length);
-    this.length = from < 0 ? this.length + from : from;
-    return this.push.apply(this, rest);
-
-};
+//Array.prototype.remove = function(from, to) {
+//    var rest = this.slice((to || from) + 1 || this.length);
+//    this.length = from < 0 ? this.length + from : from;
+//    return this.push.apply(this, rest);
+//};
 
 
 $(document).ready(function() {
@@ -124,7 +124,7 @@ $(document).ready(function() {
         var option_iva = $("#ctl00_cphPrincipal_RBnList_iva :checked").val();
 
         if (option_iva == 1) {
-            $("#ctl00_cphPrincipal_vrdiner").text("Vr Dinero  (Ingrese los valores incluyendo el IVA)");
+            $("#ctl00_cphPrincipal_vrdiner").text("Vr Dinero  (Recuerde incluir los valores con IVA)");
         }
         else {
             $("#ctl00_cphPrincipal_vrdiner").text("Vr Dinero");
@@ -160,34 +160,38 @@ $(document).ready(function() {
 
     //capturar el nombre y crear tabla de anexos
     function eventFileSelect(evt) {
+        S_eliminar = 0;
 
         filescharge = evt.target.files;
+        //convertimos en un array
+        args = Array.prototype.slice.call(filescharge, 0);
 
-        var htmlTablefiles = "<table id='T_files' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr><th style='text-align: center;'>Archivo</th><th style='text-align: center;'>Eliminar</th></tr></thead><tbody>";
-        //recorremos el array para generar datos del la tabla anexos
-        for (i = 0; i < filescharge.length; i++) {
-            htmlTablefiles += "<tr id='" + i + "'><td>" + filescharge[i].name + "</td><td><input type ='button' value= 'Eliminar' onclick=\"deletefile('" + i + "', this)\"></input></td></tr>";
-        }
+        var dataFile = $("#fileupload")[0].files[0];
+        //inicializamos el fordata para transferencia de archivos
+        var data = new FormData();
+        //asinamos el datafile a la variable archivo 
+        data.append('archivo', dataFile);
 
-        htmlTablefiles += "</tbody></table>";
-
-        //cargamos el div donde se generara la tabla anexos
-        $("#tdFileInputs").html("");
-        $("#tdFileInputs").html(htmlTablefiles);
-
-        //reconstruimos el pluging de la tabla
-        $("#T_files").dataTable({
-            "bJQueryUI": true,
-            "bDestroy": true
+        $.ajax({
+            url: "AjaxAddIdea.aspx",
+            type: "POST",
+            contentType: false,
+            data: data,
+            processData: false,
+            success: function(result) {
+                alert("carga exitosa");
+            },
+            error: function(msg) {
+                alert("no subieron los archivos seleccionados.");
+            }
         });
-        //vaciamos el contenedor del input files
-        // $("#fileupload").val("");
-    }
 
+        //llamamos la fucion q construye la tabla
+        Cons_T_Anexos();
+              
+    }
     //crear evento change en el inputfiles de los archivos
     document.getElementById("fileupload").addEventListener('change', eventFileSelect, false);
-
-    
 
 });
 
@@ -609,32 +613,32 @@ function BtnaddActors_onclick() {
                 arrayActor.push(jsonActor);
 
                 //creamos la tabla de actores
-                var htmlTableActores = "<table id='T_Actors' align='center' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr><th>id</th><th>Actores</th><th>Tipo</th><th>Contacto</th><th>Documento Identidad</th><th>Tel&eacute;fono</th><th>Correo electr&oacute;nico</th><th>Vr Dinero</th><th>Vr Especie</th><th>Vr Total</th><th>Eliminar</th></tr></thead><tbody>";
+                var htmlTableActores = "<table id='T_Actors' align='center' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr><th width='1'></th><th>Actores</th><th>Tipo</th><th>Contacto</th><th>Documento Identidad</th><th>Tel&eacute;fono</th><th>Correo electr&oacute;nico</th><th>Vr Dinero</th><th>Vr Especie</th><th>Vr Total</th><th>Eliminar</th></tr></thead><tbody>";
                 //creamos la tabla de flujo actores
                 if (flujo_in == 1) {
-                    var htmltableAflujos = "<table id='T_Actorsflujos' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr><th>Id</th><th>Aportante</th><th>Valor inicial</th><th>Valor desembolsado</th><th>Valor a cancelar</th></tr></thead><tbody>";
+                    var htmltableAflujos = "<table id='T_Actorsflujos' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr><th width='1'></th><th>Aportante</th><th>Valor total aporte</th><th>Valor por programar</th><th>Saldo por programar</th></tr></thead><tbody>";
                 }
                 //creamos la tabla matrizde informacion principal
                 var htmltablamatriz = "<table id='matriz' border='1' cellpadding='1' cellspacing='1' style='width: 100%'><thead><tr><th width='1'></th><th></th><th>Efectivo</th><th>Especie</th><th>Total</th></tr></thead><tbody>";
 
                 for (itemArray in arrayActor) {
-                    htmlTableActores += "<tr id='actor" + arrayActor[itemArray].actorsVal + "' ><td>" + arrayActor[itemArray].actorsVal + "</td><td>" + arrayActor[itemArray].actorsName + "</td><td>" + arrayActor[itemArray].tipoactors + "</td><td>" + arrayActor[itemArray].contact + "</td><td>" + arrayActor[itemArray].cedula + "</td><td>" + arrayActor[itemArray].telefono + "</td><td>" + arrayActor[itemArray].email + "</td><td>" + arrayActor[itemArray].diner + "</td><td>" + arrayActor[itemArray].especie + "</td><td>" + arrayActor[itemArray].total + "</td><td><input type ='button' value= 'Eliminar' onclick=\"deleteActor('" + arrayActor[itemArray].actorsVal + "')\"></input></td></tr>";
-                    htmltablamatriz += "<tr id= 'matriz" + arrayActor[itemArray].actorsVal + "'><td width= '1'>" + arrayActor[itemArray].actorsVal + "</td><td style='text-align: left'>" + arrayActor[itemArray].actorsName + "</td><td>" + arrayActor[itemArray].diner + "</td><td> " + arrayActor[itemArray].especie + "</td><td> " + arrayActor[itemArray].total + " </td></tr>";
+                    htmlTableActores += "<tr id='actor" + arrayActor[itemArray].actorsVal + "' ><td width='1' style='color: #D3D6FF;font-size: 0.1em;'>" + arrayActor[itemArray].actorsVal + "</td><td>" + arrayActor[itemArray].actorsName + "</td><td>" + arrayActor[itemArray].tipoactors + "</td><td>" + arrayActor[itemArray].contact + "</td><td>" + arrayActor[itemArray].cedula + "</td><td>" + arrayActor[itemArray].telefono + "</td><td>" + arrayActor[itemArray].email + "</td><td>" + arrayActor[itemArray].diner + "</td><td>" + arrayActor[itemArray].especie + "</td><td>" + arrayActor[itemArray].total + "</td><td><input type ='button' value= 'Eliminar' onclick=\"deleteActor('" + arrayActor[itemArray].actorsVal + "')\"></input></td></tr>";
+                    htmltablamatriz += "<tr id= 'matriz" + arrayActor[itemArray].actorsVal + "'><td width='1' style='color: #D3D6FF;font-size: 0.1em;'>" + arrayActor[itemArray].actorsVal + "</td><td style='text-align: left'>" + arrayActor[itemArray].actorsName + "</td><td>" + arrayActor[itemArray].diner + "</td><td> " + arrayActor[itemArray].especie + "</td><td> " + arrayActor[itemArray].total + " </td></tr>";
 
                 }
                 //creamos ciclo para los actores que si tienen flujo de pago
                 for (itemarrayflujos in arrayActorFlujo) {
                     if (flujo_in == 1) {
-                        htmltableAflujos += "<tr id='flujo" + arrayActorFlujo[itemarrayflujos].actorsVal + "'><td>" + arrayActorFlujo[itemarrayflujos].actorsVal + "</td><td>" + arrayActorFlujo[itemarrayflujos].actorsName + "</td><td id= 'value" + arrayActorFlujo[itemarrayflujos].actorsVal + "' >" + arrayActorFlujo[itemarrayflujos].diner + "</td><td id='desenbolso" + arrayActorFlujo[itemarrayflujos].actorsVal + "'>" + arrayActorFlujo[itemarrayflujos].diner + "</td><td><input id='" + "txtinput" + arrayActorFlujo[itemarrayflujos].actorsVal + "' onkeyup='formatvercionsuma(this)' onchange='formatvercionsuma(this)'  onblur=\"sumar_flujos('" + arrayActorFlujo[itemarrayflujos].actorsVal + "')\" onfocus=\"restar_flujos('" + arrayActorFlujo[itemarrayflujos].actorsVal + "')\"></input></td></tr>";
+                        htmltableAflujos += "<tr id='flujo" + arrayActorFlujo[itemarrayflujos].actorsVal + "'><td width='1' style='color: #D3D6FF;font-size: 0.1em;'>" + arrayActorFlujo[itemarrayflujos].actorsVal + "</td><td>" + arrayActorFlujo[itemarrayflujos].actorsName + "</td><td id= 'value" + arrayActorFlujo[itemarrayflujos].actorsVal + "' >" + arrayActorFlujo[itemarrayflujos].diner + "</td><td><input id='" + "txtinput" + arrayActorFlujo[itemarrayflujos].actorsVal + "' onkeyup='formatvercionsuma(this)' onchange='formatvercionsuma(this)'  onblur=\"sumar_flujos('" + arrayActorFlujo[itemarrayflujos].actorsVal + "')\" onfocus=\"restar_flujos('" + arrayActorFlujo[itemarrayflujos].actorsVal + "')\"></input></td><td id='desenbolso" + arrayActorFlujo[itemarrayflujos].actorsVal + "'>" + arrayActorFlujo[itemarrayflujos].diner + "</td></tr>";
                     }
                 }
                 //se anexa columna para totales
-                htmlTableActores += "<tr><td>1000</td><td>Total</td><td></td><td></td><td></td><td></td><td></td><td id='val1'></td><td id='val2'>0</td><td id='val3'>0</td><td></td></tr></tbody></table>";
+                htmlTableActores += "<tr><td width='1' style='color: #D3D6FF; font-size: 0.1em;'>1000</td><td>Total</td><td></td><td></td><td></td><td></td><td></td><td id='val1'></td><td id='val2'>0</td><td id='val3'>0</td><td></td></tr></tbody></table>";
 
                 if (flujo_in == 1) {
-                    htmltableAflujos += "<tr><td>1000</td><td>Total</td><td id='tflujosing'></td id='tflujosdesen'><td></td><td id='totalflujos'>0</td></tr></tbody></table>";
+                    htmltableAflujos += "<tr><td width='1' style='color: #D3D6FF; font-size: 0.1em;'>1000</td><td>Total</td><td id='tflujosing'></td><td id='totalflujos'>0</td></td id='tflujosdesen'><td></tr></tbody></table>";
                 }
-                htmltablamatriz += "<tr><td width= '1'>1000</td><td>Valor Total</td><td id='valueMoneytotal'>0</td><td id='ValueEspeciestotal'>0</td><td id='ValueCostotal'>0</td></tr></tbody></table>";
+                htmltablamatriz += "<tr><td width='1' style='color: #D3D6FF; font-size: 0.1em;'>1000</td><td>Valor Total</td><td id='valueMoneytotal'>0</td><td id='ValueEspeciestotal'>0</td><td id='ValueCostotal'>0</td></tr></tbody></table>";
 
                 //cargamos el div donde se generara la tabla actores
                 $("#T_ActorsContainer").html("");
@@ -1512,7 +1516,7 @@ function sumar_grid_actores() {
         if ($(arrayValuesflujos[0]).html() != null) {
             //capturamos e incrementamos los valores para la suma
 
-            valdinerflujos = valdinerflujos + parseInt($(arrayValuesflujos[3]).html().replace(/\./gi, ''));
+            valdinerflujos = valdinerflujos + parseInt($(arrayValuesflujos[2]).html().replace(/\./gi, ''));
 
             if (isNaN(valdinerflujos)) {
                 valdinerflujos = 0;
@@ -2586,17 +2590,18 @@ function separarvaloresFSC() {
 //                alert("Ocurrió un error inesperado, por favor intente de nuevo mas tarde.");
 //            }
 //        });
-
 //}
 
 
-function deletefile(stridfile, objbutton) {
+function deletefile(stridfile) {
 
-    $(objbutton).parent().parent().remove();
-    //recorremos el array
     //borramos el actor deseado
-    filescharge.remove[stridfile]; 
-   // delete filescharge[stridfile];
+    args.remove(stridfile);
+
+    var idarchivo = "#archivo" + stridfile;
+    $(idarchivo).remove();
+
+    Cons_T_Anexos();
 
 }
 
@@ -2608,4 +2613,25 @@ function inicioEnvio() {
 }
 
 
+function Cons_T_Anexos() {
+
+    var htmlTablefiles = "<table id='T_files' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr><th style='text-align: center;'>Archivo</th><th style='text-align: center;'>Ver</th><th style='text-align: center;'>Eliminar</th></tr></thead><tbody>";
+    //recorremos el array para generar datos del la tabla anexos
+    for (i = 0; i < args.length; i++) {
+        htmlTablefiles += "<tr id='archivo" + i + "'><td>" + args[i].name + "</td><td style='text-align: center;'><input type ='button' value= 'Ver' onclick=\"buscararchivo('" + i + "')\"></input></td><td style='text-align: center;'><input type ='button' value= 'Eliminar' onclick=\"deletefile('" + i + "')\"></input></td></tr>";
+    }
+
+    htmlTablefiles += "</tbody></table>";
+
+    //cargamos el div donde se generara la tabla anexos
+    $("#tdFileInputs").html("");
+    $("#tdFileInputs").html(htmlTablefiles);
+
+    //reconstruimos el pluging de la tabla
+    $("#T_files").dataTable({
+        "bJQueryUI": true,
+        "bDestroy": true
+    });
+    
+}
  

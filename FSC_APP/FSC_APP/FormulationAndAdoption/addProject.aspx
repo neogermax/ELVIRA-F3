@@ -46,7 +46,7 @@
         <asp:Label ID="lblstatesuccess" runat="server" Style="color: #9bbb58; font-size: 14pt;"
             Text="El Proyecto se creó exitosamente!"></asp:Label>
     </div>
-    <cc1:TabContainer ID="TabContainer1" runat="server" Width="100%" ActiveTabIndex="3"
+    <cc1:TabContainer ID="TabContainer1" runat="server" Width="100%" ActiveTabIndex="2"
         AutoPostBack="True">
         <cc1:TabPanel runat="server" HeaderText="Información principal" ID="TabPanel1" Width="90%">
             <HeaderTemplate>

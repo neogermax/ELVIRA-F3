@@ -23,28 +23,50 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         Dim fecha As Date
         Dim duracion, dia As String
         Dim S_code, S_linea_estrategica, S_programa, S_nombre, S_justificacion, S_objetivo, S_objetivo_esp, S_Resultados_Benef, S_Resultados_Ges_c, S_Resultados_Cap_i, S_Fecha_inicio, S_mes, S_dia, S_Fecha_fin, S_Población, S_contratacion, S_A_Mfsc, S_A_Efsc, S_A_Mcounter, S_A_Ecounter, S_cost, S_obligaciones, S_iva, S_listubicaciones, S_listactors, S_mitigacion, S_riesgos, S_presupuestal As String
-        Dim id_lineStrategic, id_depto, idprogram, idpopulation As Integer
-        Dim Files As HttpFileCollection
+        Dim id_lineStrategic, id_depto, idprogram, idpopulation, Countarchivo As Integer
+
         Dim item_file As Integer
+
+        Dim strFileName() As String
+        Dim fileName As String = String.Empty
+        Dim files As HttpFileCollection = Request.Files
+        Dim DocumentsTmpList As New List(Of DocumentstmpEntity)
 
         Session("locationByIdeaList") = New List(Of LocationByIdeaEntity)
 
 
         If Request.Files.Count() > 0 Then
 
-            Dim fileName As String
-            Files = Request.Files
-          
-            Dim htmlarchives As String
 
-            For item_file = 0 To Files.Count - 1
+            'Se recorre la lista de archivos cargados al servidor
+            For i As Integer = 0 To files.Count - 1
 
-                fileName = Files(item_file).FileName
+                Dim file As HttpPostedFile = files(i)
 
-               
-            Next item_file
+                If file.ContentLength > 0 Then
 
-            Response.Write(fileName)
+                    strFileName = file.FileName.Split("\".ToCharArray)
+
+                    ' dar nombre al anexo
+                    fileName = Now.ToString("yyyyMMddhhmmss") & "_" & strFileName(strFileName.Length - 1)
+
+                    ' determinanado la ruta destino
+                    Dim sFullPath As String = HttpContext.Current.Server.MapPath(PublicFunction.getSettingValue("documentPath")) & "\temp\" & fileName
+
+                    'Subiendo el archivo al server
+                    file.SaveAs(sFullPath)
+
+                    'Se instancia un objeto de tipo documento y se pobla con la info. reuqerida.
+                    Dim objDocument As New DocumentstmpEntity()
+                    objDocument.namefile = fileName
+
+                    'Se agrega el objeto de tipo documento a la lista de documentos
+                    DocumentsTmpList.Add(objDocument)
+                    Session("DocumentsTmp") = DocumentsTmpList
+
+                End If
+
+            Next
 
             Exit Sub
 
@@ -524,6 +546,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                 existespecie = InStr(arrayactor(contadoractor), "especie")
                 existtotal = InStr(arrayactor(contadoractor), "total")
 
+                thirdByIdea.CreateDate = Now
 
                 If existactorsVal > 0 Then
 
@@ -536,6 +559,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
                     existactorsName = Replace(arrayactor(contadoractor), "actorsName : ", " ", 1)
                     thirdByIdea.THIRD.name = existactorsName
+                    thirdByIdea.Name = existactorsName
 
                 End If
 
@@ -550,6 +574,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
                     existcontact = Replace(arrayactor(contadoractor), "contact : ", " ", 1)
                     thirdByIdea.THIRD.contact = existcontact
+                    thirdByIdea.contact = existcontact
 
                 End If
 
@@ -557,6 +582,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
                     existcedula = Replace(arrayactor(contadoractor), "cedula : ", " ", 1)
                     thirdByIdea.THIRD.documents = existcedula
+                    thirdByIdea.Documents = existcedula
 
                 End If
 
@@ -564,6 +590,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
                     existtelefono = Replace(arrayactor(contadoractor), "telefono : ", " ", 1)
                     thirdByIdea.THIRD.phone = existtelefono
+                    thirdByIdea.Phone = existtelefono
 
                 End If
 
@@ -571,6 +598,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
                     existemail = Replace(arrayactor(contadoractor), "email : ", " ", 1)
                     thirdByIdea.THIRD.email = existemail
+                    thirdByIdea.Email = existemail
 
                 End If
 
@@ -847,6 +875,52 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         Return result
 
     End Function
+
+    Public Function agregar_nexo_temp(ByVal contador As Integer)
+
+        'Definiendo los objtetos
+        Dim strFileName() As String
+        Dim fileName As String = String.Empty
+        Dim files As HttpFileCollection = Request.Files
+        Dim DocumentsTmpList As New List(Of DocumentstmpEntity)
+
+        'Se verifica que existan archivos por cargar
+        If ((Not files Is Nothing) AndAlso (files.Count > 0)) Then
+
+
+            'Se recorre la lista de archivos cargados al servidor
+            For i As Integer = 0 To files.Count - 1
+
+                Dim file As HttpPostedFile = files(i)
+
+                If file.ContentLength > 0 Then
+
+                    strFileName = file.FileName.Split("\".ToCharArray)
+
+                    ' dar nombre al anexo
+                    fileName = Now.ToString("yyyyMMddhhmmss") & "_" & strFileName(strFileName.Length - 1)
+
+                    ' determinanado la ruta destino
+                    Dim sFullPath As String = HttpContext.Current.Server.MapPath(PublicFunction.getSettingValue("documentPath")) & "\temp\" & fileName
+
+                    'Subiendo el archivo al server
+                    file.SaveAs(sFullPath)
+
+                    'Se instancia un objeto de tipo documento y se pobla con la info. reuqerida.
+                    Dim objDocument As New DocumentstmpEntity()
+                    objDocument.namefile = fileName
+
+                    'Se agrega el objeto de tipo documento a la lista de documentos
+                    DocumentsTmpList.Add(objDocument)
+                    Session("DocumentsTmp") = DocumentsTmpList
+
+                End If
+
+            Next
+
+        End If
+    End Function
+
 
 End Class
 

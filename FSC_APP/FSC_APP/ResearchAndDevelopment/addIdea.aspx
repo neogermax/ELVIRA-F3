@@ -141,6 +141,7 @@
             display: inline-block;
             float: left;
             margin-right: 3em;
+            margin-left: 3em;
         }
     </style>
 
@@ -365,7 +366,7 @@
                     <asp:Label ID="Lblmodcontract" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
                 <li>
-                    <asp:Label ID="Label21" runat="server" Text="Aplica IVA :"></asp:Label>
+                    <asp:Label ID="Label21" runat="server" Text="¿El IVA esta incluido en el valor total?"></asp:Label>
                     <asp:RadioButtonList ID="RBnList_iva" runat="server" Height="53px" RepeatDirection="Horizontal"
                         ValidationGroup="iva" Width="86px">
                         <asp:ListItem Value="1">Si</asp:ListItem>
@@ -673,7 +674,6 @@
                         <thead>
                             <tr>
                                 <th>
-                                    id
                                 </th>
                                 <th>
                                     Actores
@@ -807,64 +807,76 @@
             </ul>
         </div>
         <div id="flujos">
-            <li>
-                <asp:Label ID="Lbltitleflujo1" runat="server" Text="Infomación general del desembolso"
-                    Font-Bold="True" Font-Size="Large"></asp:Label>
-            </li>
-            <ul id="listFlujosPagos">
-                <li>
-                    <asp:Label ID="lblvalortotal" runat="server" Text="Pago No"></asp:Label>
-                    <asp:TextBox ID="txtvalortotalflow" runat="server" Width="100px" MaxLength="50" onkeychange="ValidaSoloNumeros()"
-                        onkeyup="ValidaSoloNumeros()" onkeypress="ValidaSoloNumeros()"></asp:TextBox>
-                </li>
-                <li>
-                    <asp:Label ID="lblfechapago" runat="server" Text="Fecha de pago"></asp:Label>
-                    <asp:TextBox ID="txtfechapago" runat="server" Width="100px" MaxLength="50"></asp:TextBox>
-                    <cc1:CalendarExtender ID="cesfechapago" runat="server" TargetControlID="txtfechapago"
-                        Format="yyyy/MM/dd" Enabled="True">
-                    </cc1:CalendarExtender>
-                </li>
-                <li>
-                    <asp:Label ID="lblporcentaje" runat="server" Text="Porcentaje"></asp:Label>
-                    <asp:TextBox ID="txtporcentaje" runat="server" MaxLength="50" Width="100px"></asp:TextBox>
-                    <asp:Label ID="Lblhelpporcentaje" runat="server" ForeColor="#990000"></asp:Label>
-                </li>
-                <li>
-                    <asp:Label ID="lblvalor" runat="server" Text="Valor"></asp:Label>
-                    <asp:Label ID="Lbltotalvalor" runat="server"></asp:Label>
-                    <asp:TextBox ID="txtvalorpartial" runat="server" MaxLength="50" ReadOnly="true" Width="182px"
-                        Visible="false"></asp:TextBox>
-                </li>
-            </ul>
+            <div id="marco_1" style="border-top: solid; border-left: solid; border-right: solid;
+                border-bottom: solid; border-color: white;" align="left">
+                <br />
+                <ul>
+                    <li style="margin-left: 3em;">
+                        <asp:Label ID="Lbltitleflujo1" runat="server" Text="PASO 1: Infomación general del desembolso"
+                            Font-Bold="True" Font-Size="Large"></asp:Label>
+                    </li>
+                </ul>
+                <ul id="listFlujosPagos">
+                    <li width="25%">
+                        <asp:Label ID="lblvalortotal" runat="server" Text="Pago No"></asp:Label>
+                        <asp:TextBox ID="txtvalortotalflow" runat="server" Width="100px" MaxLength="50" onkeychange="ValidaSoloNumeros()"
+                            onkeyup="ValidaSoloNumeros()" onkeypress="ValidaSoloNumeros()"></asp:TextBox>
+                    </li>
+                    <li width="25%">
+                        <asp:Label ID="lblfechapago" runat="server" Text="Fecha de pago"></asp:Label>
+                        <asp:TextBox ID="txtfechapago" runat="server" Width="100px" MaxLength="50"></asp:TextBox>
+                        <cc1:CalendarExtender ID="cesfechapago" runat="server" TargetControlID="txtfechapago"
+                            Format="yyyy/MM/dd" Enabled="True">
+                        </cc1:CalendarExtender>
+                    </li>
+                    <li width="25%">
+                        <asp:Label ID="lblporcentaje" runat="server" Text="Porcentaje"></asp:Label>
+                        <asp:TextBox ID="txtporcentaje" runat="server" MaxLength="50" Width="100px"></asp:TextBox>
+                        <asp:Label ID="Lblhelpporcentaje" runat="server" ForeColor="#990000" Font-Bold="True"></asp:Label>
+                    </li>
+                    <li width="25%">
+                        <asp:Label ID="lblvalor" runat="server" Text="Valor"></asp:Label>
+                        <asp:Label ID="Lbltotalvalor" runat="server"></asp:Label>
+                        <asp:TextBox ID="txtvalorpartial" runat="server" MaxLength="50" ReadOnly="true" Width="182px"
+                            Visible="false"></asp:TextBox>
+                    </li>
+                </ul>
+                <br />
+                <asp:Label Style="clear: both; margin-left: 3em;" ID="lblentregable" runat="server"
+                    Text="Entregable"></asp:Label>
+                <asp:TextBox ID="txtentregable" runat="server" Height="100px" MaxLength="8000" TextMode="MultiLine"
+                    Width="90%" Style="margin-left: 3em; margin-right: 7em;"></asp:TextBox>
+                <asp:HiddenField ID="HDvalorpagoflujo" runat="server" />
+                <asp:Label ID="Lblinformationexist" runat="server" ForeColor="#990000" Style="margin-left: 3em;
+                    text-align: center;" Font-Bold="True"></asp:Label>
+            </div>
             <br />
-            <asp:Label Style="clear: both;" ID="lblentregable" runat="server" Text="Entregable"></asp:Label>
-            <asp:TextBox ID="txtentregable" runat="server" Height="100px" MaxLength="8000" TextMode="MultiLine"
-                Width="90%"></asp:TextBox>
-            <asp:HiddenField ID="HDvalorpagoflujo" runat="server" />
-            <asp:Label ID="Lblinformationexist" runat="server" ForeColor="#990000"></asp:Label>
-            <li>
-                <asp:Label ID="Lbltitleflujo2" runat="server" Text="Ingrese el detalle por cada socio. "
-                    Font-Bold="True" Font-Size="Large"></asp:Label>
-            </li>
-            <ul>
-                <div id="T_AflujosContainer">
-                    <table id="T_Actorsflujos" border="1" cellpadding="1" cellspacing="1" style="width: 100%">
+            <div id="marco_2" style="border-top: solid; border-left: solid; border-right: solid;
+                border-bottom: solid; border-color: white;" align="left">
+                <br />
+                <ul>
+                    <li style="margin-left: 3em;">
+                        <asp:Label ID="Lbltitleflujo2" runat="server" Text="PASO 2: Ingrese el detalle por cada socio. "
+                            Font-Bold="True" Font-Size="Large"></asp:Label>
+                    </li>
+                </ul>
+                <div id="T_AflujosContainer" style="margin-left: 3em; margin-right: 3em">
+                    <table id="T_Actorsflujos" border="1" cellpadding="1" cellspacing="1" style="width: 100%;">
                         <thead>
                             <tr>
                                 <th style="width: 1px">
-                                    Id
                                 </th>
                                 <th>
                                     Aportante
                                 </th>
                                 <th>
-                                    Valor inicial
+                                    Valor total aporte
                                 </th>
                                 <th>
-                                    Valor desembolsado
+                                    Valor por programar
                                 </th>
                                 <th>
-                                    Valor a cancelar
+                                    Saldo por programar
                                 </th>
                             </tr>
                         </thead>
@@ -884,14 +896,27 @@
                         </tbody>
                     </table>
                 </div>
-                <li>
-                    <asp:Label ID="Lblinformation_flujos" runat="server" ForeColor="#990000"></asp:Label>
-                </li>
-                <li>
-                    <input id="Btn_add_flujo" type="button" value="Agregar pago" name="Add_flujo" onclick="return Btn_add_flujo_onclick()" />
-                    <asp:TextBox ID="Txtpruebas" runat="server" MaxLength="50" ReadOnly="true" Width="182px"></asp:TextBox>
-                </li>
-                <div id="T_flujosContainer">
+                <ul>
+                    <li style="margin-left: 3em;">
+                        <asp:Label ID="Lblinformation_flujos" runat="server" ForeColor="#990000"></asp:Label>
+                    </li>
+                    <li style="margin-left: 3em;">
+                        <input id="Btn_add_flujo" type="button" value="Agregar pago" name="Add_flujo" onclick="return Btn_add_flujo_onclick()" />
+                    </li>
+                </ul>
+                <br />
+            </div>
+            <br />
+            <div id="marco_3" style="border-top: solid; border-left: solid; border-right: solid;
+                border-bottom: solid; border-color: white;" align="left">
+                <br />
+                <ul>
+                    <li style="margin-left: 3em;">
+                        <asp:Label ID="Lblpaso3" runat="server" Text="Resumen programación desembolsos"
+                            Font-Bold="True" Font-Size="Large"></asp:Label>
+                    </li>
+                </ul>
+                <div id="T_flujosContainer" style="margin-left: 3em; margin-right: 3em">
                     <table id="T_flujos" border="1" cellpadding="1" cellspacing="1" style="width: 100%;">
                         <thead>
                             <tr>
@@ -921,95 +946,31 @@
                         <tbody>
                             <tr>
                                 <td style="text-align: center;">
-                                    &nbsp;
                                 </td>
                                 <td style="text-align: center;">
-                                    &nbsp;
                                 </td>
                                 <td style="text-align: center;">
-                                    &nbsp;
                                 </td>
                                 <td style="text-align: center;">
-                                    &nbsp;
                                 </td>
                                 <td style="text-align: center;">
-                                    &nbsp;
                                 </td>
                                 <td style="text-align: center;">
-                                    &nbsp;
                                 </td>
                                 <td style="text-align: center;">
-                                    &nbsp;
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
-                <li>
-                    <asp:GridView ID="gvPaymentFlow" runat="server" Width="100%" AutoGenerateColumns="False">
-                        <Columns>
-                            <asp:CommandField SelectText="Quitar" ShowSelectButton="True" />
-                            <asp:TemplateField HeaderText="id" Visible="false">
-                                <ItemTemplate>
-                                    <asp:Label ID="lblID" runat="server" Text='<%# Eval("id") %>'></asp:Label>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="idproject" Visible="false">
-                                <ItemTemplate>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Fecha">
-                                <ItemTemplate>
-                                    <asp:Label ID="lblfecha" runat="server" Text='<%# Eval("fecha","{0:MM/dd/yyyy}") %>'></asp:Label>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Porcentaje">
-                                <ItemTemplate>
-                                    <asp:Label ID="lblporcentaje" runat="server" Text='<%# Eval("porcentaje")&"%" %>'></asp:Label>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Entregable">
-                                <ItemTemplate>
-                                    <asp:Label ID="lblentregable" runat="server" Text='<%# Eval("entregable") %>'></asp:Label>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="ididea" Visible="false">
-                                <ItemTemplate>
-                                    <asp:Label ID="lblidea" runat="server" Text='<%# Eval("ididea") %>'></asp:Label>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Valor parcial">
-                                <ItemTemplate>
-                                    <asp:Label ID="lblidea" runat="server" Text='<%#  Eval("valorparcial","{0:C1}") %>'></asp:Label>
-                                </ItemTemplate>
-                                <ControlStyle Width="200px" />
-                                <ItemStyle Width="120px" />
-                            </asp:TemplateField>
-                        </Columns>
-                    </asp:GridView>
-                </li>
-                <li>
-                    <asp:Label ID="lblmsjporcent" runat="server" ForeColor="Red"></asp:Label>
-                </li>
-                <li>
-                    <asp:Label ID="LblFlujodePagoPorcentajeIzquierda" runat="server" Font-Bold="True"
-                        Font-Names="Arial Narrow" Font-Size="1.2em" ForeColor="Red"></asp:Label>
-                    <asp:Label ID="lblmensajeexitoerror" runat="server" Font-Bold="True" Font-Names="Arial Narrow"
-                        ForeColor="Red" Font-Size="1.2em"></asp:Label>
-                    <asp:Label ID="LblFlujodePagoPorcentajeDerecha" runat="server" Font-Bold="True" Font-Names="Arial Narrow"
-                        Font-Size="1.2em" ForeColor="Red"></asp:Label>
-                </li>
-                <li>
-                    <asp:Label ID="lblExceed100" runat="server" Font-Bold="True" Font-Names="Arial Narrow"
-                        Font-Size="1.2em" ForeColor="Red"></asp:Label>
-                </li>
-            </ul>
+                <br />
+            </div>
         </div>
         <div id="anexos">
             <ul>
                 <li id="tableAttachments"></li>
-                <input id="fileupload" type="file" name="files[]" multiple/>
-               <%-- <input id="Btncharge_file" type="button" value="Adjuntar un archivo" name="Add_files"
+                <input id="fileupload" type="file" name="files[]" multiple />
+                <%-- <input id="Btncharge_file" type="button" value="Adjuntar un archivo" name="Add_files"
                     onclick="subirArchivos()" />--%>
                 <li>
                     <%-- <img src="../App_Themes/GattacaAdmin/Images/attach.gif" alt="" />--%>
@@ -1021,7 +982,6 @@
                 </li>
             </ul>
             <div id="gif_charge_Container">
-            
             </div>
             <ul>
                 <li id="tdFileInputs">
@@ -1033,6 +993,9 @@
                                 <th style="text-align: center;">
                                     Archivo
                                 </th>
+                                 <th style="text-align: center;">
+                                    Ver
+                                </th>
                                 <th style="text-align: center;">
                                     Eliminar
                                 </th>
@@ -1040,6 +1003,8 @@
                         </thead>
                         <tbody>
                             <tr>
+                                <td>
+                                </td>
                                 <td>
                                 </td>
                                 <td>
