@@ -48,7 +48,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                     strFileName = file.FileName.Split("\".ToCharArray)
 
                     ' dar nombre al anexo
-                    fileName = Now.ToString("yyyyMMddhhmmss") & "_" & strFileName(strFileName.Length - 1)
+                    fileName = strFileName(strFileName.Length - 1)
 
                     ' determinanado la ruta destino
                     Dim sFullPath As String = HttpContext.Current.Server.MapPath(PublicFunction.getSettingValue("documentPath")) & "\temp\" & fileName
