@@ -2524,7 +2524,7 @@ function subirArchivos() {
 
         //Añadimos la imagen de carga en el contenedor
         $('#ctl00_cphPrincipal_gif_charge_Container').css("display", "block");
-   
+
         var page = $(this).attr('data');
         var dataString = 'page=' + page;
 
@@ -2585,10 +2585,11 @@ function subirArchivos() {
 
 
                 $('#ctl00_cphPrincipal_gif_charge_Container').css("display", "none");
-               
+
             },
-            error: function() {
-                alert("Ocurrió un error inesperado, por favor intente de nuevo mas tarde.");
+            error: function(error) {
+                alert("Ocurrió un error inesperado, por favor intente de nuevo mas tarde: " + error);
+                $('#ctl00_cphPrincipal_gif_charge_Container').css("display", "none");
             }
         });
     }
