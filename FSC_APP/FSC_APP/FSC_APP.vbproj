@@ -3629,6 +3629,7 @@
     <Content Include="css\datatables\jquery.dataTables_themeroller.css" />
     <Content Include="css\jquery.multiselect2side.css" />
     <Content Include="GeneralPlanning\AjaxAddThird.aspx" />
+    <Content Include="images\cargando.gif" />
     <Content Include="js\bootstrap-modal.js" />
     <Content Include="js\jquery-ui-1.10.3.custom.min.js" />
     <Content Include="js\jquery.dataTables.min.js" />

@@ -60,7 +60,7 @@ $(document).ready(function() {
     validarporcentaje();
 
     $("#ctl00_cphPrincipal_containerSuccess").css("display", "none");
-
+    $('#ctl00_cphPrincipal_gif_charge_Container').css("display", "none");
     //$("#tabsIdea").tabs();
 
     $("#matriz").dataTable({
@@ -2517,8 +2517,17 @@ function separarvaloresFSC() {
 
 
 function subirArchivos() {
+
+
     //validamos si seleccionaron un archivo
     if ($("#fileupload").val() != "") {
+
+        //Añadimos la imagen de carga en el contenedor
+        $('#ctl00_cphPrincipal_gif_charge_Container').fadeIn(2000).css("display", "block");
+   
+        var page = $(this).attr('data');
+        var dataString = 'page=' + page;
+
         $("#ctl00_cphPrincipal_LblHELPARCHIVE").text("");
         //capturamos los datos del input file
         var file = $("#fileupload");
@@ -2574,6 +2583,9 @@ function subirArchivos() {
 
                 $("#fileupload").val("");
 
+
+                $('#ctl00_cphPrincipal_gif_charge_Container').css("display", "none");
+               
             },
             error: function() {
                 alert("Ocurrió un error inesperado, por favor intente de nuevo mas tarde.");
@@ -2582,7 +2594,7 @@ function subirArchivos() {
     }
     else {
         $("#ctl00_cphPrincipal_LblHELPARCHIVE").text("No ha seleccionado ningún archivo");
-        
+
     }
 
 }
@@ -2592,13 +2604,6 @@ function deletefile(stridfile) {
     var idarchivo = "#archivo" + stridfile;
     $(idarchivo).remove();
 
-
-}
-
-function inicioEnvio() {
-    //
-    var x = $("#gif_charge_Container");
-    x.html('<img src="../cargando.gif">');
 
 }
 

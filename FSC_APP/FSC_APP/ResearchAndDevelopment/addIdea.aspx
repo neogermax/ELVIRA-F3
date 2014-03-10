@@ -972,9 +972,8 @@
                 <input id="fileupload" type="file" name="files[]" multiple />
                 <input id="Btncharge_file" type="button" value="Adjuntar un archivo" name="Add_files"
                     onclick="subirArchivos()" />
-                <li>
-                    <a id="lnkAttch" style="cursor: hand" onclick="AddFileInput(F1)" visible="false">
-                    </a></li>
+                <li><a id="lnkAttch" style="cursor: hand" onclick="AddFileInput(F1)" visible="false">
+                </a></li>
                 <li>
                     <asp:Label ID="LblHELPARCHIVE" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
@@ -983,7 +982,12 @@
                     <asp:TextBox ID="txtobser" runat="server" MaxLength="500" Width="400px"></asp:TextBox>
                 </li>
             </ul>
-            <div id="gif_charge_Container">
+            <div id="gif_charge_Container" runat="server" visible="true" style="width: 100%;
+                text-align: center; border: 2px solid #cecece; background: #E8E8DC; height: 80px;
+                line-height: 40px; vertical-align: middle;">
+                <img style="margin-top: 10px;" src="../images/cargando.gif" width="24px" />
+            </div>
+            <div>
             </div>
             <ul>
                 <li id="tdFileInputs">
