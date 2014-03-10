@@ -2523,7 +2523,7 @@ function subirArchivos() {
     if ($("#fileupload").val() != "") {
 
         //Añadimos la imagen de carga en el contenedor
-        $('#ctl00_cphPrincipal_gif_charge_Container').fadeIn(2000).css("display", "block");
+        $('#ctl00_cphPrincipal_gif_charge_Container').css("display", "block");
    
         var page = $(this).attr('data');
         var dataString = 'page=' + page;
