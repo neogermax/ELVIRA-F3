@@ -2589,6 +2589,7 @@ function subirArchivos() {
             },
             error: function(error) {
                 alert("Ocurrió un error inesperado, por favor intente de nuevo mas tarde: " + error);
+                console.log(error);
                 $('#ctl00_cphPrincipal_gif_charge_Container').css("display", "none");
             }
         });
