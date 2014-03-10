@@ -2600,7 +2600,7 @@ function subirArchivos() {
     }
 
 }
-
+//hola
 function deletefile(stridfile) {
 
     var idarchivo = "#archivo" + stridfile;
