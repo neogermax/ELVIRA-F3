@@ -60,7 +60,7 @@ function validartipo() {
             $("#ctl00_cphPrincipal_Lbltitle1").css("display", "none");
             $("#ctl00_cphPrincipal_Lbltitle2").css("display", "block");
 
-            $("#ctl00_cphPrincipal_lblcode").text("Documento (Ingresar sin guiones, puntos o espacios)");
+            $("#ctl00_cphPrincipal_lblcode").text("No. de Documento (Ingresar sin guiones, puntos o espacios).");
             $("#ctl00_cphPrincipal_lblname").text("Nombre del actor");
 
             $("#ctl00_cphPrincipal_Lblcontact").css("display", "none");
@@ -102,7 +102,7 @@ function validartipo() {
             $("#ctl00_cphPrincipal_Lbltitle1").css("display", "block");
             $("#ctl00_cphPrincipal_Lbltitle2").css("display", "block");
 
-            $("#ctl00_cphPrincipal_lblcode").text("Nit, Sin guiones, puntos o espacios. Incluye digito de verificación");
+            $("#ctl00_cphPrincipal_lblcode").text("NIT (Ingresar sin guiones, puntos o espacios. Incluir dígito de verificación)");
             $("#ctl00_cphPrincipal_lblname").text("Nombre de la Organización");
 
             $("#ctl00_cphPrincipal_Lblcontact").css("display", "block");

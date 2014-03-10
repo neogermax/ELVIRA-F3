@@ -985,7 +985,8 @@
             <div id="gif_charge_Container" runat="server" visible="true" style="width: 100%;
                 text-align: center; border: 2px solid #cecece; background: #E8E8DC; height: 80px;
                 line-height: 40px; vertical-align: middle;">
-                <img style="margin-top: 10px;" src="../images/cargando.gif" width="24px" />
+                <img style="margin-top: 10px;" src="../images/cargando.gif" width="24px" alt="images"/>
+                <asp:Label ID="Label12" runat="server" Text="Subiendo archivos..." Style="font-size: 14pt; color: #9bbb58;"></asp:Label>
             </div>
             <div>
             </div>
