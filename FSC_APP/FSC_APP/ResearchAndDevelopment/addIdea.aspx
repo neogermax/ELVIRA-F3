@@ -285,8 +285,8 @@
                 </li>
                 <li>
                     <asp:Label ID="Lblroutepresupuestal" runat="server" Text="Ruta presupuestal"></asp:Label>
-                    <asp:TextBox ID="Txtroutepresupuestal" runat="server" MaxLength="4000" Width="400px"
-                        Rows="6" TextMode="MultiLine"></asp:TextBox>
+                    <asp:TextBox ID="Txtroutepresupuestal" runat="server" Width="400px" Rows="6" 
+                        TextMode="MultiLine" Height="40px" ></asp:TextBox>
                     <asp:Label ID="Lblhelproutepresupuestal" runat="server" ForeColor="#CC0000"></asp:Label>
                 </li>
                 <li>
@@ -985,8 +985,9 @@
             <div id="gif_charge_Container" runat="server" visible="true" style="width: 100%;
                 text-align: center; border: 2px solid #cecece; background: #E8E8DC; height: 80px;
                 line-height: 40px; vertical-align: middle;">
-                <img style="margin-top: 10px;" src="../images/cargando.gif" width="24px" alt="images"/>
-                <asp:Label ID="Label12" runat="server" Text="Subiendo archivos..." Style="font-size: 14pt; color: #9bbb58;"></asp:Label>
+                <img style="margin-top: 10px;" src="../images/cargando.gif" width="24px" alt="images" />
+                <asp:Label ID="Label12" runat="server" Text="Subiendo archivos..." Style="font-size: 14pt;
+                    color: #9bbb58;"></asp:Label>
             </div>
             <div>
             </div>

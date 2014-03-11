@@ -38677,9 +38677,17 @@ Control Lblinformation_flujos.
 Campo generado automáticamente.
 Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 </remarks>
-</member><member name="F:FSC_APP.addIdea.Txtpruebas">
+</member><member name="F:FSC_APP.addIdea.Lblpaso3">
 	<summary>
-Control Txtpruebas.
+Control Lblpaso3.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addIdea.LblHELPARCHIVE">
+	<summary>
+Control LblHELPARCHIVE.
 </summary>
 	<remarks>
 Campo generado automáticamente.
@@ -38704,6 +38712,22 @@ Para modificarlo, mueva la declaración del campo del archivo del diseñador al 
 </member><member name="F:FSC_APP.addIdea.txtobser">
 	<summary>
 Control txtobser.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addIdea.gif_charge_Container">
+	<summary>
+Control gif_charge_Container.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addIdea.Label12">
+	<summary>
+Control Label12.
 </summary>
 	<remarks>
 Campo generado automáticamente.

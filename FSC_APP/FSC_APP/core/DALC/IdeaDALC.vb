@@ -339,6 +339,14 @@ Public Class IdeaDALC
                 If Not (IsDBNull(data.Rows(0)("Loadingobservations"))) Then objIdea.Loadingobservations = data.Rows(0)("Loadingobservations")
                 If Not (IsDBNull(data.Rows(0)("idtypecontract"))) Then objIdea.idtypecontract = data.Rows(0)("idtypecontract")
 
+                If Not (IsDBNull(data.Rows(0)("RiskMitigation"))) Then objIdea.mitigacion = data.Rows(0)("RiskMitigation")
+                If Not (IsDBNull(data.Rows(0)("RisksIdentified"))) Then objIdea.riesgos = data.Rows(0)("RisksIdentified")
+                If Not (IsDBNull(data.Rows(0)("obligationsoftheparties"))) Then objIdea.Obligaciones = data.Rows(0)("obligationsoftheparties")
+                If Not (IsDBNull(data.Rows(0)("BudgetRoute"))) Then objIdea.presupuestal = data.Rows(0)("BudgetRoute")
+
+
+
+
                 ' TODO: 23 ideadalc load  se crean nuevos campos
                 ' Autor: German Rodriguez MGgroup
                 ' cierre de cambio

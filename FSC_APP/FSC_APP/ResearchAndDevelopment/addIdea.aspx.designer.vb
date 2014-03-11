@@ -1690,13 +1690,22 @@ Partial Public Class addIdea
     Protected WithEvents Lblinformation_flujos As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''Control Txtpruebas.
+    '''Control Lblpaso3.
     '''</summary>
     '''<remarks>
     '''Campo generado automáticamente.
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
-    Protected WithEvents Txtpruebas As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents Lblpaso3 As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''Control LblHELPARCHIVE.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents LblHELPARCHIVE As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''Control li5000.
@@ -1724,6 +1733,24 @@ Partial Public Class addIdea
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
     Protected WithEvents txtobser As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''Control gif_charge_Container.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents gif_charge_Container As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+    '''<summary>
+    '''Control Label12.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Label12 As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''Control upData.

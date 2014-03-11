@@ -8,6 +8,7 @@
 var arrayUbicacion = [];
 var arrayActor = [];
 var arrayActorFlujo = [];
+var arraycomponenteing = [];
 var arraycomponente = [];
 var arraycomponentedesechado = [];
 var arrayValorflujoTotal = [];
@@ -331,7 +332,7 @@ function SaveIdea_onclick() {
                 //crear arrays para el ingreso de las listas de json
                 var listubicaciones = [];
                 var listactores = [];
-                var componentes = [];
+                var listcomponentes = [];
 
                 $("#ctl00_cphPrincipal_lblinfls").val("");
                 $("#ctl0_cphPrincipal_lblinpro").val("");
@@ -349,6 +350,13 @@ function SaveIdea_onclick() {
                 for (item in arrayActor) {
                     listactores.push(JSON.stringify(arrayActor[item]));
                 }
+
+                //recorer array para el ingreso de componentes
+                for (item in arraycomponenteing) {
+                    listcomponentes.push(JSON.stringify(arraycomponenteing[item]));
+                }
+
+               
 
 
                 //crear comunicacion ajax para el ingreso de los datos de la idea
@@ -383,7 +391,8 @@ function SaveIdea_onclick() {
                         "presupuestal": $("#ctl00_cphPrincipal_Txtroutepresupuestal").val(),
                         "iva": $("#ctl00_cphPrincipal_RBnList_iva :checked").val(),
                         "listubicaciones": listubicaciones.toString(),
-                        "listactores": listactores.toString()
+                        "listactores": listactores.toString(),
+                        "listcomponentes": listcomponentes.toString()
                     },
                     //mostrar resultados de la creacion de la idea
                     success: function(result) {
@@ -2036,7 +2045,8 @@ function Btnaddcomponent_onclick() {
         var htmlresult = "<li id = 'select" + arraycomponente[itemArray] + "' class = 'des_seleccionar' >" + htmlcomponente + "</li>";
         //se asigna la lista al ul
         $("#componentesseleccionados").append(htmlresult);
-
+        //xxxxx
+        arraycomponenteing.push(jsonUbicacion);
         //eliminar del ul de seleccionar
         $("#" + arraycomponente[itemArray]).remove();
 
@@ -2580,7 +2590,6 @@ function subirArchivos() {
 
                 $("#fileupload").val("");
 
-
                 $('#ctl00_cphPrincipal_gif_charge_Container').css("display", "none");
 
             },
@@ -2597,11 +2606,23 @@ function subirArchivos() {
     }
 
 }
+
 //hola
 function deletefile(stridfile) {
 
     var idarchivo = "#archivo" + stridfile;
     $(idarchivo).remove();
+
+    for (itemArray in arrayFiles) {
+        //construimos la llave de validacion
+        var id = arrayFiles[itemArray].idfile;
+        //validamos el dato q nos trae la funcion
+
+        if (stridfile == id) {
+            //borramos el actor deseado
+            delete arrayFiles[itemArray];
+        }
+    }
 
 
 }
