@@ -39,7 +39,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
             'Se recorre la lista de archivos cargados al servidor
             For i As Integer = 0 To files.Count - 1
 
-                Dim file As HttpPostedFile = Request.Files.[Get](i)
+                Dim file As HttpPostedFile = files(i)
 
                 If file.ContentLength > 0 Then
 
@@ -875,50 +875,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
     End Function
 
-    Public Function agregar_nexo_temp(ByVal contador As Integer)
-
-        'Definiendo los objtetos
-        Dim strFileName() As String
-        Dim fileName As String = String.Empty
-        Dim files As HttpFileCollection = Request.Files
-        Dim DocumentsTmpList As New List(Of DocumentstmpEntity)
-
-        'Se verifica que existan archivos por cargar
-        If ((Not files Is Nothing) AndAlso (files.Count > 0)) Then
-
-
-            'Se recorre la lista de archivos cargados al servidor
-            For i As Integer = 0 To files.Count - 1
-
-                Dim file As HttpPostedFile = files(i)
-
-                If file.ContentLength > 0 Then
-
-                    strFileName = file.FileName.Split("\".ToCharArray)
-
-                    ' dar nombre al anexo
-                    fileName = Now.ToString("yyyyMMddhhmmss") & "_" & strFileName(strFileName.Length - 1)
-
-                    ' determinanado la ruta destino
-                    Dim sFullPath As String = HttpContext.Current.Server.MapPath(PublicFunction.getSettingValue("documentPath")) & "\temp\" & fileName
-
-                    'Subiendo el archivo al server
-                    file.SaveAs(sFullPath)
-
-                    'Se instancia un objeto de tipo documento y se pobla con la info. reuqerida.
-                    Dim objDocument As New DocumentstmpEntity()
-                    objDocument.namefile = fileName
-
-                    'Se agrega el objeto de tipo documento a la lista de documentos
-                    DocumentsTmpList.Add(objDocument)
-                    Session("DocumentsTmp") = DocumentsTmpList
-
-                End If
-
-            Next
-
-        End If
-    End Function
+   
 
 
 End Class

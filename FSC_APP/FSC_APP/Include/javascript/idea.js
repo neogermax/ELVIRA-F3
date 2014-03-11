@@ -2525,9 +2525,6 @@ function subirArchivos() {
         //Añadimos la imagen de carga en el contenedor
         $('#ctl00_cphPrincipal_gif_charge_Container').css("display", "block");
 
-        var page = $(this).attr('data');
-        var dataString = 'page=' + page;
-
         $("#ctl00_cphPrincipal_LblHELPARCHIVE").text("");
         //capturamos los datos del input file
         var file = $("#fileupload");
