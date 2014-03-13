@@ -494,8 +494,7 @@
                             onclick="return Btndeletecomponent_onclick()" />
                     </td>
                     <td>
-                        <ul id="componentesseleccionados">
-                        </ul>
+                        <ul id="componentesseleccionados"></ul>
                     </td>
                 </tr>
             </table>

@@ -332,7 +332,7 @@ function SaveIdea_onclick() {
                 //crear arrays para el ingreso de las listas de json
                 var listubicaciones = [];
                 var listactores = [];
-                var listcomponentes = [];
+                var Str_listcomponentes = $("#componentesseleccionados").html();
 
                 $("#ctl00_cphPrincipal_lblinfls").val("");
                 $("#ctl0_cphPrincipal_lblinpro").val("");
@@ -352,11 +352,7 @@ function SaveIdea_onclick() {
                 }
 
                 //recorer array para el ingreso de componentes
-                for (item in arraycomponenteing) {
-                    listcomponentes.push(JSON.stringify(arraycomponenteing[item]));
-                }
-
-               
+             
 
 
                 //crear comunicacion ajax para el ingreso de los datos de la idea
@@ -390,9 +386,10 @@ function SaveIdea_onclick() {
                         "mitigacion": $("#ctl00_cphPrincipal_Txtaccionmitig").val(),
                         "presupuestal": $("#ctl00_cphPrincipal_Txtroutepresupuestal").val(),
                         "iva": $("#ctl00_cphPrincipal_RBnList_iva :checked").val(),
+                      //  "listcomponentes": Str_listcomponentes.toString(),
                         "listubicaciones": listubicaciones.toString(),
-                        "listactores": listactores.toString(),
-                        "listcomponentes": listcomponentes.toString()
+                        "listactores": listactores.toString()
+                        
                     },
                     //mostrar resultados de la creacion de la idea
                     success: function(result) {
@@ -2045,8 +2042,6 @@ function Btnaddcomponent_onclick() {
         var htmlresult = "<li id = 'select" + arraycomponente[itemArray] + "' class = 'des_seleccionar' >" + htmlcomponente + "</li>";
         //se asigna la lista al ul
         $("#componentesseleccionados").append(htmlresult);
-        //xxxxx
-        arraycomponenteing.push(jsonUbicacion);
         //eliminar del ul de seleccionar
         $("#" + arraycomponente[itemArray]).remove();
 
@@ -2100,9 +2095,10 @@ function Btndeletecomponent_onclick() {
         //se asigna la lista al ul
         $("#seleccionarcomponente").append(htmlresult);
 
+        
         //eliminar del ul de seleccionado
         $("#" + arraycomponentedesechado[itemArray]).remove();
-
+      
     }
 
     arraycomponentedesechado = [];
