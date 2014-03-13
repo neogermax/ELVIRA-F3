@@ -383,7 +383,7 @@ function SaveIdea_onclick() {
                       //  "listcomponentes": Str_listcomponentes.toString(),
                         "listubicaciones": listubicaciones.toString(),
                         "listactores": listactores.toString()
-                        //rev
+                        
                     },
                     //mostrar resultados de la creacion de la idea
                     success: function(result) {
@@ -569,7 +569,7 @@ function BtnaddActors_onclick() {
             }
             else {
                 $("#ctl00_cphPrincipal_Lblactorrep").text("");
-
+//ww
 
                 var flujo_in = $("#ctl00_cphPrincipal_RBListflujo :checked").val();
 
