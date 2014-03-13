@@ -389,7 +389,7 @@ function SaveIdea_onclick() {
                       //  "listcomponentes": Str_listcomponentes.toString(),
                         "listubicaciones": listubicaciones.toString(),
                         "listactores": listactores.toString()
-                        
+                        //rev
                     },
                     //mostrar resultados de la creacion de la idea
                     success: function(result) {
