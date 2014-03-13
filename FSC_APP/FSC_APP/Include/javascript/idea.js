@@ -31,12 +31,6 @@ var s_revisarflujos = 0;
 var idfile;
 var S_eliminar;
 
-//Array.prototype.remove = function(from, to) {
-//    var rest = this.slice((to || from) + 1 || this.length);
-//    this.length = from < 0 ? this.length + from : from;
-//    return this.push.apply(this, rest);
-//};
-
 
 $(document).ready(function() {
 
