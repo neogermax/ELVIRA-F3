@@ -112,9 +112,9 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                 S_obligaciones = Request.QueryString("obligaciones").ToString
                 S_listubicaciones = Request.QueryString("listubicaciones").ToString
                 S_listactors = Request.QueryString("listactores").ToString
-                ' S_listcomponentes = Request.QueryString("listcomponentes").ToString
+                S_listcomponentes = Request.QueryString("listcomponentes").ToString
 
-                save_IDEA(S_code, S_linea_estrategica, S_programa, S_nombre, S_justificacion, S_objetivo, S_objetivo_esp, S_Resultados_Benef, S_Resultados_Ges_c, S_Resultados_Cap_i, S_Fecha_inicio, S_mes, S_dia, S_Fecha_fin, S_Población, S_contratacion, S_riesgos, S_mitigacion, S_presupuestal, S_cost, S_obligaciones, S_iva, S_listubicaciones, S_listactors) ', S_listcomponentes
+                save_IDEA(S_code, S_linea_estrategica, S_programa, S_nombre, S_justificacion, S_objetivo, S_objetivo_esp, S_Resultados_Benef, S_Resultados_Ges_c, S_Resultados_Cap_i, S_Fecha_inicio, S_mes, S_dia, S_Fecha_fin, S_Población, S_contratacion, S_riesgos, S_mitigacion, S_presupuestal, S_cost, S_obligaciones, S_iva, S_listubicaciones, S_listactors, S_listcomponentes) '
 
             Case "C_linestrategic"
 
@@ -456,7 +456,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
     ''' <param name="cost"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Function save_IDEA(ByVal code As String, ByVal line_strategic As String, ByVal program As String, ByVal name As String, ByVal justify As String, ByVal objetive As String, ByVal obj_esp As String, ByVal resul_bef As String, ByVal resul_ges_c As String, ByVal resul_cap_i As String, ByVal fecha_i As String, ByVal mes As String, ByVal dia As String, ByVal fecha_f As String, ByVal poblacion As String, ByVal contratacion As String, ByVal riesgos As String, ByVal mitigacion As String, ByVal presupuestal As String, ByVal cost As String, ByVal obligaciones As String, ByVal iva As String, ByVal list_ubicacion As String, ByVal list_actor As String) ', ByVal list_componentes As String
+    Public Function save_IDEA(ByVal code As String, ByVal line_strategic As String, ByVal program As String, ByVal name As String, ByVal justify As String, ByVal objetive As String, ByVal obj_esp As String, ByVal resul_bef As String, ByVal resul_ges_c As String, ByVal resul_cap_i As String, ByVal fecha_i As String, ByVal mes As String, ByVal dia As String, ByVal fecha_f As String, ByVal poblacion As String, ByVal contratacion As String, ByVal riesgos As String, ByVal mitigacion As String, ByVal presupuestal As String, ByVal cost As String, ByVal obligaciones As String, ByVal iva As String, ByVal list_ubicacion As String, ByVal list_actor As String, ByVal list_componentes As String) '
 
         Dim facade As New Facade
         Dim objIdea As New IdeaEntity
@@ -491,13 +491,12 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
             'convertimos el string en un array de datos
             arrayactor = list_actor.Split(New [Char]() {","c})
 
-
-
-            'list_componentes = Replace(list_componentes, "{", " ", 1)
+            list_componentes = Replace(list_componentes, "/", "*", 1)
+            list_componentes = Replace(list_componentes, "_ *", "*", 1)
             'list_componentes = Replace(list_componentes, "}", " ", 1)
             'list_componentes = Replace(list_componentes, """", " ", 1)
             ''convertimos el string en un array de datos
-            'arraycomponente = list_componentes.Split(New [Char]() {","c})
+            arraycomponente = list_componentes.Split(New [Char]() {"*"c})
 
             Dim contador As Integer = 0
             Dim contadoractor As Integer = 0
@@ -510,23 +509,24 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
             Dim objCityEntity As CityEntity = New CityEntity()
             Dim thirdByIdea As ThirdByIdeaEntity = New ThirdByIdeaEntity()
 
-
-            'For Each row In arraycomponente
-
-            '    Dim myProgramComponentByIdea As New ProgramComponentByIdeaEntity
-
-            '    existidprogram = InStr(arrayubicacion(contador), "idprogram")
-
-            '    If existidprogram > 0 Then
-
-            '        myProgramComponentByIdea.idProgramComponent = Replace(arraycomponente(contadorcomp), " idprogram : ", " ", 1)
-            '        myProgramComponentByIdeaList.Add(myProgramComponentByIdea)
-
-            '    End If
+            Dim myProgramComponentByIdea As New ProgramComponentByIdeaEntity
 
 
-            '    contadorcomp = contadorcomp + 1
-            'Next
+            For Each row In arraycomponente
+
+                If IsNumeric(arraycomponente(contadorcomp)) Then
+
+                    myProgramComponentByIdea.idProgramComponent = arraycomponente(contadorcomp)
+                    myProgramComponentByIdeaList.Add(myProgramComponentByIdea)
+
+                    Dim f As Integer = 1
+
+                Else
+                    Dim f As Integer = 0
+                End If
+
+                contadorcomp = contadorcomp + 1
+            Next
 
 
             For Each row In arrayubicacion

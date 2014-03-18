@@ -326,7 +326,21 @@ function SaveIdea_onclick() {
                 //crear arrays para el ingreso de las listas de json
                 var listubicaciones = [];
                 var listactores = [];
+
                 var Str_listcomponentes = $("#componentesseleccionados").html();
+                Str_listcomponentes = Str_listcomponentes.replace(/"/g, "_");
+                Str_listcomponentes = Str_listcomponentes.replace(/<li/g, "");
+                Str_listcomponentes = Str_listcomponentes.replace(/li>/g, "");
+                Str_listcomponentes = Str_listcomponentes.replace(/</g, "");
+                Str_listcomponentes = Str_listcomponentes.replace(/>/g, "");
+                Str_listcomponentes = Str_listcomponentes.replace(/class=/g, "*");
+                Str_listcomponentes = Str_listcomponentes.replace(/id=/g, "");
+                Str_listcomponentes = Str_listcomponentes.replace(/_selectadd/g, "");
+
+
+
+                var objetivo_esp = $("#ctl00_cphPrincipal_txtareadescription").val();
+
 
                 $("#ctl00_cphPrincipal_lblinfls").val("");
                 $("#ctl0_cphPrincipal_lblinpro").val("");
@@ -346,7 +360,7 @@ function SaveIdea_onclick() {
                 }
 
                 //recorer array para el ingreso de componentes
-             
+
 
 
                 //crear comunicacion ajax para el ingreso de los datos de la idea
@@ -357,13 +371,13 @@ function SaveIdea_onclick() {
                     data: { "action": "save", "code": $("#ctl00_cphPrincipal_txtcode").val(),
                         "linea_estrategica": $("#ddlStrategicLines").val(),
                         "programa": $("#ddlPrograms").val(),
-                        "nombre": $("#ctl00_cphPrincipal_txtname").val(),
-                        "justificacion": $("#ctl00_cphPrincipal_txtjustification").val(),
-                        "objetivo": $("#ctl00_cphPrincipal_txtobjective").val(),
-                        "objetivo_esp": $("#ctl00_cphPrincipal_txtareadescription").val(),
-                        "Resultados_Benef": $("#ctl00_cphPrincipal_txtresults").val(),
-                        "Resultados_Ges_c": $("#ctl00_cphPrincipal_txtresulgc").val(),
-                        "Resultados_Cap_i": $("#ctl00_cphPrincipal_txtresulci").val(),
+                        "nombre": cambio_text($("#ctl00_cphPrincipal_txtname").val()),
+                        "justificacion": cambio_text($("#ctl00_cphPrincipal_txtjustification").val()),
+                        "objetivo": cambio_text($("#ctl00_cphPrincipal_txtobjective").val()),
+                        "objetivo_esp": cambio_text($("#ctl00_cphPrincipal_txtareadescription").val()),
+                        "Resultados_Benef": cambio_text($("#ctl00_cphPrincipal_txtresults").val()),
+                        "Resultados_Ges_c": cambio_text($("#ctl00_cphPrincipal_txtresulgc").val()),
+                        "Resultados_Cap_i": cambio_text($("#ctl00_cphPrincipal_txtresulci").val()),
                         "Fecha_inicio": $("#ctl00_cphPrincipal_txtstartdate").val(),
                         "mes": $("#ctl00_cphPrincipal_txtduration").val(),
                         "dia": $("#ctl00_cphPrincipal_Txtday").val(),
@@ -375,15 +389,15 @@ function SaveIdea_onclick() {
                         "A_Mcounter": $("#ValueMoneyCounter").val(),
                         "A_Ecounter": $("#ValueEspeciesCounter").val(),
                         "cost": $("#ValueCostotal").val(),
-                        "obligaciones": $("#ctl00_cphPrincipal_Txtobligationsoftheparties").val(),
-                        "riesgo": $("#ctl00_cphPrincipal_Txtriesgos").val(),
-                        "mitigacion": $("#ctl00_cphPrincipal_Txtaccionmitig").val(),
-                        "presupuestal": $("#ctl00_cphPrincipal_Txtroutepresupuestal").val(),
+                        "obligaciones": cambio_text($("#ctl00_cphPrincipal_Txtobligationsoftheparties").val()),
+                        "riesgo": cambio_text($("#ctl00_cphPrincipal_Txtriesgos").val()),
+                        "mitigacion": cambio_text($("#ctl00_cphPrincipal_Txtaccionmitig").val()),
+                        "presupuestal": cambio_text($("#ctl00_cphPrincipal_Txtroutepresupuestal").val()),
                         "iva": $("#ctl00_cphPrincipal_RBnList_iva :checked").val(),
-                      //  "listcomponentes": Str_listcomponentes.toString(),
+                        "listcomponentes": Str_listcomponentes.toString(),
                         "listubicaciones": listubicaciones.toString(),
                         "listactores": listactores.toString()
-                        
+
                     },
                     //mostrar resultados de la creacion de la idea
                     success: function(result) {
@@ -400,6 +414,22 @@ function SaveIdea_onclick() {
             }
         }
     }
+}
+
+//funcion de cambio de comillas enters y tabulaciones
+function cambio_text(str_txt) {
+
+   
+    str_txt = str_txt.replace(/\n/g, "");
+    str_txt = str_txt.replace(/\r/g, "");
+    str_txt = str_txt.replace(/\t/g, "");
+   
+    str_txt = str_txt.replace(/"/g, "");
+    
+    alert(str_txt);
+    
+    return str_txt;
+
 }
 
 //agregar ubicaciones por el metodo de tablas html
@@ -569,7 +599,7 @@ function BtnaddActors_onclick() {
             }
             else {
                 $("#ctl00_cphPrincipal_Lblactorrep").text("");
-//ww
+                //ww
 
                 var flujo_in = $("#ctl00_cphPrincipal_RBListflujo :checked").val();
 
@@ -2089,10 +2119,10 @@ function Btndeletecomponent_onclick() {
         //se asigna la lista al ul
         $("#seleccionarcomponente").append(htmlresult);
 
-        
+
         //eliminar del ul de seleccionado
         $("#" + arraycomponentedesechado[itemArray]).remove();
-      
+
     }
 
     arraycomponentedesechado = [];
