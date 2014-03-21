@@ -27,10 +27,12 @@ var idfile;
 var switch_editar = 0;
 var swhich_validar_estado_1 = 0;
 var s_revisarflujos = 0;
+var entradaflujos = 0;
 
 var idfile;
 var S_eliminar;
 
+var contadorrestar = 0;
 
 $(document).ready(function() {
 
@@ -72,6 +74,7 @@ $(document).ready(function() {
         "bJQueryUI": true,
         "bDestroy": true
     });
+
     $("#T_flujos").dataTable({
         "bJQueryUI": true,
         "bDestroy": true
@@ -131,7 +134,7 @@ $(document).ready(function() {
 
     $("#tabsIdea").tabs();
 
-    var entradaflujos = 0;
+
     //validar que pestaña esta ingresando
     $("#tabsIdea").click(function() {
 
@@ -142,6 +145,7 @@ $(document).ready(function() {
             //validar si es la primera entrada       
             if (entradaflujos == 0) {
                 var tamaño_flujos = $("#T_Actorsflujos tr").length - 2;
+
                 //validar la cantidad de actores
                 if (tamaño_flujos == 1) {
                     var Aflujos = arrayActorFlujo[itemarrayflujos].actorsVal;
@@ -150,9 +154,14 @@ $(document).ready(function() {
                     s_revisarflujos = 1;
                 }
             }
+
             // $("#tabsIdea").tabs({ active: 4});
         }
-        else { entradaflujos = 0; }
+        if (idtabs != "#flujos") {
+            entradaflujos = 0;
+            s_revisarflujos = 0;
+        }
+
     });
 
 
@@ -419,15 +428,15 @@ function SaveIdea_onclick() {
 //funcion de cambio de comillas enters y tabulaciones
 function cambio_text(str_txt) {
 
-   
+
     str_txt = str_txt.replace(/\n/g, "");
     str_txt = str_txt.replace(/\r/g, "");
     str_txt = str_txt.replace(/\t/g, "");
-   
+
     str_txt = str_txt.replace(/"/g, "");
-    
+
     alert(str_txt);
-    
+
     return str_txt;
 
 }
@@ -729,6 +738,8 @@ function Btn_add_flujo_onclick() {
     }
     else {
 
+
+
         //inicializamos variables
         var valuecomparative = $("#ctl00_cphPrincipal_Lbltotalvalor").text();
         //quitamos el valor decimal
@@ -737,7 +748,7 @@ function Btn_add_flujo_onclick() {
 
         var sumapagos = $("#totalflujos").text();
         sumapagos = sumapagos.replace(/\./gi, '');
-
+        var opesumagos = sumapagos;
         //validamos si el valor a guardar concorda con el porcentaje deseado
         if (valuecomparative == sumapagos) {
 
@@ -873,35 +884,58 @@ function Btn_add_flujo_onclick() {
 
         }
         else {
+        
+          //  var test2 = $(tr_Iddes).html();
+           // test2 = test2.replace(/\./gi, '');
 
-            alert("el valor total de los actores debe ser igual al porcentaje calculado");
+        
+            if (parseInt(valuecomparative) < parseInt(opesumagos)) {
+                alert("el valor no debe ser mayor que el porcentaje aprobado");
 
-            //inicializamos el array
-            arrayValorflujoTotal[0] = 0;
-            $("#totalflujos").text(0);
+                //comparo el limite con tra el campo desembolso para ver si es el inicial o no
+
+          //      if (test2 != opevaluesActorslimit) {
+            //        var desembolsototal2 = parseInt(test2) + parseInt(opeValuesActorsflujos);
+              //      $(tr_Iddes).text(addCommasrefactor(desembolsototal2));
+                    //  $(id).focus();
+              //  }
+                swhich_validar_estado_1 = 1;
+
+                valtotaldiner = arrayValorflujoTotal[0];
+                valtotaldiner = valtotaldiner - opeValuesActorsflujos;
+                arrayValorflujoTotal[0] = valtotaldiner;
+                $("#totalflujos").text(addCommasrefactor(valtotaldiner));
+            }
+            else {
+                alert("el valor total de los actores debe ser igual al porcentaje calculado");
+
+                //inicializamos el array
+                arrayValorflujoTotal[0] = 0;
+                $("#totalflujos").text(0);
 
 
-            //recorremos la tabla de flujo de pagos
-            $("#T_Actorsflujos tr").slice(0, $("#T_Actorsflujos tr").length - 1).each(function() {
+                //recorremos la tabla de flujo de pagos
+                $("#T_Actorsflujos tr").slice(0, $("#T_Actorsflujos tr").length - 1).each(function() {
 
-                arrayinputflujos = $(this).find("td").slice(0, 1);
+                    arrayinputflujos = $(this).find("td").slice(0, 1);
 
-                if ($(arrayinputflujos[0]).html() != null) {
-                    var idflujo = "#txtinput" + $(arrayinputflujos[0]).html();
-                    var iddesembolso = "#desenbolso" + $(arrayinputflujos[0]).html();
+                    if ($(arrayinputflujos[0]).html() != null) {
+                        var idflujo = "#txtinput" + $(arrayinputflujos[0]).html();
+                        var iddesembolso = "#desenbolso" + $(arrayinputflujos[0]).html();
 
-                    var desembolso = $(idflujo).val();
-                    desembolso = desembolso.replace(/\./gi, '');
+                        var desembolso = $(idflujo).val();
+                        desembolso = desembolso.replace(/\./gi, '');
 
-                    var datgriddes = $(iddesembolso).html();
-                    datgriddes = datgriddes.replace(/\./gi, '');
+                        var datgriddes = $(iddesembolso).html();
+                        datgriddes = datgriddes.replace(/\./gi, '');
 
-                    var summadesen;
-                    summadesen = parseInt(desembolso) + parseInt(datgriddes);
-                    $(iddesembolso).text(addCommasrefactor(summadesen));
-                    //$(idflujo).val("");
-                }
-            });
+                        var summadesen;
+                        summadesen = parseInt(desembolso) + parseInt(datgriddes);
+                        $(iddesembolso).text(addCommasrefactor(summadesen));
+                        //$(idflujo).val("");
+                    }
+                });
+            }
 
         }
     }
@@ -1089,7 +1123,8 @@ function eliminarflujo(strN_pago) {
 
 //funcion para restar los valores ingresados erronamente en los input de grilla de actores
 function restar_flujos(str) {
-    $("#totalflujos").text("");
+    
+      $("#totalflujos").text("");
     //construimos el input a validar
     var idflujo = "#txtinput" + str;
     var iddesenbolso = "#desenbolso" + str;
@@ -1108,7 +1143,7 @@ function restar_flujos(str) {
         restaoperador = restaoperador.replace(/\./gi, '');
 
         var valorarraytotal = arrayValorflujoTotal[0];
-
+        alert("valor capturado para restar ->" + valorarraytotal);
         var desenbolso = $(iddesenbolso).html();
         desenbolso = desenbolso.replace(/\./gi, '');
 
@@ -1117,6 +1152,9 @@ function restar_flujos(str) {
 
         //restamos del array de operacion
         valorarraytotal = parseInt(valorarraytotal) - parseInt(restaoperador);
+        console.log(valorarraytotal);
+    
+        alert("valor restado ->" + valorarraytotal);
         arrayValorflujoTotal[0] = valorarraytotal;
 
         if (swhich_validar_estado_1 != 1) {
@@ -1128,9 +1166,11 @@ function restar_flujos(str) {
                 swhich_validar_estado_1 = 0;
             }
         }
-        //        $(idflujo).val("");
+        //$(idflujo).focus();
     }
+    contadorrestar = contadorrestar + 1;
 
+    console.log(contadorrestar);
 }
 
 
@@ -1177,31 +1217,34 @@ function sumar_flujos(str) {
             if (opevaluesActorsdesembolso != opevaluesActorslimit) {
                 var desembolsototal2 = parseInt(opevaluesActorsdesembolso) + parseInt(opeValuesActorsflujos);
                 $(tr_Iddes).text(addCommasrefactor(desembolsototal2));
+                // $(id).focus();
             }
 
             swhich_validar_estado_1 = 1;
-            // $(id).val("");
+
             opeValuesActorsflujos = 0;
-        }
-
-        if (opevaluesActorslimit == opevaluesActorsdesembolso) {
-            totaldesembolso = opevaluesActorsdesembolso - opeValuesActorsflujos;
-            $(tr_Iddes).text(addCommasrefactor(totaldesembolso));
-
         }
         else {
-            totaldesembolso = opevaluesActorsdesembolso - opeValuesActorsflujos;
-            $(tr_Iddes).text(addCommasrefactor(totaldesembolso));
+            if (opevaluesActorsdesembolso < opeValuesActorsflujos) {
+                alert("el valor ingresado no debe superar al desembolso disponible");
 
+                swhich_validar_estado_1 = 1;
+                opeValuesActorsflujos = 0;
+                //$(id).focus();
+            }
+            else {
+                if (opevaluesActorslimit == opevaluesActorsdesembolso) {
+                    totaldesembolso = opevaluesActorsdesembolso - opeValuesActorsflujos;
+                    $(tr_Iddes).text(addCommasrefactor(totaldesembolso));
+
+                }
+                else {
+                    totaldesembolso = opevaluesActorsdesembolso - opeValuesActorsflujos;
+                    $(tr_Iddes).text(addCommasrefactor(totaldesembolso));
+
+                }
+            }
         }
-
-        if (opevaluesActorsdesembolso < opeValuesActorsflujos) {
-            alert("el valor ingresado no debe superar al desembolso disponible");
-            //$(id).val("");
-            swhich_validar_estado_1 = 1;
-            opeValuesActorsflujos = 0;
-        }
-
     });
 
     var test2 = $(tr_Iddes).html();
@@ -1224,40 +1267,13 @@ function sumar_flujos(str) {
         else {
             valtotaldiner = arrayValorflujoTotal[0];
             valtotaldiner = valtotaldiner + opeValuesActorsflujos;
+            alert("valor capturado total de la suma->" + valtotaldiner);
         }
         //ingresamos el valor en un array estatico
         arrayValorflujoTotal[0] = valtotaldiner;
         $("#totalflujos").text(addCommasrefactor(valtotaldiner));
     }
 
-    //capturo valores de nuevo
-    var valuecomparative = $("#ctl00_cphPrincipal_Lbltotalvalor").text();
-
-    //quitamos el valor decimal
-    var arrseparar = valuecomparative.split('.');
-    valuecomparative = arrseparar[0].replace(/\,/gi, '');
-
-    var sumapagos = $("#totalflujos").text();
-    var opesumagos = sumapagos.replace(/\./gi, '');
-
-    //comparo los valor contra el porcentaje seleccionado
-
-    if (parseInt(valuecomparative) < parseInt(opesumagos)) {
-        alert("el valor no debe ser mayor que el porcentaje aprobado");
-
-        //comparo el limite con tra el campo desembolso para ver si es el inicial o no
-
-        if (test2 != opevaluesActorslimit) {
-            var desembolsototal2 = parseInt(test2) + parseInt(opeValuesActorsflujos);
-            $(tr_Iddes).text(addCommasrefactor(desembolsototal2));
-        }
-        swhich_validar_estado_1 = 1;
-        //$(id).val("");
-        valtotaldiner = arrayValorflujoTotal[0];
-        valtotaldiner = valtotaldiner - opeValuesActorsflujos;
-        arrayValorflujoTotal[0] = valtotaldiner;
-        $("#totalflujos").text(addCommasrefactor(valtotaldiner));
-    }
 }
 
 
@@ -1830,6 +1846,7 @@ function validarporcentaje() {
         $("#ctl00_cphPrincipal_Lbltotalvalor").text(parcial);
 
         if (s_revisarflujos == 1) {
+
             var idflujos = arrayActorFlujo[itemarrayflujos].actorsVal;
 
             var arrseparar = parcial.split('.');
