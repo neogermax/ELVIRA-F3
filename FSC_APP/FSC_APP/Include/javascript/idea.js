@@ -1143,7 +1143,7 @@ function restar_flujos(str) {
         restaoperador = restaoperador.replace(/\./gi, '');
 
         var valorarraytotal = arrayValorflujoTotal[0];
-        alert("valor capturado para restar ->" + valorarraytotal);
+       // alert("valor capturado para restar ->" + valorarraytotal);
         var desenbolso = $(iddesenbolso).html();
         desenbolso = desenbolso.replace(/\./gi, '');
 
@@ -1154,7 +1154,7 @@ function restar_flujos(str) {
         valorarraytotal = parseInt(valorarraytotal) - parseInt(restaoperador);
         console.log(valorarraytotal);
     
-        alert("valor restado ->" + valorarraytotal);
+      //  alert("valor restado ->" + valorarraytotal);
         arrayValorflujoTotal[0] = valorarraytotal;
 
         if (swhich_validar_estado_1 != 1) {
@@ -1267,7 +1267,7 @@ function sumar_flujos(str) {
         else {
             valtotaldiner = arrayValorflujoTotal[0];
             valtotaldiner = valtotaldiner + opeValuesActorsflujos;
-            alert("valor capturado total de la suma->" + valtotaldiner);
+            //alert("valor capturado total de la suma->" + valtotaldiner);
         }
         //ingresamos el valor en un array estatico
         arrayValorflujoTotal[0] = valtotaldiner;
@@ -1832,7 +1832,7 @@ function validarporcentaje() {
         //calcula el porcentaje
         porc = Math.round(porc * 10) / 10;
         $("#ctl00_cphPrincipal_txtporcentaje").val(porc);
-
+        
         var valortotalflow;
         var txtvalortotalflow = $("#ctl00_cphPrincipal_HDvalorpagoflujo").val();
 
@@ -1841,7 +1841,8 @@ function validarporcentaje() {
 
         //realiza la operacion del porcentaje seleccionado
         var parcial = (parseFloat(porc) * parseFloat(valortotalflow)) / 100;
-        parcial = numeral(parcial).format('0,0.0');
+      
+        parcial = numeral(parcial).format('0,0');
 
         $("#ctl00_cphPrincipal_Lbltotalvalor").text(parcial);
 
