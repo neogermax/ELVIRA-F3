@@ -58,6 +58,9 @@ $(document).ready(function() {
 
     $("#ctl00_cphPrincipal_containerSuccess").css("display", "none");
     $('#ctl00_cphPrincipal_gif_charge_Container').css("display", "none");
+    $("#SaveIdea").css("display", "block");
+    $("#Export").css("display", "none");
+
     //$("#tabsIdea").tabs();
 
     $("#matriz").dataTable({
@@ -96,6 +99,7 @@ $(document).ready(function() {
     });
 
     $("#SaveIdea").button();
+    $("#Export").button();
     $("#B_add_location").button();
     $("#BtnaddActors").button();
     $("#Btn_add_flujo").button();
@@ -348,8 +352,6 @@ function SaveIdea_onclick() {
 
 
 
-                var objetivo_esp = $("#ctl00_cphPrincipal_txtareadescription").val();
-
 
                 $("#ctl00_cphPrincipal_lblinfls").val("");
                 $("#ctl0_cphPrincipal_lblinpro").val("");
@@ -411,9 +413,11 @@ function SaveIdea_onclick() {
                     //mostrar resultados de la creacion de la idea
                     success: function(result) {
                         $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
+                        $("#SaveIdea").css("display", "none");
+                        $("#Export").css("display", "block");
                         $("#ctl00_cphPrincipal_lblsaveinformation").text(result);
                         $("#ctl00_cphPrincipal_Lbladvertencia").text("");
-                        $("#ddlStrategicLines").focus();
+                        $("#ctl00_cphPrincipal_Txtobligationsoftheparties").focus();
                     },
                     error: function() {
                         $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
@@ -435,7 +439,6 @@ function cambio_text(str_txt) {
 
     str_txt = str_txt.replace(/"/g, "");
 
-    alert(str_txt);
 
     return str_txt;
 
@@ -884,27 +887,18 @@ function Btn_add_flujo_onclick() {
 
         }
         else {
-        
-          //  var test2 = $(tr_Iddes).html();
-           // test2 = test2.replace(/\./gi, '');
 
-        
+            // $(idflujo).val("");
+
             if (parseInt(valuecomparative) < parseInt(opesumagos)) {
                 alert("el valor no debe ser mayor que el porcentaje aprobado");
 
-                //comparo el limite con tra el campo desembolso para ver si es el inicial o no
-
-          //      if (test2 != opevaluesActorslimit) {
-            //        var desembolsototal2 = parseInt(test2) + parseInt(opeValuesActorsflujos);
-              //      $(tr_Iddes).text(addCommasrefactor(desembolsototal2));
-                    //  $(id).focus();
-              //  }
                 swhich_validar_estado_1 = 1;
+                arrayValorflujoTotal[0] = 0;
+                $("#totalflujos").text(0);
 
-                valtotaldiner = arrayValorflujoTotal[0];
-                valtotaldiner = valtotaldiner - opeValuesActorsflujos;
-                arrayValorflujoTotal[0] = valtotaldiner;
-                $("#totalflujos").text(addCommasrefactor(valtotaldiner));
+                sumarvaloresflujosprincipal();
+
             }
             else {
                 alert("el valor total de los actores debe ser igual al porcentaje calculado");
@@ -912,34 +906,40 @@ function Btn_add_flujo_onclick() {
                 //inicializamos el array
                 arrayValorflujoTotal[0] = 0;
                 $("#totalflujos").text(0);
+                sumarvaloresflujosprincipal();
 
-
-                //recorremos la tabla de flujo de pagos
-                $("#T_Actorsflujos tr").slice(0, $("#T_Actorsflujos tr").length - 1).each(function() {
-
-                    arrayinputflujos = $(this).find("td").slice(0, 1);
-
-                    if ($(arrayinputflujos[0]).html() != null) {
-                        var idflujo = "#txtinput" + $(arrayinputflujos[0]).html();
-                        var iddesembolso = "#desenbolso" + $(arrayinputflujos[0]).html();
-
-                        var desembolso = $(idflujo).val();
-                        desembolso = desembolso.replace(/\./gi, '');
-
-                        var datgriddes = $(iddesembolso).html();
-                        datgriddes = datgriddes.replace(/\./gi, '');
-
-                        var summadesen;
-                        summadesen = parseInt(desembolso) + parseInt(datgriddes);
-                        $(iddesembolso).text(addCommasrefactor(summadesen));
-                        //$(idflujo).val("");
-                    }
-                });
             }
 
         }
     }
 }
+
+function sumarvaloresflujosprincipal() {
+    //recorremos la tabla de flujo de pagos
+    $("#T_Actorsflujos tr").slice(0, $("#T_Actorsflujos tr").length - 1).each(function() {
+
+        arrayinputflujos = $(this).find("td").slice(0, 1);
+
+        if ($(arrayinputflujos[0]).html() != null) {
+            var idflujo = "#txtinput" + $(arrayinputflujos[0]).html();
+            var iddesembolso = "#desenbolso" + $(arrayinputflujos[0]).html();
+
+            var desembolso = $(idflujo).val();
+            desembolso = desembolso.replace(/\./gi, '');
+
+            var datgriddes = $(iddesembolso).html();
+            datgriddes = datgriddes.replace(/\./gi, '');
+
+            var summadesen;
+            summadesen = parseInt(desembolso) + parseInt(datgriddes);
+            $(iddesembolso).text(addCommasrefactor(summadesen));
+            $(idflujo).val("");
+        }
+    });
+
+}
+
+
 
 //funcion detalles de desembolsos para el grid flujo de pagos
 function traerdetalles(str_idpago) {
@@ -1123,8 +1123,8 @@ function eliminarflujo(strN_pago) {
 
 //funcion para restar los valores ingresados erronamente en los input de grilla de actores
 function restar_flujos(str) {
-    
-      $("#totalflujos").text("");
+
+    $("#totalflujos").text("");
     //construimos el input a validar
     var idflujo = "#txtinput" + str;
     var iddesenbolso = "#desenbolso" + str;
@@ -1143,7 +1143,8 @@ function restar_flujos(str) {
         restaoperador = restaoperador.replace(/\./gi, '');
 
         var valorarraytotal = arrayValorflujoTotal[0];
-       // alert("valor capturado para restar ->" + valorarraytotal);
+        // alert("valor capturado para restar ->" + valorarraytotal);
+
         var desenbolso = $(iddesenbolso).html();
         desenbolso = desenbolso.replace(/\./gi, '');
 
@@ -1152,9 +1153,9 @@ function restar_flujos(str) {
 
         //restamos del array de operacion
         valorarraytotal = parseInt(valorarraytotal) - parseInt(restaoperador);
-        console.log(valorarraytotal);
-    
-      //  alert("valor restado ->" + valorarraytotal);
+        // console.log(valorarraytotal);
+
+        //  alert("valor restado ->" + valorarraytotal);
         arrayValorflujoTotal[0] = valorarraytotal;
 
         if (swhich_validar_estado_1 != 1) {
@@ -1168,9 +1169,7 @@ function restar_flujos(str) {
         }
         //$(idflujo).focus();
     }
-    contadorrestar = contadorrestar + 1;
 
-    console.log(contadorrestar);
 }
 
 
@@ -1832,7 +1831,7 @@ function validarporcentaje() {
         //calcula el porcentaje
         porc = Math.round(porc * 10) / 10;
         $("#ctl00_cphPrincipal_txtporcentaje").val(porc);
-        
+
         var valortotalflow;
         var txtvalortotalflow = $("#ctl00_cphPrincipal_HDvalorpagoflujo").val();
 
@@ -1841,7 +1840,7 @@ function validarporcentaje() {
 
         //realiza la operacion del porcentaje seleccionado
         var parcial = (parseFloat(porc) * parseFloat(valortotalflow)) / 100;
-      
+
         parcial = numeral(parcial).format('0,0');
 
         $("#ctl00_cphPrincipal_Lbltotalvalor").text(parcial);
@@ -2665,26 +2664,84 @@ function deletefile(stridfile) {
 
 }
 
+function Export_onclick() {
 
-//function Cons_T_Anexos() {
+    var listubicaciones = [];
+    var listactores = [];
 
-//    var htmlTablefiles = "<table id='T_files' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr><th style='text-align: center;'>Archivo</th><th style='text-align: center;'>Observaciones</th><th style='text-align: center;'>Eliminar</th></tr></thead><tbody>";
-//    //recorremos el array para generar datos del la tabla anexos
+    var Str_listcomponentes = $("#componentesseleccionados").html();
+    Str_listcomponentes = Str_listcomponentes.replace(/"/g, "_");
+    Str_listcomponentes = Str_listcomponentes.replace(/<li/g, "");
+    Str_listcomponentes = Str_listcomponentes.replace(/li>/g, "");
+    Str_listcomponentes = Str_listcomponentes.replace(/</g, "");
+    Str_listcomponentes = Str_listcomponentes.replace(/>/g, "");
+    Str_listcomponentes = Str_listcomponentes.replace(/class=/g, "*");
+    Str_listcomponentes = Str_listcomponentes.replace(/id=/g, "");
+    Str_listcomponentes = Str_listcomponentes.replace(/_selectadd/g, "");
 
-//    for (i = 0; i < args.length; i++) {
-//        htmlTablefiles += "<tr id='archivo" + i + "'><td><a id='linkarchives' runat='server' href='/FSC_APP/document/temp/" + args[i].name + "' target= '_blank' title='link'>" + args[i].name + "</a></td><td style='text-align: center;'><input id='txtinputobser" + i + "' ></input></td><td style='text-align: center;'><input type ='button' value= 'Eliminar' onclick=\"deletefile('" + i + "')\"></input></td></tr>";
-//    }
 
-//    htmlTablefiles += "</tbody></table>";
+    //recorer array para el ingreso de ubicaciones
+    for (item in arrayUbicacion) {
+        listubicaciones.push(JSON.stringify(arrayUbicacion[item]));
+    }
+    //recorer array para el ingreso de actores
+    for (item in arrayActor) {
+        listactores.push(JSON.stringify(arrayActor[item]));
+    }
 
-//    //cargamos el div donde se generara la tabla anexos
-//    $("#tdFileInputs").html("");
-//    $("#tdFileInputs").html(htmlTablefiles);
 
-//    //reconstruimos el pluging de la tabla
-//    $("#T_files").dataTable({
-//        "bJQueryUI": true,
-//        "bDestroy": true
-//    });
 
-//}
+    //crear comunicacion ajax para el ingreso de los datos de la idea al export
+    $.ajax({
+        url: "AjaxAddIdea.aspx",
+        type: "GET",
+        //crear json
+        data: { "action": "Export", "code": $("#ctl00_cphPrincipal_txtcode").val(),
+            "linea_estrategica": $("#ddlStrategicLines").val(),
+            "programa": $("#ddlPrograms").val(),
+            "nombre": cambio_text($("#ctl00_cphPrincipal_txtname").val()),
+            "justificacion": cambio_text($("#ctl00_cphPrincipal_txtjustification").val()),
+            "objetivo": cambio_text($("#ctl00_cphPrincipal_txtobjective").val()),
+            "objetivo_esp": cambio_text($("#ctl00_cphPrincipal_txtareadescription").val()),
+            "Resultados_Benef": cambio_text($("#ctl00_cphPrincipal_txtresults").val()),
+            "Resultados_Ges_c": cambio_text($("#ctl00_cphPrincipal_txtresulgc").val()),
+            "Resultados_Cap_i": cambio_text($("#ctl00_cphPrincipal_txtresulci").val()),
+            "Fecha_inicio": $("#ctl00_cphPrincipal_txtstartdate").val(),
+            "mes": $("#ctl00_cphPrincipal_txtduration").val(),
+            "dia": $("#ctl00_cphPrincipal_Txtday").val(),
+            "Fecha_fin": $("#ctl00_cphPrincipal_Txtdatecierre").val(),
+            "Población": $("#ddlPupulation").val(),
+            "contratacion": $("#ddlmodcontract").val(),
+            "A_Mfsc": $("#ValueMoneyFSC").val(),
+            "A_Efsc": $("#ValueEspeciesFSC").val(),
+            "A_Mcounter": $("#ValueMoneyCounter").val(),
+            "A_Ecounter": $("#ValueEspeciesCounter").val(),
+            "cost": $("#ValueCostotal").val(),
+            "obligaciones": cambio_text($("#ctl00_cphPrincipal_Txtobligationsoftheparties").val()),
+            "riesgo": cambio_text($("#ctl00_cphPrincipal_Txtriesgos").val()),
+            "mitigacion": cambio_text($("#ctl00_cphPrincipal_Txtaccionmitig").val()),
+            "presupuestal": cambio_text($("#ctl00_cphPrincipal_Txtroutepresupuestal").val()),
+            "iva": $("#ctl00_cphPrincipal_RBnList_iva :checked").val(),
+            "listcomponentes": Str_listcomponentes.toString(),
+            "listubicaciones": listubicaciones.toString(),
+            "listactores": listactores.toString()
+
+        },
+        //mostrar resultados de la creacion de la idea
+        success: function(result) {
+            $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
+            $("#SaveIdea").css("display", "none");
+            $("#Export").css("display", "block");
+            $("#ctl00_cphPrincipal_lblsaveinformation").text(result);
+            $("#ctl00_cphPrincipal_Lbladvertencia").text("");
+            $("#ctl00_cphPrincipal_containerSuccess").focus();
+        },
+        error: function() {
+            $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
+            $("#ctl00_cphPrincipal_lblsaveinformation").text("Se genero error al entrar a la operacion Ajax");
+        }
+    });
+
+
+}
+

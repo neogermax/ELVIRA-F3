@@ -166,8 +166,9 @@
             if ((event.keyCode < 48) || (event.keyCode > 57))
                 event.returnValue = false;
         }
-       
 
+
+       
     </script>
 
     <br />
@@ -236,15 +237,13 @@
                 </li>
                 <li>
                     <asp:Label ID="lblname" runat="server" Text="Nombre"></asp:Label>
-                    <asp:TextBox ID="txtname" runat="server" MaxLength="500" Width="400px" Rows="2" 
-                        TextMode="MultiLine"></asp:TextBox>
+                    <asp:TextBox ID="txtname" runat="server" MaxLength="500" Width="400px" Rows="2" TextMode="MultiLine"></asp:TextBox>
                     <asp:Label ID="lblHelpname" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
                 <li>
                     <asp:Label ID="lblJustificacion" runat="server" Text="Justificación"></asp:Label>
-                    <asp:TextBox ID="txtjustification" runat="server" MaxLength="10000" 
-                        Width="400px" Rows="2"
-                        TextMode="MultiLine"></asp:TextBox>
+                    <asp:TextBox ID="txtjustification" runat="server" MaxLength="10000" Width="400px"
+                        Rows="2" TextMode="MultiLine"></asp:TextBox>
                     <asp:Label ID="lblHelpjustification" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
                 <li>
@@ -287,8 +286,8 @@
                 </li>
                 <li>
                     <asp:Label ID="Lblroutepresupuestal" runat="server" Text="Ruta presupuestal"></asp:Label>
-                    <asp:TextBox ID="Txtroutepresupuestal" runat="server" Width="400px" Rows="6" 
-                        TextMode="MultiLine" Height="40px" ></asp:TextBox>
+                    <asp:TextBox ID="Txtroutepresupuestal" runat="server" Width="400px" Rows="6" TextMode="MultiLine"
+                        Height="40px"></asp:TextBox>
                     <asp:Label ID="Lblhelproutepresupuestal" runat="server" ForeColor="#CC0000"></asp:Label>
                 </li>
                 <li>
@@ -468,12 +467,14 @@
                 <li>
                     <asp:Button ID="btnAddData" runat="server" Text="Guardar" ValidationGroup="infoGenral"
                         Visible="false" />
-                    <asp:Button ID="btnSave" runat="server" Text="Guardar" ValidationGroup="infoGenral" />
-                    <asp:Button ID="btnDelete" runat="server" Text="Eliminar Idea" />
-                    <asp:Button ID="btnCancel" runat="server" Text="Cancelar" CausesValidation="False" />
+                    <asp:Button ID="btnSave" runat="server" Text="Guardar" ValidationGroup="infoGenral" Visible="false"/>
+                    <asp:Button ID="btnDelete" runat="server" Text="Eliminar Idea" Visible="false" />
+                    <asp:Button ID="btnCancel" runat="server" Text="Cancelar" CausesValidation="False" Visible="false"/>
                     <asp:Button ID="btnexportword" runat="server" Text="Exportar términos de referencia"
-                        ValidationGroup="infoGenral" />
-                    <input id="SaveIdea" type="button" value="Crear Idea" name="Save_Idea" onclick="SaveIdea_onclick()" /></li>
+                        ValidationGroup="infoGenral" Visible="false"/>
+                    <input id="SaveIdea" type="button" value="Crear Idea" name="Save_Idea" onclick="SaveIdea_onclick()" />
+                    <input id="Export" type="button" value="Exportar términos de referencia" name="Export_Idea" onclick="return Export_onclick()" />
+                </li>
                 <asp:Label ID="Lbladvertencia" runat="server" ForeColor="#990000"></asp:Label>
                 <li>
                     <asp:Button ID="btnConfirmDelete" runat="server" Text="Eliminar" CausesValidation="False" />
@@ -498,6 +499,9 @@
                     <td>
                         <ul id="componentesseleccionados"></ul>
                     </td>
+                    <td id="viejocomp" runat="server" visible="false">
+                        <cc2:DoubleListBox ID="dlbActivity" runat="server" Width="100%" />
+                    </td>
                 </tr>
             </table>
             <ul>
@@ -505,7 +509,7 @@
                     <asp:Label ID="Lblinformationcomponent" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
             </ul>
-            <cc2:DoubleListBox ID="dlbActivity" runat="server" Visible="false" Width="100%" />
+         
         </div>
         <div id="ubicacion">
             <ul>
