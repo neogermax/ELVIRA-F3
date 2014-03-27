@@ -170,6 +170,7 @@ Public Class IdeaDALC
              "objective," & _
              "startdate," & _
              "duration," & _
+             "days," & _
              "areadescription," & _
              "population," & _
              "cost," & _
@@ -202,6 +203,7 @@ Public Class IdeaDALC
             sql.AppendLine("'" & Idea.objective & "',")
             sql.AppendLine("'" & Idea.startdate.ToString("yyyyMMdd") & "',")
             sql.AppendLine("'" & Idea.duration & "',")
+            sql.AppendLine("'" & Idea.dia & "',")
             sql.AppendLine("'" & Idea.areadescription & "',")
             sql.AppendLine("'" & Idea.population & "',")
             sql.AppendLine("'" & Idea.cost.ToString().Replace(",", ".") & "',")

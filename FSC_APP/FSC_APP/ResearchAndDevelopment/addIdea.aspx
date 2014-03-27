@@ -473,8 +473,9 @@
                     <asp:Button ID="btnexportword" runat="server" Text="Exportar términos de referencia"
                         ValidationGroup="infoGenral" Visible="false"/>
                     <input id="SaveIdea" type="button" value="Crear Idea" name="Save_Idea" onclick="SaveIdea_onclick()" />
-                    <input id="Export" type="button" value="Exportar términos de referencia" name="Export_Idea" onclick="return Export_onclick()" />
-                </li>
+                    <%--<input id="Export" type="button" value="Exportar términos de referencia" name="Export_Idea" onclick="return Export_onclick()" />--%>
+                    <a id="Export" href="#" onclick="Export_onclick();" target="_blank">Exportar términos de referencia</a>
+                 </li>
                 <asp:Label ID="Lbladvertencia" runat="server" ForeColor="#990000"></asp:Label>
                 <li>
                     <asp:Button ID="btnConfirmDelete" runat="server" Text="Eliminar" CausesValidation="False" />

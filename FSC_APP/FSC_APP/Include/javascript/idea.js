@@ -100,6 +100,7 @@ $(document).ready(function() {
 
     $("#SaveIdea").button();
     $("#Export").button();
+    //$("#linkExport").button();
     $("#B_add_location").button();
     $("#BtnaddActors").button();
     $("#Btn_add_flujo").button();
@@ -351,8 +352,6 @@ function SaveIdea_onclick() {
                 Str_listcomponentes = Str_listcomponentes.replace(/_selectadd/g, "");
 
 
-
-
                 $("#ctl00_cphPrincipal_lblinfls").val("");
                 $("#ctl0_cphPrincipal_lblinpro").val("");
                 $("#ctl00_cphPrincipal_lblHelpname").text("");
@@ -399,7 +398,7 @@ function SaveIdea_onclick() {
                         "A_Efsc": $("#ValueEspeciesFSC").val(),
                         "A_Mcounter": $("#ValueMoneyCounter").val(),
                         "A_Ecounter": $("#ValueEspeciesCounter").val(),
-                        "cost": $("#ValueCostotal").val(),
+                        "cost": $("#ValueCostotal").text(),
                         "obligaciones": cambio_text($("#ctl00_cphPrincipal_Txtobligationsoftheparties").val()),
                         "riesgo": cambio_text($("#ctl00_cphPrincipal_Txtriesgos").val()),
                         "mitigacion": cambio_text($("#ctl00_cphPrincipal_Txtaccionmitig").val()),
@@ -2669,17 +2668,6 @@ function Export_onclick() {
     var listubicaciones = [];
     var listactores = [];
 
-    var Str_listcomponentes = $("#componentesseleccionados").html();
-    Str_listcomponentes = Str_listcomponentes.replace(/"/g, "_");
-    Str_listcomponentes = Str_listcomponentes.replace(/<li/g, "");
-    Str_listcomponentes = Str_listcomponentes.replace(/li>/g, "");
-    Str_listcomponentes = Str_listcomponentes.replace(/</g, "");
-    Str_listcomponentes = Str_listcomponentes.replace(/>/g, "");
-    Str_listcomponentes = Str_listcomponentes.replace(/class=/g, "*");
-    Str_listcomponentes = Str_listcomponentes.replace(/id=/g, "");
-    Str_listcomponentes = Str_listcomponentes.replace(/_selectadd/g, "");
-
-
     //recorer array para el ingreso de ubicaciones
     for (item in arrayUbicacion) {
         listubicaciones.push(JSON.stringify(arrayUbicacion[item]));
@@ -2690,58 +2678,29 @@ function Export_onclick() {
     }
 
 
+    var str_url = "addIdea.aspx?op=export";
 
-    //crear comunicacion ajax para el ingreso de los datos de la idea al export
-    $.ajax({
-        url: "AjaxAddIdea.aspx",
-        type: "GET",
-        //crear json
-        data: { "action": "Export", "code": $("#ctl00_cphPrincipal_txtcode").val(),
-            "linea_estrategica": $("#ddlStrategicLines").val(),
-            "programa": $("#ddlPrograms").val(),
-            "nombre": cambio_text($("#ctl00_cphPrincipal_txtname").val()),
-            "justificacion": cambio_text($("#ctl00_cphPrincipal_txtjustification").val()),
-            "objetivo": cambio_text($("#ctl00_cphPrincipal_txtobjective").val()),
-            "objetivo_esp": cambio_text($("#ctl00_cphPrincipal_txtareadescription").val()),
-            "Resultados_Benef": cambio_text($("#ctl00_cphPrincipal_txtresults").val()),
-            "Resultados_Ges_c": cambio_text($("#ctl00_cphPrincipal_txtresulgc").val()),
-            "Resultados_Cap_i": cambio_text($("#ctl00_cphPrincipal_txtresulci").val()),
-            "Fecha_inicio": $("#ctl00_cphPrincipal_txtstartdate").val(),
-            "mes": $("#ctl00_cphPrincipal_txtduration").val(),
-            "dia": $("#ctl00_cphPrincipal_Txtday").val(),
-            "Fecha_fin": $("#ctl00_cphPrincipal_Txtdatecierre").val(),
-            "Población": $("#ddlPupulation").val(),
-            "contratacion": $("#ddlmodcontract").val(),
-            "A_Mfsc": $("#ValueMoneyFSC").val(),
-            "A_Efsc": $("#ValueEspeciesFSC").val(),
-            "A_Mcounter": $("#ValueMoneyCounter").val(),
-            "A_Ecounter": $("#ValueEspeciesCounter").val(),
-            "cost": $("#ValueCostotal").val(),
-            "obligaciones": cambio_text($("#ctl00_cphPrincipal_Txtobligationsoftheparties").val()),
-            "riesgo": cambio_text($("#ctl00_cphPrincipal_Txtriesgos").val()),
-            "mitigacion": cambio_text($("#ctl00_cphPrincipal_Txtaccionmitig").val()),
-            "presupuestal": cambio_text($("#ctl00_cphPrincipal_Txtroutepresupuestal").val()),
-            "iva": $("#ctl00_cphPrincipal_RBnList_iva :checked").val(),
-            "listcomponentes": Str_listcomponentes.toString(),
-            "listubicaciones": listubicaciones.toString(),
-            "listactores": listactores.toString()
+    //json de url
+    var url_export = {
 
-        },
-        //mostrar resultados de la creacion de la idea
-        success: function(result) {
-            $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
-            $("#SaveIdea").css("display", "none");
-            $("#Export").css("display", "block");
-            $("#ctl00_cphPrincipal_lblsaveinformation").text(result);
-            $("#ctl00_cphPrincipal_Lbladvertencia").text("");
-            $("#ctl00_cphPrincipal_containerSuccess").focus();
-        },
-        error: function() {
-            $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
-            $("#ctl00_cphPrincipal_lblsaveinformation").text("Se genero error al entrar a la operacion Ajax");
-        }
-    });
+        "linea_estrategica": $("#ddlStrategicLines option:selected").text(),
+        "programa": $("#ddlPrograms option:selected").text(),
+        "Población": $("#ddlPupulation option:selected").text(),
+        "contratacion": $("#ddlmodcontract option:selected").text(),
+        "listubicaciones": listubicaciones.toString(),
+        "listactores": listactores.toString()
+    }
 
+    str_url += "&linea_estrategica=" + url_export['linea_estrategica'];
+    str_url += "&programa=" + url_export['programa'];
+    str_url += "&Población=" + url_export['Población'];
+    str_url += "&contratacion=" + url_export['contratacion'];
+    str_url += "&listubicaciones=" + url_export['listubicaciones'];
+    str_url += "&listactores=" + url_export['listactores'];
 
+   
+    //  $("#linkExport").attr({ href: str_url });
+    $("#Export").attr("href", str_url);
 }
+
 

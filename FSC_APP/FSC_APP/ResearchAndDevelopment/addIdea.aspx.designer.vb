@@ -1096,13 +1096,13 @@ Partial Public Class addIdea
     Protected WithEvents lblDelete As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''Control Lblinformationcomponent.
+    '''Control viejocomp.
     '''</summary>
     '''<remarks>
     '''Campo generado automáticamente.
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
-    Protected WithEvents Lblinformationcomponent As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents viejocomp As Global.System.Web.UI.HtmlControls.HtmlTableCell
 
     '''<summary>
     '''Control dlbActivity.
@@ -1112,6 +1112,15 @@ Partial Public Class addIdea
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
     Protected WithEvents dlbActivity As Global.DoubleListBox.DoubleListBox
+
+    '''<summary>
+    '''Control Lblinformationcomponent.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Lblinformationcomponent As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''Control Label1.

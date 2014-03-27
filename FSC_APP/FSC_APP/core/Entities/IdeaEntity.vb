@@ -56,6 +56,7 @@ Public Class IdeaEntity
     Private _riesgos As String
     Private _mitigacion As String
     Private _presupuestal As String
+    Private _dia As String
 
 #End Region
 
@@ -399,6 +400,16 @@ Public Class IdeaEntity
             Me._presupuestal = value
         End Set
     End Property
+    Public Property dia() As String
+        Get
+            Return Me._dia
+        End Get
+        Set(ByVal value As String)
+            Me._dia = value
+        End Set
+    End Property
+
+
 
 #End Region
 

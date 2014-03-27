@@ -156,328 +156,12 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                 idpopulation = Convert.ToInt32(Request.QueryString("idpopulation").ToString)
                 Charge_population(idpopulation)
 
-            Case "Export"
-
-                S_linea_estrategica = Request.QueryString("linea_estrategica").ToString
-                S_programa = Request.QueryString("programa").ToString
-                S_nombre = Request.QueryString("nombre").ToString
-                S_justificacion = Request.QueryString("justificacion").ToString
-                S_objetivo = Request.QueryString("objetivo").ToString
-                S_objetivo_esp = Request.QueryString("objetivo_esp").ToString
-                S_Resultados_Benef = Request.QueryString("Resultados_Benef").ToString
-                S_Resultados_Ges_c = Request.QueryString("Resultados_Ges_c").ToString
-                S_Resultados_Cap_i = Request.QueryString("Resultados_Cap_i").ToString
-                S_Fecha_inicio = Request.QueryString("Fecha_inicio").ToString
-                S_mes = Request.QueryString("mes").ToString
-                S_dia = Request.QueryString("dia").ToString
-                S_Fecha_fin = Request.QueryString("Fecha_fin").ToString
-                S_Población = Request.QueryString("Población").ToString
-                S_contratacion = Request.QueryString("contratacion").ToString
-                S_riesgos = Request.QueryString("riesgo").ToString
-                S_mitigacion = Request.QueryString("mitigacion").ToString
-                S_presupuestal = Request.QueryString("presupuestal").ToString
-                S_cost = Request.QueryString("cost").ToString
-                S_iva = Request.QueryString("iva").ToString
-                S_obligaciones = Request.QueryString("obligaciones").ToString
-                S_listubicaciones = Request.QueryString("listubicaciones").ToString
-                S_listactors = Request.QueryString("listactores").ToString
-                S_listcomponentes = Request.QueryString("listcomponentes").ToString
-
-                Export_Idea(S_code, S_linea_estrategica, S_programa, S_nombre, S_justificacion, S_objetivo, S_objetivo_esp, S_Resultados_Benef, S_Resultados_Ges_c, S_Resultados_Cap_i, S_Fecha_inicio, S_mes, S_dia, S_Fecha_fin, S_Población, S_contratacion, S_riesgos, S_mitigacion, S_presupuestal, S_cost, S_obligaciones, S_iva, S_listubicaciones, S_listactors, S_listcomponentes) '
-
             Case Else
 
         End Select
 
 
     End Sub
-
-
-    Public Function Export_Idea(ByVal code As String, ByVal line_strategic As String, ByVal program As String, ByVal name As String, ByVal justify As String, ByVal objetive As String, ByVal obj_esp As String, ByVal resul_bef As String, ByVal resul_ges_c As String, ByVal resul_cap_i As String, ByVal fecha_i As String, ByVal mes As String, ByVal dia As String, ByVal fecha_f As String, ByVal poblacion As String, ByVal contratacion As String, ByVal riesgos As String, ByVal mitigacion As String, ByVal presupuestal As String, ByVal cost As String, ByVal obligaciones As String, ByVal iva As String, ByVal list_ubicacion As String, ByVal list_actor As String, ByVal list_componentes As String)
-
-        Dim objlocationidea As New LocationByIdeaEntity
-
-        Dim locationByIdeaList As List(Of LocationByIdeaEntity)
-        Dim thirdByIdeaList As List(Of ThirdByIdeaEntity)
-
-        Dim arrayubicacion, arrayactor, arraycomponente As String()
-        Dim deptovalexist, Cityvalexist, existidprogram, existactorsVal, existactorsName, existtipoactors, existcontact, existcedula, existtelefono, existemail, existdiner, existespecie, existtotal As String
-
-
-
-        Try
-
-            locationByIdeaList = DirectCast(Session("locationByIdeaList"), List(Of LocationByIdeaEntity))
-            thirdByIdeaList = DirectCast(Session("thirdByIdeaList"), List(Of ThirdByIdeaEntity))
-
-
-            list_ubicacion = Replace(list_ubicacion, "{", " ", 1)
-            list_ubicacion = Replace(list_ubicacion, "}", " ", 1)
-            list_ubicacion = Replace(list_ubicacion, """", " ", 1)
-            'convertimos el string en un array de datos
-            arrayubicacion = list_ubicacion.Split(New [Char]() {","c})
-
-            list_actor = Replace(list_actor, "{", " ", 1)
-            list_actor = Replace(list_actor, "}", " ", 1)
-            list_actor = Replace(list_actor, """", " ", 1)
-            'convertimos el string en un array de datos
-            arrayactor = list_actor.Split(New [Char]() {","c})
-
-
-            Dim contador As Integer = 0
-            Dim contadoractor As Integer = 0
-            Dim contadorcomp As Integer = 0
-
-            Dim swicth As Integer = 0
-            Dim swicth_actor As Integer = 0
-
-            Dim objDeptoEntity As DeptoEntity = New DeptoEntity()
-            Dim objCityEntity As CityEntity = New CityEntity()
-            Dim thirdByIdea As ThirdByIdeaEntity = New ThirdByIdeaEntity()
-
-
-
-            Dim sql As New StringBuilder
-            Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
-
-            Dim ddlc, ddls, ddlp, just, objet, objetesp, resulb, resulgc, resulci, fech, dura, people, vt1, vt2, vt3, fuent, est, datanex, dept, munip, actor, action, vt4, vt5, vt6, active As String
-            Dim FSCval As String = ""
-            Dim ididea As Integer
-
-            If code = "" Then
-                sql.Append("select MAX(id) from idea")
-                ididea = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
-            Else
-                ididea = code
-            End If
-
-            sql = New StringBuilder
-            sql.Append("select convert(bigint,REPLACE(ti.FSCorCounterpartContribution,'.','')) from Idea i  ")
-            sql.Append("inner join ThirdByIdea ti on i.Id = ti.IdIdea  ")
-            sql.Append(" inner join Third t on t.Id= ti.IdThird ")
-            sql.Append("where (t.code = '8600383389' And ti.IdIdea = " & ididea & ")")
-
-            FSCval = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
-
-            If FSCval = 0 Then
-                vt5 = "0"
-            Else
-                vt5 = Format(Convert.ToInt64(FSCval), "#,###.##")
-            End If
-            sql = New StringBuilder
-            sql.Append("select sum(convert(bigint,REPLACE(ti.FSCorCounterpartContribution,'.',''))) from Idea i   ")
-            sql.Append("inner join ThirdByIdea ti on i.Id=ti.IdIdea  ")
-            sql.Append(" inner join Third t on t.Id= ti.IdThird ")
-            sql.Append("where(t.code <> '8600383389' And ti.IdIdea = " & ididea & ")")
-
-
-            Dim otrosval = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
-
-            If otrosval = 0 Then
-                vt4 = "0"
-            Else
-                vt4 = Format(Convert.ToInt64(otrosval), "#,###.##")
-            End If
-
-            Response.Clear()
-            Response.Buffer = True
-            Response.AddHeader("content-disposition", "attachment;filename=IdeaExport.doc")
-            Response.Charset = "UTF8Encoding"
-            Response.ContentType = "application/vnd.ms-word "
-
-            ddls = line_strategic
-            ddlp = program
-            ddlc = contratacion
-
-            just = justify
-            objet = objetive
-            objetesp = obj_esp
-            resulb = resul_bef
-            resulgc = resul_ges_c
-            resulci = resul_cap_i
-            fech = fecha_i
-            dura = fecha_f
-            people = poblacion
-            vt3 = cost
-            vt6 = cost
-
-            If objetesp = "" Then
-                objetesp = "No Aplica"
-            End If
-            If resulb = "" Then
-                resulb = "No Aplica"
-            End If
-            If resulgc = "" Then
-                resulgc = "No Aplica"
-            End If
-            If resulci = "" Then
-                resulci = "No Aplica"
-            End If
-            If dura = "" Then
-                dura = "No Aplica"
-            End If
-            If datanex = "" Then
-                datanex = "No Aplica"
-            End If
-
-            If ddlc = "Seleccione...." Then
-                ddlc = ""
-            End If
-
-            Response.Output.WriteLine("<meta http-equiv=""Content-Type"" content=""text/html; charset=UTF-8"" /><table  style=""font-family: 'Times New Roman';"" Width=""100%"">")
-
-            Response.Output.WriteLine("<body><p style=""text-align: center;""><strong><span style=""font-family:Times New Roman,helvetica,sans-serif;"">T&Eacute;RMINOS DE REFERENCIA</span></strong></p><p><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span></p>")
-            Response.Output.WriteLine("<table border=""0"" cellpadding=""1"" cellspacing=""1"" style=""width: 100%;""><tbody><tr><td style=""width: 20%;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>L&iacute;nea Estrat&eacute;gica:</strong></span></td><td>" & ddls.ToString() & "</td></tr>")
-            Response.Output.WriteLine("<tr><td style=""width: 50%;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Programa:</strong></span></td><td>" & ddlp.ToString() & "</td></tr>")
-            Response.Output.WriteLine("<tr><td style=""width: 50%;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Nombre de la Idea:</strong></span></td><td>" & name.ToString() & "</td></tr>")
-            Response.Output.WriteLine("<tr><td style=""width: 50%;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Localizaci&oacute;n Geogr&aacute;fica:</strong></span></td><td>")
-
-            Dim lbldepto, lblcity As String
-
-            For Each row In arrayubicacion
-
-                deptovalexist = InStr(arrayubicacion(contador), "DeptoName")
-                Cityvalexist = InStr(arrayubicacion(contador), "CityName")
-
-                If deptovalexist > 0 Then
-
-                    deptovalexist = Replace(arrayubicacion(contador), "DeptoName : ", " ", 1)
-                    lbldepto = deptovalexist
-
-                End If
-
-                If Cityvalexist > 0 Then
-
-                    Cityvalexist = Replace(arrayubicacion(contador), "CityName : ", " ", 1)
-                    lblcity = Cityvalexist
-                    swicth = 1
-
-                End If
-
-                If swicth = 1 Then
-                    Response.Output.WriteLine(lbldepto.ToString() & ", " & lblcity.ToString() & " // ")
-                    swicth = 0
-                End If
-
-                contador = contador + 1
-
-            Next
-
-
-            Response.Output.WriteLine("</td></tr><tr><td style=""width: 50%;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Poblaci&oacute;n Beneficiaria:</strong></span></td><td>" & people.ToString() & "</td></tr>")
-            Response.Output.WriteLine("<tr><td style=""width: 50%;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Duraci&oacute;n en meses:</strong></span></td><td>" & dura.ToString() & "</td></tr>")
-            Response.Output.WriteLine("<tr><td style=""width: 50%;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Fecha de Inicio:</strong></span></td><td>" & fech.ToString() & "</td></tr>")
-            Response.Output.WriteLine("<tr><td style=""width: 50%;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Valor Total:</strong></span></td><td>" & vt3.ToString() & "</td></tr>")
-            Response.Output.WriteLine("<tr><td style=""width: 50%;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Modalidad de contrataci&oacute;n:</strong></span></span></td><td>" & ddlc.ToString() & "</td></tr>")
-            Response.Output.WriteLine("<tr><td style=""width: 50%;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>No de Idea:</strong></span></td><td>" & ididea.ToString() & "." & "</td></tr></tbody></table>")
-            Response.Output.WriteLine("<p><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Actores:</strong></span></p>")
-            Response.Output.WriteLine("<table border=""1"" cellpadding=""1"" cellspacing=""1"" style=""width: 100%;""><tbody><tr><td style=""width: 16%; text-align: center;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Actor</strong></span></td><td style=""width: 16%; text-align: center;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Tipo</strong></span></td><td style=""width: 16%; text-align: center;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Contacto</strong></span></td><td style=""width: 16%; text-align: center;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Documento de Identidad</strong></span></td><td style=""width: 16%; text-align: center;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Tel&eacute;fono</strong></span></td><td style=""width: 16%; text-align: center;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Correo electr&oacute;nico</strong></span></td></tr>")
-
-            Dim lblname, labelcontact, labeldocument, labeltype, labelphone, labelemail As String
-
-            For Each row In arrayactor
-
-                existactorsName = InStr(arrayactor(contadoractor), "actorsName") 'y
-                existtipoactors = InStr(arrayactor(contadoractor), "tipoactors")
-                existcontact = InStr(arrayactor(contadoractor), "contact") 'y
-                existcedula = InStr(arrayactor(contadoractor), "cedula") 'y
-                existtelefono = InStr(arrayactor(contadoractor), "telefono") 'y
-                existemail = InStr(arrayactor(contadoractor), "email") 'y
-
-                
-                If existactorsName > 0 Then
-
-                    existactorsName = Replace(arrayactor(contadoractor), "actorsName : ", " ", 1)
-                    lblname = existactorsName
-
-                End If
-
-                If existtipoactors > 0 Then
-
-                    existtipoactors = Replace(arrayactor(contadoractor), "tipoactors : ", " ", 1)
-                    labeltype = existtipoactors
-
-                End If
-
-                If existcontact > 0 Then
-
-                    existcontact = Replace(arrayactor(contadoractor), "contact : ", " ", 1)
-                    labelcontact = existcontact
-
-                End If
-
-                If existcedula > 0 Then
-
-                    existcedula = Replace(arrayactor(contadoractor), "cedula : ", " ", 1)
-                    labeldocument = existcedula
-
-                End If
-
-                If existtelefono > 0 Then
-
-                    existtelefono = Replace(arrayactor(contadoractor), "telefono : ", " ", 1)
-                    labelphone = existtelefono
-
-                End If
-
-                If existemail > 0 Then
-
-                    existemail = Replace(arrayactor(contadoractor), "email : ", " ", 1)
-                    labelemail = existemail
-                    swicth_actor = 1
-
-                End If
-
-
-                If lblname = "Total" Then
-                    Exit For
-                Else
-
-                    If swicth_actor = 1 Then
-                        Response.Output.WriteLine("<tr><td style=""width: 16%;"">" & lblname.ToString() & "</td><td style=""width: 16%;"">" & labeltype.ToString() & "</td><td style=""width: 16%;"">" & labelcontact.ToString() & "</td><td style=""width: 16%;"">" & labeldocument.ToString() & "</td><td style=""width: 16%;"">" & labelphone.ToString() & "</td><td style=""width: 16%;"">" & labelemail.ToString() & "</tr>")
-                        swicth_actor = 0
-                    End If
-
-                End If
-
-                contadoractor = contadoractor + 1
-
-            Next
-
-
-
-
-            Response.Output.WriteLine("</tbody></table><p><strong><span style=""font-family:Times New Roman,helvetica,sans-serif;"">JUSTIFICAC&Iacute;ON:</span></strong></p>")
-            Response.Output.WriteLine("<table border=""0"" cellpadding=""1"" cellspacing=""1"" height=""67"" width=""100%""><tbody><tr><td style=""text-align: justify;"">" & just.ToString() & "</td></tr></tbody></table>")
-            Response.Output.WriteLine("<p><strong><span style=""font-family:Times New Roman,helvetica,sans-serif;"">OBJETIVO:</span></strong></p><table border=""0"" cellpadding=""1"" cellspacing=""1"" height=""71"" width=""100%""><tbody><tr><td style=""text-align: justify;"">" & objet.ToString() & "</td></tr></tbody></table>")
-            Response.Output.WriteLine("<p><strong><span style=""font-family:Times New Roman,helvetica,sans-serif;"">OBJETIVOS ESPEC&Iacute;FICOS:</span></strong></p><table border=""0"" cellpadding=""1"" cellspacing=""1"" height=""82"" style=""width: 100%;"" width=""100%""><tbody><tr><td style=""text-align: justify;"">" & objetesp.ToString() & "</td></tr></tbody></table>")
-            Response.Output.WriteLine("<p><strong><span style=""font-family:Times New Roman,helvetica,sans-serif;"">RESULTADOS ESPERADOS:</span></strong></p>")
-            Response.Output.WriteLine("<table border=""0"" cellpadding=""1"" cellspacing=""1"" style=""width: 100%;""><tbody><tr>")
-            Response.Output.WriteLine("<td style=""width: 5%; text-align: right;""><strong><span style=""font-family:Times New Roman,helvetica,sans-serif;"">&gt;</span></strong></td><td style=""width: 20%;""><strong><span style=""font-family:Times New Roman,helvetica,sans-serif;"">Beneficiarios:</span></strong></td><td style=""text-align: justify;"">" & resulb.ToString() & "</td></tr><tr>")
-            Response.Output.WriteLine("<td style=""width: 5%; text-align: right;""><strong><span style=""font-family:Times New Roman,helvetica,sans-serif;"">&gt;</span></strong></td><td style=""width: 20%;""><strong><span style=""font-family:Times New Roman,helvetica,sans-serif;"">Gesti&oacute;n del conocimiento*:</span></strong></td><td style=""text-align: justify;"">" & resulgc.ToString() & "</td></tr><tr>")
-            Response.Output.WriteLine("<td style=""width: 5%; text-align: right;""><strong><span style=""font-family:Times New Roman,helvetica,sans-serif;"">&gt;</span></strong></td><td style=""width: 20%;""><strong><span style=""font-family:Times New Roman,helvetica,sans-serif;"">Capacidad instalada:</span></strong></td><td style=""text-align: justify;"">" & resulci.ToString() & "</td></tr></tbody></table>")
-            Response.Output.WriteLine("<p><strong><span style=""font-family:Times New Roman,helvetica,sans-serif;"">PRESUPUESTO GENERAL:</span></strong></p>")
-            Response.Output.WriteLine("<table border=""0"" cellpadding=""1"" cellspacing=""1"" style=""width: 100%;""><tbody><tr>")
-            Response.Output.WriteLine("<td style=""width: 5%; text-align: right;""><strong><span style=""font-family:Times New Roman,helvetica,sans-serif;"">&gt;</span></strong></td><td style=""width: 50%;""><strong><span style=""font-family:Times New Roman,helvetica,sans-serif;"">Valor Total del contrato:</span></strong></td><td>" & vt6.ToString() & "</td></tr>")
-            Response.Output.WriteLine("<tr><td style=""width: 5%; text-align: right;""><strong><span style=""font-family:Times New Roman,helvetica,sans-serif;"">&gt;</span></strong></td><td style=""width: 50%;""><strong><span style=""font-family:Times New Roman,helvetica,sans-serif;"">Aporte de los Socios (Efectivo y Especie):</span></strong></td><td>" & vt4.ToString() & "</td></tr>")
-            Response.Output.WriteLine("<tr><td style=""width: 5%; text-align: right;""><strong><span style=""font-family:Times New Roman,helvetica,sans-serif;"">&gt;</span></strong></td><td style=""width: 50%;""><strong><span style=""font-family:Times New Roman,helvetica,sans-serif;"">Aporte de la FSC (Efectivo y Especie):</span></strong></td><td>" & vt5.ToString() & "</td></tr></tbody></table>")
-
-            Response.Output.WriteLine("<span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span>")
-
-            Response.Output.WriteLine("<p><u><strong><span style=""font-family:Times New Roman,helvetica,sans-serif;"">CRONOGRAMA DE PAGOS</span></strong></u></p>")
-            Response.Output.WriteLine("<table border=""1"" cellpadding=""1"" cellspacing=""1"" height=""125"" width=""100%""><tbody><tr><td style=""width: 16%; text-align: center;"">&nbsp;</td><td style=""width: 16%; text-align: center;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Valor</strong></span></td><td style=""width: 5%; text-align: center;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>%</strong></span></td><td style=""width: 16%; text-align: center;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Origen de los Recursos</strong></span></td><td style=""width: 16%; text-align: center;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Contraentrega</strong></span></td><td style=""width: 16%; text-align: center;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Fecha</strong></span></td></tr><tr><td style=""width: 16%;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Primer Desembolso</strong></span></td><td style=""width: 16%;"">&nbsp;</td><td style=""width: 5%;"">&nbsp;</td><td style=""width: 16%;"">&nbsp;</td><td style=""width: 16%;"">&nbsp;</td><td style=""width: 16%;"">&nbsp;</td></tr><tr><td style=""width: 16%;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Segundo Desembolso</strong></span></td><td style=""width: 16%;"">&nbsp;</td><td style=""width: 5%;"">&nbsp;</td><td style=""width: 16%;"">&nbsp;</td><td style=""width: 16%;"">&nbsp;</td><td style=""width: 16%;"">&nbsp;</td></tr><tr><td style=""width: 16%;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Tercer y &Uacute;ltimo Desembolso</strong></span></td><td style=""width: 16%;"">&nbsp;</td><td style=""width: 5%;"">&nbsp;</td><td style=""width: 16%;"">&nbsp;</td><td style=""width: 16%;"">&nbsp;</td><td style=""width: 16%;"">&nbsp;</td></tr><tr><td style=""width: 16%; text-align: center;""><strong><span style=""font-family:Times New Roman,helvetica,sans-serif;"">TOTAL</span></strong></td><td style=""width: 16%; text-align: center;"">&nbsp;</td><td style=""width: 5%; text-align: center;""><strong><span style=""font-family:Times New Roman,helvetica,sans-serif;"">100%</span></strong></td><td style=""width: 16%; text-align: center;"">&nbsp;</td><td style=""width: 16%; text-align: center;"">&nbsp;</td><td style=""width: 16%; text-align: center;"">&nbsp;</td></tr></tbody></table>")
-            Response.Output.WriteLine("<p>&nbsp;</p><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong><u>IDENTIFICACI&Oacute;N DE RIESGOS</u></strong></span></p><p>&nbsp;</p>")
-            Response.Output.WriteLine("<table border=""1"" cellpadding=""1"" cellspacing=""1"" style=""width: 100%;""><tbody><tr><td style=""width: 50%; text-align: center;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Riesgo identificado</strong></span></td><td style=""text-align: center;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Acci&oacute;n de mitigaci&oacute;n</strong></span></td></tr><tr><td style=""width: 50%;"">&nbsp;</td><td>&nbsp;</td></tr><tr><td style=""width: 50%;"">&nbsp;</td><td>&nbsp;</td></tr><tr><td style=""width: 50%;"">&nbsp;</td><td>&nbsp;</td></tr><tr><td style=""width: 50%;"">&nbsp;</td><td>&nbsp;</td></tr><tr><td style=""width: 50%;"">&nbsp;</td><td>&nbsp;</td></tr></tbody></table>")
-            Response.Output.WriteLine("<p><strong>*Nota:&nbsp; </strong>En la Fundaci&oacute;n Saldarriaga Concha promovemos la cultura de racionalizaci&oacute;n en el uso del papel, por lo que se solicita informar a nuestros operadores que solo debe enviar el <strong>informe final </strong>impreso<strong>.</strong></p>")
-
-            Response.Flush()
-            Response.End()
-
-
-        Catch ex As Exception
-
-        End Try
-    End Function
 
 
     ''' <summary>
@@ -821,9 +505,8 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
             Dim swicth As Integer = 0
             Dim swicthactor As Integer = 0
 
-            Dim objDeptoEntity As DeptoEntity = New DeptoEntity()
-            Dim objCityEntity As CityEntity = New CityEntity()
-            Dim thirdByIdea As ThirdByIdeaEntity = New ThirdByIdeaEntity()
+            
+            ' Dim thirdByIdea As ThirdByIdeaEntity = New ThirdByIdeaEntity()
 
             Dim myProgramComponentByIdea As New ProgramComponentByIdeaEntity
 
@@ -844,9 +527,12 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                 contadorcomp = contadorcomp + 1
             Next
 
+            Dim objDeptoEntity As DeptoEntity = New DeptoEntity()
+            Dim objCityEntity As CityEntity = New CityEntity()
+
 
             For Each row In arrayubicacion
-
+                
                 deptovalexist = InStr(arrayubicacion(contador), "DeptoVal")
                 Cityvalexist = InStr(arrayubicacion(contador), "CityVal")
 
@@ -876,6 +562,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
             Next
 
+            Dim thirdByIdea As ThirdByIdeaEntity = New ThirdByIdeaEntity()
 
             For Each row In arrayactor
 
@@ -1013,12 +700,8 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
             objIdea.mitigacion = mitigacion
             objIdea.riesgos = riesgos
             objIdea.presupuestal = presupuestal
-
-            If iva = "on" Then
-                objIdea.iva = True
-            Else
-                objIdea.iva = False
-            End If
+            objIdea.dia = dia
+            
 
             ''objIdea.Loadingobservations = clean_vbCrLf(Me.txtobser.Text)
 
