@@ -14,7 +14,7 @@ Public Class PaymentFlowEntity
     Private _valorparcial As Decimal
     Private _ididea As Integer
     Private _valortotal As Decimal
-
+    Private _N_pagos As String
 #End Region
 
 #Region "Constructor"
@@ -96,7 +96,16 @@ Public Class PaymentFlowEntity
             Me._valortotal = value
         End Set
     End Property
-    
+    Public Property N_pagos() As String
+        Get
+            Return Me._N_pagos
+        End Get
+        Set(ByVal value As String)
+            Me._N_pagos = value
+        End Set
+    End Property
+
+
 #End Region
 
 End Class

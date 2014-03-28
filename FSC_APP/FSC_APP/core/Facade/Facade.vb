@@ -10496,6 +10496,7 @@ Public Class Facade
 
         'Definir los objetos
         Dim IdeaDALC As New IdeaDALC
+        Dim objPaymentFlowDALC As New PaymentFlowDALC()
         Dim miIdIdea As Long
 
         Try
@@ -10551,6 +10552,12 @@ Public Class Facade
                 'Se llama al metodo que almacena la informacion de las Componentes del Programa por idea.
                 Me.addProgramComponentByIdea(objApplicationCredentials, ProgramComponentByIdea)
             Next
+
+            For Each objPaymentFlow As PaymentFlowEntity In Idea.paymentflowByProjectList
+                objPaymentFlow.ididea = miIdIdea
+                objPaymentFlowDALC.add(objApplicationCredentials, objPaymentFlow)
+            Next
+
 
             ' finalizar la transaccion
             CtxSetComplete()

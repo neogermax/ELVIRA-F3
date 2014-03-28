@@ -58,6 +58,9 @@ Public Class IdeaEntity
     Private _presupuestal As String
     Private _dia As String
 
+    Private _paymentflowByProjectList As List(Of PaymentFlowEntity)
+
+
 #End Region
 
 #Region "Propiedades"
@@ -409,7 +412,14 @@ Public Class IdeaEntity
         End Set
     End Property
 
-
+    Public Property paymentflowByProjectList() As List(Of PaymentFlowEntity)
+        Get
+            Return Me._paymentflowByProjectList
+        End Get
+        Set(ByVal value As List(Of PaymentFlowEntity))
+            Me._paymentflowByProjectList = value
+        End Set
+    End Property
 
 #End Region
 

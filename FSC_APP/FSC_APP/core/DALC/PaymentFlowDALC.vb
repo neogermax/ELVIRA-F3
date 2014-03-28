@@ -103,6 +103,7 @@ Public Class PaymentFlowDALC
              "entregable," & _
              "ididea," & _
              "valortotal," & _
+             "N_pagos," & _
              "valorparcial " & _
             ")")
             sql.AppendLine("VALUES (")
@@ -112,6 +113,7 @@ Public Class PaymentFlowDALC
             sql.AppendLine("'" & PaymentFlow.entregable & "',")
             sql.AppendLine("'" & PaymentFlow.ididea & "',")
             sql.AppendLine("'" & valortotal & "',")
+            sql.AppendLine("'" & PaymentFlow.N_pagos & "',")
             sql.AppendLine("'" & valorparcial & "') ")
             
             'sql.AppendLine("'" & Project.IdActivityInstance & "')")

@@ -340,6 +340,7 @@ function SaveIdea_onclick() {
                 //crear arrays para el ingreso de las listas de json
                 var listubicaciones = [];
                 var listactores = [];
+                var listflujos = [];
 
                 var Str_listcomponentes = $("#componentesseleccionados").html();
                 Str_listcomponentes = Str_listcomponentes.replace(/"/g, "_");
@@ -369,7 +370,10 @@ function SaveIdea_onclick() {
                     listactores.push(JSON.stringify(arrayActor[item]));
                 }
 
-                //recorer array para el ingreso de componentes
+                //recorer array para el ingreso de flujos
+                for (item in arrayflujosdepago) {
+                    listflujos.push(JSON.stringify(arrayflujosdepago[item]));
+                }
 
 
 
@@ -406,6 +410,7 @@ function SaveIdea_onclick() {
                         "iva": $("#ctl00_cphPrincipal_RBnList_iva :checked").val(),
                         "listcomponentes": Str_listcomponentes.toString(),
                         "listubicaciones": listubicaciones.toString(),
+                        "listflujos": listflujos.toString(),
                         "listactores": listactores.toString()
 
                     },
@@ -420,7 +425,8 @@ function SaveIdea_onclick() {
                     },
                     error: function() {
                         $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
-                        $("#ctl00_cphPrincipal_lblsaveinformation").text("Se genero error al entrar a la operacion Ajax");
+                        $("#SaveIdea").css("display", "block");
+                        $("#ctl00_cphPrincipal_lblsaveinkdformation").text("Se genero error al entrar a la operacion Ajax");
                     }
                 });
             }
@@ -2698,7 +2704,7 @@ function Export_onclick() {
     str_url += "&listubicaciones=" + url_export['listubicaciones'];
     str_url += "&listactores=" + url_export['listactores'];
 
-   
+
     //  $("#linkExport").attr({ href: str_url });
     $("#Export").attr("href", str_url);
 }
