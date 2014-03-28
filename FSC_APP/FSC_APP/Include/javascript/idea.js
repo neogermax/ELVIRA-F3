@@ -1842,8 +1842,6 @@ function validarporcentaje() {
         valortotalflow = txtvalortotalflow.replace(/\./gi, '');
         var valortotalflow = parseInt(valortotalflow);
 
-        alert(valortotalflow);
-
         //realiza la operacion del porcentaje seleccionado
         var parcial = (parseFloat(porc) * parseFloat(valortotalflow)) / 100;
 
