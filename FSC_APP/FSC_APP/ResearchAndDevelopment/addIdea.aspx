@@ -373,6 +373,7 @@
                         <asp:ListItem Value="1">Si</asp:ListItem>
                         <asp:ListItem Value="0">No</asp:ListItem>
                     </asp:RadioButtonList>
+                    <asp:Label ID="Lblhelpiva" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
             </ul>
             <ul>

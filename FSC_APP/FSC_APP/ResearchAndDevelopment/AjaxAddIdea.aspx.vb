@@ -537,68 +537,74 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
             Dim objpaymentFlow As PaymentFlowEntity = New PaymentFlowEntity()
 
-            For Each row In arrayflujos
+            If arrayflujos(0) = "vacio_ojo" Then
 
-                N_pagoexist = InStr(arrayflujos(contadorflu), "N_pago")
-                fecha_pagoexist = InStr(arrayflujos(contadorflu), "fecha_pago")
-                porcentajeexist = InStr(arrayflujos(contadorflu), "porcentaje")
-                entregaexist = InStr(arrayflujos(contadorflu), "entrega")
-                tflujosexist = InStr(arrayflujos(contadorflu), "tflujos")
+            Else
 
-                If N_pagoexist > 0 Then
+                For Each row In arrayflujos
 
-                    N_pagoexist = Replace(arrayflujos(contadorflu), " N_pago : ", " ", 1)
-                    objpaymentFlow.N_pagos = N_pagoexist
+                    N_pagoexist = InStr(arrayflujos(contadorflu), "N_pago")
+                    fecha_pagoexist = InStr(arrayflujos(contadorflu), "fecha_pago")
+                    porcentajeexist = InStr(arrayflujos(contadorflu), "porcentaje")
+                    entregaexist = InStr(arrayflujos(contadorflu), "entrega")
+                    tflujosexist = InStr(arrayflujos(contadorflu), "tflujos")
 
-                End If
+                    If N_pagoexist > 0 Then
 
-                If fecha_pagoexist > 0 Then
+                        N_pagoexist = Replace(arrayflujos(contadorflu), " N_pago : ", " ", 1)
+                        objpaymentFlow.N_pagos = N_pagoexist
 
-                    fecha_pagoexist = Replace(arrayflujos(contadorflu), " fecha_pago : ", " ", 1)
-                    objpaymentFlow.fecha = Convert.ToDateTime(fecha_pagoexist)
+                    End If
 
-                End If
+                    If fecha_pagoexist > 0 Then
 
-                If porcentajeexist > 0 Then
+                        fecha_pagoexist = Replace(arrayflujos(contadorflu), " fecha_pago : ", " ", 1)
+                        objpaymentFlow.fecha = Convert.ToDateTime(fecha_pagoexist)
 
-                    porcentajeexist = Replace(arrayflujos(contadorflu), " porcentaje : ", " ", 1)
-                    porcentajeexist = porcentajeexist.Replace("%", "")
-                    objpaymentFlow.porcentaje = Convert.ToDecimal(porcentajeexist)
+                    End If
 
-                End If
+                    If porcentajeexist > 0 Then
 
-                If entregaexist > 0 Then
+                        porcentajeexist = Replace(arrayflujos(contadorflu), " porcentaje : ", " ", 1)
+                        porcentajeexist = porcentajeexist.Replace("%", "")
+                        objpaymentFlow.porcentaje = Convert.ToDecimal(porcentajeexist)
 
-                    entregaexist = Replace(arrayflujos(contadorflu), " entrega : ", " ", 1)
-                    objpaymentFlow.entregable = entregaexist
+                    End If
 
-                End If
+                    If entregaexist > 0 Then
+
+                        entregaexist = Replace(arrayflujos(contadorflu), " entrega : ", " ", 1)
+                        objpaymentFlow.entregable = entregaexist
+
+                    End If
 
 
-                If tflujosexist > 0 Then
+                    If tflujosexist > 0 Then
 
-                    tflujosexist = Replace(arrayflujos(contadorflu), " tflujos : ", " ", 1)
-                    objpaymentFlow.valortotal = Convert.ToDecimal(tflujosexist)
-                    objpaymentFlow.valorparcial = Convert.ToDecimal(tflujosexist)
-                    objpaymentFlow.idproject = 0
-                    swicthflujo = 1
+                        tflujosexist = Replace(arrayflujos(contadorflu), " tflujos : ", " ", 1)
+                        objpaymentFlow.valortotal = Convert.ToDecimal(tflujosexist)
+                        objpaymentFlow.valorparcial = Convert.ToDecimal(tflujosexist)
+                        objpaymentFlow.idproject = 0
+                        swicthflujo = 1
 
-                End If
+                    End If
 
-                If swicthflujo = 1 Then
-                    PaymentFlowList.Add(objpaymentFlow)
-                    swicthflujo = 0
-                End If
+                    If swicthflujo = 1 Then
+                        PaymentFlowList.Add(objpaymentFlow)
+                        swicthflujo = 0
+                    End If
 
-                contadorflu = contadorflu + 1
+                    contadorflu = contadorflu + 1
 
-            Next
+                Next
 
+            End If
+            
 
             Dim objDeptoEntity As DeptoEntity = New DeptoEntity()
             Dim objCityEntity As CityEntity = New CityEntity()
 
-          
+
             For Each row In arrayubicacion
 
                 deptovalexist = InStr(arrayubicacion(contador), "DeptoVal")

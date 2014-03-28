@@ -106,6 +106,15 @@ Partial Public Class addIdea
     Protected WithEvents ddlStrategicLines As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
+    '''Control LbltxtStrategicLines.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents LbltxtStrategicLines As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
     '''Control lblinfls.
     '''</summary>
     '''<remarks>
@@ -131,6 +140,15 @@ Partial Public Class addIdea
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
     Protected WithEvents ddlPrograms As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''Control LbltxtddlPrograms.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents LbltxtddlPrograms As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''Control lblinpro.

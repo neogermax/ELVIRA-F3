@@ -37262,6 +37262,14 @@ Control ddlStrategicLines.
 Campo generado automáticamente.
 Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 </remarks>
+</member><member name="F:FSC_APP.addIdea.LbltxtStrategicLines">
+	<summary>
+Control LbltxtStrategicLines.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
 </member><member name="F:FSC_APP.addIdea.lblinfls">
 	<summary>
 Control lblinfls.
@@ -37281,6 +37289,14 @@ Para modificarlo, mueva la declaración del campo del archivo del diseñador al 
 </member><member name="F:FSC_APP.addIdea.ddlPrograms">
 	<summary>
 Control ddlPrograms.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addIdea.LbltxtddlPrograms">
+	<summary>
+Control LbltxtddlPrograms.
 </summary>
 	<remarks>
 Campo generado automáticamente.

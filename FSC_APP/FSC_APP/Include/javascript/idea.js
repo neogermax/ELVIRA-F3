@@ -32,29 +32,61 @@ var entradaflujos = 0;
 var idfile;
 var S_eliminar;
 
+var ideditar;
+
 var contadorrestar = 0;
 
 $(document).ready(function() {
 
+    var sPageURL = window.location.search.substring(1);
+    var sURLVariables = sPageURL.split('&');
 
-    operacionesIdea();
-    comboactor();
-    var timer = setTimeout("fix();", 2000);
-    validafecha();
-    validafecha2();
-    separarvaloresFSC();
+    if (sURLVariables[0] == "op=edit") {
+        ideditar = sURLVariables[1].replace("id=", "");
+        alert(ideditar);
 
-    ClineEstrategic();
-    Cprogram();
-    Cdeptos();
-    Cmunip();
-    Cactors();
-    CtypeContract();
-    cargarcomponente();
-    startdate();
-    Ctype_project();
-    Cpopulation();
-    validarporcentaje();
+        operacionesIdea();
+        comboactor();
+        var timer = setTimeout("fix();", 2000);
+        validafecha();
+        validafecha2();
+        separarvaloresFSC();
+
+        Cdeptos();
+        Cmunip();
+        Cactors();
+        CtypeContract();
+        startdate();
+        Ctype_project();
+        Cpopulation();
+        validarporcentaje();
+
+
+    }
+    else {
+
+        operacionesIdea();
+        comboactor();
+        var timer = setTimeout("fix();", 2000);
+        validafecha();
+        validafecha2();
+        separarvaloresFSC();
+
+        ClineEstrategic();
+        Cprogram();
+        Cdeptos();
+        Cmunip();
+        Cactors();
+        CtypeContract();
+        cargarcomponente();
+        startdate();
+        Ctype_project();
+        Cpopulation();
+        validarporcentaje();
+    }
+
+
+
 
     $("#ctl00_cphPrincipal_containerSuccess").css("display", "none");
     $('#ctl00_cphPrincipal_gif_charge_Container').css("display", "none");
@@ -173,6 +205,21 @@ $(document).ready(function() {
 });
 
 
+//function GetQueryStringParams(sParam)
+//{
+//   
+//    
+//    for (var i = 0; i < sURLVariables.length; i++) 
+//    {
+//        var sParameterName = sURLVariables[i].split('=');
+//        if (sParameterName[0] == sParam) 
+//        {
+//            return sParameterName[1];
+//        }
+//    }
+//}
+
+
 //funcion para dispara en el autoload fuciones de fechas
 function fix() {
 
@@ -231,9 +278,17 @@ function SaveIdea_onclick() {
             $("#ctl00_cphPrincipal_Lblinformationcomponent").text("");
             $("#ctl00_cphPrincipal_Lblinfubicacion").text("");
             $("#ctl00_cphPrincipal_Lblactorrep").text("");
-
             //validar si los campos obligatorios fueron dilegenciados
-            if ($("#ddlPupulation :selected").text() == 'Seleccione...' || $("#ddlmodcontract :selected").text() == 'Seleccione...' || $("#ddlStrategicLines :selected").text() == 'Seleccione...' || $("#ddlPrograms :selected").text() == 'Seleccione...' || $("#ctl00_cphPrincipal_txtname").val() == '' || $("#ctl00_cphPrincipal_txtjustification").val() == '' || $("#ctl00_cphPrincipal_txtobjective").val() == '' || $("#ctl00_cphPrincipal_txtstartdate").val() == '' || $("#ctl00_cphPrincipal_Txtdatecierre").val() == '' || arrayUbicacion.length == 0 || fsc_exist == 0) {
+            if ($("#ctl00_cphPrincipal_RBnList_iva :checked").val() == null || $("#ddlPupulation :selected").text() == 'Seleccione...' || $("#ddlmodcontract :selected").text() == 'Seleccione...' || $("#ddlStrategicLines :selected").text() == 'Seleccione...' || $("#ddlPrograms :selected").text() == 'Seleccione...' || $("#ctl00_cphPrincipal_txtname").val() == '' || $("#ctl00_cphPrincipal_txtjustification").val() == '' || $("#ctl00_cphPrincipal_txtobjective").val() == '' || $("#ctl00_cphPrincipal_txtstartdate").val() == '' || $("#ctl00_cphPrincipal_Txtdatecierre").val() == '' || arrayUbicacion.length == 0 || fsc_exist == 0) {
+
+                if ($("#ctl00_cphPrincipal_RBnList_iva :checked").val() == null) {
+                    $("#ctl00_cphPrincipal_Lblhelpiva").text("Escoja si o no");
+                    $("#ctl00_cphPrincipal_Lbladvertencia").text("La idea no guardo con exito: Revisar la pestaña información");
+                }
+                else {
+                    $("#ctl00_cphPrincipal_Lblhelpiva").text("");
+                    $("#ctl00_cphPrincipal_Lbladvertencia").text("");
+                }
 
                 //validar linea estrategica
                 if ($("#ddlStrategicLines :selected").text() == 'Seleccione...') {
@@ -333,6 +388,7 @@ function SaveIdea_onclick() {
                     $("#ctl00_cphPrincipal_Lblactorrep").text("La idea no guardo con exito: la FSC debe ser un actor obligatorio");
                     $("#ctl00_cphPrincipal_Lbladvertencia").text("La idea no guardo con exito: la FSC debe ser un actor obligatorio");
                 }
+
             }
 
             else {
@@ -360,6 +416,10 @@ function SaveIdea_onclick() {
                 $("#ctl00_cphPrincipal_lblHelpobjective").text("");
                 $("#ctl00_cphPrincipal_lblHelpstartdate").text("");
                 $("#ctl00_cphPrincipal_lbldia").text("");
+                $("#ctl00_cphPrincipal_Lblmodcontract").text("");
+                $("#ctl00_cphPrincipal_lblHelppopulation").text("");
+                $("#ctl00_cphPrincipal_Lblhelpenddate").text("");
+                $("#ctl00_cphPrincipal_Lblhelpiva").text("");
 
                 //recorer array para el ingreso de ubicaciones
                 for (item in arrayUbicacion) {
@@ -375,6 +435,9 @@ function SaveIdea_onclick() {
                     listflujos.push(JSON.stringify(arrayflujosdepago[item]));
                 }
 
+                if (listflujos.length == 0) {
+                    listflujos[0] = "vacio_ojo";
+                }
 
 
                 //crear comunicacion ajax para el ingreso de los datos de la idea
