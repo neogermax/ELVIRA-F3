@@ -1837,11 +1837,12 @@ function validarporcentaje() {
         porc = Math.round(porc * 10) / 10;
         $("#ctl00_cphPrincipal_txtporcentaje").val(porc);
 
-        var valortotalflow;
-        var txtvalortotalflow = $("#ctl00_cphPrincipal_HDvalorpagoflujo").val();
+        var txtvalortotalflow = $("#tflujosing").text();
 
         valortotalflow = txtvalortotalflow.replace(/\./gi, '');
-        valortotalflow = parseInt(valortotalflow);
+        var valortotalflow = parseInt(valortotalflow);
+
+        alert(valortotalflow);
 
         //realiza la operacion del porcentaje seleccionado
         var parcial = (parseFloat(porc) * parseFloat(valortotalflow)) / 100;
