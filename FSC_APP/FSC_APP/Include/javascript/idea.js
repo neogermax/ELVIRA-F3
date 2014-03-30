@@ -38,9 +38,10 @@ var contadorrestar = 0;
 
 $(document).ready(function() {
 
+//capturamos la url
     var sPageURL = window.location.search.substring(1);
     var sURLVariables = sPageURL.split('&');
-
+    //validamos si creamos la idea o editamos
     if (sURLVariables[0] == "op=edit") {
         ideditar = sURLVariables[1].replace("id=", "");
         alert(ideditar);
@@ -61,6 +62,8 @@ $(document).ready(function() {
         Cpopulation();
         validarporcentaje();
 
+        $("#SaveIdea").css("display", "none");
+        $("#Export").css("display", "block");
 
     }
     else {
@@ -83,15 +86,15 @@ $(document).ready(function() {
         Ctype_project();
         Cpopulation();
         validarporcentaje();
+
+        $("#SaveIdea").css("display", "block");
+        $("#Export").css("display", "none");
+
     }
-
-
 
 
     $("#ctl00_cphPrincipal_containerSuccess").css("display", "none");
     $('#ctl00_cphPrincipal_gif_charge_Container').css("display", "none");
-    $("#SaveIdea").css("display", "block");
-    $("#Export").css("display", "none");
 
     //$("#tabsIdea").tabs();
 
@@ -187,6 +190,9 @@ $(document).ready(function() {
                 if (tamaño_flujos == 1) {
                     var Aflujos = arrayActorFlujo[itemarrayflujos].actorsVal;
                     $("#txtinput" + Aflujos).attr("disabled", "disabled");
+                    $("#desenbolso" + Aflujos).text("");
+                   
+                    
                     entradaflujos = 1;
                     s_revisarflujos = 1;
                 }
@@ -205,19 +211,6 @@ $(document).ready(function() {
 });
 
 
-//function GetQueryStringParams(sParam)
-//{
-//   
-//    
-//    for (var i = 0; i < sURLVariables.length; i++) 
-//    {
-//        var sParameterName = sURLVariables[i].split('=');
-//        if (sParameterName[0] == sParam) 
-//        {
-//            return sParameterName[1];
-//        }
-//    }
-//}
 
 
 //funcion para dispara en el autoload fuciones de fechas
@@ -501,11 +494,18 @@ function SaveIdea_onclick() {
 function cambio_text(str_txt) {
 
 
-    str_txt = str_txt.replace(/\n/g, "");
+    str_txt.replace(/\n/g, "");
     str_txt = str_txt.replace(/\r/g, "");
     str_txt = str_txt.replace(/\t/g, "");
+    str_txt = str_txt.replace(/\n\r/g, " ");
+    str_txt = str_txt.replace(/\r\n/g, " ");
 
-    str_txt = str_txt.replace(/"/g, "");
+
+//    str_txt = str_txt.replace(/\n/g, "");
+//    str_txt = str_txt.replace(/\r/g, "");
+//    str_txt = str_txt.replace(/\t/g, "");
+
+//    str_txt = str_txt.replace(/"/g, "");
 
 
     return str_txt;
