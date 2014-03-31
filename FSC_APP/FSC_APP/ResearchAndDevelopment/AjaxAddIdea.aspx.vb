@@ -169,12 +169,62 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                 ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
                 searh_actores(ideditar)
 
+            Case "View_matriz_principal"
+
+                ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
+                searh_matriz_p(ideditar)
+
+
             Case Else
 
         End Select
 
 
     End Sub
+
+    Public Function searh_matriz_p(ByVal ididea As Integer)
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+
+        Dim thirdbyidea As New ThirdByIdeaDALC
+        Dim objactores As ThirdByIdeaEntity
+        Dim data_listactores As List(Of ThirdByIdeaEntity)
+        Dim name, contacto, email, tel, documet, tipo, vd, ve, vt, id As String
+
+        Dim htmlactores As String
+
+        data_listactores = thirdbyidea.getList(applicationCredentials, , ididea, , , , , , )
+
+        If data_listactores.Count > 0 Then
+
+            htmlactores = "<table id=""matriz"" border=""1"" cellpadding=""1"" cellspacing=""1"" style=""width: 100%""><thead><tr><th width=""1""></th><th></th><th>Efectivo</th><th>Especie</th><th>Total</th></tr></thead><tbody>"
+
+            For Each row In data_listactores
+
+                id = row.idthird
+                name = row.Name
+                vd = row.Vrmoney
+                ve = row.VrSpecies
+                vt = row.FSCorCounterpartContribution
+
+                htmlactores &= "<tr id= ""matriz" & id & """><td width=""1"" style=""color: #D3D6FF;font-size: 0.1em;"">" & id & "</td><td style=""text-align: left"">" & name & "</td><td>" & vd & "</td><td> " & ve & "</td><td> " & vt & " </td></tr>"
+
+
+            Next
+
+            htmlactores &= "<tr><td width=""1"" style=""color: #D3D6FF; font-size: 0.1em;"">1000</td><td>Valor Total</td><td id=""valueMoneytotal"">0</td><td id=""ValueEspeciestotal"">0</td><td id=""ValueCostotal"">0</td></tr></tbody></table>"
+        Else
+
+            htmlactores = "<table id=""matriz"" border=""1"" cellpadding=""1"" cellspacing=""1"" style=""width: 100%""><thead><tr><th width=""1""></th><th></th><th>Efectivo</th><th>Especie</th><th>Total</th></tr></thead><tbody>"
+            htmlactores &= "<tr><td width=""1"" style=""color: #D3D6FF; font-size: 0.1em;"">1000</td><td>Valor Total</td><td id=""valueMoneytotal"">0</td><td id=""ValueEspeciestotal"">0</td><td id=""ValueCostotal"">0</td></tr></tbody></table>"
+
+        End If
+
+        Response.Write(htmlactores)
+
+
+    End Function
+
+
 
     Public Function searh_actores(ByVal ididea As Integer)
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)

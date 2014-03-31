@@ -6,6 +6,7 @@ Imports Gattaca.Entity.eSecurity
 Imports Gattaca.Application.Credentials
 Imports Gattaca.Interfaces.eSecurity
 Imports Gattaca.Application.ExceptionManager
+Imports System.Data.SqlClient
 
 Public Class PaymentFlowDALC
     ' contantes
@@ -32,7 +33,7 @@ Public Class PaymentFlowDALC
             ' construir la sentencia
             sql.Append(" SELECT pf.id, pf.idproject, pf.fecha, pf.porcentaje, pf.entregable, pf.ididea, pf.valortotal ")
             sql.Append(" FROM Paymentflow pf ")
-             sql.Append(" WHERE pf.ididea = " & idIdea)
+            sql.Append(" WHERE pf.ididea = " & idIdea)
 
             ' ejecutar la intruccion
             data = GattacaApplication.RunSQLRDT(objApplicationCredentials, sql.ToString)
@@ -115,7 +116,7 @@ Public Class PaymentFlowDALC
             sql.AppendLine("'" & valortotal & "',")
             sql.AppendLine("'" & PaymentFlow.N_pagos & "',")
             sql.AppendLine("'" & valorparcial & "') ")
-            
+
             'sql.AppendLine("'" & Project.IdActivityInstance & "')")
 
             ' intruccion para obtener el registro insertado
@@ -206,6 +207,42 @@ Public Class PaymentFlowDALC
 
     End Function
 
+    Protected Function getFlowPayment(ByVal Project_id As Integer, ByVal objApplicationCredentials As ApplicationCredentials) As List(Of PaymentFlowEntity)
+        Try
+            Dim sql As New StringBuilder
+            Dim objSqlCommand As New SqlCommand
+            Dim data As DataTable
+            'listado de flujos de pago
+            Dim objListPaymentFlow As List(Of PaymentFlowEntity) = New List(Of PaymentFlowEntity)()
 
+
+            'consulta de los datos de actores por id
+            sql.Append("select p.Id, pf.* from Project p ")
+            sql.Append("inner join Paymentflow pf on pf.Idproject = p.Id ")
+
+            sql.Append("where p.Id = " & Project_id)
+
+            ' ejecutar la intruccion
+            data = GattacaApplication.RunSQLRDT(objApplicationCredentials, sql.ToString)
+
+            For Each item_flowEntity In data.Rows
+
+                Dim objflowpaymentEntity As PaymentFlowEntity = New PaymentFlowEntity()
+                objflowpaymentEntity.id = item_flowEntity("Id")
+                objflowpaymentEntity.idproject = item_flowEntity("idproject")
+                objflowpaymentEntity.fecha = item_flowEntity("fecha")
+                objflowpaymentEntity.porcentaje = item_flowEntity("porcentaje")
+                objflowpaymentEntity.entregable = item_flowEntity("entregable")
+                objflowpaymentEntity.ididea = item_flowEntity("Ididea")
+                objflowpaymentEntity.valorparcial = item_flowEntity("valorparcial")
+                objflowpaymentEntity.valortotal = item_flowEntity("valortotal")
+
+                objListPaymentFlow.Add(objflowpaymentEntity)
+            Next
+            Return objListPaymentFlow
+        Catch ex As Exception
+            Return Nothing
+        End Try
+    End Function
 
 End Class

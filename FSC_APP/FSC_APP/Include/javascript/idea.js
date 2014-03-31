@@ -44,7 +44,7 @@ $(document).ready(function() {
     //validamos si creamos la idea o editamos
     if (sURLVariables[0] == "op=edit") {
         ideditar = sURLVariables[1].replace("id=", "");
-//        alert(ideditar);
+        //        alert(ideditar);
 
         operacionesIdea();
         comboactor();
@@ -66,6 +66,7 @@ $(document).ready(function() {
 
         view_ubicacion();
         View_actores();
+        View_matriz_principal();
         ClineEstrategic_edit();
 
         $("#SaveIdea").css("display", "none");
@@ -594,17 +595,16 @@ function Add_location_onclick() {
         }
     }
 }
- 
 
 
+//funcion para visualizar las ubicaciones en ediccion
 function view_ubicacion() {
     $.ajax({
         url: "AjaxAddIdea.aspx",
         type: "GET",
         data: { "action": "View_ubicacion", "ididea": ideditar },
         success: function(result) {
-            //   $("#ddlStrategicLines").html(result);
-            //  $("#ddlStrategicLines").trigger("liszt:updated");
+
             $("#T_locationContainer").html("");
             $("#T_locationContainer").html(result);
 
@@ -774,20 +774,9 @@ function BtnaddActors_onclick() {
                 //llama la funcion sumar en la grilla de actores
                 sumar_grid_actores();
 
-                //llama la funcion de buscar la FSC 
-                // buscarFSC();
-
-                //llamar la funcion de buscar diferentes a la FSC
-                // buscarothers();
 
                 //llamar la funcion suma de primera columna efectivo
                 sumavalores_gridprincipal();
-
-                //llamar la funcion suma segunda columna especie
-                //sumaespecie_gridprincipal();
-
-                //llamar la funcion suma tercera columna total
-                //sumatotal_gridprincipal();
 
                 //reconstruimos la tabla con los datos 
                 $("#T_Actors").dataTable({
@@ -821,6 +810,7 @@ function BtnaddActors_onclick() {
     }
 }
 
+//funcion para cargar actores en general
 function View_actores() {
 
     $.ajax({
@@ -828,9 +818,10 @@ function View_actores() {
         type: "GET",
         data: { "action": "View_actores", "ididea": ideditar },
         success: function(result) {
-        //cargamos el div donde se generara la tabla actores
-        $("#T_ActorsContainer").html("");
-        $("#T_ActorsContainer").html(result);
+
+            //cargamos el div donde se generara la tabla actores
+            $("#T_ActorsContainer").html("");
+            $("#T_ActorsContainer").html(result);
 
             //reconstruimos la tabla con los datos
             $("#T_Actors").dataTable({
@@ -844,11 +835,39 @@ function View_actores() {
 
         },
         error: function(msg) {
-            alert("No se pueden cargar las ubicaciones seleccionadas de la idea = " + ideditar);
+            alert("No se pueden cargar los actores en general de la idea = " + ideditar);
         }
     });
 }
 
+function View_matriz_principal() {
+
+    $.ajax({
+        url: "AjaxAddIdea.aspx",
+        type: "GET",
+        data: { "action": "View_matriz_principal", "ididea": ideditar },
+        success: function(result) {
+
+            //cargamos el div donde se generara la tabla actores
+            $("#T_matrizcontainer").html("");
+            $("#T_matrizcontainer").html(result);
+
+            //reconstruimos la tabla con los datos
+            $("#matriz").dataTable({
+                "bJQueryUI": true,
+                "bDestroy": true
+            });
+
+            //llamar la funcion suma de primera columna efectivo
+            sumavalores_gridprincipal();
+
+
+        },
+        error: function(msg) {
+            alert("No se pueden cargar los actores de informacion principal de la idea = " + ideditar);
+        }
+    });
+}
 
 //funcion que valida los miles en tiempo real
 function formatvercionsuma(input) {
@@ -1681,106 +1700,7 @@ function sumar_grid_actores() {
 
 }
 
-//funcion de buscar en la grilla de actores  la FSC para el grid principal
-//function buscarFSC() {
 
-//    var valdinergridfsc = 0;
-//    var valespeciegridfsc = 0;
-//    var valtotalgridfsc = 0;
-//    var option_0 = 0;
-
-//    //recorremos la tabla actores para calcular los totales
-//    $("#T_Actors tr").slice(0, $("#T_Actors tr").length - 1).each(function() {
-//        var arrayValuesActors2 = $(this).find("td").slice(0, 10);
-//        //validamos si hay campos null en la tabla actores
-//        if ($(arrayValuesActors2[0]).html() != null) {
-//            //validamos si es la FSC
-//            if ($(arrayValuesActors2[0]).html() == 4) {
-
-//                option_0 = 1;
-//                //capturamos e incrementamos los valores para la suma
-//                valdinergridfsc = parseInt($(arrayValuesActors2[7]).html().replace(/\./gi, ''));
-//                valespeciegridfsc = parseInt($(arrayValuesActors2[8]).html().replace(/\./gi, ''));
-//                valtotalgridfsc = parseInt($(arrayValuesActors2[9]).html().replace(/\./gi, ''));
-
-//                //validamos valores si vienen vacios
-//                if (isNaN(valdinergridfsc)) {
-//                    valdinergridfsc = 0;
-//                }
-//                if (isNaN(valespeciegridfsc)) {
-//                    valespeciegridfsc = 0;
-//                }
-//                if (isNaN(valtotalgridfsc)) {
-//                    valtotalgridfsc = 0;
-//                }
-
-//                //cargamos los campos con la operacion realizada
-//                $("#ValueMoneyFSC").text(addCommasrefactor(valdinergridfsc));
-//                $("#ValueEspeciesFSC").text(addCommasrefactor(valespeciegridfsc));
-//                $("#ValueCostFSC").text(addCommasrefactor(valtotalgridfsc));
-//            }
-//        }
-//        //validamos si la opcion escojida esta vacia y le asignamos 0
-//        if (option_0 == 0) {
-//            $("#ValueMoneyFSC").text(0);
-//            $("#ValueEspeciesFSC").text(0);
-//            $("#ValueCostFSC").text(0);
-//        }
-
-//    });
-
-//}
-
-// funcion de todos los q son actores diferentes a la fsc y sumarlos en el grid principal
-//function buscarothers() {
-
-//    var valdinergrid = 0;
-//    var valespeciegrid = 0;
-//    var valtotalgrid = 0;
-//    var option_0 = 0;
-
-//    //recorremos la tabla actores para calcular los totales
-//    $("#T_Actors tr").slice(0, $("#T_Actors tr").length - 1).each(function() {
-//        var arrayValuesActors3 = $(this).find("td").slice(0, 10);
-//        //validamos si hay campos null en la tabla actores
-
-//        if ($(arrayValuesActors3[0]).html() != null) {
-//            //validamos si es diferente a la FSC
-//            if ($(arrayValuesActors3[0]).html() != 4) {
-
-//                option_0 = 1;
-//                //capturamos e incrementamos los valores para la suma
-//                valdinergrid = valdinergrid + parseInt($(arrayValuesActors3[7]).html().replace(/\./gi, ''));
-//                valespeciegrid = valespeciegrid + parseInt($(arrayValuesActors3[8]).html().replace(/\./gi, ''));
-//                valtotalgrid = valtotalgrid + parseInt($(arrayValuesActors3[9]).html().replace(/\./gi, ''));
-
-//                //validamos valores si vienen vacios
-//                if (isNaN(valdinergrid)) {
-//                    valdinergrid = 0;
-//                }
-//                if (isNaN(valespeciegrid)) {
-//                    valespeciegrid = 0;
-//                }
-//                if (isNaN(valtotalgrid)) {
-//                    valtotalgrid = 0;
-//                }
-
-//                //cargamos los campos con la operacion realizada
-//                $("#ValueMoneyCounter").text(addCommasrefactor(valdinergrid));
-//                $("#ValueEspeciesCounter").text(addCommasrefactor(valespeciegrid));
-//                $("#ValueCostCounter").text(addCommasrefactor(valtotalgrid));
-//            }
-//        }
-//        //validamos si la opcion escojida esta vacia y le asignamos 0
-//        if (option_0 == 0) {
-//            $("#ValueMoneyCounter").text(0);
-//            $("#ValueEspeciesCounter").text(0);
-//            $("#ValueCostCounter").text(0);
-//        }
-
-
-//    });
-//}
 
 //funcion suma de primera columna efectivo
 function sumavalores_gridprincipal() {
@@ -1833,111 +1753,10 @@ function sumavalores_gridprincipal() {
     });
 
 
-    //captura los valores 
-    //    var dinerfsc = $("#ValueMoneyFSC").text();
-    //    dinerfsc = dinerfsc.replace(/\./gi, '');
-    //    var opedinerfsc = parseInt(dinerfsc);
-    //    //captura los valores 
-    //    var dinerothers = $("#ValueMoneyCounter").text();
-    //    dinerothers = dinerothers.replace(/\./gi, '');
-    //    var opedinerothers = parseInt(dinerothers);
-
-    //    //validar campo vacio
-    //    if (isNaN(opedinerfsc)) {
-    //        opedinerfsc = 0;
-    //        $("#ValueMoneyFSC").val(opedinerfsc);
-    //    }
-    //    else {
-    //        //validar campo vacio
-    //        if (isNaN(opedinerothers)) {
-    //            opedinerothers = 0;
-    //            $("#ValueMoneyCounter").val(opedinerothers);
-    //        }
-    //        else {
-    //            //realizar suma con los valores deseados
-    //            var sumadiner = 0;
-    //            sumadiner = opedinerfsc + opedinerothers;
-    //            $("#valueMoneytotal").text(addCommasrefactor(sumadiner));
-    //            $("#ctl00_cphPrincipal_HDvalorpagoflujo").val(addCommasrefactor(sumadiner));
-    //        }
-    //    }
-    //    //realizar suma con los valores deseados
-    //    sumadiner = opedinerfsc + opedinerothers;
-    //    $("#valueMoneytotal").text(addCommasrefactor(sumadiner));
-    //    $("#ctl00_cphPrincipal_HDvalorpagoflujo").val(addCommasrefactor(sumadiner));
+   
 }
 
-// funcion suma de segunda columna especie
-//function sumaespecie_gridprincipal() {
 
-//    //captura los valores 
-//    var especiefsc = $("#ValueEspeciesFSC").text();
-//    especiefsc = especiefsc.replace(/\./gi, '');
-//    var opeespeciefsc = parseInt(especiefsc);
-
-//    //captura los valores 
-//    var especieothers = $("#ValueEspeciesCounter").text();
-//    especieothers = especieothers.replace(/\./gi, '');
-//    var opeespecieothers = parseInt(especieothers);
-
-//    //validar campo vacio
-//    if (isNaN(opeespeciefsc)) {
-//        opeespeciefsc = 0;
-//        $("#ValueEspeciesFSC").val(opeespeciefsc);
-//    }
-//    else {
-//        //validar campo vacio
-//        if (isNaN(opeespecieothers)) {
-//            opeespecieothers = 0;
-//            $("#ValueEspeciesCounter").val(opeespecieothers);
-//        }
-//        else {
-//            //realizar suma con los valores deseados
-//            var sumaespecie = 0;
-//            sumaespecie = opeespeciefsc + opeespecieothers;
-//            $("#ValueEspeciestotal").text(addCommasrefactor(sumaespecie));
-//        }
-//    }
-//    //realizar suma con los valores deseados
-//    sumaespecie = opeespeciefsc + opeespecieothers;
-//    $("#ValueEspeciestotal").text(addCommasrefactor(sumaespecie));
-//}
-
-//funcion suma tercera columna total
-//function sumatotal_gridprincipal() {
-
-//    //captura los valores 
-//    var totalfsc = $("#ValueCostFSC").text();
-//    totalfsc = totalfsc.replace(/\./gi, '');
-//    var opetotalfsc = parseInt(totalfsc);
-
-//    //captura los valores 
-//    var totalothers = $("#ValueCostCounter").text();
-//    totalothers = totalothers.replace(/\./gi, '');
-//    var opetotalothers = parseInt(totalothers);
-
-//    //validar campo vacio
-//    if (isNaN(opetotalfsc)) {
-//        opetotalfsc = 0;
-//        $("#ValueCostFSC").val(opetotalfsc);
-//    }
-//    else {
-//        //validar campo vacio
-//        if (isNaN(opetotalothers)) {
-//            opetotalothers = 0;
-//            $("#ValueCostCounter").val(opetotalothers);
-//        }
-//        else {
-//            //realizar suma con los valores deseados
-//            var sumatotal = 0;
-//            sumatotal = opetotalfsc + opetotalothers;
-//            $("#ValueCostotal").text(addCommasrefactor(sumatotal));
-//        }
-//    }
-//    //realizar suma con los valores deseados
-//    sumatotal = opetotalfsc + opetotalothers;
-//    $("#ValueCostotal").text(addCommasrefactor(sumatotal));
-//}
 
 //funcion valida las operaciones de flujo de pagos
 function validarporcentaje() {
