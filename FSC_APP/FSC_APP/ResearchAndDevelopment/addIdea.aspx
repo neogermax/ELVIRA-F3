@@ -242,7 +242,7 @@
                 </li>
                 <li>
                     <asp:Label ID="lblJustificacion" runat="server" Text="Justificación"></asp:Label>
-                    <asp:TextBox ID="txtjustification" runat="server" MaxLength="10000" Width="400px"
+                    <asp:TextBox ID="txtjustification" runat="server" MaxLength="2500" Width="400px"
                         Rows="2" TextMode="MultiLine"></asp:TextBox>
                     <asp:Label ID="lblHelpjustification" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
@@ -254,25 +254,25 @@
                 </li>
                 <li>
                     <asp:Label ID="lblareadescription" runat="server" Text="Objetivos Específicos"></asp:Label>
-                    <asp:TextBox ID="txtareadescription" runat="server" MaxLength="10000" Width="400px"
+                    <asp:TextBox ID="txtareadescription" runat="server" MaxLength="2500" Width="400px"
                         Rows="6" TextMode="MultiLine"></asp:TextBox>
                     <asp:Label ID="lblHelpareadescription" runat="server"></asp:Label>
                 </li>
                 <li>
                     <asp:Label ID="lblresults" runat="server" Text="Resultados en Beneficiarios"></asp:Label>
-                    <asp:TextBox ID="txtresults" runat="server" MaxLength="10000" Width="400px" Rows="6"
+                    <asp:TextBox ID="txtresults" runat="server" MaxLength="2500" Width="400px" Rows="6"
                         TextMode="MultiLine"></asp:TextBox>
                     <asp:Label ID="lblHelpresults" runat="server" ForeColor="#CC0000"></asp:Label>
                 </li>
                 <li>
                     <asp:Label ID="Lblresulgc" runat="server" Text="Resultados en Gestión del conocimiento"></asp:Label>
-                    <asp:TextBox ID="txtresulgc" runat="server" MaxLength="10000" Width="400px" Rows="6"
+                    <asp:TextBox ID="txtresulgc" runat="server" MaxLength="2500" Width="400px" Rows="6"
                         TextMode="MultiLine"></asp:TextBox>
                     <asp:Label ID="Label10" runat="server" ForeColor="#CC0000"></asp:Label>
                 </li>
                 <li>
                     <asp:Label ID="Lblresultci" runat="server" Text="Resultados en Capacidad instalada"></asp:Label>
-                    <asp:TextBox ID="txtresulci" runat="server" MaxLength="10000" Width="400px" Rows="6"
+                    <asp:TextBox ID="txtresulci" runat="server" MaxLength="2500" Width="400px" Rows="6"
                         TextMode="MultiLine"></asp:TextBox>
                     <asp:Label ID="Label11" runat="server" ForeColor="#CC0000"></asp:Label>
                 </li>
@@ -280,7 +280,7 @@
             <ul class="right">
                 <li>
                     <asp:Label ID="Lblobligationsoftheparties" runat="server" Text="Obligaciones de las partes"></asp:Label>
-                    <asp:TextBox ID="Txtobligationsoftheparties" runat="server" MaxLength="10000" Width="400px"
+                    <asp:TextBox ID="Txtobligationsoftheparties" runat="server" MaxLength="2500" Width="400px"
                         Rows="6" TextMode="MultiLine"></asp:TextBox>
                     <asp:Label ID="Label24" runat="server" ForeColor="#CC0000"></asp:Label>
                 </li>
@@ -292,13 +292,13 @@
                 </li>
                 <li>
                     <asp:Label ID="Lblriesgos" runat="server" Text=" Riesgos identificados"></asp:Label>
-                    <asp:TextBox ID="Txtriesgos" runat="server" MaxLength="10000" Width="400px" Rows="6"
+                    <asp:TextBox ID="Txtriesgos" runat="server" MaxLength="2500" Width="400px" Rows="6"
                         TextMode="MultiLine"></asp:TextBox>
                     <asp:Label ID="Lblhelpriesgos" runat="server" ForeColor="#CC0000"></asp:Label>
                 </li>
                 <li>
                     <asp:Label ID="Lblaccionmitig" runat="server" Text="Mitigación del riesgo"></asp:Label>
-                    <asp:TextBox ID="Txtaccionmitig" runat="server" MaxLength="4000" Width="400px" Rows="6"
+                    <asp:TextBox ID="Txtaccionmitig" runat="server" MaxLength="2500" Width="400px" Rows="6"
                         TextMode="MultiLine"></asp:TextBox>
                     <asp:Label ID="Lblhelpaccionmitig" runat="server" ForeColor="#CC0000"></asp:Label>
                 </li>
