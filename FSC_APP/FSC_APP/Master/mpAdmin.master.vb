@@ -11,7 +11,7 @@ Partial Class Master_mpAdmin
         ' tag para refrescar la pagina
         tag.HttpEquiv = "REFRESH"
         tag.Name = "SessionTimeout"
-        tag.Content = (Session.Timeout * 60) - 5 & "; URL=" & ResolveUrl("~/Security/logout.aspx")
+        tag.Content = (Session.Timeout * 120) - 5 & "; URL=" & ResolveUrl("~/Security/logout.aspx")
 
         ' agregarlo
         Page.Header.Controls.Add(tag)

@@ -207,7 +207,7 @@ Public Class PaymentFlowDALC
 
     End Function
 
-    Protected Function getFlowPayment(ByVal Project_id As Integer, ByVal objApplicationCredentials As ApplicationCredentials) As List(Of PaymentFlowEntity)
+    Public Function getFlowPayment(ByVal estado_i_p As String, ByVal Project_id As Integer, ByVal objApplicationCredentials As ApplicationCredentials) As List(Of PaymentFlowEntity)
         Try
             Dim sql As New StringBuilder
             Dim objSqlCommand As New SqlCommand
@@ -216,14 +216,32 @@ Public Class PaymentFlowDALC
             Dim objListPaymentFlow As List(Of PaymentFlowEntity) = New List(Of PaymentFlowEntity)()
 
 
-            'consulta de los datos de actores por id
-            sql.Append("select p.Id, pf.* from Project p ")
-            sql.Append("inner join Paymentflow pf on pf.Idproject = p.Id ")
 
-            sql.Append("where p.Id = " & Project_id)
+            If estado_i_p = "i" Then
 
-            ' ejecutar la intruccion
-            data = GattacaApplication.RunSQLRDT(objApplicationCredentials, sql.ToString)
+                'consulta de los datos de actores por id
+                sql.Append(" select i.id, pf.* from  Idea  i ")
+                sql.Append("inner join   Paymentflow pf on pf.ididea=i.id  ")
+
+                sql.Append("where i.id = " & Project_id)
+
+                ' ejecutar la intruccion
+                data = GattacaApplication.RunSQLRDT(objApplicationCredentials, sql.ToString)
+
+
+            Else
+
+                'consulta de los datos de actores por id
+                sql.Append("select p.Id, pf.* from Project p ")
+                sql.Append("inner join Paymentflow pf on pf.Idproject = p.Id ")
+
+                sql.Append("where p.Id = " & Project_id)
+
+                ' ejecutar la intruccion
+                data = GattacaApplication.RunSQLRDT(objApplicationCredentials, sql.ToString)
+
+            End If
+
 
             For Each item_flowEntity In data.Rows
 

@@ -73,114 +73,165 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         End If
 
         'trae el jquery para hacer todo por debajo del servidor
-        action = Request.QueryString("action").ToString()
-        Select Case action
-            Case "buscar"
-                'convierte la variable y llama funcion para la validacion de la idea
-                id_b = Convert.ToInt32(Request.QueryString("id").ToString())
+        If Request.Form("action") <> Nothing Then
 
-                buscardatethird(id_b, applicationCredentials, Request.QueryString("id"))
-            Case "calculafechas"
+            S_linea_estrategica = Request.Form("linea_estrategica").ToString()
+            S_programa = Request.Form("programa").ToString()
+            S_nombre = Request.Form("nombre").ToString
+            S_justificacion = Request.Form("justificacion").ToString
+            S_objetivo = Request.Form("objetivo").ToString
+            S_objetivo_esp = Request.Form("objetivo_esp").ToString
+            S_Resultados_Benef = Request.Form("Resultados_Benef").ToString
+            S_Resultados_Ges_c = Request.Form("Resultados_Ges_c").ToString
+            S_Resultados_Cap_i = Request.Form("Resultados_Cap_i").ToString
+            S_Fecha_inicio = Request.Form("Fecha_inicio").ToString
+            S_mes = Request.Form("mes").ToString
+            S_dia = Request.Form("dia").ToString
+            S_Fecha_fin = Request.Form("Fecha_fin").ToString
+            S_Población = Request.Form("Población").ToString
+            S_contratacion = Request.Form("contratacion").ToString
+            S_riesgos = Request.Form("riesgo").ToString
+            S_mitigacion = Request.Form("mitigacion").ToString
+            S_presupuestal = Request.Form("presupuestal").ToString
+            S_cost = Request.Form("cost").ToString
+            S_iva = Request.Form("iva").ToString
+            S_obligaciones = Request.Form("obligaciones").ToString
+            S_listubicaciones = Request.Form("listubicaciones").ToString
+            S_listactors = Request.Form("listactores").ToString
+            S_listcomponentes = Request.Form("listcomponentes").ToString
+            S_listflujos = Request.Form("listflujos").ToString
 
-                fecha = Convert.ToDateTime(Request.QueryString("fecha").ToString())
-                duracion = Request.QueryString("duracion").ToString()
-                dia = Request.QueryString("dias").ToString()
-                calculafechas(fecha, duracion, dia)
+            save_IDEA(S_code, S_linea_estrategica, S_programa, S_nombre, S_justificacion, S_objetivo, S_objetivo_esp, S_Resultados_Benef, S_Resultados_Ges_c, S_Resultados_Cap_i, S_Fecha_inicio, S_mes, S_dia, S_Fecha_fin, S_Población, S_contratacion, S_riesgos, S_mitigacion, S_presupuestal, S_cost, S_obligaciones, S_iva, S_listubicaciones, S_listactors, S_listcomponentes, S_listflujos) '
 
-            Case "save"
+        Else
 
-                'S_code = Request.QueryString("code").ToString
-                S_linea_estrategica = Request.QueryString("linea_estrategica").ToString
-                S_programa = Request.QueryString("programa").ToString
-                S_nombre = Request.QueryString("nombre").ToString
-                S_justificacion = Request.QueryString("justificacion").ToString
-                S_objetivo = Request.QueryString("objetivo").ToString
-                S_objetivo_esp = Request.QueryString("objetivo_esp").ToString
-                S_Resultados_Benef = Request.QueryString("Resultados_Benef").ToString
-                S_Resultados_Ges_c = Request.QueryString("Resultados_Ges_c").ToString
-                S_Resultados_Cap_i = Request.QueryString("Resultados_Cap_i").ToString
-                S_Fecha_inicio = Request.QueryString("Fecha_inicio").ToString
-                S_mes = Request.QueryString("mes").ToString
-                S_dia = Request.QueryString("dia").ToString
-                S_Fecha_fin = Request.QueryString("Fecha_fin").ToString
-                S_Población = Request.QueryString("Población").ToString
-                S_contratacion = Request.QueryString("contratacion").ToString
-                S_riesgos = Request.QueryString("riesgo").ToString
-                S_mitigacion = Request.QueryString("mitigacion").ToString
-                S_presupuestal = Request.QueryString("presupuestal").ToString
-                S_cost = Request.QueryString("cost").ToString
-                S_iva = Request.QueryString("iva").ToString
-                S_obligaciones = Request.QueryString("obligaciones").ToString
-                S_listubicaciones = Request.QueryString("listubicaciones").ToString
-                S_listactors = Request.QueryString("listactores").ToString
-                S_listcomponentes = Request.QueryString("listcomponentes").ToString
-                S_listflujos = Request.QueryString("listflujos").ToString
+            action = Request.QueryString("action").ToString()
+            Select Case action
+                Case "buscar"
+                    'convierte la variable y llama funcion para la validacion de la idea
+                    id_b = Convert.ToInt32(Request.QueryString("id").ToString())
 
-                save_IDEA(S_code, S_linea_estrategica, S_programa, S_nombre, S_justificacion, S_objetivo, S_objetivo_esp, S_Resultados_Benef, S_Resultados_Ges_c, S_Resultados_Cap_i, S_Fecha_inicio, S_mes, S_dia, S_Fecha_fin, S_Población, S_contratacion, S_riesgos, S_mitigacion, S_presupuestal, S_cost, S_obligaciones, S_iva, S_listubicaciones, S_listactors, S_listcomponentes, S_listflujos) '
+                    buscardatethird(id_b, applicationCredentials, Request.QueryString("id"))
+                Case "calculafechas"
 
-            Case "C_linestrategic"
+                    fecha = Convert.ToDateTime(Request.QueryString("fecha").ToString())
+                    duracion = Request.QueryString("duracion").ToString()
+                    dia = Request.QueryString("dias").ToString()
+                    calculafechas(fecha, duracion, dia)
 
-                Charge_Lstrategic()
+                    'Case "save"
 
-            Case "C_program"
+                    '    'S_code = Request.QueryString("code").ToString
+                    '    S_linea_estrategica = Request.QueryString("linea_estrategica").ToString
+                    '    S_programa = Request.QueryString("programa").ToString
+                    '    S_nombre = Request.QueryString("nombre").ToString
+                    '    S_justificacion = Request.QueryString("justificacion").ToString
+                    '    S_objetivo = Request.QueryString("objetivo").ToString
+                    '    S_objetivo_esp = Request.QueryString("objetivo_esp").ToString
+                    '    S_Resultados_Benef = Request.QueryString("Resultados_Benef").ToString
+                    '    S_Resultados_Ges_c = Request.QueryString("Resultados_Ges_c").ToString
+                    '    S_Resultados_Cap_i = Request.QueryString("Resultados_Cap_i").ToString
+                    '    S_Fecha_inicio = Request.QueryString("Fecha_inicio").ToString
+                    '    S_mes = Request.QueryString("mes").ToString
+                    '    S_dia = Request.QueryString("dia").ToString
+                    '    S_Fecha_fin = Request.QueryString("Fecha_fin").ToString
+                    '    S_Población = Request.QueryString("Población").ToString
+                    '    S_contratacion = Request.QueryString("contratacion").ToString
+                    '    S_riesgos = Request.QueryString("riesgo").ToString
+                    '    S_mitigacion = Request.QueryString("mitigacion").ToString
+                    '    S_presupuestal = Request.QueryString("presupuestal").ToString
+                    '    S_cost = Request.QueryString("cost").ToString
+                    '    S_iva = Request.QueryString("iva").ToString
+                    '    S_obligaciones = Request.QueryString("obligaciones").ToString
+                    '    S_listubicaciones = Request.QueryString("listubicaciones").ToString
+                    '    S_listactors = Request.QueryString("listactores").ToString
+                    '    S_listcomponentes = Request.QueryString("listcomponentes").ToString
+                    '    S_listflujos = Request.QueryString("listflujos").ToString
 
-                id_lineStrategic = Convert.ToInt32(Request.QueryString("idlinestrategic").ToString)
-                charge_program(id_lineStrategic)
+                    '    save_IDEA(S_code, S_linea_estrategica, S_programa, S_nombre, S_justificacion, S_objetivo, S_objetivo_esp, S_Resultados_Benef, S_Resultados_Ges_c, S_Resultados_Cap_i, S_Fecha_inicio, S_mes, S_dia, S_Fecha_fin, S_Población, S_contratacion, S_riesgos, S_mitigacion, S_presupuestal, S_cost, S_obligaciones, S_iva, S_listubicaciones, S_listactors, S_listcomponentes, S_listflujos) '
 
-            Case "C_deptos"
+                Case "C_linestrategic"
 
-                Charge_deptos()
+                    Charge_Lstrategic()
 
-            Case "C_munip"
+                Case "C_program"
 
-                id_depto = Convert.ToInt32(Request.QueryString("iddepto").ToString)
-                Charge_munip(id_depto)
+                    id_lineStrategic = Convert.ToInt32(Request.QueryString("idlinestrategic").ToString)
+                    charge_program(id_lineStrategic)
 
-            Case "C_Actors"
+                Case "C_deptos"
 
-                Charge_actors()
+                    Charge_deptos()
 
-            Case "C_typecontract"
+                Case "C_munip"
 
-                Charge_typeContract()
+                    id_depto = Convert.ToInt32(Request.QueryString("iddepto").ToString)
+                    Charge_munip(id_depto)
 
-            Case "C_component"
+                Case "C_Actors"
 
-                idprogram = Convert.ToInt32(Request.QueryString("idprogram").ToString)
-                charge_component(idprogram)
+                    Charge_actors()
 
-            Case "C_type_project"
+                Case "C_typecontract"
 
-                Charge_project_type()
+                    Charge_typeContract()
 
-            Case "C_population"
+                Case "C_component"
 
-                idpopulation = Convert.ToInt32(Request.QueryString("idpopulation").ToString)
-                Charge_population(idpopulation)
+                    idprogram = Convert.ToInt32(Request.QueryString("idprogram").ToString)
+                    charge_component(idprogram)
 
+                Case "C_type_project"
 
-            Case "View_ubicacion"
+                    Charge_project_type()
 
-                ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
-                searh_location(ideditar)
+                Case "C_population"
 
-            Case "View_actores"
-
-                ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
-                searh_actores(ideditar)
-
-            Case "View_matriz_principal"
-
-                ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
-                searh_matriz_p(ideditar)
+                    idpopulation = Convert.ToInt32(Request.QueryString("idpopulation").ToString)
+                    Charge_population(idpopulation)
 
 
-            Case Else
+                Case "View_ubicacion"
 
-        End Select
+                    ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
+                    searh_location(ideditar)
+
+                Case "View_actores"
+
+                    ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
+                    searh_actores(ideditar)
+
+                Case "View_matriz_principal"
+
+                    ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
+                    searh_matriz_p(ideditar)
+
+
+                Case Else
+
+            End Select
+
+        End If
 
 
     End Sub
+
+    Public Function searh_flujos(ByVal ididea As Integer)
+
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+
+        Dim flujopagos As PaymentFlowDALC
+        Dim objflujos As PaymentFlowEntity
+        Dim data_listpagos As List(Of PaymentFlowEntity)
+
+
+        data_listpagos = flujopagos.getFlowPayment("i", ididea, ApplicationCredentials)
+
+
+
+    End Function
+        
+
 
     Public Function searh_matriz_p(ByVal ididea As Integer)
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
