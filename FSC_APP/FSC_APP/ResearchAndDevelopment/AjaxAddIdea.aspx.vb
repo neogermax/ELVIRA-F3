@@ -23,7 +23,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         Dim fecha As Date
         Dim duracion, dia As String
         Dim S_code, S_linea_estrategica, S_programa, S_nombre, S_justificacion, S_objetivo, S_objetivo_esp, S_Resultados_Benef, S_Resultados_Ges_c, S_Resultados_Cap_i, S_Fecha_inicio, S_mes, S_dia, S_Fecha_fin, S_Población, S_contratacion, S_A_Mfsc, S_A_Efsc, S_A_Mcounter, S_A_Ecounter, S_cost, S_obligaciones, S_iva, S_listubicaciones, S_listactors, S_mitigacion, S_riesgos, S_presupuestal, S_listcomponentes, S_listflujos As String
-        Dim id_lineStrategic, id_depto, idprogram, idpopulation, Countarchivo As Integer
+        Dim ideditar, id_lineStrategic, id_depto, idprogram, idpopulation, Countarchivo As Integer
 
         Dim strFileName() As String
         Dim fileName As String = String.Empty
@@ -158,6 +158,17 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                 idpopulation = Convert.ToInt32(Request.QueryString("idpopulation").ToString)
                 Charge_population(idpopulation)
 
+
+            Case "View_ubicacion"
+
+                ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
+                searh_location(ideditar)
+
+            Case "View_actores"
+
+                ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
+                searh_actores(ideditar)
+
             Case Else
 
         End Select
@@ -165,6 +176,93 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
     End Sub
 
+    Public Function searh_actores(ByVal ididea As Integer)
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+
+        Dim thirdbyidea As New ThirdByIdeaDALC
+        Dim objactores As ThirdByIdeaEntity
+        Dim data_listactores As List(Of ThirdByIdeaEntity)
+        Dim name, contacto, email, tel, documet, tipo, vd, ve, vt, id As String
+
+        Dim htmlactores As String
+
+        data_listactores = thirdbyidea.getList(applicationCredentials, , ididea, , , , , , )
+
+        If data_listactores.Count > 0 Then
+
+            htmlactores = "<table id=""T_Actors"" align=""center"" border=""1"" cellpadding=""1"" cellspacing=""1"" style=""width: 100%;""><thead><tr><th width=""1""></th><th>Actores</th><th>Tipo</th><th>Contacto</th><th>Documento Identidad</th><th>Tel&eacute;fono</th><th>Correo electr&oacute;nico</th><th>Vr Dinero</th><th>Vr Especie</th><th>Vr Total</th><th>Eliminar</th></tr></thead><tbody>"
+
+            For Each row In data_listactores
+
+                id = row.idthird
+                name = row.Name
+                contacto = row.contact
+                tipo = row.type
+                email = row.Email
+                tel = row.Phone
+                documet = row.Documents
+                vd = row.Vrmoney
+                ve = row.VrSpecies
+                vt = row.FSCorCounterpartContribution
+
+                htmlactores &= "<tr id=""actor" & id & """ ><td width=""1"" style=""color: #D3D6FF;font-size: 0.1em;"">" & id & "</td><td>" & name & "</td><td>" & tipo & "</td><td>" & contacto & "</td><td>" & documet & "</td><td>" & tel & "</td><td>" & email & "</td><td>" & vd & "</td><td>" & ve & "</td><td>" & vt & "</td><td><input type =""button"" value= ""Eliminar"" onclick=""deleteActor('" & id & "')""></input></td></tr>"
+
+
+            Next
+
+            htmlactores &= "<tr><td width=""1"" style=""color: #D3D6FF; font-size: 0.1em;"">1000</td><td>Total</td><td></td><td></td><td></td><td></td><td></td><td id=""val1""></td><td id=""val2"">0</td><td id=""val3"">0</td><td></td></tr></tbody></table>"
+        Else
+
+            htmlactores = "<table id=""T_Actors"" align=""center"" border=""1"" cellpadding=""1"" cellspacing=""1"" style=""width: 100%;""><thead><tr><th width=""1""></th><th>Actores</th><th>Tipo</th><th>Contacto</th><th>Documento Identidad</th><th>Tel&eacute;fono</th><th>Correo electr&oacute;nico</th><th>Vr Dinero</th><th>Vr Especie</th><th>Vr Total</th><th>Eliminar</th></tr></thead><tbody>"
+            htmlactores &= "<tr><td width=""1"" style=""color: #D3D6FF; font-size: 0.1em;"">1000</td><td>Total</td><td></td><td></td><td></td><td></td><td></td><td id=""val1"">0</td><td id=""val2"">0</td><td id=""val3"">0</td><td></td></tr></tbody></table>"
+
+        End If
+
+        Response.Write(htmlactores)
+
+
+    End Function
+
+
+
+    Public Function searh_location(ByVal ididea As Integer)
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+
+        Dim LocationByIdea As New LocationByIdeaDALC
+        Dim objlocation As LocationByIdeaEntity
+        Dim data_listlocation As List(Of LocationByIdeaEntity)
+        Dim idcity, iddepto, namecyty, namedepto As String
+
+        Dim htmlubications As String
+
+        data_listlocation = LocationByIdea.getList(applicationCredentials, , ididea, , , )
+
+        If data_listlocation.Count > 0 Then
+
+            htmlubications = "<table id=""T_location"" border=""2"" cellpadding=""2"" cellspacing=""2"" style=""width: 100%;""><thead><tr><th>Departamento</th><th>Ciudad</th><th>Eliminar</th></tr></thead><tbody>"
+
+            For Each row In data_listlocation
+
+                namecyty = row.CITY.name
+                namedepto = row.DEPTO.name
+
+                Dim strdelete As String = namecyty & "_" & namedepto
+
+                htmlubications &= "<tr><td>" & namedepto & "</td><td>" & namecyty & "</td><td><input type =""button"" class= ""deleteUbicacion"" value= ""Eliminar"" onclick=""deleteUbicacion(""" & strdelete & """)"" ></input></td></tr>"
+
+
+            Next
+            htmlubications &= "</tbody></table>"
+
+        Else
+            htmlubications = "<table id=""T_location"" border=""2"" cellpadding=""2"" cellspacing=""2"" style=""width: 100%;""><thead><tr><th>Departamento</th><th>Ciudad</th><th>Eliminar</th></tr></thead><tbody>"
+            htmlubications &= "<tr><td></td><td></td><td><input type =""button"" class= ""deleteUbicacion"" value= ""Eliminar"" onclick=""deleteUbicacion()"" ></input></td></tr>"
+
+        End If
+        Response.Write(htmlubications)
+
+
+    End Function
 
     ''' <summary>
     ''' funcion que carga el combo de tipo de poblacion segun la selección del tipo de proyecto
@@ -599,7 +697,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                 Next
 
             End If
-            
+
 
             Dim objDeptoEntity As DeptoEntity = New DeptoEntity()
             Dim objCityEntity As CityEntity = New CityEntity()
@@ -984,7 +1082,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
     End Function
 
-   
+
 
 
 End Class

@@ -38,13 +38,13 @@ var contadorrestar = 0;
 
 $(document).ready(function() {
 
-//capturamos la url
+    //capturamos la url
     var sPageURL = window.location.search.substring(1);
     var sURLVariables = sPageURL.split('&');
     //validamos si creamos la idea o editamos
     if (sURLVariables[0] == "op=edit") {
         ideditar = sURLVariables[1].replace("id=", "");
-        alert(ideditar);
+//        alert(ideditar);
 
         operacionesIdea();
         comboactor();
@@ -61,10 +61,16 @@ $(document).ready(function() {
         Ctype_project();
         Cpopulation();
         validarporcentaje();
+        ClineEstrategic();
+        Cprogram();
+
+        view_ubicacion();
+        View_actores();
+        ClineEstrategic_edit();
 
         $("#SaveIdea").css("display", "none");
         $("#Export").css("display", "block");
-
+        $("#EditIdea").css("display", "block");
     }
     else {
 
@@ -89,9 +95,8 @@ $(document).ready(function() {
 
         $("#SaveIdea").css("display", "block");
         $("#Export").css("display", "none");
-
+        $("#EditIdea").css("display", "none");
     }
-
 
     $("#ctl00_cphPrincipal_containerSuccess").css("display", "none");
     $('#ctl00_cphPrincipal_gif_charge_Container').css("display", "none");
@@ -135,7 +140,7 @@ $(document).ready(function() {
 
     $("#SaveIdea").button();
     $("#Export").button();
-    //$("#linkExport").button();
+    $("#EditIdea").button();
     $("#B_add_location").button();
     $("#BtnaddActors").button();
     $("#Btn_add_flujo").button();
@@ -191,8 +196,8 @@ $(document).ready(function() {
                     var Aflujos = arrayActorFlujo[itemarrayflujos].actorsVal;
                     $("#txtinput" + Aflujos).attr("disabled", "disabled");
                     $("#desenbolso" + Aflujos).text("");
-                   
-                    
+
+
                     entradaflujos = 1;
                     s_revisarflujos = 1;
                 }
@@ -211,7 +216,10 @@ $(document).ready(function() {
 });
 
 
-
+function ClineEstrategic_edit() {
+    var valor = 17;
+    $("#ddlStrategicLines option[value=\"'" + valor + "'\"]").attr("selected", true);
+}
 
 //funcion para dispara en el autoload fuciones de fechas
 function fix() {
@@ -501,11 +509,11 @@ function cambio_text(str_txt) {
     str_txt = str_txt.replace(/\r\n/g, " ");
 
 
-//    str_txt = str_txt.replace(/\n/g, "");
-//    str_txt = str_txt.replace(/\r/g, "");
-//    str_txt = str_txt.replace(/\t/g, "");
+    //    str_txt = str_txt.replace(/\n/g, "");
+    //    str_txt = str_txt.replace(/\r/g, "");
+    //    str_txt = str_txt.replace(/\t/g, "");
 
-//    str_txt = str_txt.replace(/"/g, "");
+    //    str_txt = str_txt.replace(/"/g, "");
 
 
     return str_txt;
@@ -585,6 +593,37 @@ function Add_location_onclick() {
             }
         }
     }
+}
+ 
+
+
+function view_ubicacion() {
+    $.ajax({
+        url: "AjaxAddIdea.aspx",
+        type: "GET",
+        data: { "action": "View_ubicacion", "ididea": ideditar },
+        success: function(result) {
+            //   $("#ddlStrategicLines").html(result);
+            //  $("#ddlStrategicLines").trigger("liszt:updated");
+            $("#T_locationContainer").html("");
+            $("#T_locationContainer").html(result);
+
+            //agregamos atributos de eliminar fila
+            $(".deleteUbicacion").click(function() {
+                $(this).parent().parent().remove();
+            });
+
+            //reconstruimos la tabla con los datos 
+            $("#T_location").dataTable({
+                "bJQueryUI": true,
+                "bDestroy": true
+            });
+
+        },
+        error: function(msg) {
+            alert("No se pueden cargar las ubicaciones seleccionadas de la idea = " + ideditar);
+        }
+    });
 }
 
 
@@ -781,6 +820,35 @@ function BtnaddActors_onclick() {
         }
     }
 }
+
+function View_actores() {
+
+    $.ajax({
+        url: "AjaxAddIdea.aspx",
+        type: "GET",
+        data: { "action": "View_actores", "ididea": ideditar },
+        success: function(result) {
+        //cargamos el div donde se generara la tabla actores
+        $("#T_ActorsContainer").html("");
+        $("#T_ActorsContainer").html(result);
+
+            //reconstruimos la tabla con los datos
+            $("#T_Actors").dataTable({
+                "bJQueryUI": true,
+                "bDestroy": true
+            });
+
+            //llama la funcion sumar en la grilla de actores
+            sumar_grid_actores();
+
+
+        },
+        error: function(msg) {
+            alert("No se pueden cargar las ubicaciones seleccionadas de la idea = " + ideditar);
+        }
+    });
+}
+
 
 //funcion que valida los miles en tiempo real
 function formatvercionsuma(input) {

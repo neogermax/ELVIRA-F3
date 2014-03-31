@@ -10616,10 +10616,10 @@ Public Class Facade
             End If
 
             'Se llama al metodo que pemite cargar la lista ubicaciones por idea
-            loadIdea.LOCATIONBYIDEALIST = getLocationByIdeaList(objApplicationCredentials, , loadIdea.id, , , )
+            '  loadIdea.LOCATIONBYIDEALIST = getLocationByIdeaList(objApplicationCredentials, , loadIdea.id, , , )
 
             'Se llama al metodo que pemite cargar la lista terceros por idea
-            loadIdea.THIRDBYIDEALIST = getThirdByIdeaList(objApplicationCredentials, , loadIdea.id, , , , , )
+            'loadIdea.THIRDBYIDEALIST = getThirdByIdeaList(objApplicationCredentials, , loadIdea.id, , , , , )
 
             'Se llama al metodo que pemite cargar la lista Componentes del Programa por idea
             loadIdea.ProgramComponentBYIDEALIST = getProgramComponentByIdeaList(objApplicationCredentials, , loadIdea.id, , )

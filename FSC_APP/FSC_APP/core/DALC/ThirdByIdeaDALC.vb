@@ -194,7 +194,7 @@ Public Class ThirdByIdeaDALC
             ' construir la sentencia
             'TODO: 19 modificacion de query por actualizacion de actores
             'AUTOR:German Rodriguez 05/07/2013 MGgroup
-            sql.Append(" SELECT ThirdByIdea.Id,ThirdByIdea.IdIdea,ThirdByIdea.IdThird, ThirdByIdea.Type,ThirdByIdea.VrSpecies,ThirdByIdea.Vrmoney,ThirdByIdea.FSCorCounterpartContribution,Third.Id,Third.Code,Third.Name,Third.contact,Third.documents,Third.phone,Third.email,third.Enabled,Third.IdUser,third.CreateDate FROM ThirdByIdea  ")
+            sql.Append(" SELECT ThirdByIdea.Id,ThirdByIdea.IdIdea,ThirdByIdea.IdThird, ThirdByIdea.Type,ThirdByIdea.VrSpecies,ThirdByIdea.Vrmoney,ThirdByIdea.FSCorCounterpartContribution,Third.Id,Third.Code,ThirdByIdea.Name,ThirdByIdea.contact,ThirdByIdea.documents,ThirdByIdea.phone,ThirdByIdea.email,third.Enabled,Third.IdUser,third.CreateDate FROM ThirdByIdea  ")
             sql.Append(" INNER JOIN Third ON ThirdByIdea.idthird = Third.Id ")
 
             'TODO: 19 modificacion de query por actualizacion de actores
@@ -275,11 +275,11 @@ Public Class ThirdByIdeaDALC
                 objThirdByIdea.ididea = row("ididea")
                 objThirdByIdea.idthird = row("idthird")
                 objThirdByIdea.THIRD.id = row("idthird")
-                objThirdByIdea.THIRD.name = row("name")
-                objThirdByIdea.THIRD.contact = IIf(Not IsDBNull(row("contact")), row("contact"), "")
-                objThirdByIdea.THIRD.documents = IIf(Not IsDBNull(row("documents")), row("documents"), "")
-                objThirdByIdea.THIRD.phone = IIf(Not IsDBNull(row("phone")), row("phone"), "")
-                objThirdByIdea.THIRD.email = IIf(Not IsDBNull(row("email")), row("email"), "")
+                objThirdByIdea.Name = row("name")
+                objThirdByIdea.contact = IIf(Not IsDBNull(row("contact")), row("contact"), "")
+                objThirdByIdea.Documents = IIf(Not IsDBNull(row("documents")), row("documents"), "")
+                objThirdByIdea.Phone = IIf(Not IsDBNull(row("phone")), row("phone"), "")
+                objThirdByIdea.Email = IIf(Not IsDBNull(row("email")), row("email"), "")
                 objThirdByIdea.type = row("type")
                 objThirdByIdea.Vrmoney = IIf(Not IsDBNull(row("Vrmoney")), row("Vrmoney"), 0)
                 objThirdByIdea.VrSpecies = IIf(Not IsDBNull(row("VrSpecies")), row("VrSpecies"), 0)
