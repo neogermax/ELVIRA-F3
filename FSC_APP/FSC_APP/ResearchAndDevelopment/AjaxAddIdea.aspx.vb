@@ -75,6 +75,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         'trae el jquery para hacer todo por debajo del servidor
         If Request.Form("action") <> Nothing Then
 
+            'cambio de metodologia
             S_linea_estrategica = Request.Form("linea_estrategica").ToString()
             S_programa = Request.Form("programa").ToString()
             S_nombre = Request.Form("nombre").ToString

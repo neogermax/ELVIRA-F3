@@ -28377,13 +28377,6 @@ Para modificarlo, mueva la declaración del campo del archivo del diseñador al 
 	<value>una lista de objetos de tipo DocumentsEntity</value>
 	<returns>una lista de objetos de tipo DocumentsEntity</returns>
 	<remarks></remarks>
-</member><member name="M:FSC_APP.addIdea.btnexportword_Click(System.Object,System.EventArgs)">
-	<summary>
- TODO:12 boton permite exportar a word 
- AUTOR:german Rodriguez 15/06/2013 MGgroup
- modificacion de formato 21/08/2013 MGgroup
- </summary>
-	<remarks></remarks>
 </member><member name="M:FSC_APP.addIdea.LoadFiles(FSC_APP.IdeaEntity,System.Int64)">
 	<summary>
  Permite cargar los archivos sleeccionados
@@ -37269,6 +37262,14 @@ Control ddlStrategicLines.
 Campo generado automáticamente.
 Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 </remarks>
+</member><member name="F:FSC_APP.addIdea.LbltxtStrategicLines">
+	<summary>
+Control LbltxtStrategicLines.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
 </member><member name="F:FSC_APP.addIdea.lblinfls">
 	<summary>
 Control lblinfls.
@@ -37288,6 +37289,14 @@ Para modificarlo, mueva la declaración del campo del archivo del diseñador al 
 </member><member name="F:FSC_APP.addIdea.ddlPrograms">
 	<summary>
 Control ddlPrograms.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addIdea.LbltxtddlPrograms">
+	<summary>
+Control LbltxtddlPrograms.
 </summary>
 	<remarks>
 Campo generado automáticamente.
@@ -38149,9 +38158,9 @@ Control lblDelete.
 Campo generado automáticamente.
 Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 </remarks>
-</member><member name="F:FSC_APP.addIdea.Lblinformationcomponent">
+</member><member name="F:FSC_APP.addIdea.viejocomp">
 	<summary>
-Control Lblinformationcomponent.
+Control viejocomp.
 </summary>
 	<remarks>
 Campo generado automáticamente.
@@ -38160,6 +38169,14 @@ Para modificarlo, mueva la declaración del campo del archivo del diseñador al 
 </member><member name="F:FSC_APP.addIdea.dlbActivity">
 	<summary>
 Control dlbActivity.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addIdea.Lblinformationcomponent">
+	<summary>
+Control Lblinformationcomponent.
 </summary>
 	<remarks>
 Campo generado automáticamente.

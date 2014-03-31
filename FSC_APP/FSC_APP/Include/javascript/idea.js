@@ -445,7 +445,7 @@ function SaveIdea_onclick() {
                 //crear comunicacion ajax para el ingreso de los datos de la idea
                 $.ajax({
                     url: "AjaxAddIdea.aspx",
-                    type: "GET",
+                    type: "POST",
                     //crear json
                     data: { "action": "save", "code": $("#ctl00_cphPrincipal_txtcode").val(),
                         "linea_estrategica": $("#ddlStrategicLines").val(),
