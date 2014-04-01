@@ -120,37 +120,6 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                     dia = Request.QueryString("dias").ToString()
                     calculafechas(fecha, duracion, dia)
 
-                    'Case "save"
-
-                    '    'S_code = Request.QueryString("code").ToString
-                    '    S_linea_estrategica = Request.QueryString("linea_estrategica").ToString
-                    '    S_programa = Request.QueryString("programa").ToString
-                    '    S_nombre = Request.QueryString("nombre").ToString
-                    '    S_justificacion = Request.QueryString("justificacion").ToString
-                    '    S_objetivo = Request.QueryString("objetivo").ToString
-                    '    S_objetivo_esp = Request.QueryString("objetivo_esp").ToString
-                    '    S_Resultados_Benef = Request.QueryString("Resultados_Benef").ToString
-                    '    S_Resultados_Ges_c = Request.QueryString("Resultados_Ges_c").ToString
-                    '    S_Resultados_Cap_i = Request.QueryString("Resultados_Cap_i").ToString
-                    '    S_Fecha_inicio = Request.QueryString("Fecha_inicio").ToString
-                    '    S_mes = Request.QueryString("mes").ToString
-                    '    S_dia = Request.QueryString("dia").ToString
-                    '    S_Fecha_fin = Request.QueryString("Fecha_fin").ToString
-                    '    S_Población = Request.QueryString("Población").ToString
-                    '    S_contratacion = Request.QueryString("contratacion").ToString
-                    '    S_riesgos = Request.QueryString("riesgo").ToString
-                    '    S_mitigacion = Request.QueryString("mitigacion").ToString
-                    '    S_presupuestal = Request.QueryString("presupuestal").ToString
-                    '    S_cost = Request.QueryString("cost").ToString
-                    '    S_iva = Request.QueryString("iva").ToString
-                    '    S_obligaciones = Request.QueryString("obligaciones").ToString
-                    '    S_listubicaciones = Request.QueryString("listubicaciones").ToString
-                    '    S_listactors = Request.QueryString("listactores").ToString
-                    '    S_listcomponentes = Request.QueryString("listcomponentes").ToString
-                    '    S_listflujos = Request.QueryString("listflujos").ToString
-
-                    '    save_IDEA(S_code, S_linea_estrategica, S_programa, S_nombre, S_justificacion, S_objetivo, S_objetivo_esp, S_Resultados_Benef, S_Resultados_Ges_c, S_Resultados_Cap_i, S_Fecha_inicio, S_mes, S_dia, S_Fecha_fin, S_Población, S_contratacion, S_riesgos, S_mitigacion, S_presupuestal, S_cost, S_obligaciones, S_iva, S_listubicaciones, S_listactors, S_listcomponentes, S_listflujos) '
-
                 Case "C_linestrategic"
 
                     Charge_Lstrategic()
@@ -207,6 +176,10 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                     ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
                     searh_matriz_p(ideditar)
 
+                Case "View_flujos_p"
+
+                    ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
+                    searh_flujos(ideditar)
 
                 Case Else
 
@@ -221,14 +194,43 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
 
-        Dim flujopagos As PaymentFlowDALC
+        Dim flujopagos As New PaymentFlowDALC()
         Dim objflujos As PaymentFlowEntity
-        Dim data_listpagos As List(Of PaymentFlowEntity)
+        Dim data_listpagos As New List(Of PaymentFlowEntity)
 
+        Dim npagos, vpar, entregable, porcent, fecha As String
+
+        Dim htmlflujo As String
 
         data_listpagos = flujopagos.getFlowPayment("i", ididea, ApplicationCredentials)
 
+        If data_listpagos.Count > 0 Then
 
+            htmlflujo = "<table id=""T_flujos"" border=""1"" cellpadding=""1"" cellspacing=""1"" style=""width: 100%;""><thead><tr><th style=""text-align: center;"">No pago</th><th style=""text-align: center;"">Fecha</th><th style=""text-align: center;"">Porcentaje</th><th style=""text-align: center;"">Entregable</th><th style=""text-align: center;"">Valor parcial</th><th style=""text-align: center;"">Editar/Eliminar</th><th style=""text-align: center;"" >Detalle</th></tr></thead><tbody>"
+
+            For Each row In data_listpagos
+
+                npagos = row.N_pagos
+                vpar = row.valorparcial
+                entregable = row.entregable
+                porcent = row.porcentaje
+                fecha = row.fecha
+
+                htmlflujo &= "<tr id='flow" & npagos & "' ><td>" & npagos & "</td><td>" & fecha & "</td><td>" & porcent & "</td><td>" & entregable & "</td><td>" & vpar & "</td><td><input type =""button"" value= ""Editar"" onclick=""""""editflujo('" & npagos & "','" & fecha & "','" & porcent & "','" & entregable & "','" & vpar & "')""></input><input type =""button"" value= ""Eliminar"" onclick="""""" eliminarflujo('" & npagos & "')""></input></td><td><input type =""button"" value= ""Detalle"" onclick=""""""traerdetalles('" & npagos & "',this)""></input></td></tr>"
+
+                '  "<td><input type ='button' value= 'Editar' onclick=\"editflujo('" + arrayflujosdepago[itemArray].N_pago + "','" + arrayflujosdepago[itemArray].fecha_pago + "',' " + arrayflujosdepago[itemArray].porcentaje + "','" + arrayflujosdepago[itemArray].entrega + "','" + arrayflujosdepago[itemArray].tflujos + "')\" ></input><input type ='button' value= 'Eliminar' onclick=\" eliminarflujo('" + arrayflujosdepago[itemArray].N_pago + "')\"></input></td><td><input type ='button' value= 'Detalle' onclick=\"traerdetalles('" + arrayflujosdepago[itemArray].N_pago + "',this)\"></input></td></tr>"
+            Next
+
+            htmlflujo &= "<tr><td width=""1"" style=""color: #D3D6FF; font-size: 0.1em;"">1000</td><td>Porcentaje acumulado</td><td id=""porcentaje"">0 %</td><td>Total</td><td id=""totalflujospagos"">0</td><td></td><td></td></tr></tbody></table>"
+
+
+        Else
+            htmlflujo = "<table id=""T_flujos"" border=""1"" cellpadding=""1"" cellspacing=""1"" style=""width: 100%;""><thead><tr><th style=""text-align: center;"">No pago</th><th style=""text-align: center;"">Fecha</th><th style=""text-align: center;"">Porcentaje</th><th style=""text-align: center;"">Entregable</th><th style=""text-align: center;"">Valor parcial</th><th style=""text-align: center;"">Editar/Eliminar</th><th style=""text-align: center;"" >Detalle</th></tr></thead><tbody>"
+            htmlflujo &= "<tr><td width=""1"" style=""color: #D3D6FF; font-size: 0.1em;"">1000</td><td>Porcentaje acumulado</td><td id=""porcentaje"">0 %</td><td>Total</td><td id=""totalflujospagos"">0</td><td></td><td></td></tr></tbody></table>"
+
+        End If
+
+        Response.Write(htmlflujo)
 
     End Function
         
@@ -240,7 +242,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         Dim thirdbyidea As New ThirdByIdeaDALC
         Dim objactores As ThirdByIdeaEntity
         Dim data_listactores As List(Of ThirdByIdeaEntity)
-        Dim name, contacto, email, tel, documet, tipo, vd, ve, vt, id As String
+        Dim name, vd, ve, vt, id As String
 
         Dim htmlactores As String
 
@@ -714,11 +716,11 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
             Dim swicth As Integer = 0
             Dim swicthactor As Integer = 0
             Dim swicthflujo As Integer = 0
-            ' Dim thirdByIdea As ThirdByIdeaEntity = New ThirdByIdeaEntity()
 
+            'istanciamos el objeto componente
             Dim myProgramComponentByIdea As New ProgramComponentByIdeaEntity
 
-
+            'recorremos los componentes seleccionados
             For Each row In arraycomponente
 
                 If IsNumeric(arraycomponente(contadorcomp)) Then
@@ -726,115 +728,76 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                     myProgramComponentByIdea.idProgramComponent = arraycomponente(contadorcomp)
                     myProgramComponentByIdeaList.Add(myProgramComponentByIdea)
 
-                    Dim f As Integer = 1
-
-                Else
-                    Dim f As Integer = 0
                 End If
 
                 contadorcomp = contadorcomp + 1
             Next
 
-            Dim objpaymentFlow As PaymentFlowEntity = New PaymentFlowEntity()
 
-            If arrayflujos(0) = "vacio_ojo" Then
+            'ISTANCIAMOS LA VARIABLE DEL TAMAÑO DEL ARRAY
+            Dim t_Aubicacion As Integer
 
-            Else
+            'ASIGNAMOS EL TAMAÑO 
+            t_Aubicacion = arrayubicacion.Length
 
-                For Each row In arrayflujos
+           'RECORREMOS LA CANTIDAD DE VECES ASIGNADAS
+            For index_ubi As Integer = 0 To t_Aubicacion
 
-                    N_pagoexist = InStr(arrayflujos(contadorflu), "N_pago")
-                    fecha_pagoexist = InStr(arrayflujos(contadorflu), "fecha_pago")
-                    porcentajeexist = InStr(arrayflujos(contadorflu), "porcentaje")
-                    entregaexist = InStr(arrayflujos(contadorflu), "entrega")
-                    tflujosexist = InStr(arrayflujos(contadorflu), "tflujos")
-
-                    If N_pagoexist > 0 Then
-
-                        N_pagoexist = Replace(arrayflujos(contadorflu), " N_pago : ", " ", 1)
-                        objpaymentFlow.N_pagos = N_pagoexist
-
-                    End If
-
-                    If fecha_pagoexist > 0 Then
-
-                        fecha_pagoexist = Replace(arrayflujos(contadorflu), " fecha_pago : ", " ", 1)
-                        objpaymentFlow.fecha = Convert.ToDateTime(fecha_pagoexist)
-
-                    End If
-
-                    If porcentajeexist > 0 Then
-
-                        porcentajeexist = Replace(arrayflujos(contadorflu), " porcentaje : ", " ", 1)
-                        porcentajeexist = porcentajeexist.Replace("%", "")
-                        objpaymentFlow.porcentaje = Convert.ToDecimal(porcentajeexist)
-
-                    End If
-
-                    If entregaexist > 0 Then
-
-                        entregaexist = Replace(arrayflujos(contadorflu), " entrega : ", " ", 1)
-                        objpaymentFlow.entregable = entregaexist
-
-                    End If
-
-
-                    If tflujosexist > 0 Then
-
-                        tflujosexist = Replace(arrayflujos(contadorflu), " tflujos : ", " ", 1)
-                        objpaymentFlow.valortotal = Convert.ToDecimal(tflujosexist)
-                        objpaymentFlow.valorparcial = Convert.ToDecimal(tflujosexist)
-                        objpaymentFlow.idproject = 0
-                        swicthflujo = 1
-
-                    End If
-
-                    If swicthflujo = 1 Then
-                        PaymentFlowList.Add(objpaymentFlow)
-                        swicthflujo = 0
-                    End If
-
-                    contadorflu = contadorflu + 1
-
-                Next
-
-            End If
-
-
-            Dim objDeptoEntity As DeptoEntity = New DeptoEntity()
-            Dim objCityEntity As CityEntity = New CityEntity()
-
-
-            For Each row In arrayubicacion
-
+                'VERIDFICAMOS Q EXISTAN LOS CAMPOS SOLICITADOS
                 deptovalexist = InStr(arrayubicacion(contador), "DeptoVal")
-                Cityvalexist = InStr(arrayubicacion(contador), "CityVal")
+                Cityvalexist = InStr(arrayubicacion(contador + 2), "CityVal")
 
-                If deptovalexist > 0 Then
+                'separamos el valor de campo
+                deptovalexist = Replace(arrayubicacion(contador), " DeptoVal : ", " ", 1)
+                Cityvalexist = Replace(arrayubicacion(contador + 2), "CityVal : ", " ", 1)
 
-                    deptovalexist = Replace(arrayubicacion(contador), " DeptoVal : ", " ", 1)
-                    objDeptoEntity.id = deptovalexist
-                    objlocationidea.DEPTO = objDeptoEntity
 
-                End If
+                Dim objDeptoEntity As DeptoEntity = New DeptoEntity()
+                Dim objCityEntity As CityEntity = New CityEntity()
 
-                If Cityvalexist > 0 Then
+                objDeptoEntity.id = deptovalexist
+                objlocationidea.DEPTO = objDeptoEntity
+                objCityEntity.id = Cityvalexist
+                objlocationidea.CITY = objCityEntity
 
-                    Cityvalexist = Replace(arrayubicacion(contador), "CityVal : ", " ", 1)
-                    objCityEntity.id = Cityvalexist
-                    objlocationidea.CITY = objCityEntity
-                    swicth = 1
+                locationByIdeaList.Add(objlocationidea)
 
-                End If
-
-                If swicth = 1 Then
-                    locationByIdeaList.Add(objlocationidea)
-                    swicth = 0
-                End If
-
-                contador = contador + 1
+                index_ubi = index_ubi + 4
+                contador = contador + 4
 
             Next
+
+
+            'For Each row In arrayubicacion
+
+            '    deptovalexist = InStr(arrayubicacion(contador), "DeptoVal")
+            '    Cityvalexist = InStr(arrayubicacion(contador), "CityVal")
+
+            '    If deptovalexist > 0 Then
+
+            '        deptovalexist = Replace(arrayubicacion(contador), " DeptoVal : ", " ", 1)
+            '        objDeptoEntity.id = deptovalexist
+            '        objlocationidea.DEPTO = objDeptoEntity
+
+            '    End If
+
+            '    If Cityvalexist > 0 Then
+
+            '        Cityvalexist = Replace(arrayubicacion(contador), "CityVal : ", " ", 1)
+            '        objCityEntity.id = Cityvalexist
+            '        objlocationidea.CITY = objCityEntity
+            '        swicth = 1
+
+            '    End If
+
+            '    If swicth = 1 Then
+            '        locationByIdeaList.Add(objlocationidea)
+            '        swicth = 0
+            '    End If
+
+            '    contador = contador + 1
+
+            'Next
 
             Dim thirdByIdea As ThirdByIdeaEntity = New ThirdByIdeaEntity()
 
@@ -939,6 +902,72 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
             Next
 
+
+
+            If arrayflujos(0) = "vacio_ojo" Then
+
+            Else
+
+                For Each row In arrayflujos
+
+                    Dim objpaymentFlow As PaymentFlowEntity = New PaymentFlowEntity()
+
+                    N_pagoexist = InStr(arrayflujos(contadorflu), "N_pago")
+                    fecha_pagoexist = InStr(arrayflujos(contadorflu), "fecha_pago")
+                    porcentajeexist = InStr(arrayflujos(contadorflu), "porcentaje")
+                    entregaexist = InStr(arrayflujos(contadorflu), "entrega")
+                    tflujosexist = InStr(arrayflujos(contadorflu), "tflujos")
+
+                    If N_pagoexist > 0 Then
+
+                        N_pagoexist = Replace(arrayflujos(contadorflu), " N_pago : ", " ", 1)
+                        objpaymentFlow.N_pagos = N_pagoexist
+
+                    End If
+
+                    If fecha_pagoexist > 0 Then
+
+                        fecha_pagoexist = Replace(arrayflujos(contadorflu), " fecha_pago : ", " ", 1)
+                        objpaymentFlow.fecha = Convert.ToDateTime(fecha_pagoexist)
+
+                    End If
+
+                    If porcentajeexist > 0 Then
+
+                        porcentajeexist = Replace(arrayflujos(contadorflu), " porcentaje : ", " ", 1)
+                        porcentajeexist = porcentajeexist.Replace("%", "")
+                        objpaymentFlow.porcentaje = Convert.ToDecimal(porcentajeexist)
+
+                    End If
+
+                    If entregaexist > 0 Then
+
+                        entregaexist = Replace(arrayflujos(contadorflu), " entrega : ", " ", 1)
+                        objpaymentFlow.entregable = entregaexist
+
+                    End If
+
+
+                    If tflujosexist > 0 Then
+
+                        tflujosexist = Replace(arrayflujos(contadorflu), " tflujos : ", " ", 1)
+                        objpaymentFlow.valortotal = Convert.ToDecimal(tflujosexist)
+                        objpaymentFlow.valorparcial = Convert.ToDecimal(tflujosexist)
+                        objpaymentFlow.idproject = 0
+                        swicthflujo = 1
+
+                    End If
+
+                    If swicthflujo = 1 Then
+                        PaymentFlowList.Add(objpaymentFlow)
+                        swicthflujo = 0
+                    End If
+
+                    contadorflu = contadorflu + 1
+
+                Next
+
+            End If
 
             'Se almacena en el objeto idea la lista de Componentes del Programa obtenida
             objIdea.ProgramComponentBYIDEALIST = myProgramComponentByIdeaList

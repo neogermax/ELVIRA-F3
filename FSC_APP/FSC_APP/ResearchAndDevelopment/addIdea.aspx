@@ -13,6 +13,18 @@
 
     <script src="../Include/javascript/idea.js" type="text/javascript"></script>
 
+    <script src="../Include/javascript/Idea_info_prin.js" type="text/javascript"></script>
+    
+    <script src="../Include/javascript/Idea_componeente.js" type="text/javascript"></script>
+
+    <script src="../Include/javascript/Idea_ubicacion.js" type="text/javascript"></script>
+
+    <script src="../Include/javascript/Idea_actores.js" type="text/javascript"></script>
+
+    <script src="../Include/javascript/Idea_flujos.js" type="text/javascript"></script>
+
+    <script src="../Include/javascript/Idea_file.js" type="text/javascript"></script>
+    
     <link href="../css/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" type="text/css" />
 
     <script src="../js/jquery-ui-1.10.3.custom.min.js" type="text/javascript"></script>
@@ -25,6 +37,7 @@
 
     <script src="../js/jquery.fileupload.js" type="text/javascript"></script>
 
+   
     <script src="../js/jquery.iframe-transport.js" type="text/javascript"></script>
 
     <%--<script src="../js/bootstrap-modal.js" type="text/javascript"></script>

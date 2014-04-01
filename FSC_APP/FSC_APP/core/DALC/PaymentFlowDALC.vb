@@ -247,6 +247,7 @@ Public Class PaymentFlowDALC
 
                 Dim objflowpaymentEntity As PaymentFlowEntity = New PaymentFlowEntity()
                 objflowpaymentEntity.id = item_flowEntity("Id")
+                objflowpaymentEntity.N_pagos = item_flowEntity("N_pagos")
                 objflowpaymentEntity.idproject = item_flowEntity("idproject")
                 objflowpaymentEntity.fecha = item_flowEntity("fecha")
                 objflowpaymentEntity.porcentaje = item_flowEntity("porcentaje")
@@ -257,7 +258,9 @@ Public Class PaymentFlowDALC
 
                 objListPaymentFlow.Add(objflowpaymentEntity)
             Next
-            Return objListPaymentFlow
+
+            getFlowPayment = objListPaymentFlow
+
         Catch ex As Exception
             Return Nothing
         End Try

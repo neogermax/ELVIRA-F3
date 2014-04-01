@@ -3630,6 +3630,12 @@
     <Content Include="css\jquery.multiselect2side.css" />
     <Content Include="GeneralPlanning\AjaxAddThird.aspx" />
     <Content Include="images\cargando.gif" />
+    <Content Include="Include\javascript\Idea_info_prin.js" />
+    <Content Include="Include\javascript\Idea_file.js" />
+    <Content Include="Include\javascript\Idea_actores.js" />
+    <Content Include="Include\javascript\Idea_flujos.js" />
+    <Content Include="Include\javascript\Idea_ubicacion.js" />
+    <Content Include="Include\javascript\Idea_componeente.js" />
     <Content Include="js\bootstrap-modal.js" />
     <Content Include="js\jquery-ui-1.10.3.custom.min.js" />
     <Content Include="js\jquery.dataTables.min.js" />
