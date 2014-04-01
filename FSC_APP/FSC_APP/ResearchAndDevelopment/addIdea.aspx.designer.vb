@@ -1726,6 +1726,33 @@ Partial Public Class addIdea
     Protected WithEvents LblHELPARCHIVE As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
+    '''Control lbldecription.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents lbldecription As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''Control Txtdecription.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Txtdecription As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''Control HiddenField1.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents HiddenField1 As Global.System.Web.UI.WebControls.HiddenField
+
+    '''<summary>
     '''Control li5000.
     '''</summary>
     '''<remarks>

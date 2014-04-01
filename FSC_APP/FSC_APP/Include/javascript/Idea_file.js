@@ -30,6 +30,7 @@ function subirArchivos() {
                 //creamos variables
                 var filename = result;
                 var objectfile = data;
+                var description = $("#ctl00_cphPrincipal_Txtdecription").val();
 
                 if (idfile == null) {
                     idfile = 1;
@@ -39,14 +40,14 @@ function subirArchivos() {
                 }
 
                 //creamos json para guardarlos en un array
-                var jsonFiles = { "idfile": idfile, "filename": filename, "objectfile": objectfile };
-                //            //cargamos el array con el json
+                var jsonFiles = { "idfile": idfile, "filename": filename, "objectfile": objectfile, "Description": description };
+                //cargamos el array con el json
                 arrayFiles.push(jsonFiles);
 
                 var htmlTablefiles = "<table id='T_files' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr><th style='text-align: center;'>Archivo</th><th style='text-align: center;'>Observaciones</th><th style='text-align: center;'>Eliminar</th></tr></thead><tbody>";
                 //recorremos el array para generar datos del la tabla anexos
                 for (itemArray in arrayFiles) {
-                    htmlTablefiles += "<tr id='archivo" + arrayFiles[itemArray].idfile + "'><td><a id='linkarchives' runat='server' href='/FSC_APP/document/temp/" + arrayFiles[itemArray].filename + "' target= '_blank' title='link'>" + arrayFiles[itemArray].filename + "</a></td><td style='text-align: center;'><input id='txtinputobser" + arrayFiles[itemArray].idfile + "' ></input></td><td style='text-align: center;'><input type ='button' value= 'Eliminar' onclick=\"deletefile('" + arrayFiles[itemArray].idfile + "')\"></input></td></tr>";
+                    htmlTablefiles += "<tr id='archivo" + arrayFiles[itemArray].idfile + "'><td><a id='linkarchives' runat='server' href='/FSC_APP/document/temp/" + arrayFiles[itemArray].filename + "' target= '_blank' title='link'>" + arrayFiles[itemArray].filename + "</a></td><td style='text-align: left;'>" + arrayFiles[itemArray].Description + "</td><td style='text-align: center;'><input type ='button' value= 'Eliminar' onclick=\"deletefile('" + arrayFiles[itemArray].idfile + "')\"></input></td></tr>";
                 }
                 htmlTablefiles += "</tbody></table>";
 
