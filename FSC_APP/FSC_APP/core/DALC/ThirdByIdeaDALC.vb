@@ -41,6 +41,7 @@ Public Class ThirdByIdeaDALC
             "Documents," & _
             "Phone," & _
             "Email," & _
+            "generatesflow," & _
             "CreateDate" & _
              ")")
 
@@ -56,6 +57,7 @@ Public Class ThirdByIdeaDALC
             sql.AppendLine("'" & ThirdByIdea.Documents & "',")
             sql.AppendLine("'" & ThirdByIdea.Phone & "',")
             sql.AppendLine("'" & ThirdByIdea.Email & "',")
+            sql.AppendLine("'" & ThirdByIdea.EstadoFlujos & "',")
             sql.AppendLine("'" & ThirdByIdea.CreateDate.ToString("yyyy/MM/dd HH:mm:ss") & "')")
 
             'TODO: 18 MODIFICACION DE MODELO POR ACTORES

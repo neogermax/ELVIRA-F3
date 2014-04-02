@@ -30,7 +30,7 @@ function subirArchivos() {
                 //creamos variables
                 var filename = result;
                 var objectfile = data;
-                var description = $("#ctl00_cphPrincipal_Txtdecription").val();
+                var description =  cambio_text($("#ctl00_cphPrincipal_Txtdecription").val());
 
                 if (idfile == null) {
                     idfile = 1;
@@ -80,7 +80,7 @@ function subirArchivos() {
 
 }
 
-//hola
+//funcion  para borrar los archivos de la lista
 function deletefile(stridfile) {
 
     var idarchivo = "#archivo" + stridfile;

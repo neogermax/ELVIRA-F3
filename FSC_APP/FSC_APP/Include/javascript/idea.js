@@ -71,6 +71,7 @@ $(document).ready(function() {
         View_actores();
         View_matriz_principal();
         View_flujos_p();
+        View_flujos_actors();
 
         ClineEstrategic_edit();
 
@@ -462,8 +463,7 @@ function SaveIdea_onclick() {
                     if (listflujos.length == 0) {
                         listflujos[0] = "vacio_ojo";
                     }
-
-
+                 
                     //crear comunicacion ajax para el ingreso de los datos de la idea
                     $.ajax({
                         url: "AjaxAddIdea.aspx",

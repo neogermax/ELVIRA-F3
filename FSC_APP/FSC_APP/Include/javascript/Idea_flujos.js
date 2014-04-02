@@ -25,7 +25,7 @@ function Btn_add_flujo_onclick() {
             var fecha_pago = $("#ctl00_cphPrincipal_txtfechapago").val();
             var porcentaje = $("#ctl00_cphPrincipal_txtporcentaje").val() + " %";
             var valor_pago = $("#ctl00_cphPrincipal_Lbltotalvalor").text();
-            var entrega = $("#ctl00_cphPrincipal_txtentregable").val();
+            var entrega = cambio_text($("#ctl00_cphPrincipal_txtentregable").val());
 
             var idpago;
             var Aportante;
@@ -204,6 +204,34 @@ function View_flujos_p() {
         },
         error: function(msg) {
             alert("No se pueden cargar los flujos de pago de la idea = " + ideditar);
+        }
+    });
+
+}
+
+function View_flujos_actors() {
+    $.ajax({
+        url: "AjaxAddIdea.aspx",
+        type: "GET",
+        data: { "action": "View_flujos_actors", "ididea": ideditar },
+        success: function(result) {
+
+            //cargamos el div donde se generara la tabla actores
+            $("#T_AflujosContainer").html("");
+            $("#T_AflujosContainer").html(result);
+
+            //reconstruimos la tabla con los datos
+            $("#T_Actorsflujos").dataTable({
+                "bJQueryUI": true,
+                "bDestroy": true
+            });
+
+            //lamar la funcionsumar actores
+            sumar_grid_actores();
+
+        },
+        error: function(msg) {
+            alert("No se pueden cargar los actores de flujos de pago de la idea = " + ideditar);
         }
     });
 
@@ -680,7 +708,7 @@ function validarporcentaje() {
 
         }
         if ($("#ctl00_cphPrincipal_txtporcentaje").val() == 0) {
-            $("#ctl00_cphPrincipal_Lblhelpporcentaje").text("El porcentaje debe ser meayor a 0");
+            $("#ctl00_cphPrincipal_Lblhelpporcentaje").text("El porcentaje debe ser mayor a 0");
             $("#ctl00_cphPrincipal_txtporcentaje").val("");
             $("#ctl00_cphPrincipal_txtporcentaje").focus();
         }

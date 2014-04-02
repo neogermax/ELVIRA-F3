@@ -34,6 +34,7 @@ Public Class ThirdByIdeaEntity
     Private _Phone As String
     Private _Email As String
     Private _CreateDate As DateTime
+    Private _EstadoFlujos As String
 
 
 #End Region
@@ -175,6 +176,14 @@ Public Class ThirdByIdeaEntity
         End Get
         Set(ByVal value As DateTime)
             Me._CreateDate = value
+        End Set
+    End Property
+    Public Property EstadoFlujos() As String
+        Get
+            Return Me._EstadoFlujos
+        End Get
+        Set(ByVal value As String)
+            Me._EstadoFlujos = value
         End Set
     End Property
 

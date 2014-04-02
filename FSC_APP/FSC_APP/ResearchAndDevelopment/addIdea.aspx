@@ -14,7 +14,7 @@
     <script src="../Include/javascript/idea.js" type="text/javascript"></script>
 
     <script src="../Include/javascript/Idea_info_prin.js" type="text/javascript"></script>
-
+    
     <script src="../Include/javascript/Idea_componeente.js" type="text/javascript"></script>
 
     <script src="../Include/javascript/Idea_ubicacion.js" type="text/javascript"></script>
@@ -24,7 +24,7 @@
     <script src="../Include/javascript/Idea_flujos.js" type="text/javascript"></script>
 
     <script src="../Include/javascript/Idea_file.js" type="text/javascript"></script>
-
+    
     <link href="../css/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" type="text/css" />
 
     <script src="../js/jquery-ui-1.10.3.custom.min.js" type="text/javascript"></script>
@@ -37,6 +37,7 @@
 
     <script src="../js/jquery.fileupload.js" type="text/javascript"></script>
 
+   
     <script src="../js/jquery.iframe-transport.js" type="text/javascript"></script>
 
     <%--<script src="../js/bootstrap-modal.js" type="text/javascript"></script>
@@ -480,18 +481,17 @@
                 <li>
                     <asp:Button ID="btnAddData" runat="server" Text="Guardar" ValidationGroup="infoGenral"
                         Visible="false" />
-                    <asp:Button ID="btnSave" runat="server" Text="Guardar" ValidationGroup="infoGenral"
-                        Visible="false" />
+                    <asp:Button ID="btnSave" runat="server" Text="Guardar" ValidationGroup="infoGenral" Visible="false"/>
                     <asp:Button ID="btnDelete" runat="server" Text="Eliminar Idea" Visible="false" />
-                    <asp:Button ID="btnCancel" runat="server" Text="Cancelar" CausesValidation="False"
-                        Visible="false" />
+                    <asp:Button ID="btnCancel" runat="server" Text="Cancelar" CausesValidation="False" Visible="false"/>
                     <asp:Button ID="btnexportword" runat="server" Text="Exportar términos de referencia"
-                        ValidationGroup="infoGenral" Visible="false" />
+                        ValidationGroup="infoGenral" Visible="false"/>
                     <input id="SaveIdea" type="button" value="Crear Idea" name="Save_Idea" onclick="SaveIdea_onclick()" />
                     <input id="EditIdea" type="button" value="Editar Idea" name="Edit_Idea" />
+                    
                     <%--<input id="Export" type="button" value="Exportar términos de referencia" name="Export_Idea" onclick="return Export_onclick()" />--%>
-                    <a id="Export" href="#" onclick="Export_onclick();" target="_blank">Exportar términos
-                        de referencia</a> </li>
+                    <a id="Export" href="#" onclick="Export_onclick();" target="_blank">Exportar términos de referencia</a>
+                 </li>
                 <asp:Label ID="Lbladvertencia" runat="server" ForeColor="#990000"></asp:Label>
                 <li>
                     <asp:Button ID="btnConfirmDelete" runat="server" Text="Eliminar" CausesValidation="False" />
@@ -514,8 +514,7 @@
                             onclick="return Btndeletecomponent_onclick()" />
                     </td>
                     <td>
-                        <ul id="componentesseleccionados">
-                        </ul>
+                        <ul id="componentesseleccionados"></ul>
                     </td>
                     <td id="viejocomp" runat="server" visible="false">
                         <cc2:DoubleListBox ID="dlbActivity" runat="server" Width="100%" />
@@ -527,6 +526,7 @@
                     <asp:Label ID="Lblinformationcomponent" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
             </ul>
+         
         </div>
         <div id="ubicacion">
             <ul>
@@ -992,23 +992,13 @@
             <ul>
                 <li id="tableAttachments"></li>
                 <input id="fileupload" type="file" name="files[]" multiple />
+                <input id="Btncharge_file" type="button" value="Adjuntar un archivo" name="Add_files"
+                    onclick="subirArchivos()" />
                 <li><a id="lnkAttch" style="cursor: hand" onclick="AddFileInput(F1)" visible="false">
                 </a></li>
                 <li>
                     <asp:Label ID="LblHELPARCHIVE" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
-                <li>
-                    <asp:Label  ID="lbldecription" runat="server"
-                        Text="Observaciones"></asp:Label>
-                    <asp:TextBox ID="Txtdecription" runat="server" Height="50px" MaxLength="8000" TextMode="MultiLine"
-                        Width="100%" ></asp:TextBox>
-                    <asp:HiddenField ID="HiddenField1" runat="server" />
-                </li>
-               <li> 
-               <br />
-               <input id="Btncharge_file" type="button" value="Adjuntar un archivo" name="Add_files"
-                    onclick="subirArchivos()" />
-               </li>
                 <li id="li5000" runat="server" visible="false">
                     <asp:Label ID="obser" runat="server" Text="Descripción"></asp:Label>
                     <asp:TextBox ID="txtobser" runat="server" MaxLength="500" Width="400px"></asp:TextBox>

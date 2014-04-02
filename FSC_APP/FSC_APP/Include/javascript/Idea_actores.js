@@ -42,6 +42,9 @@ function BtnaddActors_onclick() {
         else {
             $("#ctl00_cphPrincipal_Lblactorrep").text("");
 
+
+
+
             //capturamos los valores de deseados
             var actorsVal = $("#ddlactors").val();
             var actorsName = $("#ddlactors :selected").text();
@@ -71,10 +74,18 @@ function BtnaddActors_onclick() {
                 var total = $("#ctl00_cphPrincipal_Txtaportfscocomp").val();
             }
 
+            var flujo_in = $("#ctl00_cphPrincipal_RBListflujo :checked").val();
 
+           
+            if (flujo_in == 1) {
+                var estado_flujo = "s";
+            }
+            else {
+                var estado_flujo = "n";
+            }
 
             //creamos json para guardarlos en un array
-            var jsonActor = { "actorsVal": actorsVal, "actorsName": actorsName, "tipoactors": tipoactors, "contact": contact, "cedula": cedula, "telefono": telefono, "email": email, "diner": diner, "especie": especie, "total": total };
+            var jsonActor = { "actorsVal": actorsVal, "actorsName": actorsName, "tipoactors": tipoactors, "contact": contact, "cedula": cedula, "telefono": telefono, "email": email, "diner": diner, "especie": especie, "total": total, "estado_flujo": estado_flujo };
 
             //recorremos el array para revisar repetidos        
             var validerepetido = 0;
@@ -92,7 +103,7 @@ function BtnaddActors_onclick() {
                 $("#ctl00_cphPrincipal_Lblactorrep").text("");
                 //ww
 
-                var flujo_in = $("#ctl00_cphPrincipal_RBListflujo :checked").val();
+
 
                 //cargamos el array con el json
                 if (flujo_in == 1) {
