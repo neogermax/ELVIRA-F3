@@ -64,6 +64,7 @@ function subirArchivos() {
                 $("#fileupload").val("");
 
                 $('#ctl00_cphPrincipal_gif_charge_Container').css("display", "none");
+                $("#ctl00_cphPrincipal_Txtdecription").val("")
 
             },
             error: function(error) {
