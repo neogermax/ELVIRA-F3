@@ -1726,6 +1726,7 @@
     <Compile Include="core\DALC\ContractTypeDALC.vb" />
     <Compile Include="core\DALC\CurrencyDALC.vb" />
     <Compile Include="core\DALC\DeptoDALC.vb" />
+    <Compile Include="core\DALC\DetailedcashflowsDALC.vb" />
     <Compile Include="core\DALC\DocumentsByEntityDALC.vb" />
     <Compile Include="core\DALC\DocumentsDALC.vb" />
     <Compile Include="core\DALC\DocumentstmpDALC.vb" />
@@ -1872,6 +1873,7 @@
     <Compile Include="core\Entities\ContractTypeEntity.vb" />
     <Compile Include="core\Entities\CurrencyEntity.vb" />
     <Compile Include="core\Entities\DeptoEntity.vb" />
+    <Compile Include="core\Entities\DetailedcashflowsEntity.vb" />
     <Compile Include="core\Entities\DocumentsByEntityEntity.vb" />
     <Compile Include="core\Entities\DocumentsEntity.vb" />
     <Compile Include="core\Entities\DocumentstmpEntity.vb" />

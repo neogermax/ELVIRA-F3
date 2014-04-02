@@ -433,6 +433,7 @@ function SaveIdea_onclick() {
                     var listubicaciones = [];
                     var listactores = [];
                     var listflujos = [];
+                    var listdetallesflujos = [];
 
                     var Str_listcomponentes = $("#componentesseleccionados").html();
                     Str_listcomponentes = Str_listcomponentes.replace(/"/g, "_");
@@ -459,10 +460,22 @@ function SaveIdea_onclick() {
                     for (item in arrayflujosdepago) {
                         listflujos.push(JSON.stringify(arrayflujosdepago[item]));
                     }
-
+                    
+                    //validar si el array tiene datos   
                     if (listflujos.length == 0) {
                         listflujos[0] = "vacio_ojo";
                     }
+
+                    for (item in matriz_flujos) {
+                        listdetallesflujos.push(JSON.stringify(matriz_flujos[item]));
+                    }
+
+                    //validar si el array tiene datos
+                    if (listdetallesflujos.length == 0) {
+                        listdetallesflujos[0] = "vacio_ojo";
+                    }
+ 
+                    
                  
                     //crear comunicacion ajax para el ingreso de los datos de la idea
                     $.ajax({
@@ -498,6 +511,7 @@ function SaveIdea_onclick() {
                             "listcomponentes": Str_listcomponentes.toString(),
                             "listubicaciones": listubicaciones.toString(),
                             "listflujos": listflujos.toString(),
+                            "listdetallesflujos": listdetallesflujos.toString(),
                             "listactores": listactores.toString()
 
                         },

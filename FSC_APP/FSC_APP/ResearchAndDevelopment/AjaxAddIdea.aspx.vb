@@ -22,7 +22,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         Dim id_b As Integer
         Dim fecha As Date
         Dim duracion, dia As String
-        Dim S_code, S_linea_estrategica, S_programa, S_nombre, S_justificacion, S_objetivo, S_objetivo_esp, S_Resultados_Benef, S_Resultados_Ges_c, S_Resultados_Cap_i, S_Fecha_inicio, S_mes, S_dia, S_Fecha_fin, S_Población, S_contratacion, S_A_Mfsc, S_A_Efsc, S_A_Mcounter, S_A_Ecounter, S_cost, S_obligaciones, S_iva, S_listubicaciones, S_listactors, S_mitigacion, S_riesgos, S_presupuestal, S_listcomponentes, S_listflujos As String
+        Dim S_code, S_linea_estrategica, S_programa, S_nombre, S_justificacion, S_objetivo, S_objetivo_esp, S_Resultados_Benef, S_Resultados_Ges_c, S_Resultados_Cap_i, S_Fecha_inicio, S_mes, S_dia, S_Fecha_fin, S_Población, S_contratacion, S_A_Mfsc, S_A_Efsc, S_A_Mcounter, S_A_Ecounter, S_cost, S_obligaciones, S_iva, S_listubicaciones, S_listactors, S_mitigacion, S_riesgos, S_presupuestal, S_listcomponentes, S_listflujos, S_listdetallesflujos As String
         Dim ideditar, id_lineStrategic, id_depto, idprogram, idpopulation, Countarchivo As Integer
 
         Dim strFileName() As String
@@ -33,7 +33,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         Session("locationByIdeaList") = New List(Of LocationByIdeaEntity)
         Session("thirdByIdeaList") = New List(Of ThirdByIdeaEntity)
         Session("paymentFlowList") = New List(Of PaymentFlowEntity)
-
+        Session("DetailedcashflowsList") = New List(Of DetailedcashflowsEntity)
         If Request.Files.Count() > 0 Then
 
 
@@ -101,8 +101,10 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
             S_listactors = Request.Form("listactores").ToString
             S_listcomponentes = Request.Form("listcomponentes").ToString
             S_listflujos = Request.Form("listflujos").ToString
+            S_listdetallesflujos = Request.Form("listdetallesflujos").ToString
 
-            save_IDEA(S_code, S_linea_estrategica, S_programa, S_nombre, S_justificacion, S_objetivo, S_objetivo_esp, S_Resultados_Benef, S_Resultados_Ges_c, S_Resultados_Cap_i, S_Fecha_inicio, S_mes, S_dia, S_Fecha_fin, S_Población, S_contratacion, S_riesgos, S_mitigacion, S_presupuestal, S_cost, S_obligaciones, S_iva, S_listubicaciones, S_listactors, S_listcomponentes, S_listflujos) '
+
+            save_IDEA(S_code, S_linea_estrategica, S_programa, S_nombre, S_justificacion, S_objetivo, S_objetivo_esp, S_Resultados_Benef, S_Resultados_Ges_c, S_Resultados_Cap_i, S_Fecha_inicio, S_mes, S_dia, S_Fecha_fin, S_Población, S_contratacion, S_riesgos, S_mitigacion, S_presupuestal, S_cost, S_obligaciones, S_iva, S_listubicaciones, S_listactors, S_listcomponentes, S_listflujos, S_listdetallesflujos) '
 
         Else
 
@@ -273,8 +275,6 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
     End Function
 
-
-
     Public Function searh_matriz_p(ByVal ididea As Integer)
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
 
@@ -316,8 +316,6 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
 
     End Function
-
-
 
     Public Function searh_actores(ByVal ididea As Integer)
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
@@ -365,8 +363,6 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
 
     End Function
-
-
 
     Public Function searh_location(ByVal ididea As Integer)
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
@@ -699,19 +695,19 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
     ''' <param name="cost"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Function save_IDEA(ByVal code As String, ByVal line_strategic As String, ByVal program As String, ByVal name As String, ByVal justify As String, ByVal objetive As String, ByVal obj_esp As String, ByVal resul_bef As String, ByVal resul_ges_c As String, ByVal resul_cap_i As String, ByVal fecha_i As String, ByVal mes As String, ByVal dia As String, ByVal fecha_f As String, ByVal poblacion As String, ByVal contratacion As String, ByVal riesgos As String, ByVal mitigacion As String, ByVal presupuestal As String, ByVal cost As String, ByVal obligaciones As String, ByVal iva As String, ByVal list_ubicacion As String, ByVal list_actor As String, ByVal list_componentes As String, ByVal list_flujos As String) '
+    Public Function save_IDEA(ByVal code As String, ByVal line_strategic As String, ByVal program As String, ByVal name As String, ByVal justify As String, ByVal objetive As String, ByVal obj_esp As String, ByVal resul_bef As String, ByVal resul_ges_c As String, ByVal resul_cap_i As String, ByVal fecha_i As String, ByVal mes As String, ByVal dia As String, ByVal fecha_f As String, ByVal poblacion As String, ByVal contratacion As String, ByVal riesgos As String, ByVal mitigacion As String, ByVal presupuestal As String, ByVal cost As String, ByVal obligaciones As String, ByVal iva As String, ByVal list_ubicacion As String, ByVal list_actor As String, ByVal list_componentes As String, ByVal list_flujos As String, ByVal list_detalles_flujos As String) '
 
         Dim facade As New Facade
         Dim objIdea As New IdeaEntity
         Dim myProgramComponentByIdeaList As List(Of ProgramComponentByIdeaEntity) = New List(Of ProgramComponentByIdeaEntity)
-       
+
         Dim locationByIdeaList As List(Of LocationByIdeaEntity)
 
 
 
-        Dim arrayubicacion, arrayactor, arraycomponente, arrayflujos As String()
+        Dim arrayubicacion, arrayactor, arraycomponente, arrayflujos, arraydetallesflujos As String()
         Dim deptovalexist, Cityvalexist As Integer
-        Dim estados_flujosexist, N_pagoexist, fecha_pagoexist, porcentajeexist, entregaexist, tflujosexist, existidprogram, existactorsVal, existactorsName, existtipoactors, existcontact, existcedula, existtelefono, existemail, existdiner, existespecie, existtotal As String
+        Dim desembolsoexist, Aportanteexist, idaportanteexist, N_pagodetexist, estados_flujosexist, N_pagoexist, fecha_pagoexist, porcentajeexist, entregaexist, tflujosexist, existidprogram, existactorsVal, existactorsName, existtipoactors, existcontact, existcedula, existtelefono, existemail, existdiner, existespecie, existtotal As String
 
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
 
@@ -741,6 +737,13 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
             'convertimos el string en un array de datos
             arrayflujos = list_flujos.Split(New [Char]() {","c})
 
+            list_detalles_flujos = Replace(list_detalles_flujos, "{", " ", 1)
+            list_detalles_flujos = Replace(list_detalles_flujos, "}", " ", 1)
+            list_detalles_flujos = Replace(list_detalles_flujos, """", " ", 1)
+            'convertimos el string en un array de datos
+            arraydetallesflujos = list_detalles_flujos.Split(New [Char]() {","c})
+
+
             list_componentes = Replace(list_componentes, "/", "*", 1)
             list_componentes = Replace(list_componentes, "_ *", "*", 1)
             ''convertimos el string en un array de datos
@@ -750,16 +753,15 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
             Dim contadoractor As Integer = 0
             Dim contadorcomp As Integer = 0
             Dim contadorflu As Integer = 0
+            Dim contadordetflu As Integer = 0
 
-            Dim swicth As Integer = 0
-            Dim swicthactor As Integer = 0
-            Dim swicthflujo As Integer = 0
-
-            'istanciamos el objeto componente
-            Dim myProgramComponentByIdea As New ProgramComponentByIdeaEntity
-
+            
+            
             'recorremos los componentes seleccionados
             For Each row In arraycomponente
+
+                'istanciamos el objeto componente
+                Dim myProgramComponentByIdea As New ProgramComponentByIdeaEntity
 
                 If IsNumeric(arraycomponente(contadorcomp)) Then
 
@@ -882,7 +884,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
             'ASIGNAMOS EL TAMAÑO 
             t_Aflujo = arrayflujos.Length
 
-          
+
             If arrayflujos(0) = "vacio_ojo" Then
 
             Else
@@ -925,69 +927,54 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                     index_flu = index_flu + 5
 
                 Next
+            End If
 
+            '----------------------------------------------------detallesflujos------------------------------------------------------------------------
+            'ISTANCIAMOS LA VARIABLE DEL TAMAÑO DEL ARRAY
+            Dim t_Aflujodetalle As Integer
 
+            'ASIGNAMOS EL TAMAÑO 
+            t_Aflujodetalle = arraydetallesflujos.Length
 
-                'For Each row In arrayflujos
+            If arraydetallesflujos(0) = "vacio_ojo" Then
 
-                '    Dim objpaymentFlow As PaymentFlowEntity = New PaymentFlowEntity()
+            Else
 
-                '    N_pagoexist = InStr(arrayflujos(contadorflu), "N_pago")
-                '    fecha_pagoexist = InStr(arrayflujos(contadorflu), "fecha_pago")
-                '    porcentajeexist = InStr(arrayflujos(contadorflu), "porcentaje")
-                '    entregaexist = InStr(arrayflujos(contadorflu), "entrega")
-                '    tflujosexist = InStr(arrayflujos(contadorflu), "tflujos")
+                'RECORREMOS LA CANTIDAD DE VECES ASIGNADAS
+                For index_fludet As Integer = 0 To t_Aflujodetalle
 
-                '    If N_pagoexist > 0 Then
+                    Dim objDetalleflujo As DetailedcashflowsEntity = New DetailedcashflowsEntity()
+                    Dim listDetalleflujo As List(Of DetailedcashflowsEntity)
+                    listDetalleflujo = (DirectCast(Session("DetailedcashflowsList"), List(Of DetailedcashflowsEntity)))
 
-                '        N_pagoexist = Replace(arrayflujos(contadorflu), " N_pago : ", " ", 1)
-                '        objpaymentFlow.N_pagos = N_pagoexist
+                    'VERIDFICAMOS Q EXISTAN LOS CAMPOS SOLICITADOS
+                    N_pagodetexist = InStr(arraydetallesflujos(contadordetflu), "idpago")
+                    idaportanteexist = InStr(arraydetallesflujos(contadordetflu + 1), "idaportante")
+                    Aportanteexist = InStr(arraydetallesflujos(contadordetflu + 2), "Aportante")
+                    desembolsoexist = InStr(arraydetallesflujos(contadordetflu + 3), "desembolso")
 
-                '    End If
+                    'separamos el valor de campo
+                    N_pagodetexist = Replace(arraydetallesflujos(contadordetflu), " idpago : ", " ", 1)
+                    idaportanteexist = Replace(arraydetallesflujos(contadordetflu + 1), " idaportante : ", " ", 1)
+                    Aportanteexist = Replace(arraydetallesflujos(contadordetflu + 2), " Aportante : ", " ", 1)
+                    desembolsoexist = Replace(arraydetallesflujos(contadordetflu + 3), " desembolso : ", " ", 1)
 
-                '    If fecha_pagoexist > 0 Then
+                    'asignamos al objeto
+                    objDetalleflujo.N_pago = Convert.ToInt32(N_pagodetexist)
+                    objDetalleflujo.IdAportante = Convert.ToInt32(idaportanteexist)
+                    objDetalleflujo.Aportante = Aportanteexist
+                    objDetalleflujo.Desembolso = desembolsoexist
+                    objDetalleflujo.IdProject = 0
 
-                '        fecha_pagoexist = Replace(arrayflujos(contadorflu), " fecha_pago : ", " ", 1)
-                '        objpaymentFlow.fecha = Convert.ToDateTime(fecha_pagoexist)
+                    'cargamos al list
+                    listDetalleflujo.Add(objDetalleflujo)
 
-                '    End If
-
-                '    If porcentajeexist > 0 Then
-
-                '        porcentajeexist = Replace(arrayflujos(contadorflu), " porcentaje : ", " ", 1)
-                '        porcentajeexist = porcentajeexist.Replace("%", "")
-                '        objpaymentFlow.porcentaje = Convert.ToDecimal(porcentajeexist)
-
-                '    End If
-
-                '    If entregaexist > 0 Then
-
-                '        entregaexist = Replace(arrayflujos(contadorflu), " entrega : ", " ", 1)
-                '        objpaymentFlow.entregable = entregaexist
-
-                '    End If
-
-
-                '    If tflujosexist > 0 Then
-
-                '        tflujosexist = Replace(arrayflujos(contadorflu), " tflujos : ", " ", 1)
-                '        objpaymentFlow.valortotal = Convert.ToDecimal(tflujosexist)
-                '        objpaymentFlow.valorparcial = Convert.ToDecimal(tflujosexist)
-                '        objpaymentFlow.idproject = 0
-                '        swicthflujo = 1
-
-                '    End If
-
-                '    If swicthflujo = 1 Then
-                '        PaymentFlowList.Add(objpaymentFlow)
-                '        swicthflujo = 0
-                '    End If
-
-                '    contadorflu = contadorflu + 1
-
-                'Next
+                    contadordetflu = contadordetflu + 4
+                    index_fludet = index_fludet + 4
+                Next
 
             End If
+
 
             'Se almacena en el objeto idea la lista de Componentes del Programa obtenida
             objIdea.ProgramComponentBYIDEALIST = myProgramComponentByIdeaList
@@ -1040,6 +1027,9 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
             'Se agrega la lista de FLUJOS DE PAGOS
             objIdea.paymentflowByProjectList = DirectCast(Session("paymentFlowList"), List(Of PaymentFlowEntity))
+
+            'Se agrega la lista de  detalles de FLUJOS DE PAGOS
+            objIdea.DetailedcashflowsbyIdeaList = DirectCast(Session("DetailedcashflowsList"), List(Of DetailedcashflowsEntity))
 
             'Se almacena en el objeto idea la lista de Componentes del Programa obtenida
             objIdea.ProgramComponentBYIDEALIST = myProgramComponentByIdeaList

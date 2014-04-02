@@ -10497,6 +10497,7 @@ Public Class Facade
         'Definir los objetos
         Dim IdeaDALC As New IdeaDALC
         Dim objPaymentFlowDALC As New PaymentFlowDALC()
+        Dim objdetallesflujoDALC As New DetailedcashflowsDALC()
         Dim miIdIdea As Long
 
         Try
@@ -10558,6 +10559,10 @@ Public Class Facade
                 objPaymentFlowDALC.add(objApplicationCredentials, objPaymentFlow)
             Next
 
+            For Each objdeteallesflujos As DetailedcashflowsEntity In Idea.DetailedcashflowsbyIdeaList
+                objdeteallesflujos.IdIdea = miIdIdea
+                objdetallesflujoDALC.add(objApplicationCredentials, objdeteallesflujos)
+            Next
 
             ' finalizar la transaccion
             CtxSetComplete()

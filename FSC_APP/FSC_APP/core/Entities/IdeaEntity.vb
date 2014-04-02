@@ -59,7 +59,7 @@ Public Class IdeaEntity
     Private _dia As String
 
     Private _paymentflowByProjectList As List(Of PaymentFlowEntity)
-
+    Private _DetailedcashflowsbyIdeaList As List(Of DetailedcashflowsEntity)
 
 #End Region
 
@@ -411,7 +411,6 @@ Public Class IdeaEntity
             Me._dia = value
         End Set
     End Property
-
     Public Property paymentflowByProjectList() As List(Of PaymentFlowEntity)
         Get
             Return Me._paymentflowByProjectList
@@ -420,6 +419,16 @@ Public Class IdeaEntity
             Me._paymentflowByProjectList = value
         End Set
     End Property
+    Public Property DetailedcashflowsbyIdeaList() As List(Of DetailedcashflowsEntity)
+        Get
+            Return Me._DetailedcashflowsbyIdeaList
+        End Get
+        Set(ByVal value As List(Of DetailedcashflowsEntity))
+            Me._DetailedcashflowsbyIdeaList = value
+        End Set
+    End Property
+
+
 
 #End Region
 
