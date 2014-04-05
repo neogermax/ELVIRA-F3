@@ -188,6 +188,23 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                     ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
                     searh_actors_flujos(ideditar)
 
+                Case "View_line_strategic"
+
+                    ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
+                    searh_line_Strategic(ideditar)
+
+                Case "View_program"
+
+                    ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
+                    searh_Program(ideditar)
+
+                Case "View_component"
+
+                    ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
+                    searh_component(ideditar)
+
+
+
                 Case Else
 
             End Select
@@ -195,6 +212,91 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         End If
 
     End Sub
+
+    Public Function searh_component(ByVal ididea As Integer)
+
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+        Dim ProgramComponentByIdea As New ProgramComponentByIdeaDALC
+
+        Dim sql As New StringBuilder
+        Dim objSqlCommand As New SqlCommand
+        Dim component_value As DataTable
+
+        Dim htmlcomponente As String = ""
+        sql.Append(" SELECT  pc.Id ,pc.Code FROM ProgramComponentByIdea pci ")
+        sql.Append(" INNER JOIN ProgramComponent pc  ON pci.idProgramComponent = Pc.Id  ")
+        sql.Append(" INNER JOIN Program p ON Pc.IdProgram = P.Id  ")
+        sql.Append(" where pci.IdIdea = " & ididea)
+
+        component_value = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+       
+        If component_value.Rows.Count > 0 Then
+
+            For Each row As DataRow In component_value.Rows
+                htmlcomponente &= "<li id= add" + row(0).ToString + " class='seleccione'>" + row(1).ToString() + "</li>"
+            Next
+
+        End If
+
+        Response.Write(htmlcomponente)
+
+
+
+    End Function
+
+    Public Function searh_Program(ByVal ididea As Integer)
+
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+        Dim ProgramComponentByIdea As New ProgramComponentByIdeaDALC
+
+        Dim sql As New StringBuilder
+        Dim objSqlCommand As New SqlCommand
+
+        Dim program_value As String = ""
+
+        sql.Append(" select top 1(pc.IdProgram) from ProgramComponentByIdea pci ")
+        sql.Append(" INNER JOIN ProgramComponent pc ON pci.idProgramComponent = pc.Id ")
+        sql.Append(" where pci.IdIdea = " & ididea)
+
+        Dim data_program = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
+
+        If data_program = 0 Then
+            program_value = "0"
+        Else
+            program_value = data_program
+        End If
+
+        Response.Write(program_value)
+
+
+    End Function
+
+    Public Function searh_line_Strategic(ByVal ididea As Integer)
+
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+        Dim ProgramComponentByIdea As New ProgramComponentByIdeaDALC
+
+        Dim sql As New StringBuilder
+        Dim objSqlCommand As New SqlCommand
+        Dim linevalue As String = ""
+
+        sql.Append(" select TOP 1(SL.Id) from ProgramComponentByIdea pci ")
+        sql.Append(" INNER JOIN ProgramComponent pc ON pci.idProgramComponent = pc.Id ")
+        sql.Append(" INNER JOIN Program p ON Pc.IdProgram = P.Id ")
+        sql.Append(" INNER JOIN StrategicLine SL ON SL.Id = P.IdStrategicLine ")
+        sql.Append(" where pci.IdIdea = " & ididea)
+
+        Dim data_lineStrategig = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
+
+        If data_lineStrategig = 0 Then
+            linevalue = "0"
+        Else
+            linevalue = data_lineStrategig
+        End If
+
+        Response.Write(linevalue)
+
+    End Function
 
     Public Function searh_actors_flujos(ByVal ididea As Integer)
 
@@ -260,7 +362,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
                 htmlflujo &= "<tr id='flow" & npagos & "' ><td>" & npagos & "</td><td>" & fecha & "</td><td>" & porcent & "</td><td>" & entregable & "</td><td>" & vpar & "</td><td><input type =""button"" value= ""Editar"" onclick=""""""editflujo('" & npagos & "','" & fecha & "','" & porcent & "','" & entregable & "','" & vpar & "')""></input><input type =""button"" value= ""Eliminar"" onclick="""""" eliminarflujo('" & npagos & "')""></input></td><td><input type =""button"" value= ""Detalle"" onclick=""""""traerdetalles('" & npagos & "',this)""></input></td></tr>"
 
-             Next
+            Next
 
             htmlflujo &= "<tr><td width=""1"" style=""color: #D3D6FF; font-size: 0.1em;"">1000</td><td>Porcentaje acumulado</td><td id=""porcentaje"">0 %</td><td>Total</td><td id=""totalflujospagos"">0</td><td></td><td></td></tr></tbody></table>"
 
@@ -755,8 +857,8 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
             Dim contadorflu As Integer = 0
             Dim contadordetflu As Integer = 0
 
-            
-            
+
+
             'recorremos los componentes seleccionados
             For Each row In arraycomponente
 

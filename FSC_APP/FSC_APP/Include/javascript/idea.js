@@ -33,7 +33,9 @@ var idfile;
 var S_eliminar;
 
 var ideditar;
-
+var edit_line_strategic;
+var edit_program;
+var edit_flujo_inicializa;
 var contadorrestar = 0;
 
 $(document).ready(function() {
@@ -64,17 +66,17 @@ $(document).ready(function() {
         Cpopulation();
         validarporcentaje();
         ClineEstrategic();
-        Cprogram();
-
-
+       
         view_ubicacion();
         View_actores();
         View_matriz_principal();
         View_flujos_p();
         View_flujos_actors();
 
-        ClineEstrategic_edit();
+        var timer_cline_edit = setTimeout("ClineEstrategic_edit();", 2000);
 
+
+        //Cprogram();
 
         $("#SaveIdea").css("display", "none");
         $("#Export").css("display", "block");
@@ -226,10 +228,6 @@ $(document).ready(function() {
 });
 
 
-function ClineEstrategic_edit() {
-    var valor = 17;
-    $("#ddlStrategicLines option[value=\"'" + valor + "'\"]").attr("selected", true);
-}
 
 //funcion para dispara en el autoload fuciones de fechas
 function fix() {

@@ -1,4 +1,40 @@
 ﻿
+//cargar combo de lineas estrategicas
+function ClineEstrategic() {
+    $.ajax({
+        url: "AjaxAddIdea.aspx",
+        type: "GET",
+        data: { "action": "C_linestrategic" },
+        success: function(result) {
+            $("#ddlStrategicLines").html(result);
+            $("#ddlStrategicLines").trigger("liszt:updated");
+        },
+        error: function(msg) {
+            alert("No se pueden cargar las lineas strategicas.");
+        }
+    });
+}
+
+//cargar combo de programas
+function Cprogram() {
+    $("#ddlStrategicLines").change(function() {
+        $.ajax({
+            url: "AjaxAddIdea.aspx",
+            type: "GET",
+            data: { "action": "C_program", "idlinestrategic": $(this).val() },
+            success: function(result) {
+                $("#ddlPrograms").html(result);
+                $("#ddlPrograms").trigger("liszt:updated");
+                $("#componentesseleccionados").html("");
+            },
+            error: function(msg) {
+                alert("No se pueden cargar los programas de la linea estrategica selecionada.");
+            }
+        });
+    });
+}
+
+
 //cargar combo tipos de  proyecto
 function Ctype_project() {
     $.ajax({
@@ -50,9 +86,75 @@ function CtypeContract() {
 }
 
 
+//funcion que posiciona el combo en la linea estrategica de la idea seleccionada
+function ClineEstrategic_edit() {
+    //ajax que posiciona la linea estrategica de la idea conasultada
+    $.ajax({
+        url: "AjaxAddIdea.aspx",
+        type: "GET",
+        data: { "action": "View_line_strategic", "ididea": ideditar },
+        success: function(result) {
+
+            $("#ddlStrategicLines").val(result);
+            $("#ddlStrategicLines").trigger("liszt:updated");
+
+            edit_line_strategic = result;
+
+        },
+        error: function(msg) {
+            alert("No se pueden cargar la linea estrategica deseada.");
+        }
+    });
+
+    var timer_cline_edit = setTimeout("Cprogram_edit();", 2000);
+
+}
+
+//cargar los programas seleccionados de la linea seleccionada anteriormente "ClineEstrategic_edit()"
+function Cprogram_edit() {
+
+    $.ajax({
+        url: "AjaxAddIdea.aspx",
+        type: "GET",
+        data: { "action": "C_program", "idlinestrategic": edit_line_strategic },
+        success: function(result) {
+            $("#ddlPrograms").html(result);
+            $("#ddlPrograms").trigger("liszt:updated");
+            $("#componentesseleccionados").html("");
+        },
+        error: function(msg) {
+            alert("No se pueden cargar los programas de la linea estrategica selecionada.");
+        }
+    });
+    var timer_program_edit = setTimeout("view_Cprogram();", 2000);
+}
+
+//funcion que posiciona el combo del programa de la idea seleccionada 
+function view_Cprogram() {
+    //ajax que posiciona el programa de la idea conasultada
+    $.ajax({
+        url: "AjaxAddIdea.aspx",
+        type: "GET",
+        data: { "action": "View_program", "ididea": ideditar },
+        success: function(result) {
+
+            $("#ddlPrograms").val(result);
+            $("#ddlPrograms").trigger("liszt:updated");
+
+            edit_program = result;
+
+        },
+        error: function(msg) {
+            alert("No se pueden cargar la linea estrategica deseada.");
+        }
+    });
+    var timer_program_edit = setTimeout("edit_component();", 2000);
+    var timer_program_edit = setTimeout("edit_component_view();", 2000);
+
+}
 
 
-//funcion para cargar matriz principal
+//funcion para cargar matriz principal edicion
 function View_matriz_principal() {
 
     $.ajax({
@@ -300,7 +402,7 @@ function operacionesIdea() {
 
     //montaje de jquery para LOS TRES CAMPOS DE RESULTADO
     //31-05-2013 GERMAN RODRIGUEZ
-    
+
 }
 
 
