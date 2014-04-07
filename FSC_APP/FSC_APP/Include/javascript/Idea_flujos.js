@@ -70,6 +70,7 @@ function Btn_add_flujo_onclick() {
                     $("#ctl00_cphPrincipal_Lblinformation_flujos").text("Los desembolsos no deben superar el 100%");
                 }
                 else {
+                    edit_swhich_fx = 0;
                     //cargamos el array con el json
                     arrayflujosdepago.push(jsonflujo);
                     //creamos la tabla de flujo de pagos      
@@ -414,7 +415,7 @@ function editar_flujos() {
                     //totalizamos valores y asctualizamos el campo de total
                     totalreverdesenbolso = totalreverdesenbolso + parseInt(reversedesembolsos[itemdesembolsos].desembolsorev.replace(/\./gi, ''));
                     $("#totalflujos").text(addCommasrefactor(totalreverdesenbolso));
-                   
+
                 }
             }
         }
@@ -459,7 +460,7 @@ function eliminar_flujos() {
     });
 }
 
-
+var arrayeditarflujos = [];
 //funcion para restar los valores ingresados erronamente en los input de grilla de actores
 function restar_flujos(str) {
 
@@ -490,18 +491,34 @@ function restar_flujos(str) {
         var inicial = $(idinicial).html();
         inicial = inicial.replace(/\./gi, '');
 
-        //restamos del array de operacion
-        valorarraytotal = parseInt(valorarraytotal) - parseInt(restaoperador);
 
-        if (edit_flujo_inicializa == 1) {
-            arrayValorflujoTotal[0] = 0;
-            alert("ojo restar 1 " + arrayValorflujoTotal[0]);
-            edit_flujo_inicializa = 0; 
+        //restamos del array de operacion
+
+        if (edit_swhich_fx == 1) {
+            restaoperador = $(idflujo).val();
+            restaoperador = restaoperador.replace(/\./gi, '');
+            valorarraytotal = parseInt(valorarraytotal) - 0;
+            arrayeditarflujos[0] = valorarraytotal;
+
+            //        alert("ojo restar 3 " + arrayeditarflujos[0]);
         }
         else {
-            alert("ojo restar 2 " + arrayValorflujoTotal[0]);
+            valorarraytotal = parseInt(valorarraytotal) - parseInt(restaoperador);
+        }
+
+        if (edit_flujo_inicializa == 1) {
+            restaoperador = $(idflujo).val();
+            restaoperador = restaoperador.replace(/\./gi, '');
+            arrayValorflujoTotal[0] = 0;
+            //    alert("ojo restar 1 " + arrayValorflujoTotal[0]);
+            edit_flujo_inicializa = 0;
+            edit_swhich_fx = 1;
+
+        }
+        else {
+            //        alert("ojo restar 2 " + arrayValorflujoTotal[0]);
             arrayValorflujoTotal[0] = valorarraytotal;
-            
+
         }
 
         if (swhich_validar_estado_1 != 1) {
@@ -555,40 +572,33 @@ function sumar_flujos(str) {
     //funtion validar limite de actores
     var resultado_val = validar_limite_actores(opeValuesActorsflujos, opevaluesActorsdesembolso, opevaluesActorslimit, totaldesembolso, tr_Iddes);
 
-//    if (edit_flujo_inicializa == 1) {
-//        arrayValorflujoTotal[0] = opeValuesActorsflujos;
-//        edit_flujo_inicializa = 0;
-//        alert(arrayValorflujoTotal[0]);
-
-//    }
-
     //validamos si es el primer registro del array
     if (arrayValorflujoTotal.length == 0) {
         valtotaldiner = valtotaldiner + opeValuesActorsflujos;
         //ingresamos el valor en un array estatico
         arrayValorflujoTotal[0] = valtotaldiner;
-        alert("ojo sumar 1 " + valtotaldiner);
+        //     alert("ojo sumar 1 " + valtotaldiner);
         $("#totalflujos").text(addCommasrefactor(valtotaldiner));
     }
     else {
 
         if (arrayValorflujoTotal[0] < 0) {
-           // arrayValorflujoTotal[0] = 0;
+            // arrayValorflujoTotal[0] = 0;
 
             valtotaldiner = arrayValorflujoTotal[0];
 
             if (edit_flujo_inicializa == 1) {
                 valtotaldiner = valtotaldiner + opeValuesActorsflujos;
                 edit_flujo_inicializa = 0;
-                alert("ojo sumar 2 " + valtotaldiner);   
+                //          alert("ojo sumar 2 " + valtotaldiner);   
             }
             else {
                 valtotaldiner = valtotaldiner + opeValuesActorsflujos;
-                alert("ojo sumar 2 1/2 " + valtotaldiner); 
-       
+                //         alert("ojo sumar 2 1/2 " + valtotaldiner); 
+
             }
 
-           
+
             arrayValorflujoTotal[0] = valtotaldiner;
             alert(valtotaldiner);
             $("#totalflujos").text(addCommasrefactor(valtotaldiner));
@@ -597,13 +607,13 @@ function sumar_flujos(str) {
         else {
             valtotaldiner = arrayValorflujoTotal[0];
             valtotaldiner = valtotaldiner + opeValuesActorsflujos;
-            alert("ojo sumar 3 "  + valtotaldiner);
+            //      alert("ojo sumar 3 " + valtotaldiner);
 
             arrayValorflujoTotal[0] = valtotaldiner;
             $("#totalflujos").text(addCommasrefactor(valtotaldiner));
         }
         //ingresamos el valor en un array estatico
-       
+
     }
 
     if (resultado_val == 1) {

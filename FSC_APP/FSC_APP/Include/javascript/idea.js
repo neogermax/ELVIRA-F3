@@ -36,7 +36,9 @@ var ideditar;
 var edit_line_strategic;
 var edit_program;
 var edit_flujo_inicializa;
+var edit_swhich_fx;
 var contadorrestar = 0;
+var validateflujos_save;
 
 $(document).ready(function() {
 
@@ -66,7 +68,7 @@ $(document).ready(function() {
         Cpopulation();
         validarporcentaje();
         ClineEstrategic();
-       
+
         view_ubicacion();
         View_actores();
         View_matriz_principal();
@@ -245,6 +247,7 @@ function fix() {
     }
 }
 
+
 //funcion de refactorizacion idea fase 3 ---- autor:German Rodriguez MGgroup
 
 //--------------------------------------------------------------------------crear idea-----------------------------------------------------------------------------------------------
@@ -287,250 +290,279 @@ function SaveIdea_onclick() {
             $("#ctl00_cphPrincipal_Lblinformationcomponent").text("");
             $("#ctl00_cphPrincipal_Lblinfubicacion").text("");
             $("#ctl00_cphPrincipal_Lblactorrep").text("");
-            //validar si los campos obligatorios fueron dilegenciados
-            if ($("#ctl00_cphPrincipal_RBnList_iva :checked").val() == null || $("#ddlPupulation :selected").text() == 'Seleccione...' || $("#ddlmodcontract :selected").text() == 'Seleccione...' || $("#ddlStrategicLines :selected").text() == 'Seleccione...' || $("#ddlPrograms :selected").text() == 'Seleccione...' || $("#ctl00_cphPrincipal_txtname").val() == '' || $("#ctl00_cphPrincipal_txtjustification").val() == '' || $("#ctl00_cphPrincipal_txtobjective").val() == '' || $("#ctl00_cphPrincipal_txtstartdate").val() == '' || $("#ctl00_cphPrincipal_Txtdatecierre").val() == '' || arrayUbicacion.length == 0 || fsc_exist == 0) {
 
-                if ($("#ctl00_cphPrincipal_RBnList_iva :checked").val() == null) {
-                    $("#ctl00_cphPrincipal_Lblhelpiva").text("Escoja si o no");
-                    $("#ctl00_cphPrincipal_Lbladvertencia").text("La idea no guardo con exito: Revisar la pestaña información");
-                }
-                else {
-                    $("#ctl00_cphPrincipal_Lblhelpiva").text("");
-                    $("#ctl00_cphPrincipal_Lbladvertencia").text("");
-                }
+            //revisamos si hay flujos de pago
+            if (arrayflujosdepago.length != 0) {
 
-                //validar linea estrategica
-                if ($("#ddlStrategicLines :selected").text() == 'Seleccione...') {
-                    $("#ctl00_cphPrincipal_lblinfls").text("Campo Requerido");
-                    $("#ctl00_cphPrincipal_Lbladvertencia").text("La idea no guardo con exito: Revisar la pestaña información");
-                }
-                else {
-                    $("#ctl00_cphPrincipal_lblinfls").text("");
-                    $("#ctl00_cphPrincipal_Lbladvertencia").text("");
-                }
-                //validar programas
-                if ($("#ddlPrograms :selected").text() == 'Seleccione...') {
-                    $("#ctl00_cphPrincipal_lblinpro").text("Campo Requerido");
-                    $("#ctl00_cphPrincipal_Lbladvertencia").text("La idea no guardo con exito: Revisar la pestaña información");
-                }
-                else {
-                    $("#ctl00_cphPrincipal_lblinpro").text("");
-                    $("#ctl00_cphPrincipal_Lbladvertencia").text("");
-                }
-                //validar tipo de proyectos
-                //                if ($("#ddltype_proyect :selected").text() == 'Seleccione...') {
-                //                    $("#ctl00_cphPrincipal_Lblhelptproyect").text("Campo Requerido");
-                //                    $("#ctl00_cphPrincipal_Lbladvertencia").text("La idea no guardo con exito: Revisar la pestaña información");
-                //                }
-                //                else {
-                //                    $("#ctl00_cphPrincipal_Lblhelptproyect").text("");
-                //                    $("#ctl00_cphPrincipal_Lbladvertencia").text("");
-                //                }
-                //validar poblacion
-                if ($("#ddlPupulation :selected").text() == 'Seleccione...') {
-                    $("#ctl00_cphPrincipal_lblHelppopulation").text("Campo Requerido");
-                    $("#ctl00_cphPrincipal_Lbladvertencia").text("La idea no guardo con exito: Revisar la pestaña información");
-                }
-                else {
-                    $("#ctl00_cphPrincipal_lblHelppopulation").text("");
-                    $("#ctl00_cphPrincipal_Lbladvertencia").text("");
-                }
-                //validar tipo de contratacion
-                if ($("#ddlmodcontract :selected").text() == 'Seleccione....') {
-                    $("#ctl00_cphPrincipal_Lblmodcontract").text("Campo Requerido");
-                    $("#ctl00_cphPrincipal_Lbladvertencia").text("La idea no guardo con exito: Revisar la pestaña información");
-                }
-                else {
-                    $("#ctl00_cphPrincipal_Lblmodcontract").text("");
-                    $("#ctl00_cphPrincipal_Lbladvertencia").text("");
-                }
-                //validar nombre
-                if ($("#ctl00_cphPrincipal_txtname").val() == '') {
-                    $("#ctl00_cphPrincipal_lblHelpname").text("Campo Requerido");
-                    $("#ctl00_cphPrincipal_Lbladvertencia").text("La idea no guardo con exito: Revisar la pestaña información");
-                }
-                else {
-                    $("#ctl00_cphPrincipal_lblHelpname").text("");
-                    $("#ctl00_cphPrincipal_Lbladvertencia").text("");
-                }
-                //validar justificacion
-                if ($("#ctl00_cphPrincipal_txtjustification").val() == '') {
-                    $("#ctl00_cphPrincipal_lblHelpjustification").text("Campo Requerido");
-                    $("#ctl00_cphPrincipal_Lbladvertencia").text("La idea no guardo con exito: Revisar la pestaña información");
-                }
-                else {
-                    $("#ctl00_cphPrincipal_lblHelpjustification").text("");
-                    $("#ctl00_cphPrincipal_Lbladvertencia").text("");
-                }
-                //validarobjetivos
-                if ($("#ctl00_cphPrincipal_txtobjective").val() == '') {
-                    $("#ctl00_cphPrincipal_lblHelpobjective").text("Campo Requerido");
-                    $("#ctl00_cphPrincipal_Lbladvertencia").text("La idea no guardo con exito: Revisar la pestaña información");
-                }
-                else {
-                    $("#ctl00_cphPrincipal_lblHelpobjective").text("");
-                    $("#ctl00_cphPrincipal_Lbladvertencia").text("");
-                }
-                //validar fecha de inicio
-                if ($("#ctl00_cphPrincipal_txtstartdate").val() == '') {
-                    $("#ctl00_cphPrincipal_lblHelpstartdate").text("Campo Requerido");
-                    $("#ctl00_cphPrincipal_Lbladvertencia").text("La idea no guardo con exito: Revisar la pestaña información");
-                }
-                else {
-                    $("#ctl00_cphPrincipal_lblHelpstartdate").text("");
-                    $("#ctl00_cphPrincipal_Lbladvertencia").text("");
-                }
-                //validar duracion en dias
-                if ($("#ctl00_cphPrincipal_Lbldateend").val() == '') {
-                    $("#ctl00_cphPrincipal_Lblhelpenddate").text("Campo Requerido");
-                    $("#ctl00_cphPrincipal_Lbladvertencia").text("La idea no guardo con exito: Revisar la pestaña información");
-                }
-                else {
-                    $("#ctl00_cphPrincipal_Lblhelpenddate").text("");
-                    $("#ctl00_cphPrincipal_Lbladvertencia").text("");
-                }
-                //validar  si la FSC fue ingresada
-                if (fsc_exist == 1) {
-                    $("#ctl00_cphPrincipal_Lblactorrep").text("");
-                }
-                else {
-                    $("#ctl00_cphPrincipal_Lblactorrep").text("La idea no guardo con exito: la FSC debe ser un actor obligatorio");
-                    $("#ctl00_cphPrincipal_Lbladvertencia").text("La idea no guardo con exito: la FSC debe ser un actor obligatorio");
-                }
+                //capturamos el valor del porcentaje
+                var validaporcentaje = $("#porcentaje").text();
+                validaporcentaje = validaporcentaje.replace('%', '');
 
+                //y validamos si esta al 100 porciento
+                if (validaporcentaje == 100) {
+                    validateflujos_save = 0;
+                }
+                else {
+                    validateflujos_save = 1;
+                }
             }
 
-            else {
+            //validamos si no esta completo los pagos
+            if (validateflujos_save == 1) {
 
-                if ($("#ctl00_cphPrincipal_txtresults").val() == '' && $("#ctl00_cphPrincipal_txtresulgc").val() == '' && $("#ctl00_cphPrincipal_txtresulci").val() == '') {
-                   
-                    $("#ctl00_cphPrincipal_lblHelpresults").text("Algunos de los resultados debe ser diligenciado.");
-                    $("#ctl00_cphPrincipal_Label10").text("Algunos de los resultados debe ser diligenciado.");
-                    $("#ctl00_cphPrincipal_Label11").text("Algunos de los resultados debe ser diligenciado.");
-                    $("#ctl00_cphPrincipal_Lbladvertencia").text("La idea no guardo con exito: Revisar la pestaña información");
-                } else {
-                   
-                    $("#ctl00_cphPrincipal_lblHelpresults").text("");
-                    $("#ctl00_cphPrincipal_Label10").text("");
-                    $("#ctl00_cphPrincipal_Label11").text("");
+                $("#ctl00_cphPrincipal_Lbladvertencia").text("La idea no guardo con exito: los flujos generados no estan al 100%");
+                $("#ctl00_cphPrincipal_Lblinformation_flujos").text("Los desembolsos no estan al 100%");
 
-                    $("#ctl00_cphPrincipal_lblinfls").val("");
-                    $("#ctl0_cphPrincipal_lblinpro").val("");
-                    $("#ctl00_cphPrincipal_lblHelpname").text("");
-                    $("#ctl00_cphPrincipal_lblHelpjustification").text("");
-                    $("#ctl00_cphPrincipal_lblHelpobjective").text("");
-                    $("#ctl00_cphPrincipal_lblHelpstartdate").text("");
-                    $("#ctl00_cphPrincipal_lbldia").text("");
-                    $("#ctl00_cphPrincipal_Lblmodcontract").text("");
-                    $("#ctl00_cphPrincipal_lblHelppopulation").text("");
-                    $("#ctl00_cphPrincipal_Lblhelpenddate").text("");
-                    $("#ctl00_cphPrincipal_Lblhelpiva").text("");
+            }
+            else{
+            $("#ctl00_cphPrincipal_Lbladvertencia").text("");
+                $("#ctl00_cphPrincipal_Lblinformation_flujos").text("");
+            //validar si los campos obligatorios fueron dilegenciados
+                if ($("#ctl00_cphPrincipal_RBnList_iva :checked").val() == null || $("#ddlPupulation :selected").text() == 'Seleccione...' || $("#ddlmodcontract :selected").text() == 'Seleccione...' || $("#ddlStrategicLines :selected").text() == 'Seleccione...' || $("#ddlPrograms :selected").text() == 'Seleccione...' || $("#ctl00_cphPrincipal_txtname").val() == '' || $("#ctl00_cphPrincipal_txtjustification").val() == '' || $("#ctl00_cphPrincipal_txtobjective").val() == '' || $("#ctl00_cphPrincipal_txtstartdate").val() == '' || $("#ctl00_cphPrincipal_Txtdatecierre").val() == '' || arrayUbicacion.length == 0 || fsc_exist == 0) {
 
-
-                    //crear arrays para el ingreso de las listas de json
-                    var listubicaciones = [];
-                    var listactores = [];
-                    var listflujos = [];
-                    var listdetallesflujos = [];
-
-                    var Str_listcomponentes = $("#componentesseleccionados").html();
-                    Str_listcomponentes = Str_listcomponentes.replace(/"/g, "_");
-                    Str_listcomponentes = Str_listcomponentes.replace(/<li/g, "");
-                    Str_listcomponentes = Str_listcomponentes.replace(/li>/g, "");
-                    Str_listcomponentes = Str_listcomponentes.replace(/</g, "");
-                    Str_listcomponentes = Str_listcomponentes.replace(/>/g, "");
-                    Str_listcomponentes = Str_listcomponentes.replace(/class=/g, "*");
-                    Str_listcomponentes = Str_listcomponentes.replace(/id=/g, "");
-                    Str_listcomponentes = Str_listcomponentes.replace(/_selectadd/g, "");
-
-
-                   
-                    //recorer array para el ingreso de ubicaciones
-                    for (item in arrayUbicacion) {
-                        listubicaciones.push(JSON.stringify(arrayUbicacion[item]));
+                    if ($("#ctl00_cphPrincipal_RBnList_iva :checked").val() == null) {
+                        $("#ctl00_cphPrincipal_Lblhelpiva").text("Escoja si o no");
+                        $("#ctl00_cphPrincipal_Lbladvertencia").text("La idea no guardo con exito: Revisar la pestaña información");
                     }
-                    //recorer array para el ingreso de actores
-                    for (item in arrayActor) {
-                        listactores.push(JSON.stringify(arrayActor[item]));
+                    else {
+                        $("#ctl00_cphPrincipal_Lblhelpiva").text("");
+                        $("#ctl00_cphPrincipal_Lbladvertencia").text("");
                     }
 
-                    //recorer array para el ingreso de flujos
-                    for (item in arrayflujosdepago) {
-                        listflujos.push(JSON.stringify(arrayflujosdepago[item]));
+                    //validar linea estrategica
+                    if ($("#ddlStrategicLines :selected").text() == 'Seleccione...') {
+                        $("#ctl00_cphPrincipal_lblinfls").text("Campo Requerido");
+                        $("#ctl00_cphPrincipal_Lbladvertencia").text("La idea no guardo con exito: Revisar la pestaña información");
                     }
-                    
-                    //validar si el array tiene datos   
-                    if (listflujos.length == 0) {
-                        listflujos[0] = "vacio_ojo";
+                    else {
+                        $("#ctl00_cphPrincipal_lblinfls").text("");
+                        $("#ctl00_cphPrincipal_Lbladvertencia").text("");
                     }
-
-                    for (item in matriz_flujos) {
-                        listdetallesflujos.push(JSON.stringify(matriz_flujos[item]));
+                    //validar programas
+                    if ($("#ddlPrograms :selected").text() == 'Seleccione...') {
+                        $("#ctl00_cphPrincipal_lblinpro").text("Campo Requerido");
+                        $("#ctl00_cphPrincipal_Lbladvertencia").text("La idea no guardo con exito: Revisar la pestaña información");
                     }
-
-                    //validar si el array tiene datos
-                    if (listdetallesflujos.length == 0) {
-                        listdetallesflujos[0] = "vacio_ojo";
+                    else {
+                        $("#ctl00_cphPrincipal_lblinpro").text("");
+                        $("#ctl00_cphPrincipal_Lbladvertencia").text("");
                     }
- 
-                    
-                 
-                    //crear comunicacion ajax para el ingreso de los datos de la idea
-                    $.ajax({
-                        url: "AjaxAddIdea.aspx",
-                        type: "POST",
-                        //crear json
-                        data: { "action": "save", "code": $("#ctl00_cphPrincipal_txtcode").val(),
-                            "linea_estrategica": $("#ddlStrategicLines").val(),
-                            "programa": $("#ddlPrograms").val(),
-                            "nombre": cambio_text($("#ctl00_cphPrincipal_txtname").val()),
-                            "justificacion": cambio_text($("#ctl00_cphPrincipal_txtjustification").val()),
-                            "objetivo": cambio_text($("#ctl00_cphPrincipal_txtobjective").val()),
-                            "objetivo_esp": cambio_text($("#ctl00_cphPrincipal_txtareadescription").val()),
-                            "Resultados_Benef": cambio_text($("#ctl00_cphPrincipal_txtresults").val()),
-                            "Resultados_Ges_c": cambio_text($("#ctl00_cphPrincipal_txtresulgc").val()),
-                            "Resultados_Cap_i": cambio_text($("#ctl00_cphPrincipal_txtresulci").val()),
-                            "Fecha_inicio": $("#ctl00_cphPrincipal_txtstartdate").val(),
-                            "mes": $("#ctl00_cphPrincipal_txtduration").val(),
-                            "dia": $("#ctl00_cphPrincipal_Txtday").val(),
-                            "Fecha_fin": $("#ctl00_cphPrincipal_Txtdatecierre").val(),
-                            "Población": $("#ddlPupulation").val(),
-                            "contratacion": $("#ddlmodcontract").val(),
-                            "A_Mfsc": $("#ValueMoneyFSC").val(),
-                            "A_Efsc": $("#ValueEspeciesFSC").val(),
-                            "A_Mcounter": $("#ValueMoneyCounter").val(),
-                            "A_Ecounter": $("#ValueEspeciesCounter").val(),
-                            "cost": $("#ValueCostotal").text(),
-                            "obligaciones": cambio_text($("#ctl00_cphPrincipal_Txtobligationsoftheparties").val()),
-                            "riesgo": cambio_text($("#ctl00_cphPrincipal_Txtriesgos").val()),
-                            "mitigacion": cambio_text($("#ctl00_cphPrincipal_Txtaccionmitig").val()),
-                            "presupuestal": cambio_text($("#ctl00_cphPrincipal_Txtroutepresupuestal").val()),
-                            "iva": $("#ctl00_cphPrincipal_RBnList_iva :checked").val(),
-                            "listcomponentes": Str_listcomponentes.toString(),
-                            "listubicaciones": listubicaciones.toString(),
-                            "listflujos": listflujos.toString(),
-                            "listdetallesflujos": listdetallesflujos.toString(),
-                            "listactores": listactores.toString()
-
-                        },
-                        //mostrar resultados de la creacion de la idea
-                        success: function(result) {
-                            $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
-                            $("#SaveIdea").css("display", "none");
-                            $("#Export").css("display", "block");
-                            $("#ctl00_cphPrincipal_lblsaveinformation").text(result);
-                            $("#ctl00_cphPrincipal_Lbladvertencia").text("");
-                            $("#ctl00_cphPrincipal_Txtobligationsoftheparties").focus();
-                        },
-                        error: function() {
-                            $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
-                            $("#SaveIdea").css("display", "block");
-                            $("#ctl00_cphPrincipal_lblsaveinkdformation").text("Se genero error al entrar a la operacion Ajax");
-                        }
-                    });
+                    //validar tipo de proyectos
+                    //                if ($("#ddltype_proyect :selected").text() == 'Seleccione...') {
+                    //                    $("#ctl00_cphPrincipal_Lblhelptproyect").text("Campo Requerido");
+                    //                    $("#ctl00_cphPrincipal_Lbladvertencia").text("La idea no guardo con exito: Revisar la pestaña información");
+                    //                }
+                    //                else {
+                    //                    $("#ctl00_cphPrincipal_Lblhelptproyect").text("");
+                    //                    $("#ctl00_cphPrincipal_Lbladvertencia").text("");
+                    //                }
+                    //validar poblacion
+                    if ($("#ddlPupulation :selected").text() == 'Seleccione...') {
+                        $("#ctl00_cphPrincipal_lblHelppopulation").text("Campo Requerido");
+                        $("#ctl00_cphPrincipal_Lbladvertencia").text("La idea no guardo con exito: Revisar la pestaña información");
+                    }
+                    else {
+                        $("#ctl00_cphPrincipal_lblHelppopulation").text("");
+                        $("#ctl00_cphPrincipal_Lbladvertencia").text("");
+                    }
+                    //validar tipo de contratacion
+                    if ($("#ddlmodcontract :selected").text() == 'Seleccione....') {
+                        $("#ctl00_cphPrincipal_Lblmodcontract").text("Campo Requerido");
+                        $("#ctl00_cphPrincipal_Lbladvertencia").text("La idea no guardo con exito: Revisar la pestaña información");
+                    }
+                    else {
+                        $("#ctl00_cphPrincipal_Lblmodcontract").text("");
+                        $("#ctl00_cphPrincipal_Lbladvertencia").text("");
+                    }
+                    //validar nombre
+                    if ($("#ctl00_cphPrincipal_txtname").val() == '') {
+                        $("#ctl00_cphPrincipal_lblHelpname").text("Campo Requerido");
+                        $("#ctl00_cphPrincipal_Lbladvertencia").text("La idea no guardo con exito: Revisar la pestaña información");
+                    }
+                    else {
+                        $("#ctl00_cphPrincipal_lblHelpname").text("");
+                        $("#ctl00_cphPrincipal_Lbladvertencia").text("");
+                    }
+                    //validar justificacion
+                    if ($("#ctl00_cphPrincipal_txtjustification").val() == '') {
+                        $("#ctl00_cphPrincipal_lblHelpjustification").text("Campo Requerido");
+                        $("#ctl00_cphPrincipal_Lbladvertencia").text("La idea no guardo con exito: Revisar la pestaña información");
+                    }
+                    else {
+                        $("#ctl00_cphPrincipal_lblHelpjustification").text("");
+                        $("#ctl00_cphPrincipal_Lbladvertencia").text("");
+                    }
+                    //validarobjetivos
+                    if ($("#ctl00_cphPrincipal_txtobjective").val() == '') {
+                        $("#ctl00_cphPrincipal_lblHelpobjective").text("Campo Requerido");
+                        $("#ctl00_cphPrincipal_Lbladvertencia").text("La idea no guardo con exito: Revisar la pestaña información");
+                    }
+                    else {
+                        $("#ctl00_cphPrincipal_lblHelpobjective").text("");
+                        $("#ctl00_cphPrincipal_Lbladvertencia").text("");
+                    }
+                    //validar fecha de inicio
+                    if ($("#ctl00_cphPrincipal_txtstartdate").val() == '') {
+                        $("#ctl00_cphPrincipal_lblHelpstartdate").text("Campo Requerido");
+                        $("#ctl00_cphPrincipal_Lbladvertencia").text("La idea no guardo con exito: Revisar la pestaña información");
+                    }
+                    else {
+                        $("#ctl00_cphPrincipal_lblHelpstartdate").text("");
+                        $("#ctl00_cphPrincipal_Lbladvertencia").text("");
+                    }
+                    //validar duracion en dias
+                    if ($("#ctl00_cphPrincipal_Lbldateend").val() == '') {
+                        $("#ctl00_cphPrincipal_Lblhelpenddate").text("Campo Requerido");
+                        $("#ctl00_cphPrincipal_Lbladvertencia").text("La idea no guardo con exito: Revisar la pestaña información");
+                    }
+                    else {
+                        $("#ctl00_cphPrincipal_Lblhelpenddate").text("");
+                        $("#ctl00_cphPrincipal_Lbladvertencia").text("");
+                    }
+                    //validar  si la FSC fue ingresada
+                    if (fsc_exist == 1) {
+                        $("#ctl00_cphPrincipal_Lblactorrep").text("");
+                    }
+                    else {
+                        $("#ctl00_cphPrincipal_Lblactorrep").text("La idea no guardo con exito: la FSC debe ser un actor obligatorio");
+                        $("#ctl00_cphPrincipal_Lbladvertencia").text("La idea no guardo con exito: la FSC debe ser un actor obligatorio");
+                    }
 
                 }
 
+
+                else {
+
+                    if ($("#ctl00_cphPrincipal_txtresults").val() == '' && $("#ctl00_cphPrincipal_txtresulgc").val() == '' && $("#ctl00_cphPrincipal_txtresulci").val() == '') {
+
+                        $("#ctl00_cphPrincipal_lblHelpresults").text("Algunos de los resultados debe ser diligenciado.");
+                        $("#ctl00_cphPrincipal_Label10").text("Algunos de los resultados debe ser diligenciado.");
+                        $("#ctl00_cphPrincipal_Label11").text("Algunos de los resultados debe ser diligenciado.");
+                        $("#ctl00_cphPrincipal_Lbladvertencia").text("La idea no guardo con exito: Revisar la pestaña información");
+                    }
+                    else {
+
+                        $("#ctl00_cphPrincipal_lblHelpresults").text("");
+                        $("#ctl00_cphPrincipal_Label10").text("");
+                        $("#ctl00_cphPrincipal_Label11").text("");
+
+                        $("#ctl00_cphPrincipal_lblinfls").val("");
+                        $("#ctl0_cphPrincipal_lblinpro").val("");
+                        $("#ctl00_cphPrincipal_lblHelpname").text("");
+                        $("#ctl00_cphPrincipal_lblHelpjustification").text("");
+                        $("#ctl00_cphPrincipal_lblHelpobjective").text("");
+                        $("#ctl00_cphPrincipal_lblHelpstartdate").text("");
+                        $("#ctl00_cphPrincipal_lbldia").text("");
+                        $("#ctl00_cphPrincipal_Lblmodcontract").text("");
+                        $("#ctl00_cphPrincipal_lblHelppopulation").text("");
+                        $("#ctl00_cphPrincipal_Lblhelpenddate").text("");
+                        $("#ctl00_cphPrincipal_Lblhelpiva").text("");
+
+
+                        //crear arrays para el ingreso de las listas de json
+                        var listubicaciones = [];
+                        var listactores = [];
+                        var listflujos = [];
+                        var listdetallesflujos = [];
+
+                        var Str_listcomponentes = $("#componentesseleccionados").html();
+                        Str_listcomponentes = Str_listcomponentes.replace(/"/g, "_");
+                        Str_listcomponentes = Str_listcomponentes.replace(/<li/g, "");
+                        Str_listcomponentes = Str_listcomponentes.replace(/li>/g, "");
+                        Str_listcomponentes = Str_listcomponentes.replace(/</g, "");
+                        Str_listcomponentes = Str_listcomponentes.replace(/>/g, "");
+                        Str_listcomponentes = Str_listcomponentes.replace(/class=/g, "*");
+                        Str_listcomponentes = Str_listcomponentes.replace(/id=/g, "");
+                        Str_listcomponentes = Str_listcomponentes.replace(/_selectadd/g, "");
+
+
+
+                        //recorer array para el ingreso de ubicaciones
+                        for (item in arrayUbicacion) {
+                            listubicaciones.push(JSON.stringify(arrayUbicacion[item]));
+                        }
+                        //recorer array para el ingreso de actores
+                        for (item in arrayActor) {
+                            listactores.push(JSON.stringify(arrayActor[item]));
+                        }
+
+                        //recorer array para el ingreso de flujos
+                        for (item in arrayflujosdepago) {
+                            listflujos.push(JSON.stringify(arrayflujosdepago[item]));
+                        }
+
+                        //validar si el array tiene datos   
+                        if (listflujos.length == 0) {
+                            listflujos[0] = "vacio_ojo";
+                        }
+
+                        for (item in matriz_flujos) {
+                            listdetallesflujos.push(JSON.stringify(matriz_flujos[item]));
+                        }
+
+                        //validar si el array tiene datos
+                        if (listdetallesflujos.length == 0) {
+                            listdetallesflujos[0] = "vacio_ojo";
+                        }
+
+
+
+                        //crear comunicacion ajax para el ingreso de los datos de la idea
+                        $.ajax({
+                            url: "AjaxAddIdea.aspx",
+                            type: "POST",
+                            //crear json
+                            data: { "action": "save", "code": $("#ctl00_cphPrincipal_txtcode").val(),
+                                "linea_estrategica": $("#ddlStrategicLines").val(),
+                                "programa": $("#ddlPrograms").val(),
+                                "nombre": cambio_text($("#ctl00_cphPrincipal_txtname").val()),
+                                "justificacion": cambio_text($("#ctl00_cphPrincipal_txtjustification").val()),
+                                "objetivo": cambio_text($("#ctl00_cphPrincipal_txtobjective").val()),
+                                "objetivo_esp": cambio_text($("#ctl00_cphPrincipal_txtareadescription").val()),
+                                "Resultados_Benef": cambio_text($("#ctl00_cphPrincipal_txtresults").val()),
+                                "Resultados_Ges_c": cambio_text($("#ctl00_cphPrincipal_txtresulgc").val()),
+                                "Resultados_Cap_i": cambio_text($("#ctl00_cphPrincipal_txtresulci").val()),
+                                "Fecha_inicio": $("#ctl00_cphPrincipal_txtstartdate").val(),
+                                "mes": $("#ctl00_cphPrincipal_txtduration").val(),
+                                "dia": $("#ctl00_cphPrincipal_Txtday").val(),
+                                "Fecha_fin": $("#ctl00_cphPrincipal_Txtdatecierre").val(),
+                                "Población": $("#ddlPupulation").val(),
+                                "contratacion": $("#ddlmodcontract").val(),
+                                "A_Mfsc": $("#ValueMoneyFSC").val(),
+                                "A_Efsc": $("#ValueEspeciesFSC").val(),
+                                "A_Mcounter": $("#ValueMoneyCounter").val(),
+                                "A_Ecounter": $("#ValueEspeciesCounter").val(),
+                                "cost": $("#ValueCostotal").text(),
+                                "obligaciones": cambio_text($("#ctl00_cphPrincipal_Txtobligationsoftheparties").val()),
+                                "riesgo": cambio_text($("#ctl00_cphPrincipal_Txtriesgos").val()),
+                                "mitigacion": cambio_text($("#ctl00_cphPrincipal_Txtaccionmitig").val()),
+                                "presupuestal": cambio_text($("#ctl00_cphPrincipal_Txtroutepresupuestal").val()),
+                                "iva": $("#ctl00_cphPrincipal_RBnList_iva :checked").val(),
+                                "listcomponentes": Str_listcomponentes.toString(),
+                                "listubicaciones": listubicaciones.toString(),
+                                "listflujos": listflujos.toString(),
+                                "listdetallesflujos": listdetallesflujos.toString(),
+                                "listactores": listactores.toString()
+
+                            },
+                            //mostrar resultados de la creacion de la idea
+                            success: function(result) {
+                                $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
+                                $("#SaveIdea").css("display", "none");
+                                $("#Export").css("display", "block");
+                                $("#ctl00_cphPrincipal_lblsaveinformation").text(result);
+                                $("#ctl00_cphPrincipal_Lbladvertencia").text("");
+                                $("#ctl00_cphPrincipal_Txtobligationsoftheparties").focus();
+                            },
+                            error: function() {
+                                $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
+                                $("#SaveIdea").css("display", "block");
+                                $("#ctl00_cphPrincipal_lblsaveinkdformation").text("Se genero error al entrar a la operacion Ajax");
+                            }
+                        });
+
+                    }
+                }
             }
         }
     }
