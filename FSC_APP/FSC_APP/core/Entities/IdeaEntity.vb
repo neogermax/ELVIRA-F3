@@ -26,6 +26,7 @@ Public Class IdeaEntity
     Private _iduser As Integer
     Private _enabled As Boolean
 
+
     'Atributo adicional que almacena el nombre del usuario
     Private _username As String
     Private _documentList As List(Of DocumentsEntity)
@@ -57,6 +58,7 @@ Public Class IdeaEntity
     Private _mitigacion As String
     Private _presupuestal As String
     Private _dia As String
+    Private _OthersResults As String
 
     Private _paymentflowByProjectList As List(Of PaymentFlowEntity)
     Private _DetailedcashflowsbyIdeaList As List(Of DetailedcashflowsEntity)
@@ -425,6 +427,14 @@ Public Class IdeaEntity
         End Get
         Set(ByVal value As List(Of DetailedcashflowsEntity))
             Me._DetailedcashflowsbyIdeaList = value
+        End Set
+    End Property
+    Public Property OthersResults() As String
+        Get
+            Return Me._OthersResults
+        End Get
+        Set(ByVal value As String)
+            Me._OthersResults = value
         End Set
     End Property
 

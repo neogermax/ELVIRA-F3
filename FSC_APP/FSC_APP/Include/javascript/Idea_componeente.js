@@ -1,4 +1,84 @@
-﻿
+﻿//cargar combo de lineas estrategicas
+function ClineEstrategic() {
+    $.ajax({
+        url: "AjaxAddIdea.aspx",
+        type: "GET",
+        data: { "action": "C_linestrategic" },
+        success: function(result) {
+            $("#ddlStrategicLines").html(result);
+            $("#ddlStrategicLines").trigger("liszt:updated");
+        },
+        error: function(msg) {
+            alert("No se pueden cargar las lineas strategicas.");
+        }
+    });
+}
+
+//cargar combo de programas
+function Cprogram() {
+    $("#ddlStrategicLines").change(function() {
+        $.ajax({
+            url: "AjaxAddIdea.aspx",
+            type: "GET",
+            data: { "action": "C_program", "idlinestrategic": $(this).val() },
+            success: function(result) {
+                $("#ddlPrograms").html(result);
+                $("#ddlPrograms").trigger("liszt:updated");
+                $("#componentesseleccionados").html("");
+            },
+            error: function(msg) {
+                alert("No se pueden cargar los programas de la linea estrategica selecionada.");
+            }
+        });
+    });
+}
+
+
+function listboxprogram() {
+    $("#ddlStrategicLines").change(function() {
+        $.ajax({
+            url: "AjaxAddIdea.aspx",
+            type: "GET",
+            data: { "action": "list_program", "idlinestrategic": $(this).val() },
+            success: function(result) {
+
+            $("#ulprograms").html(result);
+            $(".seleccione").click(function() {
+                var swhich_array_component_exist = 0;
+
+                var validaarray = $(this).attr("id");
+                //validamos si el array esta vacio
+                if (arraycomponente.length == 0) {
+                    arraycomponente.push($(this).attr("id"));
+                }
+                else {
+                    //recorremos elarray si ya habiamos ingresado el componente
+                    for (itemArray in arraycomponente) {
+                        if (validaarray == arraycomponente[itemArray]) {
+                            swhich_array_component_exist = 1;
+
+                        }
+                    }
+                    if (swhich_array_component_exist == 0) {
+                        arraycomponente.push($(this).attr("id"));
+                    }
+
+                }
+            });
+            //Compoentes Style
+            $("#seleccionarcomponente li, #componentesseleccionados li").click(function() {
+                $(this).css("background", "#9bbb58");
+                $(this).css("color", "#fff");
+            });
+            },
+            error: function(msg) {
+                alert("No se pueden cargar los programas de la linea estrategica selecionada.");
+            }
+        });
+    });
+}
+
+
 
 //cargar double lisbox componentes de programa
 function cargarcomponente() {
@@ -94,6 +174,8 @@ function edit_component() {
     });
 
 }
+
+
 
 function edit_component_view() {
 

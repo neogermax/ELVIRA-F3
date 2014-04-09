@@ -130,20 +130,26 @@
             height: 18px;
             background: green;
         }
-        #seleccionarcomponente, #componentesseleccionados
+        #seleccionarcomponente, #componentesseleccionados, #ulprograms
         {
-            width: 500px;
+            width: 300px;
             display: inline-block;
             background: #fff;
             border: 2px solid # //Compoentes Style $("#seleccionarcomponente li, #componentesseleccionados li").click(function() {
                     $(this).css("background", "#191919");
                     $(this).css("color", "#fff");
-                }); ;height:350px;overflow:scroll-y;margin:0px;vertical-align:middle;text-align:left;}
-        #seleccionarcomponente li, #componentesseleccionados li
+                });
+            height: 350px;
+            overflow: scroll-y;
+            margin: 0px;
+            vertical-align: middle;
+            text-align: left;
+        }
+        #seleccionarcomponente li, #componentesseleccionados li, #ulprograms li
         {
             cursor: pointer;
         }
-        #seleccionarcomponente li:hover, #componentesseleccionados li:hover
+        #seleccionarcomponente li:hover, #componentesseleccionados li:hover, #ulprograms li:hover
         {
             background: #9bbb58;
             color: #fff;
@@ -215,22 +221,6 @@
         </ul>
         <div id="informacion">
             <ul class="left">
-                <li>
-                    <asp:Label ID="Label7" runat="server" Text="Línea Estrátegica "></asp:Label>
-                    <select id="ddlStrategicLines" class="Ccombo">
-                        <asp:DropDownList ID="ddlStrategicLines" runat="server">
-                        </asp:DropDownList>
-                    </select>
-                    <asp:Label ID="lblinfls" runat="server" ForeColor="#990000"></asp:Label>
-                </li>
-                <li>
-                    <asp:Label ID="Label8" runat="server" Text="Programa"></asp:Label>
-                    <select id="ddlPrograms" class="Ccombo">
-                        <asp:DropDownList ID="ddlPrograms" runat="server">
-                        </asp:DropDownList>
-                    </select>
-                    <asp:Label ID="lblinpro" runat="server" ForeColor="#990000"></asp:Label>
-                </li>
                 <li visible="false">
                     <asp:Label ID="lblid" runat="server" Text="Id"></asp:Label>
                     <asp:TextBox ID="txtid" runat="server" MaxLength="50" Width="200px"></asp:TextBox>
@@ -238,14 +228,14 @@
                 </li>
                 <li>
                     <asp:Label ID="lblcode" runat="server" Text="Código"></asp:Label>
-                    <asp:UpdatePanel ID="UpdatePanel4" runat="server">
-                        <ContentTemplate>
-                            <asp:TextBox ID="txtcode" runat="server" MaxLength="50" Width="400px" AutoPostBack="true"></asp:TextBox>
-                            <asp:RequiredFieldValidator ID="rfvcode" runat="server" ControlToValidate="txtcode"
-                                ErrorMessage="*" ValidationGroup="infoGenral" SetFocusOnError="true"></asp:RequiredFieldValidator>
-                            <asp:Label ID="lblHelpcode" runat="server"></asp:Label>
-                        </ContentTemplate>
-                    </asp:UpdatePanel>
+                    <%--   <asp:UpdatePanel ID="UpdatePanel4" runat="server">--%>
+                    <%--   <ContentTemplate>--%>
+                    <asp:TextBox ID="txtcode" runat="server" MaxLength="50" Width="400px" AutoPostBack="true"></asp:TextBox>
+                <%--  <asp:RequiredFieldValidator ID="rfvcode" runat="server" ControlToValidate="txtcode"
+                                ErrorMessage="*" ValidationGroup="infoGenral" SetFocusOnError="true"></asp:RequiredFieldValidator>--%>
+                    <asp:Label ID="lblHelpcode" runat="server"></asp:Label>
+                    <%--</ContentTemplate>--%>
+                    <%--  </asp:UpdatePanel>--%>
                 </li>
                 <li>
                     <asp:Label ID="lblname" runat="server" Text="Nombre"></asp:Label>
@@ -274,19 +264,25 @@
                     <asp:Label ID="lblresults" runat="server" Text="Resultados en Beneficiarios"></asp:Label>
                     <asp:TextBox ID="txtresults" runat="server" MaxLength="2500" Width="400px" Rows="6"
                         TextMode="MultiLine"></asp:TextBox>
-                    <asp:Label ID="lblHelpresults" runat="server" ForeColor="#CC0000"></asp:Label>
+                    <asp:Label ID="lblHelpresults" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
                 <li>
                     <asp:Label ID="Lblresulgc" runat="server" Text="Resultados en Gestión del conocimiento"></asp:Label>
                     <asp:TextBox ID="txtresulgc" runat="server" MaxLength="2500" Width="400px" Rows="6"
                         TextMode="MultiLine"></asp:TextBox>
-                    <asp:Label ID="Label10" runat="server" ForeColor="#CC0000"></asp:Label>
+                    <asp:Label ID="Label10" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
                 <li>
                     <asp:Label ID="Lblresultci" runat="server" Text="Resultados en Capacidad instalada"></asp:Label>
                     <asp:TextBox ID="txtresulci" runat="server" MaxLength="2500" Width="400px" Rows="6"
                         TextMode="MultiLine"></asp:TextBox>
-                    <asp:Label ID="Label11" runat="server" ForeColor="#CC0000"></asp:Label>
+                    <asp:Label ID="Label11" runat="server" ForeColor="#990000"></asp:Label>
+                </li>
+                <li>
+                    <asp:Label ID="Lblothersresults" runat="server" Text="Otros Resultados"></asp:Label>
+                    <asp:TextBox ID="Txtothersresults" runat="server" MaxLength="2500" Width="400px" Rows="6"
+                        TextMode="MultiLine"></asp:TextBox>
+                    <asp:Label ID="Label23" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
             </ul>
             <ul class="right">
@@ -294,25 +290,25 @@
                     <asp:Label ID="Lblobligationsoftheparties" runat="server" Text="Obligaciones de las partes"></asp:Label>
                     <asp:TextBox ID="Txtobligationsoftheparties" runat="server" MaxLength="2500" Width="400px"
                         Rows="6" TextMode="MultiLine"></asp:TextBox>
-                    <asp:Label ID="Label24" runat="server" ForeColor="#CC0000"></asp:Label>
+                    <asp:Label ID="Lblhelpobligationsoftheparties" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
                 <li>
                     <asp:Label ID="Lblroutepresupuestal" runat="server" Text="Ruta presupuestal"></asp:Label>
                     <asp:TextBox ID="Txtroutepresupuestal" runat="server" Width="400px" Rows="6" TextMode="MultiLine"
                         Height="40px"></asp:TextBox>
-                    <asp:Label ID="Lblhelproutepresupuestal" runat="server" ForeColor="#CC0000"></asp:Label>
+                    <asp:Label ID="Lblhelproutepresupuestal" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
                 <li>
                     <asp:Label ID="Lblriesgos" runat="server" Text=" Riesgos identificados"></asp:Label>
                     <asp:TextBox ID="Txtriesgos" runat="server" MaxLength="2500" Width="400px" Rows="6"
                         TextMode="MultiLine"></asp:TextBox>
-                    <asp:Label ID="Lblhelpriesgos" runat="server" ForeColor="#CC0000"></asp:Label>
+                    <asp:Label ID="Lblhelpriesgos" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
                 <li>
                     <asp:Label ID="Lblaccionmitig" runat="server" Text="Mitigación del riesgo"></asp:Label>
                     <asp:TextBox ID="Txtaccionmitig" runat="server" MaxLength="2500" Width="400px" Rows="6"
                         TextMode="MultiLine"></asp:TextBox>
-                    <asp:Label ID="Lblhelpaccionmitig" runat="server" ForeColor="#CC0000"></asp:Label>
+                    <asp:Label ID="Lblhelpaccionmitig" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
                 <li>
                     <asp:Label ID="lblstartdate" runat="server" Text="Fecha de inicio"></asp:Label>
@@ -502,20 +498,46 @@
             </ul>
         </div>
         <div id="componentes">
+            <ul>
+                <li>
+                    <asp:Label ID="Label7" runat="server" Text="Línea Estrátegica "></asp:Label>
+                    <select id="ddlStrategicLines" class="Ccombo">
+                        <asp:DropDownList ID="ddlStrategicLines" runat="server">
+                        </asp:DropDownList>
+                    </select>
+                    <asp:Label ID="lblinfls" runat="server" ForeColor="#990000"></asp:Label>
+                </li>
+                <li>
+                    <asp:Label ID="Label8" runat="server" Text="Programa"></asp:Label>
+                    <select id="ddlPrograms" class="Ccombo">
+                        <asp:DropDownList ID="ddlPrograms" runat="server">
+                        </asp:DropDownList>
+                    </select>
+                    <asp:Label ID="lblinpro" runat="server" ForeColor="#990000"></asp:Label>
+                </li>
+            </ul>
             <table style="margin: 0 auto;">
                 <tr>
                     <td>
+                     <asp:Label ID="Lbltitleprogram" runat="server" Text="Programa"></asp:Label>
+                        <ul id="ulprograms">
+                        </ul>
+                    </td>
+                    <td style="width: 100px">
+                    </td>
+                    <td>
+                    <asp:Label ID="Lbltitlecomponet" runat="server" Text="Componentes"></asp:Label>
                         <ul id="seleccionarcomponente">
                         </ul>
                     </td>
-                    <td style="width: 200px">
+                    <td style="width: 100px;" >
                         <input id="Btnaddcomponent" type="button" value=">>" name="Add_Componente" onclick="return Btnaddcomponent_onclick()" />
                         <input id="Btndeletecomponent" type="button" value="<<" name="Delete_Componente"
                             onclick="return Btndeletecomponent_onclick()" />
                     </td>
                     <td>
-                        <ul id="componentesseleccionados">
-                        </ul>
+                    <asp:Label ID="Label20" runat="server" Text="Componentes seleccionados"></asp:Label>
+                    <ul id="componentesseleccionados"></ul>
                     </td>
                     <td id="viejocomp" runat="server" visible="false">
                         <cc2:DoubleListBox ID="dlbActivity" runat="server" Width="100%" />
@@ -991,7 +1013,7 @@
         <div id="anexos">
             <ul>
                 <li id="tableAttachments"></li>
-                <input id="fileupload" type="file" name="files[]" multiple />
+                <input id="fileupload" type="file" name="files[]" />
                 <li><a id="lnkAttch" style="cursor: hand" onclick="AddFileInput(F1)" visible="false">
                 </a></li>
                 <li>

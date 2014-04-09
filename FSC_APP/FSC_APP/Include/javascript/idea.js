@@ -69,6 +69,7 @@ $(document).ready(function() {
         validarporcentaje();
         ClineEstrategic();
 
+
         view_ubicacion();
         View_actores();
         View_matriz_principal();
@@ -106,6 +107,7 @@ $(document).ready(function() {
         Ctype_project();
         Cpopulation();
         validarporcentaje();
+        listboxprogram();
 
         $("#SaveIdea").css("display", "block");
         $("#Export").css("display", "none");
@@ -433,11 +435,13 @@ function SaveIdea_onclick() {
 
                 else {
 
-                    if ($("#ctl00_cphPrincipal_txtresults").val() == '' && $("#ctl00_cphPrincipal_txtresulgc").val() == '' && $("#ctl00_cphPrincipal_txtresulci").val() == '') {
+                    if ( $("#ctl00_cphPrincipal_Txtothersresults").val()=='' && $("#ctl00_cphPrincipal_txtresults").val() == '' && $("#ctl00_cphPrincipal_txtresulgc").val() == '' && $("#ctl00_cphPrincipal_txtresulci").val() == '') {
 
                         $("#ctl00_cphPrincipal_lblHelpresults").text("Algunos de los resultados debe ser diligenciado.");
                         $("#ctl00_cphPrincipal_Label10").text("Algunos de los resultados debe ser diligenciado.");
                         $("#ctl00_cphPrincipal_Label11").text("Algunos de los resultados debe ser diligenciado.");
+                        $("#ctl00_cphPrincipal_Label23").text("Algunos de los resultados debe ser diligenciado.");
+                      
                         $("#ctl00_cphPrincipal_Lbladvertencia").text("La idea no guardo con exito: Revisar la pestaña información");
                     }
                     else {
@@ -445,6 +449,7 @@ function SaveIdea_onclick() {
                         $("#ctl00_cphPrincipal_lblHelpresults").text("");
                         $("#ctl00_cphPrincipal_Label10").text("");
                         $("#ctl00_cphPrincipal_Label11").text("");
+                        $("#ctl00_cphPrincipal_Label23").text("");
 
                         $("#ctl00_cphPrincipal_lblinfls").val("");
                         $("#ctl0_cphPrincipal_lblinpro").val("");
@@ -522,6 +527,7 @@ function SaveIdea_onclick() {
                                 "Resultados_Benef": cambio_text($("#ctl00_cphPrincipal_txtresults").val()),
                                 "Resultados_Ges_c": cambio_text($("#ctl00_cphPrincipal_txtresulgc").val()),
                                 "Resultados_Cap_i": cambio_text($("#ctl00_cphPrincipal_txtresulci").val()),
+                                "Resultados_otros_resul": cambio_text($("#ctl00_cphPrincipal_Txtothersresults").val()),
                                 "Fecha_inicio": $("#ctl00_cphPrincipal_txtstartdate").val(),
                                 "mes": $("#ctl00_cphPrincipal_txtduration").val(),
                                 "dia": $("#ctl00_cphPrincipal_Txtday").val(),
@@ -540,7 +546,7 @@ function SaveIdea_onclick() {
                                 "iva": $("#ctl00_cphPrincipal_RBnList_iva :checked").val(),
                                 "listcomponentes": Str_listcomponentes.toString(),
                                 "listubicaciones": listubicaciones.toString(),
-                                "listflujos": listflujos.toString(),
+                                "listflujos": cambio_text(listflujos.toString()),
                                 "listdetallesflujos": listdetallesflujos.toString(),
                                 "listactores": listactores.toString()
 
@@ -557,7 +563,7 @@ function SaveIdea_onclick() {
                             error: function() {
                                 $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
                                 $("#SaveIdea").css("display", "block");
-                                $("#ctl00_cphPrincipal_lblsaveinkdformation").text("Se genero error al entrar a la operacion Ajax");
+                                $("#ctl00_cphPrincipal_lblsaveinkdformation").text("Se genero error al entrar a la operacion Ajax :");
                             }
                         });
 
@@ -572,11 +578,12 @@ function SaveIdea_onclick() {
 //funcion de cambio de comillas enters y tabulaciones
 function cambio_text(str_txt) {
 
-    str_txt.replace(/\n/g, "");
-    str_txt = str_txt.replace(/\r/g, "");
-    str_txt = str_txt.replace(/\t/g, "");
-    str_txt = str_txt.replace(/\n\r/g, " ");
-    str_txt = str_txt.replace(/\r\n/g, " ");
+    str_txt = str_txt.replace(/\n/g, ' ');
+    str_txt = str_txt.replace(/\r/g, '');
+    str_txt = str_txt.replace(/\t/g, '');
+    str_txt = str_txt.replace(/\n\r/g, ' ');
+    str_txt = str_txt.replace(/\r\n/g, ' ');
+    str_txt = str_txt.replace(/\"/g, '\"');
 
     return str_txt;
 }

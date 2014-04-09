@@ -22,7 +22,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         Dim id_b As Integer
         Dim fecha As Date
         Dim duracion, dia As String
-        Dim S_code, S_linea_estrategica, S_programa, S_nombre, S_justificacion, S_objetivo, S_objetivo_esp, S_Resultados_Benef, S_Resultados_Ges_c, S_Resultados_Cap_i, S_Fecha_inicio, S_mes, S_dia, S_Fecha_fin, S_Población, S_contratacion, S_A_Mfsc, S_A_Efsc, S_A_Mcounter, S_A_Ecounter, S_cost, S_obligaciones, S_iva, S_listubicaciones, S_listactors, S_mitigacion, S_riesgos, S_presupuestal, S_listcomponentes, S_listflujos, S_listdetallesflujos As String
+        Dim S_code, S_linea_estrategica, S_programa, S_nombre, S_justificacion, S_objetivo, S_objetivo_esp, S_Resultados_Benef, S_Resultados_Ges_c, S_Resultados_Cap_i, S_Resultados_otros_resul, S_Fecha_inicio, S_mes, S_dia, S_Fecha_fin, S_Población, S_contratacion, S_A_Mfsc, S_A_Efsc, S_A_Mcounter, S_A_Ecounter, S_cost, S_obligaciones, S_iva, S_listubicaciones, S_listactors, S_mitigacion, S_riesgos, S_presupuestal, S_listcomponentes, S_listflujos, S_listdetallesflujos As String
         Dim ideditar, id_lineStrategic, id_depto, idprogram, idpopulation, Countarchivo As Integer
 
         Dim strFileName() As String
@@ -85,6 +85,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
             S_Resultados_Benef = Request.Form("Resultados_Benef").ToString
             S_Resultados_Ges_c = Request.Form("Resultados_Ges_c").ToString
             S_Resultados_Cap_i = Request.Form("Resultados_Cap_i").ToString
+            S_Resultados_otros_resul = Request.Form("Resultados_otros_resul").ToString
             S_Fecha_inicio = Request.Form("Fecha_inicio").ToString
             S_mes = Request.Form("mes").ToString
             S_dia = Request.Form("dia").ToString
@@ -104,7 +105,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
             S_listdetallesflujos = Request.Form("listdetallesflujos").ToString
 
 
-            save_IDEA(S_code, S_linea_estrategica, S_programa, S_nombre, S_justificacion, S_objetivo, S_objetivo_esp, S_Resultados_Benef, S_Resultados_Ges_c, S_Resultados_Cap_i, S_Fecha_inicio, S_mes, S_dia, S_Fecha_fin, S_Población, S_contratacion, S_riesgos, S_mitigacion, S_presupuestal, S_cost, S_obligaciones, S_iva, S_listubicaciones, S_listactors, S_listcomponentes, S_listflujos, S_listdetallesflujos) '
+            save_IDEA(S_code, S_linea_estrategica, S_programa, S_nombre, S_justificacion, S_objetivo, S_objetivo_esp, S_Resultados_Benef, S_Resultados_Ges_c, S_Resultados_Cap_i, S_Resultados_otros_resul, S_Fecha_inicio, S_mes, S_dia, S_Fecha_fin, S_Población, S_contratacion, S_riesgos, S_mitigacion, S_presupuestal, S_cost, S_obligaciones, S_iva, S_listubicaciones, S_listactors, S_listcomponentes, S_listflujos, S_listdetallesflujos) '
 
         Else
 
@@ -130,6 +131,11 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
                     id_lineStrategic = Convert.ToInt32(Request.QueryString("idlinestrategic").ToString)
                     charge_program(id_lineStrategic)
+
+                Case "list_program"
+
+                    id_lineStrategic = Convert.ToInt32(Request.QueryString("idlinestrategic").ToString)
+                    charge_list_program(id_lineStrategic)
 
                 Case "C_deptos"
 
@@ -212,6 +218,26 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         End If
 
     End Sub
+
+    Public Function charge_list_program(ByVal idLinestrategic As Integer)
+        Dim facade As New Facade
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+        Dim program_data As List(Of ProgramEntity)
+
+        Dim htmlresults As String
+        Dim id, code As String
+
+        program_data = facade.getProgramList(applicationCredentials, idStrategicLine:=idLinestrategic, enabled:="1", order:="Code")
+
+        For Each row In program_data
+            ' cargar el valor del campo
+            id = row.id
+            code = row.code
+            htmlresults &= "<li id= 'add" & id & "' class='seleccione'>" & code & "</li>"
+        Next
+        Response.Write(htmlresults)
+
+    End Function
 
     Public Function searh_component(ByVal ididea As Integer)
 
@@ -797,7 +823,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
     ''' <param name="cost"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Function save_IDEA(ByVal code As String, ByVal line_strategic As String, ByVal program As String, ByVal name As String, ByVal justify As String, ByVal objetive As String, ByVal obj_esp As String, ByVal resul_bef As String, ByVal resul_ges_c As String, ByVal resul_cap_i As String, ByVal fecha_i As String, ByVal mes As String, ByVal dia As String, ByVal fecha_f As String, ByVal poblacion As String, ByVal contratacion As String, ByVal riesgos As String, ByVal mitigacion As String, ByVal presupuestal As String, ByVal cost As String, ByVal obligaciones As String, ByVal iva As String, ByVal list_ubicacion As String, ByVal list_actor As String, ByVal list_componentes As String, ByVal list_flujos As String, ByVal list_detalles_flujos As String) '
+    Public Function save_IDEA(ByVal code As String, ByVal line_strategic As String, ByVal program As String, ByVal name As String, ByVal justify As String, ByVal objetive As String, ByVal obj_esp As String, ByVal resul_bef As String, ByVal resul_ges_c As String, ByVal resul_cap_i As String, ByVal otros_resul As String, ByVal fecha_i As String, ByVal mes As String, ByVal dia As String, ByVal fecha_f As String, ByVal poblacion As String, ByVal contratacion As String, ByVal riesgos As String, ByVal mitigacion As String, ByVal presupuestal As String, ByVal cost As String, ByVal obligaciones As String, ByVal iva As String, ByVal list_ubicacion As String, ByVal list_actor As String, ByVal list_componentes As String, ByVal list_flujos As String, ByVal list_detalles_flujos As String) '
 
         Dim facade As New Facade
         Dim objIdea As New IdeaEntity
@@ -1011,6 +1037,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                     porcentajeexist = Replace(arrayflujos(contadorflu + 2), " porcentaje : ", " ", 1)
                     porcentajeexist = porcentajeexist.Replace("%", "")
                     entregaexist = Replace(arrayflujos(contadorflu + 3), " entrega : ", " ", 1)
+                    entregaexist = entregaexist.Replace("¬", ",")
                     tflujosexist = Replace(arrayflujos(contadorflu + 4), " tflujos : ", " ", 1)
 
                     'asignamos al objeto
@@ -1106,6 +1133,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
             objIdea.ResultsKnowledgeManagement = clean_vbCrLf(resul_ges_c)
             objIdea.ResultsInstalledCapacity = clean_vbCrLf(resul_cap_i)
+            objIdea.OthersResults = clean_vbCrLf(otros_resul)
             objIdea.idtypecontract = contratacion
 
             objIdea.Obligaciones = obligaciones
@@ -1159,7 +1187,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         Catch ex As Exception
 
             Dim Result As String
-            Result = "Error inesperado por favor consulte el administrador"
+            Result = "Error inesperado por favor consulte el administrador - " & ex.Message
             Response.Write(Result)
 
         End Try

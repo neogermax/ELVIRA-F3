@@ -25,7 +25,9 @@ function Btn_add_flujo_onclick() {
             var fecha_pago = $("#ctl00_cphPrincipal_txtfechapago").val();
             var porcentaje = $("#ctl00_cphPrincipal_txtporcentaje").val() + " %";
             var valor_pago = $("#ctl00_cphPrincipal_Lbltotalvalor").text();
-            var entrega = cambio_text($("#ctl00_cphPrincipal_txtentregable").val());
+
+            var entrega = cambio_text_flujos($("#ctl00_cphPrincipal_txtentregable").val());
+            var entregas_sin = $("#ctl00_cphPrincipal_txtentregable").val();
 
             var idpago;
             var Aportante;
@@ -77,7 +79,11 @@ function Btn_add_flujo_onclick() {
                     var htmlTableflujos = "<table id='T_flujos' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr><th style='text-align: center;'>No pago</th><th style='text-align: center;'>Fecha</th><th style='text-align: center;'>Porcentaje</th><th style='text-align: center;'>Entregable</th><th style='text-align: center;'>Valor parcial</th><th style='text-align: center;'>Editar/Eliminar</th><th style='text-align: center;' >Detalle</th></tr></thead><tbody>";
 
                     for (itemArray in arrayflujosdepago) {
-                        htmlTableflujos += "<tr id='flow" + arrayflujosdepago[itemArray].N_pago + "' ><td>" + arrayflujosdepago[itemArray].N_pago + "</td><td>" + arrayflujosdepago[itemArray].fecha_pago + "</td><td>" + arrayflujosdepago[itemArray].porcentaje + "</td><td>" + arrayflujosdepago[itemArray].entrega + "</td><td>" + arrayflujosdepago[itemArray].tflujos + "</td><td><input type ='button' value= 'Editar' onclick=\"editflujo('" + arrayflujosdepago[itemArray].N_pago + "','" + arrayflujosdepago[itemArray].fecha_pago + "',' " + arrayflujosdepago[itemArray].porcentaje + "','" + arrayflujosdepago[itemArray].entrega + "','" + arrayflujosdepago[itemArray].tflujos + "')\" ></input><input type ='button' value= 'Eliminar' onclick=\" eliminarflujo('" + arrayflujosdepago[itemArray].N_pago + "')\"></input></td><td><input type ='button' value= 'Detalle' onclick=\"traerdetalles('" + arrayflujosdepago[itemArray].N_pago + "',this)\"></input></td></tr>";
+
+                        var entregacomas = arrayflujosdepago[itemArray].entrega;
+                        entregacomas = entregacomas.replace(/¬/g, ',');
+
+                        htmlTableflujos += "<tr id='flow" + arrayflujosdepago[itemArray].N_pago + "' ><td>" + arrayflujosdepago[itemArray].N_pago + "</td><td>" + arrayflujosdepago[itemArray].fecha_pago + "</td><td>" + arrayflujosdepago[itemArray].porcentaje + "</td><td>" + entregacomas + "</td><td>" + arrayflujosdepago[itemArray].tflujos + "</td><td><input type ='button' value= 'Editar' onclick=\"editflujo('" + arrayflujosdepago[itemArray].N_pago + "','" + arrayflujosdepago[itemArray].fecha_pago + "',' " + arrayflujosdepago[itemArray].porcentaje + "','" + arrayflujosdepago[itemArray].entrega + "','" + arrayflujosdepago[itemArray].tflujos + "')\" ></input><input type ='button' value= 'Eliminar' onclick=\" eliminarflujo('" + arrayflujosdepago[itemArray].N_pago + "')\"></input></td><td><input type ='button' value= 'Detalle' onclick=\"traerdetalles('" + arrayflujosdepago[itemArray].N_pago + "',this)\"></input></td></tr>";
                     }
                     htmlTableflujos += "<tr><td width='1' style='color: #D3D6FF; font-size: 0.1em;'>1000</td><td>Porcentaje acumulado</td><td id='porcentaje'>0 %</td><td>Total</td><td id='totalflujospagos'>0</td><td></td><td></td></tr></tbody></table>";
 
@@ -179,6 +185,18 @@ function Btn_add_flujo_onclick() {
     }
 }
 
+function cambio_text_flujos(str_txt) {
+
+    str_txt = str_txt.replace(/,/g, '¬');
+    str_txt = str_txt.replace(/\n/g, ' ');
+    str_txt = str_txt.replace(/\r/g, '');
+    str_txt = str_txt.replace(/\t/g, '');
+    str_txt = str_txt.replace(/\n\r/g, ' ');
+    str_txt = str_txt.replace(/\r\n/g, ' ');
+    str_txt = str_txt.replace(/\"/g, '\"');
+
+    return (str_txt);
+}
 
 
 function View_flujos_p() {
@@ -250,7 +268,16 @@ function sumarvaloresflujosprincipal() {
             var iddesembolso = "#desenbolso" + $(arrayinputflujos[0]).html();
 
             var desembolso = $(idflujo).val();
-            desembolso = desembolso.replace(/\./gi, '');
+
+            //validamos q el campo venga vacio
+            if (desembolso == "") {
+                desembolso = 0;
+
+            }
+            else {
+                desembolso = desembolso.replace(/\./gi, '');
+            }
+
 
             var datgriddes = $(iddesembolso).html();
             datgriddes = datgriddes.replace(/\./gi, '');

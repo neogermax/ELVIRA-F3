@@ -189,6 +189,7 @@ Public Class IdeaDALC
              "idActivityInstance," & _
              "ResultsKnowledgeManagement," & _
              "ResultsInstalledCapacity," & _
+             "OtherResults," & _
              "Loadingobservations," & _
              "idtypecontract," & _
              "Enddate," & _
@@ -222,6 +223,7 @@ Public Class IdeaDALC
             sql.AppendLine("'" & Idea.IdActivityInstance & "',")
             sql.AppendLine("'" & Idea.ResultsKnowledgeManagement & "',")
             sql.AppendLine("'" & Idea.ResultsInstalledCapacity & "',")
+            sql.AppendLine("'" & Idea.OthersResults & "',")
             sql.AppendLine("'" & Idea.Loadingobservations & "',")
             sql.AppendLine("'" & Idea.idtypecontract & "',")
             sql.AppendLine("'" & Idea.Enddate.ToString("yyyyMMdd") & "',")

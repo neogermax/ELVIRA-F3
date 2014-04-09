@@ -1,38 +1,4 @@
 ﻿
-//cargar combo de lineas estrategicas
-function ClineEstrategic() {
-    $.ajax({
-        url: "AjaxAddIdea.aspx",
-        type: "GET",
-        data: { "action": "C_linestrategic" },
-        success: function(result) {
-            $("#ddlStrategicLines").html(result);
-            $("#ddlStrategicLines").trigger("liszt:updated");
-        },
-        error: function(msg) {
-            alert("No se pueden cargar las lineas strategicas.");
-        }
-    });
-}
-
-//cargar combo de programas
-function Cprogram() {
-    $("#ddlStrategicLines").change(function() {
-        $.ajax({
-            url: "AjaxAddIdea.aspx",
-            type: "GET",
-            data: { "action": "C_program", "idlinestrategic": $(this).val() },
-            success: function(result) {
-                $("#ddlPrograms").html(result);
-                $("#ddlPrograms").trigger("liszt:updated");
-                $("#componentesseleccionados").html("");
-            },
-            error: function(msg) {
-                alert("No se pueden cargar los programas de la linea estrategica selecionada.");
-            }
-        });
-    });
-}
 
 
 //cargar combo tipos de  proyecto
