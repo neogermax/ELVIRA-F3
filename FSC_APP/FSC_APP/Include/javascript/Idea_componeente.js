@@ -5,11 +5,13 @@ function ClineEstrategic() {
         type: "GET",
         data: { "action": "C_linestrategic" },
         success: function(result) {
+
             $("#ddlStrategicLines").html(result);
             $("#ddlStrategicLines").trigger("liszt:updated");
+
         },
         error: function(msg) {
-            alert("No se pueden cargar las lineas strategicas.");
+            alert("No se pueden cargar las lineas stratégicas.");
         }
     });
 }
@@ -22,9 +24,24 @@ function Cprogram() {
             type: "GET",
             data: { "action": "C_program", "idlinestrategic": $(this).val() },
             success: function(result) {
-                $("#ddlPrograms").html(result);
-                $("#ddlPrograms").trigger("liszt:updated");
-                $("#componentesseleccionados").html("");
+            
+            var textoLista = $("#componentesseleccionados").html();
+                
+                if (textoLista == "") {
+                    $("#ddlPrograms").html(result);
+                    $("#ddlPrograms").trigger("liszt:updated");
+                }
+                else {
+                    alert("Usted acaba de cambiar de linea estratégica la información diligenciada se perdera!");
+
+                    $("#componentesseleccionados").html("");
+                    $("#seleccionarcomponente").html("");
+                    arraycomponente = [];
+
+                    $("#ddlPrograms").html(result);
+                    $("#ddlPrograms").trigger("liszt:updated");
+
+                }
             },
             error: function(msg) {
                 alert("No se pueden cargar los programas de la linea estrategica selecionada.");
@@ -33,6 +50,8 @@ function Cprogram() {
     });
 }
 
+var ArrayProgram = [];
+var seleccion_program = 0;
 
 function listboxprogram() {
     $("#ddlStrategicLines").change(function() {
@@ -42,8 +61,69 @@ function listboxprogram() {
             data: { "action": "list_program", "idlinestrategic": $(this).val() },
             success: function(result) {
 
-            $("#ulprograms").html(result);
+                // $("#ulprograms").html(result);
+                $(".seleccione_program").click(function() {
+                    var swhich_array_program_exist = 0;
+                    var idprogram = $(this).attr("id");
+                    idprogram = idprogram.replace('add', '');
+
+                    if (ArrayProgram.length == 0) {
+                        ArrayProgram.push(idprogram);
+                        cargarcomponentes_list(ArrayProgram);
+
+                    }
+                    else {
+
+                        for (itemArray in ArrayProgram) {
+                            if (idprogram == ArrayProgram[itemArray]) {
+                                swhich_array_program_exist = 1;
+                            }
+                        }
+                        if (swhich_array_program_exist == 0) {
+                            ArrayProgram.push(idprogram);
+                            cargarcomponentes_list(ArrayProgram);
+                        }
+                    }
+
+
+                });
+                //Compoentes Style
+                if (seleccion_program == 0) {
+                    $("#seleccionarcomponente li, #componentesseleccionados li, #ulprograms li").click(function() {
+                        $(this).css("background", "#9bbb58");
+                        $(this).css("color", "#fff");
+                    });
+                    seleccion_program = 1;
+                }
+                else {
+                    $("#seleccionarcomponente li, #componentesseleccionados li, #ulprograms li").click(function() {
+                        $(this).css("background", "#FFFFFF");
+                        $(this).css("color", "#000000");
+                    });
+                    seleccion_program = 0;
+                }
+            },
+            error: function(msg) {
+                alert("No se pueden cargar los programas de la linea estrategica selecionada.");
+            }
+        });
+    });
+}
+
+function cargarcomponentes_list(idprogram) {
+
+    $.ajax({
+        url: "AjaxAddIdea.aspx",
+        type: "GET",
+        data: { "action": "C_component", "idprogram": idprogram.toString() },
+        success: function(result) {
+
+            $("#seleccionarcomponente").html(result);
+
+
+            //darle atributos de seleccione
             $(".seleccione").click(function() {
+
                 var swhich_array_component_exist = 0;
 
                 var validaarray = $(this).attr("id");
@@ -56,7 +136,6 @@ function listboxprogram() {
                     for (itemArray in arraycomponente) {
                         if (validaarray == arraycomponente[itemArray]) {
                             swhich_array_component_exist = 1;
-
                         }
                     }
                     if (swhich_array_component_exist == 0) {
@@ -65,19 +144,12 @@ function listboxprogram() {
 
                 }
             });
-            //Compoentes Style
-            $("#seleccionarcomponente li, #componentesseleccionados li").click(function() {
-                $(this).css("background", "#9bbb58");
-                $(this).css("color", "#fff");
-            });
-            },
-            error: function(msg) {
-                alert("No se pueden cargar los programas de la linea estrategica selecionada.");
-            }
-        });
+        },
+        error: function(msg) {
+            alert("No se pueden cargar los componentes del programa selecionado.");
+        }
     });
 }
-
 
 
 //cargar double lisbox componentes de programa

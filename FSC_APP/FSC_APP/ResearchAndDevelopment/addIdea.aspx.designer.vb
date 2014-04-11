@@ -331,6 +331,33 @@ Partial Public Class addIdea
     Protected WithEvents Label11 As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
+    '''Control Lblothersresults.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Lblothersresults As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''Control Txtothersresults.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Txtothersresults As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''Control Label23.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Label23 As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
     '''Control Lblobligationsoftheparties.
     '''</summary>
     '''<remarks>
@@ -349,13 +376,13 @@ Partial Public Class addIdea
     Protected WithEvents Txtobligationsoftheparties As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''Control Label24.
+    '''Control Lblhelpobligationsoftheparties.
     '''</summary>
     '''<remarks>
     '''Campo generado automáticamente.
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
-    Protected WithEvents Label24 As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents Lblhelpobligationsoftheparties As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''Control Lblroutepresupuestal.
@@ -1085,6 +1112,15 @@ Partial Public Class addIdea
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
     Protected WithEvents lblinpro As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''Control tr_listbox_program.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents tr_listbox_program As Global.System.Web.UI.HtmlControls.HtmlTableCell
 
     '''<summary>
     '''Control Lbltitleprogram.

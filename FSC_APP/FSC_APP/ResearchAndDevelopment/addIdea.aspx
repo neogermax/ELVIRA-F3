@@ -117,11 +117,13 @@
         }
         .left
         {
+            text-align: left;
             float: left;
             width: 46%;
         }
         .right
         {
+            text-align: left;
             float: right;
             width: 46%;
         }
@@ -130,7 +132,7 @@
             height: 18px;
             background: green;
         }
-        #seleccionarcomponente, #componentesseleccionados, #ulprograms
+        #seleccionarcomponente, #componentesseleccionados
         {
             width: 300px;
             display: inline-block;
@@ -145,11 +147,11 @@
             vertical-align: middle;
             text-align: left;
         }
-        #seleccionarcomponente li, #componentesseleccionados li, #ulprograms li
+        #seleccionarcomponente li, #componentesseleccionados li
         {
             cursor: pointer;
         }
-        #seleccionarcomponente li:hover, #componentesseleccionados li:hover, #ulprograms li:hover
+        #seleccionarcomponente li:hover, #componentesseleccionados li:hover
         {
             background: #9bbb58;
             color: #fff;
@@ -213,7 +215,7 @@
     <div id="tabsIdea">
         <ul>
             <li><a href="#informacion">Información Principal</a></li>
-            <li><a href="#componentes">Componentes de Programa</a></li>
+            <li><a href="#componentes">Lineas Objetivos y Componentes</a></li>
             <li><a href="#ubicacion">Ubicación</a></li>
             <li><a href="#actores">Actores</a></li>
             <li><a href="#flujos">Flujos de pago</a></li>
@@ -231,7 +233,7 @@
                     <%--   <asp:UpdatePanel ID="UpdatePanel4" runat="server">--%>
                     <%--   <ContentTemplate>--%>
                     <asp:TextBox ID="txtcode" runat="server" MaxLength="50" Width="400px" AutoPostBack="true"></asp:TextBox>
-                <%--  <asp:RequiredFieldValidator ID="rfvcode" runat="server" ControlToValidate="txtcode"
+                    <%--  <asp:RequiredFieldValidator ID="rfvcode" runat="server" ControlToValidate="txtcode"
                                 ErrorMessage="*" ValidationGroup="infoGenral" SetFocusOnError="true"></asp:RequiredFieldValidator>--%>
                     <asp:Label ID="lblHelpcode" runat="server"></asp:Label>
                     <%--</ContentTemplate>--%>
@@ -280,8 +282,8 @@
                 </li>
                 <li>
                     <asp:Label ID="Lblothersresults" runat="server" Text="Otros Resultados"></asp:Label>
-                    <asp:TextBox ID="Txtothersresults" runat="server" MaxLength="2500" Width="400px" Rows="6"
-                        TextMode="MultiLine"></asp:TextBox>
+                    <asp:TextBox ID="Txtothersresults" runat="server" MaxLength="2500" Width="400px"
+                        Rows="6" TextMode="MultiLine"></asp:TextBox>
                     <asp:Label ID="Label23" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
             </ul>
@@ -498,7 +500,7 @@
             </ul>
         </div>
         <div id="componentes">
-            <ul>
+            <ul class="left">
                 <li>
                     <asp:Label ID="Label7" runat="server" Text="Línea Estrátegica "></asp:Label>
                     <select id="ddlStrategicLines" class="Ccombo">
@@ -507,6 +509,8 @@
                     </select>
                     <asp:Label ID="lblinfls" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
+            </ul>
+            <ul class="right">
                 <li>
                     <asp:Label ID="Label8" runat="server" Text="Programa"></asp:Label>
                     <select id="ddlPrograms" class="Ccombo">
@@ -518,26 +522,26 @@
             </ul>
             <table style="margin: 0 auto;">
                 <tr>
-                    <td>
+                    <%--<td id="tr_listbox_program" runat="server" visible="false">
                      <asp:Label ID="Lbltitleprogram" runat="server" Text="Programa"></asp:Label>
                         <ul id="ulprograms">
                         </ul>
-                    </td>
-                    <td style="width: 100px">
-                    </td>
+                    </td>--%>
+                    <%-- <td style="width: 100px">
+                    </td>--%>
                     <td>
-                    <asp:Label ID="Lbltitlecomponet" runat="server" Text="Componentes"></asp:Label>
+                        <asp:Label ID="Lbltitlecomponet" runat="server" Text="Componentes"></asp:Label>
                         <ul id="seleccionarcomponente">
                         </ul>
                     </td>
-                    <td style="width: 100px;" >
+                    <td style="width: 100px;">
                         <input id="Btnaddcomponent" type="button" value=">>" name="Add_Componente" onclick="return Btnaddcomponent_onclick()" />
                         <input id="Btndeletecomponent" type="button" value="<<" name="Delete_Componente"
                             onclick="return Btndeletecomponent_onclick()" />
                     </td>
                     <td>
-                    <asp:Label ID="Label20" runat="server" Text="Componentes seleccionados"></asp:Label>
-                    <ul id="componentesseleccionados"></ul>
+                        <asp:Label ID="Label20" runat="server" Text="Componentes seleccionados"></asp:Label>
+                        <ul id="componentesseleccionados"></ul>
                     </td>
                     <td id="viejocomp" runat="server" visible="false">
                         <cc2:DoubleListBox ID="dlbActivity" runat="server" Width="100%" />

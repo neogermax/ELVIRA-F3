@@ -37462,6 +37462,30 @@ Control Label11.
 Campo generado automáticamente.
 Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 </remarks>
+</member><member name="F:FSC_APP.addIdea.Lblothersresults">
+	<summary>
+Control Lblothersresults.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addIdea.Txtothersresults">
+	<summary>
+Control Txtothersresults.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addIdea.Label23">
+	<summary>
+Control Label23.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
 </member><member name="F:FSC_APP.addIdea.Lblobligationsoftheparties">
 	<summary>
 Control Lblobligationsoftheparties.
@@ -37478,9 +37502,9 @@ Control Txtobligationsoftheparties.
 Campo generado automáticamente.
 Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 </remarks>
-</member><member name="F:FSC_APP.addIdea.Label24">
+</member><member name="F:FSC_APP.addIdea.Lblhelpobligationsoftheparties">
 	<summary>
-Control Label24.
+Control Lblhelpobligationsoftheparties.
 </summary>
 	<remarks>
 Campo generado automáticamente.
@@ -38129,6 +38153,14 @@ Para modificarlo, mueva la declaración del campo del archivo del diseñador al 
 </member><member name="F:FSC_APP.addIdea.lblinpro">
 	<summary>
 Control lblinpro.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addIdea.tr_listbox_program">
+	<summary>
+Control tr_listbox_program.
 </summary>
 	<remarks>
 Campo generado automáticamente.
@@ -38815,7 +38847,7 @@ Para modificarlo, mueva la declaración del campo del archivo del diseñador al 
  </summary>
 	<returns></returns>
 	<remarks></remarks>
-</member><member name="M:FSC_APP.ResearchAndDevelopment_AjaxAddIdea.charge_component(System.Int32)">
+</member><member name="M:FSC_APP.ResearchAndDevelopment_AjaxAddIdea.charge_component(System.String)">
 	<summary>
  funcion que carga el combo de tipo de componente de programa
  Autor: German Rodriguez MGgroup

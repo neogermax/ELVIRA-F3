@@ -312,7 +312,33 @@ Public Class ProgramComponentDALC
             ' verificar si hay entrada de datos para el campo
             If Not idProgram.Equals("") Then
 
-                sql.Append(where & " spa.IdProgram = '" & idProgram & "'")
+                '                Dim arraycomponente As String()
+                '               Dim t_componente As Integer
+                '              Dim contador As Integer = 0
+
+                ' arraycomponente = idProgram.Split(New [Char]() {","c})
+
+                'ASIGNAMOS EL TAMAÑO 
+                't_componente = arraycomponente.Length
+
+                sql.Append(where & " spa.IdProgram IN (")
+
+                ' For index_com As Integer = 0 To t_componente
+
+
+                'If t_componente = contador Then
+
+                sql.Append("'" & idProgram & "'")
+
+                'Else
+
+                ' sql.Append("'" & arraycomponente(contador) & "',")
+
+                ' End If
+                '   contador = contador + 1
+                '' Next
+
+                sql.Append(")")
                 where = " AND "
 
             End If

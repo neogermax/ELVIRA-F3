@@ -107,7 +107,7 @@ $(document).ready(function() {
         Ctype_project();
         Cpopulation();
         validarporcentaje();
-        listboxprogram();
+       
 
         $("#SaveIdea").css("display", "block");
         $("#Export").css("display", "none");
