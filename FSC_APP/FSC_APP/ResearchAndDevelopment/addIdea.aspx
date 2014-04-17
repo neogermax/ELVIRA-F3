@@ -214,8 +214,8 @@
     <%--REFACTOR IDEA--%>
     <div id="tabsIdea">
         <ul>
-            <li><a href="#informacion">Información Principal</a></li>
-            <li><a href="#componentes">Lineas Objetivos y Componentes</a></li>
+            <li><a href="#informacion">Descripción de la Idea</a></li>
+            <li><a href="#componentes">Planeación Estratégica</a></li>
             <li><a href="#ubicacion">Ubicación</a></li>
             <li><a href="#actores">Actores</a></li>
             <li><a href="#flujos">Flujos de pago</a></li>
@@ -563,6 +563,7 @@
                         </asp:DropDownList>
                     </select>
                 </li>
+                <br />
                 <li>
                     <asp:Label ID="Label3" runat="server" Text="Municipio"></asp:Label>
                     <select id="ddlCity" class="Ccombo">

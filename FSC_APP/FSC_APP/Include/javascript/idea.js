@@ -78,7 +78,7 @@ $(document).ready(function() {
 
         var timer_cline_edit = setTimeout("ClineEstrategic_edit();", 2000);
 
-
+       // View_anexos();
         //Cprogram();
 
         $("#SaveIdea").css("display", "none");
@@ -107,7 +107,7 @@ $(document).ready(function() {
         Ctype_project();
         Cpopulation();
         validarporcentaje();
-       
+
 
         $("#SaveIdea").css("display", "block");
         $("#Export").css("display", "none");
@@ -316,10 +316,10 @@ function SaveIdea_onclick() {
                 $("#ctl00_cphPrincipal_Lblinformation_flujos").text("Los desembolsos no estan al 100%");
 
             }
-            else{
-            $("#ctl00_cphPrincipal_Lbladvertencia").text("");
+            else {
+                $("#ctl00_cphPrincipal_Lbladvertencia").text("");
                 $("#ctl00_cphPrincipal_Lblinformation_flujos").text("");
-            //validar si los campos obligatorios fueron dilegenciados
+                //validar si los campos obligatorios fueron dilegenciados
                 if ($("#ctl00_cphPrincipal_RBnList_iva :checked").val() == null || $("#ddlPupulation :selected").text() == 'Seleccione...' || $("#ddlmodcontract :selected").text() == 'Seleccione...' || $("#ddlStrategicLines :selected").text() == 'Seleccione...' || $("#ddlPrograms :selected").text() == 'Seleccione...' || $("#ctl00_cphPrincipal_txtname").val() == '' || $("#ctl00_cphPrincipal_txtjustification").val() == '' || $("#ctl00_cphPrincipal_txtobjective").val() == '' || $("#ctl00_cphPrincipal_txtstartdate").val() == '' || $("#ctl00_cphPrincipal_Txtdatecierre").val() == '' || arrayUbicacion.length == 0 || fsc_exist == 0) {
 
                     if ($("#ctl00_cphPrincipal_RBnList_iva :checked").val() == null) {
@@ -435,13 +435,13 @@ function SaveIdea_onclick() {
 
                 else {
 
-                    if ( $("#ctl00_cphPrincipal_Txtothersresults").val()=='' && $("#ctl00_cphPrincipal_txtresults").val() == '' && $("#ctl00_cphPrincipal_txtresulgc").val() == '' && $("#ctl00_cphPrincipal_txtresulci").val() == '') {
+                    if ($("#ctl00_cphPrincipal_Txtothersresults").val() == '' && $("#ctl00_cphPrincipal_txtresults").val() == '' && $("#ctl00_cphPrincipal_txtresulgc").val() == '' && $("#ctl00_cphPrincipal_txtresulci").val() == '') {
 
                         $("#ctl00_cphPrincipal_lblHelpresults").text("Algunos de los resultados debe ser diligenciado.");
                         $("#ctl00_cphPrincipal_Label10").text("Algunos de los resultados debe ser diligenciado.");
                         $("#ctl00_cphPrincipal_Label11").text("Algunos de los resultados debe ser diligenciado.");
                         $("#ctl00_cphPrincipal_Label23").text("Algunos de los resultados debe ser diligenciado.");
-                      
+
                         $("#ctl00_cphPrincipal_Lbladvertencia").text("La idea no guardo con exito: Revisar la pestaña información");
                     }
                     else {
@@ -469,6 +469,7 @@ function SaveIdea_onclick() {
                         var listactores = [];
                         var listflujos = [];
                         var listdetallesflujos = [];
+                        var listfiles = [];
 
                         var Str_listcomponentes = $("#componentesseleccionados").html();
                         Str_listcomponentes = Str_listcomponentes.replace(/"/g, "_");
@@ -510,6 +511,15 @@ function SaveIdea_onclick() {
                             listdetallesflujos[0] = "vacio_ojo";
                         }
 
+                        //recorrer el array para el ingreso archivos 
+                        for (item in arrayFiles) {
+                            listfiles.push(JSON.stringify(arrayFiles[item]));
+                        }
+
+                        //validar si tiene datos
+                        if (listfiles.length == 0) {
+                            listfiles[0] = "vacio_ojo";
+                        }
 
 
                         //crear comunicacion ajax para el ingreso de los datos de la idea
@@ -548,6 +558,7 @@ function SaveIdea_onclick() {
                                 "listubicaciones": listubicaciones.toString(),
                                 "listflujos": cambio_text(listflujos.toString()),
                                 "listdetallesflujos": listdetallesflujos.toString(),
+                                "listfiles": listfiles.toString(),
                                 "listactores": listactores.toString()
 
                             },

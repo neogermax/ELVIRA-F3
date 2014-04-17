@@ -15,6 +15,8 @@ Public Class DocumentsEntity
     Private _iduser As Integer
     Private _attachfile As String
     Private _enabled As Boolean
+    Private _Id_Entity_Zone As String
+    Private _Id_document As Integer
 
     'Atributos adicionales que almacenan informacion relacionada con el objeto actual
     Private _isNew As Boolean
@@ -29,6 +31,7 @@ Public Class DocumentsEntity
     Private _idnEntity As Integer
     Private _documentsByEntityId As Integer
     Private _projectName As String
+
 
 #End Region
 
@@ -224,6 +227,25 @@ Public Class DocumentsEntity
             Me._entityName = value
         End Set
     End Property
+
+    Public Property Id_Entity_Zone() As String
+        Get
+            Return Me._Id_Entity_Zone
+        End Get
+        Set(ByVal value As String)
+            Me._Id_Entity_Zone = value
+        End Set
+    End Property
+    Public Property Id_document() As Integer
+        Get
+            Return Me._Id_document
+        End Get
+        Set(ByVal value As Integer)
+            Me._Id_document = value
+        End Set
+    End Property
+
+
 
 #End Region
 

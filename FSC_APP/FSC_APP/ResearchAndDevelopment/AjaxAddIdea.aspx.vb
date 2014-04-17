@@ -22,7 +22,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         Dim id_b As Integer
         Dim fecha As Date
         Dim duracion, dia As String
-        Dim idprogram_list, S_code, S_linea_estrategica, S_programa, S_nombre, S_justificacion, S_objetivo, S_objetivo_esp, S_Resultados_Benef, S_Resultados_Ges_c, S_Resultados_Cap_i, S_Resultados_otros_resul, S_Fecha_inicio, S_mes, S_dia, S_Fecha_fin, S_Población, S_contratacion, S_A_Mfsc, S_A_Efsc, S_A_Mcounter, S_A_Ecounter, S_cost, S_obligaciones, S_iva, S_listubicaciones, S_listactors, S_mitigacion, S_riesgos, S_presupuestal, S_listcomponentes, S_listflujos, S_listdetallesflujos As String
+        Dim idprogram_list, S_code, S_linea_estrategica, S_programa, S_nombre, S_justificacion, S_objetivo, S_objetivo_esp, S_Resultados_Benef, S_Resultados_Ges_c, S_Resultados_Cap_i, S_Resultados_otros_resul, S_Fecha_inicio, S_mes, S_dia, S_Fecha_fin, S_Población, S_contratacion, S_A_Mfsc, S_A_Efsc, S_A_Mcounter, S_A_Ecounter, S_cost, S_obligaciones, S_iva, S_listubicaciones, S_listactors, S_mitigacion, S_riesgos, S_presupuestal, S_listcomponentes, S_listflujos, S_listdetallesflujos, S_listfiles As String
         Dim ideditar, id_lineStrategic, id_depto, idprogram, idpopulation, Countarchivo As Integer
 
         Dim strFileName() As String
@@ -103,9 +103,9 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
             S_listcomponentes = Request.Form("listcomponentes").ToString
             S_listflujos = Request.Form("listflujos").ToString
             S_listdetallesflujos = Request.Form("listdetallesflujos").ToString
+            S_listfiles = Request.Form("listfiles").ToString
 
-
-            save_IDEA(S_code, S_linea_estrategica, S_programa, S_nombre, S_justificacion, S_objetivo, S_objetivo_esp, S_Resultados_Benef, S_Resultados_Ges_c, S_Resultados_Cap_i, S_Resultados_otros_resul, S_Fecha_inicio, S_mes, S_dia, S_Fecha_fin, S_Población, S_contratacion, S_riesgos, S_mitigacion, S_presupuestal, S_cost, S_obligaciones, S_iva, S_listubicaciones, S_listactors, S_listcomponentes, S_listflujos, S_listdetallesflujos) '
+            save_IDEA(S_code, S_linea_estrategica, S_programa, S_nombre, S_justificacion, S_objetivo, S_objetivo_esp, S_Resultados_Benef, S_Resultados_Ges_c, S_Resultados_Cap_i, S_Resultados_otros_resul, S_Fecha_inicio, S_mes, S_dia, S_Fecha_fin, S_Población, S_contratacion, S_riesgos, S_mitigacion, S_presupuestal, S_cost, S_obligaciones, S_iva, S_listubicaciones, S_listactors, S_listcomponentes, S_listflujos, S_listdetallesflujos, S_listfiles) '
 
         Else
 
@@ -209,6 +209,10 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                     ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
                     searh_component(ideditar)
 
+                Case "View_anexos"
+
+                    ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
+                    searh_document_anexos(ideditar)
 
 
                 Case Else
@@ -218,6 +222,49 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         End If
 
     End Sub
+
+    Public Function searh_document_anexos(ByVal ididea As Integer)
+
+        Dim sql As New StringBuilder
+        Dim objSqlCommand As New SqlCommand
+        Dim data_anexos As DataTable
+
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+
+        sql.Append(" select d.id, d.AttachFile,d.Description, d.id_document from DocumentsByEntity de ")
+        sql.Append(" inner join Documents d on d.Id =de.IdDocuments ")
+        sql.Append(" where  de.EntityName ='IdeaEntity' and de.IdnEntity=" & ididea)
+
+        data_anexos = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+        Dim html_anexos As String
+        Dim id_files As Integer
+
+        If data_anexos.Rows.Count > 0 Then
+
+            html_anexos = "<table id=""T_files"" border=""1"" cellpadding=""1"" cellspacing=""1"" style=""width: 100%;""><thead><tr><th style=""text-align: center;"">Archivo</th><th style=""text-align: center;"">Observaciones</th><th style=""text-align: center;"">Eliminar</th></tr></thead><tbody>"
+
+            For Each row As DataRow In data_anexos.Rows
+                If row(3).ToString = "" Then
+                    id_files = row(0).ToString
+                Else
+                    id_files = row(3).ToString
+                End If
+
+                html_anexos &= "<tr id=""archivo" & id_files & """><td><a id=""linkarchives"" runat=""server"" href=""/FSC_APP/document/temp/" & row(1).ToString & """ target= ""_blank"" title=""link"">" & row(1).ToString & "</a></td><td style=""text-align: left;"">" & row(2).ToString & "</td><td style=""text-align: center;""><input type =""button"" value= ""Eliminar"" onclick=""deletefile('" & id_files & "')""></input></td></tr>"
+            Next
+            html_anexos &= "</tbody></table>"
+        Else
+            html_anexos = "<table id=""T_files"" border=""1"" cellpadding=""1"" cellspacing=""1"" style=""width: 100%;""><thead><tr><th style=""text-align: center;"">Archivo</th><th style=""text-align: center;"">Observaciones</th><th style=""text-align: center;"">Eliminar</th></tr></thead><tbody>"
+            html_anexos &= "</tbody></table>"
+
+        End If
+
+        Response.Write(html_anexos)
+
+
+    End Function
+
 
     Public Function charge_list_program(ByVal idLinestrategic As Integer)
         Dim facade As New Facade
@@ -255,7 +302,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         sql.Append(" where pci.IdIdea = " & ididea)
 
         component_value = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
-       
+
         If component_value.Rows.Count > 0 Then
 
             For Each row As DataRow In component_value.Rows
@@ -386,7 +433,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                 porcent = row.porcentaje
                 fecha = row.fecha
 
-                htmlflujo &= "<tr id='flow" & npagos & "' ><td>" & npagos & "</td><td>" & fecha & "</td><td>" & porcent & "</td><td>" & entregable & "</td><td>" & vpar & "</td><td><input type =""button"" value= ""Editar"" onclick=""""""editflujo('" & npagos & "','" & fecha & "','" & porcent & "','" & entregable & "','" & vpar & "')""></input><input type =""button"" value= ""Eliminar"" onclick="""""" eliminarflujo('" & npagos & "')""></input></td><td><input type =""button"" value= ""Detalle"" onclick=""""""traerdetalles('" & npagos & "',this)""></input></td></tr>"
+                htmlflujo &= "<tr id='flow" & npagos & "' ><td>" & npagos & "</td><td>" & fecha & "</td><td>" & porcent & "</td><td>" & entregable & "</td><td>" & vpar & "</td><td><input type =""button"" value= ""Editar"" onclick=""editflujo('" & npagos & "','" & fecha & "','" & porcent & "','" & entregable & "','" & vpar & "')""></input><input type =""button"" value= ""Eliminar"" onclick=""eliminarflujo('" & npagos & "')""></input></td><td><input type =""button"" value= ""Detalle"" onclick=""traerdetalles('" & npagos & "',this)""></input></td></tr>"
 
             Next
 
@@ -794,6 +841,123 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         Response.Write(htmlresults)
 
     End Function
+    Public Function save_document_IDEA(ByVal list_file As String, ByVal ididea As Integer)
+
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+        Dim ArrayFile As String()
+
+        list_file = Replace(list_file, "{", " ", 1)
+        list_file = Replace(list_file, "}", " ", 1)
+        list_file = Replace(list_file, """", " ", 1)
+        'convertimos el string en un array de datos
+        ArrayFile = list_file.Split(New [Char]() {","c})
+
+        If ArrayFile(0) <> "vacio_ojo" Then
+
+            'ISTANCIAMOS LA VARIABLE DEL TAMAÑO DEL ARRAY
+            Dim t_file As Integer
+            Dim contador As Integer = 0
+
+            Dim idfileexist, filenameexist, Descriptionexist As String
+
+            'ASIGNAMOS EL TAMAÑO 
+            t_file = ArrayFile.Length
+
+            'RECORREMOS LA CANTIDAD DE VECES ASIGNADAS
+            For index_ubi As Integer = 0 To t_file
+
+                Dim objDocument As DocumentsEntity = New DocumentsEntity()
+                Dim objDocumentbyEntity As DocumentsByEntityEntity = New DocumentsByEntityEntity()
+
+                'VERIDFICAMOS Q EXISTAN LOS CAMPOS SOLICITADOS
+                idfileexist = InStr(ArrayFile(contador), "idfile")
+                filenameexist = InStr(ArrayFile(contador + 1), "filename")
+                Descriptionexist = InStr(ArrayFile(contador + 2), "Description")
+
+                'separamos el valor de campo
+                idfileexist = Replace(ArrayFile(contador), " idfile :", " ", 1)
+                filenameexist = Replace(ArrayFile(contador + 1), "filename : ", "", 1)
+                Descriptionexist = Replace(ArrayFile(contador + 2), "Description : ", " ", 1)
+
+                'asignamos al objeto
+                objDocument.title = filenameexist
+                objDocument.description = Descriptionexist
+                objDocument.ideditedfor = 0
+                objDocument.iddocumenttype = 0
+                objDocument.idvisibilitylevel = 0
+                objDocument.createdate = Now
+                objDocument.iduser = applicationCredentials.UserID
+                objDocument.attachfile = filenameexist
+                objDocument.enabled = 1
+                objDocument.Id_Entity_Zone = "IdeaEntity_" & ididea
+                objDocument.Id_document = Convert.ToInt32(idfileexist)
+
+                'cargamos al list
+                Dim sql As New StringBuilder
+                Dim dtData, dtDatadoc As DataTable
+
+                ' construir la sentencia
+                sql.AppendLine("INSERT INTO Documents(title,description,ideditedfor,idvisibilitylevel,iddocumenttype,createdate,iduser,attachfile,enabled,Id_Entity_Zone,Id_document ) ")
+                sql.AppendLine(" VALUES (")
+                sql.AppendLine("'" & objDocument.title & "',")
+                sql.AppendLine("'" & objDocument.description & "',")
+                sql.AppendLine("'" & objDocument.ideditedfor & "',")
+                sql.AppendLine("'" & objDocument.idvisibilitylevel & "',")
+                sql.AppendLine("'" & objDocument.iddocumenttype & "',")
+                sql.AppendLine("'" & objDocument.createdate.ToString("yyyyMMdd HH:mm:ss") & "',")
+                sql.AppendLine("'" & objDocument.iduser & "',")
+                sql.AppendLine("'" & objDocument.attachfile & "',")
+                sql.AppendLine("'" & objDocument.enabled & "',")
+                sql.AppendLine("'" & objDocument.Id_Entity_Zone & "',")
+                sql.AppendLine("'" & objDocument.Id_document & "')")
+
+                ' intruccion para obtener el registro insertado
+                sql.AppendLine(" SELECT SCOPE_IDENTITY() AS Id")
+
+                'obtener el id
+                dtData = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+                ' id creado
+                Dim idEntity As Long = CLng(dtData.Rows(0)("Id"))
+
+                ' finalizar la transaccion
+                CtxSetComplete()
+
+                'asignamos al objeto
+                objDocumentbyEntity.iddocuments = idEntity
+                objDocumentbyEntity.idnentity = ididea
+                objDocumentbyEntity.entityname = "IdeaEntity"
+
+
+                sql = New StringBuilder
+                ' construir la sentencia
+                sql.AppendLine("INSERT INTO DocumentsByEntity( iddocuments,idnentity,entityName) ")
+                sql.AppendLine("VALUES (")
+                sql.AppendLine("'" & objDocumentbyEntity.iddocuments & "',")
+                sql.AppendLine("'" & objDocumentbyEntity.idnentity & "',")
+                sql.AppendLine("'" & objDocumentbyEntity.entityname & "')")
+
+                ' intruccion para obtener el registro insertado
+                sql.AppendLine(" SELECT SCOPE_IDENTITY() AS Id")
+
+                'obtener el id
+                dtDatadoc = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+                ' id creado
+                Dim num As Long = CLng(dtDatadoc.Rows(0)("Id"))
+
+                ' finalizar la transaccion
+                CtxSetComplete()
+
+                index_ubi = index_ubi + 3
+                contador = contador + 3
+
+            Next
+
+        End If
+
+    End Function
+
 
     ''' <summary>
     ''' funcion para guardar la idea
@@ -823,7 +987,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
     ''' <param name="cost"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Function save_IDEA(ByVal code As String, ByVal line_strategic As String, ByVal program As String, ByVal name As String, ByVal justify As String, ByVal objetive As String, ByVal obj_esp As String, ByVal resul_bef As String, ByVal resul_ges_c As String, ByVal resul_cap_i As String, ByVal otros_resul As String, ByVal fecha_i As String, ByVal mes As String, ByVal dia As String, ByVal fecha_f As String, ByVal poblacion As String, ByVal contratacion As String, ByVal riesgos As String, ByVal mitigacion As String, ByVal presupuestal As String, ByVal cost As String, ByVal obligaciones As String, ByVal iva As String, ByVal list_ubicacion As String, ByVal list_actor As String, ByVal list_componentes As String, ByVal list_flujos As String, ByVal list_detalles_flujos As String) '
+    Public Function save_IDEA(ByVal code As String, ByVal line_strategic As String, ByVal program As String, ByVal name As String, ByVal justify As String, ByVal objetive As String, ByVal obj_esp As String, ByVal resul_bef As String, ByVal resul_ges_c As String, ByVal resul_cap_i As String, ByVal otros_resul As String, ByVal fecha_i As String, ByVal mes As String, ByVal dia As String, ByVal fecha_f As String, ByVal poblacion As String, ByVal contratacion As String, ByVal riesgos As String, ByVal mitigacion As String, ByVal presupuestal As String, ByVal cost As String, ByVal obligaciones As String, ByVal iva As String, ByVal list_ubicacion As String, ByVal list_actor As String, ByVal list_componentes As String, ByVal list_flujos As String, ByVal list_detalles_flujos As String, ByVal list_files As String) '
 
         Dim facade As New Facade
         Dim objIdea As New IdeaEntity
@@ -840,6 +1004,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
 
         Try
+
 
 
             locationByIdeaList = DirectCast(Session("locationByIdeaList"), List(Of LocationByIdeaEntity))
@@ -1168,6 +1333,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
 
 
+            save_document_IDEA(list_files, objIdea.id)
 
 
             Dim Result As String

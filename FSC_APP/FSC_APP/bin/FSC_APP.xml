@@ -28412,7 +28412,8 @@ Para modificarlo, mueva la declaración del campo del archivo del diseñador al 
  </summary>
 	<remarks></remarks>
 </member><member name="M:FSC_APP.addIdea.LoadDocumentsList">
-	<summary>
+documento 1
+ <summary>
  Permite actualizar la lista de archivos anexos a la idea actual
  </summary>
 	<remarks></remarks>

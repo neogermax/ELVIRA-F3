@@ -30,7 +30,7 @@ function subirArchivos() {
                 //creamos variables
                 var filename = result;
                 var objectfile = data;
-                var description =  cambio_text($("#ctl00_cphPrincipal_Txtdecription").val());
+                var description = cambio_text($("#ctl00_cphPrincipal_Txtdecription").val());
 
                 if (idfile == null) {
                     idfile = 1;
@@ -40,7 +40,7 @@ function subirArchivos() {
                 }
 
                 //creamos json para guardarlos en un array
-                var jsonFiles = { "idfile": idfile, "filename": filename, "objectfile": objectfile, "Description": description };
+                var jsonFiles = { "idfile": idfile, "filename": filename, "Description": description };
                 //cargamos el array con el json
                 arrayFiles.push(jsonFiles);
 
@@ -64,7 +64,7 @@ function subirArchivos() {
                 $("#fileupload").val("");
 
                 $('#ctl00_cphPrincipal_gif_charge_Container').css("display", "none");
-                $("#ctl00_cphPrincipal_Txtdecription").val("")
+                $("#ctl00_cphPrincipal_Txtdecription").val("");
 
             },
             error: function(error) {
@@ -97,6 +97,32 @@ function deletefile(stridfile) {
             delete arrayFiles[itemArray];
         }
     }
+
+}
+
+function View_anexos() {
+
+    $.ajax({
+        url: "AjaxAddIdea.aspx",
+        type: "GET",
+        data: { "action": "View_anexos", "ididea": ideditar },
+        success: function(result) {
+
+            //cargamos el div donde se generara la documentos anexos 
+            $("#tdFileInputs").html("");
+            $("#tdFileInputs").html(result);
+
+            //reconstruimos la tabla con los datos
+            $("#T_files").dataTable({
+                "bJQueryUI": true,
+                "bDestroy": true
+            });
+
+        },
+        error: function(msg) {
+            alert("No se pueden cargar los documentos anexos de la idea = " + ideditar);
+        }
+    });
 
 
 }

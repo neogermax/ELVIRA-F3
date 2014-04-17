@@ -1,4 +1,75 @@
-﻿//cargar combo de lineas estrategicas
+﻿
+//funcion que posiciona el combo en la linea estrategica de la idea seleccionada
+function ClineEstrategic_edit() {
+    //ajax que posiciona la linea estrategica de la idea conasultada
+    $.ajax({
+        url: "AjaxAddIdea.aspx",
+        type: "GET",
+        data: { "action": "View_line_strategic", "ididea": ideditar },
+        success: function(result) {
+
+            $("#ddlStrategicLines").val(result);
+            $("#ddlStrategicLines").trigger("liszt:updated");
+
+            edit_line_strategic = result;
+            
+        },
+        error: function(msg) {
+            alert("No se pueden cargar la linea estrategica deseada.");
+        }
+    });
+
+    var timer_cline_edit = setTimeout("Cprogram_edit();", 2000);
+  
+}
+
+//cargar los programas seleccionados de la linea seleccionada anteriormente "ClineEstrategic_edit()"
+function Cprogram_edit() {
+
+    $.ajax({
+        url: "AjaxAddIdea.aspx",
+        type: "GET",
+        data: { "action": "C_program", "idlinestrategic": edit_line_strategic },
+        success: function(result) {
+            $("#ddlPrograms").html(result);
+            $("#ddlPrograms").trigger("liszt:updated");
+            $("#componentesseleccionados").html("");
+        },
+        error: function(msg) {
+            alert("No se pueden cargar los programas de la linea estrategica selecionada.");
+        }
+    });
+    var timer_program_edit = setTimeout("view_Cprogram();", 2000);
+
+    
+}
+
+//funcion que posiciona el combo del programa de la idea seleccionada 
+function view_Cprogram() {
+    //ajax que posiciona el programa de la idea conasultada
+    $.ajax({
+        url: "AjaxAddIdea.aspx",
+        type: "GET",
+        data: { "action": "View_program", "ididea": ideditar },
+        success: function(result) {
+
+            $("#ddlPrograms").val(result);
+            $("#ddlPrograms").trigger("liszt:updated");
+
+            edit_program = result;
+
+        },
+        error: function(msg) {
+            alert("No se pueden cargar la linea estrategica deseada.");
+        }
+    });
+   // var timer_program_edit = setTimeout("edit_component();", 2000);
+    var timer_program_edit = setTimeout("edit_component_view();", 2000);
+
+}
+
+
+//cargar combo de lineas estrategicas
 function ClineEstrategic() {
     $.ajax({
         url: "AjaxAddIdea.aspx",
@@ -50,106 +121,106 @@ function Cprogram() {
     });
 }
 
-var ArrayProgram = [];
-var seleccion_program = 0;
+//var ArrayProgram = [];
+//var seleccion_program = 0;
 
-function listboxprogram() {
-    $("#ddlStrategicLines").change(function() {
-        $.ajax({
-            url: "AjaxAddIdea.aspx",
-            type: "GET",
-            data: { "action": "list_program", "idlinestrategic": $(this).val() },
-            success: function(result) {
+//function listboxprogram() {
+//    $("#ddlStrategicLines").change(function() {
+//        $.ajax({
+//            url: "AjaxAddIdea.aspx",
+//            type: "GET",
+//            data: { "action": "list_program", "idlinestrategic": $(this).val() },
+//            success: function(result) {
 
-                // $("#ulprograms").html(result);
-                $(".seleccione_program").click(function() {
-                    var swhich_array_program_exist = 0;
-                    var idprogram = $(this).attr("id");
-                    idprogram = idprogram.replace('add', '');
+//                // $("#ulprograms").html(result);
+//                $(".seleccione_program").click(function() {
+//                    var swhich_array_program_exist = 0;
+//                    var idprogram = $(this).attr("id");
+//                    idprogram = idprogram.replace('add', '');
 
-                    if (ArrayProgram.length == 0) {
-                        ArrayProgram.push(idprogram);
-                        cargarcomponentes_list(ArrayProgram);
+//                    if (ArrayProgram.length == 0) {
+//                        ArrayProgram.push(idprogram);
+//                        cargarcomponentes_list(ArrayProgram);
 
-                    }
-                    else {
+//                    }
+//                    else {
 
-                        for (itemArray in ArrayProgram) {
-                            if (idprogram == ArrayProgram[itemArray]) {
-                                swhich_array_program_exist = 1;
-                            }
-                        }
-                        if (swhich_array_program_exist == 0) {
-                            ArrayProgram.push(idprogram);
-                            cargarcomponentes_list(ArrayProgram);
-                        }
-                    }
-
-
-                });
-                //Compoentes Style
-                if (seleccion_program == 0) {
-                    $("#seleccionarcomponente li, #componentesseleccionados li, #ulprograms li").click(function() {
-                        $(this).css("background", "#9bbb58");
-                        $(this).css("color", "#fff");
-                    });
-                    seleccion_program = 1;
-                }
-                else {
-                    $("#seleccionarcomponente li, #componentesseleccionados li, #ulprograms li").click(function() {
-                        $(this).css("background", "#FFFFFF");
-                        $(this).css("color", "#000000");
-                    });
-                    seleccion_program = 0;
-                }
-            },
-            error: function(msg) {
-                alert("No se pueden cargar los programas de la linea estrategica selecionada.");
-            }
-        });
-    });
-}
-
-function cargarcomponentes_list(idprogram) {
-
-    $.ajax({
-        url: "AjaxAddIdea.aspx",
-        type: "GET",
-        data: { "action": "C_component", "idprogram": idprogram.toString() },
-        success: function(result) {
-
-            $("#seleccionarcomponente").html(result);
+//                        for (itemArray in ArrayProgram) {
+//                            if (idprogram == ArrayProgram[itemArray]) {
+//                                swhich_array_program_exist = 1;
+//                            }
+//                        }
+//                        if (swhich_array_program_exist == 0) {
+//                            ArrayProgram.push(idprogram);
+//                            cargarcomponentes_list(ArrayProgram);
+//                        }
+//                    }
 
 
-            //darle atributos de seleccione
-            $(".seleccione").click(function() {
+//                });
+//                //Compoentes Style
+//                if (seleccion_program == 0) {
+//                    $("#seleccionarcomponente li, #componentesseleccionados li, #ulprograms li").click(function() {
+//                        $(this).css("background", "#9bbb58");
+//                        $(this).css("color", "#fff");
+//                    });
+//                    seleccion_program = 1;
+//                }
+//                else {
+//                    $("#seleccionarcomponente li, #componentesseleccionados li, #ulprograms li").click(function() {
+//                        $(this).css("background", "#FFFFFF");
+//                        $(this).css("color", "#000000");
+//                    });
+//                    seleccion_program = 0;
+//                }
+//            },
+//            error: function(msg) {
+//                alert("No se pueden cargar los programas de la linea estrategica selecionada.");
+//            }
+//        });
+//    });
+//}
 
-                var swhich_array_component_exist = 0;
+//function cargarcomponentes_list(idprogram) {
 
-                var validaarray = $(this).attr("id");
-                //validamos si el array esta vacio
-                if (arraycomponente.length == 0) {
-                    arraycomponente.push($(this).attr("id"));
-                }
-                else {
-                    //recorremos elarray si ya habiamos ingresado el componente
-                    for (itemArray in arraycomponente) {
-                        if (validaarray == arraycomponente[itemArray]) {
-                            swhich_array_component_exist = 1;
-                        }
-                    }
-                    if (swhich_array_component_exist == 0) {
-                        arraycomponente.push($(this).attr("id"));
-                    }
+//    $.ajax({
+//        url: "AjaxAddIdea.aspx",
+//        type: "GET",
+//        data: { "action": "C_component", "idprogram": idprogram.toString() },
+//        success: function(result) {
 
-                }
-            });
-        },
-        error: function(msg) {
-            alert("No se pueden cargar los componentes del programa selecionado.");
-        }
-    });
-}
+//            $("#seleccionarcomponente").html(result);
+
+
+//            //darle atributos de seleccione
+//            $(".seleccione").click(function() {
+
+//                var swhich_array_component_exist = 0;
+
+//                var validaarray = $(this).attr("id");
+//                //validamos si el array esta vacio
+//                if (arraycomponente.length == 0) {
+//                    arraycomponente.push($(this).attr("id"));
+//                }
+//                else {
+//                    //recorremos elarray si ya habiamos ingresado el componente
+//                    for (itemArray in arraycomponente) {
+//                        if (validaarray == arraycomponente[itemArray]) {
+//                            swhich_array_component_exist = 1;
+//                        }
+//                    }
+//                    if (swhich_array_component_exist == 0) {
+//                        arraycomponente.push($(this).attr("id"));
+//                    }
+
+//                }
+//            });
+//        },
+//        error: function(msg) {
+//            alert("No se pueden cargar los componentes del programa selecionado.");
+//        }
+//    });
+//}
 
 
 //cargar double lisbox componentes de programa
