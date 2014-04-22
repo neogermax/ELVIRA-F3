@@ -18,7 +18,7 @@ Partial Class FormulationAndAdoption_ajaxaddProjectApprovalRecord
 
         Dim action As String
         Dim code As Integer
-        Dim name As String
+        Dim name, campos_nuevos As String
         Dim id_b As Integer
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
 
@@ -54,7 +54,7 @@ Partial Class FormulationAndAdoption_ajaxaddProjectApprovalRecord
                 objResult = objResult.Trim(",")
                 objResult &= """"
 
-                If ValideLocationIdea(code) = 0 And ValidetrirIdea(code) = 0 And ValideValueIdea(code) = 0 Then
+                If ValideLocationIdea(code) = 0 And ValidetrirIdea(code) = 0 And ValideValueIdea(code) = 0 And campos_nuevos = 0 Then
                     name = Request.QueryString("name")
                     objResult &= String.Format(", ""noaprobacion"": ""{0}""", CreateCodeIdea(code, name))
                 End If
@@ -73,18 +73,103 @@ Partial Class FormulationAndAdoption_ajaxaddProjectApprovalRecord
                 id_b = Convert.ToInt64(Request.QueryString("code").ToString())
                 buscardatethird(id_b, applicationCredentials, Request.QueryString("id"))
 
-         
+
+            Case "validar_campos_new"
+                id_b = Convert.ToInt64(Request.QueryString("code").ToString())
+                validar_campos_new(id_b)
+
             Case Else
-                'mostrando el error
-                'Session("serror") = ex.Message
-                'Session("sUrl") = Request.UrlReferrer.PathAndQuery
-                'Response.Redirect("~/errors/error.aspx")
-                'Response.End()
+               
         End Select
 
 
 
     End Sub
+
+    Public Function validar_campos_new(ByVal codigo As Integer) As Integer
+
+        Dim sql As New StringBuilder
+        Dim objSqlCommand As New SqlCommand
+        Dim Data_campos, Data_flujos As DataTable
+
+        Dim shiwch_val As Integer = 0
+
+        Dim result_str As String = "Falta por diligenciar :"
+
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+
+        sql.Append("SELECT I.obligationsoftheparties,i.BudgetRoute,i.RiskMitigation,i.RisksIdentified FROM  Idea AS I where i.id =" & codigo)
+
+        Data_campos = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+
+        sql = New StringBuilder
+
+        sql.Append("select dcf.N_pago from Detailedcashflows dcf where dcf.IdIdea=" & codigo)
+
+        Data_flujos = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+        If Data_campos.Rows.Count > 0 Then
+
+         
+            If IsDBNull(Data_campos.Rows(0)("obligationsoftheparties")) = False Then
+            Else
+                result_str &= " obligaciones de las partes"
+            End If
+
+            If IsDBNull(Data_campos.Rows(0)("BudgetRoute")) = False Then
+            Else
+                If result_str = "Falta por diligenciar :" Then
+                    result_str &= " ruta!"
+                Else
+                    result_str &= ", ruta"
+                End If
+
+            End If
+
+            If IsDBNull(Data_campos.Rows(0)("RiskMitigation")) = False Then
+            Else
+                If result_str = "Falta por diligenciar :" Then
+                    result_str &= " Mitigación de riesgos!"
+                Else
+                    result_str &= ",  Mitigación de riesgos"
+                End If
+
+
+            End If
+
+            If IsDBNull(Data_campos.Rows(0)("RisksIdentified")) = False Then
+            Else
+                If result_str = "Falta por diligenciar :" Then
+                    result_str &= " riesgos identificados!"
+                Else
+                    result_str &= ",  riesgos identificados"
+                End If
+            End If
+
+        End If
+
+        If Data_flujos.Rows.Count > 0 Then
+
+        Else
+            If result_str = "Falta por diligenciar :" Then
+
+                result_str &= " flujos de pagos!"
+            Else
+                result_str &= ", flujos de pagos"
+            End If
+
+        End If
+
+        If result_str <> "Falta por diligenciar :" Then
+            result_str &= "!"
+        End If
+
+        Response.Write(result_str)
+
+    End Function
+
+
 
     'funcion que valua las ciudades y trae los parametros
     Public Function ValideLocationIdea(ByVal codigo As Integer) As Integer
@@ -99,6 +184,9 @@ Partial Class FormulationAndAdoption_ajaxaddProjectApprovalRecord
         'consulta y validacion de ciudades
         sql.Append("exec ValueLocationIdea " & codigo)
         Dim data = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
+
+
+
 
         If data = 1 Then
             Return 1
@@ -332,19 +420,20 @@ Partial Class FormulationAndAdoption_ajaxaddProjectApprovalRecord
         data = GattacaApplication.RunSQLRDT(objApplicationCredentials, sql.ToString)
 
         Dim html As String
-        html = "<table  style=""font-family: 'Calibri';"" border=1 cellspacing=0 cellpadding=2 bordercolor=""666633"" ><tr><td colspan=""7"" align=center>Actores</td></tr><tr align=""center""><td style=""width: 0px"">Id</td><td style=""width: 200px"">Actor</td><td style=""width: 200px"">Contacto</td><td style=""width: 131px"">Tipo</td><td style=""width: 131px"">Vr Especie</td><td style=""width: 131px"">Vr Dinero</td><td style=""width: 131px"">Valor Total</td></tr> "
+        html = "<table id=""T_Actors"" style=""width: 100%;"" border=""1"" cellspacing=""1"" cellpadding=""1""><thead><tr align=""center""><th style=""width: 0px"">Id</th><th style=""width: 200px"">Actor</th><th style=""width: 200px"">Contacto</th><th style=""width: 131px"">Tipo</th><th style=""width: 131px"">Vr Especie</th><th style=""width: 131px"">Vr Dinero</th><th style=""width: 131px"">Valor Total</th></tr></thead><tbody>"
         For Each itemDataTable As DataRow In data.Rows
             html &= String.Format(" <tr align=""center""><td style=""width: 0px"" >{0}</td><td style=""width: 200px"">{1}</td><td style=""width: 200px"">{2}</td><td style=""width: 131px"">{3}</td><td style=""width: 131px"">{4}</td><td style=""width: 131px"">{5}</td><td style=""width: 131px"">{6}</td></tr>", itemDataTable(0), itemDataTable(1), itemDataTable(2), itemDataTable(3), itemDataTable(4), itemDataTable(5), itemDataTable(6))
         Next
-        html &= " </table>"
+        html &= "</tbody></table>"
 
         Response.Write(html)
 
+        
     End Function
 
-  
 
-  
+
+
 
 
 

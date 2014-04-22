@@ -1,11 +1,15 @@
 <%@ Page Language="VB" MasterPageFile="~/Master/mpAdmin.master" AutoEventWireup="false"
-    ValidateRequest="false" EnableEventValidation="false"
-    Inherits="FSC_APP.addProjectApprovalRecord" Title="addProjectApprovalRecord" Codebehind="addProjectApprovalRecord.aspx.vb" %>
+    ValidateRequest="false" EnableEventValidation="false" Inherits="FSC_APP.addProjectApprovalRecord"
+    Title="addProjectApprovalRecord" CodeBehind="addProjectApprovalRecord.aspx.vb" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="cphPrincipal" runat="Server">
 
     <script src="../Include/javascript/idea_aproval.js" type="text/javascript"></script>
+
+    <link href="../css/datatables/jquery.dataTables.css" rel="stylesheet" type="text/css" />
+
+    <script src="../js/jquery.dataTables.min.js" type="text/javascript"></script>
 
     <script type="text/javascript">
         function format(input) {
@@ -30,8 +34,14 @@
         <img style="margin-top: 5px;" src="/images/save_icon.png" width="24px" alt="Save" />
         <asp:Label ID="lblsaveinformation" runat="server" Style="font-size: 14pt; color: #9bbb58;"></asp:Label>
     </div>
+    <div id="containerSuccess2" runat="server" style="width: 100%; text-align: center;
+        border: 2px solid #cecece; background: #E8E8DC; height: 40px; line-height: 40px;
+        vertical-align: middle;">
+        <img style="margin-top: 5px;" src="/images/alert_icon.png" width="24px" alt="Save" />
+        <asp:Label ID="Lblnewcampos" runat="server" Style="font-size: 14pt; color: #8A0808;"></asp:Label>
+    </div>
     <br />
-    <table style="width: 100%">
+    <table id="t_pseeo" style="width: 100%">
         <tr>
             <td style="width: 131px">
                 <asp:Label ID="lblid" runat="server" Text="Id"></asp:Label>
@@ -59,14 +69,14 @@
             </td>
         </tr>
         <tr>
-            <td style="width: 131px">
+            <td style="width: 131px; height: 25px;">
                 <asp:Label ID="Lblnameidea" runat="server" Text="Idea"></asp:Label>
             </td>
-            <td style="width: 577px">
+            <td style="width: 577px; height: 25px;">
                 <asp:TextBox ID="Txtnameidea" runat="server" Width="400px" MaxLength="50" Height="25px"
                     Enabled="False"></asp:TextBox>
             </td>
-            <td>
+            <td style="height: 25px">
                 <asp:Label ID="Label4" runat="server" Font-Bold="True" ForeColor="Red"></asp:Label>
             </td>
         </tr>
@@ -195,8 +205,7 @@
                 <asp:Label ID="lblapprovedvalue" runat="server" Text="Valor aprobado"></asp:Label>
             </td>
             <td style="width: 577px">
-                <asp:TextBox ID="txtapprovedvalue" runat="server" Width="400px" MaxLength="30" 
-                    Enabled="False"></asp:TextBox>
+                <asp:TextBox ID="txtapprovedvalue" runat="server" Width="400px" MaxLength="30" Enabled="False"></asp:TextBox>
                 <%#DataBinder.Eval(Container, "DataItem.Depto.name")%>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtapprovedvalue"
                     ErrorMessage="*"></asp:RequiredFieldValidator>
@@ -262,13 +271,13 @@
                 <asp:Label ID="lblHelpenabled" runat="server" Text=""></asp:Label>
             </td>
         </tr>
-        <tr>
-            <td style="width: 131px">
+        <%--<td style="width: 131px">
                 <asp:Label ID="Label1" runat="server" Text=""></asp:Label>
-            </td>
-            <td id="gridthird" style="width: 577px">
-            </td>
-        </tr>
+            </td>--%>
+    </table>
+    <div id="gridthird">
+    </div>
+    <table id="derrr"  style="width: 100%">
         <tr>
             <td style="width: 131px">
                 <asp:Label ID="lbliduser" runat="server" Text="Usuario"></asp:Label>

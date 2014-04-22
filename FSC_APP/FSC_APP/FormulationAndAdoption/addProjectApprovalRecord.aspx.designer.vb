@@ -34,6 +34,24 @@ Partial Public Class addProjectApprovalRecord
     Protected WithEvents lblsaveinformation As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
+    '''Control containerSuccess2.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents containerSuccess2 As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+    '''<summary>
+    '''Control Lblnewcampos.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Lblnewcampos As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
     '''Control lblid.
     '''</summary>
     '''<remarks>

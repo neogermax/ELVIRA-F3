@@ -1,3 +1,7 @@
+--script de actualizacion de componentes con su respectivo objetivo
+
+USE FSC_eProject
+
 update programComponent set  code= 'Toma conciencia (Inclusión educativa primera infancia)' where id =37
 update programComponent set  code= 'Formación de docentes  (Inclusión educativa primera infancia)' where id =38
 update programComponent set  code= 'Fortalecer competencias sector publico (Inclusión educativa primera infancia)' where id =39

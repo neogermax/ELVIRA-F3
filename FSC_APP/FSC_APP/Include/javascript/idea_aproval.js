@@ -5,12 +5,39 @@
 
 //validacion para combo box
 $(document).ready(function() {
-
+    validar_new_campos();
     validaraprobacion();
     operacionesaprobacion();
-
+    $("#ctl00_cphPrincipal_containerSuccess2").css("display", "none");
+    
 });
 
+function validar_new_campos() {
+    $("#ctl00_cphPrincipal_ddlidproject").change(function() {
+        $.ajax({
+            url: "ajaxaddProjectApprovalRecord.aspx",
+            type: "GET",
+            data: { "action": "validar_campos_new", "code": $(this).val() },
+            success: function(result) {
+
+            if (result != "Falta por diligenciar :") {
+                   
+                    $("#ctl00_cphPrincipal_Lblnewcampos").text(result);
+                    $("#ctl00_cphPrincipal_containerSuccess2").css("display", "block");
+                    $("#ctl00_cphPrincipal_btnAddData").css("display", "none");
+                }
+                else {
+                    $("#ctl00_cphPrincipal_containerSuccess2").css("display", "none");
+                 }
+
+            },
+            error: function()
+            { alert("No se pueden cargar las validaciones solicitadas."); }
+        });
+
+    });
+
+}
 
 
 function operacionesaprobacion() {
@@ -119,6 +146,7 @@ function validaraprobacion() {
                         //  window.location = "/FSC/ResearchAndDevelopment/searchIdea.aspx";
                     }
                     else
+                      //  $("#ctl00_cphPrincipal_containerSuccess2").css("display", "none");
                         $("#ctl00_cphPrincipal_txtcodeapproved").val(result.noaprobacion);
                 }
             },
@@ -160,6 +188,11 @@ function validaraprobacion() {
             data: { "action": "buscaractores", "code": $(this).val() },
             success: function(result) {
                 $("#gridthird").html(result);
+                
+                $("#T_Actors").dataTable({
+                    "bJQueryUI": true,
+                    "bDestroy": true
+                });
             },
             error: function()
             { alert("No se pueden cargar los actores de la idea solicitada."); }
