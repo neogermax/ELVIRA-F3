@@ -512,7 +512,7 @@
             </ul>
             <ul class="right">
                 <li>
-                    <asp:Label ID="Label8" runat="server" Text="Programa"></asp:Label>
+                    <asp:Label ID="Label8" runat="server" Text="Objetivo"></asp:Label>
                     <select id="ddlPrograms" class="Ccombo">
                         <asp:DropDownList ID="ddlPrograms" runat="server">
                         </asp:DropDownList>

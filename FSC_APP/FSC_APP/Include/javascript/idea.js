@@ -71,14 +71,16 @@ $(document).ready(function() {
 
 
         view_ubicacion();
+        view_ubicacion_array();
         View_actores();
         View_matriz_principal();
         View_flujos_p();
         View_flujos_actors();
+        aprobacion_idea();
 
         var timer_cline_edit = setTimeout("ClineEstrategic_edit();", 2000);
 
-       // View_anexos();
+        // View_anexos();
         //Cprogram();
 
         $("#SaveIdea").css("display", "none");
@@ -107,7 +109,7 @@ $(document).ready(function() {
         Ctype_project();
         Cpopulation();
         validarporcentaje();
-
+        
 
         $("#SaveIdea").css("display", "block");
         $("#Export").css("display", "none");
@@ -616,7 +618,33 @@ function formatvercionsuma(input) {
 }
 
 
+function aprobacion_idea() {
 
+    $.ajax({
+        url: "AjaxAddIdea.aspx",
+        type: "GET",
+        data: { "action": "aprobacion_idea", "ididea": ideditar },
+        success: function(result) {
+
+            if (result == 1) {
+                $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
+                $("#ctl00_cphPrincipal_lblsaveinformation").text("Esta Idea ya se encuentra aprobada y NO puede ser modificada!");
+                $("#EditIdea").css("display", "none");               
+            }
+            else {
+                $("#ctl00_cphPrincipal_containerSuccess").css("display", "none");
+                $("#EditIdea").css("display", "block");
+            }
+           
+            
+        },
+        error: function(msg) {
+            alert("No se pueden cargar los documentos anexos de la idea = " + ideditar);
+        }
+    });
+
+
+}
 
 
 

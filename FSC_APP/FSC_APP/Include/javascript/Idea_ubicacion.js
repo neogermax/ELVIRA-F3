@@ -140,6 +140,23 @@ function view_ubicacion() {
     });
 }
 
+//funcion para cargar  array ubicaciones en ediccion
+function view_ubicacion_array() {
+    $.ajax({
+        url: "AjaxAddIdea.aspx",
+        type: "GET",
+        data: { "action": "View_ubicacion_array", "ididea": ideditar },
+        success: function(result) {
+
+        var recibeubi = JSON.parse(result);
+        arrayUbicacion.push(recibeubi);
+        
+        },
+        error: function(msg) {
+            alert("No se pueden cargar las ubicaciones seleccionadas de la idea = " + ideditar);
+        }
+    });
+}
 
 
 //borrar de la grilla html de ubicaciones 

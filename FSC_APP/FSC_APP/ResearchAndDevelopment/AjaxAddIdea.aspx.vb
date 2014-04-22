@@ -174,6 +174,11 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                     ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
                     searh_location(ideditar)
 
+                Case "View_ubicacion_array"
+
+                    ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
+                    searh_location_array(ideditar)
+
                 Case "View_actores"
 
                     ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
@@ -214,6 +219,10 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                     ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
                     searh_document_anexos(ideditar)
 
+                Case "aprobacion_idea"
+
+                    ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
+                    validar_aprobacion_idea(ideditar)
 
                 Case Else
 
@@ -222,6 +231,30 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         End If
 
     End Sub
+
+    Public Function validar_aprobacion_idea(ByVal ididea As Integer)
+
+        Dim sql As New StringBuilder
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+
+        Dim result As Integer
+
+        sql.Append("SELECT Ididea FROM  ProjectApprovalRecord WHERE Ididea=" & ididea)
+        Dim idideaaprovada = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
+
+        If idideaaprovada <> 0 Then
+
+            result = 1
+
+        Else
+
+            result = 0
+
+        End If
+
+        Response.Write(result)
+    End Function
+
 
     Public Function searh_document_anexos(ByVal ididea As Integer)
 
@@ -306,7 +339,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         If component_value.Rows.Count > 0 Then
 
             For Each row As DataRow In component_value.Rows
-                htmlcomponente &= "<li id= add" + row(0).ToString + " class='seleccione'>" + row(1).ToString() + "</li>"
+                htmlcomponente &= "<li id= 'add" + row(0).ToString + "' class='seleccione'>" + row(1).ToString() + "</li>"
             Next
 
         End If
@@ -535,6 +568,59 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         End If
 
         Response.Write(htmlactores)
+
+
+    End Function
+
+    Public Function searh_location_array(ByVal ididea As Integer)
+
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+
+        Dim LocationByIdea As New LocationByIdeaDALC
+        Dim objlocation As LocationByIdeaEntity
+        Dim data_listlocation As List(Of LocationByIdeaEntity)
+        Dim DeptoVal, CityVal, CityName, DeptoName As String
+
+        Dim objResult As String
+
+
+        data_listlocation = LocationByIdea.getList(applicationCredentials, , ididea, , , )
+
+        If data_listlocation.Count > 0 Then
+
+
+            For Each row In data_listlocation
+
+                objResult &= "{"
+
+                objResult &= " ""DeptoVal"": """
+                DeptoVal = row.CITY.iddepto
+
+                objResult &= DeptoVal
+
+                objResult &= " "", ""DeptoName"": """
+                DeptoName = row.DEPTO.name
+
+                objResult &= DeptoName
+
+                objResult &= " "", ""CityVal"": """
+                CityVal = row.DEPTO.idcountry
+
+                objResult &= CityVal
+
+                objResult &= " "", ""CityName"": """
+                CityName = row.CITY.name
+
+                objResult &= CityName
+
+                objResult &= """}"
+
+
+            Next
+
+
+        End If
+        Response.Write(objResult)
 
 
     End Function
