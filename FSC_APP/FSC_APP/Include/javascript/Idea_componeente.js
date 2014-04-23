@@ -95,22 +95,31 @@ function Cprogram() {
             type: "GET",
             data: { "action": "C_program", "idlinestrategic": $(this).val() },
             success: function(result) {
-            
-            var textoLista = $("#componentesseleccionados").html();
-                
+
+                var textoLista = $("#componentesseleccionados").html();
+
                 if (textoLista == "") {
                     $("#ddlPrograms").html(result);
                     $("#ddlPrograms").trigger("liszt:updated");
                 }
                 else {
-                    alert("Usted acaba de cambiar de linea estratégica la información diligenciada se perdera!");
 
-                    $("#componentesseleccionados").html("");
-                    $("#seleccionarcomponente").html("");
-                    arraycomponente = [];
+                    confirmar = confirm("Usted acaba de cambiar de linea estratégica la información diligenciada se perdera! desea cambiarla?", "SI", "NO");
+                    if (confirmar) {
 
-                    $("#ddlPrograms").html(result);
-                    $("#ddlPrograms").trigger("liszt:updated");
+                        $("#componentesseleccionados").html("");
+                        $("#seleccionarcomponente").html("");
+                        arraycomponente = [];
+                        $("#ddlPrograms").html(result);
+                        $("#ddlPrograms").trigger("liszt:updated");
+
+                    }
+                    else {
+                        $("#ddlPrograms").html(result);
+                        $("#ddlPrograms").trigger("liszt:updated");
+
+                     }
+
 
                 }
             },

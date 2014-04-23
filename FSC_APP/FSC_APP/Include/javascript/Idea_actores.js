@@ -53,6 +53,10 @@ function BtnaddActors_onclick() {
             var cedula = $("#ctl00_cphPrincipal_Txtcedulacont").val();
             var telefono = $("#ctl00_cphPrincipal_Txttelcont").val();
             var email = $("#ctl00_cphPrincipal_Txtemail").val();
+
+            var totalconsulta = suma_verificar($("#ctl00_cphPrincipal_Txtvrdiner").val(), $("#ctl00_cphPrincipal_Txtvresp").val());
+           
+
             if ($("#ctl00_cphPrincipal_Txtvrdiner").val() == "") {
                 var diner = 0;
             }
@@ -68,7 +72,7 @@ function BtnaddActors_onclick() {
             }
 
             if ($("#ctl00_cphPrincipal_Txtaportfscocomp").val() == "") {
-                var total = 0;
+                var total = totalconsulta;
             }
             else {
                 var total = $("#ctl00_cphPrincipal_Txtaportfscocomp").val();
@@ -76,7 +80,7 @@ function BtnaddActors_onclick() {
 
             var flujo_in = $("#ctl00_cphPrincipal_RBListflujo :checked").val();
 
-           
+
             if (flujo_in == 1) {
                 var estado_flujo = "s";
             }
@@ -223,7 +227,28 @@ function View_actores() {
     });
 }
 
+function View_actores_array() {
+    $.ajax({
+        url: "AjaxAddIdea.aspx",
+        type: "GET",
+        data: { "action": "View_actores_array", "ididea": ideditar },
+        success: function(result) {
 
+        array_actores_ed = result.split("|");
+
+        for (itemArray in array_actores_ed) {
+
+            var recibeact = JSON.parse(array_actores_ed[itemArray]);
+            arrayActor.push(recibeact);
+        }
+
+           
+        },
+        error: function(msg) {
+            alert("No se pueden cargar los actores en general de la idea = " + ideditar);
+        }
+    });
+}
 
 //borrar de la grilla html de actores
 function deleteActor(str) {
@@ -452,41 +477,44 @@ function sumar_grid_actores() {
 }
 
 
-function actors_transanccion() {
+//funcion que sumas cuando agregan un actor desde el boton
+function suma_verificar(strdiner, strespecies) {
+   
+    var suma = 0;
 
-    //suma de campos de actores en el formulario de idea dinero + especies
-    //2-08-2013 GERMAN RODRIGUEZ
+    // alert(strdiner + " _ " + strespecies);
+    var rev = strdiner;
+    rev = rev.replace(/\./gi, '');
+    var vd = parseInt(rev);
 
-    $("#ctl00_cphPrincipal_btnAddThird").click(function() {
+    var rev2 = strespecies;
+    rev2 = rev2.replace(/\./gi, '');
+    var ve = parseInt(rev2);
 
-        var rev = $("#ctl00_cphPrincipal_Txtvrdiner").val();
-        rev = rev.replace(/\./gi, '');
-        var vd = parseInt(rev);
-
-        var rev2 = $("#ctl00_cphPrincipal_Txtvresp").val();
-        rev2 = rev2.replace(/\./gi, '');
-        var ve = parseInt(rev2);
-
-        if (isNaN(vd)) {
-            vd = 0;
-            $("#ctl00_cphPrincipal_Txtvrdiner").val(vd);
+    if (isNaN(vd)) {
+        vd = 0;
+        $("#ctl00_cphPrincipal_Txtvrdiner").val(vd);
+    }
+    else {
+        if (isNaN(ve)) {
+            ve = 0;
+            $("#ctl00_cphPrincipal_Txtvresp").val(ve);
         }
         else {
-            if (isNaN(ve)) {
-                ve = 0;
-                $("#ctl00_cphPrincipal_Txtvresp").val(ve);
-            }
-            else {
-                var suma = 0;
-                suma = vd + ve;
-                addCommas(suma);
-            }
-        }
-        suma = vd + ve;
-        addCommas(suma);
-    });
 
-    //suma de campos de actores en el formulario de idea dinero + especies
+            suma = vd + ve;
+            addCommas(suma);
+        }
+    }
+    suma = vd + ve;
+    addCommas(suma);
+
+    return suma;
+}
+
+function actors_transanccion() {
+
+     //suma de campos de actores en el formulario de idea dinero + especies
     //31-05-2013 GERMAN RODRIGUEZ
     $("#ctl00_cphPrincipal_Txtvrdiner").blur(function() {
         var rev = $(this).val();
@@ -586,39 +614,39 @@ function comboactor() {
 //cambio de discriminacion de aportes por FSC Y Actor
 //07-01-2014 GERMAN RODRIGUEZ MGgroup
 
-function separarvaloresFSC() {
-    $("#ctl00_cphPrincipal_btnAddThird").click(function() {
+//function separarvaloresFSC() {
+//    $("#ctl00_cphPrincipal_btnAddThird").click(function() {
 
-        //caturamos valor de aporte efectivo
-        var VMFSC = $("#ctl00_cphPrincipal_Txtvrdiner").val();
-        VMFSC = VMFSC.replace(/\./gi, '');
-        var VMFSCO = parseInt(VMFSC);
+//        //caturamos valor de aporte efectivo
+//        var VMFSC = $("#ctl00_cphPrincipal_Txtvrdiner").val();
+//        VMFSC = VMFSC.replace(/\./gi, '');
+//        var VMFSCO = parseInt(VMFSC);
 
-        //capturamos valor en especie
-        var VEFSC = $("#ctl00_cphPrincipal_Txtvresp").val();
-        VEFSC = VEFSC.replace(/\./gi, '');
-        var VEFSCO = parseInt(VEFSC);
+//        //capturamos valor en especie
+//        var VEFSC = $("#ctl00_cphPrincipal_Txtvresp").val();
+//        VEFSC = VEFSC.replace(/\./gi, '');
+//        var VEFSCO = parseInt(VEFSC);
 
-        //validamos si esta el valor o no tiene
-        if (isNaN(VMFSCO)) {
-            VMFSCO = 0;
-            $("#ctl00_cphPrincipal_ValueMoneyFSC").val(VMFSCO);
-        }
-        else {
-            //validamos si esta el valor o no tiene
-            if (isNaN(VEFSCO)) {
-                VEFSCO = 0;
-                $("#ctl00_cphPrincipal_ValueEspeciesFSC").val(VEFSCO);
-            }
-            else {
-                //mostramos los valores capturados en el grid
-                $("#ctl00_cphPrincipal_ValueMoneyFSC").val(VMFSCO);
-                $("#ctl00_cphPrincipal_ValueEspeciesFSC").val(VEFSCO);
-                var suma = 0;
-                //realizamos la operacion
-                suma = VMFSCO + VEFSCO;
-                addCommas2(suma);
-            }
-        }
-    });
-}
+//        //validamos si esta el valor o no tiene
+//        if (isNaN(VMFSCO)) {
+//            VMFSCO = 0;
+//            $("#ctl00_cphPrincipal_ValueMoneyFSC").val(VMFSCO);
+//        }
+//        else {
+//            //validamos si esta el valor o no tiene
+//            if (isNaN(VEFSCO)) {
+//                VEFSCO = 0;
+//                $("#ctl00_cphPrincipal_ValueEspeciesFSC").val(VEFSCO);
+//            }
+//            else {
+//                //mostramos los valores capturados en el grid
+//                $("#ctl00_cphPrincipal_ValueMoneyFSC").val(VMFSCO);
+//                $("#ctl00_cphPrincipal_ValueEspeciesFSC").val(VEFSCO);
+//                var suma = 0;
+//                //realizamos la operacion
+//                suma = VMFSCO + VEFSCO;
+//                addCommas2(suma);
+//            }
+//        }
+//    });
+//}

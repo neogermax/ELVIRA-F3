@@ -6,7 +6,11 @@
 //Funcion perteneciente a el evento onload del elemento body
 
 var arrayUbicacion = [];
+var array_ubicacion_ed = [];
+
 var arrayActor = [];
+var array_actores_ed = [];
+
 var arrayActorFlujo = [];
 var arraycomponenteing = [];
 var arraycomponente = [];
@@ -57,7 +61,7 @@ $(document).ready(function() {
         var timer = setTimeout("fix();", 2000);
         validafecha();
         validafecha2();
-        separarvaloresFSC();
+        //separarvaloresFSC();
 
         Cdeptos();
         Cmunip();
@@ -68,20 +72,26 @@ $(document).ready(function() {
         Cpopulation();
         validarporcentaje();
         ClineEstrategic();
-
-
+        Cprogram();
+        cargarcomponente();
+        
+        edit_component_view();
+        
         view_ubicacion();
         view_ubicacion_array();
+        
         View_actores();
+        View_actores_array();
+        
         View_matriz_principal();
         View_flujos_p();
         View_flujos_actors();
         aprobacion_idea();
 
-        var timer_cline_edit = setTimeout("ClineEstrategic_edit();", 2000);
+      //  var timer_cline_edit = setTimeout("ClineEstrategic_edit();", 2000);
 
         // View_anexos();
-        //Cprogram();
+      
 
         $("#SaveIdea").css("display", "none");
         $("#Export").css("display", "block");
@@ -96,7 +106,7 @@ $(document).ready(function() {
         var timer = setTimeout("fix();", 2000);
         validafecha();
         validafecha2();
-        separarvaloresFSC();
+        //separarvaloresFSC();
 
         ClineEstrategic();
         Cprogram();

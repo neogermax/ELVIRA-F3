@@ -361,28 +361,21 @@ function Export_onclick() {
         listactores.push(JSON.stringify(arrayActor[item]));
     }
 
-
-    var str_url = "addIdea.aspx?op=export";
-
-    //json de url
-    var url_export = {
-
-        "linea_estrategica": $("#ddlStrategicLines option:selected").text(),
-        "programa": $("#ddlPrograms option:selected").text(),
-        "Población": $("#ddlPupulation option:selected").text(),
-        "contratacion": $("#ddlmodcontract option:selected").text(),
-        "listubicaciones": listubicaciones.toString(),
-        "listactores": listactores.toString()
+    //capturamos la url
+    var sPageURL = window.location.search.substring(1);
+    var sURLVariables = sPageURL.split('&');
+    //validamos si creamos la idea o editamos
+    if (sURLVariables[0] == "op=edit") {
+        ideditar = sURLVariables[1];
+       // alert(ideditar);
+        var str_url = "addIdea.aspx?op=export&" + ideditar;
+       // alert(str_url);
     }
+    else {
+        var str_url = "addIdea.aspx?op=export";
 
-    str_url += "&linea_estrategica=" + url_export['linea_estrategica'];
-    str_url += "&programa=" + url_export['programa'];
-    str_url += "&Población=" + url_export['Población'];
-    str_url += "&contratacion=" + url_export['contratacion'];
-    str_url += "&listubicaciones=" + url_export['listubicaciones'];
-    str_url += "&listactores=" + url_export['listactores'];
-
-
+    }
+    
     //  $("#linkExport").attr({ href: str_url });
     $("#Export").attr("href", str_url);
 }

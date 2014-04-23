@@ -184,6 +184,12 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                     ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
                     searh_actores(ideditar)
 
+                Case "View_actores_array"
+                    ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
+                    searh_actores_array(ideditar)
+
+
+
                 Case "View_matriz_principal"
 
                     ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
@@ -525,7 +531,105 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
     End Function
 
+    Public Function searh_actores_array(ByVal ididea As Integer)
+
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+
+        Dim thirdbyidea As New ThirdByIdeaDALC
+        Dim objactores As ThirdByIdeaEntity
+        Dim data_listactores As List(Of ThirdByIdeaEntity)
+        Dim actorsVal, actorsName, tipoactors, contact, cedula, telefono, email, diner, especie, total, estado_flujo As String
+
+        Dim htmlactores As String
+
+        data_listactores = thirdbyidea.getList(applicationCredentials, , ididea, , , , , , )
+
+        Dim valuar_actor As Integer = 1
+        Dim objResult As String
+
+
+        If data_listactores.Count > 0 Then
+
+            For Each row In data_listactores
+
+                objResult &= "{"
+
+                objResult &= " ""actorsVal"": """
+                actorsVal = row.idthird
+
+                objResult &= actorsVal
+
+                objResult &= " "", ""actorsName"": """
+                actorsName = row.Name
+
+                objResult &= actorsName
+
+                objResult &= " "", ""tipoactors"": """
+                tipoactors = row.type
+
+                objResult &= tipoactors
+
+                objResult &= " "", ""contact"": """
+                contact = row.contact
+
+                objResult &= contact
+
+                objResult &= " "", ""cedula"": """
+                cedula = row.Documents
+
+                objResult &= cedula
+
+                objResult &= " "", ""telefono"": """
+                telefono = row.Phone
+
+                objResult &= telefono
+
+                objResult &= " "", ""email"": """
+                email = row.Email
+
+                objResult &= email
+
+                objResult &= " "", ""diner"": """
+                diner = row.Vrmoney
+
+                objResult &= diner
+
+                objResult &= " "", ""especie"": """
+                especie = row.VrSpecies
+
+                objResult &= especie
+
+                objResult &= " "", ""total"": """
+                total = row.FSCorCounterpartContribution
+
+                objResult &= total
+
+                objResult &= " "", ""estado_flujo"": """
+                estado_flujo = row.EstadoFlujos
+
+                objResult &= estado_flujo
+
+                If valuar_actor = data_listactores.Count Then
+
+                    objResult &= """}"
+
+                Else
+                    objResult &= """}|"
+
+                End If
+
+                valuar_actor = valuar_actor + 1
+            Next
+
+        End If
+
+        Response.Write(objResult)
+
+    End Function
+
+
     Public Function searh_actores(ByVal ididea As Integer)
+
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
 
         Dim thirdbyidea As New ThirdByIdeaDALC
@@ -586,6 +690,8 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
         data_listlocation = LocationByIdea.getList(applicationCredentials, , ididea, , , )
 
+        Dim valuar_ubi As Integer = 1
+
         If data_listlocation.Count > 0 Then
 
 
@@ -594,7 +700,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                 objResult &= "{"
 
                 objResult &= " ""DeptoVal"": """
-                DeptoVal = row.CITY.iddepto
+                DeptoVal = row.CITY.id
 
                 objResult &= DeptoVal
 
@@ -604,7 +710,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                 objResult &= DeptoName
 
                 objResult &= " "", ""CityVal"": """
-                CityVal = row.DEPTO.idcountry
+                CityVal = row.DEPTO.id
 
                 objResult &= CityVal
 
@@ -613,9 +719,16 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
                 objResult &= CityName
 
-                objResult &= """}"
+                If valuar_ubi = data_listlocation.Count Then
 
+                    objResult &= """}"
 
+                Else
+                    objResult &= """}|"
+
+                End If
+
+                valuar_ubi = valuar_ubi + 1
             Next
 
 

@@ -196,7 +196,7 @@ Public Class ThirdByIdeaDALC
             ' construir la sentencia
             'TODO: 19 modificacion de query por actualizacion de actores
             'AUTOR:German Rodriguez 05/07/2013 MGgroup
-            sql.Append(" SELECT ThirdByIdea.Id,ThirdByIdea.IdIdea,ThirdByIdea.IdThird, ThirdByIdea.Type,ThirdByIdea.VrSpecies,ThirdByIdea.Vrmoney,ThirdByIdea.FSCorCounterpartContribution,Third.Id,Third.Code,ThirdByIdea.Name,ThirdByIdea.contact,ThirdByIdea.documents,ThirdByIdea.phone,ThirdByIdea.email,third.Enabled,Third.IdUser,third.CreateDate FROM ThirdByIdea  ")
+            sql.Append(" SELECT ThirdByIdea.Id,ThirdByIdea.IdIdea,ThirdByIdea.IdThird, ThirdByIdea.Type,ThirdByIdea.VrSpecies,ThirdByIdea.Vrmoney,ThirdByIdea.FSCorCounterpartContribution,Third.Id,Third.Code,ThirdByIdea.Name,ThirdByIdea.contact,ThirdByIdea.documents,ThirdByIdea.phone,ThirdByIdea.email,third.Enabled,Third.IdUser,third.CreateDate,ThirdByIdea.generatesflow FROM ThirdByIdea  ")
             sql.Append(" INNER JOIN Third ON ThirdByIdea.idthird = Third.Id ")
 
             'TODO: 19 modificacion de query por actualizacion de actores
@@ -286,7 +286,7 @@ Public Class ThirdByIdeaDALC
                 objThirdByIdea.Vrmoney = IIf(Not IsDBNull(row("Vrmoney")), row("Vrmoney"), 0)
                 objThirdByIdea.VrSpecies = IIf(Not IsDBNull(row("VrSpecies")), row("VrSpecies"), 0)
                 objThirdByIdea.FSCorCounterpartContribution = IIf(Not IsDBNull(row("FSCorCounterpartContribution")), row("FSCorCounterpartContribution"), 0)
-
+                objThirdByIdea.EstadoFlujos = IIf(Not IsDBNull(row("generatesflow")), row("generatesflow"), "")
                 ' agregar a la lista
                 ThirdByIdeaList.Add(objThirdByIdea)
 

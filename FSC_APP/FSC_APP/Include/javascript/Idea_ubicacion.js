@@ -140,6 +140,7 @@ function view_ubicacion() {
     });
 }
 
+
 //funcion para cargar  array ubicaciones en ediccion
 function view_ubicacion_array() {
     $.ajax({
@@ -148,9 +149,15 @@ function view_ubicacion_array() {
         data: { "action": "View_ubicacion_array", "ididea": ideditar },
         success: function(result) {
 
-        var recibeubi = JSON.parse(result);
-        arrayUbicacion.push(recibeubi);
-        
+            array_ubicacion_ed = result.split("|");
+
+            for (itemArray in array_ubicacion_ed) {
+
+                var recibeubi = JSON.parse(array_ubicacion_ed[itemArray]);
+                arrayUbicacion.push(recibeubi);
+            }
+
+
         },
         error: function(msg) {
             alert("No se pueden cargar las ubicaciones seleccionadas de la idea = " + ideditar);
