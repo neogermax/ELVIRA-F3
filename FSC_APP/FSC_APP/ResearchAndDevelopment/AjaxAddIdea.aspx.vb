@@ -188,8 +188,6 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                     ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
                     searh_actores_array(ideditar)
 
-
-
                 Case "View_matriz_principal"
 
                     ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
@@ -200,10 +198,21 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                     ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
                     searh_flujos(ideditar)
 
+                Case "View_flujos_p_array"
+
+                    ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
+                    searh_flujos_array(ideditar)
+
                 Case "View_flujos_actors"
 
                     ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
                     searh_actors_flujos(ideditar)
+
+                Case "View_flujos_actors_array"
+
+                    ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
+                    searh_actors_flujos_array(ideditar)
+
 
                 Case "View_line_strategic"
 
@@ -410,6 +419,111 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
     End Function
 
+    Public Function searh_actors_flujos_array(ByVal ididea As Integer)
+
+        Dim sql As New StringBuilder
+        Dim objSqlCommand As New SqlCommand
+        Dim data_actors_flujos As DataTable
+
+        Dim thirdbyidea As New ThirdByIdeaDALC
+        Dim data_listactores As List(Of ThirdByIdeaEntity)
+
+        Dim actorsVal, actorsName, tipoactors, contact, cedula, telefono, email, diner, especie, total, estado_flujo As String
+
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+
+
+        data_listactores = thirdbyidea.getList(applicationCredentials, , ididea, , , , , , )
+
+        Dim valuar_actor As Integer = 1
+        Dim objResult As String = ""
+
+        If data_listactores.Count > 0 Then
+
+            For Each row In data_listactores
+
+                estado_flujo = row.EstadoFlujos
+
+
+                If estado_flujo = "  s  " Then
+
+                    objResult &= "{"
+
+                    objResult &= """actorsVal"": """
+                    actorsVal = row.idthird
+
+                    objResult &= actorsVal
+
+                    objResult &= """, ""actorsName"": """
+                    actorsName = row.Name
+
+                    objResult &= actorsName
+
+                    objResult &= """, ""tipoactors"": """
+                    tipoactors = row.type
+
+                    objResult &= tipoactors
+
+                    objResult &= """, ""contact"": """
+                    contact = row.contact
+
+                    objResult &= contact
+
+                    objResult &= """, ""cedula"": """
+                    cedula = row.Documents
+
+                    objResult &= cedula
+
+                    objResult &= """, ""telefono"": """
+                    telefono = row.Phone
+
+                    objResult &= telefono
+
+                    objResult &= """, ""email"": """
+                    email = row.Email
+
+                    objResult &= email
+
+                    objResult &= """, ""diner"": """
+                    diner = row.Vrmoney
+
+                    objResult &= diner
+
+                    objResult &= """, ""especie"": """
+                    especie = row.VrSpecies
+
+                    objResult &= especie
+
+                    objResult &= """, ""total"": """
+                    total = row.FSCorCounterpartContribution
+
+                    objResult &= total
+
+                    objResult &= """, ""estado_flujo"": """
+
+                    objResult &= estado_flujo
+
+                    If valuar_actor = data_listactores.Count Then
+
+                        objResult &= """}"
+
+                    Else
+                        objResult &= """}|"
+
+                    End If
+
+                    valuar_actor = valuar_actor + 1
+
+
+                End If
+            Next
+        End If
+
+        Response.Write(objResult)
+
+    End Function
+
+
     Public Function searh_actors_flujos(ByVal ididea As Integer)
 
         Dim sql As New StringBuilder
@@ -446,6 +560,71 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
     End Function
 
+    Public Function searh_flujos_array(ByVal ididea As Integer)
+
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+
+        Dim flujopagos As New PaymentFlowDALC()
+        Dim objflujos As PaymentFlowEntity
+        Dim data_listpagos As New List(Of PaymentFlowEntity)
+
+        Dim N_pago, fecha_pago, porcentaje, entrega, tflujos As String
+
+        Dim valuar_flujo As Integer = 1
+        Dim objResult As String
+
+        data_listpagos = flujopagos.getFlowPayment("i", ididea, applicationCredentials)
+
+        If data_listpagos.Count > 0 Then
+
+            For Each row In data_listpagos
+
+                objResult &= "{"
+
+                objResult &= """N_pago"": """
+                N_pago = row.N_pagos
+
+                N_pago = Replace(N_pago, " ", "")
+                objResult &= N_pago
+
+                objResult &= """, ""fecha_pago"": """
+                fecha_pago = row.fecha
+
+                objResult &= fecha_pago
+
+                objResult &= """, ""porcentaje"": """
+                porcentaje = row.porcentaje
+
+                objResult &= porcentaje
+
+                objResult &= """, ""entrega"": """
+                entrega = row.entregable
+
+                objResult &= entrega
+
+                objResult &= """, ""tflujos"": """
+                tflujos = row.valorparcial
+
+                objResult &= tflujos
+
+                If valuar_flujo = data_listpagos.Count Then
+
+                    objResult &= """}"
+
+                Else
+                    objResult &= """}|"
+
+                End If
+
+                valuar_flujo = valuar_flujo + 1
+                
+            Next
+        End If
+
+        Response.Write(objResult)
+    End Function
+
+
     Public Function searh_flujos(ByVal ididea As Integer)
 
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
@@ -467,6 +646,8 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
             For Each row In data_listpagos
 
                 npagos = row.N_pagos
+                npagos = Replace(npagos, " ", "")
+
                 vpar = row.valorparcial
                 entregable = row.entregable
                 porcent = row.porcentaje
@@ -554,57 +735,57 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
                 objResult &= "{"
 
-                objResult &= " ""actorsVal"": """
+                objResult &= """actorsVal"": """
                 actorsVal = row.idthird
 
                 objResult &= actorsVal
 
-                objResult &= " "", ""actorsName"": """
+                objResult &= """, ""actorsName"": """
                 actorsName = row.Name
 
                 objResult &= actorsName
 
-                objResult &= " "", ""tipoactors"": """
+                objResult &= """, ""tipoactors"": """
                 tipoactors = row.type
 
                 objResult &= tipoactors
 
-                objResult &= " "", ""contact"": """
+                objResult &= """, ""contact"": """
                 contact = row.contact
 
                 objResult &= contact
 
-                objResult &= " "", ""cedula"": """
+                objResult &= """, ""cedula"": """
                 cedula = row.Documents
 
                 objResult &= cedula
 
-                objResult &= " "", ""telefono"": """
+                objResult &= """, ""telefono"": """
                 telefono = row.Phone
 
                 objResult &= telefono
 
-                objResult &= " "", ""email"": """
+                objResult &= """, ""email"": """
                 email = row.Email
 
                 objResult &= email
 
-                objResult &= " "", ""diner"": """
+                objResult &= """, ""diner"": """
                 diner = row.Vrmoney
 
                 objResult &= diner
 
-                objResult &= " "", ""especie"": """
+                objResult &= """, ""especie"": """
                 especie = row.VrSpecies
 
                 objResult &= especie
 
-                objResult &= " "", ""total"": """
+                objResult &= """, ""total"": """
                 total = row.FSCorCounterpartContribution
 
                 objResult &= total
 
-                objResult &= " "", ""estado_flujo"": """
+                objResult &= """, ""estado_flujo"": """
                 estado_flujo = row.EstadoFlujos
 
                 objResult &= estado_flujo
@@ -699,22 +880,22 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
                 objResult &= "{"
 
-                objResult &= " ""DeptoVal"": """
+                objResult &= """DeptoVal"": """
                 DeptoVal = row.CITY.id
 
                 objResult &= DeptoVal
 
-                objResult &= " "", ""DeptoName"": """
+                objResult &= """, ""DeptoName"": """
                 DeptoName = row.DEPTO.name
 
                 objResult &= DeptoName
 
-                objResult &= " "", ""CityVal"": """
+                objResult &= """, ""CityVal"": """
                 CityVal = row.DEPTO.id
 
                 objResult &= CityVal
 
-                objResult &= " "", ""CityName"": """
+                objResult &= """, ""CityName"": """
                 CityName = row.CITY.name
 
                 objResult &= CityName

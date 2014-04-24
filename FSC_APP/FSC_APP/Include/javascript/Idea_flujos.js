@@ -228,6 +228,30 @@ function View_flujos_p() {
 
 }
 
+function View_flujos_p_array() {
+
+    $.ajax({
+        url: "AjaxAddIdea.aspx",
+        type: "GET",
+        data: { "action": "View_flujos_p_array", "ididea": ideditar },
+        success: function(result) {
+
+            arrayflujosdepago_ed = result.split("|");
+
+            for (itemArray in arrayflujosdepago_ed) {
+
+                var recibeact = JSON.parse(arrayflujosdepago_ed[itemArray]);
+                arrayflujosdepago.push(recibeact);
+            }
+
+        },
+        error: function(msg) {
+            alert("No se pueden cargar los flujos de pago de la idea = " + ideditar);
+        }
+    });
+
+}
+
 function View_flujos_actors() {
     $.ajax({
         url: "AjaxAddIdea.aspx",
@@ -255,6 +279,35 @@ function View_flujos_actors() {
     });
 
 }
+
+
+
+
+function View_flujos_actors_array() {
+    $.ajax({
+        url: "AjaxAddIdea.aspx",
+        type: "GET",
+        data: { "action": "View_flujos_actors_array", "ididea": ideditar },
+        success: function(result) {
+
+            arrayactorflujo_ed = result.split("|");
+
+            for (itemArray in arrayactorflujo_ed) {
+
+                var recibeact = JSON.parse(arrayactorflujo_ed[itemArray]);
+                arrayActorFlujo.push(recibeact);
+            }
+
+
+        },
+        error: function(msg) {
+            alert("No se pueden cargar los actores de flujos de pago de la idea = " + ideditar);
+        }
+    });
+
+}
+
+
 
 
 function sumarvaloresflujosprincipal() {

@@ -12,12 +12,17 @@ var arrayActor = [];
 var array_actores_ed = [];
 
 var arrayActorFlujo = [];
+var arrayactorflujo_ed = [];
+
 var arraycomponenteing = [];
 var arraycomponente = [];
 var arraycomponentedesechado = [];
 var arrayValorflujoTotal = [];
 var arrayinputflujos = [];
+
 var arrayflujosdepago = [];
+var arrayflujosdepago_ed = [];
+
 var matriz_flujos = [];
 var reversedesembolsos = [];
 var arrayFiles = [];
@@ -74,24 +79,29 @@ $(document).ready(function() {
         ClineEstrategic();
         Cprogram();
         cargarcomponente();
-        
+
         edit_component_view();
-        
+
         view_ubicacion();
         view_ubicacion_array();
-        
+
         View_actores();
         View_actores_array();
-        
+
         View_matriz_principal();
+
         View_flujos_p();
+        View_flujos_p_array();
+
         View_flujos_actors();
+        View_flujos_actors_array();
+
         aprobacion_idea();
 
-      //  var timer_cline_edit = setTimeout("ClineEstrategic_edit();", 2000);
+        //  var timer_cline_edit = setTimeout("ClineEstrategic_edit();", 2000);
 
         // View_anexos();
-      
+
 
         $("#SaveIdea").css("display", "none");
         $("#Export").css("display", "block");
@@ -119,7 +129,7 @@ $(document).ready(function() {
         Ctype_project();
         Cpopulation();
         validarporcentaje();
-        
+
 
         $("#SaveIdea").css("display", "block");
         $("#Export").css("display", "none");
