@@ -24,6 +24,9 @@ var arrayflujosdepago = [];
 var arrayflujosdepago_ed = [];
 
 var matriz_flujos = [];
+var matriz_flujos_ed = [];
+
+
 var reversedesembolsos = [];
 var arrayFiles = [];
 
@@ -40,7 +43,7 @@ var entradaflujos = 0;
 
 var idfile;
 var S_eliminar;
-
+var valor_iva;
 var ideditar;
 var edit_line_strategic;
 var edit_program;
@@ -57,7 +60,6 @@ $(document).ready(function() {
     //validamos si creamos la idea o editamos
     if (sURLVariables[0] == "op=edit") {
         ideditar = sURLVariables[1].replace("id=", "");
-        //        alert(ideditar);
 
         operacionesIdea();
         actors_transanccion();
@@ -66,7 +68,6 @@ $(document).ready(function() {
         var timer = setTimeout("fix();", 2000);
         validafecha();
         validafecha2();
-        //separarvaloresFSC();
 
         Cdeptos();
         Cmunip();
@@ -96,12 +97,17 @@ $(document).ready(function() {
         View_flujos_actors();
         View_flujos_actors_array();
 
+        View_detalle_flujo_array();
+
         aprobacion_idea();
 
-        //  var timer_cline_edit = setTimeout("ClineEstrategic_edit();", 2000);
+       // View_anexos();
+        
+        // var timer_cline_edit = setTimeout("ClineEstrategic_edit();", 2000);
 
-        // View_anexos();
-
+        var timer_cline_edit = setTimeout("Cpopulation_view();", 2000);
+        var timer_cline_edit = setTimeout("Ctypcontract_view();", 2000);
+       // var itemarrayflujos = 0;
 
         $("#SaveIdea").css("display", "none");
         $("#Export").css("display", "block");
@@ -116,7 +122,6 @@ $(document).ready(function() {
         var timer = setTimeout("fix();", 2000);
         validafecha();
         validafecha2();
-        //separarvaloresFSC();
 
         ClineEstrategic();
         Cprogram();
@@ -189,8 +194,6 @@ $(document).ready(function() {
     $("#Btncharge_file").button();
     $("#fileupload").button();
 
-
-
     //generar el la ventana emergente
     $("#dialog").dialog({
         modal: true,
@@ -199,8 +202,6 @@ $(document).ready(function() {
         autoOpen: false
     });
 
-
-
     //validar el option buton del iva
     $("#ctl00_cphPrincipal_RBnList_iva").click(function() {
 
@@ -208,9 +209,11 @@ $(document).ready(function() {
 
         if (option_iva == 1) {
             $("#ctl00_cphPrincipal_vrdiner").text("Vr Dinero  (Recuerde incluir los valores con IVA)");
+            valor_iva = 1;
         }
         else {
             $("#ctl00_cphPrincipal_vrdiner").text("Vr Dinero");
+            valor_iva = 0;
         }
 
     });
@@ -225,6 +228,7 @@ $(document).ready(function() {
         var idtabs = $("#tabsIdea ul>li a").eq(active).attr('href');
         //validar si esl la de flujos de pago
         if (idtabs == "#flujos") {
+        //    alert(idtabs);
             //validar si es la primera entrada       
             if (entradaflujos == 0) {
                 var tamaño_flujos = $("#T_Actorsflujos tr").length - 2;
@@ -232,6 +236,7 @@ $(document).ready(function() {
                 //validar la cantidad de actores
                 if (tamaño_flujos == 1) {
                     var Aflujos = arrayActorFlujo[itemarrayflujos].actorsVal;
+                 //   alert(Aflujos);
                     $("#txtinput" + Aflujos).attr("disabled", "disabled");
                     $("#desenbolso" + Aflujos).text("");
 
@@ -575,7 +580,7 @@ function SaveIdea_onclick() {
                                 "riesgo": cambio_text($("#ctl00_cphPrincipal_Txtriesgos").val()),
                                 "mitigacion": cambio_text($("#ctl00_cphPrincipal_Txtaccionmitig").val()),
                                 "presupuestal": cambio_text($("#ctl00_cphPrincipal_Txtroutepresupuestal").val()),
-                                "iva": $("#ctl00_cphPrincipal_RBnList_iva :checked").val(),
+                                "iva": valor_iva,
                                 "listcomponentes": Str_listcomponentes.toString(),
                                 "listubicaciones": listubicaciones.toString(),
                                 "listflujos": cambio_text(listflujos.toString()),
@@ -649,14 +654,14 @@ function aprobacion_idea() {
             if (result == 1) {
                 $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
                 $("#ctl00_cphPrincipal_lblsaveinformation").text("Esta Idea ya se encuentra aprobada y NO puede ser modificada!");
-                $("#EditIdea").css("display", "none");               
+                $("#EditIdea").css("display", "none");
             }
             else {
                 $("#ctl00_cphPrincipal_containerSuccess").css("display", "none");
                 $("#EditIdea").css("display", "block");
             }
-           
-            
+
+
         },
         error: function(msg) {
             alert("No se pueden cargar los documentos anexos de la idea = " + ideditar);

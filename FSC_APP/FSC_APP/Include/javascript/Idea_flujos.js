@@ -10,8 +10,8 @@ function Btn_add_flujo_onclick() {
         //inicializamos variables
         var valuecomparative = $("#ctl00_cphPrincipal_Lbltotalvalor").text();
         //quitamos el valor decimal
-        var arrseparar = valuecomparative.split('.');
-        valuecomparative = arrseparar[0].replace(/\,/gi, '');
+        //var arrseparar = valuecomparative.split('.');
+        valuecomparative = valuecomparative.replace(/\./gi, '');
 
         var sumapagos = $("#totalflujos").text();
         sumapagos = sumapagos.replace(/\./gi, '');
@@ -228,6 +228,31 @@ function View_flujos_p() {
 
 }
 
+function View_detalle_flujo_array() {
+
+    $.ajax({
+        url: "AjaxAddIdea.aspx",
+        type: "GET",
+        data: { "action": "View_detalle_flujo_array", "ididea": ideditar },
+        success: function(result) {
+
+            matriz_flujos_ed = result.split("|");
+
+            for (itemArray in matriz_flujos_ed) {
+
+                var recibeact = JSON.parse(matriz_flujos_ed[itemArray]);
+                matriz_flujos.push(recibeact);
+            }
+
+        },
+        error: function(msg) {
+            alert("No se pueden cargar los flujos de pago de la idea = " + ideditar);
+        }
+    });
+
+}
+
+
 function View_flujos_p_array() {
 
     $.ajax({
@@ -251,6 +276,7 @@ function View_flujos_p_array() {
     });
 
 }
+
 
 function View_flujos_actors() {
     $.ajax({
@@ -388,8 +414,8 @@ function editflujo(strN_pago, fecha_pago, porcentaje, entrega, tflujos) {
     porcentaje = porcentaje.replace(' %', '');
     porcentaje = porcentaje.replace(' ', '');
     $("#ctl00_cphPrincipal_txtporcentaje").val(porcentaje);
-    tflujos = tflujos.replace(/\./gi, ',');
-    $("#ctl00_cphPrincipal_Lbltotalvalor").text(tflujos + ".0");
+   // tflujos = tflujos.replace(/\./gi, ',');
+    $("#ctl00_cphPrincipal_Lbltotalvalor").text(tflujos);
     $("#ctl00_cphPrincipal_txtentregable").val(entrega);
 
     switch_editar = 1;
@@ -828,16 +854,17 @@ function validarporcentaje() {
         //realiza la operacion del porcentaje seleccionado
         var parcial = (parseFloat(porc) * parseFloat(valortotalflow)) / 100;
 
-        parcial = numeral(parcial).format('0,0');
+        //parcial = numeral(parcial).format('0,0');
+        var valcomas = addCommasrefactor(parcial);
 
-        $("#ctl00_cphPrincipal_Lbltotalvalor").text(parcial);
+
+        $("#ctl00_cphPrincipal_Lbltotalvalor").text(valcomas);
 
         if (s_revisarflujos == 1) {
 
             var idflujos = arrayActorFlujo[itemarrayflujos].actorsVal;
 
-            var arrseparar = parcial.split('.');
-            valuecomparative = arrseparar[0].replace(/\,/gi, '.');
+            valuecomparative = valcomas;
 
             $("#txtinput" + idflujos).val(valuecomparative);
             $("#totalflujos").text(valuecomparative);

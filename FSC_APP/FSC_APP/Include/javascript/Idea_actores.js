@@ -105,10 +105,7 @@ function BtnaddActors_onclick() {
             }
             else {
                 $("#ctl00_cphPrincipal_Lblactorrep").text("");
-                //ww
-
-
-
+              
                 //cargamos el array con el json
                 if (flujo_in == 1) {
                     arrayActorFlujo.push(jsonActor);
@@ -519,11 +516,11 @@ function actors_transanccion() {
     $("#ctl00_cphPrincipal_Txtvrdiner").blur(function() {
         var rev = $(this).val();
         rev = rev.replace(/\./gi, '');
-        var val = parseInt(rev);
+        var valor = parseInt(rev);
 
-        if (isNaN(val)) {
-            val = 0;
-            $("#ctl00_cphPrincipal_Txtvrdiner").val(val);
+        if (isNaN(valor)) {
+            valor = 0;
+            $("#ctl00_cphPrincipal_Txtvrdiner").val(valor);
         }
         else {
             var rev2 = $("#ctl00_cphPrincipal_Txtvresp").val();
@@ -533,7 +530,7 @@ function actors_transanccion() {
             if (isNaN(val2)) { val2 = 0; }
             else {
                 var suma = 0;
-                suma = val + val2;
+                suma = valor + val2;
                 addCommas(suma);
             }
         }
@@ -544,10 +541,10 @@ function actors_transanccion() {
     $("#ctl00_cphPrincipal_Txtvresp").blur(function() {
         var rev = $(this).val();
         rev = rev.replace(/\./gi, '');
-        var val = parseInt(rev);
-        if (isNaN(val)) {
-            val = 0;
-            $("#ctl00_cphPrincipal_Txtvresp").val(val);
+        var valor = parseInt(rev);
+        if (isNaN(valor)) {
+            valor = 0;
+            $("#ctl00_cphPrincipal_Txtvresp").val(valor);
         }
         else {
             var rev2 = $("#ctl00_cphPrincipal_Txtvrdiner").val();
@@ -556,7 +553,7 @@ function actors_transanccion() {
             if (isNaN(val2)) { val2 = 0; }
             else {
                 var suma = 0;
-                suma = val + val2;
+                suma = valor + val2;
                 addCommas(suma);
             }
         }
