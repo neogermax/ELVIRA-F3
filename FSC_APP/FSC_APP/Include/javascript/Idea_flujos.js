@@ -7,6 +7,7 @@ function Btn_add_flujo_onclick() {
     }
     else {
 
+        
         //inicializamos variables
         var valuecomparative = $("#ctl00_cphPrincipal_Lbltotalvalor").text();
         //quitamos el valor decimal
@@ -72,6 +73,7 @@ function Btn_add_flujo_onclick() {
                     $("#ctl00_cphPrincipal_Lblinformation_flujos").text("Los desembolsos no deben superar el 100%");
                 }
                 else {
+                    $("#ctl00_cphPrincipal_Lblinformationexist").text("");
                     edit_swhich_fx = 0;
                     //cargamos el array con el json
                     arrayflujosdepago.push(jsonflujo);
@@ -374,12 +376,12 @@ function sumarvaloresflujosprincipal() {
 //funcion detalles de desembolsos para el grid flujo de pagos
 function traerdetalles(str_idpago) {
 
-    var htmlTableflujosdetalles = "<table id='T_detalle_desembolso' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr><th>No pago</th><th>Id aportante</th><th>Aportante</th><th>desembolso</th></tr></thead><tbody>";
+    var htmlTableflujosdetalles = "<table id='T_detalle_desembolso' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr><th>No pago</th><th width='1' style='color: #D3D6FF; font-size: 0.1em;'></th><th>Aportante</th><th>desembolso</th></tr></thead><tbody>";
 
 
     for (itemArray in matriz_flujos) {
         if (matriz_flujos[itemArray].idpago == str_idpago) {
-            htmlTableflujosdetalles += "<tr><td>" + matriz_flujos[itemArray].idpago + "</td><td>" + matriz_flujos[itemArray].idaportante + "</td><td>" + matriz_flujos[itemArray].Aportante + "</td><td>" + matriz_flujos[itemArray].desembolso + "</td></tr>";
+            htmlTableflujosdetalles += "<tr><td>" + matriz_flujos[itemArray].idpago + "</td><td width='1' style='color: #D3D6FF; font-size: 0.1em;'>" + matriz_flujos[itemArray].idaportante + "</td><td>" + matriz_flujos[itemArray].Aportante + "</td><td>" + matriz_flujos[itemArray].desembolso + "</td></tr>";
         }
     }
 
