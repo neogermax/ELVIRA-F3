@@ -1,6 +1,4 @@
 ﻿
-
-
 //cargar combo tipos de  proyecto
 function Ctype_project() {
     $.ajax({
@@ -35,6 +33,28 @@ function Cpopulation() {
     //  });
 }
 
+
+function Cpopulation_view() {
+
+    $.ajax({
+        url: "AjaxAddIdea.aspx",
+        type: "GET",
+        data: { "action": "Cpopulation_view", "ididea": ideditar },
+        success: function(result) {
+
+            $("#ddlPupulation").val(result);
+            $("#ddlPupulation").trigger("liszt:updated");
+
+        },
+        error: function(msg) {
+            alert("No se pueden cargar la linea estrategica deseada.");
+        }
+    });
+
+}
+
+
+
 //cargar combo tipos de contratos
 function CtypeContract() {
     $.ajax({
@@ -51,6 +71,24 @@ function CtypeContract() {
     });
 }
 
+function Ctypcontract_view() {
+
+    $.ajax({
+        url: "AjaxAddIdea.aspx",
+        type: "GET",
+        data: { "action": "Ctypcontract_view", "ididea": ideditar },
+        success: function(result) {
+
+            $("#ddlmodcontract").val(result);
+            $("#ddlmodcontract").trigger("liszt:updated");
+
+        },
+        error: function(msg) {
+            alert("No se pueden cargar la linea estrategica deseada.");
+        }
+    });
+
+}
 
 
 //funcion para cargar matriz principal edicion
@@ -222,11 +260,7 @@ function startdate() {
                     $.ajax({
                         url: "AjaxAddIdea.aspx",
                         type: "GET",
-                        data: { "action": "calculafechas",
-                            "fecha": $(this).val(),
-                            "duracion": $("#ctl00_cphPrincipal_txtduration").val(),
-                            "dias": $("#ctl00_cphPrincipal_Txtday").val()
-                        },
+                        data: { "action": "calculafechas", "fecha": $(this).val(), "duracion": $("#ctl00_cphPrincipal_txtduration").val(), "dias": $("#ctl00_cphPrincipal_Txtday").val() },
                         success: function(result) {
                             $("#ctl00_cphPrincipal_Txtdatecierre").val(result);
                             $("#ctl00_cphPrincipal_HFEndDate").val(result);
@@ -243,11 +277,7 @@ function startdate() {
                     $.ajax({
                         url: "AjaxAddIdea.aspx",
                         type: "GET",
-                        data: { "action": "calculafechas",
-                            "fecha": $(this).val(),
-                            "duracion": $("#ctl00_cphPrincipal_txtduration").val(),
-                            "dias": $("#ctl00_cphPrincipal_Txtday").val()
-                        },
+                        data: { "action": "calculafechas", "fecha": $(this).val(), "duracion": $("#ctl00_cphPrincipal_txtduration").val(), "dias": $("#ctl00_cphPrincipal_Txtday").val() },
                         success: function(result) {
                             $("#ctl00_cphPrincipal_Txtdatecierre").val(result);
                             $("#ctl00_cphPrincipal_HFEndDate").val(result);
@@ -367,15 +397,15 @@ function Export_onclick() {
     //validamos si creamos la idea o editamos
     if (sURLVariables[0] == "op=edit") {
         ideditar = sURLVariables[1];
-       // alert(ideditar);
+        // alert(ideditar);
         var str_url = "addIdea.aspx?op=export&" + ideditar;
-       // alert(str_url);
+        // alert(str_url);
     }
     else {
         var str_url = "addIdea.aspx?op=export";
 
     }
-    
+
     //  $("#linkExport").attr({ href: str_url });
     $("#Export").attr("href", str_url);
 }

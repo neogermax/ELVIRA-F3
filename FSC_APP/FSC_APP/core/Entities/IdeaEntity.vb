@@ -53,7 +53,7 @@ Public Class IdeaEntity
     ' Autor: German Rodriguez MGgroup
     ' cierre de modificación
     Private _OBLIGACIONES As String
-    Private _IVA As Boolean
+    Private _IVA As Integer
     Private _riesgos As String
     Private _mitigacion As String
     Private _presupuestal As String
@@ -373,11 +373,11 @@ Public Class IdeaEntity
             Me._OBLIGACIONES = value
         End Set
     End Property
-    Public Property iva() As Boolean
+    Public Property iva() As Integer
         Get
             Return Me._IVA
         End Get
-        Set(ByVal value As Boolean)
+        Set(ByVal value As Integer)
             Me._IVA = value
         End Set
     End Property

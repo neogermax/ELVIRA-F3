@@ -191,12 +191,19 @@
        
     </script>
 
+
     <br />
     <div id="containerSuccess" runat="server" visible="true" style="width: 100%; text-align: center;
         border: 2px solid #cecece; background: #E8E8DC; height: 80px; line-height: 40px;
         vertical-align: middle;">
         <img style="margin-top: 5px;" src="/images/save_icon.png" width="24px" alt="Save" />
         <asp:Label ID="lblsaveinformation" runat="server" Style="font-size: 14pt; color: #9bbb58;"></asp:Label>
+    </div>
+    <div id="containererrors" runat="server" visible="true" style="width: 100%; text-align: center;
+        border: 2px solid #cecece; background: #E8E8DC; height: 120px; line-height: 40px;
+        vertical-align: middle;">
+        <img style="margin-top: 5px;" src="/images/save_icon.png" width="24px" alt="Save" />
+        <asp:Label ID="Lblerrors_save_idea" runat="server" Style="font-size: 14pt; color: #990000;"></asp:Label>
     </div>
     <br />
     <table style="width: 100%">
@@ -214,8 +221,8 @@
     <%--REFACTOR IDEA--%>
     <div id="tabsIdea">
         <ul>
-            <li><a href="#informacion">Descripción de la Idea</a></li>
             <li><a href="#componentes">Planeación Estratégica</a></li>
+            <li><a href="#informacion">Descripción de la Idea</a></li>
             <li><a href="#ubicacion">Ubicación</a></li>
             <li><a href="#actores">Actores</a></li>
             <li><a href="#flujos">Flujos de pago</a></li>
@@ -318,9 +325,9 @@
                     <cc1:CalendarExtender ID="cestartdate" runat="server" Enabled="true" Format="yyyy/MM/dd"
                         TargetControlID="txtstartdate">
                     </cc1:CalendarExtender>
-                    <asp:CompareValidator ID="cvstartdate" runat="server" ControlToValidate="txtstartdate"
+                   <%-- <asp:CompareValidator ID="cvstartdate" runat="server" ControlToValidate="txtstartdate"
                         ErrorMessage="yyyy/MM/dd" Operator="DataTypeCheck" SetFocusOnError="true" Type="Date"></asp:CompareValidator>
-                    <asp:Label ID="lblHelpstartdate" runat="server" ForeColor="#990000"></asp:Label>
+             --%>       <asp:Label ID="lblHelpstartdate" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
                 <li>
                     <asp:Label ID="Lbltitleduracion" runat="server" Text="Duración"></asp:Label>
@@ -329,9 +336,11 @@
                     <asp:Label ID="lblduration" runat="server" Text="Meses"></asp:Label>
                     <asp:TextBox ID="txtduration" runat="server" MaxLength="5" Width="100px" Rows="2"
                         onkeypress="ValidaSoloNumeros()" onkeychange="ValidaSoloNumeros()" onkeyup="ValidaSoloNumeros()"></asp:TextBox>
+                    <asp:Label ID="Lblhelpduraton" runat="server" ForeColor="#990000"></asp:Label>
                     <asp:Label ID="Lbldia" runat="server" Text="Días"></asp:Label>
                     <asp:TextBox ID="Txtday" runat="server" MaxLength="5" Width="100px" Rows="2" onkeypress="ValidaSoloNumeros()"
                         onkeychange="ValidaSoloNumeros()" onkeyup="ValidaSoloNumeros()"></asp:TextBox>
+                    <asp:Label ID="Lblhelpday" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
                 <li>
                     <asp:Label ID="Lbldateend" runat="server" Text="Fecha de Finalización"></asp:Label>
@@ -502,7 +511,7 @@
         <div id="componentes">
             <ul class="left">
                 <li>
-                    <asp:Label ID="Label7" runat="server" Text="Línea Estrátegica "></asp:Label>
+                    <asp:Label ID="Label7" runat="server" Text="Línea Estratégica "></asp:Label>
                     <select id="ddlStrategicLines" class="Ccombo">
                         <asp:DropDownList ID="ddlStrategicLines" runat="server">
                         </asp:DropDownList>
@@ -512,7 +521,7 @@
             </ul>
             <ul class="right">
                 <li>
-                    <asp:Label ID="Label8" runat="server" Text="Objetivo"></asp:Label>
+                    <asp:Label ID="Label8" runat="server" Text="Objetivo estratégico"></asp:Label>
                     <select id="ddlPrograms" class="Ccombo">
                         <asp:DropDownList ID="ddlPrograms" runat="server">
                         </asp:DropDownList>

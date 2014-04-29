@@ -7,11 +7,12 @@ function Btn_add_flujo_onclick() {
     }
     else {
 
+        
         //inicializamos variables
         var valuecomparative = $("#ctl00_cphPrincipal_Lbltotalvalor").text();
         //quitamos el valor decimal
-        var arrseparar = valuecomparative.split('.');
-        valuecomparative = arrseparar[0].replace(/\,/gi, '');
+        //var arrseparar = valuecomparative.split('.');
+        valuecomparative = valuecomparative.replace(/\./gi, '');
 
         var sumapagos = $("#totalflujos").text();
         sumapagos = sumapagos.replace(/\./gi, '');
@@ -72,6 +73,7 @@ function Btn_add_flujo_onclick() {
                     $("#ctl00_cphPrincipal_Lblinformation_flujos").text("Los desembolsos no deben superar el 100%");
                 }
                 else {
+                    $("#ctl00_cphPrincipal_Lblinformationexist").text("");
                     edit_swhich_fx = 0;
                     //cargamos el array con el json
                     arrayflujosdepago.push(jsonflujo);
@@ -228,6 +230,31 @@ function View_flujos_p() {
 
 }
 
+function View_detalle_flujo_array() {
+
+    $.ajax({
+        url: "AjaxAddIdea.aspx",
+        type: "GET",
+        data: { "action": "View_detalle_flujo_array", "ididea": ideditar },
+        success: function(result) {
+
+            matriz_flujos_ed = result.split("|");
+
+            for (itemArray in matriz_flujos_ed) {
+
+                var recibeact = JSON.parse(matriz_flujos_ed[itemArray]);
+                matriz_flujos.push(recibeact);
+            }
+
+        },
+        error: function(msg) {
+            alert("No se pueden cargar los flujos de pago de la idea = " + ideditar);
+        }
+    });
+
+}
+
+
 function View_flujos_p_array() {
 
     $.ajax({
@@ -251,6 +278,7 @@ function View_flujos_p_array() {
     });
 
 }
+
 
 function View_flujos_actors() {
     $.ajax({
@@ -348,12 +376,12 @@ function sumarvaloresflujosprincipal() {
 //funcion detalles de desembolsos para el grid flujo de pagos
 function traerdetalles(str_idpago) {
 
-    var htmlTableflujosdetalles = "<table id='T_detalle_desembolso' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr><th>No pago</th><th>Id aportante</th><th>Aportante</th><th>desembolso</th></tr></thead><tbody>";
+    var htmlTableflujosdetalles = "<table id='T_detalle_desembolso' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr><th>No pago</th><th width='1' style='color: #D3D6FF; font-size: 0.1em;'></th><th>Aportante</th><th>desembolso</th></tr></thead><tbody>";
 
 
     for (itemArray in matriz_flujos) {
         if (matriz_flujos[itemArray].idpago == str_idpago) {
-            htmlTableflujosdetalles += "<tr><td>" + matriz_flujos[itemArray].idpago + "</td><td>" + matriz_flujos[itemArray].idaportante + "</td><td>" + matriz_flujos[itemArray].Aportante + "</td><td>" + matriz_flujos[itemArray].desembolso + "</td></tr>";
+            htmlTableflujosdetalles += "<tr><td>" + matriz_flujos[itemArray].idpago + "</td><td width='1' style='color: #D3D6FF; font-size: 0.1em;'>" + matriz_flujos[itemArray].idaportante + "</td><td>" + matriz_flujos[itemArray].Aportante + "</td><td>" + matriz_flujos[itemArray].desembolso + "</td></tr>";
         }
     }
 
@@ -388,8 +416,8 @@ function editflujo(strN_pago, fecha_pago, porcentaje, entrega, tflujos) {
     porcentaje = porcentaje.replace(' %', '');
     porcentaje = porcentaje.replace(' ', '');
     $("#ctl00_cphPrincipal_txtporcentaje").val(porcentaje);
-    tflujos = tflujos.replace(/\./gi, ',');
-    $("#ctl00_cphPrincipal_Lbltotalvalor").text(tflujos + ".0");
+   // tflujos = tflujos.replace(/\./gi, ',');
+    $("#ctl00_cphPrincipal_Lbltotalvalor").text(tflujos);
     $("#ctl00_cphPrincipal_txtentregable").val(entrega);
 
     switch_editar = 1;
@@ -828,16 +856,17 @@ function validarporcentaje() {
         //realiza la operacion del porcentaje seleccionado
         var parcial = (parseFloat(porc) * parseFloat(valortotalflow)) / 100;
 
-        parcial = numeral(parcial).format('0,0');
+        //parcial = numeral(parcial).format('0,0');
+        var valcomas = addCommasrefactor(parcial);
 
-        $("#ctl00_cphPrincipal_Lbltotalvalor").text(parcial);
+
+        $("#ctl00_cphPrincipal_Lbltotalvalor").text(valcomas);
 
         if (s_revisarflujos == 1) {
 
             var idflujos = arrayActorFlujo[itemarrayflujos].actorsVal;
 
-            var arrseparar = parcial.split('.');
-            valuecomparative = arrseparar[0].replace(/\,/gi, '.');
+            valuecomparative = valcomas;
 
             $("#txtinput" + idflujos).val(valuecomparative);
             $("#totalflujos").text(valuecomparative);

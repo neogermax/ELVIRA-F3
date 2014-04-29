@@ -196,6 +196,7 @@ Public Class IdeaDALC
              "obligationsoftheparties," & _
              "RiskMitigation," & _
              "RisksIdentified," & _
+             "ideaappliesIVA," & _
              "BudgetRoute" & _
              ")")
 
@@ -230,6 +231,7 @@ Public Class IdeaDALC
             sql.AppendLine("'" & Idea.Obligaciones & "',")
             sql.AppendLine("'" & Idea.riesgos & "',")
             sql.AppendLine("'" & Idea.mitigacion & "',")
+            sql.AppendLine("'" & Idea.iva & "',")
             sql.AppendLine("'" & Idea.presupuestal & "')")
 
             ' TODO: 17 ideadalc add se crean nuevos campos
@@ -347,8 +349,9 @@ Public Class IdeaDALC
                 If Not (IsDBNull(data.Rows(0)("RisksIdentified"))) Then objIdea.riesgos = data.Rows(0)("RisksIdentified")
                 If Not (IsDBNull(data.Rows(0)("obligationsoftheparties"))) Then objIdea.Obligaciones = data.Rows(0)("obligationsoftheparties")
                 If Not (IsDBNull(data.Rows(0)("BudgetRoute"))) Then objIdea.presupuestal = data.Rows(0)("BudgetRoute")
-
-
+                If Not (IsDBNull(data.Rows(0)("days"))) Then objIdea.dia = data.Rows(0)("days")
+                If Not (IsDBNull(data.Rows(0)("OtherResults"))) Then objIdea.OthersResults = data.Rows(0)("OtherResults")
+                If Not (IsDBNull(data.Rows(0)("ideaappliesIVA"))) Then objIdea.iva = data.Rows(0)("ideaappliesIVA")
 
 
                 ' TODO: 23 ideadalc load  se crean nuevos campos

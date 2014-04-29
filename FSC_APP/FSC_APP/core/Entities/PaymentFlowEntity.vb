@@ -9,7 +9,7 @@ Public Class PaymentFlowEntity
     Private _id As Integer
     Private _idproject As Integer
     Private _fecha As DateTime
-    Private _porcentaje As Decimal
+    Private _porcentaje As String
     Private _entregable As String
     Private _valorparcial As Decimal
     Private _ididea As Integer
@@ -54,11 +54,11 @@ Public Class PaymentFlowEntity
     End Property
 
     
-    Public Property porcentaje() As Decimal
+    Public Property porcentaje() As String
         Get
             Return Me._porcentaje
         End Get
-        Set(ByVal value As Decimal)
+        Set(ByVal value As String)
             Me._porcentaje = value
         End Set
     End Property

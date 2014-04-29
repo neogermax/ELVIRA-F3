@@ -213,6 +213,10 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                     ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
                     searh_actors_flujos_array(ideditar)
 
+                Case "View_detalle_flujo_array"
+
+                    ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
+                    searh_detalles_array(ideditar)
 
                 Case "View_line_strategic"
 
@@ -239,6 +243,15 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                     ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
                     validar_aprobacion_idea(ideditar)
 
+                Case "Cpopulation_view"
+                    ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
+                    searh_c_population(ideditar)
+
+                Case "Ctypcontract_view"
+                    ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
+                    searh_c_typecontract(ideditar)
+
+
                 Case Else
 
             End Select
@@ -246,6 +259,56 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         End If
 
     End Sub
+
+    Public Function searh_c_typecontract(ByVal ididea As Integer)
+
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+        Dim ProgramComponentByIdea As New ProgramComponentByIdeaDALC
+
+        Dim sql As New StringBuilder
+        Dim objSqlCommand As New SqlCommand
+        Dim populationvalue As String = ""
+
+
+        sql.Append(" select i.Idtypecontract from  Idea i where i.id =" & ididea)
+
+        Dim data_c_population = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
+
+        If data_c_population = 0 Then
+            populationvalue = "0"
+        Else
+            populationvalue = data_c_population
+        End If
+
+        Response.Write(populationvalue)
+
+    End Function
+
+
+    Public Function searh_c_population(ByVal ididea As Integer)
+
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+        Dim ProgramComponentByIdea As New ProgramComponentByIdeaDALC
+
+        Dim sql As New StringBuilder
+        Dim objSqlCommand As New SqlCommand
+        Dim populationvalue As String = ""
+
+        
+        sql.Append(" select i.population from  Idea i where i.id =" & ididea)
+
+        Dim data_c_population = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
+
+        If data_c_population = 0 Then
+            populationvalue = "0"
+        Else
+            populationvalue = data_c_population
+        End If
+
+        Response.Write(populationvalue)
+
+    End Function
+
 
     Public Function validar_aprobacion_idea(ByVal ididea As Integer)
 
@@ -293,13 +356,13 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
             html_anexos = "<table id=""T_files"" border=""1"" cellpadding=""1"" cellspacing=""1"" style=""width: 100%;""><thead><tr><th style=""text-align: center;"">Archivo</th><th style=""text-align: center;"">Observaciones</th><th style=""text-align: center;"">Eliminar</th></tr></thead><tbody>"
 
             For Each row As DataRow In data_anexos.Rows
-                If row(3).ToString = "" Then
-                    id_files = row(0).ToString
+                If row(3).ToString() = "" Then
+                    id_files = row(0).ToString()
                 Else
-                    id_files = row(3).ToString
+                    id_files = row(3).ToString()
                 End If
 
-                html_anexos &= "<tr id=""archivo" & id_files & """><td><a id=""linkarchives"" runat=""server"" href=""/FSC_APP/document/temp/" & row(1).ToString & """ target= ""_blank"" title=""link"">" & row(1).ToString & "</a></td><td style=""text-align: left;"">" & row(2).ToString & "</td><td style=""text-align: center;""><input type =""button"" value= ""Eliminar"" onclick=""deletefile('" & id_files & "')""></input></td></tr>"
+                html_anexos &= "<tr id=""archivo" & id_files & """><td><a id=""linkarchives" & id_files & """ runat=""server"" href=""/FSC_APP/document/temp/" & row(1).ToString() & """ target= ""_blank"" title=""link"">" & row(1).ToString() & "</a></td><td style=""text-align: left;"">" & row(2).ToString & "</td><td style=""text-align: center;""><input type =""button"" value= ""Eliminar"" onclick=""deletefile('" & id_files & "')""></input></td></tr>"
             Next
             html_anexos &= "</tbody></table>"
         Else
@@ -354,7 +417,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         If component_value.Rows.Count > 0 Then
 
             For Each row As DataRow In component_value.Rows
-                htmlcomponente &= "<li id= 'add" + row(0).ToString + "' class='seleccione'>" + row(1).ToString() + "</li>"
+                htmlcomponente &= "<li id= 'add" + row(0).ToString() + "' class='seleccione'>" + row(1).ToString() + "</li>"
             Next
 
         End If
@@ -416,6 +479,65 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         End If
 
         Response.Write(linevalue)
+
+    End Function
+
+    Public Function searh_detalles_array(ByVal ididea As Integer)
+
+        Dim sql As New StringBuilder
+        Dim objSqlCommand As New SqlCommand
+        Dim data As DataTable
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+
+        Dim idpago, idaportante, Aportante, desembolso As String
+
+        sql.Append(" select dcf.N_pago, dcf.IdAportante, dcf.Aportante, dcf.Desembolso  from Detailedcashflows dcf where dcf.IdIdea = " & ididea)
+
+        data = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+        Dim valuar_detalle As Integer = 1
+        Dim objResult As String = ""
+
+        For Each row As DataRow In data.Rows
+
+            objResult &= "{"
+
+            objResult &= """idpago"": """
+            idpago = row(0).ToString()
+
+            objResult &= idpago
+
+            objResult &= """, ""idaportante"": """
+            idaportante = row(1).ToString()
+
+            objResult &= idaportante
+
+            objResult &= """, ""Aportante"": """
+            Aportante = row(2).ToString()
+
+            objResult &= Aportante
+
+            objResult &= """, ""desembolso"": """
+            desembolso = row(3).ToString()
+            desembolso = desembolso.Replace(" ", "")
+
+            objResult &= desembolso
+
+
+            If valuar_detalle = data.Rows.Count Then
+
+                objResult &= """}"
+
+            Else
+                objResult &= """}|"
+
+            End If
+
+            valuar_detalle = valuar_detalle + 1
+
+        Next
+
+        Response.Write(objResult)
 
     End Function
 
@@ -523,7 +645,6 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
     End Function
 
-
     Public Function searh_actors_flujos(ByVal ididea As Integer)
 
         Dim sql As New StringBuilder
@@ -544,7 +665,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
             html_actors_flujo = "<table id=""T_Actorsflujos"" border=""1"" cellpadding=""1"" cellspacing=""1"" style=""width: 100%;""><thead><tr><th width=""1""></th><th>Aportante</th><th>Valor total aporte</th><th>Valor por programar</th><th>Saldo por programar</th></tr></thead><tbody>"
 
             For Each row As DataRow In data_actors_flujos.Rows
-                html_actors_flujo &= "<tr id=""flujo" & row(0).ToString & """><td width=""1"" style=""color: #D3D6FF;font-size: 0.1em;"">" & row(0).ToString & "</td><td>" & row(1).ToString & "</td><td id= ""value" & row(0).ToString & """ >" & row(2).ToString & "</td><td><input id=""" & "txtinput" & row(0).ToString & """ onkeyup=""formatvercionsuma(this)"" onchange=""formatvercionsuma(this)""  onblur=""""""sumar_flujos(""" & row(0).ToString & """)"""" onfocus=""""""restar_flujos(""" & row(0).ToString & """)""""></input></td><td id=""desenbolso" & row(0).ToString & """>0</td></tr>"
+                html_actors_flujo &= "<tr id=""flujo" & row(0).ToString() & """><td width=""1"" style=""color: #D3D6FF;font-size: 0.1em;"">" & row(0).ToString() & "</td><td>" & row(1).ToString() & "</td><td id= ""value" & row(0).ToString() & """ >" & row(2).ToString() & "</td><td><input id=""" & "txtinput" & row(0).ToString() & """ onkeyup=""formatvercionsuma(this)"" onchange=""formatvercionsuma(this)""  onblur=""sumar_flujos('" & row(0).ToString() & "')"""" onfocus=""restar_flujos('" & row(0).ToString() & "')""""></input></td><td id=""desenbolso" & row(0).ToString() & """>0</td></tr>"
             Next
 
             html_actors_flujo &= "<tr><td width=""1"" style=""color: #D3D6FF; font-size: 0.1em;"">1000</td><td>Total</td><td id=""tflujosing""></td><td id=""totalflujos"">0</td></td id=""tflujosdesen""><td></tr></tbody></table>"
@@ -604,7 +725,8 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
                 objResult &= """, ""tflujos"": """
                 tflujos = row.valorparcial
-
+                tflujos = tflujos.Replace(" ", "")
+                tflujos = Format(Convert.ToInt64(tflujos), "#,###.##")
                 objResult &= tflujos
 
                 If valuar_flujo = data_listpagos.Count Then
@@ -617,13 +739,12 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                 End If
 
                 valuar_flujo = valuar_flujo + 1
-                
+
             Next
         End If
 
         Response.Write(objResult)
     End Function
-
 
     Public Function searh_flujos(ByVal ididea As Integer)
 
@@ -649,6 +770,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                 npagos = Replace(npagos, " ", "")
 
                 vpar = row.valorparcial
+                vpar = Format(Convert.ToInt64(vpar), "#,###.##")
                 entregable = row.entregable
                 porcent = row.porcentaje
                 fecha = row.fecha
@@ -807,7 +929,6 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         Response.Write(objResult)
 
     End Function
-
 
     Public Function searh_actores(ByVal ididea As Integer)
 
@@ -1588,7 +1709,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                     'asignamos al objeto
                     objpaymentFlow.N_pagos = N_pagoexist
                     objpaymentFlow.fecha = Convert.ToDateTime(fecha_pagoexist)
-                    objpaymentFlow.porcentaje = Convert.ToDecimal(porcentajeexist)
+                    objpaymentFlow.porcentaje = porcentajeexist
                     objpaymentFlow.entregable = entregaexist
                     objpaymentFlow.valortotal = Convert.ToDecimal(tflujosexist)
                     objpaymentFlow.valorparcial = Convert.ToDecimal(tflujosexist)
@@ -1686,7 +1807,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
             objIdea.riesgos = riesgos
             objIdea.presupuestal = presupuestal
             objIdea.dia = dia
-
+            objIdea.iva = iva
 
             ''objIdea.Loadingobservations = clean_vbCrLf(Me.txtobser.Text)
 
