@@ -1379,6 +1379,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                 idfileexist = Replace(ArrayFile(contador), " idfile :", " ", 1)
                 filenameexist = Replace(ArrayFile(contador + 1), "filename : ", "", 1)
                 Descriptionexist = Replace(ArrayFile(contador + 2), "Description : ", " ", 1)
+                Descriptionexist = Descriptionexist.Replace("¬", ",")
 
                 'asignamos al objeto
                 objDocument.title = filenameexist
