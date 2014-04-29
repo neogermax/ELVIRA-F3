@@ -30,6 +30,44 @@ function BtnaddActors_onclick() {
     var valtotalgridfsc = 0;
 
 
+    if (swhich_flujos_exist == 1) {
+        alert("Se ha detectado información el la pestaña de flujos de pagos, al eliminar el actor toda la información se perdera!");
+
+        var htmlTableflujos = "<table id='T_flujos' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr><th style='text-align: center;'>No pago</th><th style='text-align: center;'>Fecha</th><th style='text-align: center;'>Porcentaje</th><th style='text-align: center;'>Entregable</th><th style='text-align: center;'>Valor parcial</th><th style='text-align: center;'>Editar/Eliminar</th><th style='text-align: center;' >Detalle</th></tr></thead><tbody>";
+        htmlTableflujos += "<tr><td width='1' style='color: #D3D6FF; font-size: 0.1em;'>1000</td><td>Porcentaje acumulado</td><td id='porcentaje'>0 %</td><td>Total</td><td id='totalflujospagos'>0</td><td></td><td></td></tr></tbody></table>";
+
+        //cargamos el div donde se generara la tabla actores
+        $("#T_flujosContainer").html("");
+        $("#T_flujosContainer").html(htmlTableflujos);
+
+        arrayValorflujoTotal[0] = 0;
+
+        arrayflujosdepago = [];
+        arrayinputflujos = [];
+        matriz_flujos = [];
+        reversedesembolsos = [];
+
+        swhich_flujos_exist = 0;
+
+        //reconstruimos la tabla con los datos
+        $("#T_flujos").dataTable({
+            "bJQueryUI": true,
+            "bDestroy": true
+        });
+        
+        add_actor_grid();
+
+    }
+
+    else {
+        add_actor_grid();
+    }
+
+}
+
+//funtion para agreagar al grid despues de validar si hay flujos de datos
+function add_actor_grid() {
+
     if ($("#ctl00_cphPrincipal_RBListflujo :checked").val() == null) {
         $("#ctl00_cphPrincipal_Lblflujosinf").text("Escoja si o no");
     }
@@ -55,7 +93,7 @@ function BtnaddActors_onclick() {
             var email = $("#ctl00_cphPrincipal_Txtemail").val();
 
             var totalconsulta = suma_verificar($("#ctl00_cphPrincipal_Txtvrdiner").val(), $("#ctl00_cphPrincipal_Txtvresp").val());
-           
+
 
             if ($("#ctl00_cphPrincipal_Txtvrdiner").val() == "") {
                 var diner = 0;
@@ -105,7 +143,7 @@ function BtnaddActors_onclick() {
             }
             else {
                 $("#ctl00_cphPrincipal_Lblactorrep").text("");
-              
+
                 //cargamos el array con el json
                 if (flujo_in == 1) {
                     arrayActorFlujo.push(jsonActor);
@@ -231,15 +269,15 @@ function View_actores_array() {
         data: { "action": "View_actores_array", "ididea": ideditar },
         success: function(result) {
 
-        array_actores_ed = result.split("|");
+            array_actores_ed = result.split("|");
 
-        for (itemArray in array_actores_ed) {
+            for (itemArray in array_actores_ed) {
 
-            var recibeact = JSON.parse(array_actores_ed[itemArray]);
-            arrayActor.push(recibeact);
-        }
+                var recibeact = JSON.parse(array_actores_ed[itemArray]);
+                arrayActor.push(recibeact);
+            }
 
-           
+
         },
         error: function(msg) {
             alert("No se pueden cargar los actores en general de la idea = " + ideditar);
@@ -299,7 +337,7 @@ function deleteActor(str) {
         });
 
         var htmlTableflujos = "<table id='T_flujos' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr><th style='text-align: center;'>No pago</th><th style='text-align: center;'>Fecha</th><th style='text-align: center;'>Porcentaje</th><th style='text-align: center;'>Entregable</th><th style='text-align: center;'>Valor parcial</th><th style='text-align: center;'>Editar/Eliminar</th><th style='text-align: center;' >Detalle</th></tr></thead><tbody>";
-        htmlTableflujos += "<tr><td>1000</td><td>Porcentaje acumulado</td><td id='porcentaje'>0 %</td><td>Total</td><td id='totalflujospagos'>0</td><td></td><td></td></tr></tbody></table>";
+        htmlTableflujos += "<tr><td width='1' style='color: #D3D6FF; font-size: 0.1em;'>1000</td><td>Porcentaje acumulado</td><td id='porcentaje'>0 %</td><td>Total</td><td id='totalflujospagos'>0</td><td></td><td></td></tr></tbody></table>";
 
         //cargamos el div donde se generara la tabla actores
         $("#T_flujosContainer").html("");
@@ -476,7 +514,7 @@ function sumar_grid_actores() {
 
 //funcion que sumas cuando agregan un actor desde el boton
 function suma_verificar(strdiner, strespecies) {
-   
+
     var suma = 0;
 
     // alert(strdiner + " _ " + strespecies);
@@ -511,7 +549,7 @@ function suma_verificar(strdiner, strespecies) {
 
 function actors_transanccion() {
 
-     //suma de campos de actores en el formulario de idea dinero + especies
+    //suma de campos de actores en el formulario de idea dinero + especies
     //31-05-2013 GERMAN RODRIGUEZ
     $("#ctl00_cphPrincipal_Txtvrdiner").blur(function() {
         var rev = $(this).val();
