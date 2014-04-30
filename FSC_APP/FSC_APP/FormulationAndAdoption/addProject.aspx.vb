@@ -158,13 +158,13 @@ Partial Class addProject
                     Me.btnSave.Visible = True
                     If (Request.QueryString("successSave") <> Nothing) Then
                         If Session("modificar") = 1 Then
-                            lblstatesuccess.Text = "El proyecto se modificó exitosamente!"
+                            '           lblstatesuccess.Text = "El proyecto se modificó exitosamente!"
                         End If
                         If Session("modificar") = 2 Then
-                            lblstatesuccess.Text = "El proyecto se aprobó exitosamente!"
+                            '         lblstatesuccess.Text = "El proyecto se aprobó exitosamente!"
                         End If
 
-                        lblstatesuccess.Visible = True
+                        '   lblstatesuccess.Visible = True
                         containerSuccess.Visible = True
                         Me.btnSave.Visible = False
                         'btnSave.Visible = False
@@ -961,7 +961,7 @@ Partial Class addProject
                     'Me.lblsaveinformation.Text = "El total de pago debe ser igual al 100%"
                     Me.lblMessageValidacionNombre.Text = "El total de pago debe ser igual al 100%"
                     Me.Label16.Text = "El total de pago debe ser igual al 100%"
-                    Me.LabelErrorGeneral.Text = "El total de pago debe ser igual al 100%"
+                    '          Me.LabelErrorGeneral.Text = "El total de pago debe ser igual al 100%"
 
                 End If
                 If Me.txtname.Text.Trim().Length = 0 Then
@@ -969,7 +969,7 @@ Partial Class addProject
                     Me.lblsaveinformation.Text = "El campo nombre esta vacio "
                     Me.lblMessageValidacionNombre.Text = "El campo nombre esta vacio "
                     Me.Label16.Text = "El campo nombre esta vacio "
-                    Me.LabelErrorGeneral.Text = "El campo nombre esta vacio "
+                    '     Me.LabelErrorGeneral.Text = "El campo nombre esta vacio "
                 End If
             End If
         Catch oex As Threading.ThreadAbortException
@@ -1290,7 +1290,7 @@ Partial Class addProject
                     'Me.lblsaveinformation.Text = "El total de pago debe ser igual al 100%"
                     Me.lblMessageValidacionNombre.Text = "El total de pago debe ser igual al 100%"
                     Me.Label16.Text = "El total de pago debe ser igual al 100%"
-                    Me.LabelErrorGeneral.Text = "El total de pago debe ser igual al 100%"
+                    '     Me.LabelErrorGeneral.Text = "El total de pago debe ser igual al 100%"
 
                 End If
                 If Me.txtname.Text.Trim().Length = 0 Then
@@ -1298,7 +1298,7 @@ Partial Class addProject
                     Me.lblsaveinformation.Text = "El campo nombre esta vacio "
                     Me.lblMessageValidacionNombre.Text = "El campo nombre esta vacio "
                     Me.Label16.Text = "El campo nombre esta vacio "
-                    Me.LabelErrorGeneral.Text = "El campo nombre esta vacio "
+                    '          Me.LabelErrorGeneral.Text = "El campo nombre esta vacio "
                 End If
             End If
 
@@ -1348,7 +1348,7 @@ Partial Class addProject
             If contract.Rows.Count > 0 Then
 
                 Me.containerSuccess.Visible = True
-                Me.lblstatesuccess.Text = "El proyecto no se puede eliminar porque contiene contratos heredados! "
+                '      Me.lblstatesuccess.Text = "El proyecto no se puede eliminar porque contiene contratos heredados! "
                 Exit Sub
             Else
 

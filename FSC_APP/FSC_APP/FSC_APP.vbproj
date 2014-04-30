@@ -3610,6 +3610,7 @@
     <Content Include="css\datatables\images\sort_both.png" />
     <Content Include="css\datatables\images\sort_desc.png" />
     <Content Include="css\datatables\images\sort_desc_disabled.png" />
+    <Content Include="css\elvira_F3.css" />
     <Content Include="css\images\animated-overlay.gif" />
     <Content Include="css\jquery-ui-1.10.4.custom.min.css" />
     <Content Include="css\images\ui-bg_diagonals-small_40_db4865_40x40.png" />
@@ -3638,6 +3639,8 @@
     <Content Include="Include\javascript\Idea_flujos.js" />
     <Content Include="Include\javascript\Idea_ubicacion.js" />
     <Content Include="Include\javascript\Idea_componeente.js" />
+    <Content Include="Include\javascript\Project.js" />
+    <Content Include="Include\javascript\Proyecto_ubicacion.js" />
     <Content Include="js\bootstrap-modal.js" />
     <Content Include="js\jquery-ui-1.10.3.custom.min.js" />
     <Content Include="js\jquery.dataTables.min.js" />

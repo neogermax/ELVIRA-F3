@@ -3119,14 +3119,6 @@ Control lblDelete.
 Campo generado automáticamente.
 Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 </remarks>
-</member><member name="F:FSC_APP.addProject.LabelErrorGeneral">
-	<summary>
-Control LabelErrorGeneral.
-</summary>
-	<remarks>
-Campo generado automáticamente.
-Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-</remarks>
 </member><member name="F:FSC_APP.addProject.containerSuccess">
 	<summary>
 Control containerSuccess.
@@ -3135,65 +3127,25 @@ Control containerSuccess.
 Campo generado automáticamente.
 Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 </remarks>
-</member><member name="F:FSC_APP.addProject.lblstatesuccess">
+</member><member name="F:FSC_APP.addProject.lblsaveinformation">
 	<summary>
-Control lblstatesuccess.
+Control lblsaveinformation.
 </summary>
 	<remarks>
 Campo generado automáticamente.
 Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 </remarks>
-</member><member name="F:FSC_APP.addProject.TabContainer1">
+</member><member name="F:FSC_APP.addProject.containererrors">
 	<summary>
-Control TabContainer1.
+Control containererrors.
 </summary>
 	<remarks>
 Campo generado automáticamente.
 Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 </remarks>
-</member><member name="F:FSC_APP.addProject.TabPanel1">
+</member><member name="F:FSC_APP.addProject.Lblerrors_save_idea">
 	<summary>
-Control TabPanel1.
-</summary>
-	<remarks>
-Campo generado automáticamente.
-Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-</remarks>
-</member><member name="F:FSC_APP.addProject.lblMessageValidacionNombre">
-	<summary>
-Control lblMessageValidacionNombre.
-</summary>
-	<remarks>
-Campo generado automáticamente.
-Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-</remarks>
-</member><member name="F:FSC_APP.addProject.lblid">
-	<summary>
-Control lblid.
-</summary>
-	<remarks>
-Campo generado automáticamente.
-Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-</remarks>
-</member><member name="F:FSC_APP.addProject.txtid">
-	<summary>
-Control txtid.
-</summary>
-	<remarks>
-Campo generado automáticamente.
-Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-</remarks>
-</member><member name="F:FSC_APP.addProject.rfvid">
-	<summary>
-Control rfvid.
-</summary>
-	<remarks>
-Campo generado automáticamente.
-Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-</remarks>
-</member><member name="F:FSC_APP.addProject.lblHelpid">
-	<summary>
-Control lblHelpid.
+Control Lblerrors_save_idea.
 </summary>
 	<remarks>
 Campo generado automáticamente.
@@ -3215,14 +3167,6 @@ Control ddlididea.
 Campo generado automáticamente.
 Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 </remarks>
-</member><member name="F:FSC_APP.addProject.RequiredFieldValidator1">
-	<summary>
-Control RequiredFieldValidator1.
-</summary>
-	<remarks>
-Campo generado automáticamente.
-Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-</remarks>
 </member><member name="F:FSC_APP.addProject.lblHelpididea">
 	<summary>
 Control lblHelpididea.
@@ -3231,49 +3175,25 @@ Control lblHelpididea.
 Campo generado automáticamente.
 Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 </remarks>
-</member><member name="F:FSC_APP.addProject.Label4">
+</member><member name="F:FSC_APP.addProject.lblid">
 	<summary>
-Control Label4.
+Control lblid.
 </summary>
 	<remarks>
 Campo generado automáticamente.
 Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 </remarks>
-</member><member name="F:FSC_APP.addProject.txtlinestrat">
+</member><member name="F:FSC_APP.addProject.txtid">
 	<summary>
-Control txtlinestrat.
+Control txtid.
 </summary>
 	<remarks>
 Campo generado automáticamente.
 Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 </remarks>
-</member><member name="F:FSC_APP.addProject.Label5">
+</member><member name="F:FSC_APP.addProject.lblHelpid">
 	<summary>
-Control Label5.
-</summary>
-	<remarks>
-Campo generado automáticamente.
-Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-</remarks>
-</member><member name="F:FSC_APP.addProject.Label2">
-	<summary>
-Control Label2.
-</summary>
-	<remarks>
-Campo generado automáticamente.
-Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-</remarks>
-</member><member name="F:FSC_APP.addProject.txtprograma">
-	<summary>
-Control txtprograma.
-</summary>
-	<remarks>
-Campo generado automáticamente.
-Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-</remarks>
-</member><member name="F:FSC_APP.addProject.Label3">
-	<summary>
-Control Label3.
+Control lblHelpid.
 </summary>
 	<remarks>
 Campo generado automáticamente.
@@ -3290,14 +3210,6 @@ Para modificarlo, mueva la declaración del campo del archivo del diseñador al 
 </member><member name="F:FSC_APP.addProject.txtcode">
 	<summary>
 Control txtcode.
-</summary>
-	<remarks>
-Campo generado automáticamente.
-Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-</remarks>
-</member><member name="F:FSC_APP.addProject.rfvcode">
-	<summary>
-Control rfvcode.
 </summary>
 	<remarks>
 Campo generado automáticamente.
@@ -3327,41 +3239,9 @@ Control txtname.
 Campo generado automáticamente.
 Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 </remarks>
-</member><member name="F:FSC_APP.addProject.rfvname">
-	<summary>
-Control rfvname.
-</summary>
-	<remarks>
-Campo generado automáticamente.
-Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-</remarks>
 </member><member name="F:FSC_APP.addProject.lblHelpname">
 	<summary>
 Control lblHelpname.
-</summary>
-	<remarks>
-Campo generado automáticamente.
-Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-</remarks>
-</member><member name="F:FSC_APP.addProject.lblantecedent">
-	<summary>
-Control lblantecedent.
-</summary>
-	<remarks>
-Campo generado automáticamente.
-Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-</remarks>
-</member><member name="F:FSC_APP.addProject.txtantecedent">
-	<summary>
-Control txtantecedent.
-</summary>
-	<remarks>
-Campo generado automáticamente.
-Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-</remarks>
-</member><member name="F:FSC_APP.addProject.lblHelpantecedent">
-	<summary>
-Control lblHelpantecedent.
 </summary>
 	<remarks>
 Campo generado automáticamente.
@@ -3511,6 +3391,126 @@ Control Label9.
 Campo generado automáticamente.
 Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 </remarks>
+</member><member name="F:FSC_APP.addProject.Lblothersresults">
+	<summary>
+Control Lblothersresults.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addProject.Txtothersresults">
+	<summary>
+Control Txtothersresults.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addProject.Label30">
+	<summary>
+Control Label30.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addProject.Lblobligationsoftheparties">
+	<summary>
+Control Lblobligationsoftheparties.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addProject.Txtobligationsoftheparties">
+	<summary>
+Control Txtobligationsoftheparties.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addProject.Lblhelpobligationsoftheparties">
+	<summary>
+Control Lblhelpobligationsoftheparties.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addProject.Lblroutepresupuestal">
+	<summary>
+Control Lblroutepresupuestal.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addProject.Txtroutepresupuestal">
+	<summary>
+Control Txtroutepresupuestal.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addProject.Lblhelproutepresupuestal">
+	<summary>
+Control Lblhelproutepresupuestal.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addProject.Lblriesgos">
+	<summary>
+Control Lblriesgos.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addProject.Txtriesgos">
+	<summary>
+Control Txtriesgos.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addProject.Lblhelpriesgos">
+	<summary>
+Control Lblhelpriesgos.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addProject.Lblaccionmitig">
+	<summary>
+Control Lblaccionmitig.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addProject.Txtaccionmitig">
+	<summary>
+Control Txtaccionmitig.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addProject.Lblhelpaccionmitig">
+	<summary>
+Control Lblhelpaccionmitig.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
 </member><member name="F:FSC_APP.addProject.lblbegindate">
 	<summary>
 Control lblbegindate.
@@ -3535,17 +3535,17 @@ Control cesbegindate.
 Campo generado automáticamente.
 Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 </remarks>
-</member><member name="F:FSC_APP.addProject.cvbegindate">
+</member><member name="F:FSC_APP.addProject.lblHelpbegindate">
 	<summary>
-Control cvbegindate.
+Control lblHelpbegindate.
 </summary>
 	<remarks>
 Campo generado automáticamente.
 Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 </remarks>
-</member><member name="F:FSC_APP.addProject.lblHelpbegindate">
+</member><member name="F:FSC_APP.addProject.Lbltitleduracion">
 	<summary>
-Control lblHelpbegindate.
+Control Lbltitleduracion.
 </summary>
 	<remarks>
 Campo generado automáticamente.
@@ -3575,6 +3575,30 @@ Control lblHelpduration.
 Campo generado automáticamente.
 Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 </remarks>
+</member><member name="F:FSC_APP.addProject.Lbldia">
+	<summary>
+Control Lbldia.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addProject.Txtday">
+	<summary>
+Control Txtday.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addProject.Lblhelpday">
+	<summary>
+Control Lblhelpday.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
 </member><member name="F:FSC_APP.addProject.Label10">
 	<summary>
 Control Label10.
@@ -3599,6 +3623,38 @@ Control Label11.
 Campo generado automáticamente.
 Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 </remarks>
+</member><member name="F:FSC_APP.addProject.liproyecttype">
+	<summary>
+Control liproyecttype.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addProject.Lbltype_project">
+	<summary>
+Control Lbltype_project.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addProject.ddltype_proyect">
+	<summary>
+Control ddltype_proyect.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addProject.Lblhelptproyect">
+	<summary>
+Control Lblhelptproyect.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
 </member><member name="F:FSC_APP.addProject.lblpopulation">
 	<summary>
 Control lblpopulation.
@@ -3615,17 +3671,129 @@ Control ddlpopulation.
 Campo generado automáticamente.
 Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 </remarks>
-</member><member name="F:FSC_APP.addProject.RequiredFieldValidator2">
+</member><member name="F:FSC_APP.addProject.lblHelppopulation">
 	<summary>
-Control RequiredFieldValidator2.
+Control lblHelppopulation.
 </summary>
 	<remarks>
 Campo generado automáticamente.
 Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 </remarks>
-</member><member name="F:FSC_APP.addProject.lblHelppopulation">
+</member><member name="F:FSC_APP.addProject.Label13">
 	<summary>
-Control lblHelppopulation.
+Control Label13.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addProject.ddlmodcontract">
+	<summary>
+Control ddlmodcontract.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addProject.Lblmodcontract">
+	<summary>
+Control Lblmodcontract.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addProject.Label21">
+	<summary>
+Control Label21.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addProject.RBnList_iva">
+	<summary>
+Control RBnList_iva.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addProject.Lblhelpiva">
+	<summary>
+Control Lblhelpiva.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addProject.li3333">
+	<summary>
+Control li3333.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addProject.lblMessageValidacionNombre">
+	<summary>
+Control lblMessageValidacionNombre.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addProject.rfvid">
+	<summary>
+Control rfvid.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addProject.RequiredFieldValidator1">
+	<summary>
+Control RequiredFieldValidator1.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addProject.rfvcode">
+	<summary>
+Control rfvcode.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addProject.lblantecedent">
+	<summary>
+Control lblantecedent.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addProject.txtantecedent">
+	<summary>
+Control txtantecedent.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addProject.lblHelpantecedent">
+	<summary>
+Control lblHelpantecedent.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addProject.li5">
+	<summary>
+Control li5.
 </summary>
 	<remarks>
 Campo generado automáticamente.
@@ -3655,6 +3823,14 @@ Control lblHelpstrategicdescription.
 Campo generado automáticamente.
 Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 </remarks>
+</member><member name="F:FSC_APP.addProject.li6">
+	<summary>
+Control li6.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
 </member><member name="F:FSC_APP.addProject.lblpurpose">
 	<summary>
 Control lblpurpose.
@@ -3674,6 +3850,14 @@ Para modificarlo, mueva la declaración del campo del archivo del diseñador al 
 </member><member name="F:FSC_APP.addProject.lblHelppurpose">
 	<summary>
 Control lblHelppurpose.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addProject.li7">
+	<summary>
+Control li7.
 </summary>
 	<remarks>
 Campo generado automáticamente.
@@ -3783,6 +3967,14 @@ Control lblHelpeffectivebudget.
 Campo generado automáticamente.
 Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 </remarks>
+</member><member name="F:FSC_APP.addProject.li8">
+	<summary>
+Control li8.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
 </member><member name="F:FSC_APP.addProject.lblattachment">
 	<summary>
 Control lblattachment.
@@ -3879,6 +4071,14 @@ Control lblHelpidphase.
 Campo generado automáticamente.
 Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 </remarks>
+</member><member name="F:FSC_APP.addProject.li1">
+	<summary>
+Control li1.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
 </member><member name="F:FSC_APP.addProject.lblenabled">
 	<summary>
 Control lblenabled.
@@ -3935,6 +4135,22 @@ Control checkalcance.
 Campo generado automáticamente.
 Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 </remarks>
+</member><member name="F:FSC_APP.addProject.lblVersion">
+	<summary>
+Control lblVersion.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addProject.gvVersion">
+	<summary>
+Control gvVersion.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
 </member><member name="F:FSC_APP.addProject.lbliduser">
 	<summary>
 Control lbliduser.
@@ -3983,22 +4199,6 @@ Control lblHelpcreatedate.
 Campo generado automáticamente.
 Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 </remarks>
-</member><member name="F:FSC_APP.addProject.lblVersion">
-	<summary>
-Control lblVersion.
-</summary>
-	<remarks>
-Campo generado automáticamente.
-Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-</remarks>
-</member><member name="F:FSC_APP.addProject.gvVersion">
-	<summary>
-Control gvVersion.
-</summary>
-	<remarks>
-Campo generado automáticamente.
-Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-</remarks>
 </member><member name="F:FSC_APP.addProject.btntermsreference">
 	<summary>
 Control btntermsreference.
@@ -4018,6 +4218,78 @@ Para modificarlo, mueva la declaración del campo del archivo del diseñador al 
 </member><member name="F:FSC_APP.addProject.btnSave">
 	<summary>
 Control btnSave.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addProject.lbiddepto">
+	<summary>
+Control lbiddepto.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addProject.ddlDepto">
+	<summary>
+Control ddlDepto.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addProject.lbidcity">
+	<summary>
+Control lbidcity.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addProject.ddlCity">
+	<summary>
+Control ddlCity.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addProject.btnAgregarubicacion">
+	<summary>
+Control btnAgregarubicacion.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addProject.Lblinfubicacion">
+	<summary>
+Control Lblinfubicacion.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addProject.LblubicacionRep">
+	<summary>
+Control LblubicacionRep.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addProject.TabContainer1">
+	<summary>
+Control TabContainer1.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addProject.TabPanel1">
+	<summary>
+Control TabPanel1.
 </summary>
 	<remarks>
 Campo generado automáticamente.
@@ -4103,9 +4375,9 @@ Control upProjectLocation.
 Campo generado automáticamente.
 Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 </remarks>
-</member><member name="F:FSC_APP.addProject.lbiddepto">
+</member><member name="F:FSC_APP.addProject.x1">
 	<summary>
-Control lbiddepto.
+Control x1.
 </summary>
 	<remarks>
 Campo generado automáticamente.
@@ -4127,9 +4399,9 @@ Control lblHelpiddepto.
 Campo generado automáticamente.
 Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 </remarks>
-</member><member name="F:FSC_APP.addProject.lbidcity">
+</member><member name="F:FSC_APP.addProject.x2">
 	<summary>
-Control lbidcity.
+Control x2.
 </summary>
 	<remarks>
 Campo generado automáticamente.
@@ -4511,6 +4783,54 @@ Control txtaclaratorio.
 Campo generado automáticamente.
 Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 </remarks>
+</member><member name="F:FSC_APP.addProject.Label4">
+	<summary>
+Control Label4.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addProject.txtlinestrat">
+	<summary>
+Control txtlinestrat.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addProject.Label5">
+	<summary>
+Control Label5.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addProject.Label2">
+	<summary>
+Control Label2.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addProject.txtprograma">
+	<summary>
+Control txtprograma.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addProject.Label3">
+	<summary>
+Control Label3.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
 </member><member name="F:FSC_APP.addProject.GridViewAclaratorio">
 	<summary>
 Control GridViewAclaratorio.
@@ -4631,9 +4951,9 @@ Control lblDelete.
 Campo generado automáticamente.
 Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 </remarks>
-</member><member name="F:FSC_APP.addProject.lblsaveinformation">
+</member><member name="F:FSC_APP.addProject.lblsaveinformation1">
 	<summary>
-Control lblsaveinformation.
+Control lblsaveinformation1.
 </summary>
 	<remarks>
 Campo generado automáticamente.

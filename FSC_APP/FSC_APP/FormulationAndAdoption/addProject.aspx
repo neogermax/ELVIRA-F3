@@ -1,6 +1,6 @@
 <%@ Page Language="VB" MasterPageFile="~/Master/mpAdmin.master" AutoEventWireup="false"
-    ValidateRequest="false" EnableEventValidation="false"
-    Inherits="FSC_APP.addProject" Title="addProject" Codebehind="addProject.aspx.vb" %>
+    ValidateRequest="false" EnableEventValidation="false" Inherits="FSC_APP.addProject"
+    Title="addProject" CodeBehind="addProject.aspx.vb" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <%@ Register Assembly="DoubleListBox" Namespace="DoubleListBox" TagPrefix="cc2" %>
@@ -8,6 +8,28 @@
     <link href="../Pretty/css/prettyPhoto.css" rel="stylesheet" type="text/css" />
 
     <script src="../Pretty/js/jquery.prettyPhoto.js" type="text/javascript"></script>
+
+    <script src="../Include/javascript/mdfu.js" type="text/javascript"></script>
+
+    <link href="../css/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" type="text/css" />
+
+    <script src="../js/jquery-ui-1.10.3.custom.min.js" type="text/javascript"></script>
+
+    <link href="../css/datatables/jquery.dataTables.css" rel="stylesheet" type="text/css" />
+
+    <script src="../js/jquery.dataTables.min.js" type="text/javascript"></script>
+
+    <script src="../Include/javascript/Proyecto_ubicacion.js" type="text/javascript"></script>
+    
+    <script src="../Include/javascript/numeral.min.js"></script>
+    
+    <link href="../css/elvira_F3.css" rel="stylesheet" type="text/css" />
+
+    <script src="../js/jquery.fileupload.js" type="text/javascript"></script>
+
+    <script src="../js/jquery.iframe-transport.js" type="text/javascript"></script>
+
+    <script src="../Include/javascript/Project.js" type="text/javascript"></script>
 
     <script src="../Include/javascript/charge_textfield_project.js" type="text/javascript"></script>
 
@@ -36,7 +58,429 @@
         }
     </script>
 
-    <asp:Label ID="LabelErrorGeneral" runat="server" Font-Bold="True" Font-Names="Arial Narrow"
+    
+
+    <script type="text/javascript">
+
+        function format(input) {
+            var num = input.value.replace(/\./g, "");
+            if (!isNaN(num)) {
+                num = num.toString().split("").reverse().join("").replace(/(?=\d*\.?)(\d{3})/g, "$1.");
+                num = num.split("").reverse().join("").replace(/^[\.]/, "");
+                input.value = num;
+            }
+
+            else {
+                alert('Solo se permiten numeros');
+                input.value = input.value.replace(/[^\d\.]*/g, "");
+            }
+        }
+
+        //Función que permite solo Números
+        function ValidaSoloNumeros() {
+            if ((event.keyCode < 48) || (event.keyCode > 57))
+                event.returnValue = false;
+        }
+
+     
+    </script>
+
+    <br />
+    <div id="containerSuccess" runat="server" visible="true" style="width: 100%; text-align: center;
+        border: 2px solid #cecece; background: #E8E8DC; height: 80px; line-height: 40px;
+        vertical-align: middle;">
+        <img style="margin-top: 5px;" src="/images/save_icon.png" width="24px" alt="Save" />
+        <asp:Label ID="lblsaveinformation" runat="server" Style="font-size: 14pt; color: #9bbb58;"></asp:Label>
+    </div>
+    <div id="containererrors" runat="server" visible="true" style="width: 100%; text-align: center;
+        border: 2px solid #cecece; background: #E8E8DC; height: 120px; line-height: 40px;
+        vertical-align: middle;">
+        <img style="margin-top: 5px;" src="/images/save_icon.png" width="24px" alt="Save" />
+        <asp:Label ID="Lblerrors_save_idea" runat="server" Style="font-size: 14pt; color: #990000;"></asp:Label>
+    </div>
+    <div id="tabsproyecto">
+        <ul>
+            <li><a href="#componentes">Planeación Estratégica</a></li>
+            <li><a href="#informacion">Descripción del proyecto</a></li>
+            <li><a href="#ubicacion">Ubicación</a></li>
+            <li><a href="#actores">Actores</a></li>
+            <li><a href="#flujos">Flujos de pago</a></li>
+            <li><a href="#anexos">Archivos Anexos</a></li>
+        </ul>
+        <div id="informacion">
+            <ul>
+                <li>
+                    <asp:Label ID="lblididea" runat="server" Text="Idea"></asp:Label>
+                    <asp:DropDownList ID="ddlididea" runat="server" CssClass="Ccombo">
+                    </asp:DropDownList>
+                    <asp:Label ID="lblHelpididea" runat="server"></asp:Label>
+                </li>
+            </ul>
+            <ul class="left">
+                <li visible="false">
+                    <asp:Label ID="lblid" runat="server" Text="Id"></asp:Label>
+                    <asp:TextBox ID="txtid" runat="server" Width="400px" MaxLength="8000"></asp:TextBox>
+                    <asp:Label ID="lblHelpid" runat="server"></asp:Label>
+                </li>
+                <li>
+                    <asp:Label ID="lblcode" runat="server" Text="Código" Visible="False"></asp:Label>
+                    <asp:TextBox ID="txtcode" runat="server" Width="487px" MaxLength="8000" Visible="False"
+                        AutoPostBack="true"></asp:TextBox>
+                    <asp:Label ID="lblHelpcode" Visible="False" runat="server"></asp:Label>
+                </li>
+                <li>
+                    <asp:Label ID="lblname" runat="server" Text="Nombre"></asp:Label>
+                    <asp:TextBox ID="txtname" runat="server" Width="450px" MaxLength="100" Height="50px"
+                        TextMode="MultiLine" onkeypress="return textboxMultilineMaxNumber(this,255)"></asp:TextBox>
+                    <asp:Label ID="lblHelpname" runat="server"></asp:Label>
+                </li>
+                <li>
+                    <asp:Label ID="lbljustification" runat="server" Text="Justificación"></asp:Label>
+                    <asp:TextBox ID="txtjustification" runat="server" Width="450px" MaxLength="8000"
+                        Height="100px" TextMode="MultiLine" onkeypress="return textboxMultilineMaxNumber(this,8000)"></asp:TextBox>
+                    <asp:Label ID="lblHelpjustification" runat="server"></asp:Label>
+                </li>
+                <li>
+                    <asp:Label ID="lblobjective" runat="server" Text="Objetivo"></asp:Label>
+                    <asp:TextBox ID="txtobjective" runat="server" Width="450px" MaxLength="8000" Height="100px"
+                        TextMode="MultiLine" onkeypress="return textboxMultilineMaxNumber(this,8000)"></asp:TextBox>
+                    <asp:Label ID="lblHelpobjective" runat="server"></asp:Label>
+                </li>
+                <li>
+                    <asp:Label ID="lblzonedescription" runat="server" Text="Objetivos específicos"></asp:Label>
+                    <asp:TextBox ID="txtzonedescription" runat="server" MaxLength="8000" Width="450px"
+                        Rows="6" TextMode="MultiLine" onkeypress="return textboxMultilineMaxNumber(this,4000)"></asp:TextBox>
+                    <asp:Label ID="lblHelpzonedescription" runat="server"></asp:Label>
+                </li>
+                <li>
+                    <asp:Label ID="lblresults" runat="server" Text="Resultados Beneficiarios"></asp:Label>
+                    <asp:TextBox ID="txtresults" runat="server" Width="450px" MaxLength="8000" Height="100px"
+                        TextMode="MultiLine" onkeypress="return textboxMultilineMaxNumber(this,4000)"></asp:TextBox>
+                    <asp:Label ID="lblHelpresults" runat="server"></asp:Label>
+                </li>
+                <li>
+                    <asp:Label ID="Label6" runat="server" Text="Resultados Gestión del Conocimiento"></asp:Label>
+                    <asp:TextBox ID="TextResultGestConocimiento" runat="server" Width="450px" MaxLength="8000"
+                        Height="100px" TextMode="MultiLine" onkeypress="return textboxMultilineMaxNumber(this,4000)"></asp:TextBox>
+                    <asp:Label ID="Label7" runat="server"></asp:Label>
+                </li>
+                <li>
+                    <asp:Label ID="Label8" runat="server" Text="Resultados Capacidad Instalada"></asp:Label>
+                    <asp:TextBox ID="TextResCapacidInstal" runat="server" Width="450px" MaxLength="8000"
+                        Height="100px" TextMode="MultiLine" onkeypress="return textboxMultilineMaxNumber(this,4000)"></asp:TextBox>
+                    <asp:Label ID="Label9" runat="server"></asp:Label>
+                </li>
+                <li>
+                    <asp:Label ID="Lblothersresults" runat="server" Text="Otros Resultados"></asp:Label>
+                    <asp:TextBox ID="Txtothersresults" runat="server" MaxLength="2500" Width="400px"
+                        Rows="6" TextMode="MultiLine"></asp:TextBox>
+                    <asp:Label ID="Label30" runat="server" ForeColor="#990000"></asp:Label>
+                </li>
+            </ul>
+            <ul class="right">
+                <li>
+                    <asp:Label ID="Lblobligationsoftheparties" runat="server" Text="Obligaciones de las partes"></asp:Label>
+                    <asp:TextBox ID="Txtobligationsoftheparties" runat="server" MaxLength="2500" Width="400px"
+                        Rows="6" TextMode="MultiLine"></asp:TextBox>
+                    <asp:Label ID="Lblhelpobligationsoftheparties" runat="server" ForeColor="#990000"></asp:Label>
+                </li>
+                <li>
+                    <asp:Label ID="Lblroutepresupuestal" runat="server" Text="Ruta presupuestal"></asp:Label>
+                    <asp:TextBox ID="Txtroutepresupuestal" runat="server" Width="400px" Rows="6" TextMode="MultiLine"
+                        Height="40px"></asp:TextBox>
+                    <asp:Label ID="Lblhelproutepresupuestal" runat="server" ForeColor="#990000"></asp:Label>
+                </li>
+                <li>
+                    <asp:Label ID="Lblriesgos" runat="server" Text=" Riesgos identificados"></asp:Label>
+                    <asp:TextBox ID="Txtriesgos" runat="server" MaxLength="2500" Width="400px" Rows="6"
+                        TextMode="MultiLine"></asp:TextBox>
+                    <asp:Label ID="Lblhelpriesgos" runat="server" ForeColor="#990000"></asp:Label>
+                </li>
+                <li>
+                    <asp:Label ID="Lblaccionmitig" runat="server" Text="Mitigación del riesgo"></asp:Label>
+                    <asp:TextBox ID="Txtaccionmitig" runat="server" MaxLength="2500" Width="400px" Rows="6"
+                        TextMode="MultiLine"></asp:TextBox>
+                    <asp:Label ID="Lblhelpaccionmitig" runat="server" ForeColor="#990000"></asp:Label>
+                </li>
+                <li>
+                    <asp:Label ID="lblbegindate" runat="server" Text="Fecha de inicio"></asp:Label>
+                    <asp:TextBox ID="txtbegindate" runat="server" Width="400px" MaxLength="80"></asp:TextBox>
+                    <cc1:CalendarExtender ID="cesbegindate" runat="server" TargetControlID="txtbegindate"
+                        Format="yyyy/MM/dd" Enabled="True">
+                    </cc1:CalendarExtender>
+                    <asp:Label ID="lblHelpbegindate" runat="server"></asp:Label>
+                </li>
+                <li>
+                    <asp:Label ID="Lbltitleduracion" runat="server" Text="Duración"></asp:Label>
+                </li>
+                <li>
+                    <asp:Label ID="lblduration" runat="server" Text="Meses"></asp:Label>
+                    <asp:TextBox ID="txtduration" runat="server" MaxLength="5" Width="100px" Rows="2"
+                        onkeypress="ValidaSoloNumeros()" onkeychange="ValidaSoloNumeros()" onkeyup="ValidaSoloNumeros()"></asp:TextBox>
+                    <asp:Label ID="lblHelpduration" runat="server" ForeColor="#990000"></asp:Label>
+                    <asp:Label ID="Lbldia" runat="server" Text="Días"></asp:Label>
+                    <asp:TextBox ID="Txtday" runat="server" MaxLength="5" Width="100px" Rows="2" onkeypress="ValidaSoloNumeros()"
+                        onkeychange="ValidaSoloNumeros()" onkeyup="ValidaSoloNumeros()"></asp:TextBox>
+                    <asp:Label ID="Lblhelpday" runat="server" ForeColor="#990000"></asp:Label>
+                </li>
+                <li>
+                    <asp:Label ID="Label10" runat="server" Text="Finalización"></asp:Label>
+                    <asp:Label ID="TextFinalizacion" runat="server" Width="150px" MaxLength="50"></asp:Label>
+                    <asp:Label ID="Label11" runat="server"></asp:Label>
+                </li>
+                <li id="liproyecttype" runat="server" visible="false">
+                    <asp:Label ID="Lbltype_project" runat="server" Text="Tipo de proyecto"> </asp:Label>
+                    <select id="ddltype_proyect" class="Ccombo">
+                        <asp:DropDownList ID="ddltype_proyect" runat="server">
+                        </asp:DropDownList>
+                        <asp:Label ID="Lblhelptproyect" runat="server" ForeColor="#990000"></asp:Label>
+                    </select>
+                </li>
+                <li>
+                    <asp:Label ID="lblpopulation" runat="server" Text="Población"></asp:Label>
+                    <select id="ddlpopulation" class="Ccombo">
+                        <asp:DropDownList ID="ddlpopulation" runat="server">
+                        </asp:DropDownList>
+                    </select>
+                    <asp:Label ID="lblHelppopulation" runat="server" ForeColor="#990000"></asp:Label>
+                </li>
+                <li>
+                    <asp:Label ID="Label13" runat="server" Text="Modalidad de Contratación"></asp:Label>
+                    <select id="ddlmodcontract" class="Ccombo">
+                        <asp:DropDownList ID="ddlmodcontract" runat="server">
+                        </asp:DropDownList>
+                    </select>
+                    <asp:Label ID="Lblmodcontract" runat="server" ForeColor="#990000"></asp:Label>
+                </li>
+                <li>
+                    <asp:Label ID="Label21" runat="server" Text="¿El IVA esta incluido en el valor total?"></asp:Label>
+                    <asp:RadioButtonList ID="RBnList_iva" runat="server" Height="53px" RepeatDirection="Horizontal"
+                        ValidationGroup="iva" Width="86px">
+                        <asp:ListItem Value="1">Si</asp:ListItem>
+                        <asp:ListItem Value="0">No</asp:ListItem>
+                    </asp:RadioButtonList>
+                    <asp:Label ID="Lblhelpiva" runat="server" ForeColor="#990000"></asp:Label>
+                </li>
+            </ul>
+            <ul>
+                <div id="T_matrizcontainer">
+                    <table id="matriz" border="1" cellpadding="1" cellspacing="1" style="width: 100%">
+                        <thead>
+                            <tr>
+                                <th>
+                                </th>
+                                <th>
+                                </th>
+                                <th>
+                                    Efectivo
+                                </th>
+                                <th>
+                                    Especie
+                                </th>
+                                <th>
+                                    Total
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </ul>
+            <ul>
+                <li id="li3333" runat="server" visible="False">
+                    <asp:Label ID="lblMessageValidacionNombre" runat="server" Font-Bold="True" Font-Names="Arial Narrow"
+                        ForeColor="Red"></asp:Label>
+                    <asp:RequiredFieldValidator ID="rfvid" runat="server" ControlToValidate="txtid" ErrorMessage="*"
+                        ValidationGroup="generalProject"></asp:RequiredFieldValidator>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="ddlididea"
+                        ErrorMessage="*" ValidationGroup="generalProject"></asp:RequiredFieldValidator>
+                    <asp:RequiredFieldValidator ID="rfvcode" Visible="False" runat="server" ControlToValidate="txtcode"
+                        ErrorMessage="*" ValidationGroup="generalProject"></asp:RequiredFieldValidator>
+                    <asp:Label ID="lblantecedent" Visible="False" runat="server" Text="Antecedente"></asp:Label>
+                    <asp:TextBox ID="txtantecedent" Visible="False" runat="server" Width="450px" MaxLength="8000"
+                        Height="100px" TextMode="MultiLine" onkeypress="return textboxMultilineMaxNumber(this,800)"></asp:TextBox>
+                    <asp:Label ID="lblHelpantecedent" Visible="False" runat="server"></asp:Label>
+                </li>
+                <li id="li5" runat="server" visible="False">
+                    <asp:Label ID="lblstrategicdescription" Visible="False" runat="server" Text="Descripción de la estrategia"></asp:Label>
+                    <asp:TextBox ID="txtstrategicdescription" Visible="False" runat="server" Width="450px"
+                        MaxLength="800" Height="100px" TextMode="MultiLine" onkeypress="return textboxMultilineMaxNumber(this,4000)"></asp:TextBox>
+                    <asp:Label ID="lblHelpstrategicdescription" Visible="False" runat="server"></asp:Label>
+                </li>
+                <li id="li6" runat="server" visible="False">
+                    <asp:Label ID="lblpurpose" runat="server" Visible="False" Text="Finalidad"></asp:Label>
+                    <asp:TextBox ID="txtpurpose" runat="server" Visible="False" Width="450px" MaxLength="8000"
+                        Height="100px" TextMode="MultiLine" onkeypress="return textboxMultilineMaxNumber(this,800)"></asp:TextBox>
+                    <asp:Label ID="lblHelppurpose" Visible="False" runat="server"></asp:Label>
+                </li>
+                <li id="li7" runat="server" visible="False">
+                    <asp:Label ID="lblfsccontribution" runat="server" Text="Aporte FSC"></asp:Label>
+                    <asp:TextBox ID="txtfsccontribution" runat="server" Width="246px" MaxLength="25"
+                        onkeyup="format(this)" onchange="format(this)"></asp:TextBox>
+                    <asp:Label ID="lblHelpfsccontribution" runat="server" ForeColor="Red"></asp:Label>
+                    <asp:Label ID="lblcounterpartvalue" runat="server" Text="Valor contrapartida"></asp:Label>
+                    <asp:TextBox ID="txtcounterpartvalue" runat="server" Width="244px" MaxLength="25"
+                        ValidationGroup="generalProject" onkeyup="format(this)" onchange="format(this)"></asp:TextBox>
+                    <asp:Label ID="lblHelpcounterpartvalue" runat="server" ForeColor="Red"></asp:Label>
+                    <asp:Label ID="lbltotalcost" runat="server" Text="Valor total"></asp:Label>
+                    <asp:Label ID="txttotalcost" runat="server" Width="150px" MaxLength="15" onkeyup="format(this);"
+                        onchange="format(this);"></asp:Label>
+                    <asp:Label ID="lblHelptotalcost" runat="server"></asp:Label>
+                    <asp:Label ID="lbleffectivebudget" runat="server" Text="Vigencia presupuestal"></asp:Label>
+                    <asp:DropDownList ID="ddleffectivebudget" runat="server">
+                    </asp:DropDownList>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="ddleffectivebudget"
+                        ErrorMessage="*" ValidationGroup="generalProject"></asp:RequiredFieldValidator>
+                    <asp:Label ID="lblHelpeffectivebudget" runat="server"></asp:Label>
+                </li>
+                <li id="li8" runat="server" visible="False">
+                    <asp:Label ID="lblattachment" runat="server" Text="Archivo anexo" Visible="False"></asp:Label>
+                    <asp:FileUpload ID="fuattachment" runat="server" Visible="False" />
+                    &nbsp;<asp:HyperLink ID="hlattachment" runat="server" Visible="False" Target="_blank">Descargar</asp:HyperLink>
+                    <asp:Label ID="lblHelpattachment" runat="server" Visible="False"></asp:Label>
+                    <asp:Label ID="Label14" runat="server" Text="Aprobación"></asp:Label>
+                    <asp:DropDownList ID="ddltipoaprobacion" runat="server" AutoPostBack="True">
+                    </asp:DropDownList>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ControlToValidate="ddlpopulation"
+                        ErrorMessage="*" ValidationGroup="generalProject"></asp:RequiredFieldValidator>
+                    <asp:Label ID="Label15" runat="server"></asp:Label>
+                    <asp:Label ID="lblidphase" runat="server" Text="Fase"></asp:Label>
+                    <asp:DropDownList ID="ddlidphase" runat="server">
+                        <asp:ListItem Value="1">Formulación</asp:ListItem>
+                        <asp:ListItem Value="2">Planeación</asp:ListItem>
+                        <asp:ListItem Value="3">Ejecución</asp:ListItem>
+                        <asp:ListItem Value="4">Evaluación</asp:ListItem>
+                    </asp:DropDownList>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator5" Visible="False" runat="server"
+                        ControlToValidate="ddlidphase" ErrorMessage="*" ValidationGroup="generalProject"></asp:RequiredFieldValidator>
+                    <asp:Label ID="lblHelpidphase" Visible="False" runat="server"></asp:Label>
+                </li>
+                <li id="li1" runat="server" visible="False">
+                    <asp:Label ID="lblenabled" runat="server" Text="Estado" Visible="False"></asp:Label>
+                    <asp:TextBox ID="txtenabled" runat="server" ReadOnly="True" Width="200px" Visible="False"></asp:TextBox>
+                    <asp:Label ID="lblHelpenabled" runat="server" Visible="False"></asp:Label>
+                    <asp:Label ID="lblmodifotrosi" runat="server" Text="Modificacion otro si"></asp:Label>
+                    <asp:CheckBox ID="checkvalor" runat="server" Text="valor" />
+                    <asp:CheckBox ID="checktiempo" runat="server" Text="tiempo" />
+                    <asp:CheckBox ID="checkalcance" runat="server" Text="alcance" />
+                    <asp:Label Visible="False" ID="lblVersion" runat="server" Text="Versiones Anteriores"></asp:Label>
+                    <asp:GridView Visible="False" ID="gvVersion" runat="server" AutoGenerateColumns="False">
+                        <Columns>
+                            <asp:BoundField DataField="createdate" HeaderText="Fecha" />
+                            <asp:BoundField DataField="USERNAME" HeaderText="Usuario" />
+                            <asp:BoundField DataField="code" HeaderText="Codigo" />
+                            <asp:HyperLinkField DataNavigateUrlFields="id" DataNavigateUrlFormatString="addProject.aspx?op=show&amp;id={0}&consultLastVersion=false"
+                                DataTextField="Name" HeaderText="Nombre" Target="_blank" />
+                        </Columns>
+                    </asp:GridView>
+                </li>
+                <li></li>
+                <li>
+                    <asp:Label ID="lbliduser" runat="server" Text="Usuario"></asp:Label>
+                    <asp:TextBox ID="txtiduser" runat="server" Width="400px" MaxLength="50"></asp:TextBox>
+                    <asp:Label ID="lblHelpiduser" runat="server"></asp:Label>
+                </li>
+                <li>
+                    <asp:Label ID="lblcreatedate" runat="server" Text="Fecha de creación"></asp:Label>
+                    <asp:TextBox ID="txtcreatedate" runat="server" Width="400px" MaxLength="50"></asp:TextBox>
+                    <asp:Label ID="lblHelpcreatedate" runat="server"></asp:Label>
+                </li>
+                <li>
+                    <asp:Button ID="btntermsreference" runat="server" Text="Exportar términos de referencia"
+                        ValidationGroup="infoGenral" />
+                    <asp:Button ID="btnAddData" runat="server" Text="Crear proyecto" ValidationGroup="infoGenral" />
+                    <asp:Button ID="btnSave" runat="server" Text="Guardar cambios" ValidationGroup="infoGenral" />
+                </li>
+            </ul>
+        </div>
+        <div id="componentes">
+        </div>
+        <div id="ubicacion">
+            <ul>
+                <li>
+                    <asp:Label ID="lbiddepto" runat="server" Text="Departamento"></asp:Label>
+                    <select id="ddlDepto" class="Ccombo">
+                        <asp:DropDownList ID="ddlDepto" runat="server">
+                        </asp:DropDownList>
+                    </select>
+                </li>
+                <br />
+                <li>
+                    <asp:Label ID="lbidcity" runat="server" Text="Municipio"></asp:Label>
+                    <select id="ddlCity" class="Ccombo">
+                        <asp:DropDownList ID="ddlCity" runat="server">
+                        </asp:DropDownList>
+                    </select>
+                </li>
+            </ul>
+            <br />
+            <ul>
+                <li>
+                    <asp:Button ID="btnAgregarubicacion" runat="server" Visible="false" CausesValidation="False"
+                        Text="Agregar Ubicación" />
+                    <input id="B_add_location" type="button" value="Agregar Ubicación" name="Add_location"
+                        onclick="Add_location_onclick()" />
+                </li>
+                <li>
+                    <asp:Label ID="Lblinfubicacion" runat="server" ForeColor="#990000"></asp:Label>
+                </li>
+                <li>
+                    <asp:Label ID="LblubicacionRep" runat="server" ForeColor="#990000"></asp:Label>
+                </li>
+            </ul>
+            <br />
+            <div id="T_locationContainer">
+                <table id="T_location" border="2" cellpadding="2" cellspacing="2" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th>
+                                <span><strong style="font-size: large">Departamento&nbsp;</strong> </span>
+                            </th>
+                            <th>
+                                <span><strong style="font-size: large">Ciudad&nbsp;</strong> </span>
+                            </th>
+                            <th>
+                                <span><strong style="font-size: large">Eliminar</strong> </span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <ul>
+                
+            </ul>
+        </div>
+        <div id="actores">
+        </div>
+        <div id="flujos">
+        </div>
+        <div id="anexos">
+        </div>
+    </div>
+    <%--<asp:Label ID="LabelErrorGeneral" runat="server" Font-Bold="True" Font-Names="Arial Narrow"
         ForeColor="Red"></asp:Label>
     <br />
     <div id="containerSuccess" runat="server" visible="false" style="width: 100%; text-align: center;
@@ -46,438 +490,11 @@
         <asp:Label ID="lblstatesuccess" runat="server" Style="color: #9bbb58; font-size: 14pt;"
             Text="El Proyecto se creó exitosamente!"></asp:Label>
     </div>
-    <cc1:TabContainer ID="TabContainer1" runat="server" Width="100%" ActiveTabIndex="2"
+--%>
+    <cc1:TabContainer ID="TabContainer1" runat="server" Width="100%" ActiveTabIndex="0"
         AutoPostBack="True">
         <cc1:TabPanel runat="server" HeaderText="Información principal" ID="TabPanel1" Width="90%">
-            <HeaderTemplate>
-                Información principal
-            </HeaderTemplate>
             <ContentTemplate>
-                <div>
-                    <table style="width: 100%">
-                        <tr>
-                            <td>
-                                <asp:Label ID="lblMessageValidacionNombre" runat="server" Font-Bold="True" Font-Names="Arial Narrow"
-                                    ForeColor="Red"></asp:Label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <asp:Label ID="lblid" runat="server" Text="Id"></asp:Label>
-                            </td>
-                            <td>
-                                <asp:TextBox ID="txtid" runat="server" Width="400px" MaxLength="8000"></asp:TextBox>
-                                <asp:RequiredFieldValidator ID="rfvid" runat="server" ControlToValidate="txtid" ErrorMessage="*"
-                                    ValidationGroup="generalProject"></asp:RequiredFieldValidator>
-                            </td>
-                            <td>
-                                <asp:Label ID="lblHelpid" runat="server"></asp:Label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <asp:Label ID="lblididea" runat="server" Text="Idea"></asp:Label>
-                            </td>
-                            <td>
-                                <asp:DropDownList ID="ddlididea" runat="server" CssClass="Ccombo">
-                                </asp:DropDownList>
-                                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="ddlididea"
-                                    ErrorMessage="*" ValidationGroup="generalProject"></asp:RequiredFieldValidator>
-                            </td>
-                            <td>
-                                <asp:Label ID="lblHelpididea" runat="server"></asp:Label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td width="10%" style="height: 30px;vertical-align: middle;">
-                                <asp:Label ID="Label4" runat="server" Text="Línea Estratégica"></asp:Label>
-                            </td>
-                            <td style="height: 30px;vertical-align: middle;">
-                                <asp:Label ID="txtlinestrat" runat="server" Width="400px" AutoPostBack="True"></asp:Label>
-                            </td>
-                            <td>
-                                <asp:Label ID="Label5" runat="server"></asp:Label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td width="17%" style="height: 30px;vertical-align: middle;">
-                                <asp:Label ID="Label2" runat="server" Text="Programa"></asp:Label>
-                            </td>
-                            <td style="height: 30px;vertical-align: middle;">
-                                <asp:Label ID="txtprograma" Width="300px" runat="server" AutoPostBack="True"></asp:Label>
-                            </td>
-                            <td>
-                                <asp:Label ID="Label3" runat="server"></asp:Label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <asp:Label ID="lblcode" runat="server" Text="Código" Visible="False"></asp:Label>
-                            </td>
-                            <td>
-                                <asp:TextBox ID="txtcode" runat="server" Width="487px" MaxLength="8000" Visible="False"
-                                    AutoPostBack="True"></asp:TextBox>
-                                <asp:RequiredFieldValidator ID="rfvcode" Visible="False" runat="server" ControlToValidate="txtcode"
-                                    ErrorMessage="*" ValidationGroup="generalProject"></asp:RequiredFieldValidator>
-                            </td>
-                            <td>
-                                <asp:Label ID="lblHelpcode" Visible="False" runat="server"></asp:Label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <asp:Label ID="lblname" runat="server" Text="Nombre"></asp:Label>
-                            </td>
-                            <td>
-                                <asp:TextBox ID="txtname" runat="server" Width="450px" MaxLength="100" Height="50px"
-                                    TextMode="MultiLine" onkeypress="return textboxMultilineMaxNumber(this,255)"></asp:TextBox>
-                                <asp:RequiredFieldValidator ID="rfvname" runat="server" ControlToValidate="txtname"
-                                    ErrorMessage="*" ValidationGroup="generalProject"></asp:RequiredFieldValidator>
-                            </td>
-                            <td>
-                                <asp:Label ID="lblHelpname" runat="server"></asp:Label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <asp:Label ID="lblantecedent" Visible="False" runat="server" Text="Antecedente"></asp:Label>
-                            </td>
-                            <td>
-                                <asp:TextBox ID="txtantecedent" Visible="False" runat="server" Width="450px" MaxLength="8000"
-                                    Height="100px" TextMode="MultiLine" onkeypress="return textboxMultilineMaxNumber(this,800)"></asp:TextBox>
-                            </td>
-                            <td>
-                                <asp:Label ID="lblHelpantecedent" Visible="False" runat="server"></asp:Label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <asp:Label ID="lbljustification" runat="server" Text="Justificación"></asp:Label>
-                            </td>
-                            <td>
-                                <asp:TextBox ID="txtjustification" runat="server" Width="450px" MaxLength="8000"
-                                    Height="100px" TextMode="MultiLine" onkeypress="return textboxMultilineMaxNumber(this,8000)"></asp:TextBox>
-                            </td>
-                            <td>
-                                <asp:Label ID="lblHelpjustification" runat="server"></asp:Label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <asp:Label ID="lblobjective" runat="server" Text="Objetivo"></asp:Label>
-                            </td>
-                            <td>
-                                <asp:TextBox ID="txtobjective" runat="server" Width="450px" MaxLength="8000" Height="100px"
-                                    TextMode="MultiLine" onkeypress="return textboxMultilineMaxNumber(this,8000)"></asp:TextBox>
-                            </td>
-                            <td>
-                                <asp:Label ID="lblHelpobjective" runat="server"></asp:Label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <asp:Label ID="lblzonedescription" runat="server" Text="Objetivos específicos"></asp:Label>
-                            </td>
-                            <td>
-                                <asp:TextBox ID="txtzonedescription" runat="server" MaxLength="8000" Width="450px"
-                                    Rows="6" TextMode="MultiLine" 
-                                    onkeypress="return textboxMultilineMaxNumber(this,4000)"></asp:TextBox>
-                            </td>
-                            <td>
-                                <asp:Label ID="lblHelpzonedescription" runat="server"></asp:Label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <asp:Label ID="lblresults" runat="server" Text="Resultados Beneficiarios"></asp:Label>
-                            </td>
-                            <td>
-                                <asp:TextBox ID="txtresults" runat="server" Width="450px" MaxLength="8000" Height="100px"
-                                    TextMode="MultiLine" onkeypress="return textboxMultilineMaxNumber(this,4000)"></asp:TextBox>
-                            </td>
-                            <td>
-                                <asp:Label ID="lblHelpresults" runat="server"></asp:Label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <asp:Label ID="Label6" runat="server" Text="Resultados Gestión del Conocimiento"></asp:Label>
-                            </td>
-                            <td>
-                                <asp:TextBox ID="TextResultGestConocimiento" runat="server" Width="450px" MaxLength="8000"
-                                    Height="100px" TextMode="MultiLine" onkeypress="return textboxMultilineMaxNumber(this,4000)"></asp:TextBox>
-                            </td>
-                            <td>
-                                <asp:Label ID="Label7" runat="server"></asp:Label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <asp:Label ID="Label8" runat="server" Text="Resultados Capacidad Instalada"></asp:Label>
-                            </td>
-                            <td>
-                                <asp:TextBox ID="TextResCapacidInstal" runat="server" Width="450px" MaxLength="8000"
-                                    Height="100px" TextMode="MultiLine" onkeypress="return textboxMultilineMaxNumber(this,4000)"></asp:TextBox>
-                            </td>
-                            <td>
-                                <asp:Label ID="Label9" runat="server"></asp:Label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <asp:Label ID="lblbegindate" runat="server" Text="Fecha de inicio"></asp:Label>
-                            </td>
-                            <td>
-                                <asp:TextBox ID="txtbegindate" runat="server" Width="400px" MaxLength="80"></asp:TextBox>
-                                <cc1:CalendarExtender ID="cesbegindate" runat="server" TargetControlID="txtbegindate"
-                                    Format="yyyy/MM/dd" Enabled="True">
-                                </cc1:CalendarExtender>
-                                <asp:CompareValidator ID="cvbegindate" runat="server" ErrorMessage="aaaa/mm/dd" Type="Date"
-                                    ControlToValidate="txtbegindate" Operator="DataTypeCheck" SetFocusOnError="True"
-                                    ValidationGroup="generalProject"></asp:CompareValidator>
-                            </td>
-                            <td>
-                                <asp:Label ID="lblHelpbegindate" runat="server"></asp:Label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <asp:Label ID="lblduration" runat="server" Text="Duración en meses "></asp:Label>
-                            </td>
-                            <td>
-                                <asp:TextBox ID="txtduration" runat="server" Width="400px" MaxLength="5"></asp:TextBox>
-                            </td>
-                            <td>
-                                <asp:Label ID="lblHelpduration" runat="server"></asp:Label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="height: 30px;vertical-align: middle;">
-                                <asp:Label ID="Label10" runat="server" Text="Finalización"></asp:Label>
-                            </td>
-                            <td style="height: 30px;vertical-align: middle;">
-                                <asp:Label ID="TextFinalizacion" runat="server" Width="150px" MaxLength="50"></asp:Label>
-                            </td>
-                            <td>
-                                <asp:Label ID="Label11" runat="server"></asp:Label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="height: 30px;vertical-align: middle;">
-                                <asp:Label ID="lblpopulation" runat="server" Text="Población"></asp:Label>
-                            </td>
-                            <td style="height: 30px;vertical-align: middle;">
-                                <asp:DropDownList ID="ddlpopulation" runat="server">
-                                    <asp:ListItem Value="1">Personas con discapacidad</asp:ListItem>
-                                    <asp:ListItem Value="2">Personas Mayores</asp:ListItem>
-                                    <asp:ListItem Value="3">Persona con discapacidad y personas mayores</asp:ListItem>
-                                    <asp:ListItem Value="4">Otras</asp:ListItem>
-                                </asp:DropDownList>
-                                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="ddlpopulation"
-                                    ErrorMessage="*" ValidationGroup="generalProject"></asp:RequiredFieldValidator>
-                            </td>
-                            <td>
-                                <asp:Label ID="lblHelppopulation" runat="server"></asp:Label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <asp:Label ID="lblstrategicdescription" Visible="False" runat="server" Text="Descripción de la estrategia"></asp:Label>
-                            </td>
-                            <td>
-                                <asp:TextBox ID="txtstrategicdescription" Visible="False" runat="server" Width="450px"
-                                    MaxLength="800" Height="100px" TextMode="MultiLine" onkeypress="return textboxMultilineMaxNumber(this,4000)"></asp:TextBox>
-                            </td>
-                            <td>
-                                <asp:Label ID="lblHelpstrategicdescription" Visible="False" runat="server"></asp:Label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <asp:Label ID="lblpurpose" runat="server" Visible="False" Text="Finalidad"></asp:Label>
-                            </td>
-                            <td>
-                                <asp:TextBox ID="txtpurpose" runat="server" Visible="False" Width="450px" MaxLength="8000"
-                                    Height="100px" TextMode="MultiLine" onkeypress="return textboxMultilineMaxNumber(this,800)"></asp:TextBox>
-                            </td>
-                            <td>
-                                <asp:Label ID="lblHelppurpose" Visible="False" runat="server"></asp:Label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="height: 35px;vertical-align: middle;">
-                                <asp:Label ID="lblfsccontribution" runat="server" Text="Aporte FSC"></asp:Label>
-                            </td>
-                            <td style="height: 35px;vertical-align: middle;">
-                                <asp:TextBox ID="txtfsccontribution" runat="server" Width="246px" MaxLength="25"
-                                    onkeyup="format(this)" onchange="format(this)"></asp:TextBox>
-                            </td>
-                            <td>
-                                <asp:Label ID="lblHelpfsccontribution" runat="server" ForeColor="Red"></asp:Label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <asp:Label ID="lblcounterpartvalue" runat="server" Text="Valor contrapartida"></asp:Label>
-                            </td>
-                            <td>
-                                <asp:TextBox ID="txtcounterpartvalue" runat="server" Width="244px" MaxLength="25"
-                                    ValidationGroup="generalProject" onkeyup="format(this)" 
-                                    onchange="format(this)"></asp:TextBox>
-                            </td>
-                            <td>
-                                <asp:Label ID="lblHelpcounterpartvalue" runat="server" ForeColor="Red"></asp:Label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="height: 30px;vertical-align: middle;">
-                                <asp:Label ID="lbltotalcost" runat="server" Text="Valor total"></asp:Label>
-                            </td>
-                            <td style="height: 30px;vertical-align: middle;">
-                                <asp:Label ID="txttotalcost" runat="server" Width="150px" MaxLength="15" onkeyup="format(this);"
-                                    onchange="format(this);"></asp:Label>
-                            </td>
-                            <td>
-                                <asp:Label ID="lblHelptotalcost" runat="server"></asp:Label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <asp:Label ID="lbleffectivebudget" runat="server" Text="Vigencia presupuestal"></asp:Label>
-                            </td>
-                            <td>
-                                <asp:DropDownList ID="ddleffectivebudget" runat="server">
-                                </asp:DropDownList>
-                                <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="ddleffectivebudget"
-                                    ErrorMessage="*" ValidationGroup="generalProject"></asp:RequiredFieldValidator>
-                            </td>
-                            <td>
-                                <asp:Label ID="lblHelpeffectivebudget" runat="server"></asp:Label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <asp:Label ID="lblattachment" runat="server" Text="Archivo anexo" Visible="False"></asp:Label>
-                            </td>
-                            <td>
-                                <asp:FileUpload ID="fuattachment" runat="server" Visible="False" />
-                                &nbsp;<asp:HyperLink ID="hlattachment" runat="server" Visible="False" Target="_blank">Descargar</asp:HyperLink></td>
-                            <td>
-                                <asp:Label ID="lblHelpattachment" runat="server" Visible="False"></asp:Label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <asp:Label ID="Label14" runat="server" Text="Aprobación"></asp:Label>
-                            </td>
-                            <td>
-                                <asp:DropDownList ID="ddltipoaprobacion" runat="server" AutoPostBack="True">
-                                </asp:DropDownList>
-                                <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ControlToValidate="ddlpopulation"
-                                    ErrorMessage="*" ValidationGroup="generalProject"></asp:RequiredFieldValidator>
-                            </td>
-                            <td>
-                                <asp:Label ID="Label15" runat="server"></asp:Label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <asp:Label ID="lblidphase" runat="server" Text="Fase"></asp:Label>
-                            </td>
-                            <td>
-                                <asp:DropDownList ID="ddlidphase" runat="server">
-                                    <asp:ListItem Value="1">Formulación</asp:ListItem>
-                                    <asp:ListItem Value="2">Planeación</asp:ListItem>
-                                    <asp:ListItem Value="3">Ejecución</asp:ListItem>
-                                    <asp:ListItem Value="4">Evaluación</asp:ListItem>
-                                </asp:DropDownList>
-                                <asp:RequiredFieldValidator ID="RequiredFieldValidator5" Visible="False" runat="server"
-                                    ControlToValidate="ddlidphase" ErrorMessage="*" ValidationGroup="generalProject"></asp:RequiredFieldValidator>
-                            </td>
-                            <td>
-                                <asp:Label ID="lblHelpidphase" Visible="False" runat="server"></asp:Label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <asp:Label ID="lblenabled" runat="server" Text="Estado" Visible="False"></asp:Label>
-                            </td>
-                            <td>
-                                <asp:TextBox ID="txtenabled" runat="server" ReadOnly="True" Width="200px" Visible="False"></asp:TextBox>
-                            </td>
-                            <td>
-                                <asp:Label ID="lblHelpenabled" runat="server" Visible="False"></asp:Label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <asp:Label ID="lblmodifotrosi" runat="server" Text="Modificacion otro si"></asp:Label>
-                            </td>
-                            <td>
-                                <asp:CheckBox ID="checkvalor" runat="server" Text="valor" />
-                                <asp:CheckBox ID="checktiempo" runat="server" Text="tiempo" />
-                                <asp:CheckBox ID="checkalcance" runat="server" Text="alcance" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <asp:Label ID="lbliduser" runat="server" Text="Usuario"></asp:Label>
-                            </td>
-                            <td>
-                                <asp:TextBox ID="txtiduser" runat="server" Width="400px" MaxLength="50"></asp:TextBox>
-                            </td>
-                            <td>
-                                <asp:Label ID="lblHelpiduser" runat="server"></asp:Label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <asp:Label ID="lblcreatedate" runat="server" Text="Fecha de creación"></asp:Label>
-                            </td>
-                            <td>
-                                <asp:TextBox ID="txtcreatedate" runat="server" Width="400px" MaxLength="50"></asp:TextBox>
-                            </td>
-                            <td>
-                                <asp:Label ID="lblHelpcreatedate" runat="server"></asp:Label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="3">
-                                <hr />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="3">
-                                <asp:Label Visible="False" ID="lblVersion" runat="server" Text="Versiones Anteriores"></asp:Label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="3">
-                                <asp:GridView Visible="False" ID="gvVersion" runat="server" AutoGenerateColumns="False">
-                                    <Columns>
-                                        <asp:BoundField DataField="createdate" HeaderText="Fecha" />
-                                        <asp:BoundField DataField="USERNAME" HeaderText="Usuario" />
-                                        <asp:BoundField DataField="code" HeaderText="Codigo" />
-                                        <asp:HyperLinkField DataNavigateUrlFields="id" DataNavigateUrlFormatString="addProject.aspx?op=show&amp;id={0}&consultLastVersion=false"
-                                            DataTextField="Name" HeaderText="Nombre" Target="_blank" />
-                                    </Columns>
-                                </asp:GridView>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <asp:Button ID="btntermsreference" runat="server" Text="Exportar términos de referencia"
-                                    ValidationGroup="infoGenral" />
-                                <asp:Button ID="btnAddData" runat="server" Text="Crear proyecto" ValidationGroup="infoGenral" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <asp:Button ID="btnSave" runat="server" Text="Guardar cambios" ValidationGroup="infoGenral" />
-                            </td>
-                        </tr>
-                    </table>
-                </div>
             </ContentTemplate>
         </cc1:TabPanel>
         <cc1:TabPanel runat="server" HeaderText="Lista de fuentes" ID="TabPanel6" Enabled="False"
@@ -539,6 +556,9 @@
             </ContentTemplate>
         </cc1:TabPanel>
         <cc1:TabPanel runat="server" HeaderText="Ubicaciones" ID="TabPanel2" Width="90%">
+            <HeaderTemplate>
+                Ubicaciones
+            </HeaderTemplate>
             <ContentTemplate>
                 <div>
                     <asp:UpdatePanel ID="upProjectLocation" runat="server" UpdateMode="Conditional">
@@ -549,7 +569,7 @@
                                         <table style="width: 90%">
                                             <tr>
                                                 <td style="width: 100px">
-                                                    <asp:Label ID="lbiddepto" runat="server" Text="Departamento"></asp:Label>
+                                                    <asp:Label ID="x1" runat="server" Text="Departamento"></asp:Label>
                                                 </td>
                                                 <td>
                                                     <asp:DropDownList ID="ddliddepto" runat="server" AutoPostBack="True">
@@ -561,7 +581,7 @@
                                             </tr>
                                             <tr>
                                                 <td style="width: 100px">
-                                                    <asp:Label ID="lbidcity" runat="server" Text="Ciudad"></asp:Label>
+                                                    <asp:Label ID="x2" runat="server" Text="Ciudad"></asp:Label>
                                                 </td>
                                                 <td>
                                                     <asp:DropDownList ID="ddlidcity" runat="server">
@@ -586,8 +606,8 @@
                                         <table style="width: 90%">
                                             <tr>
                                                 <td>
-                                                    <asp:GridView ID="gvprojectLocation" AutoGenerateColumns="False" AllowPaging="True"
-                                                        runat="server" Width="100%">
+                                                    <asp:GridView ID="gvprojectLocation" runat="server" AllowPaging="True" AutoGenerateColumns="False"
+                                                        Width="100%">
                                                         <%--    cambios de forma del grid para leer los datos para los terminos de referencia
                                                         autor:german rodriguez --%>
                                                         <Columns>
@@ -636,8 +656,7 @@
                                                     <asp:Label ID="lblvalortotal" runat="server" Text="Valor Total"></asp:Label>
                                                 </td>
                                                 <td>
-                                                    <asp:TextBox ID="txtvalortotalflow" runat="server" Width="186px" MaxLength="50" 
-                                                        Text="0"></asp:TextBox>
+                                                    <asp:TextBox ID="txtvalortotalflow" runat="server" Width="186px" MaxLength="50" Text="0"></asp:TextBox>
                                                 </td>
                                                 <td>
                                                 </td>
@@ -665,8 +684,7 @@
                                                     <asp:Label ID="lblporcentaje" runat="server" Text="Porcentaje"></asp:Label>
                                                 </td>
                                                 <td>
-                                                    <asp:TextBox ID="txtporcentaje" Text="0" runat="server" MaxLength="50" 
-                                                        Width="95px"></asp:TextBox>
+                                                    <asp:TextBox ID="txtporcentaje" Text="0" runat="server" MaxLength="50" Width="95px"></asp:TextBox>
                                                     <asp:Label ID="lblFlowNfo" runat="server" Text="." ForeColor="White"></asp:Label>
                                                     <asp:RequiredFieldValidator ID="RequiredFieldValidatorPorcent" runat="server" ControlToValidate="txtporcentaje"
                                                         ErrorMessage="el campo esta vacio" ValidationGroup="validat"></asp:RequiredFieldValidator>
@@ -676,8 +694,7 @@
                                                         <asp:Label ID="lblvalor" runat="server" Text="Valor"></asp:Label>
                                                     </td>
                                                     <td>
-                                                        <asp:TextBox ID="txtvalorpartial" runat="server" MaxLength="50" ReadOnly="true" 
-                                                            Width="182px"></asp:TextBox>
+                                                        <asp:TextBox ID="txtvalorpartial" runat="server" MaxLength="50" ReadOnly="true" Width="182px"></asp:TextBox>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -902,6 +919,20 @@
                 </asp:TextBox>
                 <table style="width: 90%">
                     <tr>
+                        <td style="height: 30px; vertical-align: middle;">
+                            <asp:Label ID="Label4" runat="server" Text="Línea Estratégica"></asp:Label>
+                            <asp:Label ID="txtlinestrat" runat="server" Width="400px" AutoPostBack="True"></asp:Label>
+                            <asp:Label ID="Label5" runat="server"></asp:Label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="17%" style="height: 30px; vertical-align: middle;">
+                            <asp:Label ID="Label2" runat="server" Text="Programa"></asp:Label>
+                            <asp:Label ID="txtprograma" Width="300px" runat="server" AutoPostBack="True"></asp:Label>
+                            <asp:Label ID="Label3" runat="server"></asp:Label>
+                        </td>
+                    </tr>
+                    <tr>
                         <td>
                             <asp:GridView ID="GridViewAclaratorio" AutoGenerateColumns="False" AllowPaging="True"
                                 runat="server">
@@ -994,8 +1025,8 @@
                 <asp:Button ID="btnDelete" runat="server" Text="Eliminar" CausesValidation="False" />
                 <asp:Button ID="btnCancel" runat="server" Text="Cancelar" CausesValidation="False" />
                 <a id="linkcharge" runat="server" href="~/FormulationAndAdoption/addproyectchargemasive.aspx?iframe=true&width=100%&height=100%"
-                    title="Carga Masiva" class="pretty">Cargue Cronograma de Actividades y 
-                Subactividadese Actividades y Subactividades</a>
+                    title="Carga Masiva" class="pretty">Cargue Cronograma de Actividades y Subactividadese
+                    Actividades y Subactividades</a>
                 <%-- 
                                                             <asp:TemplateField HeaderText="Departamento">
                                                                 <ItemTemplate>
@@ -1019,8 +1050,9 @@
                 <asp:Button ID="btnConfirmDelete" runat="server" Text="Eliminar" CausesValidation="False" />
                 <asp:Button ID="btnCancelDelete" runat="server" Text="Cancelar" CausesValidation="False" />
                 &nbsp;<asp:Label ID="lblDelete" runat="server" Text="Esta seguro que desea eliminar el registro?"
-                    ForeColor="Red"></asp:Label><asp:Label ID="lblsaveinformation" runat="server" Font-Bold="True"
-                        Font-Names="Arial Black" ForeColor="#04B404"></asp:Label></td>
+                    ForeColor="Red"></asp:Label><asp:Label ID="lblsaveinformation1" runat="server" Font-Bold="True"
+                        Font-Names="Arial Black" ForeColor="#04B404"></asp:Label>
+            </td>
         </tr>
     </table>
     <asp:HiddenField ID="Hdvtotalvalue" runat="server" />
@@ -1033,4 +1065,39 @@
     <asp:HiddenField ID="HDNAMETHIRD" runat="server" />
     <asp:HiddenField ID="HiddenFieldPorcentaje" runat="server" />
     <asp:HiddenField ID="HiddenFieldFsc" runat="server" />
+    <div id="dialog" title="Desembolso detallado">
+        <table id="T_detalle_desembolso" border="1" cellpadding="1" cellspacing="1" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th>
+                        No pago
+                    </th>
+                    <th>
+                        Id aportante
+                    </th>
+                    <th>
+                        Aportante
+                    </th>
+                    <th>
+                        desembolso
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div>
+            <input id="close_dialog" type="button" value="Cerrar X" name="close_dialog" />
+        </div>
+    </div>
 </asp:Content>

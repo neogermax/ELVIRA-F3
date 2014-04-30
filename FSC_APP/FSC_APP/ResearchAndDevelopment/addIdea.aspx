@@ -26,6 +26,7 @@
     <script src="../Include/javascript/Idea_file.js" type="text/javascript"></script>
 
     <link href="../css/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" type="text/css" />
+    <link href="../css/elvira_F3.css" rel="stylesheet" type="text/css" />
 
     <script src="../js/jquery-ui-1.10.3.custom.min.js" type="text/javascript"></script>
 
@@ -38,132 +39,6 @@
     <script src="../js/jquery.fileupload.js" type="text/javascript"></script>
 
     <script src="../js/jquery.iframe-transport.js" type="text/javascript"></script>
-
-    <%--<script src="../js/bootstrap-modal.js" type="text/javascript"></script>
---%>
-    <style>
-        #informacion
-        {
-            color: #333333;
-            font-family: Tahoma, Geneva, sans-serif;
-        }
-        #informacion label, input[type='text'], textarea, select, span
-        {
-            display: block;
-            margin-bottom: 1em;
-        }
-        #informacion table th, #informacion table td
-        {
-            text-align: center;
-        }
-        #anexos
-        {
-            color: #333333;
-            font-family: Tahoma, Geneva, sans-serif;
-        }
-        #anexos ul
-        {
-            width: 100%;
-        }
-        #anexos li
-        {
-            width: 100%;
-        }
-        #anexos label, input[type='text'], textarea, select
-        {
-            display: block;
-            margin-bottom: 1em;
-        }
-        #ubicacion
-        {
-            color: #333333;
-            font-family: Tahoma, Geneva, sans-serif;
-        }
-        #ubicacion ul
-        {
-            width: 100%;
-        }
-        #ubicacion li
-        {
-            width: 100%;
-        }
-        #ubicacion label, #ubicacion input[type='text'], #ubicacion textarea, #ubicacion select, #ubicacion span
-        {
-            display: block;
-            margin-bottom: 1em;
-        }
-        #actores
-        {
-            color: #333333;
-            font-family: Tahoma, Geneva, sans-serif;
-        }
-        #actores ul
-        {
-            width: 100%;
-        }
-        #actores li
-        {
-            width: 100%;
-        }
-        #actores label, input[type='text'], textarea, select, span
-        {
-            display: block;
-            margin-bottom: 1em;
-        }
-        #componentes
-        {
-            width: 100%;
-            text-align: center;
-        }
-        .left
-        {
-            text-align: left;
-            float: left;
-            width: 46%;
-        }
-        .right
-        {
-            text-align: left;
-            float: right;
-            width: 46%;
-        }
-        .bar
-        {
-            height: 18px;
-            background: green;
-        }
-        #seleccionarcomponente, #componentesseleccionados
-        {
-            width: 300px;
-            display: inline-block;
-            background: #fff;
-            border: 2px solid # //Compoentes Style $("#seleccionarcomponente li, #componentesseleccionados li").click(function() {
-                    $(this).css("background", "#191919");
-                    $(this).css("color", "#fff");
-                });
-            height: 350px;
-            overflow: scroll-y;
-            margin: 0px;
-            vertical-align: middle;
-            text-align: left;
-        }
-        #seleccionarcomponente li, #componentesseleccionados li
-        {
-            cursor: pointer;
-        }
-        #seleccionarcomponente li:hover, #componentesseleccionados li:hover
-        {
-            background: #9bbb58;
-            color: #fff;
-        }
-        #listFlujosPagos li
-        {
-            display: inline-block;
-            float: left;
-            margin-right: 3em;
-            margin-left: 3em;
-        }
-    </style>
 
     <script type="text/javascript">
 
@@ -190,7 +65,6 @@
 
        
     </script>
-
 
     <br />
     <div id="containerSuccess" runat="server" visible="true" style="width: 100%; text-align: center;
@@ -325,9 +199,10 @@
                     <cc1:CalendarExtender ID="cestartdate" runat="server" Enabled="true" Format="yyyy/MM/dd"
                         TargetControlID="txtstartdate">
                     </cc1:CalendarExtender>
-                   <%-- <asp:CompareValidator ID="cvstartdate" runat="server" ControlToValidate="txtstartdate"
+                    <%-- <asp:CompareValidator ID="cvstartdate" runat="server" ControlToValidate="txtstartdate"
                         ErrorMessage="yyyy/MM/dd" Operator="DataTypeCheck" SetFocusOnError="true" Type="Date"></asp:CompareValidator>
-             --%>       <asp:Label ID="lblHelpstartdate" runat="server" ForeColor="#990000"></asp:Label>
+             --%>
+                    <asp:Label ID="lblHelpstartdate" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
                 <li>
                     <asp:Label ID="Lbltitleduracion" runat="server" Text="Duración"></asp:Label>
@@ -540,8 +415,7 @@
                     </td>--%>
                     <td>
                         <asp:Label ID="Lbltitlecomponet" runat="server" Text="Componentes"></asp:Label>
-                        <ul id="seleccionarcomponente">
-                        </ul>
+                        <ul id="seleccionarcomponente"></ul>
                     </td>
                     <td style="width: 100px;">
                         <input id="Btnaddcomponent" type="button" value=">>" name="Add_Componente" onclick="return Btnaddcomponent_onclick()" />

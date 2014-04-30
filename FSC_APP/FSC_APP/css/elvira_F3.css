@@ -1,0 +1,123 @@
+﻿
+
+ #informacion
+        {
+            color: #333333;
+            font-family: Tahoma, Geneva, sans-serif;
+        }
+        #informacion label, input[type='text'], textarea, select, span
+        {
+            display: block;
+            margin-bottom: 1em;
+        }
+        #informacion table th, #informacion table td
+        {
+            text-align: center;
+        }
+        #anexos
+        {
+            color: #333333;
+            font-family: Tahoma, Geneva, sans-serif;
+        }
+        #anexos ul
+        {
+            width: 100%;
+        }
+        #anexos li
+        {
+            width: 100%;
+        }
+        #anexos label, input[type='text'], textarea, select
+        {
+            display: block;
+            margin-bottom: 1em;
+        }
+        #ubicacion
+        {
+            color: #333333;
+            font-family: Tahoma, Geneva, sans-serif;
+        }
+        #ubicacion ul
+        {
+            width: 100%;
+        }
+        #ubicacion li
+        {
+            width: 100%;
+        }
+        #ubicacion label, #ubicacion input[type='text'], #ubicacion textarea, #ubicacion select, #ubicacion span
+        {
+            display: block;
+            margin-bottom: 1em;
+        }
+        #actores
+        {
+            color: #333333;
+            font-family: Tahoma, Geneva, sans-serif;
+        }
+        #actores ul
+        {
+            width: 100%;
+        }
+        #actores li
+        {
+            width: 100%;
+        }
+        #actores label, input[type='text'], textarea, select, span
+        {
+            display: block;
+            margin-bottom: 1em;
+        }
+        #componentes
+        {
+            width: 100%;
+            text-align: center;
+        }
+        .left
+        {
+            text-align: left;
+            float: left;
+            width: 46%;
+        }
+        .right
+        {
+            text-align: left;
+            float: right;
+            width: 46%;
+        }
+        .bar
+        {
+            height: 18px;
+            background: green;
+        }
+        #seleccionarcomponente, #componentesseleccionados
+        {
+            width: 300px;
+            display: inline-block;
+            background: #fff;
+            border: 2px solid # //Compoentes Style $("#seleccionarcomponente li, #componentesseleccionados li").click(function() {
+                    $(this).css("background", "#191919");
+                    $(this).css("color", "#fff");
+                });
+            height: 350px;
+            overflow: scroll-y;
+            margin: 0px;
+            vertical-align: middle;
+            text-align: left;
+        }
+        #seleccionarcomponente li, #componentesseleccionados li
+        {
+            cursor: pointer;
+        }
+        #seleccionarcomponente li:hover, #componentesseleccionados li:hover
+        {
+            background: #9bbb58;
+            color: #fff;
+        }
+        #listFlujosPagos li
+        {
+            display: inline-block;
+            float: left;
+            margin-right: 3em;
+            margin-left: 3em;
+        }
