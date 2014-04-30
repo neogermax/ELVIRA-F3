@@ -87,7 +87,7 @@
                     <ContentTemplate>
 						<asp:GridView ID="gvData" runat="server" AutoGenerateColumns="False" AllowPaging="True" Width="100%" PageSize="10">
 							<Columns>
-		                        <asp:HyperLinkField DataNavigateUrlFields="id" DataNavigateUrlFormatString="addProject.aspx?op=edit&id={0}" HeaderText="Operaciones" Text="Editar" />
+		                        <asp:HyperLinkField DataNavigateUrlFields="id" DataNavigateUrlFormatString="CPMain.aspx?id={0}" HeaderText="Operaciones" Text="Editar" />
 		                        <asp:BoundField DataField="id" HeaderText="Id" />
                                 <asp:BoundField DataField="ideaname" HeaderText="Idea" />
                                 <asp:BoundField DataField="code" HeaderText="Código" />
