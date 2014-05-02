@@ -2276,11 +2276,25 @@
       <DependentUpon>ajaxChargeTextfieldProject.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="FormulationAndAdoption\ajaxCPMain.aspx.designer.vb">
+      <DependentUpon>ajaxCPMain.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FormulationAndAdoption\ajaxCPMain.aspx.vb">
+      <DependentUpon>ajaxCPMain.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
     <Compile Include="FormulationAndAdoption\changeProjectState.aspx.designer.vb">
       <DependentUpon>changeProjectState.aspx</DependentUpon>
     </Compile>
     <Compile Include="FormulationAndAdoption\changeProjectState.aspx.vb">
       <DependentUpon>changeProjectState.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FormulationAndAdoption\CPMain.aspx.designer.vb">
+      <DependentUpon>CPMain.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FormulationAndAdoption\CPMain.aspx.vb">
+      <DependentUpon>CPMain.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="FormulationAndAdoption\overallProjectPanel.aspx.designer.vb">
@@ -3631,8 +3645,11 @@
     <Content Include="css\datatables\jquery.dataTables.css" />
     <Content Include="css\datatables\jquery.dataTables_themeroller.css" />
     <Content Include="css\jquery.multiselect2side.css" />
+    <Content Include="FormulationAndAdoption\ajaxCPMain.aspx" />
+    <Content Include="FormulationAndAdoption\CPMain.aspx" />
     <Content Include="GeneralPlanning\AjaxAddThird.aspx" />
     <Content Include="images\cargando.gif" />
+    <Content Include="Include\javascript\CPanel.js" />
     <Content Include="Include\javascript\Idea_info_prin.js" />
     <Content Include="Include\javascript\Idea_file.js" />
     <Content Include="Include\javascript\Idea_actores.js" />
