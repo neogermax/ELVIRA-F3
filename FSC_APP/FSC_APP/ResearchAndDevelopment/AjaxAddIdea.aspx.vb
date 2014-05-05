@@ -1786,7 +1786,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
             objIdea.duration = mes
             objIdea.areadescription = clean_vbCrLf(obj_esp)
             objIdea.population = poblacion
-            objIdea.cost = PublicFunction.ConvertStringToDouble(cost)
+            objIdea.cost = Convert.ToInt32(cost)
             objIdea.results = clean_vbCrLf(resul_bef)
             objIdea.createdate = Now
             objIdea.iduser = applicationCredentials.UserID
