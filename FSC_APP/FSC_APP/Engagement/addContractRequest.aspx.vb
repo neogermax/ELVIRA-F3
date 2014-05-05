@@ -45,15 +45,6 @@ Partial Class addContractRequest
             Me.lblenabled.Visible = False
 
             'DropDownList_Listado.SelectedValue = DropDownList.Items.FindByValue(ValorSeleccionado).Value
-
-            'proceso general
-            'ocultar pestaña de contratista persona natural para fusionarla con persona juridica
-            Me.TabContainer1.Tabs.Item(3).Visible = False
-            'ocultar pestañas (objeto y valor, lista de pagos y datos del contrato) del formulario
-            Me.TabContainer1.Tabs.Item(4).Visible = False
-            Me.TabContainer1.Tabs.Item(5).Visible = False
-            Me.TabContainer1.Tabs.Item(6).Visible = False
-            Me.TabContainer1.Tabs.Item(8).Visible = False
             'boton exportar
             Me.btnExport.Visible = False
 
@@ -327,8 +318,6 @@ Partial Class addContractRequest
 
             End Select
 
-            'Se selecciona la pestaña inicial
-            Me.TabContainer1.ActiveTabIndex = 0
         End If
 
     End Sub
