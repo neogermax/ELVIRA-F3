@@ -634,8 +634,9 @@ function Crear_idea() {
     //recorer array para el ingreso de flujos
     for (item in arrayflujosdepago) {
         listflujos.push(JSON.stringify(arrayflujosdepago[item]));
+        console.log(arrayflujosdepago[item]);
+    
     }
-
     //validar si el array tiene datos   
     if (listflujos.length == 0) {
         listflujos[0] = "vacio_ojo";
