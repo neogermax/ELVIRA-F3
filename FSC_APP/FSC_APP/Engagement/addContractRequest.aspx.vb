@@ -45,15 +45,6 @@ Partial Class addContractRequest
             Me.lblenabled.Visible = False
 
             'DropDownList_Listado.SelectedValue = DropDownList.Items.FindByValue(ValorSeleccionado).Value
-
-            'proceso general
-            'ocultar pestaña de contratista persona natural para fusionarla con persona juridica
-            Me.TabContainer1.Tabs.Item(3).Visible = False
-            'ocultar pestañas (objeto y valor, lista de pagos y datos del contrato) del formulario
-            Me.TabContainer1.Tabs.Item(4).Visible = False
-            Me.TabContainer1.Tabs.Item(5).Visible = False
-            Me.TabContainer1.Tabs.Item(6).Visible = False
-            Me.TabContainer1.Tabs.Item(8).Visible = False
             'boton exportar
             Me.btnExport.Visible = False
 
@@ -120,7 +111,7 @@ Partial Class addContractRequest
                         Me.lblsaveinformation.Text = "Contrato guardado parcialmente!" & Chr(13) & "Para culminar el proceso, puede hacer click en el botón " & Chr(34) & "Finalizar proceso de contratación" & Chr(34) & "."
                         ' Me.lblsaveinformation.ForeColor = Drawing.Color.Green
                         Me.containerSuccess.Visible = True
-                        Me.TabContainer1.ActiveTabIndex = 1
+                        'Me.TabContainer1.ActiveTabIndex = 1
                     End If
 
                     ' ocultar algunos botones
@@ -268,14 +259,14 @@ Partial Class addContractRequest
                         'Me.gvPaymentsList.DataBind()
 
                         'Se carga la información corespondiente a los datos del contrato de la solicitud actual
-                        With objContractRequest.CONTRACTDATABYCONTRACTREQUEST
-                            If (.startdate > CDate("1900/01/01")) Then Me.txtStartDate.Text = .startdate.ToString("yyyy/MM/dd")
-                            If (.enddate > CDate("1900/01/01")) Then Me.txtEndDate.Text = .enddate.ToString("yyyy/MM/dd")
-                            Me.txtBudgetValidity.Text = .budgetvalidity
-                            Me.txtContactData.Text = .contactdata
-                            Me.txtEmail.Text = .email
-                            Me.txtTelephone.Text = .telephone
-                        End With
+                        'With objContractRequest.CONTRACTDATABYCONTRACTREQUEST
+                        '    If (.startdate > CDate("1900/01/01")) Then Me.txtStartDate.Text = .startdate.ToString("yyyy/MM/dd")
+                        '    If (.enddate > CDate("1900/01/01")) Then Me.txtEndDate.Text = .enddate.ToString("yyyy/MM/dd")
+                        '    Me.txtBudgetValidity.Text = .budgetvalidity
+                        '    Me.txtContactData.Text = .contactdata
+                        '    Me.txtEmail.Text = .email
+                        '    Me.txtTelephone.Text = .telephone
+                        'End With
 
                         'Se carga la información corespondiente a las observaciones de la solicitud actual
                         'With objContractRequest.COMMENTSBYCONTRACTREQUEST
@@ -327,8 +318,6 @@ Partial Class addContractRequest
 
             End Select
 
-            'Se selecciona la pestaña inicial
-            Me.TabContainer1.ActiveTabIndex = 0
         End If
 
     End Sub
@@ -363,7 +352,7 @@ Partial Class addContractRequest
             Me.lblHelpcontractnumberadjusted.Text = ""
         End If
 
-        If Me.chkStartActRequires.Checked = True Then
+        If Me.PolizaRequired.Checked = True Then
 
             If Me.txtPolizaConsec.Text = "" Or Me.txtPolizaNumber.Text = "" Or Me.txtExpeditionDate.Text = "" Then
 
@@ -517,7 +506,7 @@ Partial Class addContractRequest
             Me.btnAddData.Visible = False
             'Me.btnAddContractorLegalEntity.Visible = False
             Me.addConcept.Visible = False
-            Me.txtEndDate.Text = Me.HFEndDate.Value
+            'Me.txtEndDate.Text = Me.HFEndDate.Value
 
             requestNumber = objContractRequest.requestnumber
 
@@ -1670,10 +1659,10 @@ Partial Class addContractRequest
         Catch ex As Exception
 
             ''mostrando el error
-            'Session("serror") = ex.Message
-            'Session("sUrl") = Request.UrlReferrer.PathAndQuery
-            'Response.Redirect("~/errors/error.aspx")
-            'Response.End()
+            Session("serror") = ex.Message
+            Session("sUrl") = Request.UrlReferrer.PathAndQuery
+            Response.Redirect("~/errors/error.aspx")
+            Response.End()
 
         End Try
 
