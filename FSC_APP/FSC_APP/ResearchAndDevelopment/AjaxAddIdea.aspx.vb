@@ -1712,8 +1712,8 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                     objpaymentFlow.fecha = Convert.ToDateTime(fecha_pagoexist)
                     objpaymentFlow.porcentaje = porcentajeexist
                     objpaymentFlow.entregable = entregaexist
-                    objpaymentFlow.valortotal = Convert.ToDecimal(tflujosexist)
-                    objpaymentFlow.valorparcial = Convert.ToDecimal(tflujosexist)
+                    objpaymentFlow.valortotal = Convert.ToInt32(tflujosexist)
+                    objpaymentFlow.valorparcial = Convert.ToInt32(tflujosexist)
                     objpaymentFlow.idproject = 0
 
                     'cargamos al list
