@@ -543,9 +543,14 @@ Partial Class addProjectApprovalRecord
 
 #Region "funciones"
 
+    ''' <summary>
+    ''' fub¿ncion crear proyecto madre
+    ''' </summary>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
     Public Function Save_project_mother()
 
-       
+
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
 
         'capturamos el usuario q aprueba la idea
@@ -581,7 +586,7 @@ Partial Class addProjectApprovalRecord
         CtxSetComplete()
 
         sql = New StringBuilder
-        
+
         'actualzamos los id de proyecto
         sql.Append("update Project set code = code +'" & Convert.ToString(idEntity) & "', idKey = '" & Convert.ToString(idEntity) & "', Project_derivados= '" & Convert.ToString(idEntity) & "' where id=" & idEntity)
         GattacaApplication.RunSQL(applicationCredentials, sql.ToString)

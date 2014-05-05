@@ -1712,8 +1712,8 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                     objpaymentFlow.fecha = Convert.ToDateTime(fecha_pagoexist)
                     objpaymentFlow.porcentaje = porcentajeexist
                     objpaymentFlow.entregable = entregaexist
-                    objpaymentFlow.valortotal = Convert.ToDecimal(tflujosexist)
-                    objpaymentFlow.valorparcial = Convert.ToDecimal(tflujosexist)
+                    objpaymentFlow.valortotal = Convert.ToInt32(tflujosexist)
+                    objpaymentFlow.valorparcial = Convert.ToInt32(tflujosexist)
                     objpaymentFlow.idproject = 0
 
                     'cargamos al list
@@ -1786,7 +1786,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
             objIdea.duration = mes
             objIdea.areadescription = clean_vbCrLf(obj_esp)
             objIdea.population = poblacion
-            objIdea.cost = PublicFunction.ConvertStringToDouble(cost)
+            objIdea.cost = Convert.ToInt32(cost)
             objIdea.results = clean_vbCrLf(resul_bef)
             objIdea.createdate = Now
             objIdea.iduser = applicationCredentials.UserID
