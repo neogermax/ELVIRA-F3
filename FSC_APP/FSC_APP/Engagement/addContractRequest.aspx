@@ -10,7 +10,9 @@
     <link href="../Pretty/css/prettyPhoto.css" rel="stylesheet" type="text/css" />
 
     <script src="../Include/javascript/contractrequest.js" type="text/javascript"></script>
+
     <script src="../js/jquery-ui-1.10.3.custom.min.js" type="text/javascript"></script>
+
     <script src="../Pretty/js/jquery.prettyPhoto.js" type="text/javascript"></script>
 
     <script>
@@ -317,63 +319,72 @@
         <div id="tabs-4">
             <asp:CheckBox ID="PolizaRequired" runat="server" /><asp:Label ID="lblPolizaRequired"
                 runat="server" Text="Requiere Poliza?"></asp:Label><div id="divPoliza" runat="server">
-                    <table width="100%">
-                        <tr>
-                            <td>
-                                <asp:Label ID="lblPolizaconsec" runat="server" Text="Nombre de la aseguradora"></asp:Label>
-                            </td>
-                            <td>
-                                <asp:TextBox ID="txtPolizaConsec" runat="server" MaxLength="50" Width="400px"></asp:TextBox>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <asp:Label ID="lblPolizanumber" runat="server" Text="Número de la Póliza"></asp:Label>
-                            </td>
-                            <td>
-                                <asp:TextBox ID="txtPolizaNumber" runat="server" MaxLength="50" Width="400px"></asp:TextBox>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <asp:Label ID="lblExpeditiondate" runat="server" Text="Fecha de Expedición"></asp:Label>
-                            </td>
-                            <td>
-                                <asp:TextBox ID="txtExpeditionDate" runat="server" MaxLength="50" Width="400px"></asp:TextBox><cc1:CalendarExtender
-                                    ID="cesexpeditiondate" runat="server" Enabled="True" Format="yyyy/MM/dd" TargetControlID="txtExpeditionDate">
-                                </cc1:CalendarExtender>
-                                <asp:CompareValidator ID="cvexpeditiondate" runat="server" ControlToValidate="txtExpeditionDate"
-                                    ErrorMessage="aaaa/mm/dd" Operator="DataTypeCheck" SetFocusOnError="True" Type="Date"></asp:CompareValidator>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <asp:Label ID="lblPolizaSubject" runat="server" Text="Concepto"></asp:Label>
-                            </td>
-                            <td>
-                                <asp:TextBox ID="TextBox1" runat="server" MaxLength="50" Width="400px"></asp:TextBox>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-                                <asp:GridView ID="gvPolizaConcept" runat="server" Width="50%" AutoGenerateColumns="False">
-                                    <Columns>
-                                        <asp:CommandField SelectText="Quitar" ShowSelectButton="True" />
-                                        <asp:TemplateField HeaderText="Concepto">
-                                            <ItemTemplate>
-                                                <asp:Label ID="concepto" runat="server" Text='<%# Eval("concepto") %>'></asp:Label></ItemTemplate>
-                                        </asp:TemplateField>
-                                    </Columns>
-                                </asp:GridView>
-                            </td>
+                    <fieldset>
+                        <legend>Datos de la póliza</legend>
+                        <table width="100%">
                             <tr>
-                                <td colspan="2">
-                                    <asp:Button ID="addConcept" runat="server" Text="Agregar Concepto" CausesValidation="False" /><asp:Label
-                                        ID="lblAddPolizaNfo" runat="server" Text=""></asp:Label>
+                                <td>
+                                    <asp:Label ID="lblPolizaconsec" runat="server" Text="Nombre de la aseguradora"></asp:Label>
+                                </td>
+                                <td>
+                                    <asp:TextBox ID="txtPolizaConsec" runat="server" MaxLength="50" Width="400px"></asp:TextBox>
                                 </td>
                             </tr>
-                        </tr>
-                    </table>
+                            <tr>
+                                <td>
+                                    <asp:Label ID="lblPolizanumber" runat="server" Text="Número de la Póliza"></asp:Label>
+                                </td>
+                                <td>
+                                    <asp:TextBox ID="txtPolizaNumber" runat="server" MaxLength="50" Width="400px"></asp:TextBox>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <asp:Label ID="lblExpeditiondate" runat="server" Text="Fecha de Expedición"></asp:Label>
+                                </td>
+                                <td>
+                                    <asp:TextBox ID="txtExpeditionDate" runat="server" MaxLength="50" Width="400px"></asp:TextBox><cc1:CalendarExtender
+                                        ID="cesexpeditiondate" runat="server" Enabled="True" Format="yyyy/MM/dd" TargetControlID="txtExpeditionDate">
+                                    </cc1:CalendarExtender>
+                                    <asp:CompareValidator ID="cvexpeditiondate" runat="server" ControlToValidate="txtExpeditionDate"
+                                        ErrorMessage="aaaa/mm/dd" Operator="DataTypeCheck" SetFocusOnError="True" Type="Date"></asp:CompareValidator>
+                                </td>
+                            </tr>
+                        </table>
+                    </fieldset>
+                    <br />
+                    <fieldset>
+                        <legend>Conceptos</legend>
+                        <table width="100%">
+                            <tr>
+                                <td>
+                                    <asp:Label ID="lblPolizaSubject" runat="server" Text="Concepto"></asp:Label>
+                                </td>
+                                <td>
+                                    <asp:TextBox ID="TextBox1" runat="server" MaxLength="50" Width="400px"></asp:TextBox>
+                                </td>
+                            </tr>
+                            <tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <asp:Button ID="addConcept" runat="server" Text="Agregar Concepto" CausesValidation="False" /><asp:Label
+                                            ID="lblAddPolizaNfo" runat="server" Text=""></asp:Label>
+                                    </td>
+                                </tr>
+                                <td colspan="2">
+                                    <asp:GridView ID="gvPolizaConcept" runat="server" Width="50%" AutoGenerateColumns="False">
+                                        <Columns>
+                                            <asp:CommandField SelectText="Quitar" ShowSelectButton="True" />
+                                            <asp:TemplateField HeaderText="Concepto">
+                                                <ItemTemplate>
+                                                    <asp:Label ID="concepto" runat="server" Text='<%# Eval("concepto") %>'></asp:Label></ItemTemplate>
+                                            </asp:TemplateField>
+                                        </Columns>
+                                    </asp:GridView>
+                                </td>
+                            </tr>
+                        </table>
+                    </fieldset>
                 </div>
         </div>
         <%--fin codigo nuevo--%>
@@ -396,5 +407,6 @@
         <asp:HiddenField ID="HFtextactor" runat="server" />
         <asp:HiddenField ID="HF_ID_Project" runat="server" />
         <asp:HiddenField ID="HFProject" runat="server" />
+        <asp:HiddenField ID="HFActivetab" runat="server" />
         <asp:HiddenField ID="HFPolRequired" runat="server" />
 </asp:Content>

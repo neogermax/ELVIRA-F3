@@ -11,6 +11,7 @@
     buscaractoresedit();
     polizas();
     guardarproyecto();
+    tabs();
 
 })
 
@@ -330,6 +331,14 @@ function arreglo() {
         validacontrato();
     })
 
+}
+
+function tabs() {
+    //alert("Tabs!");
+    //alert($("#ctl00_cphPrincipal_HFActivetab").val());
+    if ($("#ctl00_cphPrincipal_HFActivetab").val() != 0) {
+        $("#tabs").tabs("option", "active", 3);
+    }
 }
 
 function validacontrato() {
