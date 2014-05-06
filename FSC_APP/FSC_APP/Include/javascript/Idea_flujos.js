@@ -13,7 +13,7 @@ function Btn_add_flujo_onclick() {
         //quitamos el valor decimal
         //var arrseparar = valuecomparative.split('.');
         valuecomparative = valuecomparative.replace(/\./gi, '');
-
+        alert(valuecomparative);
         var sumapagos = $("#totalflujos").text();
         sumapagos = sumapagos.replace(/\./gi, '');
         var opesumagos = sumapagos;
