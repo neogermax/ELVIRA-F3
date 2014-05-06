@@ -8,8 +8,8 @@ Public Class PolizaDetailsEntity
     Private _id_poliza As Integer
     Private _concepto As String
     Private _aseguradora As String
-
-
+    Private _inivig As Date
+    Private _finvig As Date
     Private _contractpolizadetailslist As List(Of PolizaDetailsEntity)
 
 
@@ -53,6 +53,23 @@ Public Class PolizaDetailsEntity
         End Set
     End Property
 
+    Public Property inivig() As Date
+        Get
+            Return Me._inivig
+        End Get
+        Set(ByVal value As Date)
+            Me._inivig = value
+        End Set
+    End Property
+
+    Public Property finvig() As Date
+        Get
+            Return Me._finvig
+        End Get
+        Set(ByVal value As Date)
+            Me._finvig = value
+        End Set
+    End Property
 
     Public Property CONTRACTPOLIZADETAILSLIST() As List(Of PolizaDetailsEntity)
         Get

@@ -1303,6 +1303,13 @@ Partial Class addContractRequest
             Me.lblAddPolizaNfo.Text = ""
         End If
 
+        If Me.txtInitDatePoliza.Text = "" Or Me.txtFinishDatePoliza.Text = "" Then
+            Me.lblAddPolizaNfo.ForeColor = Drawing.Color.Red
+            Me.lblAddPolizaNfo.Text = "Por favor diligencie las fechas de vigencia de la póliza."
+        Else
+            Me.lblAddPolizaNfo.Text = ""
+        End If
+
         Try
 
             PolizaDetailsList = DirectCast(Session("PolizaDetailsList"), List(Of PolizaDetailsEntity))
@@ -1319,6 +1326,8 @@ Partial Class addContractRequest
             'PolizaDetails.Id_Poliza =
             PolizaDetails.Concepto = Me.TextBox1.Text
             PolizaDetails.aseguradora = Me.txtPolizaConsec.Text
+            PolizaDetails.inivig = Me.txtInitDatePoliza.Text
+            PolizaDetails.finvig = Me.txtFinishDatePoliza.Text
 
             If Not PolizaDetailsList.Exists(Function(inipoliza) inipoliza.Concepto = PolizaDetails.Concepto) Then
 
@@ -1328,11 +1337,12 @@ Partial Class addContractRequest
                 Me.gvPolizaConcept.DataBind()
 
                 Me.TextBox1.Text = ""
-
+                Me.txtInitDatePoliza.Text = ""
+                Me.txtFinishDatePoliza.Text = ""
 
             End If
 
-            Me.HFActivetab.Value = 3
+            'Me.HFActivetab.Value = 3
 
             'For Each itemDataTable As PolizaDetailsEntity In PolizaDetailsList
             ' Next

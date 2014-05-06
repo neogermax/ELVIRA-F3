@@ -358,10 +358,36 @@
                         <table width="100%">
                             <tr>
                                 <td>
-                                    <asp:Label ID="lblPolizaSubject" runat="server" Text="Concepto"></asp:Label>
+                                    <td>
+                                        <asp:Label ID="lblPolizaSubject" runat="server" Text="Concepto"></asp:Label>
+                                    </td>
+                                    <td>
+                                        <asp:TextBox ID="TextBox1" runat="server" MaxLength="50" Width="400px"></asp:TextBox>
+                                    </td>
                                 </td>
                                 <td>
-                                    <asp:TextBox ID="TextBox1" runat="server" MaxLength="50" Width="400px"></asp:TextBox>
+                                    <td>
+                                        <asp:Label ID="lblInitDatePoliza" runat="server" Text="Inicio de Vigencia"></asp:Label>
+                                    </td>
+                                    <td>
+                                        <asp:TextBox ID="txtInitDatePoliza" runat="server" MaxLength="50"></asp:TextBox><cc1:CalendarExtender
+                                            ID="ceInitDatePoliza" runat="server" Enabled="True" Format="yyyy/MM/dd" TargetControlID="txtInitDatePoliza">
+                                        </cc1:CalendarExtender>
+                                        <asp:CompareValidator ID="cvInitDatePoliza" runat="server" ControlToValidate="txtInitDatePoliza"
+                                            ErrorMessage="aaaa/mm/dd" Operator="DataTypeCheck" SetFocusOnError="True" Type="Date"></asp:CompareValidator>
+                                    </td> 
+                                </td>
+                                <td>
+                                    <td>
+                                        <asp:Label ID="lblFinishDatePoliza" runat="server" Text="Fin de Vigencia"></asp:Label>
+                                    </td>
+                                    <td>
+                                        <asp:TextBox ID="txtFinishDatePoliza" runat="server" MaxLength="50"></asp:TextBox><cc1:CalendarExtender
+                                            ID="ceFinishDatePoliza" runat="server" Enabled="True" Format="yyyy/MM/dd" TargetControlID="txtFinishDatePoliza">
+                                        </cc1:CalendarExtender>
+                                        <asp:CompareValidator ID="cvFinishDatePoliza" runat="server" ControlToValidate="txtFinishDatePoliza"
+                                            ErrorMessage="aaaa/mm/dd" Operator="DataTypeCheck" SetFocusOnError="True" Type="Date"></asp:CompareValidator>
+                                    </td>
                                 </td>
                             </tr>
                             <tr>
@@ -372,12 +398,20 @@
                                     </td>
                                 </tr>
                                 <td colspan="2">
-                                    <asp:GridView ID="gvPolizaConcept" runat="server" Width="50%" AutoGenerateColumns="False">
+                                    <asp:GridView ID="gvPolizaConcept" runat="server" AutoGenerateColumns="False">
                                         <Columns>
                                             <asp:CommandField SelectText="Quitar" ShowSelectButton="True" />
                                             <asp:TemplateField HeaderText="Concepto">
                                                 <ItemTemplate>
                                                     <asp:Label ID="concepto" runat="server" Text='<%# Eval("concepto") %>'></asp:Label></ItemTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="Inicio de Vigencia">
+                                                <ItemTemplate>
+                                                    <asp:Label ID="inivig" runat="server" Text='<%# Eval("inivig") %>'></asp:Label></ItemTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="Fin de Vigencia">
+                                                <ItemTemplate>
+                                                    <asp:Label ID="finvig" runat="server" Text='<%# Eval("finvig") %>'></asp:Label></ItemTemplate>
                                             </asp:TemplateField>
                                         </Columns>
                                     </asp:GridView>

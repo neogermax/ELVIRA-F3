@@ -745,6 +745,78 @@ Partial Public Class addContractRequest
     Protected WithEvents TextBox1 As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
+    '''Control lblInitDatePoliza.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents lblInitDatePoliza As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''Control txtInitDatePoliza.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents txtInitDatePoliza As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''Control ceInitDatePoliza.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents ceInitDatePoliza As Global.AjaxControlToolkit.CalendarExtender
+
+    '''<summary>
+    '''Control cvInitDatePoliza.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents cvInitDatePoliza As Global.System.Web.UI.WebControls.CompareValidator
+
+    '''<summary>
+    '''Control lblFinishDatePoliza.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents lblFinishDatePoliza As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''Control txtFinishDatePoliza.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents txtFinishDatePoliza As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''Control ceFinishDatePoliza.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents ceFinishDatePoliza As Global.AjaxControlToolkit.CalendarExtender
+
+    '''<summary>
+    '''Control cvFinishDatePoliza.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents cvFinishDatePoliza As Global.System.Web.UI.WebControls.CompareValidator
+
+    '''<summary>
     '''Control addConcept.
     '''</summary>
     '''<remarks>
