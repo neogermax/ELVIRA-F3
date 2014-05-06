@@ -25,7 +25,7 @@ function Btn_add_flujo_onclick() {
             var N_pago = $("#ctl00_cphPrincipal_txtvalortotalflow").val();
             var fecha_pago = $("#ctl00_cphPrincipal_txtfechapago").val();
             var porcentaje = $("#ctl00_cphPrincipal_txtporcentaje").val() + " %";
-            var valor_pago = $("#ctl00_cphPrincipal_Lbltotalvalor").text();
+            var valor_pago = valuecomparative;
 
             var entrega = cambio_text_flujos($("#ctl00_cphPrincipal_txtentregable").val());
             var entregas_sin = $("#ctl00_cphPrincipal_txtentregable").val();
