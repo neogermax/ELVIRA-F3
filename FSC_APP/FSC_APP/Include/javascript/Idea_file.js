@@ -31,6 +31,7 @@ function subirArchivos() {
                 var filename = result;
                 var objectfile = data;
                 var description = cambio_text_flujos($("#ctl00_cphPrincipal_Txtdecription").val());
+                alert(description);
 
                 if (idfile == null) {
                     idfile = 1;
