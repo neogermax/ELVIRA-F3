@@ -338,7 +338,7 @@ Partial Class addContractRequest
         If Me.ddlProject.SelectedItem.Text = "Seleccione..." Then
             Me.lblHelpidproject.Text = "*"
             Me.lblHelpidproject.ForeColor = Drawing.Color.Red
-            Me.TabContainer1.ActiveTabIndex = 0
+            'Me.TabContainer1.ActiveTabIndex = 0
             Exit Sub
         Else
             Me.lblHelpidproject.Text = ""
@@ -638,24 +638,24 @@ Partial Class addContractRequest
             'objContractRequest.PAYMENTSLISTBYCONTRACTREQUESTLIST = DirectCast(Session("paymentsListByContractRequestList"), List(Of PaymentsListByContractRequestEntity))
 
             'Se almacena la información correspondiente a los datos del contrato
-            With objContractRequest.CONTRACTDATABYCONTRACTREQUEST
-                .contractduration = Me.txtContractDuration.Text
-                If (Me.txtStartDate.Text.Length > 0) Then
-                    .startdate = Me.txtStartDate.Text
-                Else
-                    .startdate = Nothing
-                End If
-                If (Me.txtEndDate.Text.Length > 0) Then
-                    .enddate = Me.txtEndDate.Text
-                Else
-                    .enddate = Nothing
-                End If
-                .supervisor = Me.txtSupervisor.Text
-                .budgetvalidity = Me.txtBudgetValidity.Text
-                .contactdata = Me.txtContactData.Text
-                .email = Me.txtEmail.Text
-                .telephone = Me.txtTelephone.Text
-            End With
+            'With objContractRequest.CONTRACTDATABYCONTRACTREQUEST
+            '    .contractduration = Me.txtContractDuration.Text
+            '    If (Me.txtStartDate.Text.Length > 0) Then
+            '        .startdate = Me.txtStartDate.Text
+            '    Else
+            '        .startdate = Nothing
+            '    End If
+            '    If (Me.txtEndDate.Text.Length > 0) Then
+            '        .enddate = Me.txtEndDate.Text
+            '    Else
+            '        .enddate = Nothing
+            '    End If
+            '    .supervisor = Me.txtSupervisor.Text
+            '    .budgetvalidity = Me.txtBudgetValidity.Text
+            '    .contactdata = Me.txtContactData.Text
+            '    .email = Me.txtEmail.Text
+            '    .telephone = Me.txtTelephone.Text
+            'End With
 
             'Se verifica la finalización del contrato
             If Finished = "True" Then
@@ -944,136 +944,136 @@ Partial Class addContractRequest
 
     'End Sub
 
-    Protected Sub btnAddContractorNaturalPerson_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnAddContractorNaturalPerson.Click
+    'Protected Sub btnAddContractorNaturalPerson_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnAddContractorNaturalPerson.Click
 
-        'Definir los objetos
-        Dim contractorNaturalPersonByContractRequestList As List(Of ContractorNaturalPersonByContractRequestEntity)
-        Dim contractorNaturalPersonByContractRequest As New ContractorNaturalPersonByContractRequestEntity
+    '    'Definir los objetos
+    '    Dim contractorNaturalPersonByContractRequestList As List(Of ContractorNaturalPersonByContractRequestEntity)
+    '    Dim contractorNaturalPersonByContractRequest As New ContractorNaturalPersonByContractRequestEntity
 
-        'Se inicializan controles
-        Me.lblHelpNitContractorNaturalPerson.Text = ""
+    '    'Se inicializan controles
+    '    Me.lblHelpNitContractorNaturalPerson.Text = ""
 
-        'Se carga la lista de la session
-        contractorNaturalPersonByContractRequestList = DirectCast(Session("contractorNaturalPersonByContractRequestList"),  _
-        List(Of ContractorNaturalPersonByContractRequestEntity))
+    '    'Se carga la lista de la session
+    '    contractorNaturalPersonByContractRequestList = DirectCast(Session("contractorNaturalPersonByContractRequestList"),  _
+    '    List(Of ContractorNaturalPersonByContractRequestEntity))
 
-        'Se poblan los datos del contratista
-        With contractorNaturalPersonByContractRequest
-            .nit = Me.txtNitContractorNaturalPerson.Text
-            .contractorname = Me.txtContractorNameContractorNaturalPerson.Text
-        End With
+    '    'Se poblan los datos del contratista
+    '    With contractorNaturalPersonByContractRequest
+    '        .nit = Me.txtNitContractorNaturalPerson.Text
+    '        .contractorname = Me.txtContractorNameContractorNaturalPerson.Text
+    '    End With
 
-        If Not (contractorNaturalPersonByContractRequestList.Exists(Function(uncontractorNaturalPersonByContractRequest) _
-            uncontractorNaturalPersonByContractRequest.nit = contractorNaturalPersonByContractRequest.nit)) Then
+    '    If Not (contractorNaturalPersonByContractRequestList.Exists(Function(uncontractorNaturalPersonByContractRequest) _
+    '        uncontractorNaturalPersonByContractRequest.nit = contractorNaturalPersonByContractRequest.nit)) Then
 
-            ' agregarlos
-            contractorNaturalPersonByContractRequestList.Add(contractorNaturalPersonByContractRequest)
+    '        ' agregarlos
+    '        contractorNaturalPersonByContractRequestList.Add(contractorNaturalPersonByContractRequest)
 
-            ' mostrar
-            Me.gvContractorNaturalPerson.DataSource = contractorNaturalPersonByContractRequestList
-            Me.gvContractorNaturalPerson.DataBind()
+    '        ' mostrar
+    '        Me.gvContractorNaturalPerson.DataSource = contractorNaturalPersonByContractRequestList
+    '        Me.gvContractorNaturalPerson.DataBind()
 
-            'Se llama al metodo que permite limpiar los controles de la pestaña actual
-            Me.CleanContractorNaturalPerson()
+    '        'Se llama al metodo que permite limpiar los controles de la pestaña actual
+    '        Me.CleanContractorNaturalPerson()
 
-        Else
+    '    Else
 
-            'Se muestra el mensaje notificando el error
-            Me.lblHelpNitContractorNaturalPerson.ForeColor = Drawing.Color.Red
-            Me.lblHelpNitContractorNaturalPerson.Text = "No se pueden ingresar dos contratistas con el mismo Nit."
-            Me.txtNitContractorNaturalPerson.Focus()
+    '        'Se muestra el mensaje notificando el error
+    '        Me.lblHelpNitContractorNaturalPerson.ForeColor = Drawing.Color.Red
+    '        Me.lblHelpNitContractorNaturalPerson.Text = "No se pueden ingresar dos contratistas con el mismo Nit."
+    '        Me.txtNitContractorNaturalPerson.Focus()
 
-        End If
+    '    End If
 
-    End Sub
+    'End Sub
 
-    Protected Sub gvContractorNaturalPerson_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles gvContractorNaturalPerson.SelectedIndexChanged
+    'Protected Sub gvContractorNaturalPerson_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles gvContractorNaturalPerson.SelectedIndexChanged
 
-        ' definir los objetos
-        Dim contractorNaturalPersonByContractRequestList As List(Of ContractorNaturalPersonByContractRequestEntity)
-        Dim index As Integer = 0
+    '    ' definir los objetos
+    '    Dim contractorNaturalPersonByContractRequestList As List(Of ContractorNaturalPersonByContractRequestEntity)
+    '    Dim index As Integer = 0
 
-        ' cargar la lista de la session
-        contractorNaturalPersonByContractRequestList = DirectCast(Session("contractorNaturalPersonByContractRequestList"),  _
-        List(Of ContractorNaturalPersonByContractRequestEntity))
+    '    ' cargar la lista de la session
+    '    contractorNaturalPersonByContractRequestList = DirectCast(Session("contractorNaturalPersonByContractRequestList"),  _
+    '    List(Of ContractorNaturalPersonByContractRequestEntity))
 
-        ' remover el seleccionado
-        contractorNaturalPersonByContractRequestList.RemoveAt(Me.gvContractorNaturalPerson.SelectedIndex)
+    '    ' remover el seleccionado
+    '    contractorNaturalPersonByContractRequestList.RemoveAt(Me.gvContractorNaturalPerson.SelectedIndex)
 
-        ' mostrar
-        Me.gvContractorNaturalPerson.DataSource = contractorNaturalPersonByContractRequestList
-        Me.gvContractorNaturalPerson.DataBind()
+    '    ' mostrar
+    '    Me.gvContractorNaturalPerson.DataSource = contractorNaturalPersonByContractRequestList
+    '    Me.gvContractorNaturalPerson.DataBind()
 
-        'Se selecciona la pestama de ubicaciones por idea
-        Me.TabContainer1.ActiveTabIndex = 2
+    '    'Se selecciona la pestama de ubicaciones por idea
+    '    Me.TabContainer1.ActiveTabIndex = 2
 
-    End Sub
+    'End Sub
 
-    Protected Sub btnAddPaymentsList_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnAddPaymentsList.Click
+    'Protected Sub btnAddPaymentsList_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnAddPaymentsList.Click
 
-        'Definir los objetos
-        Dim paymentsListByContractRequestList As List(Of PaymentsListByContractRequestEntity)
-        Dim paymentsListByContractRequest As New PaymentsListByContractRequestEntity
+    '    'Definir los objetos
+    '    Dim paymentsListByContractRequestList As List(Of PaymentsListByContractRequestEntity)
+    '    Dim paymentsListByContractRequest As New PaymentsListByContractRequestEntity
 
-        'Se inicializan controles
-        Me.lblHelpValue.Text = ""
+    '    'Se inicializan controles
+    '    Me.lblHelpValue.Text = ""
 
-        'Se carga la lista de la session
-        paymentsListByContractRequestList = DirectCast(Session("paymentsListByContractRequestList"),  _
-        List(Of PaymentsListByContractRequestEntity))
+    '    'Se carga la lista de la session
+    '    paymentsListByContractRequestList = DirectCast(Session("paymentsListByContractRequestList"),  _
+    '    List(Of PaymentsListByContractRequestEntity))
 
-        'Se poblan los datos de la lista de pagos
-        With paymentsListByContractRequest
-            If (Me.txtValue.Text.Length > 0) Then .value = PublicFunction.ConvertStringToDouble(Me.txtValue.Text)
-            If (Me.txtPercentage.Text.Length > 0) Then .percentage = Convert.ToDouble(Me.txtPercentage.Text, CultureInfo.CurrentCulture)
-            .datePaymentsList = Me.txtdate.Text
-        End With
+    '    'Se poblan los datos de la lista de pagos
+    '    With paymentsListByContractRequest
+    '        If (Me.txtValue.Text.Length > 0) Then .value = PublicFunction.ConvertStringToDouble(Me.txtValue.Text)
+    '        If (Me.txtPercentage.Text.Length > 0) Then .percentage = Convert.ToDouble(Me.txtPercentage.Text, CultureInfo.CurrentCulture)
+    '        .datePaymentsList = Me.txtdate.Text
+    '    End With
 
-        If Not (paymentsListByContractRequestList.Exists(Function(unPaymentsListByContractRequest) _
-            unPaymentsListByContractRequest.value = paymentsListByContractRequest.value _
-            AndAlso unPaymentsListByContractRequest.datePaymentsList = paymentsListByContractRequest.datePaymentsList)) Then
-            ' agregarlos
-            paymentsListByContractRequestList.Add(paymentsListByContractRequest)
+    '    If Not (paymentsListByContractRequestList.Exists(Function(unPaymentsListByContractRequest) _
+    '        unPaymentsListByContractRequest.value = paymentsListByContractRequest.value _
+    '        AndAlso unPaymentsListByContractRequest.datePaymentsList = paymentsListByContractRequest.datePaymentsList)) Then
+    '        ' agregarlos
+    '        paymentsListByContractRequestList.Add(paymentsListByContractRequest)
 
-            ' mostrar
-            Me.gvPaymentsList.DataSource = paymentsListByContractRequestList
-            Me.gvPaymentsList.DataBind()
+    '        ' mostrar
+    '        Me.gvPaymentsList.DataSource = paymentsListByContractRequestList
+    '        Me.gvPaymentsList.DataBind()
 
-            'Se llama al metodo que permite limpiar los controles de la pestaña actual
-            Me.CleanPaymentsList()
+    '        'Se llama al metodo que permite limpiar los controles de la pestaña actual
+    '        Me.CleanPaymentsList()
 
-        Else
+    '    Else
 
-            'Se muestra el mensaje notificando el error
-            Me.lblHelpValue.ForeColor = Drawing.Color.Red
-            Me.lblHelpValue.Text = "No se pueden ingresar dos pagos con el mismo valor y la misma fecha."
-            Me.txtValue.Focus()
+    '        'Se muestra el mensaje notificando el error
+    '        Me.lblHelpValue.ForeColor = Drawing.Color.Red
+    '        Me.lblHelpValue.Text = "No se pueden ingresar dos pagos con el mismo valor y la misma fecha."
+    '        Me.txtValue.Focus()
 
-        End If
+    '    End If
 
-    End Sub
+    'End Sub
 
-    Protected Sub gvPaymentsList_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles gvPaymentsList.SelectedIndexChanged
+    'Protected Sub gvPaymentsList_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles gvPaymentsList.SelectedIndexChanged
 
-        ' definir los objetos
-        Dim paymentsListByContractRequestList As List(Of PaymentsListByContractRequestEntity)
-        Dim index As Integer = 0
+    '    ' definir los objetos
+    '    Dim paymentsListByContractRequestList As List(Of PaymentsListByContractRequestEntity)
+    '    Dim index As Integer = 0
 
-        ' cargar la lista de la session
-        paymentsListByContractRequestList = DirectCast(Session("paymentsListByContractRequestList"),  _
-        List(Of PaymentsListByContractRequestEntity))
+    '    ' cargar la lista de la session
+    '    paymentsListByContractRequestList = DirectCast(Session("paymentsListByContractRequestList"),  _
+    '    List(Of PaymentsListByContractRequestEntity))
 
-        ' remover el seleccionado
-        paymentsListByContractRequestList.RemoveAt(Me.gvPaymentsList.SelectedIndex)
+    '    ' remover el seleccionado
+    '    paymentsListByContractRequestList.RemoveAt(Me.gvPaymentsList.SelectedIndex)
 
-        ' mostrar
-        Me.gvPaymentsList.DataSource = paymentsListByContractRequestList
-        Me.gvPaymentsList.DataBind()
+    '    ' mostrar
+    '    Me.gvPaymentsList.DataSource = paymentsListByContractRequestList
+    '    Me.gvPaymentsList.DataBind()
 
-        'Se selecciona la pestama de ubicaciones por idea
-        Me.TabContainer1.ActiveTabIndex = 4
+    '    'Se selecciona la pestama de ubicaciones por idea
+    '    Me.TabContainer1.ActiveTabIndex = 4
 
-    End Sub
+    'End Sub
 
 #End Region
 
@@ -1227,9 +1227,9 @@ Partial Class addContractRequest
     ''' <remarks></remarks>
     Private Sub CleanContractorNaturalPerson()
 
-        Me.txtNitContractorNaturalPerson.Text = ""
-        Me.txtContractorNameContractorNaturalPerson.Text = ""
-        Me.txtNitContractorNaturalPerson.Focus()
+        'Me.txtNitContractorNaturalPerson.Text = ""
+        'Me.txtContractorNameContractorNaturalPerson.Text = ""
+        'Me.txtNitContractorNaturalPerson.Focus()
 
     End Sub
 
@@ -1239,10 +1239,10 @@ Partial Class addContractRequest
     ''' <remarks></remarks>
     Private Sub CleanPaymentsList()
 
-        Me.txtValue.Text = ""
-        Me.txtPercentage.Text = ""
-        Me.txtdate.Text = ""
-        Me.txtValue.Focus()
+        'Me.txtValue.Text = ""
+        'Me.txtPercentage.Text = ""
+        'Me.txtdate.Text = ""
+        'Me.txtValue.Focus()
 
     End Sub
 
@@ -1331,6 +1331,9 @@ Partial Class addContractRequest
 
 
             End If
+
+            Me.HFActivetab.Value = 3
+
             'For Each itemDataTable As PolizaDetailsEntity In PolizaDetailsList
             ' Next
 
