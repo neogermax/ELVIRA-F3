@@ -13,7 +13,7 @@ Public Class IdeaEntity
     Private _duration As String
     Private _areadescription As String
     Private _population As String
-    Private _cost As Double
+    Private _cost As Decimal
     Private _fsccontribution As Double
     Private _counterpartvalue As Double
     Private _strategydescription As String
@@ -131,11 +131,11 @@ Public Class IdeaEntity
             Me._population = value
         End Set
     End Property
-    Public Property cost() As Double
+    Public Property cost() As Decimal
         Get
             Return Me._cost
         End Get
-        Set(ByVal value As Double)
+        Set(ByVal value As Decimal)
             Me._cost = value
         End Set
     End Property

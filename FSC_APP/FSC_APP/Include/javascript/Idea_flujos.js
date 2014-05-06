@@ -89,7 +89,6 @@ function Btn_add_flujo_onclick() {
                         var pagoadd = arrayflujosdepago[itemArray].tflujos;
 
                         pagoadd = addCommasrefactor(pagoadd);
-                        alert(pagoadd);
                         htmlTableflujos += "<tr id='flow" + arrayflujosdepago[itemArray].N_pago + "' ><td>" + arrayflujosdepago[itemArray].N_pago + "</td><td>" + arrayflujosdepago[itemArray].fecha_pago + "</td><td>" + arrayflujosdepago[itemArray].porcentaje + "</td><td>" + entregacomas + "</td><td>" + pagoadd + "</td><td><input type ='button' value= 'Editar' onclick=\"editflujo('" + arrayflujosdepago[itemArray].N_pago + "','" + arrayflujosdepago[itemArray].fecha_pago + "',' " + arrayflujosdepago[itemArray].porcentaje + "','" + arrayflujosdepago[itemArray].entrega + "','" + pagoadd + "')\" ></input><input type ='button' value= 'Eliminar' onclick=\" eliminarflujo('" + arrayflujosdepago[itemArray].N_pago + "')\"></input></td><td><input type ='button' value= 'Detalle' onclick=\"traerdetalles('" + arrayflujosdepago[itemArray].N_pago + "',this)\"></input></td></tr>";
                     }
                     htmlTableflujos += "<tr><td width='1' style='color: #D3D6FF; font-size: 0.1em;'>1000</td><td>Porcentaje acumulado</td><td id='porcentaje'>0 %</td><td>Total</td><td id='totalflujospagos'>0</td><td></td><td></td></tr></tbody></table>";

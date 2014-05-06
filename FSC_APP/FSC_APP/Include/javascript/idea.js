@@ -663,7 +663,7 @@ function Crear_idea() {
 
     var tflujos = $("#ValueCostotal").text();
     tflujos = tflujos.replace(/\./gi, '');
-
+    alert(tflujos);
     //crear comunicacion ajax para el ingreso de los datos de la idea
     $.ajax({
         url: "AjaxAddIdea.aspx",
