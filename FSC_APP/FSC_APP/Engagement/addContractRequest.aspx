@@ -357,15 +357,12 @@
                         <legend>Conceptos</legend>
                         <table width="100%">
                             <tr>
-                                <td>
                                     <td>
                                         <asp:Label ID="lblPolizaSubject" runat="server" Text="Concepto"></asp:Label>
                                     </td>
                                     <td>
                                         <asp:TextBox ID="TextBox1" runat="server" MaxLength="50" Width="400px"></asp:TextBox>
                                     </td>
-                                </td>
-                                <td>
                                     <td>
                                         <asp:Label ID="lblInitDatePoliza" runat="server" Text="Inicio de Vigencia"></asp:Label>
                                     </td>
@@ -376,8 +373,6 @@
                                         <asp:CompareValidator ID="cvInitDatePoliza" runat="server" ControlToValidate="txtInitDatePoliza"
                                             ErrorMessage="aaaa/mm/dd" Operator="DataTypeCheck" SetFocusOnError="True" Type="Date"></asp:CompareValidator>
                                     </td> 
-                                </td>
-                                <td>
                                     <td>
                                         <asp:Label ID="lblFinishDatePoliza" runat="server" Text="Fin de Vigencia"></asp:Label>
                                     </td>
@@ -388,7 +383,6 @@
                                         <asp:CompareValidator ID="cvFinishDatePoliza" runat="server" ControlToValidate="txtFinishDatePoliza"
                                             ErrorMessage="aaaa/mm/dd" Operator="DataTypeCheck" SetFocusOnError="True" Type="Date"></asp:CompareValidator>
                                     </td>
-                                </td>
                             </tr>
                             <tr>
                                 <tr>
@@ -398,7 +392,7 @@
                                     </td>
                                 </tr>
                                 <td colspan="2">
-                                    <asp:GridView ID="gvPolizaConcept" runat="server" AutoGenerateColumns="False">
+                                    <asp:GridView ID="gvPolizaConcept" Width="100%" runat="server" AutoGenerateColumns="False">
                                         <Columns>
                                             <asp:CommandField SelectText="Quitar" ShowSelectButton="True" />
                                             <asp:TemplateField HeaderText="Concepto">
@@ -407,11 +401,11 @@
                                             </asp:TemplateField>
                                             <asp:TemplateField HeaderText="Inicio de Vigencia">
                                                 <ItemTemplate>
-                                                    <asp:Label ID="inivig" runat="server" Text='<%# Eval("inivig") %>'></asp:Label></ItemTemplate>
+                                                    <asp:Label ID="inivig" runat="server" Text='<%# Eval("inivig","{0:dd/MM/yyyy}") %>'></asp:Label></ItemTemplate>
                                             </asp:TemplateField>
                                             <asp:TemplateField HeaderText="Fin de Vigencia">
                                                 <ItemTemplate>
-                                                    <asp:Label ID="finvig" runat="server" Text='<%# Eval("finvig") %>'></asp:Label></ItemTemplate>
+                                                    <asp:Label ID="finvig" runat="server" Text='<%# Eval("finvig","{0:dd/MM/yyyy}") %>'></asp:Label></ItemTemplate>
                                             </asp:TemplateField>
                                         </Columns>
                                     </asp:GridView>

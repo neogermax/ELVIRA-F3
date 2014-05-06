@@ -29,11 +29,13 @@ Public Class PolizaDetailsDALC
         Try
 
             'generar el query
-            sql.AppendLine("INSERT INTO PolizaDetails (Id_poliza, Concepto, aseguradora) ")
+            sql.AppendLine("INSERT INTO PolizaDetails (Id_poliza, Concepto, aseguradora, inivig, finvig) ")
             sql.AppendLine("VALUES (")
             sql.AppendLine("'" & idpol & "',")
             sql.AppendLine("'" & PolizaDetails.Concepto & "',")
-            sql.AppendLine("'" & PolizaDetails.aseguradora & "')")
+            sql.AppendLine("'" & PolizaDetails.aseguradora & "',")
+            sql.AppendLine("'" & PolizaDetails.inivig & "',")
+            sql.AppendLine("'" & PolizaDetails.finvig & "')")
 
             'instruccion para obtener el registro insertado
             sql.AppendLine(" SELECT SCOPE_IDENTITY() AS Id")
@@ -96,6 +98,8 @@ Public Class PolizaDetailsDALC
                 objPolizaDetails.Id_Poliza = data.Rows(0)("Id_Poliza")
                 objPolizaDetails.Concepto = data.Rows(0)("Concepto")
                 objPolizaDetails.aseguradora = data.Rows(0)("aseguradora")
+                objPolizaDetails.inivig = data.Rows(0)("inivig")
+                objPolizaDetails.finvig = data.Rows(0)("finvig")
 
             End If
 
@@ -336,6 +340,8 @@ Public Class PolizaDetailsDALC
                 ' cargar el valor del campo
                 'objPolizaDetails.Id = row("id")
                 objPolizaDetails.Concepto = row("concepto")
+                objPolizaDetails.inivig = row("inivig")
+                objPolizaDetails.finvig = row("finvig")
                 'objContractorLegalEntityByContractRequest.id = row("id")
                 'objContractorLegalEntityByContractRequest.idcontractrequest = row("idcontractrequest")
                 'objContractorLegalEntityByContractRequest.entitynamedescription = row("entitynamedescription")
