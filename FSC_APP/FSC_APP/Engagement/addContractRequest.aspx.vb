@@ -1303,9 +1303,20 @@ Partial Class addContractRequest
             Me.lblAddPolizaNfo.Text = ""
         End If
 
+        'verificar que se diligencien ambas fechas en el concepto
         If Me.txtInitDatePoliza.Text = "" Or Me.txtFinishDatePoliza.Text = "" Then
             Me.lblAddPolizaNfo.ForeColor = Drawing.Color.Red
             Me.lblAddPolizaNfo.Text = "Por favor diligencie las fechas de vigencia de la póliza."
+            Exit Sub
+        Else
+            Me.lblAddPolizaNfo.Text = ""
+        End If
+
+        'verificar que la finalización sea mayor o igual que el inicio
+        If Me.txtInitDatePoliza.Text > Me.txtFinishDatePoliza.Text Then
+            Me.lblAddPolizaNfo.ForeColor = Drawing.Color.Red
+            Me.lblAddPolizaNfo.Text = "La fecha de fin de vigencia no debe se inferior a la fecha de inicio de la vigencia."
+            Exit Sub
         Else
             Me.lblAddPolizaNfo.Text = ""
         End If
