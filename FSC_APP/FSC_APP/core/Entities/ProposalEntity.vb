@@ -13,7 +13,7 @@ Public Class ProposalEntity
     Private _target As String
     Private _targetpopulation As String
     Private _expectedresults As String
-    Private _totalvalue As Double
+    Private _totalvalue As Decimal
     Private _inputfsc As Double
     Private _inputothersources As Double
     Private _briefprojectdescription As String
@@ -105,11 +105,11 @@ Public Class ProposalEntity
             Me._expectedresults = value
         End Set
     End Property
-    Public Property totalvalue() As Double
+    Public Property totalvalue() As Decimal
         Get
             Return Me._totalvalue
         End Get
-        Set(ByVal value As Double)
+        Set(ByVal value As Decimal)
             Me._totalvalue = value
         End Set
     End Property
