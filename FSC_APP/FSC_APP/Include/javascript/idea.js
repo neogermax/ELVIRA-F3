@@ -405,7 +405,7 @@ function SaveIdea_onclick() {
     }
     //   alert("verificar_C_fechas" + verificar_C_fechas + "verificar_informacion_p:" + verificar_informacion_p + " verificar_actor:" + verificar_actor + " verificar_ubicaciones:" + verificar_ubicaciones + " verificar_componentes" + verificar_componentes + " verificar_flujos:" + verificar_flujos + " verificar_C_resultados:" + verificar_C_resultados + " fsc_exist" + fsc_exist);
     //VALIDAR RESULTADOS DE LAS VALIDACIONES
-    if (F_fecha_ini==1 && verificar_C_fechas == 1 && verificar_actor == 1 && verificar_ubicaciones == 1 && verificar_componentes == 1 && verificar_flujos == 1 && verificar_C_resultados == 1 && fsc_exist == 1 && verificar_informacion_p == 1) {
+    if (F_fecha_ini == 1 && verificar_C_fechas == 1 && verificar_actor == 1 && verificar_ubicaciones == 1 && verificar_componentes == 1 && verificar_flujos == 1 && verificar_C_resultados == 1 && fsc_exist == 1 && verificar_informacion_p == 1) {
 
         $("#ctl00_cphPrincipal_containererrors").css("display", "none");
 
@@ -635,7 +635,7 @@ function Crear_idea() {
     for (item in arrayflujosdepago) {
         listflujos.push(JSON.stringify(arrayflujosdepago[item]));
         console.log(arrayflujosdepago[item]);
-    
+
     }
     //validar si el array tiene datos   
     if (listflujos.length == 0) {
@@ -663,7 +663,7 @@ function Crear_idea() {
 
     var tflujos = $("#ValueCostotal").text();
     tflujos = tflujos.replace(/\./gi, '');
-    alert(tflujos);
+    //alert(tflujos);
     //crear comunicacion ajax para el ingreso de los datos de la idea
     $.ajax({
         url: "AjaxAddIdea.aspx",

@@ -712,7 +712,7 @@ function sumar_flujos(str) {
 
 
             arrayValorflujoTotal[0] = valtotaldiner;
-            alert(valtotaldiner);
+          //  alert(valtotaldiner);
             $("#totalflujos").text(addCommasrefactor(valtotaldiner));
 
         }
