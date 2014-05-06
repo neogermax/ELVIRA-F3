@@ -661,6 +661,8 @@ function Crear_idea() {
         listfiles[0] = "vacio_ojo";
     }
 
+    var tflujos = $("#ValueCostotal").text();
+    tflujos = tflujos.replace(/\./gi, '');
 
     //crear comunicacion ajax para el ingreso de los datos de la idea
     $.ajax({
@@ -688,7 +690,7 @@ function Crear_idea() {
             "A_Efsc": $("#ValueEspeciesFSC").val(),
             "A_Mcounter": $("#ValueMoneyCounter").val(),
             "A_Ecounter": $("#ValueEspeciesCounter").val(),
-            "cost": $("#ValueCostotal").text(),
+            "cost": tflujos,
             "obligaciones": cambio_text($("#ctl00_cphPrincipal_Txtobligationsoftheparties").val()),
             "riesgo": cambio_text($("#ctl00_cphPrincipal_Txtriesgos").val()),
             "mitigacion": cambio_text($("#ctl00_cphPrincipal_Txtaccionmitig").val()),
