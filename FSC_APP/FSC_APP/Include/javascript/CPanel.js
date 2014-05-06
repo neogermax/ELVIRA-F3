@@ -26,6 +26,29 @@ function Contract_onclick() {
     });
 };
 
+function Proceed_onclick() {
+    window.location.href = '/FomsProceedings/Proceedings_stars.aspx?cid=' + getParameterByName('id');
+//    //Obtener estado de contratación//
+//    $.ajax({
+//        url: "ajaxCPMain.aspx",
+//        type: "GET",
+//        data: { "action": "getcontractstatus", "proyectid": getParameterByName('id') },
+//        success: function(result) {
+//            //Busca registros de contratación
+//            if (result != "") {
+//    window.location.href = 'FomsProceedings/Proceedings_stars.aspx?cid=' + result;
+//            } else {
+//                window.location.href = '/Engagement/addContractRequest.aspx?op=add';
+//            }
+//        },
+//        error: function()
+//        //Error
+//        {
+//            alert("Hubo un error al consultar los datos de contratación.");
+//        }
+//    });
+};
+
 //-Extraer parametros QueryString-//
 function getParameterByName(name) {
     name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
