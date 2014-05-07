@@ -214,6 +214,25 @@ function fecha() {
         }
     })
 
+    $("#ctl00_cphPrincipal_txtFinishDatePoliza").change(function() {
+        if ($("#ctl00_cphPrincipal_txtInitDatePoliza").val() == '') {
+            $("#ctl00_cphPrincipal_lblAddPolizaNfo").css("color", "red");
+            $("#ctl00_cphPrincipal_lblAddPolizaNfo").text("La fecha de inicio de vigencia no se ha diligenciado.")
+            $("#ctl00_cphPrincipal_txtFinishDatePoliza").val("");
+        } else {
+            $("#ctl00_cphPrincipal_lblAddPolizaNfo").text("");
+            var inivig = $("#ctl00_cphPrincipal_txtInitDatePoliza").val();
+            var finvig = $("#ctl00_cphPrincipal_txtFinishDatePoliza").val();
+
+            if (inivig > finvig) {
+                $("#ctl00_cphPrincipal_lblNfoEndingdate").css("color", "red");
+                $("#ctl00_cphPrincipal_lblNfoEndingdate").text("La fecha de inicio de vigencia no puede ser anteior a la fecha de fin de vigencia.");
+            } else {
+            }
+
+        }
+    })
+
     //Limpiar campos fechas de contrato
     $("#ctl00_cphPrincipal_txtSubscriptionDate").change(function() {
         $("#ctl00_cphPrincipal_txtInitialDate").val("");
