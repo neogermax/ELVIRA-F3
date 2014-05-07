@@ -242,14 +242,22 @@ function View_detalle_flujo_array() {
         data: { "action": "View_detalle_flujo_array", "ididea": ideditar },
         success: function(result) {
 
-            matriz_flujos_ed = result.split("|");
+            if (result == "vacio") {
 
-            for (itemArray in matriz_flujos_ed) {
+                // alert(result + " detalles");
+                matriz_flujos = [];
 
-                var recibeact = JSON.parse(matriz_flujos_ed[itemArray]);
-                matriz_flujos.push(recibeact);
             }
+            else {
 
+                matriz_flujos_ed = result.split("|");
+
+                for (itemArray in matriz_flujos_ed) {
+
+                    var recibeact = JSON.parse(matriz_flujos_ed[itemArray]);
+                    matriz_flujos.push(recibeact);
+                }
+            }
         },
         error: function(msg) {
             alert("No se pueden cargar los flujos de pago de la idea = " + ideditar);
@@ -267,14 +275,20 @@ function View_flujos_p_array() {
         data: { "action": "View_flujos_p_array", "ididea": ideditar },
         success: function(result) {
 
-            arrayflujosdepago_ed = result.split("|");
+            if (result == "vacio") {
+                //    alert(result + " flujo actores");
+                arrayflujosdepago = [];
 
-            for (itemArray in arrayflujosdepago_ed) {
-
-                var recibeact = JSON.parse(arrayflujosdepago_ed[itemArray]);
-                arrayflujosdepago.push(recibeact);
             }
+            else {
+                arrayflujosdepago_ed = result.split("|");
 
+                for (itemArray in arrayflujosdepago_ed) {
+
+                    var recibeact = JSON.parse(arrayflujosdepago_ed[itemArray]);
+                    arrayflujosdepago.push(recibeact);
+                }
+            }
         },
         error: function(msg) {
             alert("No se pueden cargar los flujos de pago de la idea = " + ideditar);
@@ -312,9 +326,7 @@ function View_flujos_actors() {
 
 }
 
-
-
-
+//funtion crear array de flujos de pagos
 function View_flujos_actors_array() {
     $.ajax({
         url: "AjaxAddIdea.aspx",
@@ -322,14 +334,22 @@ function View_flujos_actors_array() {
         data: { "action": "View_flujos_actors_array", "ididea": ideditar },
         success: function(result) {
 
-            arrayactorflujo_ed = result.split("|");
+            if (result == "vacio") {
+                //    alert(result);
+                arrayActorFlujo = [];
 
-            for (itemArray in arrayactorflujo_ed) {
-
-                var recibeact = JSON.parse(arrayactorflujo_ed[itemArray]);
-                arrayActorFlujo.push(recibeact);
             }
+            else {
+                arrayactorflujo_ed = result.split("|");
 
+                // alert(arrayactorflujo_ed);
+                for (itemArray in arrayactorflujo_ed) {
+
+                    var recibeact = JSON.parse(arrayactorflujo_ed[itemArray]);
+                    // alert(recibeact);
+                    arrayActorFlujo.push(recibeact);
+                }
+            }
 
         },
         error: function(msg) {
@@ -338,7 +358,6 @@ function View_flujos_actors_array() {
     });
 
 }
-
 
 
 
@@ -712,7 +731,7 @@ function sumar_flujos(str) {
 
 
             arrayValorflujoTotal[0] = valtotaldiner;
-          //  alert(valtotaldiner);
+            //  alert(valtotaldiner);
             $("#totalflujos").text(addCommasrefactor(valtotaldiner));
 
         }

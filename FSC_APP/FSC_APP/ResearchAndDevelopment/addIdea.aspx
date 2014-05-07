@@ -415,7 +415,8 @@
                     </td>--%>
                     <td>
                         <asp:Label ID="Lbltitlecomponet" runat="server" Text="Componentes"></asp:Label>
-                        <ul id="seleccionarcomponente"></ul>
+                        <ul id="seleccionarcomponente">
+                        </ul>
                     </td>
                     <td style="width: 100px;">
                         <input id="Btnaddcomponent" type="button" value=">>" name="Add_Componente" onclick="return Btnaddcomponent_onclick()" />
@@ -424,7 +425,8 @@
                     </td>
                     <td>
                         <asp:Label ID="Label20" runat="server" Text="Componentes seleccionados"></asp:Label>
-                        <ul id="componentesseleccionados"></ul>
+                        <ul id="componentesseleccionados">
+                        </ul>
                     </td>
                     <td id="viejocomp" runat="server" visible="false">
                         <cc2:DoubleListBox ID="dlbActivity" runat="server" Width="100%" />
@@ -901,7 +903,9 @@
         <div id="anexos">
             <ul>
                 <li id="tableAttachments"></li>
-                <input id="fileupload" type="file" name="files[]" />
+                <li>
+                    <input id="fileupload" type="file" name="files[]" />
+                </li>
                 <li><a id="lnkAttch" style="cursor: hand" onclick="AddFileInput(F1)" visible="false">
                 </a></li>
                 <li>
@@ -913,7 +917,6 @@
                         Width="100%"></asp:TextBox>
                     <asp:HiddenField ID="HiddenField1" runat="server" />
                 </li>
-                <br />
                 <li>
                     <input id="Btncharge_file" type="button" value="Adjuntar un archivo" name="Add_files"
                         onclick="subirArchivos()" />
@@ -930,66 +933,62 @@
                 <asp:Label ID="Label12" runat="server" Text="Subiendo archivos..." Style="font-size: 14pt;
                     color: #9bbb58;"></asp:Label>
             </div>
-            <div>
+            <div id="tdFileInputs">
+                <table id="T_files" border="1" cellpadding="1" cellspacing="1" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th style="text-align: center;">
+                            </th>
+                            <th style="text-align: center;">
+                                Archivo
+                            </th>
+                            <th style="text-align: center;">
+                                Ver
+                            </th>
+                            <th style="text-align: center;">
+                                Eliminar
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <%--<asp:UpdatePanel ID="upData" runat="server" UpdateMode="Conditional">
+                    <ContentTemplate>
+                        <asp:GridView ID="gvDocuments" runat="server" AutoGenerateColumns="False" Width="100%">
+                            <Columns>--%>
+               <%--                 <asp:HyperLinkField DataNavigateUrlFields="id" DataNavigateUrlFormatString="addDocuments.aspx?op=edit&id={0}&isPopup=True"
+                                    HeaderText="Edición" Text="Editar" Target="_blank" />
+                                <asp:TemplateField HeaderText="Eliminación" ShowHeader="False">
+                                    <ItemTemplate>
+                                        <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandName="Delete"
+                                            OnClientClick="return confirm('Esta seguro?')" Text="Eliminar"></asp:LinkButton></ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:BoundField DataField="title" HeaderText="Título" />
+                                <asp:BoundField DataField="description" HeaderText="Descripción" />
+                                <asp:BoundField DataField="EDITEDFORNAME" HeaderText="Editado por" />
+                                <asp:BoundField DataField="VISIBILITYLEVELNAME" HeaderText="Nivel visibilidad" />
+                                <asp:BoundField DataField="DOCUMENTTYPENAME" HeaderText="Tipo documento" />
+                                <asp:BoundField DataField="createdate" HeaderText="Fecha" />
+                                <asp:BoundField DataField="USERNAME" HeaderText="Usuario" />
+                                <asp:HyperLinkField DataNavigateUrlFields="attachfile" DataTextField="attachfile"
+                                    HeaderText="Anexo" Target="_blank" />
+                            </Columns>
+                        </asp:GridView>
+                        <br />
+                        <asp:Button ID="btnRefresh" runat="server" Text="Actualizar Listado" /></ContentTemplate>
+                </asp:UpdatePanel>--%>
             </div>
-            <ul>
-                <li id="tdFileInputs">
-                    <table id="T_files" border="1" cellpadding="1" cellspacing="1" style="width: 100%;">
-                        <thead>
-                            <tr>
-                                <th style="text-align: center;">
-                                </th>
-                                <th style="text-align: center;">
-                                    Archivo
-                                </th>
-                                <th style="text-align: center;">
-                                    Ver
-                                </th>
-                                <th style="text-align: center;">
-                                    Eliminar
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <asp:UpdatePanel ID="upData" runat="server" UpdateMode="Conditional">
-                        <ContentTemplate>
-                            <asp:GridView ID="gvDocuments" runat="server" AutoGenerateColumns="False" Width="100%">
-                                <Columns>
-                                    <asp:HyperLinkField DataNavigateUrlFields="id" DataNavigateUrlFormatString="addDocuments.aspx?op=edit&id={0}&isPopup=True"
-                                        HeaderText="Edición" Text="Editar" Target="_blank" />
-                                    <asp:TemplateField HeaderText="Eliminación" ShowHeader="False">
-                                        <ItemTemplate>
-                                            <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandName="Delete"
-                                                OnClientClick="return confirm('Esta seguro?')" Text="Eliminar"></asp:LinkButton></ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:BoundField DataField="title" HeaderText="Título" />
-                                    <asp:BoundField DataField="description" HeaderText="Descripción" />
-                                    <asp:BoundField DataField="EDITEDFORNAME" HeaderText="Editado por" />
-                                    <asp:BoundField DataField="VISIBILITYLEVELNAME" HeaderText="Nivel visibilidad" />
-                                    <asp:BoundField DataField="DOCUMENTTYPENAME" HeaderText="Tipo documento" />
-                                    <asp:BoundField DataField="createdate" HeaderText="Fecha" />
-                                    <asp:BoundField DataField="USERNAME" HeaderText="Usuario" />
-                                    <asp:HyperLinkField DataNavigateUrlFields="attachfile" DataTextField="attachfile"
-                                        HeaderText="Anexo" Target="_blank" />
-                                </Columns>
-                            </asp:GridView>
-                            <br />
-                            <asp:Button ID="btnRefresh" runat="server" Text="Actualizar Listado" /></ContentTemplate>
-                    </asp:UpdatePanel>
-                </li>
-            </ul>
         </div>
     </div>
     <div id="dialog" title="Desembolso detallado">

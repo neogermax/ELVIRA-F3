@@ -34,6 +34,24 @@ Partial Public Class addIdea
     Protected WithEvents lblsaveinformation As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
+    '''Control containererrors.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents containererrors As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+    '''<summary>
+    '''Control Lblerrors_save_idea.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Lblerrors_save_idea As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
     '''Control HDIDTHIRD.
     '''</summary>
     '''<remarks>
@@ -493,15 +511,6 @@ Partial Public Class addIdea
     Protected WithEvents cestartdate As Global.AjaxControlToolkit.CalendarExtender
 
     '''<summary>
-    '''Control cvstartdate.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents cvstartdate As Global.System.Web.UI.WebControls.CompareValidator
-
-    '''<summary>
     '''Control lblHelpstartdate.
     '''</summary>
     '''<remarks>
@@ -538,6 +547,15 @@ Partial Public Class addIdea
     Protected WithEvents txtduration As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
+    '''Control Lblhelpduraton.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Lblhelpduraton As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
     '''Control Lbldia.
     '''</summary>
     '''<remarks>
@@ -554,6 +572,15 @@ Partial Public Class addIdea
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
     Protected WithEvents Txtday As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''Control Lblhelpday.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Lblhelpday As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''Control Lbldateend.
@@ -1823,31 +1850,4 @@ Partial Public Class addIdea
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
     Protected WithEvents Label12 As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''Control upData.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents upData As Global.System.Web.UI.UpdatePanel
-
-    '''<summary>
-    '''Control gvDocuments.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents gvDocuments As Global.System.Web.UI.WebControls.GridView
-
-    '''<summary>
-    '''Control btnRefresh.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents btnRefresh As Global.System.Web.UI.WebControls.Button
 End Class
