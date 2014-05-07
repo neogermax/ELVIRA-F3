@@ -1,27 +1,95 @@
 ﻿//-Carga de la página-//
 $(document).ready(function() {
-    //-Deshabilitar-//
-    deshabilitar("#btnlearnedlessons");
-    deshabilitar("#btnproceedclose");
-    deshabilitar("#btneditcont");
-    deshabilitar("#btnapproval");
-    deshabilitar("#btnmodification");
-    deshabilitar("#btntracing");
-    deshabilitar("#btnindicators");
-    deshabilitar("#btnreports");
-    deshabilitar("#btnriskmanagement");
-    deshabilitar("#btncrono");
-    //-Habilitar-//
-    habilitar("#ViewProject");
-    habilitar("#btnprojectapproval");
-    habilitar("#btncontratacion");
-    habilitar("#btnproceed");
+    //-Establecer estado inicial de los controles-//
+    inicial();
+    //-Verificar el estado del panel de control-//
+    verifica();
 })
+
+//-Deshabilitar todo-//
+function inicial() {
+//    var botones = ["#btnlearnedlessons", "btnproceedclose", "btneditcont", "btnapproval", "btnmodification", "btntracing", "btnindicators", "btnreports", "btnriskmanagement", "btncrono", "btncontratacion", "btnproceed"];
+//    //-Deshabilitar-//
+//    for (var i = 0; i < botones.length; i++) {
+//        //Recorre el array de controles
+//        pendiente(botones[i]);
+//    }
+
+    pendiente("#btnlearnedlessons");
+    pendiente("#btnproceedclose");
+    pendiente("#btneditcont");
+    pendiente("#btnapproval");
+    pendiente("#btnmodification");
+    pendiente("#btnindicators");
+    pendiente("#btnreports");
+    pendiente("#btnriskmanagement");
+    pendiente("#btncrono");
+    pendiente("#btncontratacion");
+    pendiente("#btnproceed");
+};
+
+//-Verificacion inicial-//
+function verifica() {
+    //Obtener estado del proyecto//
+    $.ajax({
+        url: "ajaxCPMain.aspx",
+        type: "GET",
+        data: { "action": "getproyectstatus", "proyectid": getParameterByName('id') },
+        success: function(result) {
+            //Busca registros de contratación
+            if (result == "1") {
+                completo("#btnprojectapproval");
+                habilitar("#btncontratacion");
+            }
+        },
+        error: function()
+        //Error
+        {
+            alert("Hubo un error al consultar los datos del proyecto.");
+        }
+    });
+
+    //Obtener estado de contratacion//
+    $.ajax({
+        url: "ajaxCPMain.aspx",
+        type: "GET",
+        data: { "action": "getcontractfinished", "proyectid": getParameterByName('id') },
+        success: function(result) {
+            //Busca registros de contratación
+            if (result == "True") {
+                completo("#btncontratacion");
+            }
+        },
+        error: function()
+        //Error
+        {
+            alert("Hubo un error al consultar los datos del contrato.");
+        }
+    });
+};
+
 
 //-Formatos botones-//
 function habilitar(control) {
     $(control).css("cursor", "pointer");
     $(control).css("opacity", "1");
+};
+
+function completo(control) {
+    $(control).css("background", "#056F67");
+    $(control).css("border", "1px solid #056F67");
+    $(control).css("opacity", "1");
+};
+
+function pendiente(control) {
+    $(control).css("background", "#FCBB31");
+    $(control).css("border", "1px solid #FCBB31");
+    $(control).css("opacity", "1");
+};
+
+function desactivar(control) {
+    $(control).css("opacity", "0.5");
+    $(control).css("cursor", "not-allowed");
 };
 
 function deshabilitar(control) {

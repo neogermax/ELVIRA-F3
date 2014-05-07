@@ -21,6 +21,12 @@ Partial Public Class ajaxCPMain
             Case "getcontractstatus"
                 proyectid = Request.QueryString("proyectid").ToString()
                 buscacontratacion(proyectid, applicationCredentials)
+            Case "getproyectstatus"
+                proyectid = Request.QueryString("proyectid").ToString()
+                proyectoaprobado(proyectid, applicationCredentials)
+            Case "getcontractfinished"
+                proyectid = Request.QueryString("proyectid").ToString()
+                contratofinalizado(proyectid, applicationCredentials)
             Case Else
         End Select
 
@@ -51,14 +57,14 @@ Partial Public Class ajaxCPMain
 
     End Function
 
-    Public Function proyectoaprobado(ByVal idContract As Integer, ByVal objApplicationCredentials As Gattaca.Application.Credentials.ApplicationCredentials) As String
+    Public Function proyectoaprobado(ByVal idProyect As Integer, ByVal objApplicationCredentials As Gattaca.Application.Credentials.ApplicationCredentials) As String
 
         Dim sql As New StringBuilder
         Dim objSqlCommand As New SqlCommand
         Dim data As DataTable
 
         'consulta estado de aprobacion por id
-        sql.Append("SELECT Typeapproval FROM Project WHERE id = " & idContract)
+        sql.Append("SELECT Typeapproval FROM Project WHERE id = " & idProyect)
 
         data = GattacaApplication.RunSQLRDT(objApplicationCredentials, sql.ToString)
 
@@ -69,6 +75,27 @@ Partial Public Class ajaxCPMain
             Response.Write(objresult)
         Else
             'No tiene estado el contrato
+        End If
+
+    End Function
+
+    Function contratofinalizado(ByVal idproyect As Integer, ByVal objAppilcationCredentials As Gattaca.Application.Credentials.ApplicationCredentials) As String
+        Dim sql As New StringBuilder
+        Dim objSqlCommand As New SqlCommand
+        Dim data As DataTable
+
+        'consultar el estado de contratacion por el id del proyecto
+        sql.Append("select finished from ContractRequest where IdProject = " & idproyect)
+
+        data = GattacaApplication.RunSQLRDT(objAppilcationCredentials, sql.ToString)
+
+        If data.Rows.Count > 0 Then
+            'Tiene contratacion
+            Dim objresult As String
+            objresult = data.Rows(0)("finished")
+            Response.Write(objresult)
+        Else
+            'No tiene contratacion
         End If
 
     End Function
