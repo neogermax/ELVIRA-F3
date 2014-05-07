@@ -367,6 +367,51 @@ Partial Public Class addContractRequest
     Protected WithEvents lblNfoEndingdate As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
+    '''Control lblLiquidationDate.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents lblLiquidationDate As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''Control txtLiquidationDate.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents txtLiquidationDate As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''Control ceLiquidationDate.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents ceLiquidationDate As Global.AjaxControlToolkit.CalendarExtender
+
+    '''<summary>
+    '''Control cvLiquidationDate.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents cvLiquidationDate As Global.System.Web.UI.WebControls.CompareValidator
+
+    '''<summary>
+    '''Control lblNfoLiquidationDate.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents lblNfoLiquidationDate As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
     '''Control Label20.
     '''</summary>
     '''<remarks>

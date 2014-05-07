@@ -186,7 +186,7 @@
                 <tr>
                     <td>
                         <br />
-                        <asp:Label ID="lblEndingDate" runat="server" Text="Fecha de finalización"></asp:Label>
+                        <asp:Label ID="lblEndingDate" runat="server" Text="Fecha de cierre"></asp:Label>
                     </td>
                     <td>
                         <br />
@@ -197,11 +197,31 @@
                     </td>
                 </tr>
                 <tr>
+                    <td>
+                        <br />
+                        <asp:Label ID="lblLiquidationDate" runat="server" Text="Fecha de liquidación"></asp:Label>
+                    </td>
+                    <td>
+                        <br />
+                        <asp:TextBox ID="txtLiquidationDate" runat="server" Width="400px" MaxLength="50"></asp:TextBox>
+                        <cc1:CalendarExtender ID="ceLiquidationDate" runat="server" TargetControlID="txtLiquidationDate" Format="yyyy/MM/dd"
+                            Enabled="True">
+                        </cc1:CalendarExtender>
+                        <asp:CompareValidator ID="cvLiquidationDate" runat="server" ErrorMessage="aaaa/mm/dd"
+                            Type="Date" ControlToValidate="txtLiquidationDate" Operator="DataTypeCheck" SetFocusOnError="True"></asp:CompareValidator>
+                    </td> 
+                    <td>
+                        <asp:Label ID="lblNfoLiquidationDate" runat="server"></asp:Label>
+                    </td>
+                </tr>
+                <tr>
                     <td style="width: 187px">
+                        <br />
                         <br />
                         <asp:Label ID="Label20" runat="server" Text="Supervisor"></asp:Label>
                     </td>
                     <td>
+                        <br />
                         <br />
                         <asp:TextBox ID="txtSupervisor" runat="server" MaxLength="255" onkeypress="return textboxAreaMaxNumber(this,255)"
                             Rows="2" TextMode="MultiLine" Width="400px"></asp:TextBox>
@@ -209,6 +229,7 @@
                 </tr>
                 <tr>
                     <td>
+                        <br />
                         <br />
                         <asp:Label ID="lblConfidential" runat="server" Text="Acuerdo de confidencialidad"></asp:Label>
                     </td>
@@ -357,32 +378,32 @@
                         <legend>Conceptos</legend>
                         <table width="100%">
                             <tr>
-                                    <td>
-                                        <asp:Label ID="lblPolizaSubject" runat="server" Text="Concepto"></asp:Label>
-                                    </td>
-                                    <td>
-                                        <asp:TextBox ID="TextBox1" runat="server" MaxLength="50" Width="400px"></asp:TextBox>
-                                    </td>
-                                    <td>
-                                        <asp:Label ID="lblInitDatePoliza" runat="server" Text="Inicio de Vigencia"></asp:Label>
-                                    </td>
-                                    <td>
-                                        <asp:TextBox ID="txtInitDatePoliza" runat="server" MaxLength="50"></asp:TextBox><cc1:CalendarExtender
-                                            ID="ceInitDatePoliza" runat="server" Enabled="True" Format="yyyy/MM/dd" TargetControlID="txtInitDatePoliza">
-                                        </cc1:CalendarExtender>
-                                        <asp:CompareValidator ID="cvInitDatePoliza" runat="server" ControlToValidate="txtInitDatePoliza"
-                                            ErrorMessage="aaaa/mm/dd" Operator="DataTypeCheck" SetFocusOnError="True" Type="Date"></asp:CompareValidator>
-                                    </td> 
-                                    <td>
-                                        <asp:Label ID="lblFinishDatePoliza" runat="server" Text="Fin de Vigencia"></asp:Label>
-                                    </td>
-                                    <td>
-                                        <asp:TextBox ID="txtFinishDatePoliza" runat="server" MaxLength="50"></asp:TextBox><cc1:CalendarExtender
-                                            ID="ceFinishDatePoliza" runat="server" Enabled="True" Format="yyyy/MM/dd" TargetControlID="txtFinishDatePoliza">
-                                        </cc1:CalendarExtender>
-                                        <asp:CompareValidator ID="cvFinishDatePoliza" runat="server" ControlToValidate="txtFinishDatePoliza"
-                                            ErrorMessage="aaaa/mm/dd" Operator="DataTypeCheck" SetFocusOnError="True" Type="Date"></asp:CompareValidator>
-                                    </td>
+                                <td>
+                                    <asp:Label ID="lblPolizaSubject" runat="server" Text="Concepto"></asp:Label>
+                                </td>
+                                <td>
+                                    <asp:TextBox ID="TextBox1" runat="server" MaxLength="50" Width="400px"></asp:TextBox>
+                                </td>
+                                <td>
+                                    <asp:Label ID="lblInitDatePoliza" runat="server" Text="Inicio de Vigencia"></asp:Label>
+                                </td>
+                                <td>
+                                    <asp:TextBox ID="txtInitDatePoliza" runat="server" MaxLength="50"></asp:TextBox><cc1:CalendarExtender
+                                        ID="ceInitDatePoliza" runat="server" Enabled="True" Format="yyyy/MM/dd" TargetControlID="txtInitDatePoliza">
+                                    </cc1:CalendarExtender>
+                                    <asp:CompareValidator ID="cvInitDatePoliza" runat="server" ControlToValidate="txtInitDatePoliza"
+                                        ErrorMessage="aaaa/mm/dd" Operator="DataTypeCheck" SetFocusOnError="True" Type="Date"></asp:CompareValidator>
+                                </td>
+                                <td>
+                                    <asp:Label ID="lblFinishDatePoliza" runat="server" Text="Fin de Vigencia"></asp:Label>
+                                </td>
+                                <td>
+                                    <asp:TextBox ID="txtFinishDatePoliza" runat="server" MaxLength="50"></asp:TextBox><cc1:CalendarExtender
+                                        ID="ceFinishDatePoliza" runat="server" Enabled="True" Format="yyyy/MM/dd" TargetControlID="txtFinishDatePoliza">
+                                    </cc1:CalendarExtender>
+                                    <asp:CompareValidator ID="cvFinishDatePoliza" runat="server" ControlToValidate="txtFinishDatePoliza"
+                                        ErrorMessage="aaaa/mm/dd" Operator="DataTypeCheck" SetFocusOnError="True" Type="Date"></asp:CompareValidator>
+                                </td>
                             </tr>
                             <tr>
                                 <tr>

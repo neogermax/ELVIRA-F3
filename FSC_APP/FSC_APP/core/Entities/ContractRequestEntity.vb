@@ -25,6 +25,7 @@ Public Class ContractRequestEntity
     Private _notes As String
 
     'Atributos adicionales
+    Private _liquidationdate As String
     Private _finishfilter As String
     Private _username As String
     Private _managementname As String
@@ -232,6 +233,16 @@ Public Class ContractRequestEntity
             Me._suscriptdate = value
         End Set
     End Property
+
+    Public Property LiquidationDate() As DateTime
+        Get
+            Return Me._LiquidationDate
+        End Get
+        Set(ByVal value As DateTime)
+            Me._LiquidationDate = value
+        End Set
+    End Property
+
 
     Public Property confidential() As Integer
         Get

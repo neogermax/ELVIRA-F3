@@ -40,6 +40,8 @@ Public Class ContractRequestDALC
             If (ContractRequest.suscriptdate <> "12:00:00 a.m.") Then sql.AppendLine("suscriptdate,")
             sql.AppendLine("monthduration, ")
 
+            If (ContractRequest.LiquidationDate <> "12:00:00 a.m.") Then sql.AppendLine("LiquidationDate,")
+
             If (ContractRequest.startdate <> "12:00:00 a.m.") Then sql.AppendLine("startdate,")
 
             sql.AppendLine("supervisor," & _
@@ -62,6 +64,7 @@ Public Class ContractRequestDALC
             If (ContractRequest.suscriptdate <> "12:00:00 a.m.") Then sql.AppendLine("convert(datetime, '" & ContractRequest.suscriptdate & "',103), ")
             sql.AppendLine("'" & Replace(ContractRequest.monthduration, ",", ".") & "',")
             If (ContractRequest.startdate <> "12:00:00 a.m.") Then sql.AppendLine("convert(datetime, '" & ContractRequest.startdate & "',103), ")
+            If (ContractRequest.LiquidationDate <> "12:00:00 a.m.") Then sql.AppendLine("convert(datetime, '" & ContractRequest.LiquidationDate & "',103), ")
             sql.AppendLine("'" & ContractRequest.supervisor & "',")
             sql.AppendLine("'" & ContractRequest.confidential & "',")
             sql.AppendLine("'" & ContractRequest.signedcontract & "',")
@@ -148,6 +151,7 @@ Public Class ContractRequestDALC
                 objContractRequest.polizaid = IIf(Not IsDBNull(data.Rows(0)("polizaid")), data.Rows(0)("polizaid"), "0")
                 objContractRequest.suscriptdate = IIf(Not IsDBNull(data.Rows(0)("suscriptdate")), data.Rows(0)("suscriptdate"), Nothing)
                 objContractRequest.startdate = IIf(Not IsDBNull(data.Rows(0)("startdate")), data.Rows(0)("startdate"), Nothing)
+                objContractRequest.LiquidationDate = IIf(Not IsDBNull(data.Rows(0)("LiquidationDate")), data.Rows(0)("LiquidationDate"), Nothing)
                 objContractRequest.monthduration = IIf(Not IsDBNull(data.Rows(0)("monthduration")), data.Rows(0)("monthduration"), "0")
                 objContractRequest.supervisor = IIf(Not IsDBNull(data.Rows(0)("supervisor")), data.Rows(0)("supervisor"), "")
                 objContractRequest.confidential = IIf(Not IsDBNull(data.Rows(0)("confidential")), data.Rows(0)("confidential"), "0")

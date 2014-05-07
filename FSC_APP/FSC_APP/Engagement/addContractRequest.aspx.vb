@@ -200,6 +200,7 @@ Partial Class addContractRequest
                         Me.HFProject.Value = objContractRequest.idproject
                         If (objContractRequest.suscriptdate <> "12:00:00 AM") Then Me.txtSubscriptionDate.Text = objContractRequest.suscriptdate.ToString("yyyy/MM/dd")
                         If (objContractRequest.startdate <> "12:00:00 AM") Then Me.txtInitialDate.Text = objContractRequest.startdate.ToString("yyyy/MM/dd")
+                        If (objContractRequest.LiquidationDate <> "12:00:00 AM") Then Me.txtLiquidationDate.Text = objContractRequest.LiquidationDate.ToString("yyyy/MM/dd")
                         Me.txtContractDuration.Text = objContractRequest.monthduration
                         Me.txtSupervisor.Text = objContractRequest.supervisor
                         Me.ddlConfidential.SelectedValue = objContractRequest.confidential
@@ -397,6 +398,12 @@ Partial Class addContractRequest
                 objContractRequest.monthduration = Nothing
             End If
 
+            If Me.txtLiquidationDate.Text <> "" Then
+                objContractRequest.LiquidationDate = Convert.ToDateTime(Me.txtLiquidationDate.Text)
+            Else
+                objContractRequest.LiquidationDate = Nothing
+            End If
+
             objContractRequest.supervisor = IIf(Me.txtSupervisor.Text <> "", Convert.ToString(Me.txtSupervisor.Text), "")
             objContractRequest.confidential = IIf(Me.ddlConfidential.SelectedValue.Length > 0, Me.ddlConfidential.SelectedValue, -1)
             objContractRequest.signedcontract = Me.chkSignedContract.Checked
@@ -560,6 +567,9 @@ Partial Class addContractRequest
         ' cargar el registro referenciado
         objContractRequest = facade.loadContractRequest(applicationCredentials, Request.QueryString("ID"))
 
+        'Pasar en el Hidden field el value del tab
+        Me.HFActivetab.Value = 1
+
         Try
             ' cargar los datos
             objContractRequest.idmanagement = IIf(Me.ddlManagement.SelectedValue.Length > 0, Me.ddlManagement.SelectedValue, 0)
@@ -580,6 +590,12 @@ Partial Class addContractRequest
 
             If Me.txtSubscriptionDate.Text <> "" Then
                 objContractRequest.suscriptdate = Convert.ToDateTime(Me.txtSubscriptionDate.Text)
+            Else
+                objContractRequest.suscriptdate = Convert.ToDateTime("2000-01-01")
+            End If
+
+            If Me.txtLiquidationDate.Text <> "" Then
+                objContractRequest.LiquidationDate = Convert.ToDateTime(Me.txtLiquidationDate.Text)
             Else
                 objContractRequest.suscriptdate = Convert.ToDateTime("2000-01-01")
             End If
@@ -1267,6 +1283,9 @@ Partial Class addContractRequest
 
         Me.txtEndingDate.Text = Me.HFEndDate.Value
 
+        'Pasar en el Hidden field el value del tab
+        Me.HFActivetab.Value = 3
+
         'controlar que este digitado un numero de contrato
         If Not IsNumeric(Me.txtcontractnumberadjusted.Text) Then
             Me.lblAddPolizaNfo.ForeColor = Drawing.Color.Red
@@ -1303,9 +1322,20 @@ Partial Class addContractRequest
             Me.lblAddPolizaNfo.Text = ""
         End If
 
+        'verificar que se diligencien ambas fechas en el concepto
         If Me.txtInitDatePoliza.Text = "" Or Me.txtFinishDatePoliza.Text = "" Then
             Me.lblAddPolizaNfo.ForeColor = Drawing.Color.Red
             Me.lblAddPolizaNfo.Text = "Por favor diligencie las fechas de vigencia de la póliza."
+            Exit Sub
+        Else
+            Me.lblAddPolizaNfo.Text = ""
+        End If
+
+        'verificar que la finalización sea mayor o igual que el inicio
+        If Me.txtInitDatePoliza.Text > Me.txtFinishDatePoliza.Text Then
+            Me.lblAddPolizaNfo.ForeColor = Drawing.Color.Red
+            Me.lblAddPolizaNfo.Text = "La fecha de fin de vigencia no debe se inferior a la fecha de inicio de la vigencia."
+            Exit Sub
         Else
             Me.lblAddPolizaNfo.Text = ""
         End If
@@ -1341,8 +1371,6 @@ Partial Class addContractRequest
                 Me.txtFinishDatePoliza.Text = ""
 
             End If
-
-            'Me.HFActivetab.Value = 3
 
             'For Each itemDataTable As PolizaDetailsEntity In PolizaDetailsList
             ' Next
