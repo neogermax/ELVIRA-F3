@@ -238,6 +238,11 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                     ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
                     searh_document_anexos(ideditar)
 
+                Case "View_anexos_array"
+                    ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
+                    searh_document_anexos_array(ideditar)
+
+
                 Case "aprobacion_idea"
 
                     ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
@@ -251,6 +256,9 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                     ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
                     searh_c_typecontract(ideditar)
 
+                Case "load_idarchive"
+                    ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
+                    load_id_archive(ideditar)
 
                 Case Else
 
@@ -259,6 +267,39 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         End If
 
     End Sub
+
+    Public Function load_id_archive(ByVal ididea As Integer)
+
+        Dim sql As New StringBuilder
+        Dim objSqlCommand As New SqlCommand
+        Dim data_anexos As DataTable
+        Dim idfile As String
+
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+
+        sql.Append(" select max(d.id) as id, MAX(d.id_document) as iddocument from DocumentsByEntity de ")
+        sql.Append(" inner join Documents d on d.Id =de.IdDocuments ")
+        sql.Append(" where  de.EntityName ='IdeaEntity' and de.IdnEntity= " & ididea)
+
+        data_anexos = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+        If data_anexos.Rows.Count > 0 Then
+
+            If IsDBNull(data_anexos.Rows(0)("iddocument")) = False Then
+                idfile = data_anexos.Rows(0)("iddocument")
+            Else
+                If IsDBNull(data_anexos.Rows(0)("id")) = False Then
+                    idfile = data_anexos.Rows(0)("id")
+                Else
+                    idfile = 0
+                End If
+
+            End If
+
+        End If
+        Response.Write(idfile)
+
+    End Function
 
     Public Function searh_c_typecontract(ByVal ididea As Integer)
 
@@ -284,7 +325,6 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
     End Function
 
-
     Public Function searh_c_population(ByVal ididea As Integer)
 
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
@@ -294,7 +334,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         Dim objSqlCommand As New SqlCommand
         Dim populationvalue As String = ""
 
-        
+
         sql.Append(" select i.population from  Idea i where i.id =" & ididea)
 
         Dim data_c_population = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
@@ -308,7 +348,6 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         Response.Write(populationvalue)
 
     End Function
-
 
     Public Function validar_aprobacion_idea(ByVal ididea As Integer)
 
@@ -333,6 +372,76 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         Response.Write(result)
     End Function
 
+    Public Function searh_document_anexos_array(ByVal ididea As Integer)
+
+        Dim sql As New StringBuilder
+        Dim objSqlCommand As New SqlCommand
+        Dim data_anexos As DataTable
+        Dim idfile, filename, Description As String
+
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+
+        sql.Append(" select d.id, d.AttachFile,d.Description, d.id_document from DocumentsByEntity de ")
+        sql.Append(" inner join Documents d on d.Id =de.IdDocuments ")
+        sql.Append(" where  de.EntityName ='IdeaEntity' and de.IdnEntity=" & ididea)
+
+        data_anexos = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+        Dim valuar_anexo As Integer = 1
+        Dim objResult As String = ""
+
+        If data_anexos.Rows.Count > 0 Then
+
+            For Each row As DataRow In data_anexos.Rows
+                '{ "idfile": idfile, "filename": filename, "Description": description }
+
+                objResult &= "{"
+
+                objResult &= """idfile"": """
+                idfile = row(3).ToString
+
+                If idfile = "" Then
+                    idfile = row(0).ToString
+                End If
+
+                idfile = Replace(idfile, " ", "")
+
+                objResult &= idfile
+
+                objResult &= """, ""filename"": """
+                filename = row(1).ToString
+
+                objResult &= filename
+
+                objResult &= """, ""Description"": """
+                Description = row(2).ToString
+
+                objResult &= Description
+
+                If valuar_anexo = data_anexos.Rows.Count Then
+
+                    objResult &= """}"
+
+                Else
+                    objResult &= """}|"
+
+                End If
+
+                valuar_anexo = valuar_anexo + 1
+
+            Next
+
+        End If
+
+        If objResult = "" Then
+
+            objResult = "vacio"
+
+        End If
+
+        Response.Write(objResult)
+
+    End Function
 
     Public Function searh_document_anexos(ByVal ididea As Integer)
 
@@ -350,6 +459,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
         Dim html_anexos As String
         Dim id_files As Integer
+        Dim name_archive As String
 
         If data_anexos.Rows.Count > 0 Then
 
@@ -362,7 +472,12 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                     id_files = row(3).ToString()
                 End If
 
-                html_anexos &= "<tr id=""archivo" & id_files & """><td><a id=""linkarchives" & id_files & """ runat=""server"" href=""/FSC_APP/document/temp/" & row(1).ToString() & """ target= ""_blank"" title=""link"">" & row(1).ToString() & "</a></td><td style=""text-align: left;"">" & row(2).ToString & "</td><td style=""text-align: center;""><input type =""button"" value= ""Eliminar"" onclick=""deletefile('" & id_files & "')""></input></td></tr>"
+                name_archive = row(1).ToString()
+                name_archive = name_archive.Replace(" ", "")
+
+                name_archive = name_archive.Replace("_", " ")
+
+                html_anexos &= "<tr id=""archivo" & id_files & """><td><a id=""linkarchives" & id_files & """ runat=""server"" href=""/document/temp/" & name_archive & """ target= ""_blank"" title=""link"">" & name_archive & "</a></td><td style=""text-align: left;"">" & row(2).ToString & "</td><td style=""text-align: center;""><input type =""button"" value= ""Eliminar"" onclick=""deletefile('" & id_files & "')""></input></td></tr>"
             Next
             html_anexos &= "</tbody></table>"
         Else
@@ -375,7 +490,6 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
 
     End Function
-
 
     Public Function charge_list_program(ByVal idLinestrategic As Integer)
         Dim facade As New Facade
@@ -537,6 +651,12 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
         Next
 
+        If objResult = "" Then
+
+            objResult = "vacio"
+
+        End If
+
         Response.Write(objResult)
 
     End Function
@@ -641,6 +761,12 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
             Next
         End If
 
+        If objResult = "" Then
+
+            objResult = "vacio"
+
+        End If
+
         Response.Write(objResult)
 
     End Function
@@ -741,6 +867,12 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                 valuar_flujo = valuar_flujo + 1
 
             Next
+        End If
+
+        If objResult = "" Then
+
+            objResult = "vacio"
+
         End If
 
         Response.Write(objResult)
@@ -1342,6 +1474,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         Response.Write(htmlresults)
 
     End Function
+
     Public Function save_document_IDEA(ByVal list_file As String, ByVal ididea As Integer)
 
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
@@ -1459,7 +1592,6 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         End If
 
     End Function
-
 
     ''' <summary>
     ''' funcion para guardar la idea
@@ -1863,7 +1995,6 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
     End Function
 
-
     Public Function calculafechas(ByVal fecha As DateTime, ByVal duracion As String, ByVal dias_ope As String) As String
 
         Dim objResult As String
@@ -1924,7 +2055,6 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         Response.Write(objResult)
 
     End Function
-
 
     Public Function buscardatethird(ByVal bybal As Integer, ByVal objApplicationCredentials As Gattaca.Application.Credentials.ApplicationCredentials, _
        ByVal idThird As Integer) As String

@@ -29,9 +29,11 @@ function subirArchivos() {
 
                 //creamos variables
                 var filename = result;
+                filename = filename.replace(/\s/g, '_');
+                //  alert(filename);
                 var objectfile = data;
                 var description = cambio_text_flujos($("#ctl00_cphPrincipal_Txtdecription").val());
-            
+
                 if (idfile == null) {
                     idfile = 1;
                 }
@@ -56,7 +58,10 @@ function subirArchivos() {
                     var entregacomas = arrayFiles[itemArray].Description;
                     entregacomas = entregacomas.replace(/¬/g, ',');
 
-                    htmlTablefiles += "<tr id='archivo" + arrayFiles[itemArray].idfile + "'><td><a id='linkarchives" + arrayFiles[itemArray].idfile + "' runat='server' href='/FSC_APP/document/temp/" + arrayFiles[itemArray].filename + "' target= '_blank' title='link'>" + arrayFiles[itemArray].filename + "</a></td><td style='text-align: left;'>" + entregacomas + "</td><td style='text-align: center;'><input type ='button' value= 'Eliminar' onclick=\"deletefile('" + arrayFiles[itemArray].idfile + "')\"></input></td></tr>";
+                    var namefile = arrayFiles[itemArray].filename;
+                    namefile = namefile.replace(/_/g, ' ');
+
+                    htmlTablefiles += "<tr id='archivo" + arrayFiles[itemArray].idfile + "'><td><a id='linkarchives" + arrayFiles[itemArray].idfile + "' runat='server' href='/FSC_APP/document/temp/" + namefile + "' target= '_blank' title='link'>" + arrayFiles[itemArray].filename + "</a></td><td style='text-align: left;'>" + entregacomas + "</td><td style='text-align: center;'><input type ='button' value= 'Eliminar' onclick=\"deletefile('" + arrayFiles[itemArray].idfile + "')\"></input></td></tr>";
                 }
                 htmlTablefiles += "</tbody></table>";
 
@@ -117,7 +122,7 @@ function View_anexos() {
         data: { "action": "View_anexos", "ididea": ideditar },
         success: function(result) {
 
-            //cargamos el div donde se generara la documentos anexos 
+            //cargamos el div donde se generara la documentos anexos
             $("#tdFileInputs").html("");
             $("#tdFileInputs").html(result);
 
@@ -134,4 +139,52 @@ function View_anexos() {
     });
 
 
+}
+
+//funtion crear array de files
+function View_anexos_array() {
+
+    $.ajax({
+        url: "AjaxAddIdea.aspx",
+        type: "GET",
+        data: { "action": "View_anexos_array", "ididea": ideditar },
+        success: function(result) {
+
+            if (result == "vacio") {
+                arrayFiles = [];
+
+            }
+            else {
+                arrayFiles_ed = result.split("|");
+
+                for (itemArray in arrayFiles_ed) {
+
+                    var recibefiles = JSON.parse(arrayFiles_ed[itemArray]);
+                    arrayFiles.push(recibefiles);
+                }
+            }
+
+        },
+        error: function(msg) {
+            alert("No se pueden cargar los actores de flujos de pago de la idea = " + ideditar);
+        }
+    });
+
+}
+
+function load_idarchive() {
+
+    $.ajax({
+        url: "AjaxAddIdea.aspx",
+        type: "GET",
+        data: { "action": "load_idarchive", "ididea": ideditar },
+        success: function(result) {
+
+            idfile = parseInt(result);
+
+        },
+        error: function(msg) {
+            alert("No se pudo cargar el id del archivo final seleccionado= " + ideditar);
+        }
+    });
 }

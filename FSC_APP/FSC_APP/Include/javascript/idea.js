@@ -28,9 +28,12 @@ var matriz_flujos_ed = [];
 
 
 var reversedesembolsos = [];
+
 var arrayFiles = [];
+var arrayFiles_ed = [];
 
 var filescharge = [];
+
 var args = [];
 var valI1;
 var valI2;
@@ -80,6 +83,7 @@ $(document).ready(function() {
         ClineEstrategic();
         Cprogram();
         cargarcomponente();
+        load_idarchive();
 
         edit_component_view();
 
@@ -101,7 +105,8 @@ $(document).ready(function() {
 
         aprobacion_idea();
 
-        // View_anexos();
+        View_anexos_array();
+        View_anexos();
 
         // var timer_cline_edit = setTimeout("ClineEstrategic_edit();", 2000);
 
@@ -227,6 +232,8 @@ $(document).ready(function() {
     //validar que pestaña esta ingresando
     $("#tabsIdea").click(function() {
 
+        var itemarrayflujos = 0;
+
         var active = $("#tabsIdea").tabs("option", "active");
         var idtabs = $("#tabsIdea ul>li a").eq(active).attr('href');
         //validar si esl la de flujos de pago
@@ -236,6 +243,7 @@ $(document).ready(function() {
             if (entradaflujos == 0) {
                 var tamaño_flujos = $("#T_Actorsflujos tr").length - 2;
 
+                //alert(tamaño_flujos);
                 //validar la cantidad de actores
                 if (tamaño_flujos == 1) {
                     var Aflujos = arrayActorFlujo[itemarrayflujos].actorsVal;
