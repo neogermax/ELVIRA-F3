@@ -204,7 +204,12 @@
                     <td>
                         <br />
                         <asp:TextBox ID="txtLiquidationDate" runat="server" Width="400px" MaxLength="50"></asp:TextBox>
-                    </td>
+                        <cc1:CalendarExtender ID="ceLiquidationDate" runat="server" TargetControlID="txtLiquidationDate" Format="yyyy/MM/dd"
+                            Enabled="True">
+                        </cc1:CalendarExtender>
+                        <asp:CompareValidator ID="cvLiquidationDate" runat="server" ErrorMessage="aaaa/mm/dd"
+                            Type="Date" ControlToValidate="txtLiquidationDate" Operator="DataTypeCheck" SetFocusOnError="True"></asp:CompareValidator>
+                    </td> 
                     <td>
                         <asp:Label ID="lblNfoLiquidationDate" runat="server"></asp:Label>
                     </td>
@@ -212,9 +217,11 @@
                 <tr>
                     <td style="width: 187px">
                         <br />
+                        <br />
                         <asp:Label ID="Label20" runat="server" Text="Supervisor"></asp:Label>
                     </td>
                     <td>
+                        <br />
                         <br />
                         <asp:TextBox ID="txtSupervisor" runat="server" MaxLength="255" onkeypress="return textboxAreaMaxNumber(this,255)"
                             Rows="2" TextMode="MultiLine" Width="400px"></asp:TextBox>
@@ -222,6 +229,7 @@
                 </tr>
                 <tr>
                     <td>
+                        <br />
                         <br />
                         <asp:Label ID="lblConfidential" runat="server" Text="Acuerdo de confidencialidad"></asp:Label>
                     </td>

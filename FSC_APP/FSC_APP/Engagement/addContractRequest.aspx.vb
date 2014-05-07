@@ -200,6 +200,7 @@ Partial Class addContractRequest
                         Me.HFProject.Value = objContractRequest.idproject
                         If (objContractRequest.suscriptdate <> "12:00:00 AM") Then Me.txtSubscriptionDate.Text = objContractRequest.suscriptdate.ToString("yyyy/MM/dd")
                         If (objContractRequest.startdate <> "12:00:00 AM") Then Me.txtInitialDate.Text = objContractRequest.startdate.ToString("yyyy/MM/dd")
+                        If (objContractRequest.LiquidationDate <> "12:00:00 AM") Then Me.txtLiquidationDate.Text = objContractRequest.LiquidationDate.ToString("yyyy/MM/dd")
                         Me.txtContractDuration.Text = objContractRequest.monthduration
                         Me.txtSupervisor.Text = objContractRequest.supervisor
                         Me.ddlConfidential.SelectedValue = objContractRequest.confidential
@@ -397,6 +398,12 @@ Partial Class addContractRequest
                 objContractRequest.monthduration = Nothing
             End If
 
+            If Me.txtLiquidationDate.Text <> "" Then
+                objContractRequest.LiquidationDate = Convert.ToDateTime(Me.txtLiquidationDate.Text)
+            Else
+                objContractRequest.LiquidationDate = Nothing
+            End If
+
             objContractRequest.supervisor = IIf(Me.txtSupervisor.Text <> "", Convert.ToString(Me.txtSupervisor.Text), "")
             objContractRequest.confidential = IIf(Me.ddlConfidential.SelectedValue.Length > 0, Me.ddlConfidential.SelectedValue, -1)
             objContractRequest.signedcontract = Me.chkSignedContract.Checked
@@ -583,6 +590,12 @@ Partial Class addContractRequest
 
             If Me.txtSubscriptionDate.Text <> "" Then
                 objContractRequest.suscriptdate = Convert.ToDateTime(Me.txtSubscriptionDate.Text)
+            Else
+                objContractRequest.suscriptdate = Convert.ToDateTime("2000-01-01")
+            End If
+
+            If Me.txtLiquidationDate.Text <> "" Then
+                objContractRequest.LiquidationDate = Convert.ToDateTime(Me.txtLiquidationDate.Text)
             Else
                 objContractRequest.suscriptdate = Convert.ToDateTime("2000-01-01")
             End If

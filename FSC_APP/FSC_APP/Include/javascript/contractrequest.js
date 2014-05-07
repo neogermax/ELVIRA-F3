@@ -191,6 +191,29 @@ function fecha() {
         }
     })
 
+    //Validacion fechas contrato
+    $("#ctl00_cphPrincipal_txtLiquidationDate").change(function() {
+        if ($("#ctl00_cphPrincipal_txtEndingDate").val() == '') {
+            $("#ctl00_cphPrincipal_lblNfoEndingdate").css("color", "red");
+            $("#ctl00_cphPrincipal_lblNfoEndingdate").text("La fecha de cierre no se ha diligenciado.");
+            $("#ctl00_cphPrincipal_txtLiquidationDate").val("");
+        }
+        else {
+            $("#ctl00_cphPrincipal_lblNfoEndingdate").text("");
+            var fechacierre = $("#ctl00_cphPrincipal_txtEndingDate").val();
+            var fechaliquida = $("#ctl00_cphPrincipal_txtLiquidationDate").val();
+
+            if (fechacierre > fechaliquida) {
+                $("#ctl00_cphPrincipal_lblNfoEndingdate").css("color", "red");
+                $("#ctl00_cphPrincipal_lblNfoEndingdate").text("La fecha de cierre no puede ser anterior a la fecha de liquidación.");
+                $("#ctl00_cphPrincipal_txtLiquidationDate").val("");
+            }
+            else {
+                $("#ctl00_cphPrincipal_lblNfoEndingdate").text("");
+            }
+        }
+    })
+
     //Limpiar campos fechas de contrato
     $("#ctl00_cphPrincipal_txtSubscriptionDate").change(function() {
         $("#ctl00_cphPrincipal_txtInitialDate").val("");
