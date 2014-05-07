@@ -288,7 +288,12 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
             If IsDBNull(data_anexos.Rows(0)("iddocument")) = False Then
                 idfile = data_anexos.Rows(0)("iddocument")
             Else
-                idfile = data_anexos.Rows(0)("id")
+                If IsDBNull(data_anexos.Rows(0)("id")) = False Then
+                    idfile = data_anexos.Rows(0)("id")
+                Else
+                    idfile = 0
+                End If
+
             End If
 
         End If
