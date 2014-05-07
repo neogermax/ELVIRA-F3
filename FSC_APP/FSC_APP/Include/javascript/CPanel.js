@@ -1,16 +1,34 @@
 ﻿//-Carga de la página-//
 $(document).ready(function() {
-    $("#btnlearnedlessons").css("opacity", "0.5");
-    $("#btnproceedclose").css("opacity", "0.5");
-    $("#btneditcont").css("opacity", "0.5");
-    $("#btnapproval").css("opacity", "0.5");
-    $("#btnmodification").css("opacity", "0.5");
-    $("#btntracing").css("opacity", "0.5");
-    $("#btnindicators").css("opacity", "0.5");
-    $("#btnreports").css("opacity", "0.5");
-    $("#btnriskmanagement").css("opacity", "0.5");
-    $("#btncrono").css("opacity", "0.5");
+//-Deshabilitado y cambio cursor-//
+    deshabilitar("#btnlearnedlessons");
+    deshabilitar("#btnproceedclose");
+    deshabilitar("#btneditcont");
+    deshabilitar("#btnapproval");
+    deshabilitar("#btnmodification");
+    deshabilitar("#btntracing");
+    deshabilitar("#btnindicators");
+    deshabilitar("#btnreports");
+    deshabilitar("#btnriskmanagement");
+    deshabilitar("#btncrono");
+    //-Cursor mano-//
+    habilitar("#ViewProject");
+    habilitar("#btnprojectapproval");
+    habilitar("#btncontratacion");
+    habilitar("#btnproceed");
 })
+
+//-Formatos botones-//
+function habilitar(control) {
+    $(control).css("cursor", "pointer");
+    $(control).css("opacity", "1");
+};
+
+function deshabilitar(control) {
+    $(control).css("opacity", "0.5");
+    $(control).css("cursor", "not-allowed");
+    $(control).attr('onclick','').unbind('click');
+};
 
 //-Funciones del panel de control-//
 function ViewProject_onclick() {
@@ -47,25 +65,6 @@ function Contract_onclick() {
 
 function Proceed_onclick() {
     window.location.href = '/FomsProceedings/Proceedings_stars.aspx?cid=' + getParameterByName('id');
-    //    //Obtener estado de contratación//
-    //    $.ajax({
-    //        url: "ajaxCPMain.aspx",
-    //        type: "GET",
-    //        data: { "action": "getcontractstatus", "proyectid": getParameterByName('id') },
-    //        success: function(result) {
-    //            //Busca registros de contratación
-    //            if (result != "") {
-    //    window.location.href = 'FomsProceedings/Proceedings_stars.aspx?cid=' + result;
-    //            } else {
-    //                window.location.href = '/Engagement/addContractRequest.aspx?op=add';
-    //            }
-    //        },
-    //        error: function()
-    //        //Error
-    //        {
-    //            alert("Hubo un error al consultar los datos de contratación.");
-    //        }
-    //    });
 };
 
 //-Extraer parametros QueryString-//
