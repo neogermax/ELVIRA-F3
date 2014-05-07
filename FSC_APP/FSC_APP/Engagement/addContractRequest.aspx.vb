@@ -1353,7 +1353,7 @@ Partial Class addContractRequest
 
             End If
 
-            'Me.HFActivetab.Value = 3
+            Me.HFActivetab.Value = 3
 
             'For Each itemDataTable As PolizaDetailsEntity In PolizaDetailsList
             ' Next

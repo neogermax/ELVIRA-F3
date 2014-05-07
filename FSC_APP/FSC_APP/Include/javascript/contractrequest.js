@@ -11,7 +11,8 @@
     buscaractoresedit();
     polizas();
     guardarproyecto();
-    tabs();
+    setTimeout("tabs();", 1000);
+    //tabs();
 
 })
 
@@ -334,8 +335,6 @@ function arreglo() {
 }
 
 function tabs() {
-    //alert("Tabs!");
-    //alert($("#ctl00_cphPrincipal_HFActivetab").val());
     if ($("#ctl00_cphPrincipal_HFActivetab").val() != 0) {
         $("#tabs").tabs("option", "active", 3);
     }
