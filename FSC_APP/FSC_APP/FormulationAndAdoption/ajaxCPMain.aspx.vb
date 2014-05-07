@@ -51,6 +51,28 @@ Partial Public Class ajaxCPMain
 
     End Function
 
+    Public Function proyectoaprobado(ByVal idContract As Integer, ByVal objApplicationCredentials As Gattaca.Application.Credentials.ApplicationCredentials) As String
+
+        Dim sql As New StringBuilder
+        Dim objSqlCommand As New SqlCommand
+        Dim data As DataTable
+
+        'consulta estado de aprobacion por id
+        sql.Append("SELECT Typeapproval FROM Project WHERE id = " & idContract)
+
+        data = GattacaApplication.RunSQLRDT(objApplicationCredentials, sql.ToString)
+
+        If data.Rows.Count > 0 Then
+            'Tiene estado el contrato
+            Dim objresult As String
+            objresult = data.Rows(0)("Typeapproval")
+            Response.Write(objresult)
+        Else
+            'No tiene estado el contrato
+        End If
+
+    End Function
+
 #End Region
 
 End Class
