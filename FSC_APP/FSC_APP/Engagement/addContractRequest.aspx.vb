@@ -560,6 +560,9 @@ Partial Class addContractRequest
         ' cargar el registro referenciado
         objContractRequest = facade.loadContractRequest(applicationCredentials, Request.QueryString("ID"))
 
+        'Pasar en el Hidden field el value del tab
+        Me.HFActivetab.Value = 1
+
         Try
             ' cargar los datos
             objContractRequest.idmanagement = IIf(Me.ddlManagement.SelectedValue.Length > 0, Me.ddlManagement.SelectedValue, 0)
@@ -1267,6 +1270,9 @@ Partial Class addContractRequest
 
         Me.txtEndingDate.Text = Me.HFEndDate.Value
 
+        'Pasar en el Hidden field el value del tab
+        Me.HFActivetab.Value = 3
+
         'controlar que este digitado un numero de contrato
         If Not IsNumeric(Me.txtcontractnumberadjusted.Text) Then
             Me.lblAddPolizaNfo.ForeColor = Drawing.Color.Red
@@ -1352,8 +1358,6 @@ Partial Class addContractRequest
                 Me.txtFinishDatePoliza.Text = ""
 
             End If
-
-            Me.HFActivetab.Value = 3
 
             'For Each itemDataTable As PolizaDetailsEntity In PolizaDetailsList
             ' Next

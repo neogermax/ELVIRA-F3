@@ -336,7 +336,7 @@ function arreglo() {
 
 function tabs() {
     if ($("#ctl00_cphPrincipal_HFActivetab").val() != 0) {
-        $("#tabs").tabs("option", "active", 3);
+        $("#tabs").tabs("option", "active", $("#ctl00_cphPrincipal_HFActivetab").val());
     }
 }
 
