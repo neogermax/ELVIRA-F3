@@ -1,6 +1,6 @@
 ﻿//-Carga de la página-//
 $(document).ready(function() {
-//-Deshabilitado y cambio cursor-//
+    //-Deshabilitar-//
     deshabilitar("#btnlearnedlessons");
     deshabilitar("#btnproceedclose");
     deshabilitar("#btneditcont");
@@ -11,7 +11,7 @@ $(document).ready(function() {
     deshabilitar("#btnreports");
     deshabilitar("#btnriskmanagement");
     deshabilitar("#btncrono");
-    //-Cursor mano-//
+    //-Habilitar-//
     habilitar("#ViewProject");
     habilitar("#btnprojectapproval");
     habilitar("#btncontratacion");
