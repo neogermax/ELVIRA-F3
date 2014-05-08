@@ -9961,7 +9961,30 @@ Public Class Facade
 
     End Function
 
+    Public Function getNaturalThird(ByVal objApplicationCredentials As Gattaca.Application.Credentials.ApplicationCredentials) As List(Of ThirdEntity)
 
+        Dim Third As New ThirdDALC
+
+        Try
+            getNaturalThird = Third.getList(objApplicationCredentials, , , , , , , , , , , , , , , 1)
+        Catch ex As Exception
+            'cancelar el proceso
+            CtxSetAbort()
+
+            'publicar el error
+            GattacaApplication.Publish(ex, objApplicationCredentials.ClientName, MODULENAME, "getNaturalThird")
+            ExceptionPolicy.HandleException(ex, "GattacaStandardExceptionPolicy")
+
+            'subir el error de nivel
+            Throw New Exception("Error al cargar Supervisores. ")
+
+        Finally
+            'liberar recursos
+            Third = Nothing
+
+        End Try
+
+    End Function
 
     ''' <summary> 
     ''' Registar un nuevo Third

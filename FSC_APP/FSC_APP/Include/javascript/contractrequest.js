@@ -4,22 +4,22 @@
     foto();
     validar();
     fecha();
-    personas();
+    //personas();
     validacontrato();
     arreglo();
     buscaractores();
-    buscaractoresedit();
+    loadproject();
     polizas();
     guardarproyecto();
     setTimeout("tabs();", 1000);
-    //tabs();
+    cargar();
 
 })
 
 //Funcion que muestra el div de confirmación al momento de finalizar contratación
 function polizas() {
 
-    $("#ctl00_cphPrincipal_TabContainer1_TabPanel1_btnFinishContract").click(function() {
+    $("#ctl00_cphPrincipal_btnFinishContract").click(function() {
         $("#ctl00_cphPrincipal_DivConfirm").css("display", "block");
         $("#ctl00_cphPrincipal_lblConfirmation").text("Revise la información ingresada, una vez presione el botón confirmar, esta NO podrá ser modificada.");
     });
@@ -132,8 +132,6 @@ function foto() {
         social_tools: false
     });
 
-
-
 }
 function validar() {
 
@@ -146,11 +144,6 @@ function validar() {
         $("#ctl00_cphPrincipal_TabContainer1_TabPanel2_Label5").css("display", "none");
         $("#ctl00_cphPrincipal_TabContainer1_TabPanel2_Label6").css("display", "none");
         $("#ctl00_cphPrincipal_TabContainer1_TabPanel2_Label7").css("display", "none");
-        //funcion para poblar el combo 
-
-
-
-
     }
     else {
         //Mostrar Controles
@@ -161,10 +154,7 @@ function validar() {
         $("#ctl00_cphPrincipal_TabContainer1_TabPanel2_Label5").css("display", "block");
         $("#ctl00_cphPrincipal_TabContainer1_TabPanel2_Label6").css("display", "block");
         $("#ctl00_cphPrincipal_TabContainer1_TabPanel2_Label7").css("display", "block");
-
-
     }
-
 }
 
 function fecha() {
@@ -315,53 +305,89 @@ function buscaractores() {
 
     $("#ctl00_cphPrincipal_ddlProject").trigger("change");
 
-    $("#ctl00_cphPrincipal_ddlProject").change(function() {
-        var proyecto = document.getElementById("ctl00_cphPrincipal_ddlProject");
-        var selproyecto = proyecto.options[proyecto.selectedIndex].text;
-        $("#ctl00_cphPrincipal_lblProjectNumber").text(selproyecto)
-        $.ajax({
-            url: "/FormulationAndAdoption/ajaxaddProjectApprovalRecordshearch.aspx",
-            type: "GET",
-            data: { "action": "buscaractorescontrato", "code": $(this).val() },
-            success: function(result) {
-                $("#ctl00_cphPrincipal_GVTHIRD").html(result);
-            },
-            error: function() {
-                $("#ctl00_cphPrincipal_lblNfoContractDuration").text("No se pueden cargar los actores de la idea solicitada.");
-            }
-        });
-    });
+//    $("#ctl00_cphPrincipal_ddlProject").change(function() {
+//        var proyecto = document.getElementById("ctl00_cphPrincipal_ddlProject");
+//        var selproyecto = proyecto.options[proyecto.selectedIndex].text;
+//        $("#ctl00_cphPrincipal_lblProjectNumber").text(selproyecto)
+//        $.ajax({
+//            url: "/FormulationAndAdoption/ajaxaddProjectApprovalRecordshearch.aspx",
+//            type: "GET",
+//            data: { "action": "buscaractorescontrato", "code": $(this).val() },
+//            success: function(result) {
+//                $("#ctl00_cphPrincipal_GVTHIRD").html(result);
+//            },
+//            error: function() {
+//                $("#ctl00_cphPrincipal_lblNfoContractDuration").text("No se pueden cargar los actores de la idea solicitada.");
+//            }
+//        });
+//    });
 }
 
-// funcion para guardar el id del combo proyecto ------------------------German Rodriguez---MGgroup---06/11/2013--------------------------------------------------------------
 function guardarproyecto() {
     $("#ctl00_cphPrincipal_ddlProject").change(function() {
+        loadproject($("#ctl00_cphPrincipal_ddlProject").val());
         var idproject = $("#ctl00_cphPrincipal_ddlProject").val();
         $("#ctl00_cphPrincipal_HF_ID_Project").val(idproject);
-        //alert($("#ctl00_cphPrincipal_HF_ID_Project").val());
     });
 }
 
-//funcion para traer los terceros de la idea a aprobar en edicion
-function buscaractoresedit() {
-    var campotext = document.getElementById("ctl00_cphPrincipal_HFProject").value;
+//-Traer datos de proyecto-//
+function loadproject(proyecto) {
 
-    //Verificar que el txt del proyecto contenga datos
-    if (campotext.length == 0) {
-
-    }
-    else {
-        //Traer el numero del proyecto para la consulta Ajax
-        $.ajax({
-            url: "/FSC/FormulationAndAdoption/ajaxaddProjectApprovalRecordshearch.aspx",
-            type: "GET",
-            data: { "action": "buscaractorescontrato", code: campotext },
-            success: function(result) {
-                $("#ctl00_cphPrincipal_GVTHIRD").html(result);
+    //Obtener fechas de proyecto//
+    $.ajax({
+        url: "ajaxcontracrequest.aspx",
+        type: "GET",
+        data: { "action": "getproject", "proyectid": $("#ctl00_cphPrincipal_ddlProject").val(), "columna": "BeginDate" },
+        success: function(result) {
+            //Busca registros de contratación
+            if (result != "") {
+                $("#ctl00_cphPrincipal_txtInitialDate").val(result);  
             }
-        })
+        },
+        error: function()
+        //Error
+        {
+            alert("Hubo un error al consultar los datos del proyecto.");
+        }
+    });
 
-    }
+    //Obtener duracion de proyecto//
+    $.ajax({
+        url: "ajaxcontracrequest.aspx",
+        type: "GET",
+        data: { "action": "getproject", "proyectid": $("#ctl00_cphPrincipal_ddlProject").val(), "columna": "duration" },
+        success: function(result) {
+            //Busca registros de contratación
+            if (result != "") {
+                $("#ctl00_cphPrincipal_txtContractDuration").val(result);
+            }
+        },
+        error: function()
+        //Error
+        {
+            alert("Hubo un error al consultar los datos del proyecto.");
+        }
+    });
+
+    //Obtener finalizacion de proyecto//
+    $.ajax({
+        url: "ajaxcontracrequest.aspx",
+        type: "GET",
+        data: { "action": "getproject", "proyectid": $("#ctl00_cphPrincipal_ddlProject").val(), "columna": "completiondate" },
+        success: function(result) {
+            //Busca registros de contratación
+            if (result != "") {
+                $("#ctl00_cphPrincipal_txtEndingDate").val(result);
+            }
+        },
+        error: function()
+        //Error
+        {
+            alert("Hubo un error al consultar los datos del proyecto.");
+        }
+    });
+    
 }
 
 function arreglo() {
@@ -383,9 +409,6 @@ function tabs() {
 }
 
 function validacontrato() {
-
-
-
     $("#ctl00_cphPrincipal_txtcontractnumberadjusted").blur(function() {
         $.ajax({
             url: "ajaxcontracrequest.aspx",
@@ -402,7 +425,6 @@ function validacontrato() {
                 else {
                     $("#ctl00_cphPrincipal_lblHelpcontractnumberadjusted").text("");
                 }
-
             },
             error: function() {
                 alert("Ocurrio un error al validar el número del contrato");
@@ -411,3 +433,11 @@ function validacontrato() {
     })
 
 };
+
+//-Extraer parametros QueryString-//
+function getParameterByName(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}

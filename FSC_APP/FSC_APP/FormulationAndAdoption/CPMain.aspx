@@ -24,15 +24,16 @@
         }
         .ctrlfield
         {
-            border: 2px solid #8C8C8C;
+            border: 2px solid #BFBFBF;
             padding: 1em;
+            border-radius: 6px;
         }
     </style>
-    </BR>
+    <br/>
     <div>
         <asp:Label ID="lbltitulo" Style="font-size: 2em;" runat="server" Text="TITULO PROYECTO"></asp:Label>
     </div>
-    </BR>
+    <br/>
     <div>
         <fieldset class="ctrlfield">
             <legend>INICIO</legend>
@@ -46,7 +47,7 @@
             </div>
         </fieldset>
     </div>
-    </BR>
+    <br/>
     <div>
         <fieldset class="ctrlfield">
             <legend>EJECUCION</legend>
@@ -61,7 +62,7 @@
             </div>
         </fieldset>
     </div>
-    </BR>
+    <br/>
     <div>
         <fieldset class="ctrlfield">
             <legend>MODIFICACION</legend>
@@ -75,7 +76,7 @@
             </div>
         </fieldset>
     </div>
-    </BR>
+    <br/>
     <div>
         <fieldset class="ctrlfield">
             <legend>CIERRE</legend>
@@ -87,5 +88,5 @@
             </div>
         </fieldset>
     </div>
-    </br>
+    <br/>
 </asp:Content>

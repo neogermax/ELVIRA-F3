@@ -436,8 +436,6 @@ Public Class ThirdDALC
 
     End Function
 
-
-
     ''' <summary>
     ''' Cargar lista de capitulos de una forma
     ''' </summary>
@@ -466,6 +464,7 @@ Public Class ThirdDALC
         Optional ByVal enabledtext As String = "", _
         Optional ByVal iduser As String = "", _
         Optional ByVal username As String = "", _
+        Optional ByVal personanatural As String = "", _
         Optional ByVal createdate As String = "", _
         Optional ByVal order As String = "") As List(Of ThirdEntity)
 
@@ -482,6 +481,11 @@ Public Class ThirdDALC
             ' construir la sentencia
 
             sql.Append(" select Third.id,Third.Name from Third ")
+
+            If personanatural <> "" Then
+                sql.Append(" where personanatural = " & personanatural)
+            End If
+
             sql.Append(" order by (Name) ")
 
             ' ejecutar la intruccion

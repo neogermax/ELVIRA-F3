@@ -421,13 +421,31 @@ Partial Public Class addContractRequest
     Protected WithEvents Label20 As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''Control txtSupervisor.
+    '''Control ddlSupervisor.
     '''</summary>
     '''<remarks>
     '''Campo generado automáticamente.
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
-    Protected WithEvents txtSupervisor As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents ddlSupervisor As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''Control btnAddSupervisor.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents btnAddSupervisor As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''Control lblAddSupervisor.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents lblAddSupervisor As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''Control lblConfidential.

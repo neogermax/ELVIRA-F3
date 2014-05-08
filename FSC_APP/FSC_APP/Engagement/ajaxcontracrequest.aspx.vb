@@ -19,20 +19,21 @@ Partial Class Engagement_ajaxcontracrequest
         Dim fecha As Date
         Dim duracion As String
         Dim contrato As String
+        Dim proyecto As String
+        Dim columna As String
 
         Try
             action = Request.QueryString("action").ToString()
 
             Select Case action
                 Case "loadactors"
-
                     loadthirdddl(applicationCredentials, Request.QueryString("id"), Request.QueryString("tipopersona"))
 
                 Case "buscar"
                     id_b = Convert.ToInt32(Request.QueryString("id").ToString())
                     buscardatethird(id_b, applicationCredentials, Request.QueryString("id"))
-                Case "calculafechas"
 
+                Case "calculafechas"
                     fecha = Convert.ToDateTime(Request.QueryString("fecha").ToString())
                     duracion = Request.QueryString("duracion").ToString()
                     fecha = fecha.ToString("yyyy/MM/dd")
@@ -42,7 +43,13 @@ Partial Class Engagement_ajaxcontracrequest
                     contrato = Request.QueryString("contrato").ToString()
                     buscardatecontract(contrato, applicationCredentials)
 
+                Case "getproject"
+                    proyecto = Request.QueryString("proyectid").ToString()
 
+                    If proyecto > 0 Then
+                        columna = Request.QueryString("columna").ToString()
+                        buscarproyecto(proyecto, columna, applicationCredentials)
+                    End If
 
                 Case Else
             End Select
@@ -219,6 +226,41 @@ Partial Class Engagement_ajaxcontracrequest
 
     End Function
 
+    Public Function buscarproyecto(ByVal idProyect As String, ByVal columna As String, ByVal objApplicationCredentials As Gattaca.Application.Credentials.ApplicationCredentials) As String
+
+        Dim sql As New StringBuilder
+        Dim objSqlCommand As New SqlCommand
+        Dim data As DataTable
+        Dim fecha As Date
+
+        'consultar los datos
+        sql.Append("SELECT ")
+
+        'seleccionar columna
+        sql.Append(columna)
+
+        sql.Append(" From Project WHERE id = " & idProyect)
+
+        'ejecutar la instruccion
+        data = GattacaApplication.RunSQLRDT(objApplicationCredentials, sql.ToString)
+
+        If data.Rows.Count > 0 Then
+            'Si hay fechas
+            Dim objresult As String
+            objresult = data.Rows(0)(columna)
+
+            If InStr(objresult, "/", CompareMethod.Text) > 0 Then
+                'Es fecha
+                fecha = objresult
+                objresult = fecha.ToString("yyyy/MM/dd")
+            End If
+
+            Response.Write(objresult)
+        Else
+            'No hay fechas
+        End If
+
+    End Function
 
 End Class
 

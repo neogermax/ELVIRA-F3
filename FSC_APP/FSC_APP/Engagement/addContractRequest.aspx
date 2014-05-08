@@ -223,8 +223,10 @@
                     <td>
                         <br />
                         <br />
-                        <asp:TextBox ID="txtSupervisor" runat="server" MaxLength="255" onkeypress="return textboxAreaMaxNumber(this,255)"
-                            Rows="2" TextMode="MultiLine" Width="400px"></asp:TextBox>
+                        <asp:DropDownList ID="ddlSupervisor" runat="server" CssClass="Ccombo">
+                        </asp:DropDownList>
+                        <asp:Button ID="btnAddSupervisor" runat="server" Text="Agregar supervisor" /><asp:Label
+                            ID="lblAddSupervisor" runat="server"></asp:Label>
                     </td>
                 </tr>
                 <tr>

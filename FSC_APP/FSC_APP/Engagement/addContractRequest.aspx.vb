@@ -43,6 +43,8 @@ Partial Class addContractRequest
             Me.lblidmanagement.Visible = False
             Me.ddlEnabled.Visible = False
             Me.lblenabled.Visible = False
+            Me.ddlSupervisor.Items.Insert(0, New ListItem("Seleccione...", "-1"))
+            Me.ddlSupervisor.SelectedValue = "-1"
 
             'DropDownList_Listado.SelectedValue = DropDownList.Items.FindByValue(ValorSeleccionado).Value
             'boton exportar
@@ -104,8 +106,14 @@ Partial Class addContractRequest
                     Me.ddlEnabled.SelectedValue = "-1"
                     Me.ddlConfidential.Items.Insert(0, New ListItem("Seleccione...", "-1"))
                     Me.ddlConfidential.SelectedValue = "-1"
+                    
 
                 Case "edit", "show"
+
+                    If op = "show" Then
+                        Me.ddlSupervisor.Visible = False
+                        Me.btnAddSupervisor.Visible = False
+                    End If
 
                     If Request.QueryString("successSave") <> Nothing Then
                         Me.lblsaveinformation.Text = "Contrato guardado parcialmente!" & Chr(13) & "Para culminar el proceso, puede hacer click en el botón " & Chr(34) & "Finalizar proceso de contratación" & Chr(34) & "."
@@ -202,7 +210,7 @@ Partial Class addContractRequest
                         If (objContractRequest.startdate <> "12:00:00 AM") Then Me.txtInitialDate.Text = objContractRequest.startdate.ToString("yyyy/MM/dd")
                         If (objContractRequest.LiquidationDate <> "12:00:00 AM") Then Me.txtLiquidationDate.Text = objContractRequest.LiquidationDate.ToString("yyyy/MM/dd")
                         Me.txtContractDuration.Text = objContractRequest.monthduration
-                        Me.txtSupervisor.Text = objContractRequest.supervisor
+                        'Me.txtSupervisor.Text = objContractRequest.supervisor
                         Me.ddlConfidential.SelectedValue = objContractRequest.confidential
                         Me.chkSignedContract.Checked = objContractRequest.signedcontract
                         Me.txtObs.Text = objContractRequest.notes
@@ -404,7 +412,7 @@ Partial Class addContractRequest
                 objContractRequest.LiquidationDate = Nothing
             End If
 
-            objContractRequest.supervisor = IIf(Me.txtSupervisor.Text <> "", Convert.ToString(Me.txtSupervisor.Text), "")
+            'objContractRequest.supervisor = IIf(Me.txtSupervisor.Text <> "", Convert.ToString(Me.txtSupervisor.Text), "")
             objContractRequest.confidential = IIf(Me.ddlConfidential.SelectedValue.Length > 0, Me.ddlConfidential.SelectedValue, -1)
             objContractRequest.signedcontract = Me.chkSignedContract.Checked
             objContractRequest.notes = Convert.ToString(Me.txtObs.Text)
@@ -606,7 +614,7 @@ Partial Class addContractRequest
                 objContractRequest.monthduration = Convert.ToDecimal(Me.txtContractDuration.Text)
             End If
 
-            objContractRequest.supervisor = IIf(Me.txtSupervisor.Text <> "", Convert.ToString(Me.txtSupervisor.Text), "")
+            'objContractRequest.supervisor = IIf(Me.txtSupervisor.Text <> "", Convert.ToString(Me.txtSupervisor.Text), "")
             objContractRequest.notes = Convert.ToString(Me.txtObs.Text)
 
             If Me.txtExpeditionDate.Text = "" Then
@@ -1128,6 +1136,13 @@ Partial Class addContractRequest
             Me.ddlProject.DataValueField = "Id"
             Me.ddlProject.DataTextField = "code"
             Me.ddlProject.DataBind()
+
+            'Traer lista de supervisores
+
+            Me.ddlSupervisor.DataSource = facade.getNaturalThird(applicationCredentials)
+            Me.ddlSupervisor.DataValueField = "Id"
+            Me.ddlSupervisor.DataTextField = "Name"
+            Me.ddlSupervisor.DataBind()
 
             ''Se llama la metodo que permite cargar el combo de terceros
 
@@ -1775,4 +1790,22 @@ Partial Class addContractRequest
     End Sub
 
 
+    Protected Sub btnAddSupervisor_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnAddSupervisor.Click
+
+        'Definir la pestaña activa para el update
+        Me.HFActivetab.Value = 1
+
+        'validar que se haya realizado una selección
+        If Me.ddlSupervisor.SelectedItem.Text = "Seleccione..." Then
+            Me.lblAddSupervisor.ForeColor = Drawing.Color.Red
+            Me.lblAddSupervisor.Text = "Por favor seleccione un Actor."
+            Exit Sub
+        End If
+
+        'limpiar el mensaje de error
+        Me.lblAddSupervisor.Text = ""
+
+
+
+    End Sub
 End Class
