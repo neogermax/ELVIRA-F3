@@ -295,6 +295,8 @@ Partial Class addContractRequest
                             Me.btnSave.Visible = False
                             Me.btnDelete.Visible = False
                             Me.btnCancel.Visible = False
+                            Me.btnAddSupervisor.Visible = False
+                            Me.addConcept.Visible = False
 
                         Else
 
@@ -307,6 +309,8 @@ Partial Class addContractRequest
                         If objContractRequest.enabled = True Then
                             ' cargar el titulo
                             Session("lblTitle") = "CONSULTAR CONTRATO"
+                            Me.btnAddSupervisor.Visible = False
+                            Me.addConcept.Visible = False
                         End If
 
                     Catch ex As Exception
