@@ -61,13 +61,13 @@ Partial Public Class addIdea
     Protected WithEvents HDIDTHIRD As Global.System.Web.UI.WebControls.HiddenField
 
     '''<summary>
-    '''Control HDaddidea.
+    '''Control HDiva.
     '''</summary>
     '''<remarks>
     '''Campo generado automáticamente.
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
-    Protected WithEvents HDaddidea As Global.System.Web.UI.WebControls.HiddenField
+    Protected WithEvents HDiva As Global.System.Web.UI.WebControls.HiddenField
 
     '''<summary>
     '''Control HFdate.
@@ -1049,6 +1049,15 @@ Partial Public Class addIdea
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
     Protected WithEvents btnexportword As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''Control HDaddidea.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents HDaddidea As Global.System.Web.UI.WebControls.HiddenField
 
     '''<summary>
     '''Control Lbladvertencia.
