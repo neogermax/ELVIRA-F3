@@ -66,6 +66,61 @@ function verifica() {
             alert("Hubo un error al consultar los datos del contrato.");
         }
     });
+
+    //Obtener acta de inicio//
+    $.ajax({
+        url: "ajaxCPMain.aspx",
+        type: "GET",
+        data: { "action": "getproceeding", "proyectid": getParameterByName('id'), "type": "1" },
+        success: function(result) {
+            //Busca registros de contratación
+            if (result != "") {
+                completo("#btnproceed");
+            }
+        },
+        error: function()
+        //Error
+        {
+            alert("Hubo un error al consultar los datos del acta de inicio.");
+        }
+    });
+
+    //Obtener acta de seguimiento//
+    $.ajax({
+        url: "ajaxCPMain.aspx",
+        type: "GET",
+        data: { "action": "getproceeding", "proyectid": getParameterByName('id'), "type": "2" },
+        success: function(result) {
+            //Busca registros de contratación
+            if (result != "") {
+                completo("#btntracing");
+            }
+        },
+        error: function()
+        //Error
+        {
+            alert("Hubo un error al consultar los datos del acta de seguimiento.");
+        }
+    });
+
+    //Obtener acta de cierre//
+    $.ajax({
+        url: "ajaxCPMain.aspx",
+        type: "GET",
+        data: { "action": "getproceeding", "proyectid": getParameterByName('id'), "type": "3" },
+        success: function(result) {
+            //Busca registros de contratación
+            if (result != "") {
+                completo("#btnproceedclose");
+            }
+        },
+        error: function()
+        //Error
+        {
+            alert("Hubo un error al consultar los datos del acta de cierre.");
+        }
+    });
+    
 };
 
 
