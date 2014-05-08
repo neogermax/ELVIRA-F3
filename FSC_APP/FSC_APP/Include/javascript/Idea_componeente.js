@@ -12,14 +12,14 @@ function ClineEstrategic_edit() {
             $("#ddlStrategicLines").trigger("liszt:updated");
 
             edit_line_strategic = result;
-            
+           
         },
         error: function(msg) {
             alert("No se pueden cargar la linea estrategica deseada.");
         }
     });
 
-    var timer_cline_edit = setTimeout("Cprogram_edit();", 2000);
+    var timer_cline_edit = setTimeout("Cprogram_edit();", 3000);
   
 }
 
@@ -39,7 +39,7 @@ function Cprogram_edit() {
             alert("No se pueden cargar los programas de la linea estrategica selecionada.");
         }
     });
-    var timer_program_edit = setTimeout("view_Cprogram();", 2000);
+    var timer_program_edit = setTimeout("view_Cprogram();", 3000);
 
     
 }

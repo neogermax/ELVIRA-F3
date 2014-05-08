@@ -74,38 +74,79 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
         'trae el jquery para hacer todo por debajo del servidor
         If Request.Form("action") <> Nothing Then
+            Dim option_idea = Request.Form("action")
 
-            'cambio de metodologia
-            S_linea_estrategica = Request.Form("linea_estrategica").ToString()
-            S_programa = Request.Form("programa").ToString()
-            S_nombre = Request.Form("nombre").ToString
-            S_justificacion = Request.Form("justificacion").ToString
-            S_objetivo = Request.Form("objetivo").ToString
-            S_objetivo_esp = Request.Form("objetivo_esp").ToString
-            S_Resultados_Benef = Request.Form("Resultados_Benef").ToString
-            S_Resultados_Ges_c = Request.Form("Resultados_Ges_c").ToString
-            S_Resultados_Cap_i = Request.Form("Resultados_Cap_i").ToString
-            S_Resultados_otros_resul = Request.Form("Resultados_otros_resul").ToString
-            S_Fecha_inicio = Request.Form("Fecha_inicio").ToString
-            S_mes = Request.Form("mes").ToString
-            S_dia = Request.Form("dia").ToString
-            S_Fecha_fin = Request.Form("Fecha_fin").ToString
-            S_Población = Request.Form("Población").ToString
-            S_contratacion = Request.Form("contratacion").ToString
-            S_riesgos = Request.Form("riesgo").ToString
-            S_mitigacion = Request.Form("mitigacion").ToString
-            S_presupuestal = Request.Form("presupuestal").ToString
-            S_cost = Request.Form("cost").ToString
-            S_iva = Request.Form("iva").ToString
-            S_obligaciones = Request.Form("obligaciones").ToString
-            S_listubicaciones = Request.Form("listubicaciones").ToString
-            S_listactors = Request.Form("listactores").ToString
-            S_listcomponentes = Request.Form("listcomponentes").ToString
-            S_listflujos = Request.Form("listflujos").ToString
-            S_listdetallesflujos = Request.Form("listdetallesflujos").ToString
-            S_listfiles = Request.Form("listfiles").ToString
+            Select Case option_idea
 
-            save_IDEA(S_code, S_linea_estrategica, S_programa, S_nombre, S_justificacion, S_objetivo, S_objetivo_esp, S_Resultados_Benef, S_Resultados_Ges_c, S_Resultados_Cap_i, S_Resultados_otros_resul, S_Fecha_inicio, S_mes, S_dia, S_Fecha_fin, S_Población, S_contratacion, S_riesgos, S_mitigacion, S_presupuestal, S_cost, S_obligaciones, S_iva, S_listubicaciones, S_listactors, S_listcomponentes, S_listflujos, S_listdetallesflujos, S_listfiles) '
+                Case "save"
+                    'cambio de metodologia
+                    S_linea_estrategica = Request.Form("linea_estrategica").ToString()
+                    S_programa = Request.Form("programa").ToString()
+                    S_nombre = Request.Form("nombre").ToString
+                    S_justificacion = Request.Form("justificacion").ToString
+                    S_objetivo = Request.Form("objetivo").ToString
+                    S_objetivo_esp = Request.Form("objetivo_esp").ToString
+                    S_Resultados_Benef = Request.Form("Resultados_Benef").ToString
+                    S_Resultados_Ges_c = Request.Form("Resultados_Ges_c").ToString
+                    S_Resultados_Cap_i = Request.Form("Resultados_Cap_i").ToString
+                    S_Resultados_otros_resul = Request.Form("Resultados_otros_resul").ToString
+                    S_Fecha_inicio = Request.Form("Fecha_inicio").ToString
+                    S_mes = Request.Form("mes").ToString
+                    S_dia = Request.Form("dia").ToString
+                    S_Fecha_fin = Request.Form("Fecha_fin").ToString
+                    S_Población = Request.Form("Población").ToString
+                    S_contratacion = Request.Form("contratacion").ToString
+                    S_riesgos = Request.Form("riesgo").ToString
+                    S_mitigacion = Request.Form("mitigacion").ToString
+                    S_presupuestal = Request.Form("presupuestal").ToString
+                    S_cost = Request.Form("cost").ToString
+                    S_iva = Request.Form("iva").ToString
+                    S_obligaciones = Request.Form("obligaciones").ToString
+                    S_listubicaciones = Request.Form("listubicaciones").ToString
+                    S_listactors = Request.Form("listactores").ToString
+                    S_listcomponentes = Request.Form("listcomponentes").ToString
+                    S_listflujos = Request.Form("listflujos").ToString
+                    S_listdetallesflujos = Request.Form("listdetallesflujos").ToString
+                    S_listfiles = Request.Form("listfiles").ToString
+
+                    save_IDEA(S_code, S_linea_estrategica, S_programa, S_nombre, S_justificacion, S_objetivo, S_objetivo_esp, S_Resultados_Benef, S_Resultados_Ges_c, S_Resultados_Cap_i, S_Resultados_otros_resul, S_Fecha_inicio, S_mes, S_dia, S_Fecha_fin, S_Población, S_contratacion, S_riesgos, S_mitigacion, S_presupuestal, S_cost, S_obligaciones, S_iva, S_listubicaciones, S_listactors, S_listcomponentes, S_listflujos, S_listdetallesflujos, S_listfiles) '
+
+                Case "edit"
+                    'cambio de metodologia
+                    S_linea_estrategica = Request.Form("linea_estrategica").ToString()
+                    S_programa = Request.Form("programa").ToString()
+                    S_nombre = Request.Form("nombre").ToString
+                    S_justificacion = Request.Form("justificacion").ToString
+                    S_objetivo = Request.Form("objetivo").ToString
+                    S_objetivo_esp = Request.Form("objetivo_esp").ToString
+                    S_Resultados_Benef = Request.Form("Resultados_Benef").ToString
+                    S_Resultados_Ges_c = Request.Form("Resultados_Ges_c").ToString
+                    S_Resultados_Cap_i = Request.Form("Resultados_Cap_i").ToString
+                    S_Resultados_otros_resul = Request.Form("Resultados_otros_resul").ToString
+                    S_Fecha_inicio = Request.Form("Fecha_inicio").ToString
+                    S_mes = Request.Form("mes").ToString
+                    S_dia = Request.Form("dia").ToString
+                    S_Fecha_fin = Request.Form("Fecha_fin").ToString
+                    S_Población = Request.Form("Población").ToString
+                    S_contratacion = Request.Form("contratacion").ToString
+                    S_riesgos = Request.Form("riesgo").ToString
+                    S_mitigacion = Request.Form("mitigacion").ToString
+                    S_presupuestal = Request.Form("presupuestal").ToString
+                    S_cost = Request.Form("cost").ToString
+                    S_iva = Request.Form("iva").ToString
+                    S_obligaciones = Request.Form("obligaciones").ToString
+                    S_listubicaciones = Request.Form("listubicaciones").ToString
+                    S_listactors = Request.Form("listactores").ToString
+                    S_listcomponentes = Request.Form("listcomponentes").ToString
+                    S_listflujos = Request.Form("listflujos").ToString
+                    S_listdetallesflujos = Request.Form("listdetallesflujos").ToString
+                    S_listfiles = Request.Form("listfiles").ToString
+
+                    edit_IDEA(S_code, S_linea_estrategica, S_programa, S_nombre, S_justificacion, S_objetivo, S_objetivo_esp, S_Resultados_Benef, S_Resultados_Ges_c, S_Resultados_Cap_i, S_Resultados_otros_resul, S_Fecha_inicio, S_mes, S_dia, S_Fecha_fin, S_Población, S_contratacion, S_riesgos, S_mitigacion, S_presupuestal, S_cost, S_obligaciones, S_iva, S_listubicaciones, S_listactors, S_listcomponentes, S_listflujos, S_listdetallesflujos, S_listfiles) '
+
+                Case Else
+
+            End Select
 
         Else
 
@@ -1599,6 +1640,176 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
     End Function
 
+    Public Function calculafechas(ByVal fecha As DateTime, ByVal duracion As String, ByVal dias_ope As String) As String
+
+        Dim objResult As String
+
+        Try
+
+            Dim arrdias() As String
+            Dim decimas As String
+            Dim dias As Double
+            Dim meses As Double
+
+            'Cambiar puntos por comas
+            duracion = Replace(duracion, ".", ",", 1)
+
+            'Calcular los dias
+            arrdias = Split(duracion, ",", , CompareMethod.Text)
+
+            If UBound(arrdias) > 0 Then
+                decimas = "0," & arrdias(1)
+                dias = CInt(decimas * 30)
+                meses = CInt(arrdias(0))
+            Else
+                meses = duracion
+                If dias_ope = "" Then
+                    dias = 0
+                Else
+                    dias = dias_ope
+                End If
+
+            End If
+
+            Dim fechafinal As Date
+            'calcular la fecha final
+            fechafinal = CDate(fecha)
+            Dim tipointervalo As DateInterval
+            tipointervalo = DateInterval.Day
+
+            'Agregar los meses a la fecha
+            Dim finalizacionpre As String = DateAdd(DateInterval.Month, meses, fechafinal)
+            finalizacionpre = CDate(finalizacionpre)
+
+            'Agregar los días a la fecha
+            Dim finalizacion As String = DateAdd("d", dias, finalizacionpre)
+            finalizacion = CDate(finalizacion)
+
+            Dim quitadia As String = DateAdd("d", -1, finalizacion)
+
+            Dim fechaok As DateTime = quitadia
+
+            objResult = fechaok.ToString("yyyy/MM/dd")
+
+        Catch ex As Exception
+
+            objResult = ""
+
+        End Try
+
+        Response.Write(objResult)
+
+    End Function
+
+    Public Function buscardatethird(ByVal bybal As Integer, ByVal objApplicationCredentials As Gattaca.Application.Credentials.ApplicationCredentials, _
+       ByVal idThird As Integer) As String
+
+        Dim sql As New StringBuilder
+        Dim objSqlCommand As New SqlCommand
+        Dim data As DataTable
+        Dim contact As String = ""
+        Dim documents As String = ""
+        Dim phone As String = ""
+        Dim email As String = ""
+        Dim name As String = ""
+        Dim idt As String = ""
+
+        'consulta de los datos de actores por id
+        sql.Append("SELECT Id,Code,Name,contact,documents,phone,email,Actions,Experiences,Enabled,IdUser,CreateDate  FROM Third ")
+        sql.Append("where Id = " & idThird)
+        ' ejecutar la intruccion
+        data = GattacaApplication.RunSQLRDT(objApplicationCredentials, sql.ToString)
+
+        If data.Rows.Count > 0 Then
+
+            Dim objResult As String = "{"
+
+            objResult &= " ""idthird"": """
+
+            If IsDBNull(data.Rows(0)("id")) = False Then
+                idt = data.Rows(0)("id")
+            End If
+
+            objResult &= idt
+            objResult &= " "", ""name"": """
+
+            If IsDBNull(data.Rows(0)("name")) = False Then
+                name = data.Rows(0)("name")
+            End If
+
+            objResult &= name
+            objResult &= " "", ""contact"": """
+
+            If IsDBNull(data.Rows(0)("contact")) = False Then
+                contact = data.Rows(0)("contact")
+            End If
+
+            objResult &= contact
+            objResult &= """, ""documents"": """
+
+            If IsDBNull(data.Rows(0)("documents")) = False Then
+                documents = data.Rows(0)("documents")
+            End If
+            objResult &= documents
+            objResult &= """, ""phone"": """
+
+            If IsDBNull(data.Rows(0)("phone")) = False Then
+                phone = data.Rows(0)("phone")
+            End If
+
+            objResult &= phone
+            objResult &= """, ""email"": """
+
+            If IsDBNull(data.Rows(0)("email")) = False Then
+                email = data.Rows(0)("email")
+            End If
+
+            objResult &= email
+
+            objResult &= """}"
+
+            Response.Write(objResult)
+        End If
+
+
+    End Function
+    ' TODO: 16 funcion que verifica si la idea esta aprobada
+    ' Autor: german Rodriguez MG group
+    ' cierre de cambio
+
+    ''' <summary>
+    ''' TODO: 100 funcion que revisa los enter en el guardar y editar idea
+    ''' autor: German Rodriguez 16/10/2013 MGgroup
+    ''' </summary>
+    ''' <param name="text"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Private Function clean_vbCrLf(ByVal text As String)
+
+        Dim pattern As String = vbCrLf
+        Dim replacement As String = " "
+        Dim rgx As New Regex(pattern)
+        Dim result As String = rgx.Replace(text, replacement)
+        Dim comillas As String
+
+        Return result
+
+    End Function
+
+    Public Function borrar_archivos()
+        Dim startinfo As New ProcessStartInfo("C:\Gattaca_pruebas\WebSiteFSC\ELVIRA-F3\FSC_APP\FSC_APP\bats\BORRAR_ARC.bat")
+        'Dim startinfo As New ProcessStartInfo("C:\Users\Administrador\Documents\Visual Studio 2008\Projects\ELVIRA-F3\FSC_APP\FSC_APP\bats\BORRAR_ARC.bat")
+        startinfo.WindowStyle = ProcessWindowStyle.Minimized
+        Process.Start(startinfo)
+    End Function
+
+    Public Function copiar_archivos()
+        Dim startinfo As New ProcessStartInfo("C:\Gattaca_pruebas\WebSiteFSC\ELVIRA-F3\FSC_APP\FSC_APP\bats\COPIAR_ARC.bat")
+        'Dim startinfo As New ProcessStartInfo("C:\Users\Administrador\Documents\Visual Studio 2008\Projects\ELVIRA-F3\FSC_APP\FSC_APP\bats\COPIAR_ARC.bat")
+        startinfo.WindowStyle = ProcessWindowStyle.Minimized
+        Process.Start(startinfo)
+    End Function
+
     ''' <summary>
     ''' funcion para guardar la idea
     ''' Autor: German Rodriguez MGgroup
@@ -2001,174 +2212,23 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
     End Function
 
-    Public Function calculafechas(ByVal fecha As DateTime, ByVal duracion As String, ByVal dias_ope As String) As String
+    Public Function edit_IDEA(ByVal code As String, ByVal line_strategic As String, ByVal program As String, ByVal name As String, ByVal justify As String, ByVal objetive As String, ByVal obj_esp As String, ByVal resul_bef As String, ByVal resul_ges_c As String, ByVal resul_cap_i As String, ByVal otros_resul As String, ByVal fecha_i As String, ByVal mes As String, ByVal dia As String, ByVal fecha_f As String, ByVal poblacion As String, ByVal contratacion As String, ByVal riesgos As String, ByVal mitigacion As String, ByVal presupuestal As String, ByVal cost As String, ByVal obligaciones As String, ByVal iva As String, ByVal list_ubicacion As String, ByVal list_actor As String, ByVal list_componentes As String, ByVal list_flujos As String, ByVal list_detalles_flujos As String, ByVal list_files As String)
 
-        Dim objResult As String
+        Dim facade As New Facade
+        Dim objIdea As New IdeaEntity
+        Dim myProgramComponentByIdeaList As List(Of ProgramComponentByIdeaEntity) = New List(Of ProgramComponentByIdeaEntity)
 
-        Try
-
-            Dim arrdias() As String
-            Dim decimas As String
-            Dim dias As Double
-            Dim meses As Double
-
-            'Cambiar puntos por comas
-            duracion = Replace(duracion, ".", ",", 1)
-
-            'Calcular los dias
-            arrdias = Split(duracion, ",", , CompareMethod.Text)
-
-            If UBound(arrdias) > 0 Then
-                decimas = "0," & arrdias(1)
-                dias = CInt(decimas * 30)
-                meses = CInt(arrdias(0))
-            Else
-                meses = duracion
-                If dias_ope = "" Then
-                    dias = 0
-                Else
-                    dias = dias_ope
-                End If
-
-            End If
-
-            Dim fechafinal As Date
-            'calcular la fecha final
-            fechafinal = CDate(fecha)
-            Dim tipointervalo As DateInterval
-            tipointervalo = DateInterval.Day
-
-            'Agregar los meses a la fecha
-            Dim finalizacionpre As String = DateAdd(DateInterval.Month, meses, fechafinal)
-            finalizacionpre = CDate(finalizacionpre)
-
-            'Agregar los días a la fecha
-            Dim finalizacion As String = DateAdd("d", dias, finalizacionpre)
-            finalizacion = CDate(finalizacion)
-
-            Dim quitadia As String = DateAdd("d", -1, finalizacion)
-
-            Dim fechaok As DateTime = quitadia
-
-            objResult = fechaok.ToString("yyyy/MM/dd")
-
-        Catch ex As Exception
-
-            objResult = ""
-
-        End Try
-
-        Response.Write(objResult)
-
-    End Function
-
-    Public Function buscardatethird(ByVal bybal As Integer, ByVal objApplicationCredentials As Gattaca.Application.Credentials.ApplicationCredentials, _
-       ByVal idThird As Integer) As String
-
-        Dim sql As New StringBuilder
-        Dim objSqlCommand As New SqlCommand
-        Dim data As DataTable
-        Dim contact As String = ""
-        Dim documents As String = ""
-        Dim phone As String = ""
-        Dim email As String = ""
-        Dim name As String = ""
-        Dim idt As String = ""
-
-        'consulta de los datos de actores por id
-        sql.Append("SELECT Id,Code,Name,contact,documents,phone,email,Actions,Experiences,Enabled,IdUser,CreateDate  FROM Third ")
-        sql.Append("where Id = " & idThird)
-        ' ejecutar la intruccion
-        data = GattacaApplication.RunSQLRDT(objApplicationCredentials, sql.ToString)
-
-        If data.Rows.Count > 0 Then
-
-            Dim objResult As String = "{"
-
-            objResult &= " ""idthird"": """
-
-            If IsDBNull(data.Rows(0)("id")) = False Then
-                idt = data.Rows(0)("id")
-            End If
-
-            objResult &= idt
-            objResult &= " "", ""name"": """
-
-            If IsDBNull(data.Rows(0)("name")) = False Then
-                name = data.Rows(0)("name")
-            End If
-
-            objResult &= name
-            objResult &= " "", ""contact"": """
-
-            If IsDBNull(data.Rows(0)("contact")) = False Then
-                contact = data.Rows(0)("contact")
-            End If
-
-            objResult &= contact
-            objResult &= """, ""documents"": """
-
-            If IsDBNull(data.Rows(0)("documents")) = False Then
-                documents = data.Rows(0)("documents")
-            End If
-            objResult &= documents
-            objResult &= """, ""phone"": """
-
-            If IsDBNull(data.Rows(0)("phone")) = False Then
-                phone = data.Rows(0)("phone")
-            End If
-
-            objResult &= phone
-            objResult &= """, ""email"": """
-
-            If IsDBNull(data.Rows(0)("email")) = False Then
-                email = data.Rows(0)("email")
-            End If
-
-            objResult &= email
-
-            objResult &= """}"
-
-            Response.Write(objResult)
-        End If
+        Dim locationByIdeaList As List(Of LocationByIdeaEntity)
 
 
-    End Function
-    ' TODO: 16 funcion que verifica si la idea esta aprobada
-    ' Autor: german Rodriguez MG group
-    ' cierre de cambio
 
-    ''' <summary>
-    ''' TODO: 100 funcion que revisa los enter en el guardar y editar idea
-    ''' autor: German Rodriguez 16/10/2013 MGgroup
-    ''' </summary>
-    ''' <param name="text"></param>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
-    Private Function clean_vbCrLf(ByVal text As String)
+        Dim arrayubicacion, arrayactor, arraycomponente, arrayflujos, arraydetallesflujos As String()
+        Dim deptovalexist, Cityvalexist As Integer
+        Dim desembolsoexist, Aportanteexist, idaportanteexist, N_pagodetexist, estados_flujosexist, N_pagoexist, fecha_pagoexist, porcentajeexist, entregaexist, tflujosexist, existidprogram, existactorsVal, existactorsName, existtipoactors, existcontact, existcedula, existtelefono, existemail, existdiner, existespecie, existtotal As String
 
-        Dim pattern As String = vbCrLf
-        Dim replacement As String = " "
-        Dim rgx As New Regex(pattern)
-        Dim result As String = rgx.Replace(text, replacement)
-        Dim comillas As String
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
 
-        Return result
 
-    End Function
-
-    Public Function borrar_archivos()
-        Dim startinfo As New ProcessStartInfo("C:\Gattaca_pruebas\WebSiteFSC\ELVIRA-F3\FSC_APP\FSC_APP\bats\BORRAR_ARC.bat")
-        'Dim startinfo As New ProcessStartInfo("C:\Users\Administrador\Documents\Visual Studio 2008\Projects\ELVIRA-F3\FSC_APP\FSC_APP\bats\BORRAR_ARC.bat")
-        startinfo.WindowStyle = ProcessWindowStyle.Minimized
-        Process.Start(startinfo)
-    End Function
-
-    Public Function copiar_archivos()
-        Dim startinfo As New ProcessStartInfo("C:\Gattaca_pruebas\WebSiteFSC\ELVIRA-F3\FSC_APP\FSC_APP\bats\COPIAR_ARC.bat")
-        'Dim startinfo As New ProcessStartInfo("C:\Users\Administrador\Documents\Visual Studio 2008\Projects\ELVIRA-F3\FSC_APP\FSC_APP\bats\COPIAR_ARC.bat")
-        startinfo.WindowStyle = ProcessWindowStyle.Minimized
-        Process.Start(startinfo)
     End Function
 
 

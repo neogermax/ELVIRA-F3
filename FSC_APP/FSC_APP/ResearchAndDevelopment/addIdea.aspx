@@ -84,7 +84,8 @@
         <tr>
             <td>
                 <asp:HiddenField ID="HDIDTHIRD" runat="server" />
-                <asp:HiddenField ID="HDaddidea" runat="server" />
+               
+                <asp:HiddenField ID="HDiva" runat="server" />
                 <asp:HiddenField ID="HFdate" runat="server" />
                 <asp:HiddenField ID="HFEndDate" runat="server" />
                 <asp:HiddenField ID="HDvaluestotal" runat="server" />
@@ -372,6 +373,7 @@
                     <input id="SaveIdea" type="button" value="Crear Idea" name="Save_Idea" onclick="SaveIdea_onclick()" />
                     <%--<input id="EditIdea" type="button" value="Editar Idea" name="Edit_Idea" />--%>
                     <%--<input id="Export" type="button" value="Exportar términos de referencia" name="Export_Idea" onclick="return Export_onclick()" />--%>
+                     <asp:HiddenField ID="HDaddidea" runat="server" />
                     <a id="Export" href="#" onclick="Export_onclick();" target="_blank">Exportar términos
                         de referencia</a> </li>
                 <asp:Label ID="Lbladvertencia" runat="server" ForeColor="#990000"></asp:Label>

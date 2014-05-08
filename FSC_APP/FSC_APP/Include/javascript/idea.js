@@ -81,7 +81,7 @@ $(document).ready(function() {
         Cpopulation();
         validarporcentaje();
         ClineEstrategic();
-        Cprogram();
+        //Cprogram();
         cargarcomponente();
         load_idarchive();
 
@@ -108,7 +108,7 @@ $(document).ready(function() {
         View_anexos_array();
         View_anexos();
 
-        // var timer_cline_edit = setTimeout("ClineEstrategic_edit();", 2000);
+        var timer_cline_edit = setTimeout("ClineEstrategic_edit();", 2000);
 
         var timer_cline_edit = setTimeout("Cpopulation_view();", 2000);
         var timer_cline_edit = setTimeout("Ctypcontract_view();", 2000);
@@ -749,6 +749,127 @@ function Crear_idea() {
 //funcion que guarda la edicion de idea
 function editar_idea() {
 
+    //crear arrays para el ingreso de las listas de json
+    var listubicaciones = [];
+    var listactores = [];
+    var listflujos = [];
+    var listdetallesflujos = [];
+    var listfiles = [];
+
+    valor_iva = $("#ctl00_cphPrincipal_HDiva").val(); 
+    alert(valor_iva);
+
+    var Str_listcomponentes = $("#componentesseleccionados").html();
+    Str_listcomponentes = Str_listcomponentes.replace(/"/g, "_");
+    Str_listcomponentes = Str_listcomponentes.replace(/<li/g, "");
+    Str_listcomponentes = Str_listcomponentes.replace(/li>/g, "");
+    Str_listcomponentes = Str_listcomponentes.replace(/</g, "");
+    Str_listcomponentes = Str_listcomponentes.replace(/>/g, "");
+    Str_listcomponentes = Str_listcomponentes.replace(/class=/g, "*");
+    Str_listcomponentes = Str_listcomponentes.replace(/id=/g, "");
+    Str_listcomponentes = Str_listcomponentes.replace(/_selectadd/g, "");
+
+
+    //recorer array para el ingreso de ubicaciones
+    for (item in arrayUbicacion) {
+        listubicaciones.push(JSON.stringify(arrayUbicacion[item]));
+    }
+    //recorer array para el ingreso de actores
+    for (item in arrayActor) {
+        listactores.push(JSON.stringify(arrayActor[item]));
+    }
+
+    //recorer array para el ingreso de flujos
+    for (item in arrayflujosdepago) {
+        listflujos.push(JSON.stringify(arrayflujosdepago[item]));
+        console.log(arrayflujosdepago[item]);
+
+    }
+    //validar si el array tiene datos   
+    if (listflujos.length == 0) {
+        listflujos[0] = "vacio_ojo";
+    }
+
+    for (item in matriz_flujos) {
+        listdetallesflujos.push(JSON.stringify(matriz_flujos[item]));
+    }
+
+    //validar si el array tiene datos
+    if (listdetallesflujos.length == 0) {
+        listdetallesflujos[0] = "vacio_ojo";
+    }
+
+    //recorrer el array para el ingreso archivos 
+    for (item in arrayFiles) {
+        listfiles.push(JSON.stringify(arrayFiles[item]));
+    }
+
+    //validar si tiene datos
+    if (listfiles.length == 0) {
+        listfiles[0] = "vacio_ojo";
+    }
+
+    var tflujos = $("#ValueCostotal").text();
+    tflujos = tflujos.replace(/\./gi, '');
+
+    $.ajax({
+        url: "AjaxAddIdea.aspx",
+        type: "POST",
+        //crear json
+        data: { "action": "edit", "code": $("#ctl00_cphPrincipal_txtcode").val(),
+            "linea_estrategica": $("#ddlStrategicLines").val(),
+            "programa": $("#ddlPrograms").val(),
+            "nombre": cambio_text($("#ctl00_cphPrincipal_txtname").val()),
+            "justificacion": cambio_text($("#ctl00_cphPrincipal_txtjustification").val()),
+            "objetivo": cambio_text($("#ctl00_cphPrincipal_txtobjective").val()),
+            "objetivo_esp": cambio_text($("#ctl00_cphPrincipal_txtareadescription").val()),
+            "Resultados_Benef": cambio_text($("#ctl00_cphPrincipal_txtresults").val()),
+            "Resultados_Ges_c": cambio_text($("#ctl00_cphPrincipal_txtresulgc").val()),
+            "Resultados_Cap_i": cambio_text($("#ctl00_cphPrincipal_txtresulci").val()),
+            "Resultados_otros_resul": cambio_text($("#ctl00_cphPrincipal_Txtothersresults").val()),
+            "Fecha_inicio": $("#ctl00_cphPrincipal_txtstartdate").val(),
+            "mes": $("#ctl00_cphPrincipal_txtduration").val(),
+            "dia": $("#ctl00_cphPrincipal_Txtday").val(),
+            "Fecha_fin": $("#ctl00_cphPrincipal_Txtdatecierre").val(),
+            "Población": $("#ddlPupulation").val(),
+            "contratacion": $("#ddlmodcontract").val(),
+            "A_Mfsc": $("#ValueMoneyFSC").val(),
+            "A_Efsc": $("#ValueEspeciesFSC").val(),
+            "A_Mcounter": $("#ValueMoneyCounter").val(),
+            "A_Ecounter": $("#ValueEspeciesCounter").val(),
+            "cost": tflujos,
+            "obligaciones": cambio_text($("#ctl00_cphPrincipal_Txtobligationsoftheparties").val()),
+            "riesgo": cambio_text($("#ctl00_cphPrincipal_Txtriesgos").val()),
+            "mitigacion": cambio_text($("#ctl00_cphPrincipal_Txtaccionmitig").val()),
+            "presupuestal": cambio_text($("#ctl00_cphPrincipal_Txtroutepresupuestal").val()),
+            "iva": valor_iva,
+            "listcomponentes": Str_listcomponentes.toString(),
+            "listubicaciones": listubicaciones.toString(),
+            "listflujos": cambio_text(listflujos.toString()),
+            "listdetallesflujos": listdetallesflujos.toString(),
+            "listfiles": listfiles.toString(),
+            "listactores": listactores.toString()
+
+        },
+        //mostrar resultados de la creacion de la idea
+        success: function(result) {
+            $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
+            $("#SaveIdea").css("display", "none");
+            $("#Export").css("display", "block");
+            $("#ctl00_cphPrincipal_lblsaveinformation").text(result);
+            $("#ctl00_cphPrincipal_Lbladvertencia").text("");
+            $("#ctl00_cphPrincipal_Txtobligationsoftheparties").focus();
+        },
+        error: function() {
+            $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
+            $("#SaveIdea").css("display", "block");
+            $("#ctl00_cphPrincipal_lblsaveinkdformation").text("Se genero error al entrar a la operacion Ajax :");
+        }
+    });
+
+    
+    
+    alert("hola");
 
 }
 

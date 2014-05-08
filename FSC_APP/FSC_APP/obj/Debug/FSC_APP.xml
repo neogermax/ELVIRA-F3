@@ -36645,9 +36645,9 @@ Control HDIDTHIRD.
 Campo generado automáticamente.
 Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 </remarks>
-</member><member name="F:FSC_APP.addIdea.HDaddidea">
+</member><member name="F:FSC_APP.addIdea.HDiva">
 	<summary>
-Control HDaddidea.
+Control HDiva.
 </summary>
 	<remarks>
 Campo generado automáticamente.
@@ -37520,6 +37520,14 @@ Para modificarlo, mueva la declaración del campo del archivo del diseñador al 
 </member><member name="F:FSC_APP.addIdea.btnexportword">
 	<summary>
 Control btnexportword.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addIdea.HDaddidea">
+	<summary>
+Control HDaddidea.
 </summary>
 	<remarks>
 Campo generado automáticamente.
