@@ -260,6 +260,12 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                     ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
                     load_id_archive(ideditar)
 
+                Case "borrar_archivos"
+                    borrar_archivos()
+
+                Case "copiar_archivos"
+                    copiar_archivos()
+
                 Case Else
 
             End Select
@@ -477,7 +483,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
                 name_archive = name_archive.Replace("_", " ")
 
-                html_anexos &= "<tr id=""archivo" & id_files & """><td><a id=""linkarchives" & id_files & """ runat=""server"" href=""/document/temp/" & name_archive & """ target= ""_blank"" title=""link"">" & name_archive & "</a></td><td style=""text-align: left;"">" & row(2).ToString & "</td><td style=""text-align: center;""><input type =""button"" value= ""Eliminar"" onclick=""deletefile('" & id_files & "')""></input></td></tr>"
+                html_anexos &= "<tr id=""archivo" & id_files & """><td><a id=""linkarchives" & id_files & """ runat=""server"" href=""/document/" & name_archive & """ target= ""_blank"" title=""link"">" & name_archive & "</a></td><td style=""text-align: left;"">" & row(2).ToString & "</td><td style=""text-align: center;""><input type =""button"" value= ""Eliminar"" onclick=""deletefile('" & id_files & "')""></input></td></tr>"
             Next
             html_anexos &= "</tbody></table>"
         Else
@@ -2151,7 +2157,18 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
     End Function
 
+    Public Function borrar_archivos()
+        Dim startinfo As New ProcessStartInfo("C:\Users\Administrador\Documents\Visual Studio 2008\Projects\ELVIRA-F3\FSC_APP\FSC_APP\bats\BORRAR_ARC.bat")
+        startinfo.WindowStyle = ProcessWindowStyle.Minimized
+        Process.Start(startinfo)
+    End Function
 
+    Public Function copiar_archivos()
+
+        Dim startinfo As New ProcessStartInfo("C:\Users\Administrador\Documents\Visual Studio 2008\Projects\ELVIRA-F3\FSC_APP\FSC_APP\bats\COPIAR_ARC.bat")
+        startinfo.WindowStyle = ProcessWindowStyle.Minimized
+        Process.Start(startinfo)
+    End Function
 
 
 End Class

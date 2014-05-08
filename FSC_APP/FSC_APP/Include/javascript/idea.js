@@ -113,10 +113,12 @@ $(document).ready(function() {
         var timer_cline_edit = setTimeout("Cpopulation_view();", 2000);
         var timer_cline_edit = setTimeout("Ctypcontract_view();", 2000);
         // var itemarrayflujos = 0;
+        $("#SaveIdea").attr("value", "Editar Idea");
 
-        $("#SaveIdea").css("display", "none");
+        //$("#SaveIdea").css("display", "none");
         $("#Export").css("display", "block");
-        $("#EditIdea").css("display", "block");
+        //$("#EditIdea").css("display", "block");
+        borrar_carpeta();
     }
     else {
 
@@ -141,9 +143,12 @@ $(document).ready(function() {
         validarporcentaje();
 
 
-        $("#SaveIdea").css("display", "block");
+        $("#SaveIdea").attr("value", "Crear Idea");
+
+        //     $("#SaveIdea").css("display", "block");
         $("#Export").css("display", "none");
-        $("#EditIdea").css("display", "none");
+        //     $("#EditIdea").css("display", "none");
+        borrar_carpeta();
     }
 
     $("#ctl00_cphPrincipal_containerSuccess").css("display", "none");
@@ -437,7 +442,18 @@ function SaveIdea_onclick() {
         $("#ctl00_cphPrincipal_Lblhelpduraton").text("");
         $("#ctl00_cphPrincipal_Lblhelpday").text("");
 
-        Crear_idea();
+        //capturamos la url
+        var sPageURL = window.location.search.substring(1);
+        var sURLVariables = sPageURL.split('&');
+
+        if (sURLVariables[0] == "op=edit") {
+            editar_idea();
+            //copiar_archivos();
+        }
+        else {
+            Crear_idea();
+            copiar_archivos();
+        }
     }
     else {
         //CREAR MENSAJE
@@ -730,6 +746,12 @@ function Crear_idea() {
 
 }
 
+//funcion que guarda la edicion de idea
+function editar_idea() {
+
+
+}
+
 
 //funcion de cambio de comillas enters y tabulaciones
 function cambio_text(str_txt) {
@@ -789,6 +811,36 @@ function aprobacion_idea() {
 
 }
 
+//funtion para borrar carpeta temp
+function borrar_carpeta() {
+
+    $.ajax({
+        url: "AjaxAddIdea.aspx",
+        type: "GET",
+        data: { "action": "borrar_archivos" },
+        success: function(result) {
+         //   alert("borrado");
+        },
+        error: function(msg) {
+            alert("No ELIMINO LOS ARCHIVOS = " + ideditar);
+        }
+    });
+}
+
+//FUNCION COPIAR ARCHIVOS DE LA CARPETA
+function copiar_archivos() {
+
+    $.ajax({
+        url: "AjaxAddIdea.aspx",
+        type: "GET",
+        data: { "action": "copiar_archivos" },
+        success: function(result) {
+          //  alert("copiado");
+        },
+        error: function(msg) {
+            alert("No COPIO LOS ARCHIVOS= " + ideditar);
+        }
+    });
 
 
-
+}
