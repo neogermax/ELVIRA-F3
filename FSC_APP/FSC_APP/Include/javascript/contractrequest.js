@@ -204,25 +204,6 @@ function fecha() {
         }
     })
 
-    $("#ctl00_cphPrincipal_txtFinishDatePoliza").change(function() {
-        if ($("#ctl00_cphPrincipal_txtInitDatePoliza").val() == '') {
-            $("#ctl00_cphPrincipal_lblAddPolizaNfo").css("color", "red");
-            $("#ctl00_cphPrincipal_lblAddPolizaNfo").text("La fecha de inicio de vigencia no se ha diligenciado.")
-            $("#ctl00_cphPrincipal_txtFinishDatePoliza").val("");
-        } else {
-            $("#ctl00_cphPrincipal_lblAddPolizaNfo").text("");
-            var inivig = $("#ctl00_cphPrincipal_txtInitDatePoliza").val();
-            var finvig = $("#ctl00_cphPrincipal_txtFinishDatePoliza").val();
-
-            if (inivig > finvig) {
-                $("#ctl00_cphPrincipal_lblNfoEndingdate").css("color", "red");
-                $("#ctl00_cphPrincipal_lblNfoEndingdate").text("La fecha de inicio de vigencia no puede ser anteior a la fecha de fin de vigencia.");
-            } else {
-            }
-
-        }
-    })
-
     //Limpiar campos fechas de contrato
     $("#ctl00_cphPrincipal_txtSubscriptionDate").change(function() {
         $("#ctl00_cphPrincipal_txtInitialDate").val("");
@@ -231,6 +212,22 @@ function fecha() {
     //Limpiar campos fechas de poliza
     $("#ctl00_cphPrincipal_txtExpeditionDate").change(function() {
         $("#ctl00_cphPrincipal_txtFinishdate").val("");
+    })
+
+    //Validacion fechas conceptos de poliza
+    $("#ctl00_cphPrincipal_txtFinishDatePoliza").change(function() {
+        if ($("#ctl00_cphPrincipal_txtInitDatePoliza").val() != "" && $("#ctl00_cphPrincipal_txtFinishDatePoliza").val() != "") {
+            if ($("#ctl00_cphPrincipal_txtInitDatePoliza").val() > $("#ctl00_cphPrincipal_txtFinishDatePoliza").val()) {
+                $("#ctl00_cphPrincipal_lblAddPolizaNfo").css("color", "red");
+                $("#ctl00_cphPrincipal_lblAddPolizaNfo").text("La fecha de fin de vigencia no debe se inferior a la fecha de inicio de la vigencia.");
+            } else {
+            $("#ctl00_cphPrincipal_lblAddPolizaNfo").text("");
+            }
+        }
+    })
+
+    $("#ctl00_cphPrincipal_txtInitDatePoliza").change(function() {
+        $("#ctl00_cphPrincipal_txtFinishDatePoliza").trigger("change");
     })
 
     //Validacion fechas poliza
@@ -309,17 +306,17 @@ function buscaractores() {
         var proyecto = document.getElementById("ctl00_cphPrincipal_ddlProject");
         var selproyecto = proyecto.options[proyecto.selectedIndex].text;
         $("#ctl00_cphPrincipal_lblProjectNumber").text(selproyecto)
-//        $.ajax({
-//            url: "/FormulationAndAdoption/ajaxaddProjectApprovalRecordshearch.aspx",
-//            type: "GET",
-//            data: { "action": "buscaractorescontrato", "code": $(this).val() },
-//            success: function(result) {
-//                $("#ctl00_cphPrincipal_GVTHIRD").html(result);
-//            },
-//            error: function() {
-//                $("#ctl00_cphPrincipal_lblNfoContractDuration").text("No se pueden cargar los actores de la idea solicitada.");
-//            }
-//        });
+        $.ajax({
+            url: "/FormulationAndAdoption/ajaxaddProjectApprovalRecordshearch.aspx",
+            type: "GET",
+            data: { "action": "buscaractorescontrato", "code": $(this).val() },
+            success: function(result) {
+                $("#ctl00_cphPrincipal_GVTHIRD").html(result);
+            },
+            error: function() {
+                $("#ctl00_cphPrincipal_lblNfoContractDuration").text("No se pueden cargar los actores de la idea solicitada.");
+            }
+        });
     });
 }
 
@@ -342,7 +339,7 @@ function loadproject(proyecto) {
         success: function(result) {
             //Busca registros de contratación
             if (result != "") {
-                $("#ctl00_cphPrincipal_txtInitialDate").val(result);  
+                $("#ctl00_cphPrincipal_txtInitialDate").val(result);
             }
         },
         error: function()
@@ -387,7 +384,7 @@ function loadproject(proyecto) {
             alert("Hubo un error al consultar los datos del proyecto.");
         }
     });
-    
+
 }
 
 function arreglo() {
