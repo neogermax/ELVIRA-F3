@@ -91,7 +91,6 @@ german rodriguez y pedro cruz-->
                     validacontrato();
                     arreglo();
                     buscaractores();
-                    buscaractoresedit();
                     polizas();
                 }
 

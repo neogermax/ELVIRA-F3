@@ -12,7 +12,7 @@
     polizas();
     guardarproyecto();
     setTimeout("tabs();", 1000);
-    cargar();
+    //cargar();
 
 })
 
@@ -305,10 +305,10 @@ function buscaractores() {
 
     $("#ctl00_cphPrincipal_ddlProject").trigger("change");
 
-//    $("#ctl00_cphPrincipal_ddlProject").change(function() {
-//        var proyecto = document.getElementById("ctl00_cphPrincipal_ddlProject");
-//        var selproyecto = proyecto.options[proyecto.selectedIndex].text;
-//        $("#ctl00_cphPrincipal_lblProjectNumber").text(selproyecto)
+    $("#ctl00_cphPrincipal_ddlProject").change(function() {
+        var proyecto = document.getElementById("ctl00_cphPrincipal_ddlProject");
+        var selproyecto = proyecto.options[proyecto.selectedIndex].text;
+        $("#ctl00_cphPrincipal_lblProjectNumber").text(selproyecto)
 //        $.ajax({
 //            url: "/FormulationAndAdoption/ajaxaddProjectApprovalRecordshearch.aspx",
 //            type: "GET",
@@ -320,7 +320,7 @@ function buscaractores() {
 //                $("#ctl00_cphPrincipal_lblNfoContractDuration").text("No se pueden cargar los actores de la idea solicitada.");
 //            }
 //        });
-//    });
+    });
 }
 
 function guardarproyecto() {
