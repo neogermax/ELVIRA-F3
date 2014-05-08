@@ -22,16 +22,20 @@ Partial Public Class ajaxCPMain
             Case "getcontractstatus"
                 proyectid = Request.QueryString("proyectid").ToString()
                 buscacontratacion(proyectid, applicationCredentials)
+
             Case "getproyectstatus"
                 proyectid = Request.QueryString("proyectid").ToString()
                 proyectoaprobado(proyectid, applicationCredentials)
+
             Case "getcontractfinished"
                 proyectid = Request.QueryString("proyectid").ToString()
                 contratofinalizado(proyectid, applicationCredentials)
+
             Case "getproceeding"
                 tipoacta = Request.QueryString("type").ToString()
                 proyectid = Request.QueryString("proyectid").ToString()
                 actas(proyectid, tipoacta, applicationCredentials)
+
             Case Else
         End Select
 
@@ -110,6 +114,7 @@ Partial Public Class ajaxCPMain
         Dim objSqlCommand As New SqlCommand
         Dim data As DataTable
 
+        'consultar la tabla de actas por tipo y proyecto
         sql.Append("SELECT Acta_id FROM [FSC_eProject].[dbo].[Proceeding_Logs] where Tipo_Acta_id = " & tipo & " and project_id = " & idProject)
 
         data = GattacaApplication.RunSQLRDT(objApplicationCredentials, sql.ToString)

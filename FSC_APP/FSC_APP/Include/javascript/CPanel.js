@@ -16,7 +16,7 @@ function inicial() {
 //    }
 
     pendiente("#btnlearnedlessons");
-    pendiente("#btnproceedclose");
+    //pendiente("#btnproceedclose");
     pendiente("#btneditcont");
     pendiente("#btnapproval");
     pendiente("#btnmodification");
@@ -25,7 +25,7 @@ function inicial() {
     pendiente("#btnriskmanagement");
     pendiente("#btncrono");
     pendiente("#btncontratacion");
-    pendiente("#btnproceed");
+    //pendiente("#btnproceed");
 };
 
 //-Verificacion inicial-//
