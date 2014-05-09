@@ -9961,31 +9961,6 @@ Public Class Facade
 
     End Function
 
-    Public Function getNaturalThird(ByVal objApplicationCredentials As Gattaca.Application.Credentials.ApplicationCredentials) As List(Of ThirdEntity)
-
-        Dim Third As New ThirdDALC
-
-        Try
-            getNaturalThird = Third.getList(objApplicationCredentials, , , , , , , , , , , , , , , 1)
-        Catch ex As Exception
-            'cancelar el proceso
-            CtxSetAbort()
-
-            'publicar el error
-            GattacaApplication.Publish(ex, objApplicationCredentials.ClientName, MODULENAME, "getNaturalThird")
-            ExceptionPolicy.HandleException(ex, "GattacaStandardExceptionPolicy")
-
-            'subir el error de nivel
-            Throw New Exception("Error al cargar Supervisores. ")
-
-        Finally
-            'liberar recursos
-            Third = Nothing
-
-        End Try
-
-    End Function
-
     ''' <summary> 
     ''' Registar un nuevo Third
     ''' </summary>
@@ -10143,6 +10118,31 @@ Public Class Facade
         End Try
 
     End Sub
+
+    Public Function getNaturalThird(ByVal objApplicationCredentials As Gattaca.Application.Credentials.ApplicationCredentials) As List(Of ThirdEntity)
+
+        Dim Third As New ThirdDALC
+
+        Try
+            getNaturalThird = Third.getList(objApplicationCredentials, , , , , , , , , , , , , , , 1)
+        Catch ex As Exception
+            'cancelar el proceso
+            CtxSetAbort()
+
+            'publicar el error
+            GattacaApplication.Publish(ex, objApplicationCredentials.ClientName, MODULENAME, "getNaturalThird")
+            ExceptionPolicy.HandleException(ex, "GattacaStandardExceptionPolicy")
+
+            'subir el error de nivel
+            Throw New Exception("Error al cargar Supervisores. ")
+
+        Finally
+            'liberar recursos
+            Third = Nothing
+
+        End Try
+
+    End Function
 
 #End Region
 
@@ -10688,6 +10688,9 @@ Public Class Facade
         Dim IdeaDALC As New IdeaDALC
         Dim idthird As Integer
 
+        Dim objPaymentFlowDALC As New PaymentFlowDALC()
+        Dim objdetallesflujoDALC As New DetailedcashflowsDALC()
+
         Try
 
             'Se modfica la informacion principal de la idea
@@ -10763,6 +10766,23 @@ Public Class Facade
                 Me.addProgramComponentByIdea(objApplicationCredentials, ProgramComponentByIdea)
             Next
 
+
+            'Se elimina la informacion existente de los flujos de pago para la idea actual
+            objPaymentFlowDALC.delete(objApplicationCredentials, Idea.id)
+            'Guardar la lista de flujos de pago de la idea
+            For Each objPaymentFlow As PaymentFlowEntity In Idea.paymentflowByProjectList
+                objPaymentFlow.idproject = Idea.id
+                objPaymentFlowDALC.add(objApplicationCredentials, objPaymentFlow)
+            Next
+
+            'Se elimina la informacion existente de los detalles de flujo para la idea actual
+            objdetallesflujoDALC.delete(objApplicationCredentials, Idea.id)
+
+            'Guardar la lista de detalles flujos de pago de la idea
+            For Each objdeteallesflujos As DetailedcashflowsEntity In Idea.DetailedcashflowsbyIdeaList
+                objdeteallesflujos.IdIdea = Idea.id
+                objdetallesflujoDALC.add(objApplicationCredentials, objdeteallesflujos)
+            Next
 
             ' finalizar la transaccion
             CtxSetComplete()

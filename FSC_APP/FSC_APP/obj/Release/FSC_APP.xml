@@ -21564,7 +21564,7 @@ Para modificarlo, mueva la declaración del campo del archivo del diseñador al 
  </summary>
 	<param name="idThird"></param>
 	<remarks></remarks>
-</member><member name="M:FSC_APP.ThirdDALC.getList(Gattaca.Application.Credentials.ApplicationCredentials,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+</member><member name="M:FSC_APP.ThirdDALC.getList(Gattaca.Application.Credentials.ApplicationCredentials,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
 	<summary>
  Cargar lista de capitulos de una forma
  </summary>
@@ -34135,46 +34135,6 @@ Control lblHelpenabled.
 Campo generado automáticamente.
 Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 </remarks>
-</member><member name="F:FSC_APP.addContractRequest.lblSubscriptionDate">
-	<summary>
-Control lblSubscriptionDate.
-</summary>
-	<remarks>
-Campo generado automáticamente.
-Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-</remarks>
-</member><member name="F:FSC_APP.addContractRequest.txtSubscriptionDate">
-	<summary>
-Control txtSubscriptionDate.
-</summary>
-	<remarks>
-Campo generado automáticamente.
-Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-</remarks>
-</member><member name="F:FSC_APP.addContractRequest.CalendarExtender2">
-	<summary>
-Control CalendarExtender2.
-</summary>
-	<remarks>
-Campo generado automáticamente.
-Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-</remarks>
-</member><member name="F:FSC_APP.addContractRequest.cvsubscriptiondate">
-	<summary>
-Control cvsubscriptiondate.
-</summary>
-	<remarks>
-Campo generado automáticamente.
-Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-</remarks>
-</member><member name="F:FSC_APP.addContractRequest.lblInfoSubscriptionDate">
-	<summary>
-Control lblInfoSubscriptionDate.
-</summary>
-	<remarks>
-Campo generado automáticamente.
-Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-</remarks>
 </member><member name="F:FSC_APP.addContractRequest.lblInitialDate">
 	<summary>
 Control lblInitialDate.
@@ -34215,6 +34175,46 @@ Control lblinformation.
 Campo generado automáticamente.
 Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 </remarks>
+</member><member name="F:FSC_APP.addContractRequest.lblSubscriptionDate">
+	<summary>
+Control lblSubscriptionDate.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addContractRequest.txtSubscriptionDate">
+	<summary>
+Control txtSubscriptionDate.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addContractRequest.CalendarExtender2">
+	<summary>
+Control CalendarExtender2.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addContractRequest.cvsubscriptiondate">
+	<summary>
+Control cvsubscriptiondate.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addContractRequest.lblInfoSubscriptionDate">
+	<summary>
+Control lblInfoSubscriptionDate.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
 </member><member name="F:FSC_APP.addContractRequest.lblContractDuration">
 	<summary>
 Control lblContractDuration.
@@ -34234,6 +34234,30 @@ Para modificarlo, mueva la declaración del campo del archivo del diseñador al 
 </member><member name="F:FSC_APP.addContractRequest.lblNfoContractDuration">
 	<summary>
 Control lblNfoContractDuration.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addContractRequest.lblContractDays">
+	<summary>
+Control lblContractDays.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addContractRequest.txtContractDays">
+	<summary>
+Control txtContractDays.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addContractRequest.lblNfoContractDays">
+	<summary>
+Control lblNfoContractDays.
 </summary>
 	<remarks>
 Campo generado automáticamente.
@@ -34303,22 +34327,6 @@ Control lblNfoLiquidationDate.
 Campo generado automáticamente.
 Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 </remarks>
-</member><member name="F:FSC_APP.addContractRequest.Label20">
-	<summary>
-Control Label20.
-</summary>
-	<remarks>
-Campo generado automáticamente.
-Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-</remarks>
-</member><member name="F:FSC_APP.addContractRequest.txtSupervisor">
-	<summary>
-Control txtSupervisor.
-</summary>
-	<remarks>
-Campo generado automáticamente.
-Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-</remarks>
 </member><member name="F:FSC_APP.addContractRequest.lblConfidential">
 	<summary>
 Control lblConfidential.
@@ -34378,6 +34386,38 @@ Para modificarlo, mueva la declaración del campo del archivo del diseñador al 
 </member><member name="F:FSC_APP.addContractRequest.txtObs">
 	<summary>
 Control txtObs.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addContractRequest.Label20">
+	<summary>
+Control Label20.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addContractRequest.ddlSupervisor">
+	<summary>
+Control ddlSupervisor.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addContractRequest.btnAddSupervisor">
+	<summary>
+Control btnAddSupervisor.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addContractRequest.lblAddSupervisor">
+	<summary>
+Control lblAddSupervisor.
 </summary>
 	<remarks>
 Campo generado automáticamente.
@@ -36645,9 +36685,9 @@ Control HDIDTHIRD.
 Campo generado automáticamente.
 Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 </remarks>
-</member><member name="F:FSC_APP.addIdea.HDaddidea">
+</member><member name="F:FSC_APP.addIdea.HDiva">
 	<summary>
-Control HDaddidea.
+Control HDiva.
 </summary>
 	<remarks>
 Campo generado automáticamente.
@@ -37520,6 +37560,14 @@ Para modificarlo, mueva la declaración del campo del archivo del diseñador al 
 </member><member name="F:FSC_APP.addIdea.btnexportword">
 	<summary>
 Control btnexportword.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addIdea.HDaddidea">
+	<summary>
+Control HDaddidea.
 </summary>
 	<remarks>
 Campo generado automáticamente.
