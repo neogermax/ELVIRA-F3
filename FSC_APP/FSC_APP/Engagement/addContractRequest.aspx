@@ -138,23 +138,6 @@
                 <tr>
                     <td>
                         <br />
-                        <asp:Label ID="lblSubscriptionDate" runat="server" Text="Fecha de Suscripción"></asp:Label>
-                    </td>
-                    <td>
-                        <br />
-                        <asp:TextBox ID="txtSubscriptionDate" runat="server" MaxLength="50" Width="400px"></asp:TextBox><cc1:CalendarExtender
-                            ID="CalendarExtender2" runat="server" Enabled="True" Format="yyyy/MM/dd" TargetControlID="txtSubscriptionDate">
-                        </cc1:CalendarExtender>
-                        <asp:CompareValidator ID="cvsubscriptiondate" runat="server" ControlToValidate="txtSubscriptionDate"
-                            ErrorMessage="aaaa/mm/dd" Operator="DataTypeCheck" SetFocusOnError="True" Type="Date"></asp:CompareValidator>
-                    </td>
-                    <td>
-                        <asp:Label ID="lblInfoSubscriptionDate" runat="server"></asp:Label>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <br />
                         <asp:Label ID="lblInitialDate" runat="server" Text="Fecha de Inicio"></asp:Label>
                     </td>
                     <td>
@@ -173,6 +156,23 @@
                 <tr>
                     <td>
                         <br />
+                        <asp:Label ID="lblSubscriptionDate" runat="server" Text="Fecha de Suscripción"></asp:Label>
+                    </td>
+                    <td>
+                        <br />
+                        <asp:TextBox ID="txtSubscriptionDate" runat="server" MaxLength="50" Width="400px"></asp:TextBox><cc1:CalendarExtender
+                            ID="CalendarExtender2" runat="server" Enabled="True" Format="yyyy/MM/dd" TargetControlID="txtSubscriptionDate">
+                        </cc1:CalendarExtender>
+                        <asp:CompareValidator ID="cvsubscriptiondate" runat="server" ControlToValidate="txtSubscriptionDate"
+                            ErrorMessage="aaaa/mm/dd" Operator="DataTypeCheck" SetFocusOnError="True" Type="Date"></asp:CompareValidator>
+                    </td>
+                    <td>
+                        <asp:Label ID="lblInfoSubscriptionDate" runat="server"></asp:Label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <br />
                         <asp:Label ID="lblContractDuration" runat="server" Text="Duración en meses (Recibe hasta 2 decimales)"></asp:Label>
                     </td>
                     <td>
@@ -181,6 +181,19 @@
                     </td>
                     <td>
                         <asp:Label ID="lblNfoContractDuration" runat="server"></asp:Label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <br />
+                        <asp:Label ID="lblContractDays" runat="server" Text="Días"></asp:Label>
+                    </td>
+                    <td>
+                        <br />
+                        <asp:TextBox ID="txtContractDays" runat="server" Width="400px" MaxLength="5"></asp:TextBox>
+                    </td>
+                    <td>
+                        <asp:Label ID="lblNfoContractDays" runat="server"></asp:Label>
                     </td>
                 </tr>
                 <tr>
@@ -204,29 +217,14 @@
                     <td>
                         <br />
                         <asp:TextBox ID="txtLiquidationDate" runat="server" Width="400px" MaxLength="50"></asp:TextBox>
-                        <cc1:CalendarExtender ID="ceLiquidationDate" runat="server" TargetControlID="txtLiquidationDate" Format="yyyy/MM/dd"
-                            Enabled="True">
+                        <cc1:CalendarExtender ID="ceLiquidationDate" runat="server" TargetControlID="txtLiquidationDate"
+                            Format="yyyy/MM/dd" Enabled="True">
                         </cc1:CalendarExtender>
                         <asp:CompareValidator ID="cvLiquidationDate" runat="server" ErrorMessage="aaaa/mm/dd"
                             Type="Date" ControlToValidate="txtLiquidationDate" Operator="DataTypeCheck" SetFocusOnError="True"></asp:CompareValidator>
-                    </td> 
+                    </td>
                     <td>
                         <asp:Label ID="lblNfoLiquidationDate" runat="server"></asp:Label>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="width: 187px">
-                        <br />
-                        <br />
-                        <asp:Label ID="Label20" runat="server" Text="Supervisor"></asp:Label>
-                    </td>
-                    <td>
-                        <br />
-                        <br />
-                        <asp:DropDownList ID="ddlSupervisor" runat="server" CssClass="Ccombo">
-                        </asp:DropDownList>
-                        <asp:Button ID="btnAddSupervisor" runat="server" Text="Agregar supervisor" /><asp:Label
-                            ID="lblAddSupervisor" runat="server"></asp:Label>
                     </td>
                 </tr>
                 <tr>
@@ -268,6 +266,21 @@
                         <br />
                         <asp:TextBox ID="txtObs" runat="server" MaxLength="255" onkeypress="return textboxAreaMaxNumber(this,255)"
                             Rows="2" TextMode="MultiLine" Width="400px"></asp:TextBox>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 187px">
+                        <br />
+                        <br />
+                        <asp:Label ID="Label20" runat="server" Text="Supervisor"></asp:Label>
+                    </td>
+                    <td>
+                        <br />
+                        <br />
+                        <asp:DropDownList ID="ddlSupervisor" runat="server" CssClass="Ccombo">
+                        </asp:DropDownList>
+                        <asp:Button ID="btnAddSupervisor" runat="server" Text="Agregar supervisor" /><asp:Label
+                            ID="lblAddSupervisor" runat="server"></asp:Label>
                     </td>
                 </tr>
                 <tr>
