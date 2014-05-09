@@ -181,6 +181,17 @@ function fecha() {
         }
     })
 
+    $("#ctl00_cphPrincipal_txtContractDays").change(function() {
+        var dias = $("#ctl00_cphPrincipal_txtContractDays").val();
+        if (/^([\d])+$/.test(dias)) {
+            $("#ctl00_cphPrincipal_lblNfoContractDays").text("");
+        } else {
+            $("#ctl00_cphPrincipal_lblNfoContractDays").css("color","red");
+            $("#ctl00_cphPrincipal_lblNfoContractDays").text("El valor de los días debe ser numérico.");
+            $("#ctl00_cphPrincipal_txtContractDays").val("");
+        }
+    })
+
     //Validacion fechas contrato
     $("#ctl00_cphPrincipal_txtLiquidationDate").change(function() {
         if ($("#ctl00_cphPrincipal_txtEndingDate").val() == '') {
