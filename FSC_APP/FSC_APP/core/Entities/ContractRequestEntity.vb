@@ -194,7 +194,6 @@ Public Class ContractRequestEntity
             Me._commentsByContractRequest = value
         End Set
     End Property
-#End Region
 
     'Campos nuevos de contratacion
 
@@ -288,6 +287,8 @@ Public Class ContractRequestEntity
             Me._finishfilter = value
         End Set
     End Property
+
+#End Region
 
 #Region "Constructor"
 
