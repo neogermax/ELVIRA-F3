@@ -1008,6 +1008,7 @@ Public Class IdeaDALC
             sql.AppendLine(" idsummoning = '" & Idea.idsummoning & "',")
             sql.AppendLine(" startprocess = '" & Idea.startprocess & "',")
             sql.AppendLine(" enabled = '" & Idea.enabled & "',")
+
             'sql.AppendLine(" idProcessInstance = '" & Idea.IdProcessInstance & "',")
             'sql.AppendLine(" idActivityInstance = '" & Idea.IdActivityInstance & "',")
 
@@ -1018,8 +1019,7 @@ Public Class IdeaDALC
             sql.AppendLine(" ResultsInstalledCapacity = '" & Idea.ResultsInstalledCapacity & "',")   'campo nuevo fase II german rodriguez 
             sql.AppendLine(" ResultsKnowledgeManagement = '" & Idea.ResultsKnowledgeManagement & "',") 'campo nuevo fase II german rodriguez
             sql.AppendLine(" OtherResults = '" & Idea.OthersResults & "',") 'campo nuevo fase II german rodriguez
-            sql.AppendLine(" idtypecontract = '" & Idea.idtypecontract & "',") 'campo nuevo fase II german rodriguez
-            sql.AppendLine(" Enddate = '" & Idea.Enddate & "',") 'campo nuevo fase II german rodriguez
+            sql.AppendLine(" Enddate = '" & Idea.Enddate.ToString("yyyyMMdd") & "',") 'campo nuevo fase II german rodriguez
             sql.AppendLine(" obligationsoftheparties = '" & Idea.Obligaciones & "',") 'campo nuevo fase II german rodriguez
             sql.AppendLine(" RiskMitigation = '" & Idea.mitigacion & "',") 'campo nuevo fase II german rodriguez
             sql.AppendLine(" RisksIdentified = '" & Idea.riesgos & "',") 'campo nuevo fase II german rodriguez

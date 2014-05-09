@@ -9961,8 +9961,6 @@ Public Class Facade
 
     End Function
 
-
-
     ''' <summary> 
     ''' Registar un nuevo Third
     ''' </summary>
@@ -10120,6 +10118,31 @@ Public Class Facade
         End Try
 
     End Sub
+
+    Public Function getNaturalThird(ByVal objApplicationCredentials As Gattaca.Application.Credentials.ApplicationCredentials) As List(Of ThirdEntity)
+
+        Dim Third As New ThirdDALC
+
+        Try
+            getNaturalThird = Third.getList(objApplicationCredentials, , , , , , , , , , , , , , , 1)
+        Catch ex As Exception
+            'cancelar el proceso
+            CtxSetAbort()
+
+            'publicar el error
+            GattacaApplication.Publish(ex, objApplicationCredentials.ClientName, MODULENAME, "getNaturalThird")
+            ExceptionPolicy.HandleException(ex, "GattacaStandardExceptionPolicy")
+
+            'subir el error de nivel
+            Throw New Exception("Error al cargar Supervisores. ")
+
+        Finally
+            'liberar recursos
+            Third = Nothing
+
+        End Try
+
+    End Function
 
 #End Region
 
@@ -10742,6 +10765,7 @@ Public Class Facade
                 'Se llama al metodo que almacena la informacion de las Componentes del Programa por idea.
                 Me.addProgramComponentByIdea(objApplicationCredentials, ProgramComponentByIdea)
             Next
+
 
             'Se elimina la informacion existente de los flujos de pago para la idea actual
             objPaymentFlowDALC.delete(objApplicationCredentials, Idea.id)

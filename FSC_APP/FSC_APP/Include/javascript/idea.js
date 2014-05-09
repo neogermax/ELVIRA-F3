@@ -54,6 +54,7 @@ var edit_flujo_inicializa;
 var edit_swhich_fx;
 var contadorrestar = 0;
 var validateflujos_save;
+var componentes_editados;
 
 $(document).ready(function() {
 
@@ -72,6 +73,8 @@ $(document).ready(function() {
         validafecha();
         validafecha2();
 
+        componentes_editados = 1;
+        
         Cdeptos();
         Cmunip();
         Cactors();
@@ -81,6 +84,8 @@ $(document).ready(function() {
         Cpopulation();
         validarporcentaje();
         ClineEstrategic();
+        var timer_cline_edit = setTimeout("ClineEstrategic_edit();", 3000);
+
         //Cprogram();
         cargarcomponente();
         load_idarchive();
@@ -108,7 +113,8 @@ $(document).ready(function() {
         View_anexos_array();
         View_anexos();
 
-        var timer_cline_edit = setTimeout("ClineEstrategic_edit();", 2000);
+
+        //$("#ddlStrategicLines").ready(function() { ClineEstrategic_edit(); });
 
         var timer_cline_edit = setTimeout("Cpopulation_view();", 2000);
         var timer_cline_edit = setTimeout("Ctypcontract_view();", 2000);
@@ -757,7 +763,6 @@ function editar_idea() {
     var listfiles = [];
 
     valor_iva = $("#ctl00_cphPrincipal_HDiva").val(); 
-    alert(valor_iva);
 
     var Str_listcomponentes = $("#componentesseleccionados").html();
     Str_listcomponentes = Str_listcomponentes.replace(/"/g, "_");
@@ -767,7 +772,7 @@ function editar_idea() {
     Str_listcomponentes = Str_listcomponentes.replace(/>/g, "");
     Str_listcomponentes = Str_listcomponentes.replace(/class=/g, "*");
     Str_listcomponentes = Str_listcomponentes.replace(/id=/g, "");
-    Str_listcomponentes = Str_listcomponentes.replace(/_selectadd/g, "");
+    Str_listcomponentes = Str_listcomponentes.replace(/_add/g, "");
 
 
     //recorer array para el ingreso de ubicaciones
@@ -811,7 +816,6 @@ function editar_idea() {
 
     var tflujos = $("#ValueCostotal").text();
     tflujos = tflujos.replace(/\./gi, '');
-
 
     $.ajax({
         url: "AjaxAddIdea.aspx",
@@ -868,9 +872,8 @@ function editar_idea() {
         }
     });
 
+   
     
-    
-    alert("hola");
 
 }
 

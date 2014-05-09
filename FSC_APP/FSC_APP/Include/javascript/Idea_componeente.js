@@ -1,47 +1,60 @@
 ﻿
 //funcion que posiciona el combo en la linea estrategica de la idea seleccionada
 function ClineEstrategic_edit() {
-    //ajax que posiciona la linea estrategica de la idea conasultada
-    $.ajax({
-        url: "AjaxAddIdea.aspx",
-        type: "GET",
-        data: { "action": "View_line_strategic", "ididea": ideditar },
-        success: function(result) {
 
-            $("#ddlStrategicLines").val(result);
-            $("#ddlStrategicLines").trigger("liszt:updated");
+    if (componentes_editados == 1) {
+        //ajax que posiciona la linea estrategica de la idea conasultada
+        $.ajax({
+            url: "AjaxAddIdea.aspx",
+            type: "GET",
+            data: { "action": "View_line_strategic", "ididea": ideditar },
+            success: function(result) {
 
-            edit_line_strategic = result;
-           
-        },
-        error: function(msg) {
-            alert("No se pueden cargar la linea estrategica deseada.");
-        }
-    });
+                $("#ddlStrategicLines").val(result);
+                $("#ddlStrategicLines").trigger("liszt:updated");
 
-    var timer_cline_edit = setTimeout("Cprogram_edit();", 3000);
-  
+                edit_line_strategic = result;
+            },
+            error: function(msg) {
+                alert("No se pueden cargar la linea estrategica deseada.");
+            }
+        });
+
+        //$("#ddlPrograms").ready(function() { Cprogram_edit(); });
+
+        var timer_cline_edit = setTimeout("Cprogram_edit();", 3500);
+
+    }
+    else {
+        ClineEstrategic();
+    }
+
 }
 
 //cargar los programas seleccionados de la linea seleccionada anteriormente "ClineEstrategic_edit()"
 function Cprogram_edit() {
 
-    $.ajax({
-        url: "AjaxAddIdea.aspx",
-        type: "GET",
-        data: { "action": "C_program", "idlinestrategic": edit_line_strategic },
-        success: function(result) {
-            $("#ddlPrograms").html(result);
-            $("#ddlPrograms").trigger("liszt:updated");
-            $("#componentesseleccionados").html("");
-        },
-        error: function(msg) {
-            alert("No se pueden cargar los programas de la linea estrategica selecionada.");
-        }
-    });
-    var timer_program_edit = setTimeout("view_Cprogram();", 3000);
+    if (componentes_editados == 1) {
 
-    
+        var str_edit_line_strategic = edit_line_strategic;
+
+        $.ajax({
+            url: "AjaxAddIdea.aspx",
+            type: "GET",
+            data: { "action": "C_program", "idlinestrategic": str_edit_line_strategic },
+            success: function(result) {
+                $("#ddlPrograms").html(result);
+                $("#ddlPrograms").trigger("liszt:updated");
+            },
+            error: function(msg) {
+                alert("No se pueden cargar los programas de la linea estrategica selecionada.");
+            }
+        });
+        var timer_program_edit = setTimeout("view_Cprogram();", 4000);
+    }
+    else {
+        Cprogram();
+    }
 }
 
 //funcion que posiciona el combo del programa de la idea seleccionada 
@@ -56,16 +69,16 @@ function view_Cprogram() {
             $("#ddlPrograms").val(result);
             $("#ddlPrograms").trigger("liszt:updated");
 
-            edit_program = result;
+            // edit_program = result;
 
         },
         error: function(msg) {
             alert("No se pueden cargar la linea estrategica deseada.");
         }
     });
-   // var timer_program_edit = setTimeout("edit_component();", 2000);
-    var timer_program_edit = setTimeout("edit_component_view();", 2000);
-
+    // var timer_program_edit = setTimeout("edit_component();", 2000);
+    //var timer_program_edit = setTimeout("edit_component_view();", 2000);
+    componentes_editados = 0;
 }
 
 
@@ -118,7 +131,7 @@ function Cprogram() {
                         $("#ddlPrograms").html(result);
                         $("#ddlPrograms").trigger("liszt:updated");
 
-                     }
+                    }
 
 
                 }

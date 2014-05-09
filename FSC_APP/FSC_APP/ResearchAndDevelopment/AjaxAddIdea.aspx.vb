@@ -2428,6 +2428,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                     entregaexist = Replace(arrayflujos(contadorflu + 3), " entrega : ", " ", 1)
                     entregaexist = entregaexist.Replace("¬", ",")
                     tflujosexist = Replace(arrayflujos(contadorflu + 4), " tflujos : ", " ", 1)
+                    tflujosexist = tflujosexist.Replace(".", "")
 
                     'asignamos al objeto
                     objpaymentFlow.N_pagos = N_pagoexist
@@ -2476,8 +2477,10 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                     idaportanteexist = Replace(arraydetallesflujos(contadordetflu + 1), " idaportante : ", " ", 1)
                     Aportanteexist = Replace(arraydetallesflujos(contadordetflu + 2), " Aportante : ", " ", 1)
                     desembolsoexist = Replace(arraydetallesflujos(contadordetflu + 3), " desembolso : ", " ", 1)
+                    desembolsoexist = desembolsoexist.Replace(".", "")
 
                     'asignamos al objeto
+                    
                     objDetalleflujo.N_pago = Convert.ToInt32(N_pagodetexist)
                     objDetalleflujo.IdAportante = Convert.ToInt32(idaportanteexist)
                     objDetalleflujo.Aportante = Aportanteexist
@@ -2499,7 +2502,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
 
 
-            objIdea.code = code
+            objIdea.id = code
 
             objIdea.name = clean_vbCrLf(name)
 
@@ -2555,6 +2558,21 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
 
             facade.updateIdea(applicationCredentials, objIdea)
+
+            Dim Result As String
+
+            If objIdea.id <> 0 Then
+
+                Result = "La idea se modifico correctamente !"
+                Response.Write(Result)
+
+            Else
+
+                Result = "Se perdio la conecxion al guardar los datos del la Idea"
+                Response.Write(Result)
+
+            End If
+
 
         Catch ex As Exception
 
