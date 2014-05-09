@@ -1798,15 +1798,15 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
     End Function
 
     Public Function borrar_archivos()
-        'Dim startinfo As New ProcessStartInfo("C:\Gattaca_pruebas\WebSiteFSC\ELVIRA-F3\FSC_APP\FSC_APP\bats\BORRAR_ARC.bat")
-        Dim startinfo As New ProcessStartInfo("C:\Users\Administrador\Documents\Visual Studio 2008\Projects\ELVIRA-F3\FSC_APP\FSC_APP\bats\BORRAR_ARC.bat")
+        Dim startinfo As New ProcessStartInfo("C:\Gattaca_pruebas\WebSiteFSC\ELVIRA-F3\FSC_APP\FSC_APP\bats\BORRAR_ARC.bat")
+        'Dim startinfo As New ProcessStartInfo("C:\Users\Administrador\Documents\Visual Studio 2008\Projects\ELVIRA-F3\FSC_APP\FSC_APP\bats\BORRAR_ARC.bat")
         startinfo.WindowStyle = ProcessWindowStyle.Minimized
         Process.Start(startinfo)
     End Function
 
     Public Function copiar_archivos()
-        'Dim startinfo As New ProcessStartInfo("C:\Gattaca_pruebas\WebSiteFSC\ELVIRA-F3\FSC_APP\FSC_APP\bats\COPIAR_ARC.bat")
-        Dim startinfo As New ProcessStartInfo("C:\Users\Administrador\Documents\Visual Studio 2008\Projects\ELVIRA-F3\FSC_APP\FSC_APP\bats\COPIAR_ARC.bat")
+        Dim startinfo As New ProcessStartInfo("C:\Gattaca_pruebas\WebSiteFSC\ELVIRA-F3\FSC_APP\FSC_APP\bats\COPIAR_ARC.bat")
+        'Dim startinfo As New ProcessStartInfo("C:\Users\Administrador\Documents\Visual Studio 2008\Projects\ELVIRA-F3\FSC_APP\FSC_APP\bats\COPIAR_ARC.bat")
         startinfo.WindowStyle = ProcessWindowStyle.Minimized
         Process.Start(startinfo)
     End Function
