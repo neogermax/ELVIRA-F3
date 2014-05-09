@@ -812,11 +812,12 @@ function editar_idea() {
     var tflujos = $("#ValueCostotal").text();
     tflujos = tflujos.replace(/\./gi, '');
 
+
     $.ajax({
         url: "AjaxAddIdea.aspx",
         type: "POST",
         //crear json
-        data: { "action": "edit", "code": $("#ctl00_cphPrincipal_txtcode").val(),
+        data: { "action": "edit", "code": $("#ctl00_cphPrincipal_txtid").val(),
             "linea_estrategica": $("#ddlStrategicLines").val(),
             "programa": $("#ddlPrograms").val(),
             "nombre": cambio_text($("#ctl00_cphPrincipal_txtname").val()),

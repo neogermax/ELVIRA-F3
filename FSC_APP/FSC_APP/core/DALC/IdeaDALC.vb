@@ -995,6 +995,7 @@ Public Class IdeaDALC
             sql.AppendLine(" objective = '" & Idea.objective & "',")
             sql.AppendLine(" startdate = '" & Idea.startdate.ToString("yyyyMMdd") & "',")
             sql.AppendLine(" duration = '" & Idea.duration & "',")
+            sql.AppendLine(" days = '" & Idea.dia & "',")
             sql.AppendLine(" areadescription = '" & Idea.areadescription & "',")
             sql.AppendLine(" population = '" & Idea.population & "',")
             sql.AppendLine(" cost = " & Idea.cost.ToString().Replace(",", ".") & ",")
@@ -1007,8 +1008,8 @@ Public Class IdeaDALC
             sql.AppendLine(" idsummoning = '" & Idea.idsummoning & "',")
             sql.AppendLine(" startprocess = '" & Idea.startprocess & "',")
             sql.AppendLine(" enabled = '" & Idea.enabled & "',")
-            sql.AppendLine(" idProcessInstance = '" & Idea.IdProcessInstance & "',")
-            sql.AppendLine(" idActivityInstance = '" & Idea.IdActivityInstance & "',")
+            'sql.AppendLine(" idProcessInstance = '" & Idea.IdProcessInstance & "',")
+            'sql.AppendLine(" idActivityInstance = '" & Idea.IdActivityInstance & "',")
 
             ' TODO: 27 ideadalc update se crean nuevos campos
             ' Autor: German Rodriguez MGgroup
@@ -1016,6 +1017,14 @@ Public Class IdeaDALC
 
             sql.AppendLine(" ResultsInstalledCapacity = '" & Idea.ResultsInstalledCapacity & "',")   'campo nuevo fase II german rodriguez 
             sql.AppendLine(" ResultsKnowledgeManagement = '" & Idea.ResultsKnowledgeManagement & "',") 'campo nuevo fase II german rodriguez
+            sql.AppendLine(" OtherResults = '" & Idea.OthersResults & "',") 'campo nuevo fase II german rodriguez
+            sql.AppendLine(" idtypecontract = '" & Idea.idtypecontract & "',") 'campo nuevo fase II german rodriguez
+            sql.AppendLine(" Enddate = '" & Idea.Enddate & "',") 'campo nuevo fase II german rodriguez
+            sql.AppendLine(" obligationsoftheparties = '" & Idea.Obligaciones & "',") 'campo nuevo fase II german rodriguez
+            sql.AppendLine(" RiskMitigation = '" & Idea.mitigacion & "',") 'campo nuevo fase II german rodriguez
+            sql.AppendLine(" RisksIdentified = '" & Idea.riesgos & "',") 'campo nuevo fase II german rodriguez
+            sql.AppendLine(" ideaappliesIVA = '" & Idea.iva & "',") 'campo nuevo fase II german rodriguez
+            sql.AppendLine(" BudgetRoute = '" & Idea.presupuestal & "',") 'campo nuevo fase II german rodriguez
             sql.AppendLine(" Loadingobservations = '" & Idea.Loadingobservations & "',") 'campo nuevo fase II german rodriguez
             sql.AppendLine(" idtypecontract = '" & Idea.idtypecontract & "'") 'campo nuevo fase II german rodriguez
 

@@ -69,5 +69,41 @@ Public Class DetailedcashflowsDALC
 
     End Function
 
+    Public Function delete(ByVal objApplicationCredentials As Gattaca.Application.Credentials.ApplicationCredentials, _
+      ByVal IdIdea As Integer) As Long
+
+        ' definiendo los objtos
+        Dim SQL As New StringBuilder
+
+        SQL.AppendLine(" Delete from Detailedcashflows ")
+        SQL.AppendLine(" where IdIdea = '" & IdIdea & "' ")
+        'Ejecutar la Instruccion
+        GattacaApplication.RunSQL(objApplicationCredentials, SQL.ToString)
+
+        ' finalizar la transaccion
+        CtxSetComplete()
+
+        Try
+
+
+        Catch ex As Exception
+            ' cancelar la transaccion
+            CtxSetAbort()
+
+            ' publicar el error
+            GattacaApplication.Publish(ex, objApplicationCredentials.ClientName, MODULENAME, "delete")
+            ExceptionPolicy.HandleException(ex, "GattacaStandardExceptionPolicy")
+
+            ' subir el error de nivel
+            Throw New Exception("Error al eliminar los detalles de la idea. " & ex.Message)
+
+        Finally
+            ' liberando recursos
+            SQL = Nothing
+
+        End Try
+
+
+    End Function
 
 End Class
