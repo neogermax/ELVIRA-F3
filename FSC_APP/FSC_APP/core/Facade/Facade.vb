@@ -10771,7 +10771,7 @@ Public Class Facade
             objPaymentFlowDALC.delete(objApplicationCredentials, Idea.id)
             'Guardar la lista de flujos de pago de la idea
             For Each objPaymentFlow As PaymentFlowEntity In Idea.paymentflowByProjectList
-                objPaymentFlow.idproject = Idea.id
+                objPaymentFlow.ididea = Idea.id
                 objPaymentFlowDALC.add(objApplicationCredentials, objPaymentFlow)
             Next
 
