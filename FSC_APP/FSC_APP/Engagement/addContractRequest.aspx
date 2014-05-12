@@ -8,12 +8,15 @@
     <link href="../css/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" type="text/css" />
     <link href="../css/elvira_F3.css" rel="stylesheet" type="text/css" />
     <link href="../Pretty/css/prettyPhoto.css" rel="stylesheet" type="text/css" />
+    <link href="../css/datatables/jquery.dataTables.css" rel="stylesheet" type="text/css" />
 
     <script src="../Include/javascript/contractrequest.js" type="text/javascript"></script>
 
     <script src="../js/jquery-ui-1.10.3.custom.min.js" type="text/javascript"></script>
 
     <script src="../Pretty/js/jquery.prettyPhoto.js" type="text/javascript"></script>
+
+    <script src="../js/jquery.dataTables.min.js" type="text/javascript"></script>
 
     <script>
         $(function() {
@@ -279,10 +282,39 @@
                         <br />
                         <asp:DropDownList ID="ddlSupervisor" runat="server" CssClass="Ccombo">
                         </asp:DropDownList>
-                        <asp:Button ID="btnAddSupervisor" runat="server" Text="Agregar supervisor" /><asp:Label
-                            ID="lblAddSupervisor" runat="server"></asp:Label>
+                        <input id="btnAddSupervisor" type="button" class="ui-button ui-widget ui-state-default ui-corner-all"
+                            value="Agregar" onclick="btnaddsupervisor_onclick()" />
+                        <asp:Label ID="lblAddSupervisor" runat="server"></asp:Label>
                     </td>
                 </tr>
+                <%--Inicio gvsuper--%>
+                <tr>
+                    <td colspan="2">
+                        <div id="T_SuperVContainer">
+                            <table id="T_supervisor" border="2" cellpadding="2" cellspacing="2" style="width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <span><strong style="font-size: large">Supervisor&nbsp;</strong> </span>
+                                        </th>
+                                        <th>
+                                            <span><strong style="font-size: large">Eliminar</strong> </span>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                        </td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+                <%--Fin gvsuper--%>
                 <tr>
                     <td style="width: 183px">
                         <br />

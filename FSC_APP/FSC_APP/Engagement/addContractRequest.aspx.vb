@@ -92,6 +92,9 @@ Partial Class addContractRequest
                     'Se crea la variable de session que almacena la lista de polizas
                     Session("PolizaList") = New List(Of PolizaEntity)
 
+                    'Se crea la variable de sesion que contiene los supervisores
+                    Session("SupervisorList") = New List(Of SupervisorByContractRequestEntity)
+
                     'ocultar campo de solo lectura numero de proyecto
                     Me.txtProject.Visible = False
 
@@ -1794,22 +1797,49 @@ Partial Class addContractRequest
     End Sub
 
 
-    Protected Sub btnAddSupervisor_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnAddSupervisor.Click
+    'Protected Sub btnAddSupervisor_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnAddSupervisor.Click
 
-        'Definir la pestaña activa para el update
-        Me.HFActivetab.Value = 1
+    '    Dim SupervisorList As List(Of SupervisorByContractRequestEntity)
+    '    Dim Supervisor As New SupervisorByContractRequestEntity
 
-        'validar que se haya realizado una selección
-        If Me.ddlSupervisor.SelectedItem.Text = "Seleccione..." Then
-            Me.lblAddSupervisor.ForeColor = Drawing.Color.Red
-            Me.lblAddSupervisor.Text = "Por favor seleccione un Actor."
-            Exit Sub
-        End If
+    '    'Definir la pestaña activa para el update
+    '    Me.HFActivetab.Value = 1
 
-        'limpiar el mensaje de error
-        Me.lblAddSupervisor.Text = ""
+    '    'validar que se haya realizado una selección
+    '    If Me.ddlSupervisor.SelectedItem.Text = "Seleccione..." Then
+    '        Me.lblAddSupervisor.ForeColor = Drawing.Color.Red
+    '        Me.lblAddSupervisor.Text = "Por favor seleccione un Actor."
+    '        Exit Sub
+    '    End If
 
+    '    'limpiar el mensaje de error
+    '    Me.lblAddSupervisor.Text = ""
 
+    '    Try
 
-    End Sub
+    '        'SupervisorList = DirectCast(Session("SupervisorList"), List(Of SupervisorByContractRequestEntity))
+
+    '        'Supervisor.ContractRequest_Id = "" 'Agregar numero contratacion
+    '        'Supervisor.Third_Id = "" 'Agregar id de tercero
+
+    '        'SupervisorList.Add(Supervisor)
+
+    '        ''Hacer el bind al Gridview
+    '        ''        Me.gvPolizaConcept.DataSource = PolizaDetailsList
+    '        ''        Me.gvPolizaConcept.DataBind()
+
+    '        ''Devolver el combo a su estado inicial
+    '        'Me.ddlSupervisor.SelectedValue = -1
+
+    '    Catch ex As Exception
+
+    '        'mostrando el error
+    '        Session("serror") = ex.Message
+    '        Session("sUrl") = Request.UrlReferrer.PathAndQuery
+    '        Response.Redirect("~/errors/error.aspx")
+    '        Response.End()
+
+    '    End Try
+
+    'End Sub
 End Class
