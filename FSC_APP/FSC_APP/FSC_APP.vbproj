@@ -1789,6 +1789,7 @@
     <Compile Include="core\DALC\SubActivityMainPanelDALC.vb" />
     <Compile Include="core\DALC\SubjectAndValueByContractRequestDALC.vb" />
     <Compile Include="core\DALC\SummoningDALC.vb" />
+    <Compile Include="core\DALC\SupervisorByContractDALC.vb" />
     <Compile Include="core\DALC\SupplierEvaluationDALC.vb" />
     <Compile Include="core\DALC\SupplierQualificationDALC.vb" />
     <Compile Include="core\DALC\TestimonyDALC.vb" />
@@ -1935,6 +1936,7 @@
     <Compile Include="core\Entities\SubActivityMainPanelEntity.vb" />
     <Compile Include="core\Entities\SubjectAndValueByContractRequestEntity.vb" />
     <Compile Include="core\Entities\SummoningEntity.vb" />
+    <Compile Include="core\Entities\SupervisorByContractReqEntity.vb" />
     <Compile Include="core\Entities\SupplierEvaluationEntity.vb" />
     <Compile Include="core\Entities\SupplierQualificationEntity.vb" />
     <Compile Include="core\Entities\TemporaryActivitiesEntity.vb" />
