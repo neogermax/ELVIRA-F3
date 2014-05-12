@@ -1,7 +1,7 @@
 ﻿//cargar combo de departamentos
 function Cdeptos() {
     $.ajax({
-        url: "AjaxAddIdea.aspx",
+        url: "AjaxAddProject.aspx",
         type: "GET",
         data: { "action": "C_deptos" },
         success: function(result) {
@@ -18,7 +18,7 @@ function Cdeptos() {
 function Cmunip() {
     $("#ddlDepto").change(function() {
         $.ajax({
-            url: "AjaxAddIdea.aspx",
+            url: "AjaxAddProject.aspx",
             type: "GET",
             data: { "action": "C_munip", "iddepto": $(this).val() },
             success: function(result) {
@@ -114,7 +114,7 @@ function Add_location_onclick() {
 //funcion para visualizar las ubicaciones en ediccion
 function view_ubicacion() {
     $.ajax({
-        url: "AjaxAddIdea.aspx",
+        url: "AjaxAddProject.aspx",
         type: "GET",
         data: { "action": "View_ubicacion", "ididea": ideditar },
         success: function(result) {
@@ -144,7 +144,7 @@ function view_ubicacion() {
 //funcion para cargar  array ubicaciones en ediccion
 function view_ubicacion_array() {
     $.ajax({
-        url: "AjaxAddIdea.aspx",
+        url: "AjaxAddProject.aspx",
         type: "GET",
         data: { "action": "View_ubicacion_array", "ididea": ideditar },
         success: function(result) {

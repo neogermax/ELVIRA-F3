@@ -156,8 +156,8 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                 Case "buscar"
                     'convierte la variable y llama funcion para la validacion de la idea
                     id_b = Convert.ToInt32(Request.QueryString("id").ToString())
-
                     buscardatethird(id_b, applicationCredentials, Request.QueryString("id"))
+
                 Case "calculafechas"
 
                     fecha = Convert.ToDateTime(Request.QueryString("fecha").ToString())

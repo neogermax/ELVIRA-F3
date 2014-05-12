@@ -2248,6 +2248,13 @@
       <DependentUpon>addSubActivity.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="FormulationAndAdoption\AjaxAddProject.aspx.designer.vb">
+      <DependentUpon>AjaxAddProject.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FormulationAndAdoption\AjaxAddProject.aspx.vb">
+      <DependentUpon>AjaxAddProject.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
     <Compile Include="FormulationAndAdoption\ajaxaddProjectApprovalRecord.aspx.designer.vb">
       <DependentUpon>ajaxaddProjectApprovalRecord.aspx</DependentUpon>
     </Compile>
@@ -3645,6 +3652,7 @@
     <Content Include="css\datatables\jquery.dataTables.css" />
     <Content Include="css\datatables\jquery.dataTables_themeroller.css" />
     <Content Include="css\jquery.multiselect2side.css" />
+    <Content Include="FormulationAndAdoption\AjaxAddProject.aspx" />
     <Content Include="FormulationAndAdoption\ajaxCPMain.aspx" />
     <Content Include="FormulationAndAdoption\CPMain.aspx" />
     <Content Include="GeneralPlanning\AjaxAddThird.aspx" />
@@ -3657,6 +3665,11 @@
     <Content Include="Include\javascript\Idea_ubicacion.js" />
     <Content Include="Include\javascript\Idea_componeente.js" />
     <Content Include="Include\javascript\Project.js" />
+    <Content Include="Include\javascript\proyecto_actores.js" />
+    <Content Include="Include\javascript\Proyecto_componentes.js" />
+    <Content Include="Include\javascript\proyecto_file.js" />
+    <Content Include="Include\javascript\proyecto_flujos.js" />
+    <Content Include="Include\javascript\proyecto_inf_prin.js" />
     <Content Include="Include\javascript\Proyecto_ubicacion.js" />
     <Content Include="js\bootstrap-modal.js" />
     <Content Include="js\jquery-ui-1.10.3.custom.min.js" />

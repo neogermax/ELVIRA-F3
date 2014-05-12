@@ -25,7 +25,6 @@ var arrayflujosdepago_ed = [];
 var matriz_flujos = [];
 var matriz_flujos_ed = [];
 
-
 var reversedesembolsos = [];
 var arrayFiles = [];
 
@@ -39,6 +38,9 @@ var switch_editar = 0;
 var swhich_validar_estado_1 = 0;
 var s_revisarflujos = 0;
 var entradaflujos = 0;
+
+var swhich_flujos_exist;
+
 
 var idfile;
 var S_eliminar;
@@ -60,91 +62,89 @@ $(document).ready(function() {
     if (sURLVariables[0] == "op=edit") {
         ideditar = sURLVariables[1].replace("id=", "");
 
-        //        operacionesIdea();
-        //        actors_transanccion();
-        //        comboactor();
+                operacionesIdea();
+                actors_transanccion();
+                comboactor();
 
         //        var timer = setTimeout("fix();", 2000);
-        //        validafecha();
-        //        validafecha2();
+                validafecha();
+                validafecha2();
 
-        //        Cdeptos();
-        //        Cmunip();
-        //        Cactors();
-        //        CtypeContract();
-        //        startdate();
-        //        Ctype_project();
-        //        Cpopulation();
-        //        validarporcentaje();
-        //        ClineEstrategic();
-        //        Cprogram();
-        //        cargarcomponente();
+                Cdeptos();
+                Cmunip();
+                Cactors();
+                CtypeContract();
+                startdate();
+                Ctype_project();
+                Cpopulation();
+                validarporcentaje();
+                ClineEstrategic();
+                Cprogram();
+                cargarcomponente();
 
-        //        edit_component_view();
+                edit_component_view();
 
-        //        view_ubicacion();
-        //        view_ubicacion_array();
+                view_ubicacion();
+                view_ubicacion_array();
 
-        //        View_actores();
-        //        View_actores_array();
+                View_actores();
+                View_actores_array();
 
-        //        View_matriz_principal();
+                View_matriz_principal();
 
-        //        View_flujos_p();
-        //        View_flujos_p_array();
+                View_flujos_p();
+                View_flujos_p_array();
 
-        //        View_flujos_actors();
-        //        View_flujos_actors_array();
+                View_flujos_actors();
+                View_flujos_actors_array();
 
-        //        View_detalle_flujo_array();
+                View_detalle_flujo_array();
 
-        //        aprobacion_idea();
+//                aprobacion_idea();
 
-        //        // View_anexos();
+                 View_anexos();
 
-        //        // var timer_cline_edit = setTimeout("ClineEstrategic_edit();", 2000);
+                 var timer_cline_edit = setTimeout("ClineEstrategic_edit();", 2000);
 
-        //        var timer_cline_edit = setTimeout("Cpopulation_view();", 2000);
-        //        var timer_cline_edit = setTimeout("Ctypcontract_view();", 2000);
-        //        // var itemarrayflujos = 0;
+                var timer_cline_edit = setTimeout("Cpopulation_view();", 2000);
+                var timer_cline_edit = setTimeout("Ctypcontract_view();", 2000);
+                 var itemarrayflujos = 0;
 
-        //        $("#SaveIdea").css("display", "none");
+               $("#SaveIdea").css("display", "none");
         //        $("#Export").css("display", "block");
-        //        $("#EditIdea").css("display", "block");
     }
     else {
 
-        //        operacionesIdea();
-        //        actors_transanccion();
-        //        comboactor();
+        operacionesIdea();
+        actors_transanccion();
+        comboactor();
 
-        //        var timer = setTimeout("fix();", 2000);
-        //        validafecha();
-        //        validafecha2();
+        //var timer = setTimeout("fix();", 2000);
+        validafecha();
+        validafecha2();
 
-        //        ClineEstrategic();
-        //        Cprogram();
-                Cdeptos();
-                Cmunip();
-        //        Cactors();
-        //        CtypeContract();
-        //        cargarcomponente();
-        //        startdate();
-        //        Ctype_project();
-        //        Cpopulation();
-        //        validarporcentaje();
+        ClineEstrategic();
+        Cprogram();
+        Cdeptos();
+        Cmunip();
+        Cactors();
+        CtypeContract();
+        cargarcomponente();
+        startdate();
+        Ctype_project();
+        Cpopulation();
+        validarporcentaje();
 
 
-        //        $("#SaveIdea").css("display", "block");
+        $("#SaveIdea").css("display", "block");
         //        $("#Export").css("display", "none");
-        //        $("#EditIdea").css("display", "none");
     }
 
     $("#ctl00_cphPrincipal_containerSuccess").css("display", "none");
     $("#ctl00_cphPrincipal_containererrors").css("display", "none");
 
 
-    //    $('#ctl00_cphPrincipal_gif_charge_Container').css("display", "none");
+    $('#ctl00_cphPrincipal_gif_charge_Container').css("display", "none");
 
     $("#tabsIdea").tabs();
 
@@ -153,48 +153,47 @@ $(document).ready(function() {
         "bDestroy": true
     });
 
-        $("#T_location").dataTable({
-            "bJQueryUI": true,
-            "bDestroy": true
-        });
+    $("#T_location").dataTable({
+        "bJQueryUI": true,
+        "bDestroy": true
+    });
 
-    //    $("#T_Actors").dataTable({
-    //        "bJQueryUI": true,
-    //        "bDestroy": true
-    //    });
+    $("#T_Actors").dataTable({
+        "bJQueryUI": true,
+        "bDestroy": true
+    });
 
-    //    $("#T_flujos").dataTable({
-    //        "bJQueryUI": true,
-    //        "bDestroy": true
-    //    });
+    $("#T_flujos").dataTable({
+        "bJQueryUI": true,
+        "bDestroy": true
+    });
 
-    //    $("#T_files").dataTable({
-    //        "bJQueryUI": true,
-    //        "bDestroy": true
-    //    });
+    $("#T_files").dataTable({
+        "bJQueryUI": true,
+        "bDestroy": true
+    });
 
-    //    $("#T_Actorsflujos").dataTable({
-    //        "bJQueryUI": true,
-    //        "bDestroy": true
-    //    });
+    $("#T_Actorsflujos").dataTable({
+        "bJQueryUI": true,
+        "bDestroy": true
+    });
 
-    //    $("#T_detalle_desembolso").dataTable({
-    //        "bJQueryUI": true,
-    //        "bDestroy": true
-    //    });
+    $("#T_detalle_desembolso").dataTable({
+        "bJQueryUI": true,
+        "bDestroy": true
+    });
 
-    //    $("#SaveIdea").button();
+    $("#SaveIdea").button();
     //    $("#Export").button();
-    //    $("#EditIdea").button();
-        $("#B_add_location").button();
-    //    $("#BtnaddActors").button();
-    //    $("#Btn_add_flujo").button();
-    //    $("#Btnaddcomponent").button();
-    //    $("#Btndeletecomponent").button();
-    //    $("#ctl00_cphPrincipal_linkactors").button();
-    //    $("#close_dialog").button();
-    //    $("#Btncharge_file").button();
-    //    $("#fileupload").button();
+    $("#B_add_location").button();
+    $("#BtnaddActors").button();
+    $("#Btn_add_flujo").button();
+    $("#Btnaddcomponent").button();
+    $("#Btndeletecomponent").button();
+    $("#ctl00_cphPrincipal_linkactors").button();
+    $("#close_dialog").button();
+    $("#Btncharge_file").button();
+    $("#fileupload").button();
 
     //generar el la ventana emergente
     $("#dialog").dialog({
@@ -205,20 +204,19 @@ $(document).ready(function() {
     });
 
     //validar el option buton del iva
-    //    $("#ctl00_cphPrincipal_RBnList_iva").click(function() {
+    $("#ctl00_cphPrincipal_RBnList_iva").click(function() {
 
-    //        var option_iva = $("#ctl00_cphPrincipal_RBnList_iva :checked").val();
+        var option_iva = $("#ctl00_cphPrincipal_RBnList_iva :checked").val();
+        if (option_iva == 1) {
+            $("#ctl00_cphPrincipal_vrdiner").text("Vr Dinero  (Recuerde incluir los valores con IVA)");
+            valor_iva = 1;
+        }
+        else {
+            $("#ctl00_cphPrincipal_vrdiner").text("Vr Dinero");
+            valor_iva = 0;
+        }
 
-    //        if (option_iva == 1) {
-    //            $("#ctl00_cphPrincipal_vrdiner").text("Vr Dinero  (Recuerde incluir los valores con IVA)");
-    //            valor_iva = 1;
-    //        }
-    //        else {
-    //            $("#ctl00_cphPrincipal_vrdiner").text("Vr Dinero");
-    //            valor_iva = 0;
-    //        }
-
-    //    });
+    });
 
     $("#tabsproyecto").tabs();
 
@@ -232,28 +230,28 @@ $(document).ready(function() {
         if (idtabs == "#flujos") {
             //    alert(idtabs);
             //validar si es la primera entrada       
-            //            if (entradaflujos == 0) {
-            //                var tamaño_flujos = $("#T_Actorsflujos tr").length - 2;
+            if (entradaflujos == 0) {
+                var tamaño_flujos = $("#T_Actorsflujos tr").length - 2;
 
-            //                //validar la cantidad de actores
-            //                if (tamaño_flujos == 1) {
-            //                    var Aflujos = arrayActorFlujo[itemarrayflujos].actorsVal;
-            //                    //   alert(Aflujos);
-            //                    $("#txtinput" + Aflujos).attr("disabled", "disabled");
-            //                    $("#desenbolso" + Aflujos).text("");
+                //validar la cantidad de actores
+                if (tamaño_flujos == 1) {
+                    var Aflujos = arrayActorFlujo[itemarrayflujos].actorsVal;
+                    //   alert(Aflujos);
+                    $("#txtinput" + Aflujos).attr("disabled", "disabled");
+                    $("#desenbolso" + Aflujos).text("");
 
 
-            //                    entradaflujos = 1;
-            //                    s_revisarflujos = 1;
-            //                }
-            //            }
+                    entradaflujos = 1;
+                    s_revisarflujos = 1;
+                }
+            }
 
-            // $("#tabsIdea").tabs({ active: 4});
+            $("#tabsproyecto").tabs({ active: 4 });
         }
-        //        if (idtabs != "#flujos") {
-        //            entradaflujos = 0;
-        //            s_revisarflujos = 0;
-        //        }
+        if (idtabs != "#flujos") {
+            entradaflujos = 0;
+            s_revisarflujos = 0;
+        }
 
     });
 
