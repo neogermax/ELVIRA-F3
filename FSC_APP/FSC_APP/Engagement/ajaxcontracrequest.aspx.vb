@@ -51,6 +51,9 @@ Partial Class Engagement_ajaxcontracrequest
                         buscarproyecto(proyecto, columna, applicationCredentials)
                     End If
 
+                Case "getsupervisor"
+                    contrato = Request.QueryString("contract").ToString()
+                    buscarsupervisor(contrato, applicationCredentials)
                 Case Else
             End Select
         Catch ex As Exception
@@ -259,6 +262,31 @@ Partial Class Engagement_ajaxcontracrequest
         Else
             'No hay fechas
         End If
+
+    End Function
+
+    Public Function buscarsupervisor(ByVal contrato As String, ByVal objApplicationCredentials As Gattaca.Application.Credentials.ApplicationCredentials) As String
+
+        Dim sql As New StringBuilder
+        Dim objSqlCommand As New SqlCommand
+        Dim DATA As DataTable
+
+        'consulta de los datos de actores por id
+        sql.Append("SELECT s.Third_Id FROM SupervisorbyContractReq s ")
+        sql.Append("inner join Third t on s.Third_Id = t.Id ")
+        sql.Append("where(contractrequest_id = " & contrato & ")")
+
+        DATA = GattacaApplication.RunSQLRDT(objApplicationCredentials, sql.ToString)
+
+        Dim objResult As String = ""
+
+        If DATA.Rows.Count > 0 Then
+            objResult = "OK"
+        Else
+            objResult = "NO"
+        End If
+
+        Response.Write(objResult)
 
     End Function
 
