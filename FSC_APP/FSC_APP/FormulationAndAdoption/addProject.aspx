@@ -436,8 +436,7 @@
                     </td>--%>
                     <td>
                         <asp:Label ID="Lbltitlecomponet" runat="server" Text="Componentes"></asp:Label>
-                        <ul id="seleccionarcomponente">
-                        </ul>
+                        <ul id="seleccionarcomponente"></ul>
                     </td>
                     <td style="width: 100px;">
                         <input id="Btnaddcomponent" type="button" value=">>" name="Add_Componente" onclick="return Btnaddcomponent_onclick()" />
@@ -446,8 +445,7 @@
                     </td>
                     <td>
                         <asp:Label ID="Label20" runat="server" Text="Componentes seleccionados"></asp:Label>
-                        <ul id="componentesseleccionados">
-                        </ul>
+                        <ul id="componentesseleccionados"></ul>
                     </td>
                     <td id="viejocomp" runat="server" visible="false">
                         <cc2:DoubleListBox ID="dlbActivity" runat="server" Width="100%" />
