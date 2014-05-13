@@ -20,7 +20,7 @@
     <script src="../js/jquery.dataTables.min.js" type="text/javascript"></script>
 
     <script src="../Include/javascript/proyecto_file.js" type="text/javascript"></script>
-    
+
     <script src="../Include/javascript/proyecto_flujos.js" type="text/javascript"></script>
 
     <script src="../Include/javascript/proyecto_actores.js" type="text/javascript"></script>
@@ -53,42 +53,27 @@
             } catch (e) {
             }
         }
-        function format(input) {
-            var num = input.value.replace(/\./g, "");
-            if (!isNaN(num)) {
-                num = num.toString().split("").reverse().join("").replace(/(?=\d*\.?)(\d{3})/g, "$1.");
-                num = num.split("").reverse().join("").replace(/^[\.]/, "");
-                input.value = num;
-            }
-
-            else {
-                alert('Solo se permiten numeros');
-                input.value = input.value.replace(/[^\d\.]*/g, "");
-            }
-        }
-    </script>
-
-    <script type="text/javascript">
-
-        function format(input) {
-            var num = input.value.replace(/\./g, "");
-            if (!isNaN(num)) {
-                num = num.toString().split("").reverse().join("").replace(/(?=\d*\.?)(\d{3})/g, "$1.");
-                num = num.split("").reverse().join("").replace(/^[\.]/, "");
-                input.value = num;
-            }
-
-            else {
-                alert('Solo se permiten numeros');
-                input.value = input.value.replace(/[^\d\.]*/g, "");
-            }
-        }
 
         //Función que permite solo Números
         function ValidaSoloNumeros() {
             if ((event.keyCode < 48) || (event.keyCode > 57))
                 event.returnValue = false;
         }
+
+        function format(input) {
+            var num = input.value.replace(/\./g, "");
+            if (!isNaN(num)) {
+                num = num.toString().split("").reverse().join("").replace(/(?=\d*\.?)(\d{3})/g, "$1.");
+                num = num.split("").reverse().join("").replace(/^[\.]/, "");
+                input.value = num;
+            }
+
+            else {
+                alert('Solo se permiten numeros');
+                input.value = input.value.replace(/[^\d\.]*/g, "");
+            }
+        }
+
 
      
     </script>
@@ -119,8 +104,10 @@
             <ul>
                 <li>
                     <asp:Label ID="lblididea" runat="server" Text="Idea"></asp:Label>
-                    <asp:DropDownList ID="ddlididea" runat="server" CssClass="Ccombo">
-                    </asp:DropDownList>
+                    <select id="ddlididea" class="Ccombo">
+                        <asp:DropDownList ID="ddlididea" runat="server">
+                        </asp:DropDownList>
+                    </select>
                     <asp:Label ID="lblHelpididea" runat="server"></asp:Label>
                 </li>
             </ul>
@@ -241,8 +228,8 @@
                     <select id="ddltype_proyect" class="Ccombo">
                         <asp:DropDownList ID="ddltype_proyect" runat="server">
                         </asp:DropDownList>
-                        <asp:Label ID="Lblhelptproyect" runat="server" ForeColor="#990000"></asp:Label>
                     </select>
+                    <asp:Label ID="Lblhelptproyect" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
                 <li>
                     <asp:Label ID="lblpopulation" runat="server" Text="Población"></asp:Label>
@@ -407,12 +394,13 @@
                     <asp:Label ID="lblHelpcreatedate" runat="server"></asp:Label>
                 </li>
                 <li>
-                 <input id="SaveIdea" type="button" value="Crear proyecto" name="Save_Idea" onclick="SaveIdea_onclick()" />
-                   
+                    <input id="SaveIdea" type="button" value="Crear proyecto" name="Save_Idea" onclick="SaveIdea_onclick()" />
                     <asp:Button ID="btntermsreference" runat="server" Text="Exportar términos de referencia"
                         ValidationGroup="infoGenral" Visible="false" />
-                    <asp:Button ID="btnAddData" runat="server" Text="Crear proyecto" ValidationGroup="infoGenral" Visible="false" />
-                    <asp:Button ID="btnSave" runat="server" Text="Guardar cambios" ValidationGroup="infoGenral" Visible="false"/>
+                    <asp:Button ID="btnAddData" runat="server" Text="Crear proyecto" ValidationGroup="infoGenral"
+                        Visible="false" />
+                    <asp:Button ID="btnSave" runat="server" Text="Guardar cambios" ValidationGroup="infoGenral"
+                        Visible="false" />
                 </li>
             </ul>
         </div>

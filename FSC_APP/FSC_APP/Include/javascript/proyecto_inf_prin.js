@@ -333,3 +333,74 @@ function operacionesIdea() {
     //31-05-2013 GERMAN RODRIGUEZ
 
 }
+
+function cargar_ideas_aprobadas() {
+
+    $.ajax({
+        url: "AjaxAddProject.aspx",
+        type: "GET",
+        data: { "action": "C_ideas_aprobada" },
+        success: function(result) {
+            $("#ddlididea").html(result);
+            $("#ddlididea").trigger("liszt:updated");
+        },
+        error: function(msg) {
+            alert("No se pueden cargar los tipos de proyecto.");
+        }
+    });
+
+}
+
+function traer_datos_idea() {
+    $("#ddlididea").change(function() {
+
+        confirmar = confirm("¿Traer datos de la Idea aprobada?", "SI", "NO");
+        if (confirmar) {
+          
+            $.ajax({
+                url: "AjaxAddProject.aspx",
+                type: "GET",
+
+                data: { "action": "getIdeaProject", "id": $(this).val() },
+
+                remove_linebreaks: true,
+                success: function(result) {
+
+                    result = result.replace(/\n/g, "");
+                    result = result.replace(/\r/g, "");
+                    result = result.replace(/\t/g, "");
+                    result = result.replace(/\n\r/g, " ");
+                    result = result.replace(/\r\n/g, " ");
+
+
+                    result = JSON.parse(result);
+
+                    //campos de texto planos
+                    $("#ctl00_cphPrincipal_txtjustification").val(result.Justification);
+                    $("#ctl00_cphPrincipal_txtobjective").val(result.Objective);
+                    $("#ctl00_cphPrincipal_txtzonedescription").val(result.AreaDescription);
+                    $("#ctl00_cphPrincipal_txtresults").val(result.Results);
+                    $("#ctl00_cphPrincipal_TextResultGestConocimiento").val(result.ResultsKnowledgeManagement);
+                    $("#ctl00_cphPrincipal_TextResCapacidInstal").val(result.ResultsInstalledCapacity);
+                    $("#ctl00_cphPrincipal_Txtothersresults").html(result.OtherResults);
+                    $("#ctl00_cphPrincipal_Txtobligationsoftheparties").html(result.obligationsoftheparties);
+                    $("#ctl00_cphPrincipal_Txtroutepresupuestal").val(result.BudgetRoute);
+                    $("#ctl00_cphPrincipal_Txtriesgos").val(result.RisksIdentified);
+                    $("#ctl00_cphPrincipal_Txtaccionmitig").val(result.RiskMitigation);
+                    $("#ctl00_cphPrincipal_txtstartdate").val(result.StartDate);
+                    $("#ctl00_cphPrincipal_txtduration").val(result.Duration);
+                    $("#ctl00_cphPrincipal_Txtday").val(result.days);
+
+                },
+
+                error: function()
+                { alert("No se pueden cargar los datos de la idea solicitada."); }
+            });
+        }
+        else {
+            alert("no");
+        }
+
+    });
+
+}

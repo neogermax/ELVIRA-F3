@@ -62,55 +62,55 @@ $(document).ready(function() {
     if (sURLVariables[0] == "op=edit") {
         ideditar = sURLVariables[1].replace("id=", "");
 
-                operacionesIdea();
-                actors_transanccion();
-                comboactor();
+        operacionesIdea();
+        actors_transanccion();
+        comboactor();
 
         //        var timer = setTimeout("fix();", 2000);
-                validafecha();
-                validafecha2();
+        validafecha();
+        validafecha2();
 
-                Cdeptos();
-                Cmunip();
-                Cactors();
-                CtypeContract();
-                startdate();
-                Ctype_project();
-                Cpopulation();
-                validarporcentaje();
-                ClineEstrategic();
-                Cprogram();
-                cargarcomponente();
+        Cdeptos();
+        Cmunip();
+        Cactors();
+        CtypeContract();
+        startdate();
+        Ctype_project();
+        Cpopulation();
+        validarporcentaje();
+        ClineEstrategic();
+        Cprogram();
+        cargarcomponente();
 
-                edit_component_view();
+        edit_component_view();
 
-                view_ubicacion();
-                view_ubicacion_array();
+        view_ubicacion();
+        view_ubicacion_array();
 
-                View_actores();
-                View_actores_array();
+        View_actores();
+        View_actores_array();
 
-                View_matriz_principal();
+        View_matriz_principal();
 
-                View_flujos_p();
-                View_flujos_p_array();
+        View_flujos_p();
+        View_flujos_p_array();
 
-                View_flujos_actors();
-                View_flujos_actors_array();
+        View_flujos_actors();
+        View_flujos_actors_array();
 
-                View_detalle_flujo_array();
+        View_detalle_flujo_array();
 
-//                aprobacion_idea();
+        //                aprobacion_idea();
 
-                 View_anexos();
+        View_anexos();
 
-                 var timer_cline_edit = setTimeout("ClineEstrategic_edit();", 2000);
+        var timer_cline_edit = setTimeout("ClineEstrategic_edit();", 2000);
 
-                var timer_cline_edit = setTimeout("Cpopulation_view();", 2000);
-                var timer_cline_edit = setTimeout("Ctypcontract_view();", 2000);
-                 var itemarrayflujos = 0;
+        var timer_cline_edit = setTimeout("Cpopulation_view();", 2000);
+        var timer_cline_edit = setTimeout("Ctypcontract_view();", 2000);
+        var itemarrayflujos = 0;
 
-               $("#SaveIdea").css("display", "none");
+        $("#SaveIdea").css("display", "none");
         //        $("#Export").css("display", "block");
     }
     else {
@@ -118,8 +118,10 @@ $(document).ready(function() {
         operacionesIdea();
         actors_transanccion();
         comboactor();
+        cargar_ideas_aprobadas();
+        traer_datos_idea();
 
-        //var timer = setTimeout("fix();", 2000);
+        var timer = setTimeout("fix();", 2000);
         validafecha();
         validafecha2();
 
@@ -258,3 +260,19 @@ $(document).ready(function() {
 
 });
 
+
+//funcion para dispara en el autoload fuciones de fechas
+function fix() {
+
+    if ($.trim($("#ctl00_cphPrincipal_Txtday").val()).length > 0) {
+        var timer = setTimeout("fix();", 2000);
+        $("#ctl00_cphPrincipal_Txtday").trigger("blur");
+        clearTimeout(timer);
+    }
+
+    if ($.trim($("#ctl00_cphPrincipal_txtduration").val()).length > 0) {
+        var timer = setTimeout("fix();", 2000);
+        $("#ctl00_cphPrincipal_txtduration").trigger("blur");
+        clearTimeout(timer);
+    }
+}
