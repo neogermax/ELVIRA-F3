@@ -328,9 +328,19 @@ function verificar_dat_idea() {
             $("#Btnaddcomponent").attr("disabled", "disabled");
             $("#Btndeletecomponent").attr("disabled", "disabled");
 
-
         }
         else {
+
+            //pestaña componentes del proyecto
+            ClineEstrategic_edit();
+            edit_component_view();
+
+            //bloquemos los controles de la pestaña componentes
+            $("#ddlStrategicLines").attr("disabled", "disabled");
+            $("#ddlPrograms").attr("disabled", "disabled");
+            $("#Btnaddcomponent").attr("disabled", "disabled");
+            $("#Btndeletecomponent").attr("disabled", "disabled");
+
         }
 
     });
