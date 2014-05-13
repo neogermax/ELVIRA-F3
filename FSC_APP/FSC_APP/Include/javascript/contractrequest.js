@@ -34,10 +34,11 @@ function polizas() {
 }
 
 function supervisor_array() {
+    var arraySupervisor = new Array();
     $.ajax({
-        url: "AjaxAddIdea.aspx",
+        url: "ajaxcontracrequest.aspx",
         type: "GET",
-        data: { "action": "getsupervisor", "contract": $("#ctl00_cphPrincipal_ddlProject").val() },
+        data: { "action": "getsupervisor", "contract": getParameterByName('id') },
         success: function(result) {
             array_supervisor_ed = result.split("|");
             for (itemArray in array_supervisor_ed) {
@@ -51,8 +52,10 @@ function supervisor_array() {
     });
 }
 
-function btnaddsupervisor_onclick() {
+var arraySupervisor = new Array();
 
+function btnaddsupervisor_onclick() {
+    
     if ($("#ctl00_cphPrincipal_ddlSupervisor").val() < 0) {
         $("#ctl00_cphPrincipal_lblAddSupervisor").css("color", "red");
         $("#ctl00_cphPrincipal_lblAddSupervisor").text("Debe elegir un supervisor de la lista.");
@@ -60,24 +63,26 @@ function btnaddsupervisor_onclick() {
     }
     $("#ctl00_cphPrincipal_lblAddSupervisor").text("");
     var JsonSupervisor = { "SuperVal": $("#ctl00_cphPrincipal_ddlSupervisor option:selected").text() };
+    var SuperVal = $("#ctl00_cphPrincipal_ddlSupervisor option:selected").text()
 
-    var validarepetido = 0;
+    var validerepetido = 0;
     for (iArray in arraySupervisor) {
         if (SuperVal == arraySupervisor[iArray].SuperVal) {
             validerepetido = 1;
         }
     }
 
-    if (validarepetido == 1) {
+    if (validerepetido == 1) {
         $("#ctl00_cphPrincipal_lblAddSupervisor").css("color", "red");
         $("#ctl00_cphPrincipal_lblAddSupervisor").text("El supervisor ya está en la lista.");
+        return;
     }
     else {
         $("#ctl00_cphPrincipal_lblAddSupervisor").text("");
 
         arraySupervisor.push(JsonSupervisor);
 
-        var htmlTable = "<table id='T_supervisor' border='2' cellpadding='2' cellspacing='2' style='width: 100%;'><thead><tr><th>Supervidor</th><th>Eliminar</th></tr></thead><tbody>";
+        var htmlTable = "<table id='T_supervisor' border='2' cellpadding='2' cellspacing='2' style='width: 100%;'><thead><tr><th>Supervisor</th><th>Eliminar</th></tr></thead><tbody>";
 
         for (itemArray in arraySupervisor) {
             var strdelete = arraySupervisor[itemArray].SuperVal;
@@ -88,7 +93,7 @@ function btnaddsupervisor_onclick() {
         $("#T_SuperVContainer").html("");
         $("#T_SuperVContainer").html(htmlTable);
 
-        $(".deleteUbicacion").click(function() {
+        $(".deleteSuperV").click(function() {
             $(this).parent().parent().remove();
         });
 
@@ -97,6 +102,19 @@ function btnaddsupervisor_onclick() {
             "bDestroy": true
         });
     }
+}
+
+function deleteSuperV(supervisor) {
+    
+    for (itemArray in arraySupervisor){
+        var supercompare = "/" + arraySupervisor[itemArray].SuperVal + "/";
+
+        if (supercompare == supervisor) {
+            delete arraySupervisor[itemArray];
+        }
+        
+    }
+    
 }
 
 function personas() {

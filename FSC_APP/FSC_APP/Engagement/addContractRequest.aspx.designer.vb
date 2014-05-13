@@ -529,15 +529,6 @@ Partial Public Class addContractRequest
     Protected WithEvents ddlSupervisor As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''Control btnAddSupervisor.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents btnAddSupervisor As Global.System.Web.UI.WebControls.Button
-
-    '''<summary>
     '''Control lblAddSupervisor.
     '''</summary>
     '''<remarks>
