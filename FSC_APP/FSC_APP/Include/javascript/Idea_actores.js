@@ -54,7 +54,7 @@ function BtnaddActors_onclick() {
             "bJQueryUI": true,
             "bDestroy": true
         });
-        
+
         add_actor_grid();
 
     }
@@ -79,9 +79,6 @@ function add_actor_grid() {
         }
         else {
             $("#ctl00_cphPrincipal_Lblactorrep").text("");
-
-
-
 
             //capturamos los valores de deseados
             var actorsVal = $("#ddlactors").val();
@@ -254,7 +251,6 @@ function View_actores() {
             //llama la funcion sumar en la grilla de actores
             sumar_grid_actores();
 
-
         },
         error: function(msg) {
             alert("No se pueden cargar los actores en general de la idea = " + ideditar);
@@ -276,7 +272,6 @@ function View_actores_array() {
                 var recibeact = JSON.parse(array_actores_ed[itemArray]);
                 arrayActor.push(recibeact);
             }
-
 
         },
         error: function(msg) {
@@ -453,9 +448,6 @@ function sumar_grid_actores() {
     var valespecie = 0;
     var valtotal = 0;
 
-
-
-
     //recorremos la tabla actores para calcular los totales
     $("#T_Actors tr").slice(0, $("#T_Actors tr").length - 1).each(function() {
         var arrayValuesActors = $(this).find("td").slice(7, 10);
@@ -538,12 +530,12 @@ function suma_verificar(strdiner, strespecies) {
         else {
 
             suma = vd + ve;
-            addCommas(suma);
+            $("#ctl00_cphPrincipal_Txtaportfscocomp").val(addCommasrefactor(suma));
         }
     }
     suma = vd + ve;
-    addCommas(suma);
-
+    $("#ctl00_cphPrincipal_Txtaportfscocomp").val(addCommasrefactor(suma));
+    
     return suma;
 }
 
@@ -552,6 +544,9 @@ function actors_transanccion() {
     //suma de campos de actores en el formulario de idea dinero + especies
     //31-05-2013 GERMAN RODRIGUEZ
     $("#ctl00_cphPrincipal_Txtvrdiner").blur(function() {
+
+        var suma = 0;
+
         var rev = $(this).val();
         rev = rev.replace(/\./gi, '');
         var valor = parseInt(rev);
@@ -559,17 +554,24 @@ function actors_transanccion() {
         if (isNaN(valor)) {
             valor = 0;
             $("#ctl00_cphPrincipal_Txtvrdiner").val(valor);
+
+
         }
         else {
             var rev2 = $("#ctl00_cphPrincipal_Txtvresp").val();
 
             rev2 = rev2.replace(/\./gi, '');
             var val2 = parseInt(rev2);
-            if (isNaN(val2)) { val2 = 0; }
-            else {
-                var suma = 0;
+
+            if (isNaN(val2)) {
+                val2 = 0;
                 suma = valor + val2;
-                addCommas(suma);
+                $("#ctl00_cphPrincipal_Txtaportfscocomp").val(addCommasrefactor(suma));
+            }
+            else {
+
+                suma = valor + val2;
+                $("#ctl00_cphPrincipal_Txtaportfscocomp").val(addCommasrefactor(suma));
             }
         }
     });
@@ -577,22 +579,30 @@ function actors_transanccion() {
     //suma de campos de actores en el formulario de idea dinero + especies
     //31-05-2013 GERMAN RODRIGUEZ
     $("#ctl00_cphPrincipal_Txtvresp").blur(function() {
+
+        var suma = 0;
+
         var rev = $(this).val();
         rev = rev.replace(/\./gi, '');
         var valor = parseInt(rev);
         if (isNaN(valor)) {
             valor = 0;
             $("#ctl00_cphPrincipal_Txtvresp").val(valor);
+
         }
         else {
             var rev2 = $("#ctl00_cphPrincipal_Txtvrdiner").val();
             rev2 = rev2.replace(/\./gi, '');
             var val2 = parseInt(rev2);
-            if (isNaN(val2)) { val2 = 0; }
-            else {
-                var suma = 0;
+            if (isNaN(val2)) {
+                val2 = 0;
                 suma = valor + val2;
-                addCommas(suma);
+                $("#ctl00_cphPrincipal_Txtaportfscocomp").val(addCommasrefactor(suma));
+            }
+            else {
+                suma = valor + val2;
+                $("#ctl00_cphPrincipal_Txtaportfscocomp").val(addCommasrefactor(suma));
+                
             }
         }
     });

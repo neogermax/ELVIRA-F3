@@ -29,6 +29,10 @@ var reversedesembolsos = [];
 var arrayFiles = [];
 
 var filescharge = [];
+
+var arraycompo = [];
+
+
 var args = [];
 var valI1;
 var valI2;

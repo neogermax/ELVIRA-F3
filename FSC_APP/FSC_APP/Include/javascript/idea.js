@@ -34,6 +34,8 @@ var arrayFiles_ed = [];
 
 var filescharge = [];
 
+var arraycompo = [];
+
 var args = [];
 var valI1;
 var valI2;
@@ -55,6 +57,8 @@ var edit_swhich_fx;
 var contadorrestar = 0;
 var validateflujos_save;
 var componentes_editados;
+var contar_program = 0;
+
 
 $(document).ready(function() {
 
@@ -74,7 +78,7 @@ $(document).ready(function() {
         validafecha2();
 
         componentes_editados = 1;
-        
+
         Cdeptos();
         Cmunip();
         Cactors();
@@ -762,7 +766,7 @@ function editar_idea() {
     var listdetallesflujos = [];
     var listfiles = [];
 
-    valor_iva = $("#ctl00_cphPrincipal_HDiva").val(); 
+    valor_iva = $("#ctl00_cphPrincipal_HDiva").val();
 
     var Str_listcomponentes = $("#componentesseleccionados").html();
     Str_listcomponentes = Str_listcomponentes.replace(/"/g, "_");
@@ -872,8 +876,8 @@ function editar_idea() {
         }
     });
 
-   
-    
+
+
 
 }
 
@@ -944,7 +948,7 @@ function borrar_carpeta() {
         type: "GET",
         data: { "action": "borrar_archivos" },
         success: function(result) {
-         //   alert("borrado");
+            //   alert("borrado");
         },
         error: function(msg) {
             alert("No ELIMINO LOS ARCHIVOS = " + ideditar);
@@ -960,7 +964,7 @@ function copiar_archivos() {
         type: "GET",
         data: { "action": "copiar_archivos" },
         success: function(result) {
-          //  alert("copiado");
+            //  alert("copiado");
         },
         error: function(msg) {
             alert("No COPIO LOS ARCHIVOS= " + ideditar);

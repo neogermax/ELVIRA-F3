@@ -100,9 +100,12 @@ function ClineEstrategic() {
     });
 }
 
+
 //cargar combo de programas
 function Cprogram() {
+
     $("#ddlStrategicLines").change(function() {
+
         $.ajax({
             url: "AjaxAddIdea.aspx",
             type: "GET",
@@ -112,25 +115,45 @@ function Cprogram() {
                 var textoLista = $("#componentesseleccionados").html();
 
                 if (textoLista == "") {
+                    if (contar_program == 0) {
+                        arraycompo[0] = $("#ddlStrategicLines").val();
+                    }
+                    
                     $("#ddlPrograms").html(result);
                     $("#ddlPrograms").trigger("liszt:updated");
+
+
                 }
                 else {
+
+                    if (contar_program == 0) {
+                        arraycompo[1] = $("#ddlPrograms").val();
+                        contar_program = 1;
+                    }
 
                     confirmar = confirm("Usted acaba de cambiar de linea estratégica la información diligenciada se perdera! desea cambiarla?", "SI", "NO");
                     if (confirmar) {
 
                         $("#componentesseleccionados").html("");
                         $("#seleccionarcomponente").html("");
+
                         arraycomponente = [];
+
                         $("#ddlPrograms").html(result);
                         $("#ddlPrograms").trigger("liszt:updated");
 
                     }
+
                     else {
-                        $("#ddlPrograms").html(result);
+
+                        $("#ddlStrategicLines").val(arraycompo[0]);
+                        $("#ddlStrategicLines").trigger("liszt:updated");
+
+                        $("#ddlPrograms").val(arraycompo[1]);
                         $("#ddlPrograms").trigger("liszt:updated");
 
+                        contar_program = 0;
+                        arraycompo = [];
                     }
 
 
