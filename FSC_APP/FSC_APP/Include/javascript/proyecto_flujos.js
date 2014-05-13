@@ -209,7 +209,7 @@ function View_flujos_p() {
     $.ajax({
         url: "AjaxAddProject.aspx",
         type: "GET",
-        data: { "action": "View_flujos_p", "ididea": ideditar },
+        data: { "action": "View_flujos_p", "ididea": idea_buscar },
         success: function(result) {
 
             //cargamos el div donde se generara la tabla actores
@@ -228,7 +228,7 @@ function View_flujos_p() {
 
         },
         error: function(msg) {
-            alert("No se pueden cargar los flujos de pago de la idea = " + ideditar);
+            alert("No se pueden cargar los flujos de pago de la idea = " + idea_buscar);
         }
     });
 
@@ -239,7 +239,7 @@ function View_detalle_flujo_array() {
     $.ajax({
         url: "AjaxAddProject.aspx",
         type: "GET",
-        data: { "action": "View_detalle_flujo_array", "ididea": ideditar },
+        data: { "action": "View_detalle_flujo_array", "ididea": idea_buscar },
         success: function(result) {
 
             if (result == "vacio") {
@@ -260,7 +260,7 @@ function View_detalle_flujo_array() {
             }
         },
         error: function(msg) {
-            alert("No se pueden cargar los flujos de pago de la idea = " + ideditar);
+            alert("No se pueden cargar los flujos de pago de la idea = " + idea_buscar);
         }
     });
 
@@ -272,7 +272,7 @@ function View_flujos_p_array() {
     $.ajax({
         url: "AjaxAddProject.aspx",
         type: "GET",
-        data: { "action": "View_flujos_p_array", "ididea": ideditar },
+        data: { "action": "View_flujos_p_array", "ididea": idea_buscar },
         success: function(result) {
 
             if (result == "vacio") {
@@ -291,7 +291,7 @@ function View_flujos_p_array() {
             }
         },
         error: function(msg) {
-            alert("No se pueden cargar los flujos de pago de la idea = " + ideditar);
+            alert("No se pueden cargar los flujos de pago de la idea = " + idea_buscar);
         }
     });
 
@@ -302,7 +302,7 @@ function View_flujos_actors() {
     $.ajax({
         url: "AjaxAddProject.aspx",
         type: "GET",
-        data: { "action": "View_flujos_actors", "ididea": ideditar },
+        data: { "action": "View_flujos_actors", "ididea": idea_buscar },
         success: function(result) {
 
             //cargamos el div donde se generara la tabla actores
@@ -320,7 +320,7 @@ function View_flujos_actors() {
 
         },
         error: function(msg) {
-            alert("No se pueden cargar los actores de flujos de pago de la idea = " + ideditar);
+            alert("No se pueden cargar los actores de flujos de pago de la idea = " + idea_buscar);
         }
     });
 
@@ -331,7 +331,7 @@ function View_flujos_actors_array() {
     $.ajax({
         url: "AjaxAddProject.aspx",
         type: "GET",
-        data: { "action": "View_flujos_actors_array", "ididea": ideditar },
+        data: { "action": "View_flujos_actors_array", "ididea": idea_buscar },
         success: function(result) {
 
             if (result == "vacio") {
@@ -353,7 +353,7 @@ function View_flujos_actors_array() {
 
         },
         error: function(msg) {
-            alert("No se pueden cargar los actores de flujos de pago de la idea = " + ideditar);
+        alert("No se pueden cargar los actores de flujos de pago de la idea = " + idea_buscar);
         }
     });
 

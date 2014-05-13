@@ -116,7 +116,7 @@ function view_ubicacion() {
     $.ajax({
         url: "AjaxAddProject.aspx",
         type: "GET",
-        data: { "action": "View_ubicacion", "ididea": ideditar },
+        data: { "action": "View_ubicacion", "ididea": idea_buscar },
         success: function(result) {
 
             $("#T_locationContainer").html("");
@@ -135,7 +135,7 @@ function view_ubicacion() {
 
         },
         error: function(msg) {
-            alert("No se pueden cargar las ubicaciones seleccionadas de la idea = " + ideditar);
+            alert("No se pueden cargar las ubicaciones seleccionadas de la idea = " + idea_buscar);
         }
     });
 }
@@ -146,7 +146,7 @@ function view_ubicacion_array() {
     $.ajax({
         url: "AjaxAddProject.aspx",
         type: "GET",
-        data: { "action": "View_ubicacion_array", "ididea": ideditar },
+        data: { "action": "View_ubicacion_array", "ididea": idea_buscar },
         success: function(result) {
 
             array_ubicacion_ed = result.split("|");
@@ -160,7 +160,7 @@ function view_ubicacion_array() {
 
         },
         error: function(msg) {
-            alert("No se pueden cargar las ubicaciones seleccionadas de la idea = " + ideditar);
+            alert("No se pueden cargar las ubicaciones seleccionadas de la idea = " + idea_buscar);
         }
     });
 }

@@ -2012,18 +2012,18 @@ Partial Class addProject
 
         Try
             ' cargar el combo de Ideas
-            If (Request.QueryString("op").Equals("add")) Then
-                Me.ddlididea.DataSource = facade.getIdeaListApproved(applicationCredentials, enabled:="1", order:="code")
-            Else
-                Me.ddlididea.DataSource = facade.loadProject(applicationCredentials, Request.QueryString("id"))
-            End If
-            Me.ddlididea.DataValueField = "Id"
-            Me.ddlididea.DataTextField = "Name"
+            'If (Request.QueryString("op").Equals("add")) Then
+            '    Me.ddlididea.DataSource = facade.getIdeaListApproved(applicationCredentials, enabled:="1", order:="code")
+            'Else
+            '    Me.ddlididea.DataSource = facade.loadProject(applicationCredentials, Request.QueryString("id"))
+            'End If
+            'Me.ddlididea.DataValueField = "Id"
+            'Me.ddlididea.DataTextField = "Name"
 
-            Me.ddlididea.DataBind()
-            Me.ddlididea.Items.Insert(0, New ListItem("Seleccione...", "-1"))
-            'ddlididea.Items.Add(New ListItem("Seleccione...", "-1"))
-            ddlididea.SelectedValue = "-1"
+            'Me.ddlididea.DataBind()
+            'Me.ddlididea.Items.Insert(0, New ListItem("Seleccione...", "-1"))
+            ''ddlididea.Items.Add(New ListItem("Seleccione...", "-1"))
+            'ddlididea.SelectedValue = "-1"
 
             'Dim fechainicio As Integer = Session("txtstartdate")
 

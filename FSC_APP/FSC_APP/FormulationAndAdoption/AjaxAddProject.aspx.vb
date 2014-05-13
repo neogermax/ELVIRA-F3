@@ -145,6 +145,8 @@ Partial Public Class AjaxAddProject
                 ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
                 searh_c_typecontract(ideditar)
 
+            Case "C_ideas_aprobada"
+                charge_idea_aproval()
                 '----------------- modulo ubicacion-------------------------------------------------------
             Case "C_deptos"
 
@@ -219,6 +221,12 @@ Partial Public Class AjaxAddProject
             Case "View_anexos_array"
                 ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
                 searh_document_anexos_array(ideditar)
+
+                '----------------- tareas generales-------------------------------------------------------
+
+            Case "getIdeaProject_inf_p"
+                ideditar = Convert.ToInt32(Request.QueryString("id").ToString)
+                searchIdea_inf_p(ideditar, applicationCredentials)
 
             Case Else
 
@@ -678,6 +686,174 @@ Partial Public Class AjaxAddProject
     End Function
 
 
+    Public Sub searchIdea_inf_p(ByVal id As Integer, ByVal objApplicationCredentials As Gattaca.Application.Credentials.ApplicationCredentials)
+
+        Dim sql As New StringBuilder
+
+        Dim data As DataTable
+        Dim dataTotalFSC As DataTable
+        Dim dataTotalNoFSC As DataTable
+        Dim Objective As String = ""
+        Dim Justification As String = ""
+        Dim AreaDescription As String = ""
+        Dim ResultsBenef As String = ""
+        Dim ResultsKnowledgeManagement As String = ""
+        Dim ResultsInstalledCapacity As String = ""
+        Dim StartDate As String = ""
+        Dim Duration As String = ""
+        Dim OtherResults As String = ""
+        Dim days As String = ""
+        Dim ideaappliesIVA As String = ""
+        Dim obligationsoftheparties As String = ""
+        Dim RiskMitigation As String = ""
+        Dim RisksIdentified As String = ""
+        Dim BudgetRoute As String = ""
+        Dim Population As String = ""
+        Dim Idtypecontract As String = ""
+
+        sql.Append("select  i.Objective, i.Justification, i.AreaDescription,  i.Results, i.ResultsKnowledgeManagement, i.ResultsInstalledCapacity, i.OtherResults , i.startdate, i.Duration, i.days, i.ideaappliesIVA, i.obligationsoftheparties, i.RiskMitigation, i.RisksIdentified, i.BudgetRoute, i.Population, i.Idtypecontract  from idea i where i.id= " & id)
+
+        data = GattacaApplication.RunSQLRDT(objApplicationCredentials, sql.ToString)
+
+        If data.Rows.Count > 0 Then
+
+            Dim objResult As String = "{"
+
+            ' obtiene el objetivo de IDEA 
+            objResult &= " ""Objective"": """
+            If IsDBNull(data.Rows(0)("Objective")) = False Then
+                Objective = data.Rows(0)("Objective")
+                Objective = Objective.Replace("""", "\""")
+            End If
+            objResult &= Objective
+
+            ' obtiene la justificacion de IDEA
+            objResult &= """, ""Justification"": """
+            If IsDBNull(data.Rows(0)("Justification")) = False Then
+                Justification = data.Rows(0)("Justification")
+                Justification = Justification.Replace("""", "\""")
+            End If
+            objResult &= Justification
+
+            ' obtiene area descripcion en el campo equivale a objetivos especificos
+            objResult &= """, ""AreaDescription"": """
+            If IsDBNull(data.Rows(0)("AreaDescription")) = False Then
+                AreaDescription = data.Rows(0)("AreaDescription")
+                AreaDescription = AreaDescription.Replace("""", "\""")
+
+            End If
+            objResult &= AreaDescription
+
+            ' obtiene resultados beneficiarios que equivale a results de la tabla
+            objResult &= """, ""Results"": """
+            If IsDBNull(data.Rows(0)("Results")) = False Then
+                ResultsBenef = data.Rows(0)("Results")
+                ResultsBenef = ResultsBenef.Replace("""", "\""")
+            End If
+            objResult &= ResultsBenef
+
+            ' obtiene resultados gestion del conocimiento
+            objResult &= """, ""ResultsKnowledgeManagement"": """
+            If IsDBNull(data.Rows(0)("ResultsKnowledgeManagement")) = False Then
+                ResultsKnowledgeManagement = data.Rows(0)("ResultsKnowledgeManagement")
+                ResultsKnowledgeManagement = ResultsKnowledgeManagement.Replace("""", "\""")
+            End If
+            objResult &= ResultsKnowledgeManagement
+
+            ' obtiene resultados de la capacidad instalada
+            objResult &= """, ""ResultsInstalledCapacity"": """
+            If IsDBNull(data.Rows(0)("ResultsInstalledCapacity")) = False Then
+                ResultsInstalledCapacity = data.Rows(0)("ResultsInstalledCapacity")
+                ResultsInstalledCapacity = ResultsInstalledCapacity.Replace("""", "\""")
+            End If
+            objResult &= ResultsInstalledCapacity
+
+            objResult &= """, ""OtherResults"": """
+            If IsDBNull(data.Rows(0)("OtherResults")) = False Then
+                OtherResults = data.Rows(0)("OtherResults")
+                OtherResults = OtherResults.Replace("""", "\""")
+            End If
+            objResult &= OtherResults
+
+            ' obtiene fecha de inicio
+            objResult &= """, ""StartDate"": """
+            If IsDBNull(data.Rows(0)("StartDate")) = False Then
+                StartDate = data.Rows(0)("StartDate")
+            End If
+            Dim dateFormated As Date = StartDate
+            objResult &= dateFormated.ToString("yyyy/MM/dd")
+
+            ' obtiene meses
+            objResult &= """, ""Duration"": """
+            If IsDBNull(data.Rows(0)("Duration")) = False Then
+                Duration = data.Rows(0)("Duration")
+            End If
+            objResult &= Duration
+
+            ' obtiene dias
+            objResult &= """, ""days"": """
+            If IsDBNull(data.Rows(0)("days")) = False Then
+                days = data.Rows(0)("days")
+            End If
+            objResult &= days
+
+            ' obtiene si tiene iva la idea
+            objResult &= """, ""ideaappliesIVA"": """
+            If IsDBNull(data.Rows(0)("ideaappliesIVA")) = False Then
+                ideaappliesIVA = data.Rows(0)("ideaappliesIVA")
+            End If
+            objResult &= ideaappliesIVA
+
+            ' obtiene si tiene obligaciones
+            objResult &= """, ""obligationsoftheparties"": """
+            If IsDBNull(data.Rows(0)("obligationsoftheparties")) = False Then
+                obligationsoftheparties = data.Rows(0)("obligationsoftheparties")
+            End If
+            objResult &= obligationsoftheparties
+
+            ' obtiene si tiene mitigaciones
+            objResult &= """, ""RiskMitigation"": """
+            If IsDBNull(data.Rows(0)("RiskMitigation")) = False Then
+                RiskMitigation = data.Rows(0)("RiskMitigation")
+            End If
+            objResult &= RiskMitigation
+
+            'obtiene si tiene riesgos
+            objResult &= """, ""RisksIdentified"": """
+            If IsDBNull(data.Rows(0)("RisksIdentified")) = False Then
+                RisksIdentified = data.Rows(0)("RisksIdentified")
+            End If
+            objResult &= RisksIdentified
+
+            'obtiene si tiene riesgos
+            objResult &= """, ""BudgetRoute"": """
+            If IsDBNull(data.Rows(0)("BudgetRoute")) = False Then
+                BudgetRoute = data.Rows(0)("BudgetRoute")
+            End If
+            objResult &= BudgetRoute
+
+            'obtiene si tiene poblacion
+            objResult &= """, ""Population"": """
+            If IsDBNull(data.Rows(0)("Population")) = False Then
+                Population = data.Rows(0)("Population")
+            End If
+            objResult &= Population
+
+            'obtiene si tiene tipo de contrato
+            objResult &= """, ""Idtypecontract"": """
+            If IsDBNull(data.Rows(0)("Idtypecontract")) = False Then
+                Idtypecontract = data.Rows(0)("Idtypecontract")
+            End If
+            objResult &= Idtypecontract
+
+            objResult &= """}"
+
+            Response.Write(objResult)
+        End If
+
+    End Sub
+
+
     Public Function searh_c_typecontract(ByVal ididea As Integer)
 
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
@@ -865,6 +1041,29 @@ Partial Public Class AjaxAddProject
     End Function
 
 
+    Public Function charge_idea_aproval()
+
+        Dim sql As New StringBuilder
+        Dim objSqlCommand As New SqlCommand
+        Dim data As DataTable
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+
+        sql.Append("select  Idea.Id, Idea.Code,Idea.Name,par.codeapprovedidea,  Idea.Code+'_'+Idea.Name as 'name_code' ")
+        sql.Append("FROM Idea INNER JOIN ProjectApprovalRecord par ON idea.Id = par.Ididea ORDER BY par.CreateDate DESC ")
+
+        ' ejecutar la intruccion
+        data = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+        Dim html As String = "<option>Seleccione...</opption>"
+        For Each row As DataRow In data.Rows
+            html &= String.Format("<option value = ""{0}"">{1}</option>", row(0).ToString(), row(4).ToString())
+        Next
+
+        ' retornar el objeto
+        Response.Write(html)
+
+
+    End Function
     Public Function calculafechas(ByVal fecha As DateTime, ByVal duracion As String, ByVal dias_ope As String) As String
 
         Dim objResult As String

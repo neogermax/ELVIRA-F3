@@ -119,7 +119,7 @@ function View_anexos() {
     $.ajax({
         url: "AjaxAddProject.aspx",
         type: "GET",
-        data: { "action": "View_anexos", "ididea": ideditar },
+        data: { "action": "View_anexos", "ididea": idea_buscar },
         success: function(result) {
 
             //cargamos el div donde se generara la documentos anexos
@@ -134,7 +134,7 @@ function View_anexos() {
 
         },
         error: function(msg) {
-            alert("No se pueden cargar los documentos anexos de la idea = " + ideditar);
+            alert("No se pueden cargar los documentos anexos de la idea = " + idea_buscar);
         }
     });
 
@@ -147,7 +147,7 @@ function View_anexos_array() {
     $.ajax({
         url: "AjaxAddProject.aspx",
         type: "GET",
-        data: { "action": "View_anexos_array", "ididea": ideditar },
+        data: { "action": "View_anexos_array", "ididea": idea_buscar },
         success: function(result) {
 
             if (result == "vacio") {
@@ -166,7 +166,7 @@ function View_anexos_array() {
 
         },
         error: function(msg) {
-            alert("No se pueden cargar los actores de flujos de pago de la idea = " + ideditar);
+            alert("No se pueden cargar los actores de flujos de pago de la idea = " + idea_buscar);
         }
     });
 

@@ -238,7 +238,7 @@ function View_actores() {
     $.ajax({
         url: "AjaxAddProject.aspx",
         type: "GET",
-        data: { "action": "View_actores", "ididea": ideditar },
+        data: { "action": "View_actores", "ididea": idea_buscar },
         success: function(result) {
 
             //cargamos el div donde se generara la tabla actores
@@ -254,10 +254,9 @@ function View_actores() {
             //llama la funcion sumar en la grilla de actores
             sumar_grid_actores();
 
-
         },
         error: function(msg) {
-            alert("No se pueden cargar los actores en general de la idea = " + ideditar);
+            alert("No se pueden cargar los actores en general de la idea = " + idea_buscar);
         }
     });
 }
@@ -266,7 +265,7 @@ function View_actores_array() {
     $.ajax({
         url: "AjaxAddProject.aspx",
         type: "GET",
-        data: { "action": "View_actores_array", "ididea": ideditar },
+        data: { "action": "View_actores_array", "ididea": idea_buscar },
         success: function(result) {
 
             array_actores_ed = result.split("|");
@@ -277,10 +276,9 @@ function View_actores_array() {
                 arrayActor.push(recibeact);
             }
 
-
         },
         error: function(msg) {
-            alert("No se pueden cargar los actores en general de la idea = " + ideditar);
+            alert("No se pueden cargar los actores en general de la idea = " + idea_buscar);
         }
     });
 }
@@ -504,11 +502,11 @@ function suma_verificar(strdiner, strespecies) {
         else {
 
             suma = vd + ve;
-            addCommas(suma);
+            $("#ctl00_cphPrincipal_Txtaportfscocomp").val(addCommasrefactor(suma));
         }
     }
     suma = vd + ve;
-    addCommas(suma);
+    $("#ctl00_cphPrincipal_Txtaportfscocomp").val(addCommasrefactor(suma));
 
     return suma;
 }
@@ -531,11 +529,16 @@ function actors_transanccion() {
 
             rev2 = rev2.replace(/\./gi, '');
             var val2 = parseInt(rev2);
-            if (isNaN(val2)) { val2 = 0; }
-            else {
-                var suma = 0;
+
+            if (isNaN(val2)) {
+                val2 = 0;
                 suma = valor + val2;
-                addCommas(suma);
+                $("#ctl00_cphPrincipal_Txtaportfscocomp").val(addCommasrefactor(suma));
+            }
+            else {
+
+                suma = valor + val2;
+                $("#ctl00_cphPrincipal_Txtaportfscocomp").val(addCommasrefactor(suma));
             }
         }
     });
@@ -554,11 +557,15 @@ function actors_transanccion() {
             var rev2 = $("#ctl00_cphPrincipal_Txtvrdiner").val();
             rev2 = rev2.replace(/\./gi, '');
             var val2 = parseInt(rev2);
-            if (isNaN(val2)) { val2 = 0; }
-            else {
-                var suma = 0;
+            if (isNaN(val2)) {
+                val2 = 0;
                 suma = valor + val2;
-                addCommas(suma);
+                $("#ctl00_cphPrincipal_Txtaportfscocomp").val(addCommasrefactor(suma));
+            }
+            else {
+                suma = valor + val2;
+                $("#ctl00_cphPrincipal_Txtaportfscocomp").val(addCommasrefactor(suma));
+
             }
         }
     });
@@ -612,32 +619,6 @@ function comboactor() {
     });
 }
 
-//montaje de jquery para recorrer el campo par montarle comas para los miles
-//22-07-2013 GERMAN RODRIGUEZ
-
-function addCommas(str) {
-    var amount = new String(str);
-    amount = amount.split("").reverse();
-
-    var output = "";
-    for (var i = 0; i <= amount.length - 1; i++) {
-        output = amount[i] + output;
-        if ((i + 1) % 3 == 0 && (amount.length - 1) !== i) output = '.' + output;
-    }
-    $("#ctl00_cphPrincipal_Txtaportfscocomp").val(output);
-}
-
-function addCommas2(str) {
-    var amount = new String(str);
-    amount = amount.split("").reverse();
-
-    var output = "";
-    for (var i = 0; i <= amount.length - 1; i++) {
-        output = amount[i] + output;
-        if ((i + 1) % 3 == 0 && (amount.length - 1) !== i) output = '.' + output;
-    }
-    $("#ctl00_cphPrincipal_ValueCostFSC").val(output);
-}
 
 //fucion para añadir los miles a los numeros refactorizada
 function addCommasrefactor(str) {
