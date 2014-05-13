@@ -97,7 +97,7 @@ function View_matriz_principal() {
     $.ajax({
         url: "AjaxAddProject.aspx",
         type: "GET",
-        data: { "action": "View_matriz_principal", "ididea": ideditar },
+        data: { "action": "View_matriz_principal", "ididea": idea_buscar },
         success: function(result) {
 
             //cargamos el div donde se generara la tabla actores
@@ -351,56 +351,60 @@ function cargar_ideas_aprobadas() {
 
 }
 
-function traer_datos_idea() {
-    $("#ddlididea").change(function() {
+function traer_datos_idea_inf_p() {
 
-        confirmar = confirm("¿Traer datos de la Idea aprobada?", "SI", "NO");
-        if (confirmar) {
-          
-            $.ajax({
-                url: "AjaxAddProject.aspx",
-                type: "GET",
+    $.ajax({
+        url: "AjaxAddProject.aspx",
+        type: "GET",
 
-                data: { "action": "getIdeaProject", "id": $(this).val() },
+        data: { "action": "getIdeaProject_inf_p", "id": idea_buscar },
 
-                remove_linebreaks: true,
-                success: function(result) {
+        remove_linebreaks: true,
+        success: function(result) {
 
-                    result = result.replace(/\n/g, "");
-                    result = result.replace(/\r/g, "");
-                    result = result.replace(/\t/g, "");
-                    result = result.replace(/\n\r/g, " ");
-                    result = result.replace(/\r\n/g, " ");
+            result = result.replace(/\n/g, "");
+            result = result.replace(/\r/g, "");
+            result = result.replace(/\t/g, "");
+            result = result.replace(/\n\r/g, " ");
+            result = result.replace(/\r\n/g, " ");
 
 
-                    result = JSON.parse(result);
+            result = JSON.parse(result);
 
-                    //campos de texto planos
-                    $("#ctl00_cphPrincipal_txtjustification").val(result.Justification);
-                    $("#ctl00_cphPrincipal_txtobjective").val(result.Objective);
-                    $("#ctl00_cphPrincipal_txtzonedescription").val(result.AreaDescription);
-                    $("#ctl00_cphPrincipal_txtresults").val(result.Results);
-                    $("#ctl00_cphPrincipal_TextResultGestConocimiento").val(result.ResultsKnowledgeManagement);
-                    $("#ctl00_cphPrincipal_TextResCapacidInstal").val(result.ResultsInstalledCapacity);
-                    $("#ctl00_cphPrincipal_Txtothersresults").html(result.OtherResults);
-                    $("#ctl00_cphPrincipal_Txtobligationsoftheparties").html(result.obligationsoftheparties);
-                    $("#ctl00_cphPrincipal_Txtroutepresupuestal").val(result.BudgetRoute);
-                    $("#ctl00_cphPrincipal_Txtriesgos").val(result.RisksIdentified);
-                    $("#ctl00_cphPrincipal_Txtaccionmitig").val(result.RiskMitigation);
-                    $("#ctl00_cphPrincipal_txtstartdate").val(result.StartDate);
-                    $("#ctl00_cphPrincipal_txtduration").val(result.Duration);
-                    $("#ctl00_cphPrincipal_Txtday").val(result.days);
+            //campos de texto planos
+            $("#ctl00_cphPrincipal_txtjustification").val(result.Justification);
+            $("#ctl00_cphPrincipal_txtobjective").val(result.Objective);
+            $("#ctl00_cphPrincipal_txtzonedescription").val(result.AreaDescription);
+            $("#ctl00_cphPrincipal_txtresults").val(result.Results);
+            $("#ctl00_cphPrincipal_TextResultGestConocimiento").val(result.ResultsKnowledgeManagement);
+            $("#ctl00_cphPrincipal_TextResCapacidInstal").val(result.ResultsInstalledCapacity);
+            $("#ctl00_cphPrincipal_Txtothersresults").html(result.OtherResults);
+            $("#ctl00_cphPrincipal_Txtobligationsoftheparties").html(result.obligationsoftheparties);
+            $("#ctl00_cphPrincipal_Txtroutepresupuestal").val(result.BudgetRoute);
+            $("#ctl00_cphPrincipal_Txtriesgos").val(result.RisksIdentified);
+            $("#ctl00_cphPrincipal_Txtaccionmitig").val(result.RiskMitigation);
+            $("#ctl00_cphPrincipal_txtstartdate").val(result.StartDate);
+            $("#ctl00_cphPrincipal_txtduration").val(result.Duration);
+            $("#ctl00_cphPrincipal_Txtday").val(result.days);
 
-                },
+            //carga de combos de pestaña descripcion proyecto
 
-                error: function()
-                { alert("No se pueden cargar los datos de la idea solicitada."); }
-            });
-        }
-        else {
-            alert("no");
-        }
+            $("#ddlmodcontract").val(result.Idtypecontract);
+            $("#ddlmodcontract").trigger("liszt:updated");
 
+            $("#ddlPupulation").val(result.Population);
+            $("#ddlPupulation").trigger("liszt:updated");
+
+            //cargamos el control de aplica iva
+            $("#ctl00_cphPrincipal_RBnList_iva :radio[value='" + result.ideaappliesIVA + "']").attr('checked', true);
+
+            //calcula la fecha de finalizacion
+            var timer = setTimeout("fix();", 2000);
+
+        },
+
+        error: function()
+        { alert("No se pueden cargar los datos de la idea solicitada."); }
     });
 
 }

@@ -238,7 +238,7 @@ function View_actores() {
     $.ajax({
         url: "AjaxAddProject.aspx",
         type: "GET",
-        data: { "action": "View_actores", "ididea": ideditar },
+        data: { "action": "View_actores", "ididea": idea_buscar },
         success: function(result) {
 
             //cargamos el div donde se generara la tabla actores
@@ -254,10 +254,9 @@ function View_actores() {
             //llama la funcion sumar en la grilla de actores
             sumar_grid_actores();
 
-
         },
         error: function(msg) {
-            alert("No se pueden cargar los actores en general de la idea = " + ideditar);
+            alert("No se pueden cargar los actores en general de la idea = " + idea_buscar);
         }
     });
 }
@@ -266,7 +265,7 @@ function View_actores_array() {
     $.ajax({
         url: "AjaxAddProject.aspx",
         type: "GET",
-        data: { "action": "View_actores_array", "ididea": ideditar },
+        data: { "action": "View_actores_array", "ididea": idea_buscar },
         success: function(result) {
 
             array_actores_ed = result.split("|");
@@ -277,10 +276,9 @@ function View_actores_array() {
                 arrayActor.push(recibeact);
             }
 
-
         },
         error: function(msg) {
-            alert("No se pueden cargar los actores en general de la idea = " + ideditar);
+            alert("No se pueden cargar los actores en general de la idea = " + idea_buscar);
         }
     });
 }

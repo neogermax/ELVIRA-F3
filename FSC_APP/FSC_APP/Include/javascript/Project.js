@@ -41,6 +41,7 @@ var entradaflujos = 0;
 
 var swhich_flujos_exist;
 
+var idea_buscar;
 
 var idfile;
 var S_eliminar;
@@ -82,29 +83,31 @@ $(document).ready(function() {
         Cprogram();
         cargarcomponente();
 
-        edit_component_view();
+        //edit_component_view();
 
-        view_ubicacion();
-        view_ubicacion_array();
+        //        view_ubicacion();
+        //        view_ubicacion_array();
 
-        View_actores();
-        View_actores_array();
+        // View_actores();
+        // View_actores_array();
 
-        View_matriz_principal();
+        //     View_matriz_principal();
 
-        View_flujos_p();
-        View_flujos_p_array();
+        //        View_flujos_p();
+        //        View_flujos_p_array();
 
-        View_flujos_actors();
-        View_flujos_actors_array();
+        //        View_flujos_actors();
+        //        View_flujos_actors_array();
 
-        View_detalle_flujo_array();
+        //        View_detalle_flujo_array();
 
         //                aprobacion_idea();
 
-        View_anexos();
+        // View_anexos();
+        //View_anexos_array();
 
-        var timer_cline_edit = setTimeout("ClineEstrategic_edit();", 2000);
+
+        //var timer_cline_edit = setTimeout("ClineEstrategic_edit();", 2000);
 
         var timer_cline_edit = setTimeout("Cpopulation_view();", 2000);
         var timer_cline_edit = setTimeout("Ctypcontract_view();", 2000);
@@ -119,7 +122,8 @@ $(document).ready(function() {
         actors_transanccion();
         comboactor();
         cargar_ideas_aprobadas();
-        traer_datos_idea();
+        //traer datos de la idea
+        verificar_dat_idea();
 
         var timer = setTimeout("fix();", 2000);
         validafecha();
@@ -275,4 +279,60 @@ function fix() {
         $("#ctl00_cphPrincipal_txtduration").trigger("blur");
         clearTimeout(timer);
     }
+}
+
+
+//funcion q verifica los datos de la idea si los trae o no
+function verificar_dat_idea() {
+
+    $("#ddlididea").change(function() {
+
+        //capturamos el valor de la idea del combo de ideas aprobadas
+        idea_buscar = $(this).val();
+
+        confirmar = confirm("¿Traer datos de la Idea aprobada?", "SI", "NO");
+        if (confirmar) {
+
+            //pestaña descripcion del proyecto
+            traer_datos_idea_inf_p();
+            View_matriz_principal();
+
+            //pestaña ubicacion del proyecto
+            view_ubicacion();
+            view_ubicacion_array();
+
+            //pestaña actores del proyecto
+            View_actores();
+            View_actores_array();
+
+            //pestaña flujos del proyecto
+            View_flujos_p();
+            View_flujos_p_array();
+
+            View_flujos_actors();
+            View_flujos_actors_array();
+
+            View_detalle_flujo_array();
+
+            //pestaña anexos del proyecto
+            View_anexos();
+            View_anexos_array();
+
+            //pestaña componentes del proyecto
+            ClineEstrategic_edit();
+            edit_component_view();
+
+            //bloquemos los controles de la pestaña componentes
+            $("#ddlStrategicLines").attr("disabled", "disabled");
+            $("#ddlPrograms").attr("disabled", "disabled");
+            $("#Btnaddcomponent").attr("disabled", "disabled");
+            $("#Btndeletecomponent").attr("disabled", "disabled");
+
+
+        }
+        else {
+        }
+
+    });
+
 }
