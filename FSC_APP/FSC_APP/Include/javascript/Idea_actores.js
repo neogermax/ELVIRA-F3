@@ -29,7 +29,12 @@ function BtnaddActors_onclick() {
     var valespeciegridfsc = 0;
     var valtotalgridfsc = 0;
 
-
+    $("#ctl00_cphPrincipal_txtvalortotalflow").val("");
+    $("#ctl00_cphPrincipal_txtfechapago").val("");
+    $("#ctl00_cphPrincipal_txtporcentaje").val("");
+    $("#ctl00_cphPrincipal_Lbltotalvalor").text("");
+    $("#ctl00_cphPrincipal_txtentregable").val("");   
+       
     if (swhich_flujos_exist == 1) {
         alert("Se ha detectado información el la pestaña de flujos de pagos, al eliminar el actor toda la información se perdera!");
 
