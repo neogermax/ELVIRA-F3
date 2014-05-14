@@ -735,7 +735,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                 estado_flujo = row.EstadoFlujos
 
 
-                If estado_flujo = "  s  " Then
+                If estado_flujo = "s" Then
 
                     objResult &= "{"
 
@@ -1997,7 +1997,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                 existespecie = Replace(arrayactor(contadoractor + 8), "especie : ", " ", 1)
                 existtotal = Replace(arrayactor(contadoractor + 9), "total : ", " ", 1)
                 estados_flujosexist = Replace(arrayactor(contadoractor + 10), "estado_flujo : ", " ", 1)
-
+                estados_flujosexist = estados_flujosexist.Replace(" ", "")
                 'asignamos al objeto
                 thirdByIdea.idthird = existactorsVal
                 thirdByIdea.THIRD.name = existactorsName
@@ -2119,6 +2119,11 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
                     contadordetflu = contadordetflu + 4
                     index_fludet = index_fludet + 4
+
+                    If contadordetflu <> index_fludet Then
+                        index_fludet = contadordetflu
+                    End If
+
                 Next
 
             End If
