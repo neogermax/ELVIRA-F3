@@ -295,7 +295,7 @@
                                 <thead>
                                     <tr>
                                         <th>
-                                            <span><strong style="font-size: large">Supervisor&nbsp;</strong> </span>
+                                            <span><strong style="font-size: large">Supervisor</strong> </span>
                                         </th>
                                         <th>
                                             <span><strong style="font-size: large">Eliminar</strong> </span>

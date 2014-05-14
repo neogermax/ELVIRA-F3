@@ -53,6 +53,9 @@ Partial Class Engagement_ajaxcontracrequest
 
                 Case "getsupervisor"
                     contrato = Request.QueryString("contract").ToString()
+                    If contrato = "" Then
+                        contrato = 0
+                    End If
                     buscarsupervisor(contrato, applicationCredentials)
                 Case Else
             End Select
@@ -270,6 +273,7 @@ Partial Class Engagement_ajaxcontracrequest
         Dim sql As New StringBuilder
         Dim objSqlCommand As New SqlCommand
         Dim DATA As DataTable
+        Dim limite As Integer = 1
 
         'consulta de los datos de actores por id
         sql.Append("SELECT s.Third_Id FROM SupervisorbyContractReq s ")
@@ -281,9 +285,26 @@ Partial Class Engagement_ajaxcontracrequest
         Dim objResult As String = ""
 
         If DATA.Rows.Count > 0 Then
-            objResult = "OK"
+
+            For Each row As DataRow In DATA.Rows
+                objResult &= "{"
+                objResult &= """Third_id"": """
+                objResult &= DATA.Rows(0).ToString
+
+                If limite = DATA.Rows.Count Then
+                    objResult &= """}"
+                Else
+                    objResult &= """}|"
+                End If
+
+                limite = limite + 1
+
+            Next
+
         Else
-            objResult = "NO"
+            objResult &= "{"
+            objResult &= """Third_id"": """
+            objResult &= """}"
         End If
 
         Response.Write(objResult)
