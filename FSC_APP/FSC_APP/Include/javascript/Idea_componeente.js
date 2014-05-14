@@ -2,6 +2,10 @@
 //funcion que posiciona el combo en la linea estrategica de la idea seleccionada
 function ClineEstrategic_edit() {
 
+//    $("#ddlStrategicLines").attr("disabled", "-1");
+//    $("#ddlPrograms").attr("disabled", "disabled");
+//    $("#ctl00_cphPrincipal_container_wait").css("display", "block");
+
     if (componentes_editados == 1) {
         //ajax que posiciona la linea estrategica de la idea conasultada
         $.ajax({
@@ -76,14 +80,21 @@ function view_Cprogram() {
             alert("No se pueden cargar la linea estrategica deseada.");
         }
     });
-    // var timer_program_edit = setTimeout("edit_component();", 2000);
-    //var timer_program_edit = setTimeout("edit_component_view();", 2000);
     componentes_editados = 0;
+    //desbloqueo();
 }
 
+function desbloqueo() {
+
+    $("#ctl00_cphPrincipal_container_wait").css("display", "none");
+    $("#ddlPrograms").removeAttr("disabled");
+    $("#ddlStrategicLines").removeAttr("disabled");
+    
+}
 
 //cargar combo de lineas estrategicas
 function ClineEstrategic() {
+
     $.ajax({
         url: "AjaxAddIdea.aspx",
         type: "GET",
@@ -106,22 +117,25 @@ function Cprogram() {
 
     $("#ddlStrategicLines").change(function() {
 
+        
         $.ajax({
             url: "AjaxAddIdea.aspx",
             type: "GET",
             data: { "action": "C_program", "idlinestrategic": $(this).val() },
             success: function(result) {
 
+               
                 var textoLista = $("#componentesseleccionados").html();
 
                 if (textoLista == "") {
                     if (contar_program == 0) {
                         arraycompo[0] = $("#ddlStrategicLines").val();
                     }
-                    
+
                     $("#ddlPrograms").html(result);
                     $("#ddlPrograms").trigger("liszt:updated");
 
+                   
 
                 }
                 else {
@@ -154,6 +168,7 @@ function Cprogram() {
 
                         contar_program = 0;
                         arraycompo = [];
+
                     }
 
 
@@ -271,6 +286,7 @@ function Cprogram() {
 //cargar double lisbox componentes de programa
 function cargarcomponente() {
 
+
     $("#ddlPrograms").change(function() {
         $.ajax({
             url: "AjaxAddIdea.aspx",
@@ -319,6 +335,7 @@ function cargarcomponente() {
 //cargar double lisbox componentes de programa de la idea seleccionada
 function edit_component() {
 
+   
     $.ajax({
         url: "AjaxAddIdea.aspx",
         type: "GET",

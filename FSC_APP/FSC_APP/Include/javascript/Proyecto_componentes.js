@@ -62,12 +62,13 @@ function view_Cprogram() {
             alert("No se pueden cargar la linea estrategica deseada.");
         }
     });
-   
+
 }
 
 
 //cargar combo de lineas estrategicas
 function ClineEstrategic() {
+
     $.ajax({
         url: "AjaxAddProject.aspx",
         type: "GET",
@@ -96,11 +97,11 @@ function Cprogram() {
                 var textoLista = $("#componentesseleccionados").html();
 
                 if (textoLista == "") {
-                  
+
                     if (contar_program == 0) {
                         arraycompo[0] = $("#ddlStrategicLines").val();
                     }
-                  
+
                     $("#ddlPrograms").html(result);
                     $("#ddlPrograms").trigger("liszt:updated");
                 }
@@ -116,15 +117,15 @@ function Cprogram() {
 
                         $("#componentesseleccionados").html("");
                         $("#seleccionarcomponente").html("");
-                        
+
                         arraycomponente = [];
-                        
+
                         $("#ddlPrograms").html(result);
                         $("#ddlPrograms").trigger("liszt:updated");
 
                     }
                     else {
-                    
+
                         $("#ddlStrategicLines").val(arraycompo[0]);
                         $("#ddlStrategicLines").trigger("liszt:updated");
 

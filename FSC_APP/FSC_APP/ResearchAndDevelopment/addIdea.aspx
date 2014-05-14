@@ -385,6 +385,13 @@
             </ul>
         </div>
         <div id="componentes">
+            <div id="container_wait" runat="server" visible="true" style="width: 90%;
+                text-align: center; border: 2px solid #cecece; background: #E8E8DC; height: 80px;
+                line-height: 40px; vertical-align: middle;">
+                <img style="margin-top: 10px;" src="../images/cargando.gif" width="24px" alt="images" />
+                <asp:Label ID="Label22" runat="server" Text="cargando datos espere un momento" Style="font-size: 14pt;
+                    color: #9bbb58;"></asp:Label>
+            </div>
             <ul class="left">
                 <li>
                     <asp:Label ID="Label7" runat="server" Text="Línea Estratégica "></asp:Label>
@@ -437,6 +444,7 @@
                     <asp:Label ID="Lblinformationcomponent" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
             </ul>
+            
         </div>
         <div id="ubicacion">
             <ul>

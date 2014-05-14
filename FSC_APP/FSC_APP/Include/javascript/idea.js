@@ -166,6 +166,8 @@ $(document).ready(function() {
 
 
     $('#ctl00_cphPrincipal_gif_charge_Container').css("display", "none");
+    $('#ctl00_cphPrincipal_container_wait').css("display", "none");
+
 
     //$("#tabsIdea").tabs();
 
