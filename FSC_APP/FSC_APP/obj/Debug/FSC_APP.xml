@@ -6,99 +6,7 @@ FSC_APP
 </name>
 </assembly>
 <members>
-<member name="F:FSC_APP.CPMain.lbltitulo">
-	<summary>
-Control lbltitulo.
-</summary>
-	<remarks>
-Campo generado automáticamente.
-Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-</remarks>
-</member><member name="F:FSC_APP.ajaxCPMain.form1">
-	<summary>
-control form1.
-</summary>
-	<remarks>
-Campo generado automáticamente.
-Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-</remarks>
-</member><member name="M:FSC_APP.AjaxAddProject.Charge_population(System.Int32)">
-	<summary>
- funcion que carga el combo de tipo de poblacion segun la selección del tipo de proyecto
- Autor: German Rodriguez MGgroup
- 28-01-2014
- </summary>
-	<param name="id_population"></param>
-	<returns></returns>
-	<remarks></remarks>
-</member><member name="M:FSC_APP.AjaxAddProject.Charge_project_type">
-	<summary>
- funcion que carga el combo de tipo de proyectos
- Autor: German Rodriguez MGgroup
- 28-01-2014
- </summary>
-	<returns></returns>
-	<remarks></remarks>
-</member><member name="M:FSC_APP.AjaxAddProject.Charge_typeContract">
-	<summary>
- funcion que carga el combo de tipo de contrato
- Autor: German Rodriguez MGgroup
- 09-01-2014
- </summary>
-	<returns></returns>
-	<remarks></remarks>
-</member><member name="M:FSC_APP.AjaxAddProject.Charge_actors">
-	<summary>
- funcion que carga el combo de actores
- Autor: German Rodriguez MGgroup
- 09-01-2014
- </summary>
-	<returns></returns>
-	<remarks></remarks>
-</member><member name="M:FSC_APP.AjaxAddProject.charge_component(System.String)">
-	<summary>
- funcion que carga el combo de tipo de componente de programa
- Autor: German Rodriguez MGgroup
- 12-01-2014
- </summary>
-	<param name="idprogram"></param>
-	<returns></returns>
-	<remarks></remarks>
-</member><member name="M:FSC_APP.AjaxAddProject.charge_program(System.Int32)">
-	<summary>
- funcion que carga el combo de programa precedido por la linea estrategicas seleccionada
- Autor: German Rodriguez MGgroup
- 09-01-2014
- </summary>
-	<param name="idLinestrategic"></param>
-	<returns></returns>
-	<remarks></remarks>
-</member><member name="M:FSC_APP.AjaxAddProject.Charge_Lstrategic">
-	<summary>
- funcion que carga el combo de linea estrategica
- Autor: German Rodriguez MGgroup
- 09-01-2014
- </summary>
-	<returns></returns>
-	<remarks></remarks>
-</member><member name="M:FSC_APP.AjaxAddProject.Charge_munip(System.Int32)">
-	<summary>
- funcion que carga el combo de municipios precedido por el departamento seleccionada
- Autor: German Rodriguez MGgroup
- 09-01-2014
- </summary>
-	<param name="iddepto"></param>
-	<returns></returns>
-	<remarks></remarks>
-</member><member name="M:FSC_APP.AjaxAddProject.Charge_deptos">
-	<summary>
- funcion que carga el combo de departamentos
- Autor: German Rodriguez MGgroup
- 09-01-2014
- </summary>
-	<returns></returns>
-	<remarks></remarks>
-</member><member name="M:FSC_APP.ResolvedInquestDALC.add(Gattaca.Application.Credentials.ApplicationCredentials,FSC_APP.ResolvedInquestEntity)">
+<member name="M:FSC_APP.ResolvedInquestDALC.add(Gattaca.Application.Credentials.ApplicationCredentials,FSC_APP.ResolvedInquestEntity)">
 	<summary> 
  Registar un nuevo ResolvedInquest
  </summary>
@@ -34226,6 +34134,22 @@ Para modificarlo, mueva la declaración del campo del archivo del diseñador al 
  </summary>
 	<param name="type"></param>
 	<remarks></remarks>
+</member><member name="F:FSC_APP.ajaxCPMain.form1">
+	<summary>
+control form1.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.CPMain.lbltitulo">
+	<summary>
+Control lbltitulo.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
 </member><member name="F:FSC_APP.addAccumulationIndicatorSet.TabContainer1">
 	<summary>
 Control TabContainer1.
@@ -35677,6 +35601,82 @@ Para modificarlo, mueva la declaración del campo del archivo del diseñador al 
  autor: German Rodriguez 16/10/2013 MGgroup
  </summary>
 	<param name="text"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:FSC_APP.AjaxAddProject.Charge_population(System.Int32)">
+	<summary>
+ funcion que carga el combo de tipo de poblacion segun la selección del tipo de proyecto
+ Autor: German Rodriguez MGgroup
+ 28-01-2014
+ </summary>
+	<param name="id_population"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:FSC_APP.AjaxAddProject.Charge_project_type">
+	<summary>
+ funcion que carga el combo de tipo de proyectos
+ Autor: German Rodriguez MGgroup
+ 28-01-2014
+ </summary>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:FSC_APP.AjaxAddProject.Charge_typeContract">
+	<summary>
+ funcion que carga el combo de tipo de contrato
+ Autor: German Rodriguez MGgroup
+ 09-01-2014
+ </summary>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:FSC_APP.AjaxAddProject.Charge_actors">
+	<summary>
+ funcion que carga el combo de actores
+ Autor: German Rodriguez MGgroup
+ 09-01-2014
+ </summary>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:FSC_APP.AjaxAddProject.charge_component(System.String)">
+	<summary>
+ funcion que carga el combo de tipo de componente de programa
+ Autor: German Rodriguez MGgroup
+ 12-01-2014
+ </summary>
+	<param name="idprogram"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:FSC_APP.AjaxAddProject.charge_program(System.Int32)">
+	<summary>
+ funcion que carga el combo de programa precedido por la linea estrategicas seleccionada
+ Autor: German Rodriguez MGgroup
+ 09-01-2014
+ </summary>
+	<param name="idLinestrategic"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:FSC_APP.AjaxAddProject.Charge_Lstrategic">
+	<summary>
+ funcion que carga el combo de linea estrategica
+ Autor: German Rodriguez MGgroup
+ 09-01-2014
+ </summary>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:FSC_APP.AjaxAddProject.Charge_munip(System.Int32)">
+	<summary>
+ funcion que carga el combo de municipios precedido por el departamento seleccionada
+ Autor: German Rodriguez MGgroup
+ 09-01-2014
+ </summary>
+	<param name="iddepto"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:FSC_APP.AjaxAddProject.Charge_deptos">
+	<summary>
+ funcion que carga el combo de departamentos
+ Autor: German Rodriguez MGgroup
+ 09-01-2014
+ </summary>
 	<returns></returns>
 	<remarks></remarks>
 </member><member name="F:FSC_APP.searchIndicator.rblSearch">
@@ -37260,6 +37260,14 @@ Para modificarlo, mueva la declaración del campo del archivo del diseñador al 
 </member><member name="F:FSC_APP.addContractRequest.HFPolRequired">
 	<summary>
 Control HFPolRequired.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addContractRequest.HFSupervisor">
+	<summary>
+Control HFSupervisor.
 </summary>
 	<remarks>
 Campo generado automáticamente.
