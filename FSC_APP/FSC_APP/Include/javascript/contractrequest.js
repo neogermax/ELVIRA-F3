@@ -467,11 +467,11 @@ function loadproject(proyecto) {
     $.ajax({
         url: "ajaxcontracrequest.aspx",
         type: "GET",
-        data: { "action": "getproject", "proyectid": $("#ctl00_cphPrincipal_ddlProject").val(), "columna": "duration" },
+        data: { "action": "getproject", "proyectid": $("#ctl00_cphPrincipal_ddlProject").val(), "columna": "days" },
         success: function(result) {
             //Busca registros de contratación
             if (result != "") {
-                $("#ctl00_cphPrincipal_txtContractDuration").val(result);
+                $("#ctl00_cphPrincipal_txtContractDays").val(result);
             }
         },
         error: function()
