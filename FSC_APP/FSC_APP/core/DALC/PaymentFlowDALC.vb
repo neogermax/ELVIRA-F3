@@ -180,7 +180,7 @@ Public Class PaymentFlowDALC
         Try
             ' construir la sentencia
             SQL.AppendLine(" Delete from Paymentflow ")
-            SQL.AppendLine(" where idproject = '" & idproject & "' ")
+            SQL.AppendLine(" where ididea = '" & idproject & "' ")
             'Ejecutar la Instruccion
             GattacaApplication.RunSQL(objApplicationCredentials, SQL.ToString)
 
