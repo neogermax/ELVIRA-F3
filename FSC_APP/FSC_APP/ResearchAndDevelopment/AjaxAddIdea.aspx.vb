@@ -828,7 +828,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
 
         sql.Append(" select ti.idthird, ti.name,ti.FSCorCounterpartContribution from ThirdByIdea ti ")
-        sql.Append(" where ti.generatesflow ='  s' and  ti.IdIdea = " & ididea)
+        sql.Append(" where ti.generatesflow ='s' and  ti.IdIdea = " & ididea)
 
         data_actors_flujos = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
 
