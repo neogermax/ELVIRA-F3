@@ -7175,15 +7175,76 @@ Public Class Facade
 
 #End Region
 
+#Region "SupervisorByProject"
+
+    Function addSupervisorByContractRequest(ByVal objSupervisorByContract As SupervisorByContractRequestEntity, ByVal objApplicationCredentials As Gattaca.Application.Credentials.ApplicationCredentials)
+
+        Dim SupervisorByContractDALC As New SupervisorByContractDALC
+
+        Try
+            'retornar el objeto
+            addSupervisorByContractRequest = SupervisorByContractDALC.add(objApplicationCredentials, objSupervisorByContract)
+            'finalizar la transaccion
+            CtxSetComplete()
+
+        Catch ex As Exception
+            'cancelar la transaccion
+            CtxSetAbort()
+            'publicar el error
+            GattacaApplication.Publish(ex, objApplicationCredentials.ClientName, MODULENAME, "AddSupervisorByContract")
+            ExceptionPolicy.HandleException(ex, "GattacaStandardExceptionPolicy")
+            'subir el error de nivel
+            Throw New Exception("Error al agregar un supervisor por contrato. - " & ex.Message)
+
+        Finally
+            'liberando recursos
+            SupervisorByContractDALC = Nothing
+
+        End Try
+
+    End Function
+
+    Function GetSupervisorId(ByVal name_Third As String, ByVal objApplicationCredentials As Gattaca.Application.Credentials.ApplicationCredentials)
+
+        Dim SupervisorByContractDALC As New SupervisorByContractDALC
+
+        Try
+            'retornar el objeto
+            GetSupervisorId = SupervisorByContractDALC.GetSupervisorID(name_Third, objApplicationCredentials)
+
+            'finalizar la transaccion
+            CtxSetComplete()
+
+        Catch ex As Exception
+            'cancelar la transaccion
+            CtxSetAbort()
+
+            'publicar el error
+            GattacaApplication.Publish(ex, objApplicationCredentials.ClientName, MODULENAME, "GetSupervisorId")
+            ExceptionPolicy.HandleException(ex, "GattacaStandardExceptionPolicy")
+
+            'subir el error de nivel
+            Throw New Exception("Error al consultar el id de un supervisor. - " & ex.Message)
+
+        Finally
+            'liberando recursos
+            SupervisorByContractDALC = Nothing
+
+        End Try
+
+    End Function
+
+#End Region
+
 #Region "ProgramComponentByProject"
 
-    ''' <summary>
-    ''' Obtener la lista de ProgramComponentByProject registradas en el sistema
-    ''' </summary>
-    ''' <param name="objApplicationCredentials"></param>
-    ''' <param name="order"></param>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
+        ''' <summary>
+        ''' Obtener la lista de ProgramComponentByProject registradas en el sistema
+        ''' </summary>
+        ''' <param name="objApplicationCredentials"></param>
+        ''' <param name="order"></param>
+        ''' <returns></returns>
+        ''' <remarks></remarks>
     Public Function getProgramComponentByProjectList(ByVal objApplicationCredentials As Gattaca.Application.Credentials.ApplicationCredentials, _
         Optional ByVal id As String = "", _
         Optional ByVal idproject As String = "", _

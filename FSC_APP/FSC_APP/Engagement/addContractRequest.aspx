@@ -111,6 +111,20 @@
                         <asp:Label ID="lblHelpidcontractnature" runat="server" Text=""></asp:Label>
                     </td>
                 </tr>
+                                <tr>
+                    <td style="width: 183px">
+                        <br />
+                        <asp:Label ID="lblTypeContract" runat="server" Text="Contrato externo:"></asp:Label>
+                    </td>
+                    <td style="width: 481px">
+                        <br />
+                        <asp:CheckBox ID="chkTypeContract" runat="server" />
+                    </td>
+                    <td>
+                        <asp:Label ID="Label3" runat="server" Text=""></asp:Label>
+                    </td>
+                </tr>
+                
                 <tr>
                     <td style="width: 183px">
                         <br />
@@ -505,4 +519,5 @@
         <asp:HiddenField ID="HFProject" runat="server" />
         <asp:HiddenField ID="HFActivetab" runat="server" />
         <asp:HiddenField ID="HFPolRequired" runat="server" />
+        <asp:HiddenField ID="HFSupervisor" runat="server" />
 </asp:Content>

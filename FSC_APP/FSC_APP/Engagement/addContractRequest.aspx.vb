@@ -345,7 +345,9 @@ Partial Class addContractRequest
         Dim objContractRequest As New ContractRequestEntity
         Dim objpoliza As New PolizaEntity
         Dim objpolizadetails As New PolizaDetailsEntity
+        Dim objSupervisor As New SupervisorByContractRequestEntity
         Dim requestNumber As String = ""
+        Dim arrsuperv As String()
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
 
         Me.txtEndingDate.Text = Me.HFEndDate.Value
@@ -505,6 +507,23 @@ Partial Class addContractRequest
                 facade.updatePolizaId(applicationCredentials, objpoliza.id, objContractRequest.requestnumber)
             End If
 
+            'Capturar los supervisores y guardar
+
+            If Me.HFSupervisor.Value <> "" Then
+
+                'Dividir el string
+                arrsuperv = Split(Me.HFSupervisor.Value, "/")
+
+                For Each item In arrsuperv
+                    If item <> "" Then
+                        objSupervisor.Third_Id = facade.GetSupervisorId(item, applicationCredentials)
+                        objSupervisor.ContractRequest_Id = objContractRequest.requestnumber
+
+                        'Se agrega el supervisor a la tabla
+                    End If
+                Next
+
+            End If
 
             ' crear el proceso en el BPM
             'objContractRequest.idprocessinstance = GattacaApplication.createProcessInstance(applicationCredentials, PublicFunction.getSettingValue("BPM.ProcessCase.PR06"), _
@@ -576,8 +595,10 @@ Partial Class addContractRequest
         Dim objContractRequest As New ContractRequestEntity
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
         Dim objpoliza As New PolizaEntity
+        Dim objSupervisor As New SupervisorByContractRequestEntity
         Dim objpolizadetails As New PolizaDetailsEntity
         Dim requestNumber As String = ""
+        Dim arrsuperv As String()
 
         ' cargar el registro referenciado
         objContractRequest = facade.loadContractRequest(applicationCredentials, Request.QueryString("ID"))
@@ -623,6 +644,24 @@ Partial Class addContractRequest
 
             'objContractRequest.supervisor = IIf(Me.txtSupervisor.Text <> "", Convert.ToString(Me.txtSupervisor.Text), "")
             objContractRequest.notes = Convert.ToString(Me.txtObs.Text)
+
+            'Capturar los supervisores y guardar
+
+            If Me.HFSupervisor.Value <> "" Then
+
+                'Dividir el string
+                arrsuperv = Split(Me.HFSupervisor.Value, "/")
+
+                For Each item In arrsuperv
+                    If item <> "" Then
+                        objSupervisor.Third_Id = facade.GetSupervisorId(item, applicationCredentials)
+                        objSupervisor.ContractRequest_Id = objContractRequest.requestnumber
+                        'Se agrega el supervisor a la tabla
+                        facade.addSupervisorByContractRequest(objSupervisor, applicationCredentials)
+                    End If
+                Next
+
+            End If
 
             If Me.txtExpeditionDate.Text = "" Then
             Else
