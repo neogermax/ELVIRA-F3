@@ -28,7 +28,7 @@ Partial Class ResearchAndDevelopment_ajaxaddidea_drop_list_third
                 cargardatethird(applicationCredentials)
 
             Case "loadthirdcontract"
-                loadthirdcontract(applicationCredentials, Request.QueryString("id"), Request.QueryString("type"))
+                loadthirdcontract(applicationCredentials)
 
             Case Else
         End Select
@@ -64,7 +64,7 @@ Partial Class ResearchAndDevelopment_ajaxaddidea_drop_list_third
 
     'Funcion para actualizar terceros en contratación.
     'Autor: Pedro Cruz
-    Public Function loadthirdcontract(ByVal objApplicationCredentials As Gattaca.Application.Credentials.ApplicationCredentials, ByVal idThird As Integer, ByVal natural As String) As String
+    Public Function loadthirdcontract(ByVal objApplicationCredentials As Gattaca.Application.Credentials.ApplicationCredentials) As String
 
         Dim ThirdList As New List(Of ThirdEntity)
         Dim sql As New StringBuilder
@@ -72,15 +72,15 @@ Partial Class ResearchAndDevelopment_ajaxaddidea_drop_list_third
         Dim data As DataTable
 
         'preguntar si es persona natural o juridica
-        If natural = "true" Then
-            natural = 1
-        Else
-            natural = 0
-        End If
+        'If natural = "true" Then
+        '    natural = 1
+        'Else
+        '    natural = 0
+        'End If
 
         'Definir el query
         sql.Append("select Third.id, Third.name from Third ")
-        sql.Append("where PersonaNatural = " & natural)
+        sql.Append("where PersonaNatural = 1 ")
         sql.Append(" order by Name asc")
 
         'Ejecutar el query

@@ -14,6 +14,8 @@
     guardarproyecto();
     setTimeout("tabs();", 1000);
     supervisor_array();
+    //Controles
+    $("#ctl00_cphPrincipal_linkactors").button();
     $('#T_supervisor').dataTable();
 
 })
@@ -26,8 +28,7 @@ function polizas() {
         $("#ctl00_cphPrincipal_lblConfirmation").text("Revise la información ingresada, una vez presione el botón confirmar, esta NO podrá ser modificada.");
     });
 
-    //Funcion que chequea el control "Requiere poliza" al cargar la pagina
-
+    //Chequea el control "Requiere poliza" al cargar la pagina
     if ($("#ctl00_cphPrincipal_HFPolRequired").val() == 1) {
         $("#ctl00_cphPrincipal_TabContainer1_TabPanel7_PolizaRequired").prop('checked', true);
     }
@@ -217,13 +218,13 @@ function foto() {
             $.ajax({
                 url: "/ResearchAndDevelopment/ajaxaddidea_drop_list_third.aspx",
                 type: "GET",
-                data: { "action": "loadthirdcontract", "id": $("#ctl00_cphPrincipal_TabContainer1_TabPanel2_ddlActor").val(), "type": $("#ctl00_cphPrincipal_TabContainer1_TabPanel2_tipopersona_0").is(":checked") },
+                data: { "action": "loadthirdcontract" },
                 success: function(result) {
-                    $("#ctl00_cphPrincipal_TabContainer1_TabPanel2_ddlActor").html(result);
-                    $("#ctl00_cphPrincipal_TabContainer1_TabPanel2_ddlActor").trigger("liszt:updated");
+                    $("#ctl00_cphPrincipal_ddlSupervisor").html(result);
+                    $("#ctl00_cphPrincipal_ddlSupervisor").trigger("liszt:updated");
                 },
                 error: function()
-                { alert("Los datos de terceros no pudieron ser cargados."); }
+                { alert("Los datos de los supervisores no pudieron ser cargados."); }
             });
         }, /* Called when prettyPhoto is closed */
         ie6_fallback: true,
@@ -549,7 +550,7 @@ function validacontrato() {
 
         if ($("#ctl00_cphPrincipal_chkTypeContract").is(":checked")) {
             //Contrato externo
-
+            $("#ctl00_cphPrincipal_lblHelpcontractnumberadjusted").text("");
         } else {
             //Contrato interno
             //Validar si es numerico

@@ -111,7 +111,7 @@
                         <asp:Label ID="lblHelpidcontractnature" runat="server" Text=""></asp:Label>
                     </td>
                 </tr>
-                                <tr>
+                <tr>
                     <td style="width: 183px">
                         <br />
                         <asp:Label ID="lblTypeContract" runat="server" Text="Contrato externo:"></asp:Label>
@@ -124,7 +124,6 @@
                         <asp:Label ID="Label3" runat="server" Text=""></asp:Label>
                     </td>
                 </tr>
-                
                 <tr>
                     <td style="width: 183px">
                         <br />
@@ -296,8 +295,12 @@
                         <br />
                         <asp:DropDownList ID="ddlSupervisor" runat="server" CssClass="Ccombo">
                         </asp:DropDownList>
-                        <input id="btnAddSupervisor" type="button" class="ui-button ui-widget ui-state-default ui-corner-all"
-                            value="Agregar" onclick="btnaddsupervisor_onclick()" />
+                        <div>
+                            <input id="btnAddSupervisor" type="button" class="ui-button ui-widget ui-state-default ui-corner-all"
+                                value="Agregar" onclick="btnaddsupervisor_onclick()" />
+                            <a id="linkactors" runat="server" href="~/GeneralPlanning/addThird.aspx?prety=1&op=add&iframe=true&width=100%&height=100%"
+                                title="Nuevo actor" style="height: 2em;" class="pretty">Crear supervisor</a>
+                        </div>
                         <asp:Label ID="lblAddSupervisor" runat="server"></asp:Label>
                     </td>
                 </tr>
