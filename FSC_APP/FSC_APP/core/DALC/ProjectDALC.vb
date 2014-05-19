@@ -1026,7 +1026,7 @@ Public Class ProjectDALC
             ExceptionPolicy.HandleException(ex, "GattacaStandardExceptionPolicy")
 
             ' subir el error de nivel
-            Throw New Exception("Error al cargar la lista de Project. ")
+            Throw New Exception("Error al cargar la lista de Project. - " & ex.Message)
 
         Finally
             ' liberando recursos
@@ -1141,7 +1141,7 @@ Public Class ProjectDALC
             ExceptionPolicy.HandleException(ex, "GattacaStandardExceptionPolicy")
 
             ' subir el error de nivel
-            Throw New Exception("Error al cargar la lista de Project. ")
+            Throw New Exception("Error al cargar la lista de Project. - " & ex.Message)
 
         Finally
             ' liberando recursos
@@ -1260,7 +1260,7 @@ Public Class ProjectDALC
             ExceptionPolicy.HandleException(ex, "GattacaStandardExceptionPolicy")
 
             ' subir el error de nivel
-            Throw New Exception("Error al cargar la lista de Project.")
+            Throw New Exception("Error al cargar la lista de Project." & ex.Message)
 
         Finally
             ' liberando recursos
@@ -1373,7 +1373,7 @@ Public Class ProjectDALC
             ExceptionPolicy.HandleException(ex, "GattacaStandardExceptionPolicy")
 
             ' subir el error de nivel
-            Throw New Exception("Error al cargar la lista de Project.")
+            Throw New Exception("Error al cargar la lista de Project." & ex.Message)
 
         Finally
             ' liberando recursos
@@ -1469,7 +1469,7 @@ Public Class ProjectDALC
             ExceptionPolicy.HandleException(ex, "GattacaStandardExceptionPolicy")
 
             ' subir el error de nivel
-            Throw New Exception("Error al cargar la lista de Project.")
+            Throw New Exception("Error al cargar la lista de Project." & ex.Message)
 
         Finally
             ' liberando recursos
