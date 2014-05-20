@@ -170,6 +170,7 @@ Partial Class addContractRequest
                         Me.ddlContractNature.SelectedValue = objContractRequest.idcontractnature
                         Me.txtcontractnumberadjusted.Text = objContractRequest.contractnumberadjusted
                         Me.ddlEnabled.SelectedValue = objContractRequest.enabled
+                        Me.chkTypeContract.Checked = objContractRequest.ExternalContract
 
                         'Obtener el grupo del usuario para validar
                         Dim grupouser As String
@@ -381,6 +382,20 @@ Partial Class addContractRequest
 
         End If
 
+        'Verificar el formato de tipo de contrato
+        If Me.chkTypeContract.Checked = False Then
+
+            If Not IsNumeric(Me.txtcontractnumberadjusted.Text) Then
+                Me.lblHelpcontractnumberadjusted.Text = "El número de contrato no debe contener letras."
+                Me.lblHelpcontractnumberadjusted.ForeColor = Drawing.Color.Red
+                Me.txtcontractnumberadjusted.Text = ""
+                SetFocus(txtcontractnumberadjusted)
+            Else
+                Me.lblHelpcontractnumberadjusted.Text = ""
+            End If
+
+        End If
+
         'If Me.ddlConfidential.SelectedItem.Text = "Seleccione..." Then
         '    Me.lblNfoConfidential.Text = "*"
         '    Me.lblNfoConfidential.ForeColor = Drawing.Color.Red
@@ -422,6 +437,7 @@ Partial Class addContractRequest
             End If
 
             'objContractRequest.supervisor = IIf(Me.txtSupervisor.Text <> "", Convert.ToString(Me.txtSupervisor.Text), "")
+            objContractRequest.ExternalContract = chkTypeContract.Checked
             objContractRequest.confidential = IIf(Me.ddlConfidential.SelectedValue.Length > 0, Me.ddlConfidential.SelectedValue, -1)
             objContractRequest.signedcontract = Me.chkSignedContract.Checked
             objContractRequest.notes = Convert.ToString(Me.txtObs.Text)
@@ -642,8 +658,23 @@ Partial Class addContractRequest
                 objContractRequest.monthduration = Convert.ToDecimal(Me.txtContractDuration.Text)
             End If
 
+            'Verificar el formato de tipo de contrato
+            If Me.chkSignedContract.Checked = False Then
+
+                If Not IsNumeric(Me.txtcontractnumberadjusted.Text) Then
+                    Me.lblHelpcontractnumberadjusted.Text = "El número de contrato no debe contener letras."
+                    Me.lblHelpcontractnumberadjusted.ForeColor = Drawing.Color.Red
+                    Me.txtcontractnumberadjusted.Text = ""
+                    SetFocus(txtcontractnumberadjusted)
+                Else
+                    Me.lblHelpcontractnumberadjusted.Text = ""
+                End If
+
+            End If
+
             'objContractRequest.supervisor = IIf(Me.txtSupervisor.Text <> "", Convert.ToString(Me.txtSupervisor.Text), "")
             objContractRequest.notes = Convert.ToString(Me.txtObs.Text)
+            objContractRequest.ExternalContract = Me.chkTypeContract.Checked
 
             'Capturar los supervisores y guardar
 

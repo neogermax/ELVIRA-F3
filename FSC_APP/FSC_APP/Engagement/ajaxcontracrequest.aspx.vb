@@ -275,10 +275,10 @@ Partial Class Engagement_ajaxcontracrequest
         Dim DATA As DataTable
         Dim limite As Integer = 1
 
-        'consulta de los datos de actores por id
-        sql.Append("SELECT s.Third_Id FROM SupervisorbyContractReq s ")
-        sql.Append("inner join Third t on s.Third_Id = t.Id ")
-        sql.Append("where(contractrequest_id = " & contrato & ")")
+        'consulta de los datos de actores por id de contratación
+        sql.Append("select Name from third ")
+        sql.Append("inner join supervisorbycontractreq on SupervisorbyContractReq.Third_Id = Third.Id ")
+        sql.Append("where(SupervisorbyContractReq.ContractRequest_Id = " & contrato & ")")
 
         DATA = GattacaApplication.RunSQLRDT(objApplicationCredentials, sql.ToString)
 

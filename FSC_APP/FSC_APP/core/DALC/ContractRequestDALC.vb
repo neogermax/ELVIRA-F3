@@ -497,7 +497,7 @@ Public Class ContractRequestDALC
             sql.AppendLine(" createdate = '" & ContractRequest.createdate.ToString("yyyyMMdd HH:mm:ss") & "',")
             'campos nuevos
             'If (ContractRequest.suscriptdate <> "12:00:00 a.m.") Then sql.AppendLine(" suscriptdate = convert(datetime, " & ContractRequest.suscriptdate & ",103),")
-            sql.AppendLine(" externalcontract = '" & IIf(ContractRequest.ExternalContract >= 0, ContractRequest.idproject, "NULL") & "',")
+            sql.AppendLine(" externalcontract = '" & ContractRequest.ExternalContract & "',")
             sql.AppendLine(" monthduration = '" & ContractRequest.monthduration & "',")
             sql.AppendLine(" notes = '" & ContractRequest.notes & "',")
             sql.AppendLine(" supervisor = '" & ContractRequest.supervisor & "',")
