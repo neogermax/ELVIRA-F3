@@ -113,4 +113,49 @@ Public Class SupervisorByContractDALC
 
     End Function
 
+    Public Function GetSupervisorID(ByVal Supervisor As String, ByVal objApplicationCredentials As Gattaca.Application.Credentials.ApplicationCredentials)
+        Dim sql As New StringBuilder
+        Dim objSupervisorByContract As New SupervisorByContractRequestEntity
+        Dim data As DataTable
+        Dim dbSecurityName As String = GattacaApplication.GetDBName(objApplicationCredentials, "VBSecurity")
+        Dim dbBPMName As String = GattacaApplication.GetDBName(objApplicationCredentials, "VBWorkFlow")
+        Dim resultado As Integer
+
+        Try
+            'construir la sentencia
+            sql.Append("select id from Third ")
+            sql.Append("where third.name = '" & Supervisor & "'")
+
+            data = GattacaApplication.RunSQLRDT(objApplicationCredentials, sql.ToString)
+
+            If data.Rows.Count > 0 Then
+                'cargar los datos
+                'objSupervisorByContract.Third_Id = data.Rows(0)("id")
+                resultado = data.Rows(0)("id")
+            End If
+
+            'retornar el objeto
+            Return resultado
+
+            'completar la operacion
+            CtxSetComplete()
+
+        Catch ex As Exception
+            'cancelar la transaccion
+            CtxSetAbort()
+            'publicar el error
+            GattacaApplication.Publish(ex, objApplicationCredentials.ClientName, MODULENAME, "GetSupervidorID")
+            'subir el error de nivel
+            Throw New Exception("Error al consultar un Supervisor. - " & ex.Message)
+
+        Finally
+
+            sql = Nothing
+            data = Nothing
+            objSupervisorByContract = Nothing
+
+        End Try
+
+    End Function
+
 End Class

@@ -169,6 +169,33 @@ Partial Public Class addContractRequest
     Protected WithEvents lblHelpidcontractnature As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
+    '''Control lblTypeContract.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents lblTypeContract As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''Control chkTypeContract.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents chkTypeContract As Global.System.Web.UI.WebControls.CheckBox
+
+    '''<summary>
+    '''Control Label3.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Label3 As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
     '''Control lblcontractnumberadjusted.
     '''</summary>
     '''<remarks>
@@ -1022,4 +1049,13 @@ Partial Public Class addContractRequest
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
     Protected WithEvents HFPolRequired As Global.System.Web.UI.WebControls.HiddenField
+
+    '''<summary>
+    '''Control HFSupervisor.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents HFSupervisor As Global.System.Web.UI.WebControls.HiddenField
 End Class

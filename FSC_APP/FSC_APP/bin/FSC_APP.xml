@@ -34411,6 +34411,30 @@ Control lblHelpidcontractnature.
 Campo generado automáticamente.
 Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 </remarks>
+</member><member name="F:FSC_APP.addContractRequest.lblTypeContract">
+	<summary>
+Control lblTypeContract.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addContractRequest.chkTypeContract">
+	<summary>
+Control chkTypeContract.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addContractRequest.Label3">
+	<summary>
+Control Label3.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
 </member><member name="F:FSC_APP.addContractRequest.lblcontractnumberadjusted">
 	<summary>
 Control lblcontractnumberadjusted.
@@ -35166,6 +35190,14 @@ Para modificarlo, mueva la declaración del campo del archivo del diseñador al 
 </member><member name="F:FSC_APP.addContractRequest.HFPolRequired">
 	<summary>
 Control HFPolRequired.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addContractRequest.HFSupervisor">
+	<summary>
+Control HFSupervisor.
 </summary>
 	<remarks>
 Campo generado automáticamente.

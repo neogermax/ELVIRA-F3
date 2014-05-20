@@ -56,6 +56,7 @@ table.dataTable tr.even td.sorting_3 { background-color: #F9F9FF; }
  * Page length menu
  */
 .dataTables_length {
+	display:none;
 	float: left;
 }
 
@@ -64,6 +65,7 @@ table.dataTable tr.even td.sorting_3 { background-color: #F9F9FF; }
  * Filter
  */
 .dataTables_filter {
+	display:none;
 	float: right;
 	text-align: right;
 }
@@ -73,6 +75,7 @@ table.dataTable tr.even td.sorting_3 { background-color: #F9F9FF; }
  * Table information
  */
 .dataTables_info {
+	display:none;
 	clear: both;
 	float: left;
 }
