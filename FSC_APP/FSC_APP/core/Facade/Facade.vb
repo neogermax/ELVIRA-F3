@@ -5440,6 +5440,7 @@ Public Class Facade
         Dim objProgramComponentByProjectDALC As New ProgramComponentByProjectDALC
         Dim objPaymentFlowDALC As New PaymentFlowDALC()
         Dim objExplanatoryDALC As New ExplanatoryDALC()
+        Dim objdetallesflujoDALC As New DetailedcashflowsDALC()
 
         Try
 
@@ -5470,10 +5471,10 @@ Public Class Facade
             End If
 
             'Guardar la lista de fuentes del proyecto projectLocation
-            For Each objSourceByProject As SourceByProjectEntity In Project.sourceByProjectList
-                objSourceByProject.idproject = addProject
-                objSourceByProjectDALC.add(objApplicationCredentials, objSourceByProject)
-            Next
+            'For Each objSourceByProject As SourceByProjectEntity In Project.sourceByProjectList
+            '    objSourceByProject.idproject = addProject
+            '    objSourceByProjectDALC.add(objApplicationCredentials, objSourceByProject)
+            'Next
 
             'Guardar la lista de Ubicaciones del proyecto projectLocation
             For Each objProjectLocation As ProjectLocationEntity In Project.projectlocationlist
@@ -5487,7 +5488,6 @@ Public Class Facade
                 objThirdByProjectDALC.add(objApplicationCredentials, objThirdByProject)
             Next
 
-            
 
             'Guardar la lista de Componentes del Programa del proyecto ProgramComponentByProject
             For Each objProgramComponentByProject As ProgramComponentByProjectEntity In Project.ProgramComponentbyprojectlist
@@ -5495,12 +5495,15 @@ Public Class Facade
                 objProgramComponentByProjectDALC.add(objApplicationCredentials, objProgramComponentByProject)
             Next
 
-
-
             'Guardar la lista de flujos de pago del proyecto
             For Each objPaymentFlow As PaymentFlowEntity In Project.paymentflowByProjectList
                 objPaymentFlow.idproject = addProject
                 objPaymentFlowDALC.add(objApplicationCredentials, objPaymentFlow)
+            Next
+
+            For Each objdeteallesflujos As DetailedcashflowsEntity In Project.DetailedcashflowsbyProjectList
+                objdeteallesflujos.IdProject = addProject
+                objdetallesflujoDALC.add(objApplicationCredentials, objdeteallesflujos)
             Next
 
             'Guardar la lista de aclaratorios del proyecto   
@@ -5604,6 +5607,8 @@ Public Class Facade
         ByVal sRutaOldFile As String, _
         Optional ByVal idPhase As Integer = 0) As Long
 
+        Dim type_modulo As String = "Proyecto"
+
         ' definir los objetos
         Dim ProjectDALC As New ProjectDALC
         Dim objSourceByProjectDALC As New SourceByProjectDALC
@@ -5685,7 +5690,7 @@ Public Class Facade
             Next
 
             
-            objPaymentFlowDALC.delete(objApplicationCredentials, Project.id)
+            objPaymentFlowDALC.delete(objApplicationCredentials, Project.id, type_modulo)
             'Guardar la lista de flujos de pago del proyecto
             For Each objPaymentFlow As PaymentFlowEntity In Project.paymentflowByProjectList
                 objPaymentFlow.idproject = Project.id
@@ -5812,6 +5817,8 @@ Public Class Facade
        ByVal idProject As Integer, _
         ByVal idKey As Integer)
 
+        Dim type_modulo As String = "Proyecto"
+
         ' definir los objetos
         Dim ProjectDALC As New ProjectDALC
         Dim objSourceByProjectDALC As New SourceByProjectDALC
@@ -5828,7 +5835,7 @@ Public Class Facade
 
             'TODO: 60 borrarla lista de pagos anclados al proyecto
             'AUTOR: German Rodriguez MGgroup 29-10-2013
-            objpaimentflowDALC.delete(objApplicationCredentials, idProject)
+            objpaimentflowDALC.delete(objApplicationCredentials, idProject, type_modulo)
             'borrarla lista de aclaratorias anclados al proyecto
             objexplanatoryDALC.delete(objApplicationCredentials, idProject)
             'TODO: 60 borrarla lista de pagos anclados al proyecto
@@ -10687,9 +10694,11 @@ Public Class Facade
         ' definir los objetos
         Dim IdeaDALC As New IdeaDALC
         Dim idthird As Integer
+        Dim type_modulo As String = "Idea"
 
         Dim objPaymentFlowDALC As New PaymentFlowDALC()
         Dim objdetallesflujoDALC As New DetailedcashflowsDALC()
+
 
         Try
 
@@ -10768,7 +10777,7 @@ Public Class Facade
 
 
             'Se elimina la informacion existente de los flujos de pago para la idea actual
-            objPaymentFlowDALC.delete(objApplicationCredentials, Idea.id)
+            objPaymentFlowDALC.delete(objApplicationCredentials, Idea.id, type_modulo)
             'Guardar la lista de flujos de pago de la idea
             For Each objPaymentFlow As PaymentFlowEntity In Idea.paymentflowByProjectList
                 objPaymentFlow.ididea = Idea.id

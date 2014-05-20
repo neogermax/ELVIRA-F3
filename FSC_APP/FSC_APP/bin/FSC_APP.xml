@@ -3303,17 +3303,17 @@ Control lblzonedescription.
 Campo generado automáticamente.
 Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 </remarks>
-</member><member name="F:FSC_APP.addProject.txtzonedescription">
+</member><member name="F:FSC_APP.addProject.txtareadescription">
 	<summary>
-Control txtzonedescription.
+Control txtareadescription.
 </summary>
 	<remarks>
 Campo generado automáticamente.
 Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 </remarks>
-</member><member name="F:FSC_APP.addProject.lblHelpzonedescription">
+</member><member name="F:FSC_APP.addProject.lblHelpareadescription">
 	<summary>
-Control lblHelpzonedescription.
+Control lblHelpareadescription.
 </summary>
 	<remarks>
 Campo generado automáticamente.
@@ -3343,49 +3343,49 @@ Control lblHelpresults.
 Campo generado automáticamente.
 Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 </remarks>
-</member><member name="F:FSC_APP.addProject.Label6">
+</member><member name="F:FSC_APP.addProject.Lblresulgc">
 	<summary>
-Control Label6.
+Control Lblresulgc.
 </summary>
 	<remarks>
 Campo generado automáticamente.
 Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 </remarks>
-</member><member name="F:FSC_APP.addProject.TextResultGestConocimiento">
+</member><member name="F:FSC_APP.addProject.txtresulgc">
 	<summary>
-Control TextResultGestConocimiento.
+Control txtresulgc.
 </summary>
 	<remarks>
 Campo generado automáticamente.
 Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 </remarks>
-</member><member name="F:FSC_APP.addProject.Label7">
+</member><member name="F:FSC_APP.addProject.Label10">
 	<summary>
-Control Label7.
+Control Label10.
 </summary>
 	<remarks>
 Campo generado automáticamente.
 Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 </remarks>
-</member><member name="F:FSC_APP.addProject.Label8">
+</member><member name="F:FSC_APP.addProject.Lblresultci">
 	<summary>
-Control Label8.
+Control Lblresultci.
 </summary>
 	<remarks>
 Campo generado automáticamente.
 Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 </remarks>
-</member><member name="F:FSC_APP.addProject.TextResCapacidInstal">
+</member><member name="F:FSC_APP.addProject.txtresulci">
 	<summary>
-Control TextResCapacidInstal.
+Control txtresulci.
 </summary>
 	<remarks>
 Campo generado automáticamente.
 Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 </remarks>
-</member><member name="F:FSC_APP.addProject.Label9">
+</member><member name="F:FSC_APP.addProject.Label11">
 	<summary>
-Control Label9.
+Control Label11.
 </summary>
 	<remarks>
 Campo generado automáticamente.
@@ -3407,9 +3407,9 @@ Control Txtothersresults.
 Campo generado automáticamente.
 Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 </remarks>
-</member><member name="F:FSC_APP.addProject.Label30">
+</member><member name="F:FSC_APP.addProject.Label23">
 	<summary>
-Control Label30.
+Control Label23.
 </summary>
 	<remarks>
 Campo generado automáticamente.
@@ -3530,6 +3530,14 @@ Para modificarlo, mueva la declaración del campo del archivo del diseñador al 
 </member><member name="F:FSC_APP.addProject.cestartdate">
 	<summary>
 Control cestartdate.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addProject.lblHelpstartdate">
+	<summary>
+Control lblHelpstartdate.
 </summary>
 	<remarks>
 Campo generado automáticamente.
@@ -4383,9 +4391,9 @@ Control linkactors.
 Campo generado automáticamente.
 Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 </remarks>
-</member><member name="F:FSC_APP.addProject.Label23">
+</member><member name="F:FSC_APP.addProject.Label53">
 	<summary>
-Control Label23.
+Control Label53.
 </summary>
 	<remarks>
 Campo generado automáticamente.
@@ -37913,6 +37921,22 @@ Control lblDelete.
 Campo generado automáticamente.
 Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 </remarks>
+</member><member name="F:FSC_APP.addIdea.container_wait">
+	<summary>
+Control container_wait.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
+</member><member name="F:FSC_APP.addIdea.Label22">
+	<summary>
+Control Label22.
+</summary>
+	<remarks>
+Campo generado automáticamente.
+Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+</remarks>
 </member><member name="F:FSC_APP.addIdea.Label7">
 	<summary>
 Control Label7.
@@ -37996,22 +38020,6 @@ Para modificarlo, mueva la declaración del campo del archivo del diseñador al 
 </member><member name="F:FSC_APP.addIdea.Lblinformationcomponent">
 	<summary>
 Control Lblinformationcomponent.
-</summary>
-	<remarks>
-Campo generado automáticamente.
-Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-</remarks>
-</member><member name="F:FSC_APP.addIdea.container_wait">
-	<summary>
-Control container_wait.
-</summary>
-	<remarks>
-Campo generado automáticamente.
-Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-</remarks>
-</member><member name="F:FSC_APP.addIdea.Label22">
-	<summary>
-Control Label22.
 </summary>
 	<remarks>
 Campo generado automáticamente.

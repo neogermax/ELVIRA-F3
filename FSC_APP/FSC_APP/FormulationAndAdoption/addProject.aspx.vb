@@ -116,7 +116,7 @@ Partial Class addProject
                 Case "add"
                     'Me.txtvalortotalflow.Enabled = True
                     ' cargar el titulo
-                    Session("lblTitle") = "AGREGAR UN NUEVO PROYECTO."
+                    Session("lblTitle") = "AGREGAR UN NUEVO PROYECTO DERIVADO."
 
                     ddltipoaprobacion.Items.Add(New ListItem("No aprobado", "4"))
                     ' ocultar algunos botones
@@ -215,10 +215,10 @@ Partial Class addProject
                     Me.txtname.ReadOnly = True
                     Me.txtobjective.ReadOnly = True
                     Me.txtjustification.ReadOnly = True
-                    Me.txtzonedescription.ReadOnly = True
-                    Me.TextResultGestConocimiento.ReadOnly = True
+                    '    Me.txtzonedescription.ReadOnly = True
+                    '   Me.TextResultGestConocimiento.ReadOnly = True
                     Me.txtresults.ReadOnly = True
-                    Me.TextResCapacidInstal.ReadOnly = True
+                    '  Me.TextResCapacidInstal.ReadOnly = True
                     Me.lblenabled.Visible = False
                     Me.txtduration.ReadOnly = True
                     Me.txtcode.ReadOnly = True
@@ -320,8 +320,8 @@ Partial Class addProject
                         Me.txtobjective.Text = objProject.objective
                         Me.txtantecedent.Text = objProject.antecedent
                         Me.txtjustification.Text = objProject.justification
-                        Me.TextResultGestConocimiento.Text = objProject.ResultsKnowledgeManagement
-                        Me.TextResCapacidInstal.Text = objProject.ResultsInstalledCapacity
+                        Me.txtresulgc.Text = objProject.ResultsKnowledgeManagement
+                        Me.txtresulci.Text = objProject.ResultsInstalledCapacity
                         If objProject.begindate <> defaultDate Then
                             'Me.txtstartdate.Text = objProject.begindate.ToString("yyyy/MM/dd")
                         Else
@@ -329,7 +329,7 @@ Partial Class addProject
                         End If
                         Me.txtcounterpartvalue.Text = "0"
                         Me.txtduration.Text = objProject.duration
-                        Me.txtzonedescription.Text = objProject.zonedescription
+                        Me.txtareadescription.Text = objProject.zonedescription
                         ' Me.ddlpopulation.SelectedValue = objProject.population
                         Me.txtstrategicdescription.Text = objProject.strategicdescription
                         Me.txtresults.Text = objProject.results
@@ -399,11 +399,11 @@ Partial Class addProject
                                 Me.txtobjective.ReadOnly = False
                                 Me.txtobjective.Enabled = True
                                 Me.txtjustification.ReadOnly = False
-                                Me.txtzonedescription.Enabled = True
-                                Me.txtzonedescription.ReadOnly = False
+                                Me.txtareadescription.Enabled = True
+                                Me.txtareadescription.ReadOnly = False
 
-                                Me.TextResultGestConocimiento.ReadOnly = False
-                                Me.TextResCapacidInstal.ReadOnly = False
+                                'Me.TextResultGestConocimiento.ReadOnly = False
+                                'Me.TextResCapacidInstal.ReadOnly = False
                             Else
                                 Me.checkalcance.Checked = False
                             End If
@@ -424,9 +424,9 @@ Partial Class addProject
                             Me.txtresults.ReadOnly = True
                             Me.txtobjective.ReadOnly = True
                             Me.txtjustification.ReadOnly = True
-                            Me.txtzonedescription.ReadOnly = True
-                            Me.TextResultGestConocimiento.ReadOnly = True
-                            Me.TextResCapacidInstal.ReadOnly = True
+                            ' Me.txtzonedescription.ReadOnly = True
+                            'Me.TextResultGestConocimiento.ReadOnly = True
+                            'Me.TextResCapacidInstal.ReadOnly = True
                             Me.txtduration.ReadOnly = True
                             'Me.txtstartdate.ReadOnly = True
                             'Me.txtstartdate.Enabled = False
@@ -481,9 +481,9 @@ Partial Class addProject
                             Me.txtresults.ReadOnly = False
                             Me.txtobjective.ReadOnly = False
                             Me.txtjustification.ReadOnly = False
-                            Me.txtzonedescription.ReadOnly = False
-                            Me.TextResultGestConocimiento.ReadOnly = False
-                            Me.TextResCapacidInstal.ReadOnly = False
+                            'Me.txtzonedescription.ReadOnly = False
+                            'Me.TextResultGestConocimiento.ReadOnly = False
+                            'Me.TextResCapacidInstal.ReadOnly = False
                             Me.txtduration.ReadOnly = False
                             ''Me.txtstartdate.ReadOnly = True
 
@@ -497,9 +497,9 @@ Partial Class addProject
                             Me.txtresults.ReadOnly = True
                             Me.txtobjective.ReadOnly = True
                             Me.txtjustification.ReadOnly = True
-                            Me.txtzonedescription.ReadOnly = True
-                            Me.TextResultGestConocimiento.ReadOnly = True
-                            Me.TextResCapacidInstal.ReadOnly = True
+                            'Me.txtzonedescription.ReadOnly = True
+                            'Me.TextResultGestConocimiento.ReadOnly = True
+                            'Me.TextResCapacidInstal.ReadOnly = True
                             Me.txtduration.ReadOnly = True
                             'Me.txtstartdate.Enabled = False
                             duration = Convert.ToDouble(Me.txtduration.Text.Replace(".", ","))
@@ -549,10 +549,10 @@ Partial Class addProject
                             End If
                             Me.txtjustification.ReadOnly = True
                             Me.txtobjective.ReadOnly = True
-                            Me.txtzonedescription.ReadOnly = True
+                            'Me.txtzonedescription.ReadOnly = True
                             Me.txtresults.ReadOnly = True
-                            Me.TextResultGestConocimiento.ReadOnly = True
-                            Me.TextResCapacidInstal.ReadOnly = True
+                            'Me.TextResultGestConocimiento.ReadOnly = True
+                            'Me.TextResCapacidInstal.ReadOnly = True
                             'Me.txtstartdate.Enabled = False
                             Me.txtduration.ReadOnly = True
                             'Me.ddlpopulation.Enabled = False
@@ -741,7 +741,7 @@ Partial Class addProject
                         If op.Equals("show") Then
 
                             ' cargar el titulo
-                            Session("lblTitle") = "MOSTRAR INFORMACION DEL PROYECTO."
+                            Session("lblTitle") = "MOSTRAR INFORMACION DEL PROYECTO DERIVADO."
 
                             ' ocultar los botones para realizar modificaciones
                             Me.btnSave.Visible = False
@@ -750,7 +750,7 @@ Partial Class addProject
 
                         Else
                             ' cargar el titulo
-                            Session("lblTitle") = "MODIFICAR PROYECTO."
+                            Session("lblTitle") = "MODIFICAR PROYECTO DERIVADO."
 
                             'Rutina agregada por Jose Olmes Torres - Julio 22 de 2010
                             'Se verifica si el identificador de la fase del proyecto es la fase de cerrado
@@ -764,7 +764,7 @@ Partial Class addProject
 
                         'Verificar titulo aprobacion
                         If (Request.QueryString("apr") <> Nothing) Then
-                            Session("lblTitle") = "APROBAR PROYECTO."
+                            Session("lblTitle") = "APROBAR PROYECTO DERIVADO."
                         End If
 
                     Catch ex As Exception
@@ -829,37 +829,37 @@ Partial Class addProject
             'If lblmensajeexitoerror.Text = "100" And Me.txtname.Text.Trim().Length > 0 Then
             '    ' cargar los valores registrados por el usuario
 
-            '    If validarcamposnum() = 1 Then
-            '        Exit Sub
-            '    Else
-            '        Me.lblHelpfsccontribution.Text = ""
-            '        Me.lblHelpcounterpartvalue.Text = ""
-            '    End If
+            If validarcamposnum() = 1 Then
+                Exit Sub
+            Else
+                '    Me.lblHelpfsccontribution.Text = ""
+                '   Me.lblHelpcounterpartvalue.Text = ""
+            End If
 
-            '    objProject.ididea = Me.ddlididea.SelectedValue
-            '    objProject.code = Me.txtcode.Text
-            '    objProject.name = Me.txtname.Text
-            '    objProject.objective = Me.txtobjective.Text
-            '    objProject.enabled = 1
-            '    'objProject.antecedent = Me.txtantecedent.Text
-            '    objProject.justification = Me.txtjustification.Text
-            '    objProject.zonedescription = Me.txtzonedescription.Text
-            '    objProject.results = Me.txtresults.Text
-            '    objProject.ResultsKnowledgeManagement = Me.TextResultGestConocimiento.Text
-            '    objProject.ResultsInstalledCapacity = Me.TextResCapacidInstal.Text
-            '    'objProject.begindate = IIf(('Me.txtstartdate.Text = ""), Nothing, 'Me.txtstartdate.Text)
-            '    objProject.duration = Me.txtduration.Text
-            '    'objProject.population = Me.ddlpopulation.SelectedValue
-            '    objProject.totalcost = PublicFunction.ConvertStringToDouble(Me.txttotalcost.Text)
-            '    objProject.effectivebudget = Me.ddleffectivebudget.SelectedValue.ToString
-            '    'el dato no se guarda en tabla idea
-            '    'objProject.strategicdescription = Me.txtstrategicdescription.Text
-            '    objProject.counterpartvalue = PublicFunction.ConvertStringToDouble(Me.txtcounterpartvalue.Text)
-            '    objProject.fsccontribution = PublicFunction.ConvertStringToDouble(Me.txtfsccontribution.Text)
-            '    'Subir el archivo
-            '    'objProject.attachment = PublicFunction.LoadFile(Request)
-            '    objProject.Typeapproval = Me.ddltipoaprobacion.SelectedValue
-            '    objProject.idphase = Me.ddlidphase.SelectedValue
+            objProject.ididea = Me.ddlididea.SelectedValue
+            objProject.code = Me.txtcode.Text
+            objProject.name = Me.txtname.Text
+            objProject.objective = Me.txtobjective.Text
+            objProject.enabled = 1
+            objProject.antecedent = Me.txtantecedent.Text
+            objProject.justification = Me.txtjustification.Text
+            'objProject.zonedescription = Me.txtzonedescription.Text
+            objProject.results = Me.txtresults.Text
+            ' objProject.ResultsKnowledgeManagement = Me.TextResultGestConocimiento.Text
+            'objProject.ResultsInstalledCapacity = Me.TextResCapacidInstal.Text
+            'objProject.begindate = IIf(('Me.txtstartdate.Text = ""), Nothing, 'Me.txtstartdate.Text)
+            objProject.duration = Me.txtduration.Text
+            'objProject.population = Me.ddlpopulation.SelectedValue
+            objProject.totalcost = PublicFunction.ConvertStringToDouble(Me.txttotalcost.Text)
+            objProject.effectivebudget = Me.ddleffectivebudget.SelectedValue.ToString
+            'el dato no se guarda en tabla idea
+            objProject.strategicdescription = Me.txtstrategicdescription.Text
+            objProject.counterpartvalue = PublicFunction.ConvertStringToDouble(Me.txtcounterpartvalue.Text)
+            objProject.fsccontribution = PublicFunction.ConvertStringToDouble(Me.txtfsccontribution.Text)
+            'Subir el archivo
+            'objProject.attachment = PublicFunction.LoadFile(Request)
+            objProject.Typeapproval = Me.ddltipoaprobacion.SelectedValue
+            objProject.idphase = Me.ddlidphase.SelectedValue
 
 
 
@@ -868,24 +868,22 @@ Partial Class addProject
             '    objProject.counterpartvalue = PublicFunction.ConvertStringToDouble(Me.txtcounterpartvalue.Text.Replace(".", ""))
 
             '    'objProject.enabled = Me.ddlenabled.SelectedValue
-            '    objProject.iduser = applicationCredentials.UserID
+            objProject.iduser = applicationCredentials.UserID
 
             '    objProject.createdate = Now
             '    objProject.editablemoney = "N"
             '    objProject.editabletime = "N"
             '    objProject.editableresults = "N"
 
-
-
             '    'Cargar la lista de fuentes por proyecto
-            '    objProject.sourceByProjectList = Session("sourceByProjectList")
+            'objProject.sourceByProjectList = Session("sourceByProjectList")
 
             '    'Cargar la lista de ubicaciones ProjectLocation
-            '    'objProject.projectlocationlist = Session("projectLocationList")
+            objProject.projectlocationlist = Session("projectLocationList")
 
-            '    Dim objDataTable As DataTable = Session("projectLocationList")
-            '    Dim objListProyectLocations As List(Of ProjectLocationEntity) = New List(Of ProjectLocationEntity)
-            '    For Each rowDataTable In objDataTable.Rows
+            Dim objDataTable As DataTable = Session("projectLocationList")
+            Dim objListProyectLocations As List(Of ProjectLocationEntity) = New List(Of ProjectLocationEntity)
+            'For Each rowDataTable In objDataTable.Rows
 
             '        Dim objProjectLocation As ProjectLocationEntity = New ProjectLocationEntity()
             '        ' TODO: cambio de forma de xcaptura de variable por el grid
@@ -900,13 +898,11 @@ Partial Class addProject
 
             '    objProject.projectlocationlist = objListProyectLocations
 
-
             '    'Cargar la lista de terceros ThirdByProject
 
             '    Dim idea_id As Integer = Convert.ToInt32(Me.ddlididea.SelectedValue)
 
-            '    objProject.thirdbyprojectlist = getThirdByIdea(idea_id, applicationCredentials)
-
+            'objProject.thirdbyprojectlist = getThirdByIdea(idea_id, applicationCredentials)
 
             '    objProject.ProgramComponentbyprojectlist = ProgramComponentByProjectList
 
@@ -2851,10 +2847,10 @@ Partial Class addProject
         name = Me.txtname.Text
         just = Me.txtjustification.Text
         objet = Me.txtobjective.Text
-        objetesp = Me.txtzonedescription.Text
+        objetesp = Me.txtareadescription.Text
         resulb = Me.txtresults.Text
-        resulgc = Me.TextResultGestConocimiento.Text
-        resulci = Me.TextResCapacidInstal.Text
+        resulgc = Me.txtresulgc.Text
+        resulci = Me.txtresulci.Text
         '  fech = 'Me.txtstartdate.Text
         dura = Me.txtduration.Text
         'people = Me.ddlpopulation.SelectedItem.Text

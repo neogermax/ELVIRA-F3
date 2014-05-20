@@ -45,7 +45,8 @@
 
     <script src="../Include/javascript/numeral.min.js"></script>
 
-    <script type="text/javascript" language="javascript">
+    <script type="text/javascript">
+
         function textboxMultilineMaxNumber(txt, maxLen) {
             try {
                 if (txt.value.length > (maxLen - 1))
@@ -75,22 +76,19 @@
         }
 
 
-     
     </script>
 
     <br />
     <div id="containerSuccess" runat="server" visible="true" style="width: 100%; text-align: center;
         border: 2px solid #cecece; background: #E8E8DC; height: 80px; line-height: 40px;
         vertical-align: middle;">
-        <img style="margin-top: 5px;" src="/images/save_icon.png" width="24px" alt="Save" />
-        <asp:Label ID="lblsaveinformation" runat="server" Style="font-size: 14pt; color: #9bbb58;"></asp:Label>
-    </div>
+        <img style="margin-top: 5px;" src="/images/save_icon.png" width="24px" alt="Save" /><asp:Label
+            ID="lblsaveinformation" runat="server" Style="font-size: 14pt; color: #9bbb58;"></asp:Label></div>
     <div id="containererrors" runat="server" visible="true" style="width: 100%; text-align: center;
         border: 2px solid #cecece; background: #E8E8DC; height: 120px; line-height: 40px;
         vertical-align: middle;">
-        <img style="margin-top: 5px;" src="/images/save_icon.png" width="24px" alt="Save" />
-        <asp:Label ID="Lblerrors_save_idea" runat="server" Style="font-size: 14pt; color: #990000;"></asp:Label>
-    </div>
+        <img style="margin-top: 5px;" src="/images/save_icon.png" width="24px" alt="Save" /><asp:Label
+            ID="Lblerrors_save_idea" runat="server" Style="font-size: 14pt; color: #990000;"></asp:Label></div>
     <div id="tabsproyecto">
         <ul>
             <li><a href="#componentes">Planeación Estratégica</a></li>
@@ -107,9 +105,7 @@
                     <select id="ddlididea" class="Ccombo">
                         <asp:DropDownList ID="ddlididea" runat="server">
                         </asp:DropDownList>
-                    </select>
-                    <asp:Label ID="lblHelpididea" runat="server"></asp:Label>
-                </li>
+                    </select><asp:Label ID="lblHelpididea" runat="server"></asp:Label></li>
             </ul>
             <ul class="left">
                 <li visible="false">
@@ -119,57 +115,56 @@
                 </li>
                 <li>
                     <asp:Label ID="lblcode" runat="server" Text="Código" Visible="False"></asp:Label>
-                    <asp:TextBox ID="txtcode" runat="server" Width="487px" MaxLength="8000" Visible="False"
+                    <asp:TextBox ID="txtcode" runat="server" Width="400px" MaxLength="8000" Visible="False"
                         AutoPostBack="true"></asp:TextBox>
                     <asp:Label ID="lblHelpcode" Visible="False" runat="server"></asp:Label>
                 </li>
                 <li>
                     <asp:Label ID="lblname" runat="server" Text="Nombre"></asp:Label>
-                    <asp:TextBox ID="txtname" runat="server" Width="450px" MaxLength="100" Height="50px"
-                        TextMode="MultiLine" onkeypress="return textboxMultilineMaxNumber(this,255)"></asp:TextBox>
-                    <asp:Label ID="lblHelpname" runat="server"></asp:Label>
+                    <asp:TextBox ID="txtname" runat="server" Width="400px" MaxLength="100" Height="50px"
+                        TextMode="MultiLine"></asp:TextBox>
+                    <asp:Label ID="lblHelpname" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
                 <li>
                     <asp:Label ID="lbljustification" runat="server" Text="Justificación"></asp:Label>
-                    <asp:TextBox ID="txtjustification" runat="server" Width="450px" MaxLength="8000"
-                        Height="100px" TextMode="MultiLine" onkeypress="return textboxMultilineMaxNumber(this,8000)"></asp:TextBox>
-                    <asp:Label ID="lblHelpjustification" runat="server"></asp:Label>
+                    <asp:TextBox ID="txtjustification" runat="server" Width="400px" MaxLength="8000"
+                        Height="100px" TextMode="MultiLine"></asp:TextBox>
+                    <asp:Label ID="lblHelpjustification" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
                 <li>
                     <asp:Label ID="lblobjective" runat="server" Text="Objetivo"></asp:Label>
-                    <asp:TextBox ID="txtobjective" runat="server" Width="450px" MaxLength="8000" Height="100px"
-                        TextMode="MultiLine" onkeypress="return textboxMultilineMaxNumber(this,8000)"></asp:TextBox>
-                    <asp:Label ID="lblHelpobjective" runat="server"></asp:Label>
+                    <asp:TextBox ID="txtobjective" runat="server" Width="400px" MaxLength="8000" Height="100px"
+                        TextMode="MultiLine"></asp:TextBox>
+                    <asp:Label ID="lblHelpobjective" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
                 <li>
                     <asp:Label ID="lblzonedescription" runat="server" Text="Objetivos específicos"></asp:Label>
-                    <asp:TextBox ID="txtzonedescription" runat="server" MaxLength="8000" Width="450px"
+                    <asp:TextBox ID="txtareadescription" runat="server" MaxLength="8000" Width="450px"
                         Rows="6" TextMode="MultiLine" onkeypress="return textboxMultilineMaxNumber(this,4000)"></asp:TextBox>
-                    <asp:Label ID="lblHelpzonedescription" runat="server"></asp:Label>
+                    <asp:Label ID="lblHelpareadescription" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
                 <li>
                     <asp:Label ID="lblresults" runat="server" Text="Resultados Beneficiarios"></asp:Label>
-                    <asp:TextBox ID="txtresults" runat="server" Width="450px" MaxLength="8000" Height="100px"
-                        TextMode="MultiLine" onkeypress="return textboxMultilineMaxNumber(this,4000)"></asp:TextBox>
-                    <asp:Label ID="lblHelpresults" runat="server"></asp:Label>
+                    <asp:TextBox ID="txtresults" runat="server" Width="400px" MaxLength="8000" Height="100px"
+                        TextMode="MultiLine"></asp:TextBox>
+                    <asp:Label ID="lblHelpresults" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
                 <li>
-                    <asp:Label ID="Label6" runat="server" Text="Resultados Gestión del Conocimiento"></asp:Label>
-                    <asp:TextBox ID="TextResultGestConocimiento" runat="server" Width="450px" MaxLength="8000"
-                        Height="100px" TextMode="MultiLine" onkeypress="return textboxMultilineMaxNumber(this,4000)"></asp:TextBox>
-                    <asp:Label ID="Label7" runat="server"></asp:Label>
+                    <asp:Label ID="Lblresulgc" runat="server" Text="Resultados Gestión del Conocimiento"></asp:Label>
+                    <asp:TextBox ID="txtresulgc" runat="server" Width="400px" MaxLength="8000" TextMode="MultiLine"></asp:TextBox>
+                    <asp:Label ID="Label10" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
                 <li>
-                    <asp:Label ID="Label8" runat="server" Text="Resultados Capacidad Instalada"></asp:Label>
-                    <asp:TextBox ID="TextResCapacidInstal" runat="server" Width="450px" MaxLength="8000"
-                        Height="100px" TextMode="MultiLine" onkeypress="return textboxMultilineMaxNumber(this,4000)"></asp:TextBox>
-                    <asp:Label ID="Label9" runat="server"></asp:Label>
+                    <asp:Label ID="Lblresultci" runat="server" Text="Resultados Capacidad Instalada"></asp:Label>
+                    <asp:TextBox ID="txtresulci" runat="server" Width="400px" MaxLength="8000" Height="100px"
+                        TextMode="MultiLine"></asp:TextBox>
+                    <asp:Label ID="Label11" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
                 <li>
                     <asp:Label ID="Lblothersresults" runat="server" Text="Otros Resultados"></asp:Label>
                     <asp:TextBox ID="Txtothersresults" runat="server" MaxLength="2500" Width="450px"
                         Rows="6" TextMode="MultiLine"></asp:TextBox>
-                    <asp:Label ID="Label30" runat="server" ForeColor="#990000"></asp:Label>
+                    <asp:Label ID="Label23" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
             </ul>
             <ul class="right">
@@ -203,6 +198,7 @@
                     <cc1:CalendarExtender ID="cestartdate" runat="server" Enabled="true" Format="yyyy/MM/dd"
                         TargetControlID="txtstartdate">
                     </cc1:CalendarExtender>
+                    <asp:Label ID="lblHelpstartdate" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
                 <li>
                     <asp:Label ID="Lbltitleduracion" runat="server" Text="Duración"></asp:Label>
@@ -224,29 +220,23 @@
                     <asp:Label ID="Lblhelpenddate" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
                 <li id="liproyecttype" runat="server" visible="false">
-                    <asp:Label ID="Lbltype_project" runat="server" Text="Tipo de proyecto"> </asp:Label>
+                    <asp:Label ID="Lbltype_project" runat="server" Text="Tipo de proyecto"></asp:Label>
                     <select id="ddltype_proyect" class="Ccombo">
                         <asp:DropDownList ID="ddltype_proyect" runat="server">
                         </asp:DropDownList>
-                    </select>
-                    <asp:Label ID="Lblhelptproyect" runat="server" ForeColor="#990000"></asp:Label>
-                </li>
+                    </select><asp:Label ID="Lblhelptproyect" runat="server" ForeColor="#990000"></asp:Label></li>
                 <li>
                     <asp:Label ID="lblpopulation" runat="server" Text="Población"></asp:Label>
                     <select id="ddlPupulation" class="Ccombo">
                         <asp:DropDownList ID="ddlPupulation" runat="server">
                         </asp:DropDownList>
-                    </select>
-                    <asp:Label ID="lblHelppopulation" runat="server" ForeColor="#990000"></asp:Label>
-                </li>
+                    </select><asp:Label ID="lblHelppopulation" runat="server" ForeColor="#990000"></asp:Label></li>
                 <li>
                     <asp:Label ID="Label13" runat="server" Text="Modalidad de Contratación"></asp:Label>
                     <select id="ddlmodcontract" class="Ccombo">
                         <asp:DropDownList ID="ddlmodcontract" runat="server">
                         </asp:DropDownList>
-                    </select>
-                    <asp:Label ID="Lblmodcontract" runat="server" ForeColor="#990000"></asp:Label>
-                </li>
+                    </select><asp:Label ID="Lblmodcontract" runat="server" ForeColor="#990000"></asp:Label></li>
                 <li>
                     <asp:Label ID="Label21" runat="server" Text="¿El IVA esta incluido en el valor total?"></asp:Label>
                     <asp:RadioButtonList ID="RBnList_iva" runat="server" Height="53px" RepeatDirection="Horizontal"
@@ -344,11 +334,11 @@
                 <li id="li8" runat="server" visible="False">
                     <asp:Label ID="lblattachment" runat="server" Text="Archivo anexo" Visible="False"></asp:Label>
                     <asp:FileUpload ID="fuattachment" runat="server" Visible="False" />
-                    &nbsp;<asp:HyperLink ID="hlattachment" runat="server" Visible="False" Target="_blank">Descargar</asp:HyperLink>
-                    <asp:Label ID="lblHelpattachment" runat="server" Visible="False"></asp:Label>
-                    <asp:Label ID="Label14" runat="server" Text="Aprobación"></asp:Label>
-                    <asp:DropDownList ID="ddltipoaprobacion" runat="server" AutoPostBack="True">
-                    </asp:DropDownList>
+                    &nbsp;<asp:HyperLink ID="hlattachment" runat="server" Visible="False" Target="_blank">Descargar</asp:HyperLink><asp:Label
+                        ID="lblHelpattachment" runat="server" Visible="False"></asp:Label><asp:Label ID="Label14"
+                            runat="server" Text="Aprobación"></asp:Label><asp:DropDownList ID="ddltipoaprobacion"
+                                runat="server" AutoPostBack="True">
+                            </asp:DropDownList>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ControlToValidate="ddlpopulation"
                         ErrorMessage="*" ValidationGroup="generalProject"></asp:RequiredFieldValidator>
                     <asp:Label ID="Label15" runat="server"></asp:Label>
@@ -394,7 +384,8 @@
                     <asp:Label ID="lblHelpcreatedate" runat="server"></asp:Label>
                 </li>
                 <li>
-                    <input id="SaveIdea" type="button" value="Crear proyecto" name="Save_Idea" onclick="SaveIdea_onclick()" />
+                    <input id="SaveProject" type="button" value="Crear proyecto" name="Save_Project"
+                        onclick="return SaveProject_onclick()" />
                     <asp:Button ID="btntermsreference" runat="server" Text="Exportar términos de referencia"
                         ValidationGroup="infoGenral" Visible="false" />
                     <asp:Button ID="btnAddData" runat="server" Text="Crear proyecto" ValidationGroup="infoGenral"
@@ -411,9 +402,7 @@
                     <select id="ddlStrategicLines" class="Ccombo">
                         <asp:DropDownList ID="ddlStrategicLines" runat="server">
                         </asp:DropDownList>
-                    </select>
-                    <asp:Label ID="lblinfls" runat="server" ForeColor="#990000"></asp:Label>
-                </li>
+                    </select><asp:Label ID="lblinfls" runat="server" ForeColor="#990000"></asp:Label></li>
             </ul>
             <ul class="right">
                 <li>
@@ -421,9 +410,7 @@
                     <select id="ddlPrograms" class="Ccombo">
                         <asp:DropDownList ID="ddlPrograms" runat="server">
                         </asp:DropDownList>
-                    </select>
-                    <asp:Label ID="lblinpro" runat="server" ForeColor="#990000"></asp:Label>
-                </li>
+                    </select><asp:Label ID="lblinpro" runat="server" ForeColor="#990000"></asp:Label></li>
             </ul>
             <table style="margin: 0 auto;">
                 <tr>
@@ -431,17 +418,14 @@
                      <asp:Label ID="Lbltitleprogram" runat="server" Text="Programa"></asp:Label>
                         <ul id="ulprograms">
                         </ul>
-                    </td>--%>
-                    <%-- <td style="width: 100px">
-                    </td>--%>
-                    <td>
+                    </td>--%><%-- <td style="width: 100px">
+                    </td>--%><td>
                         <asp:Label ID="Lbltitlecomponet" runat="server" Text="Componentes"></asp:Label>
                         <ul id="seleccionarcomponente"></ul>
                     </td>
-                    <td style="width: 100px;">
-                        <input id="Btnaddcomponent" type="button" value=">>" name="Add_Componente" onclick="return Btnaddcomponent_onclick()" />
-                        <input id="Btndeletecomponent" type="button" value="<<" name="Delete_Componente"
-                            onclick="return Btndeletecomponent_onclick()" />
+                    <td style="width: 100px; vertical-align: middle;" >
+                        <input id="Btnaddcomponent" type="button" value=">>" name="Add_Componente" onclick="return Btnaddcomponent_onclick()" /><input
+                            id="Btndeletecomponent" type="button" value="<<" name="Delete_Componente" onclick="return Btndeletecomponent_onclick()" />
                     </td>
                     <td>
                         <asp:Label ID="Label20" runat="server" Text="Componentes seleccionados"></asp:Label>
@@ -465,16 +449,14 @@
                     <select id="ddlDepto" class="Ccombo">
                         <asp:DropDownList ID="ddlDepto" runat="server">
                         </asp:DropDownList>
-                    </select>
-                </li>
+                    </select></li>
                 <br />
                 <li>
                     <asp:Label ID="lbidcity" runat="server" Text="Municipio"></asp:Label>
                     <select id="ddlCity" class="Ccombo">
                         <asp:DropDownList ID="ddlCity" runat="server">
                         </asp:DropDownList>
-                    </select>
-                </li>
+                    </select></li>
             </ul>
             <br />
             <ul>
@@ -482,8 +464,7 @@
                     <asp:Button ID="btnAgregarubicacion" runat="server" Visible="false" CausesValidation="False"
                         Text="Agregar Ubicación" />
                     <input id="B_add_location" type="button" value="Agregar Ubicación" name="Add_location"
-                        onclick="Add_location_onclick()" />
-                </li>
+                        onclick="Add_location_onclick()" /></li>
                 <li>
                     <asp:Label ID="Lblinfubicacion" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
@@ -497,13 +478,13 @@
                     <thead>
                         <tr>
                             <th>
-                                <span><strong style="font-size: large">Departamento&nbsp;</strong> </span>
+                                <span><strong style="font-size: large">Departamento&nbsp;</strong></span>
                             </th>
                             <th>
-                                <span><strong style="font-size: large">Ciudad&nbsp;</strong> </span>
+                                <span><strong style="font-size: large">Ciudad&nbsp;</strong></span>
                             </th>
                             <th>
-                                <span><strong style="font-size: large">Eliminar</strong> </span>
+                                <span><strong style="font-size: large">Eliminar</strong></span>
                             </th>
                         </tr>
                     </thead>
@@ -531,11 +512,10 @@
                     <select id="ddlactors" class="Ccombo">
                         <asp:DropDownList ID="ddlactors" runat="server">
                         </asp:DropDownList>
-                    </select>
-                    <a id="linkactors" runat="server" href="~/GeneralPlanning/addThird.aspx?prety=1&op=add&iframe=true&width=100%&height=100%"
-                        title="Nuevo actor" class="pretty">CREAR NUEVO ACTOR</a> </li>
+                    </select><a id="linkactors" runat="server" href="~/GeneralPlanning/addThird.aspx?prety=1&op=add&iframe=true&width=100%&height=100%"
+                        title="Nuevo actor" class="pretty">CREAR NUEVO ACTOR</a></li>
                 <li>
-                    <asp:Label ID="Label23" runat="server" Text="Tipo"></asp:Label>
+                    <asp:Label ID="Label53" runat="server" Text="Tipo"></asp:Label>
                     <asp:DropDownList ID="ddlType" runat="server" CssClass="Ccombo">
                         <asp:ListItem>Operador</asp:ListItem>
                         <asp:ListItem>Socio Operador</asp:ListItem>
@@ -598,10 +578,9 @@
                 <li>
                     <asp:Button ID="btnAddThird" Visible="false" runat="server" Text="Agregar Actor"
                         ValidationGroup="thirdBYIdea" />
-                    <input id="BtnaddActors" type="button" value="Agregar Actor" name="Add_actors" onclick="return BtnaddActors_onclick()" />
-                    <asp:Label ID="lblavertenactors" runat="server" Font-Bold="True" Font-Names="Arial Narrow"
-                        ForeColor="Red"></asp:Label>
-                </li>
+                    <input id="BtnaddActors" type="button" value="Agregar Actor" name="Add_actors" onclick="return BtnaddActors_onclick()" /><asp:Label
+                        ID="lblavertenactors" runat="server" Font-Bold="True" Font-Names="Arial Narrow"
+                        ForeColor="Red"></asp:Label></li>
                 <li>
                     <asp:Label ID="Lblactorrep" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
@@ -780,8 +759,7 @@
                         <asp:Label ID="Lblinformation_flujos" runat="server" ForeColor="#990000"></asp:Label>
                     </li>
                     <li style="margin-left: 3em;">
-                        <input id="Btn_add_flujo" type="button" value="Agregar pago" name="Add_flujo" onclick="return Btn_add_flujo_onclick()" />
-                    </li>
+                        <input id="Btn_add_flujo" type="button" value="Agregar pago" name="Add_flujo" onclick="return Btn_add_flujo_onclick()" /></li>
                 </ul>
                 <br />
             </div>
@@ -849,8 +827,7 @@
             <ul>
                 <li id="tableAttachments"></li>
                 <li>
-                    <input id="fileupload" type="file" name="files[]" />
-                </li>
+                    <input id="fileupload" type="file" name="files[]" /></li>
                 <li><a id="lnkAttch" style="cursor: hand" onclick="AddFileInput(F1)" visible="false">
                 </a></li>
                 <li>
@@ -864,8 +841,7 @@
                 </li>
                 <li>
                     <input id="Btncharge_file" type="button" value="Adjuntar un archivo" name="Add_files"
-                        onclick="subirArchivos()" />
-                </li>
+                        onclick="subirArchivos()" /></li>
                 <li id="li5000" runat="server" visible="false">
                     <asp:Label ID="obser" runat="server" Text="Descripción"></asp:Label>
                     <asp:TextBox ID="txtobser" runat="server" MaxLength="500" Width="400px"></asp:TextBox>
@@ -874,10 +850,9 @@
             <div id="gif_charge_Container" runat="server" visible="true" style="width: 100%;
                 text-align: center; border: 2px solid #cecece; background: #E8E8DC; height: 80px;
                 line-height: 40px; vertical-align: middle;">
-                <img style="margin-top: 10px;" src="../images/cargando.gif" width="24px" alt="images" />
-                <asp:Label ID="Label12" runat="server" Text="Subiendo archivos..." Style="font-size: 14pt;
-                    color: #9bbb58;"></asp:Label>
-            </div>
+                <img style="margin-top: 10px;" src="../images/cargando.gif" width="24px" alt="images" /><asp:Label
+                    ID="Label12" runat="server" Text="Subiendo archivos..." Style="font-size: 14pt;
+                    color: #9bbb58;"></asp:Label></div>
             <div id="tdFileInputs">
                 <table id="T_files" border="1" cellpadding="1" cellspacing="1" style="width: 100%;">
                     <thead>
@@ -911,503 +886,6 @@
             </div>
         </div>
     </div>
-    <%--<asp:Label ID="LabelErrorGeneral" runat="server" Font-Bold="True" Font-Names="Arial Narrow"
-        ForeColor="Red"></asp:Label>
-    <br />
-    <div id="containerSuccess" runat="server" visible="false" style="width: 100%; text-align: center;
-        border: 2px solid #cecece; background: #E8E8DC; height: 40px; line-height: 40px;
-        vertical-align: middle;">
-        <img style="margin-top: 5px;" src="/images/save_icon.png" width="24px" alt="Save" />
-        <asp:Label ID="lblstatesuccess" runat="server" Style="color: #9bbb58; font-size: 14pt;"
-            Text="El Proyecto se creó exitosamente!"></asp:Label>
-    </div>
---%>
-    <%--   <cc1:TabContainer ID="TabContainer1" runat="server" Width="100%" ActiveTabIndex="0"
-        AutoPostBack="True">
-        
-        <cc1:TabPanel runat="server" HeaderText="Lista de fuentes" ID="TabPanel6" Enabled="False"
-            Width="600px">
-            <HeaderTemplate>
-                Lista de fuentes
-            </HeaderTemplate>
-            <ContentTemplate>
-                <asp:UpdatePanel ID="upSourceByProject" runat="server" UpdateMode="Conditional">
-                    <ContentTemplate>
-                        <table style="width: 100%">
-                            <tr>
-                                <td>
-                                    <table>
-                                        <tr>
-                                            <td>
-                                                <asp:Label ID="Label1" runat="server" Text="Fuente:"></asp:Label>
-                                            </td>
-                                            <td>
-                                                <asp:DropDownList ID="ddlSource" runat="server">
-                                                </asp:DropDownList>
-                                            </td>
-                                            <td>
-                                                <asp:RequiredFieldValidator ID="rfvSource" runat="server" ControlToValidate="ddlSource"
-                                                    ErrorMessage="*" ValidationGroup="sourceByProject"></asp:RequiredFieldValidator>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="2">
-                                                <asp:Button ID="btnAddSource" runat="server" Text="Agregar Fuente" ValidationGroup="sourceByProject" />
-                                            </td>
-                                            <td>
-                                                <asp:Label ID="lblSourceMessage" runat="server" Text="" ForeColor="Red"></asp:Label>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <table>
-                                        <tr>
-                                            <td>
-                                                <asp:GridView ID="gvSourceByProject" runat="server" AllowPaging="True" AutoGenerateColumns="False"
-                                                    Width="294px">
-                                                    <Columns>
-                                                        <asp:CommandField SelectText="Quitar" ShowSelectButton="True" />
-                                                        <asp:BoundField DataField="SOURCENAME" HeaderText="Nombre de la fuente" />
-                                                    </Columns>
-                                                </asp:GridView>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
-                        </table>
-                    </ContentTemplate>
-                </asp:UpdatePanel>
-            </ContentTemplate>
-        </cc1:TabPanel>
-        <cc1:TabPanel runat="server" HeaderText="Flujos de pago" ID="TabPanel7" Width="90%">
-            <ContentTemplate>
-                <div>
-              <%--      <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
-                       <ContentTemplate> 
-                            <table style="width: 90%">
-                                <tr>
-                                    <td>
-                                        <table style="width: 90%">
-                                            <tr>
-                                                <td>
-                                                </td>
-                                                <td>
-                                                    <asp:Label ID="Label16" runat="server" Text='Recuerde hacer click en "Agregar Pago" para efectuar los cambios'
-                                                        ForeColor="Red"></asp:Label>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <asp:Label ID="lblvalortotal1" runat="server" Text="Valor Total"></asp:Label>
-                                                </td>
-                                                <td>
-                                                    <asp:TextBox ID="txtvalortotalflow1" runat="server" Width="186px" MaxLength="50"
-                                                        Text="0"></asp:TextBox>
-                                                </td>
-                                                <td>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <asp:Label ID="lblfechapago1" runat="server" Text="Fecha de pago"></asp:Label>
-                                                </td>
-                                                <td>
-                                                    <asp:TextBox ID="txtfechapago1" runat="server" Width="400px" MaxLength="50"></asp:TextBox>
-                                                    <cc1:CalendarExtender ID="cesfechapago" runat="server" TargetControlID="txtfechapago"
-                                                        Format="yyyy/MM/dd" Enabled="True">
-                                                    </cc1:CalendarExtender>
-                                                </td>
-                                                <td>
-                                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="txtfechapago"
-                                                        ErrorMessage="el campo fecha esta vacio" ValidationGroup="validat"></asp:RequiredFieldValidator>
-                                                </td>
-                                                <td>
-                                                    <asp:Label ID="lblhelpfechapago1" runat="server"></asp:Label>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <asp:Label ID="lblporcentaje1" runat="server" Text="Porcentaje"></asp:Label>
-                                                </td>
-                                                <td>
-                                                    <asp:TextBox ID="txtporcentaje1" Text="0" runat="server" MaxLength="50" Width="95px"></asp:TextBox>
-                                                    <asp:Label ID="lblFlowNfo" runat="server" Text="." ForeColor="White"></asp:Label>
-                                                    <asp:RequiredFieldValidator ID="RequiredFieldValidatorPorcent" runat="server" ControlToValidate="txtporcentaje"
-                                                        ErrorMessage="el campo esta vacio" ValidationGroup="validat"></asp:RequiredFieldValidator>
-                                                </td>
-                                                <tr>
-                                                    <td>
-                                                        <asp:Label ID="lblvalor1" runat="server" Text="Valor"></asp:Label>
-                                                    </td>
-                                                    <td>
-                                                        <asp:TextBox ID="txtvalorpartial1" runat="server" MaxLength="50" ReadOnly="true"
-                                                            Width="182px"></asp:TextBox>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <asp:Label ID="lblentregable1" runat="server" Text="Entregable"></asp:Label>
-                                                    </td>
-                                                    <td>
-                                                        <asp:TextBox ID="txtentregable1" runat="server" Height="100px" MaxLength="8000" onkeypress="return textboxMultilineMaxNumber(this,800)"
-                                                            TextMode="MultiLine" Width="450px"></asp:TextBox>
-                                                    </td>
-                                                    <td>
-                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="txtentregable"
-                                                            ErrorMessage="el campo esta vacio" ValidationGroup="validat"></asp:RequiredFieldValidator>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="3">
-                                                        <asp:Button ID="BtnAddPayment" runat="server" Text="Agregar Pago" />
-                                                    </td>
-                                                </tr>
-                                        </table>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <asp:GridView ID="gvPaymentFlow" runat="server" Width="100%" AutoGenerateColumns="False">
-                                            <Columns>
-                                                <asp:CommandField SelectText="Quitar" ShowSelectButton="True" />
-                                                <asp:TemplateField HeaderText="id" Visible="false">
-                                                    <ItemTemplate>
-                                                        <asp:Label ID="lblID" runat="server" Text='<%# Eval("id") %>'></asp:Label>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="idproject" Visible="false">
-                                                    <ItemTemplate>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="Fecha">
-                                                    <ItemTemplate>
-                                                        <asp:Label ID="lblfecha" runat="server" Text='<%# Eval("fecha","{0:MM/dd/yyyy}") %>'></asp:Label>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="Porcentaje">
-                                                    <ItemTemplate>
-                                                        <asp:Label ID="lblporcentaje" runat="server" Text='<%# Eval("porcentaje")&"%" %>'></asp:Label>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="Entregable">
-                                                    <ItemTemplate>
-                                                        <asp:Label ID="lblentregable" runat="server" Text='<%# Eval("entregable") %>'></asp:Label>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="ididea" Visible="false">
-                                                    <ItemTemplate>
-                                                        <asp:Label ID="lblidea" runat="server" Text='<%# Eval("ididea") %>'></asp:Label>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="Valor parcial">
-                                                    <ItemTemplate>
-                                                        <asp:Label ID="lblidea" runat="server" Text='<%#  Eval("valorparcial","{0:C1}") %>'></asp:Label>
-                                                    </ItemTemplate>
-                                                    <ControlStyle Width="200px" />
-                                                    <ItemStyle Width="120px" />
-                                                </asp:TemplateField>
-                                            </Columns>
-                                        </asp:GridView>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <asp:Label ID="lblmsjporcent" runat="server" ForeColor="Red"></asp:Label>
-                                    </td>
-                                    <td>
-                                        <%--<asp:Label ID="Label16" runat="server" Text="Recuerde hacer click en guardar para efectuar los cambios"
-                                            ForeColor="Red"></asp:Label>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <asp:Label ID="LblFlujodePagoPorcentajeIzquierda" runat="server" Font-Bold="True"
-                                            Font-Names="Arial Narrow" Font-Size="1.2em" ForeColor="Red"></asp:Label>
-                                        <asp:Label ID="lblmensajeexitoerror" runat="server" Font-Bold="True" Font-Names="Arial Narrow"
-                                            ForeColor="Red" Font-Size="1.2em"></asp:Label>
-                                        <asp:Label ID="LblFlujodePagoPorcentajeDerecha" runat="server" Font-Bold="True" Font-Names="Arial Narrow"
-                                            Font-Size="1.2em" ForeColor="Red"></asp:Label>
-                                    </td>
-                                    <tr>
-                                        <td>
-                                            <asp:Label ID="lblExceed100" runat="server" Font-Bold="True" Font-Names="Arial Narrow"
-                                                Font-Size="1.2em" ForeColor="Red"></asp:Label>
-                                        </td>
-                                    </tr>
-                                </tr>
-                            </table>
-                        </ContentTemplate>
-                    <%--</asp:UpdatePanel>
-                </div>
-            </ContentTemplate>
-        </cc1:TabPanel>
-        <cc1:TabPanel runat="server" HeaderText="Actores" ID="TabPanel4" Width="90%">
-            <ContentTemplate>
-                <div>
-                    <asp:UpdatePanel ID="upoperatorbyproject" runat="server" UpdateMode="Conditional">
-                        <ContentTemplate>
-                            <table style="width: 90%">
-                                <tr>
-                                    <td>
-                                        <table style="width: 90%">
-                                            <tr>
-                                                <td>
-                                                    <asp:Label ID="lblOperator" runat="server" Text="Actor"></asp:Label>
-                                                </td>
-                                                <td>
-                                                    <asp:DropDownList ID="ddlidoperator" runat="server" CssClass="Ccombo">
-                                                    </asp:DropDownList>
-                                                </td>
-                                                <td>
-                                                    <asp:Label ID="lblHelpidoperator" runat="server"></asp:Label>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <asp:Label ID="lbltipooperador" runat="server" Text="Tipo"></asp:Label>
-                                                </td>
-                                                <td>
-                                                    <asp:DropDownList ID="ddltipooperador" runat="server">
-                                                    </asp:DropDownList>
-                                                </td>
-                                                <td>
-                                                    <asp:Label ID="Label17" runat="server"></asp:Label>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="3">
-                                                    <asp:Button ID="btnaddoperatorbyproject" runat="server" Text="Agregar actor" CausesValidation="False" />
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <table style="width: 90%">
-                                            <tr>
-                                                <td>
-                                                    <asp:GridView ID="gvoperatorbyproject" AutoGenerateColumns="False" AllowPaging="True"
-                                                        runat="server">
-                                                        <Columns>
-                                                            <asp:CommandField SelectText="Quitar" ShowSelectButton="True" />
-                                                            <asp:TemplateField HeaderText="id" Visible="false">
-                                                                <ItemTemplate>
-                                                                    <asp:Label ID="lblIdactor" runat="server" Text='<%# Eval("idthird") %>'></asp:Label>
-                                                                </ItemTemplate>
-                                                            </asp:TemplateField>
-                                                            <asp:TemplateField HeaderText="Tipo">
-                                                                <ItemTemplate>
-                                                                    <asp:Label ID="lbltype" runat="server" Text='<%# Eval("type") %>'></asp:Label>
-                                                                </ItemTemplate>
-                                                            </asp:TemplateField>
-                                                            <asp:TemplateField HeaderText="Actores">
-                                                                <ItemTemplate>
-                                                                    <asp:Label ID="lblIname" runat="server" Text='<%# Eval("name") %>'></asp:Label>
-                                                                </ItemTemplate>
-                                                            </asp:TemplateField>
-                                                            <asp:TemplateField HeaderText="Contacto">
-                                                                <ItemTemplate>
-                                                                    <asp:Label ID="lblIcontact" runat="server" Text='<%# Eval("contact") %>'></asp:Label>
-                                                                </ItemTemplate>
-                                                            </asp:TemplateField>
-                                                            <asp:TemplateField HeaderText="Documento Identidad">
-                                                                <ItemTemplate>
-                                                                    <asp:Label ID="lblIdocument" runat="server" Text='<%# Eval("documents") %>'></asp:Label>
-                                                                </ItemTemplate>
-                                                            </asp:TemplateField>
-                                                            <asp:TemplateField HeaderText="Teléfono">
-                                                                <ItemTemplate>
-                                                                    <asp:Label ID="lblphone" runat="server" Text='<%# Eval("phone") %>'></asp:Label>
-                                                                </ItemTemplate>
-                                                            </asp:TemplateField>
-                                                            <asp:TemplateField HeaderText="Correo electrónico">
-                                                                <ItemTemplate>
-                                                                    <asp:Label ID="lblemail" runat="server" Text='<%# Eval("email") %>'></asp:Label>
-                                                                </ItemTemplate>
-                                                            </asp:TemplateField>
-                                                        </Columns>
-                                                    </asp:GridView>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <asp:Label ID="lblHelpoperatorbyproject" runat="server" Text="Recuerde hacer click en guardar para efectuar los cambios"
-                                            ForeColor="Red"></asp:Label>
-                                    </td>
-                                </tr>
-                            </table>
-                        </ContentTemplate>
-                    </asp:UpdatePanel>
-                </div>
-                <div id="thirdtable">
-                </div>
-            </ContentTemplate>
-        </cc1:TabPanel>
-        <cc1:TabPanel runat="server" HeaderText="Componentes del Programa" ID="TabPanelCompProgramas"
-            Width="90%">
-            <ContentTemplate>
-                <div id="gridComponentesPrograma">
-                </div>
-                <div id="lblcomponentesprograma" runat="server">
-                </div>
-            </ContentTemplate>
-        </cc1:TabPanel>
-        <cc1:TabPanel runat="server" HeaderText="Aclaratorio" ID="tbpnAclaratorio" Width="90%">
-            <ContentTemplate>
-                <label>
-                    Observaciones
-                </label>
-                <asp:TextBox ID="txtaclaratorio" runat="server" TextMode="MultiLine" Height="50px"
-                    MaxLength="8000">
-                </asp:TextBox>
-                <table style="width: 90%">
-                    <tr>
-                        <td style="height: 30px; vertical-align: middle;">
-                            <asp:Label ID="Label4" runat="server" Text="Línea Estratégica"></asp:Label>
-                            <asp:Label ID="txtlinestrat" runat="server" Width="400px" AutoPostBack="True"></asp:Label>
-                            <asp:Label ID="Label5" runat="server"></asp:Label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="17%" style="height: 30px; vertical-align: middle;">
-                            <asp:Label ID="Label2" runat="server" Text="Programa"></asp:Label>
-                            <asp:Label ID="txtprograma" Width="300px" runat="server" AutoPostBack="True"></asp:Label>
-                            <asp:Label ID="Label3" runat="server"></asp:Label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <asp:GridView ID="GridViewAclaratorio" AutoGenerateColumns="False" AllowPaging="True"
-                                runat="server">
-                                <Columns>
-                                    <asp:BoundField DataField="observation" HeaderText="Observacion">
-                                        <ItemStyle Width="400"></ItemStyle>
-                                    </asp:BoundField>
-                                    <asp:BoundField DataField="fecha" HeaderText="Fecha" />
-                                </Columns>
-                            </asp:GridView>
-                        </td>
-                    </tr>
-                </table>
-            </ContentTemplate>
-        </cc1:TabPanel>
-        <cc1:TabPanel runat="server" HeaderText="Anexos" ID="TabPanelAnexos" Width="90%">
-            <ContentTemplate>
-                <div>
-                    <table>
-                        <tr>
-                            <td nowrap="nowrap">
-                                <img src="../App_Themes/GattacaAdmin/Images/attach.gif" alt="" />
-                                <a id="lnkAttch" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'"
-                                    style="cursor: hand" onclick="AddFileInputProject()">Adjuntar un archivo</a>
-                            </td>
-                            <td style="width: 40px">
-                                <asp:Label ID="label12" runat="server"></asp:Label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td id="tdFileInputs" valign="top">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <asp:Button ID="btnadanexo" runat="server" Text="Agregar anexo" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <asp:UpdatePanel ID="upData" runat="server" UpdateMode="Conditional">
-                                <ContentTemplate>
-                                    <asp:GridView ID="gvDocuments" runat="server" AutoGenerateColumns="False" Width="100%">
-                                        <Columns>
-                                            <asp:HyperLinkField DataNavigateUrlFields="id" DataNavigateUrlFormatString="addDocuments.aspx?op=edit&id={0}&isPopup=True"
-                                                HeaderText="Edición" Text="Editar" Target="_blank" Visible="false" />
-                                            <asp:TemplateField HeaderText="Eliminación" ShowHeader="False">
-                                                <ItemTemplate>
-                                                    <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandName="Delete"
-                                                        OnClientClick="return confirm('Esta seguro?')" Text="Eliminar"></asp:LinkButton></ItemTemplate>
-                                            </asp:TemplateField>
-                                            <asp:BoundField DataField="title" HeaderText="Título" Visible="false" />
-                                            <asp:BoundField DataField="description" HeaderText="Descripción" Visible="false" />
-                                            <asp:BoundField DataField="createdate" HeaderText="Fecha" />
-                                            <asp:BoundField DataField="USERNAME" HeaderText="Usuario" />
-                                            <asp:HyperLinkField DataNavigateUrlFields="attachfile" DataTextField="attachfile"
-                                                HeaderText="Anexo" Target="_blank" />
-                                        </Columns>
-                                    </asp:GridView>
-                                    <br />
-                                    <asp:Button ID="btnRefresh" runat="server" Text="Actualizar Listado" />
-                                </ContentTemplate>
-                            </asp:UpdatePanel>
-                        </tr>
-                        <tr>
-                            <td>
-                                <td>
-                                </td>
-                        </tr>
-                    </table>
-                </div>
-            </ContentTemplate>
-        </cc1:TabPanel>
-    </cc1:TabContainer>
-   <br />
-    <table>
-        <tr>
-            <td colspan="3">
-                <asp:Label ID="lblBPMMessage" runat="server" Text="Por Favor Seleccione la Actividad"
-                    Visible="False"></asp:Label>
-            </td>
-        </tr>--%>
-    <%-- <tr>
-            <td colspan="3">
-                <asp:RadioButtonList ID="rblCondition" runat="server" Visible="False">
-                </asp:RadioButtonList>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="3">
-                <asp:Button ID="btnDelete" runat="server" Text="Eliminar" CausesValidation="False" />
-                <asp:Button ID="btnCancel" runat="server" Text="Cancelar" CausesValidation="False" />
-                <a id="linkcharge" runat="server" href="~/FormulationAndAdoption/addproyectchargemasive.aspx?iframe=true&width=100%&height=100%"
-                    title="Carga Masiva" class="pretty">Cargue Cronograma de Actividades y Subactividadese
-                    Actividades y Subactividades</a>
-       --%>
-    <%-- 
-                                                            <asp:TemplateField HeaderText="Departamento">
-                                                                <ItemTemplate>
-                                                                    <asp:Label ID="lbldeptoID" runat="server" Text='<%# Eval("idcity") %>'></asp:Label>
-                                                                </ItemTemplate>
-                                                            </asp:TemplateField>
-                                                            <asp:TemplateField HeaderText="Departamento">
-                                                                <ItemTemplate>
-                                                                    <asp:Label ID="lbldepto" runat="server" Text='<%# Eval("DEPTONAME") %>'></asp:Label>
-                                                                </ItemTemplate>
-                                                            </asp:TemplateField>
-                                                            <asp:TemplateField HeaderText="Ciudad">
-                                                                <ItemTemplate>
-                                                                    <asp:Label ID="lblcity" runat="server" Text='<%# Eval("CITYNAME") %>'></asp:Label>
-                                                                </ItemTemplate>
-                                                            </asp:TemplateField>--%>
-    <%--  </td>
-        </tr>
-        <tr>
-            <td colspan="4">
-                <asp:Button ID="btnConfirmDelete" runat="server" Text="Eliminar" CausesValidation="False" />
-                <asp:Button ID="btnCancelDelete" runat="server" Text="Cancelar" CausesValidation="False" />
-                &nbsp;<asp:Label ID="lblDelete" runat="server" Text="Esta seguro que desea eliminar el registro?"
-                    ForeColor="Red"></asp:Label><asp:Label ID="lblsaveinformation1" runat="server" Font-Bold="True"
-                        Font-Names="Arial Black" ForeColor="#04B404"></asp:Label>
-            </td>
-        </tr>
-    </table>
---%>
     <asp:HiddenField ID="Hdvtotalvalue" runat="server" />
     <asp:HiddenField ID="hdididea" runat="server" />
     <asp:HiddenField ID="hdfechainicio" runat="server" />

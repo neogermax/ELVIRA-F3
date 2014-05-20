@@ -92,6 +92,7 @@
 {
 	width: 300px;
 	display: inline-block;
+	border-radius: 15px;
 	background: #fff;
 	border: 2px solid # //Compoentes Style $("#seleccionarcomponente li, #componentesseleccionados li").click(function() {                     $(this).css("background", "#191919");                     $(this).css("color", "#fff");                 });
 	height: 350px;
@@ -99,6 +100,7 @@
 	margin: 0px;
 	vertical-align: middle;
 	text-align: left;
+	
 }
 #seleccionarcomponente li, #componentesseleccionados li
 {

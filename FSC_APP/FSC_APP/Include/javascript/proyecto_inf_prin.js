@@ -334,6 +334,7 @@ function operacionesIdea() {
 
 }
 
+
 function cargar_ideas_aprobadas() {
 
     $.ajax({
@@ -374,10 +375,10 @@ function traer_datos_idea_inf_p() {
             //campos de texto planos
             $("#ctl00_cphPrincipal_txtjustification").val(result.Justification);
             $("#ctl00_cphPrincipal_txtobjective").val(result.Objective);
-            $("#ctl00_cphPrincipal_txtzonedescription").val(result.AreaDescription);
+            $("#ctl00_cphPrincipal_txtareadescription").val(result.AreaDescription);
             $("#ctl00_cphPrincipal_txtresults").val(result.Results);
-            $("#ctl00_cphPrincipal_TextResultGestConocimiento").val(result.ResultsKnowledgeManagement);
-            $("#ctl00_cphPrincipal_TextResCapacidInstal").val(result.ResultsInstalledCapacity);
+            $("#ctl00_cphPrincipal_txtresulgc").val(result.ResultsKnowledgeManagement);
+            $("#ctl00_cphPrincipal_txtresulci").val(result.ResultsInstalledCapacity);
             $("#ctl00_cphPrincipal_Txtothersresults").html(result.OtherResults);
             $("#ctl00_cphPrincipal_Txtobligationsoftheparties").html(result.obligationsoftheparties);
             $("#ctl00_cphPrincipal_Txtroutepresupuestal").val(result.BudgetRoute);
@@ -397,7 +398,7 @@ function traer_datos_idea_inf_p() {
 
             //cargamos el control de aplica iva
             $("#ctl00_cphPrincipal_RBnList_iva :radio[value='" + result.ideaappliesIVA + "']").attr('checked', true);
-
+            valor_iva = result.ideaappliesIVA;
             //calcula la fecha de finalizacion
             var timer = setTimeout("fix();", 2000);
 

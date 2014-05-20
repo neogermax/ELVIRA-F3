@@ -1,5 +1,4 @@
-﻿
-//Javascript para modulo de Idea por parte de MG GROUP Ltda.
+﻿//Javascript para modulo de Idea por parte de MG GROUP Ltda.
 //Autor: German Rodriguez
 //Fecha Inicio: 28/05/2013
 
@@ -117,17 +116,14 @@ $(document).ready(function() {
         View_anexos_array();
         View_anexos();
 
-
         //$("#ddlStrategicLines").ready(function() { ClineEstrategic_edit(); });
 
         var timer_cline_edit = setTimeout("Cpopulation_view();", 2000);
         var timer_cline_edit = setTimeout("Ctypcontract_view();", 2000);
         // var itemarrayflujos = 0;
-        $("#SaveIdea").attr("value", "Editar Idea");
 
-        //$("#SaveIdea").css("display", "none");
+        $("#SaveIdea").attr("value", "Editar Idea");
         $("#Export").css("display", "block");
-        //$("#EditIdea").css("display", "block");
         borrar_carpeta();
     }
     else {
@@ -152,24 +148,18 @@ $(document).ready(function() {
         Cpopulation();
         validarporcentaje();
 
-
         $("#SaveIdea").attr("value", "Crear Idea");
-
-        //     $("#SaveIdea").css("display", "block");
         $("#Export").css("display", "none");
-        //     $("#EditIdea").css("display", "none");
+
         borrar_carpeta();
+
     }
 
     $("#ctl00_cphPrincipal_containerSuccess").css("display", "none");
     $("#ctl00_cphPrincipal_containererrors").css("display", "none");
-
-
     $('#ctl00_cphPrincipal_gif_charge_Container').css("display", "none");
     $('#ctl00_cphPrincipal_container_wait').css("display", "none");
 
-
-    //$("#tabsIdea").tabs();
 
     $("#matriz").dataTable({
         "bJQueryUI": true,
@@ -699,7 +689,6 @@ function Crear_idea() {
 
     var tflujos = $("#ValueCostotal").text();
     tflujos = tflujos.replace(/\./gi, '');
-    //alert(tflujos);
     //crear comunicacion ajax para el ingreso de los datos de la idea
     $.ajax({
         url: "AjaxAddIdea.aspx",

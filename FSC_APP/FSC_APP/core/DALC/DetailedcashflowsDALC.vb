@@ -22,13 +22,14 @@ Public Class DetailedcashflowsDALC
         Try
 
             ' construir la sentencia
-            sql.AppendLine(" insert into Detailedcashflows(IdIdea,IdProject,N_pago,IdAportante,Aportante,Desembolso) ")
+            sql.AppendLine(" insert into Detailedcashflows(IdIdea,IdProject,N_pago,IdAportante,Aportante,mother,Desembolso) ")
             sql.AppendLine("VALUES ( ")
             sql.AppendLine(detailedcashflow.IdIdea & ", ")
             sql.AppendLine(detailedcashflow.IdProject & ", ")
             sql.AppendLine(detailedcashflow.N_pago & ", ")
             sql.AppendLine(detailedcashflow.IdAportante & ", ")
             sql.AppendLine("'" & detailedcashflow.Aportante & "', ")
+            sql.AppendLine("'" & detailedcashflow.mother & "', ")
             sql.AppendLine("'" & detailedcashflow.Desembolso & "') ")
 
             ' intruccion para obtener el registro insertado

@@ -76,7 +76,7 @@
         border: 2px solid #cecece; background: #E8E8DC; height: 120px; line-height: 40px;
         vertical-align: middle;">
         <img style="margin-top: 5px;" src="/FSC_APP/images/alert_icon.png" width="24px" alt="Save" />
-       <%-- <img style="margin-top: 5px;" src="/images/alert_icon.png" width="24px" alt="Save" />--%>        
+        <%-- <img style="margin-top: 5px;" src="/images/alert_icon.png" width="24px" alt="Save" />--%>
         <asp:Label ID="Lblerrors_save_idea" runat="server" Style="font-size: 14pt; color: #990000;"></asp:Label>
     </div>
     <br />
@@ -111,14 +111,8 @@
                 </li>
                 <li>
                     <asp:Label ID="lblcode" runat="server" Text="Código"></asp:Label>
-                    <%--   <asp:UpdatePanel ID="UpdatePanel4" runat="server">--%>
-                    <%--   <ContentTemplate>--%>
                     <asp:TextBox ID="txtcode" runat="server" MaxLength="50" Width="400px" AutoPostBack="true"></asp:TextBox>
-                    <%--  <asp:RequiredFieldValidator ID="rfvcode" runat="server" ControlToValidate="txtcode"
-                                ErrorMessage="*" ValidationGroup="infoGenral" SetFocusOnError="true"></asp:RequiredFieldValidator>--%>
                     <asp:Label ID="lblHelpcode" runat="server"></asp:Label>
-                    <%--</ContentTemplate>--%>
-                    <%--  </asp:UpdatePanel>--%>
                 </li>
                 <li>
                     <asp:Label ID="lblname" runat="server" Text="Nombre"></asp:Label>
@@ -133,7 +127,7 @@
                 </li>
                 <li>
                     <asp:Label ID="lblobjective" runat="server" Text="Objetivo"></asp:Label>
-                    <asp:TextBox ID="txtobjective" runat="server" MaxLength="255" Width="400px" Rows="2"
+                    <asp:TextBox ID="txtobjective" runat="server" MaxLength="800" Width="400px" Rows="2"
                         TextMode="MultiLine"></asp:TextBox>
                     <asp:Label ID="lblHelpobjective" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
@@ -141,7 +135,7 @@
                     <asp:Label ID="lblareadescription" runat="server" Text="Objetivos Específicos"></asp:Label>
                     <asp:TextBox ID="txtareadescription" runat="server" MaxLength="2500" Width="400px"
                         Rows="6" TextMode="MultiLine"></asp:TextBox>
-                    <asp:Label ID="lblHelpareadescription" runat="server"></asp:Label>
+                    <asp:Label ID="lblHelpareadescription" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
                 <li>
                     <asp:Label ID="lblresults" runat="server" Text="Resultados en Beneficiarios"></asp:Label>
@@ -372,7 +366,7 @@
                     <input id="SaveIdea" type="button" value="Crear Idea" name="Save_Idea" onclick="SaveIdea_onclick()" />
                     <%--<input id="EditIdea" type="button" value="Editar Idea" name="Edit_Idea" />--%>
                     <%--<input id="Export" type="button" value="Exportar términos de referencia" name="Export_Idea" onclick="return Export_onclick()" />--%>
-                     <asp:HiddenField ID="HDaddidea" runat="server" />
+                    <asp:HiddenField ID="HDaddidea" runat="server" />
                     <a id="Export" href="#" onclick="Export_onclick();" target="_blank">Exportar términos
                         de referencia</a> </li>
                 <asp:Label ID="Lbladvertencia" runat="server" ForeColor="#990000"></asp:Label>
@@ -385,9 +379,9 @@
             </ul>
         </div>
         <div id="componentes">
-            <div id="container_wait" runat="server" visible="true" style="width: 90%;
-                text-align: center; border: 2px solid #cecece; background: #E8E8DC; height: 80px;
-                line-height: 40px; vertical-align: middle;">
+            <div id="container_wait" runat="server" visible="true" style="width: 90%; text-align: center;
+                border: 2px solid #cecece; background: #E8E8DC; height: 80px; line-height: 40px;
+                vertical-align: middle;">
                 <img style="margin-top: 10px;" src="../images/cargando.gif" width="24px" alt="images" />
                 <asp:Label ID="Label22" runat="server" Text="cargando datos espere un momento" Style="font-size: 14pt;
                     color: #9bbb58;"></asp:Label>
@@ -444,7 +438,6 @@
                     <asp:Label ID="Lblinformationcomponent" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
             </ul>
-            
         </div>
         <div id="ubicacion">
             <ul>
@@ -974,7 +967,7 @@
                     <ContentTemplate>
                         <asp:GridView ID="gvDocuments" runat="server" AutoGenerateColumns="False" Width="100%">
                             <Columns>--%>
-               <%--                 <asp:HyperLinkField DataNavigateUrlFields="id" DataNavigateUrlFormatString="addDocuments.aspx?op=edit&id={0}&isPopup=True"
+                <%--                 <asp:HyperLinkField DataNavigateUrlFields="id" DataNavigateUrlFormatString="addDocuments.aspx?op=edit&id={0}&isPopup=True"
                                     HeaderText="Edición" Text="Editar" Target="_blank" />
                                 <asp:TemplateField HeaderText="Eliminación" ShowHeader="False">
                                     <ItemTemplate>
