@@ -223,22 +223,22 @@ Partial Public Class addProject
     Protected WithEvents lblzonedescription As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''Control txtzonedescription.
+    '''Control txtareadescription.
     '''</summary>
     '''<remarks>
     '''Campo generado automáticamente.
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
-    Protected WithEvents txtzonedescription As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtareadescription As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''Control lblHelpzonedescription.
+    '''Control lblHelpareadescription.
     '''</summary>
     '''<remarks>
     '''Campo generado automáticamente.
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
-    Protected WithEvents lblHelpzonedescription As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents lblHelpareadescription As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''Control lblresults.
@@ -268,58 +268,58 @@ Partial Public Class addProject
     Protected WithEvents lblHelpresults As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''Control Label6.
+    '''Control Lblresulgc.
     '''</summary>
     '''<remarks>
     '''Campo generado automáticamente.
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
-    Protected WithEvents Label6 As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents Lblresulgc As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''Control TextResultGestConocimiento.
+    '''Control txtresulgc.
     '''</summary>
     '''<remarks>
     '''Campo generado automáticamente.
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
-    Protected WithEvents TextResultGestConocimiento As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtresulgc As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''Control Label7.
+    '''Control Label10.
     '''</summary>
     '''<remarks>
     '''Campo generado automáticamente.
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
-    Protected WithEvents Label7 As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents Label10 As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''Control Label8.
+    '''Control Lblresultci.
     '''</summary>
     '''<remarks>
     '''Campo generado automáticamente.
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
-    Protected WithEvents Label8 As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents Lblresultci As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''Control TextResCapacidInstal.
+    '''Control txtresulci.
     '''</summary>
     '''<remarks>
     '''Campo generado automáticamente.
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
-    Protected WithEvents TextResCapacidInstal As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtresulci As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''Control Label9.
+    '''Control Label11.
     '''</summary>
     '''<remarks>
     '''Campo generado automáticamente.
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
-    Protected WithEvents Label9 As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents Label11 As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''Control Lblothersresults.
@@ -340,13 +340,13 @@ Partial Public Class addProject
     Protected WithEvents Txtothersresults As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''Control Label30.
+    '''Control Label23.
     '''</summary>
     '''<remarks>
     '''Campo generado automáticamente.
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
-    Protected WithEvents Label30 As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents Label23 As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''Control Lblobligationsoftheparties.
@@ -482,6 +482,15 @@ Partial Public Class addProject
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
     Protected WithEvents cestartdate As Global.AjaxControlToolkit.CalendarExtender
+
+    '''<summary>
+    '''Control lblHelpstartdate.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents lblHelpstartdate As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''Control Lbltitleduracion.
@@ -1438,13 +1447,13 @@ Partial Public Class addProject
     Protected WithEvents linkactors As Global.System.Web.UI.HtmlControls.HtmlAnchor
 
     '''<summary>
-    '''Control Label23.
+    '''Control Label53.
     '''</summary>
     '''<remarks>
     '''Campo generado automáticamente.
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
-    Protected WithEvents Label23 As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents Label53 As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''Control ddlType.

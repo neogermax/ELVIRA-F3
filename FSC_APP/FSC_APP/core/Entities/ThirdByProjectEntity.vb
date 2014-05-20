@@ -13,7 +13,20 @@ Public Class ThirdByProjectEntity
     Private _type As String
     Private _third As ThirdEntity
     Private _thirdname As String
-    'Private _typetext As String
+
+    Private _Vrmoney As String
+    Private _VrSpecies As String
+    Private _FSCorCounterpartContribution As String
+
+    Private _Name As String
+    Private _contact As String
+    Private _Documents As String
+    Private _Phone As String
+    Private _Email As String
+    Private _CreateDate As DateTime
+    Private _EstadoFlujos As String
+
+
 
 #End Region
 
@@ -43,22 +56,7 @@ Public Class ThirdByProjectEntity
             Me._idthird = value
         End Set
     End Property
-    'Public Property actions() As String
-    '    Get
-    '        Return Me._actions
-    '    End Get
-    '    Set(ByVal value As String)
-    '        Me._actions = value
-    '    End Set
-    'End Property
-    'Public Property experiences() As String
-    '    Get
-    '        Return Me._experiences
-    '    End Get
-    '    Set(ByVal value As String)
-    '        Me._experiences = value
-    '    End Set
-    'End Property
+
     Public Property type() As String
         Get
             Return Me._type
@@ -67,6 +65,91 @@ Public Class ThirdByProjectEntity
             Me._type = value
         End Set
     End Property
+    Public Property Vrmoney() As String
+        Get
+            Return Me._Vrmoney
+        End Get
+        Set(ByVal value As String)
+            Me._Vrmoney = value
+        End Set
+    End Property
+    Public Property VrSpecies() As String
+        Get
+            Return Me._VrSpecies
+        End Get
+        Set(ByVal value As String)
+            Me._VrSpecies = value
+        End Set
+    End Property
+    Public Property FSCorCounterpartContribution() As String
+        Get
+            Return Me._FSCorCounterpartContribution
+        End Get
+        Set(ByVal value As String)
+            Me._FSCorCounterpartContribution = value
+        End Set
+    End Property
+    'cambios de face 3
+    Public Property Name() As String
+        Get
+            Return Me._Name
+        End Get
+        Set(ByVal value As String)
+            Me._Name = value
+        End Set
+    End Property
+    Public Property contact() As String
+        Get
+            Return Me._contact
+        End Get
+        Set(ByVal value As String)
+            Me._contact = value
+        End Set
+    End Property
+    Public Property Documents() As String
+        Get
+            Return Me._Documents
+        End Get
+        Set(ByVal value As String)
+            Me._Documents = value
+        End Set
+    End Property
+    Public Property Phone() As String
+        Get
+            Return Me._Phone
+        End Get
+        Set(ByVal value As String)
+            Me._Phone = value
+        End Set
+    End Property
+    Public Property Email() As String
+        Get
+            Return Me._Email
+        End Get
+        Set(ByVal value As String)
+            Me._Email = value
+        End Set
+    End Property
+    Public Property CreateDate() As DateTime
+        Get
+            Return Me._CreateDate
+        End Get
+        Set(ByVal value As DateTime)
+            Me._CreateDate = value
+        End Set
+    End Property
+    Public Property EstadoFlujos() As String
+        Get
+            Return Me._EstadoFlujos
+        End Get
+        Set(ByVal value As String)
+            Me._EstadoFlujos = value
+        End Set
+    End Property
+
+
+
+
     Public Property THIRDNAME() As String
         Get
             Return Me._thirdname
@@ -75,22 +158,7 @@ Public Class ThirdByProjectEntity
             Me._thirdname = value
         End Set
     End Property
-    'Public ReadOnly Property TYPETEXT() As String
-    '    Get
-    '        TYPETEXT = ""
-    '        Select Case Me._type
-    '            Case 1
-    '                TYPETEXT = "Operador"
-    '            Case 2
-    '                TYPETEXT = "Socio"
-    '            Case 3
-    '                TYPETEXT = "Otros actores"
-    '            Case Else
-    '                TYPETEXT = "No definido"
-    '        End Select
-    '    End Get
-    'End Property
-
+   
     Public Property THIRD() As ThirdEntity
         Get
             Return Me._third
@@ -101,6 +169,7 @@ Public Class ThirdByProjectEntity
     End Property
 
 #End Region
+
 #Region "Constructor"
 
     'se desabilitan campos eliminados GR

@@ -41,10 +41,6 @@ Public Class ProjectEntity
     Private _completiondate As DateTime
 
 
-
-
-
-
     Private _sourceByProjectList As List(Of SourceByProjectEntity)
     Private _projectlocationlist As List(Of ProjectLocationEntity)
     Private _thirdbyprojectlist As List(Of ThirdByProjectEntity)
@@ -74,6 +70,22 @@ Public Class ProjectEntity
 
     Private _idProcessInstance As Integer
     Private _idActivityInstance As Integer
+
+    Private _OBLIGACIONES As String
+    Private _IVA As Integer
+    Private _riesgos As String
+    Private _mitigacion As String
+    Private _presupuestal As String
+    Private _dia As String
+    Private _OthersResults As String
+    Private _idtypecontract As Integer
+    Private _Enddate As DateTime
+    Private _mother As Integer
+    Private _Project_derivados As String
+
+
+    Private _DetailedcashflowsbyProjectList As List(Of DetailedcashflowsEntity)
+
 
 #End Region
 
@@ -248,7 +260,6 @@ Public Class ProjectEntity
             Me._editablemoney = value
         End Set
     End Property
-
     Public Property editabletime() As String
         Get
             Return Me._editabletime
@@ -257,7 +268,6 @@ Public Class ProjectEntity
             Me._editabletime = value
         End Set
     End Property
-
     Public Property editableresults() As String
         Get
             Return Me._editableresults
@@ -438,16 +448,14 @@ Public Class ProjectEntity
             Me._strategicobjectivename = value
         End Set
     End Property
-
     Public Property idKey() As Integer
         Get
-            Return Me._idkey
+            Return Me._idKey
         End Get
         Set(ByVal value As Integer)
-            Me._idkey = value
+            Me._idKey = value
         End Set
     End Property
-
     Public Property isLastVersion() As Boolean
         Get
             Return Me._isLastVersion
@@ -456,7 +464,6 @@ Public Class ProjectEntity
             Me._isLastVersion = value
         End Set
     End Property
-
     Public Property IdProcessInstance() As Integer
         Get
             Return Me._idProcessInstance
@@ -497,7 +504,6 @@ Public Class ProjectEntity
             Me._typeapproval = value
         End Set
     End Property
-
     Public Property completiondate() As DateTime
         Get
             Return Me._completiondate
@@ -522,7 +528,6 @@ Public Class ProjectEntity
             Me._explanatoryEntityList = value
         End Set
     End Property
-
     Public Property DOCUMENTLIST() As List(Of DocumentsEntity)
         Get
             Return Me._documentList
@@ -539,6 +544,110 @@ Public Class ProjectEntity
             Me._documentsByEntityList = value
         End Set
     End Property
+    Public Property Obligaciones() As String
+        Get
+            Return Me._OBLIGACIONES
+        End Get
+        Set(ByVal value As String)
+            Me._OBLIGACIONES = value
+        End Set
+    End Property
+    Public Property iva() As Integer
+        Get
+            Return Me._IVA
+        End Get
+        Set(ByVal value As Integer)
+            Me._IVA = value
+        End Set
+    End Property
+    Public Property riesgos() As String
+        Get
+            Return Me._riesgos
+        End Get
+        Set(ByVal value As String)
+            Me._riesgos = value
+        End Set
+    End Property
+    Public Property mitigacion() As String
+        Get
+            Return Me._mitigacion
+        End Get
+        Set(ByVal value As String)
+            Me._mitigacion = value
+        End Set
+    End Property
+    Public Property presupuestal() As String
+        Get
+            Return Me._presupuestal
+        End Get
+        Set(ByVal value As String)
+            Me._presupuestal = value
+        End Set
+    End Property
+    Public Property dia() As String
+        Get
+            Return Me._dia
+        End Get
+        Set(ByVal value As String)
+            Me._dia = value
+        End Set
+    End Property
+    Public Property OthersResults() As String
+        Get
+            Return Me._OthersResults
+        End Get
+        Set(ByVal value As String)
+            Me._OthersResults = value
+        End Set
+    End Property
+    Public Property idtypecontract() As Integer
+        Get
+            Return Me._idtypecontract
+        End Get
+        Set(ByVal value As Integer)
+            Me._idtypecontract = value
+        End Set
+    End Property
+    Public Property Enddate() As DateTime
+        Get
+            Return Me._Enddate
+        End Get
+        Set(ByVal value As DateTime)
+            Me._Enddate = value
+        End Set
+    End Property
+    Public Property DetailedcashflowsbyProjectList() As List(Of DetailedcashflowsEntity)
+        Get
+            Return Me._DetailedcashflowsbyProjectList
+        End Get
+        Set(ByVal value As List(Of DetailedcashflowsEntity))
+            Me._DetailedcashflowsbyProjectList = value
+        End Set
+    End Property
+    Public Property mother() As Integer
+        Get
+            Return Me._mother
+        End Get
+        Set(ByVal value As Integer)
+            Me._mother = value
+        End Set
+    End Property
+    Public Property Project_derivados() As String
+        Get
+            Return Me._Project_derivados
+        End Get
+        Set(ByVal value As String)
+            Me._Project_derivados = value
+        End Set
+    End Property
+
+#End Region
+
+#Region "Constructor"
+
+    Public Sub New()
+
+    End Sub
 
 #End Region
 

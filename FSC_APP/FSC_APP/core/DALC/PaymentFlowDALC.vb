@@ -105,6 +105,7 @@ Public Class PaymentFlowDALC
              "ididea," & _
              "valortotal," & _
              "N_pagos," & _
+             "Mother," & _
              "valorparcial " & _
             ")")
             sql.AppendLine("VALUES (")
@@ -115,6 +116,7 @@ Public Class PaymentFlowDALC
             sql.AppendLine("'" & PaymentFlow.ididea & "',")
             sql.AppendLine("'" & valortotal & "',")
             sql.AppendLine("'" & PaymentFlow.N_pagos & "',")
+            sql.AppendLine("'" & PaymentFlow.mother & "',")
             sql.AppendLine("'" & valorparcial & "') ")
 
             'sql.AppendLine("'" & Project.IdActivityInstance & "')")
@@ -172,7 +174,7 @@ Public Class PaymentFlowDALC
     End Function
 
     Public Function delete(ByVal objApplicationCredentials As Gattaca.Application.Credentials.ApplicationCredentials, _
-      ByVal idproject As Integer) As Long
+      ByVal idproject As Integer, ByRef type As String) As Long
 
         ' definiendo los objtos
         Dim SQL As New StringBuilder
@@ -180,7 +182,11 @@ Public Class PaymentFlowDALC
         Try
             ' construir la sentencia
             SQL.AppendLine(" Delete from Paymentflow ")
-            SQL.AppendLine(" where ididea = '" & idproject & "' ")
+            If type = "Idea" Then
+                SQL.AppendLine(" where ididea = '" & idproject & "' ")
+            Else
+                SQL.AppendLine(" where idproject = '" & idproject & "' ")
+            End If
             'Ejecutar la Instruccion
             GattacaApplication.RunSQL(objApplicationCredentials, SQL.ToString)
 

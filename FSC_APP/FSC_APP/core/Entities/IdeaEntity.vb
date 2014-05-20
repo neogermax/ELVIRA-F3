@@ -26,7 +26,6 @@ Public Class IdeaEntity
     Private _iduser As Integer
     Private _enabled As Boolean
 
-
     'Atributo adicional que almacena el nombre del usuario
     Private _username As String
     Private _documentList As List(Of DocumentsEntity)
@@ -381,7 +380,7 @@ Public Class IdeaEntity
             Me._IVA = value
         End Set
     End Property
-        Public Property riesgos() As String
+    Public Property riesgos() As String
         Get
             Return Me._riesgos
         End Get
