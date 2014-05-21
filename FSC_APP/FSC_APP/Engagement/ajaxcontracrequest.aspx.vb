@@ -286,15 +286,17 @@ Partial Class Engagement_ajaxcontracrequest
 
         If DATA.Rows.Count > 0 Then
 
+            objResult &= "{"
+
             For Each row As DataRow In DATA.Rows
-                objResult &= "{"
-                objResult &= """Third_id"": """
-                objResult &= DATA.Rows(0).ToString
+
+                objResult &= String.Format("""Third{0}"": """, limite - 1)
+                objResult &= DATA.Rows(limite - 1)("Name") & Chr(34)
 
                 If limite = DATA.Rows.Count Then
-                    objResult &= """}"
+                    objResult &= "}"
                 Else
-                    objResult &= """}|"
+                    objResult &= ", "
                 End If
 
                 limite = limite + 1
@@ -303,7 +305,7 @@ Partial Class Engagement_ajaxcontracrequest
 
         Else
             objResult &= "{"
-            objResult &= """Third_id"": """
+            objResult &= "Third"": """
             objResult &= """}"
         End If
 
