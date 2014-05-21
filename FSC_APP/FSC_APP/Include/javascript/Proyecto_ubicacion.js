@@ -87,7 +87,7 @@ function Add_location_onclick() {
 
                 for (itemArray in arrayUbicacion) {
                     var strdelete = arrayUbicacion[itemArray].DeptoName + "_" + arrayUbicacion[itemArray].CityName;
-                    htmlTable += "<tr><td>" + arrayUbicacion[itemArray].DeptoName + "</td><td>" + arrayUbicacion[itemArray].CityName + "</td><td><input type ='button' class= 'deleteUbicacion' value= 'Eliminar' onclick='deleteUbicacion(/" + strdelete + "/)' ></input></td></tr>";
+                    htmlTable += "<tr><td>" + arrayUbicacion[itemArray].DeptoName + "</td><td>" + arrayUbicacion[itemArray].CityName + "</td><td><input type ='button' class= 'deleteUbicacion' value= 'Eliminar'  onclick=\"deleteUbicacion('" + strdelete + "')\" ></input></td></tr>";
                 }
                 htmlTable += "</tbody></table>";
 
@@ -171,7 +171,7 @@ function deleteUbicacion(str) {
     //recorremos el array
     for (itemArray in arrayUbicacion) {
         //construimos la llave de validacion
-        var id = "/" + arrayUbicacion[itemArray].DeptoName + "_" + arrayUbicacion[itemArray].CityName + "/";
+        var id = arrayUbicacion[itemArray].DeptoName + "_" + arrayUbicacion[itemArray].CityName;
         //validamos el dato q nos trae la funcion
         if (str == id) {
             //borramos la ubicacion deseada

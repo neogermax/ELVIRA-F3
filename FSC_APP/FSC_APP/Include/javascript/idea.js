@@ -16,6 +16,8 @@ var arrayactorflujo_ed = [];
 var arraycomponenteing = [];
 var arraycomponente = [];
 var arraycomponentedesechado = [];
+var arraycomponente_archivar = [];
+
 var arrayValorflujoTotal = [];
 var arrayinputflujos = [];
 
@@ -126,7 +128,8 @@ $(document).ready(function() {
         var timer_cline_edit = setTimeout("Cpopulation_view();", 2000);
         var timer_cline_edit = setTimeout("Ctypcontract_view();", 2000);
         itemarrayflujos = 0;
-        swhich_flujos_exist = 1;
+
+        
         $("#SaveIdea").attr("value", "Editar Idea");
         $("#Export").css("display", "block");
         borrar_carpeta();

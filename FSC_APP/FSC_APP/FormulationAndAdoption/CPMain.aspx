@@ -73,6 +73,7 @@
                     onclick="Approval_onclick()" />
                 <input id="btneditcont" class="btnCtrlPan" type="button" value="Contratación modificación"
                     onclick="EditCont_onclick()" />
+                    
             </div>
         </fieldset>
     </div>

@@ -824,8 +824,15 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         Dim sql As New StringBuilder
         Dim objSqlCommand As New SqlCommand
         Dim data_actors_flujos As DataTable
+        Dim desembolso As String
 
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+
+        sql.Append(" select id from Paymentflow where IdIdea = " & ididea)
+
+        Dim exist_flow = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
+
+        sql = New StringBuilder
 
         sql.Append(" select ti.idthird, ti.name,ti.FSCorCounterpartContribution from ThirdByIdea ti ")
         sql.Append(" where ti.generatesflow ='s' and  ti.IdIdea = " & ididea)
@@ -839,7 +846,15 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
             html_actors_flujo = "<table id=""T_Actorsflujos"" border=""1"" cellpadding=""1"" cellspacing=""1"" style=""width: 100%;""><thead><tr><th width=""1""></th><th>Aportante</th><th>Valor total aporte</th><th>Valor por programar</th><th>Saldo por programar</th></tr></thead><tbody>"
 
             For Each row As DataRow In data_actors_flujos.Rows
-                html_actors_flujo &= "<tr id=""flujo" & row(0).ToString() & """><td width=""1"" style=""color: #D3D6FF;font-size: 0.1em;"">" & row(0).ToString() & "</td><td>" & row(1).ToString() & "</td><td id= ""value" & row(0).ToString() & """ >" & row(2).ToString() & "</td><td><input id=""" & "txtinput" & row(0).ToString() & """ onkeyup=""formatvercionsuma(this)"" onchange=""formatvercionsuma(this)""  onblur=""sumar_flujos('" & row(0).ToString() & "')"""" onfocus=""restar_flujos('" & row(0).ToString() & "')""""></input></td><td id=""desenbolso" & row(0).ToString() & """>0</td></tr>"
+
+                If exist_flow <> 0 Then
+                    desembolso = "0"
+                Else
+                    desembolso = row(2).ToString()
+                End If
+
+                html_actors_flujo &= "<tr id=""flujo" & row(0).ToString() & """><td width=""1"" style=""color: #D3D6FF;font-size: 0.1em;"">" & row(0).ToString() & "</td><td>" & row(1).ToString() & "</td><td id= ""value" & row(0).ToString() & """ >" & row(2).ToString() & "</td><td><input id=""" & "txtinput" & row(0).ToString() & """ onkeyup=""formatvercionsuma(this)"" onchange=""formatvercionsuma(this)""  onblur=""sumar_flujos('" & row(0).ToString() & "')"""" onfocus=""restar_flujos('" & row(0).ToString() & "')""""></input></td><td id=""desenbolso" & row(0).ToString() & """>" & desembolso & "</td></tr>"
+
             Next
 
             html_actors_flujo &= "<tr><td width=""1"" style=""color: #D3D6FF; font-size: 0.1em;"">1000</td><td>Total</td><td id=""tflujosing""></td><td id=""totalflujos"">0</td></td id=""tflujosdesen""><td></tr></tbody></table>"
