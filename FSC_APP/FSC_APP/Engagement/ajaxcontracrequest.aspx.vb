@@ -275,10 +275,10 @@ Partial Class Engagement_ajaxcontracrequest
         Dim DATA As DataTable
         Dim limite As Integer = 1
 
-        'consulta de los datos de actores por id
-        sql.Append("SELECT s.Third_Id FROM SupervisorbyContractReq s ")
-        sql.Append("inner join Third t on s.Third_Id = t.Id ")
-        sql.Append("where(contractrequest_id = " & contrato & ")")
+        'consulta de los datos de actores por id de contratación
+        sql.Append("select Name from third ")
+        sql.Append("inner join supervisorbycontractreq on SupervisorbyContractReq.Third_Id = Third.Id ")
+        sql.Append("where(SupervisorbyContractReq.ContractRequest_Id = " & contrato & ")")
 
         DATA = GattacaApplication.RunSQLRDT(objApplicationCredentials, sql.ToString)
 
@@ -286,15 +286,17 @@ Partial Class Engagement_ajaxcontracrequest
 
         If DATA.Rows.Count > 0 Then
 
+            objResult &= "{"
+
             For Each row As DataRow In DATA.Rows
-                objResult &= "{"
-                objResult &= """Third_id"": """
-                objResult &= DATA.Rows(0).ToString
+
+                objResult &= String.Format("""Third{0}"": """, limite - 1)
+                objResult &= DATA.Rows(limite - 1)("Name") & Chr(34)
 
                 If limite = DATA.Rows.Count Then
-                    objResult &= """}"
+                    objResult &= "}"
                 Else
-                    objResult &= """}|"
+                    objResult &= ", "
                 End If
 
                 limite = limite + 1
@@ -303,7 +305,7 @@ Partial Class Engagement_ajaxcontracrequest
 
         Else
             objResult &= "{"
-            objResult &= """Third_id"": """
+            objResult &= "Third"": """
             objResult &= """}"
         End If
 

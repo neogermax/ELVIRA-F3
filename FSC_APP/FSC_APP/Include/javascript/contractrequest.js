@@ -40,13 +40,35 @@ function supervisor_array() {
     $.ajax({
         url: "ajaxcontracrequest.aspx",
         type: "GET",
-        data: { "action": "getsupervisor", "contract": getParameterByName('id') },
+        data: { "action": "getsupervisor", "contract": getParameterByName('ID') },
         success: function(result) {
-            array_supervisor_ed = result.split("|");
-            for (itemArray in array_supervisor_ed) {
-                var recibesuper = JSON.parse(array_supervisor_ed[itemArray]);
-                arraySupervisor.push(recibesuper);
+
+            var recibesuper = JSON.parse(result);
+            var strasp = "";
+            var htmlTable = "<table id='T_supervisor' border='2' cellpadding='2' cellspacing='2' style='width: 100%;'><thead><tr><th>Supervisor</th><th>Eliminar</th></tr></thead><tbody>";
+
+            for (itemArray in recibesuper) {
+                //arraySupervisor.push(recibesuper);
+                strasp = strasp += "/" + recibesuper[itemArray];
+                var strdelete = recibesuper[itemArray];
+                htmlTable += "<tr><td>" + recibesuper[itemArray] + "</td><td><input type ='button' class= 'deleteSuperV' value= 'Eliminar' onclick='deleteSuperV(/" + strdelete + "/)' ></input></td></tr>";
+                //document.getElementById("ctl00_cphPrincipal_HFSupervisor").value = strasp;
             }
+
+            htmlTable += "</tbody></table>";
+            
+            $("#T_SuperVContainer").html("");
+            $("#T_SuperVContainer").html(htmlTable);
+
+            $(".deleteSuperV").click(function() {
+                $(this).parent().parent().remove();
+            });
+
+            $("#T_supervisor").dataTable({
+                "bJQueryUI": true,
+                "bDestroy": true
+            });
+            
         },
         error: function(msg) {
             alert("Los datos de supervisores no pudieron ser cargados.");
