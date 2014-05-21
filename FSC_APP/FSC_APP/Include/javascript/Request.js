@@ -5,6 +5,7 @@
 // idproject depend from page father and save into variable named idproject
 
 var numberRequest;
+var swhich_flujos_exist;
 //ready event for elements DOM into page
 $(document).ready(function(){
     numberRequest = (((idproject * 365) + 638) * 715953);

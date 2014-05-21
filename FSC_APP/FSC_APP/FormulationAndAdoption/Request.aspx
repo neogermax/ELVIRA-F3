@@ -2,27 +2,15 @@
     CodeBehind="Request.aspx.vb" Inherits="FSC_APP.Request" Title="Página sin título" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="cphPrincipal" runat="server">
-    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css" />
-
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-
-    <script type="text/javascript" src="../js/bootstrap.min.js"></script>
-
-    <script src="../Include/javascript/Request.js" type="text/javascript"></script>
+    <!-- Style -->
+    <link href="../css/jquery-ui-1.10.4.customRequest.min.css" rel="stylesheet" type="text/css" />
     
-    <link href="../css/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" type="text/css" />
-
-    <script src="../js/jquery-ui-1.10.3.custom.min.js" type="text/javascript"></script>
-
-    <script type="text/javascript">
-        var idproject = <%= Request.QueryString("idproject") %>;
-        $(document).ready(function(){
-            $("input[type='text'], select, textarea").addClass("form-control");
-            
-            $("#tabsRequest").tabs();
-        });
-    </script>
-
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css" />
+    
+    <link href="../css/datatables/jquery.dataTables.css" rel="stylesheet" type="text/css" />
+    
+    <link href="../Pretty/css/prettyPhoto.css" rel="stylesheet" type="text/css" />
+    
     <style>
         .container-request
         {
@@ -86,6 +74,96 @@
             margin-top: 2em;
         }
     </style>
+    
+    <!-- End Style -->
+    
+    <!-- Script -->
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    
+    <script src="../js/jquery-ui-1.10.3.custom.min.js" type="text/javascript"></script>
+    
+    <script src="../Pretty/js/jquery.prettyPhoto.js" type="text/javascript"></script>
+
+    <script type="text/javascript" src="../js/bootstrap.min.js"></script>
+
+    <script src="../Include/javascript/Request.js" type="text/javascript"></script>
+    
+    <script src="../js/jquery.dataTables.min.js" type="text/javascript"></script>
+
+    <script src="../Include/javascript/ThirdRequest.js" type="text/javascript"></script>
+    
+    <script src="../Include/javascript/jquery.maskMoney.js" type="text/javascript"></script>
+    
+    <script type="text/javascript">
+        var idproject = <%= Request.QueryString("idproject") %>;
+        $(document).ready(function(){
+            $("input[type='text'], select, textarea").addClass("form-control");
+            
+            var tabs = $("#tabsRequest").tabs();
+            
+            //Execute load procedure for select third
+            loadThird();
+            //Set function for event change for select control
+            SearchThirdInformation();
+            //Set function for event change sum money values
+            setEventChangeSum();
+            
+            //Load thirds in case add
+            loadDataThirsProject();
+            
+            //mask controls money
+            $('#ctl00_cphPrincipal_Txtvrdiner, #ctl00_cphPrincipal_Txtvresp, #txtTotalThird').maskMoney({thousands: '.', decimal:',', precision: 0});
+            
+            //New instance pretty photo
+            $("a.pretty").prettyPhoto({
+                callback: function() {
+                    $.ajax({
+                        url: "ajaxaddidea_drop_list_third.aspx",
+                        type: "GET",
+                        data: { "action": "cargarthird" },
+                        success: function(result) {
+                            $("#ddlactors").html(result);
+                            $("#ddlactors").trigger("liszt:updated");
+                        },
+                        error: function()
+                        { alert("los datos de terceros no pudieron ser cargados."); }
+                    });
+                }, /* Called when prettyPhoto is closed */
+                ie6_fallback: true,
+                modal: true,
+                social_tools: false
+            });
+            
+            $("#T_Actors").dataTable({
+                "bJQueryUI": true,
+                "bDestroy": true
+            });
+            
+            $("#typeRequest").change(function(){
+                if($(this).val() == "1"){
+                    $("#group-radios-type").css("display", "block");
+                }
+                else{
+                    $("#group-radios-type").css("display", "none");
+                    $("#tabsRequest").css("display", "none");
+                }
+            });
+            
+            $("input[name='subgroup']").change(function(){
+                $("#tabsRequest").css("display", "block");
+                if($(this).val() != "Adición"){
+                    tabs.tabs("disable",0);
+                    tabs.tabs({ active: 1 });
+                }else{
+                    tabs.tabs("enable",0);
+                    tabs.tabs({ active: 0 });
+                }
+            });
+        });
+    </script>
+    <!-- End Script -->
+
+    
     <div class="container-request">
         <h1 id="project-title">
         </h1>
@@ -94,12 +172,13 @@
             </h2>
             <label>
                 Tipo de solicitud</label>
-            <select>
-                <option>1. Adición, Prórroga, Entregables</option>
-                <option>2. Suspensión</option>
-                <option>3. Alcance</option>
-                <option>4. Cesión</option>
-                <option>5. Otros</option>
+            <select id="typeRequest">
+                <option value="0">Seleccione...</option>
+                <option value="1">1. Adición, Prórroga, Entregables</option>
+                <option value="2">2. Suspensión</option>
+                <option value="3">3. Alcance</option>
+                <option value="4">4. Cesión</option>
+                <option value="5">5. Otros</option>
             </select>
         </div>
         <div class="comun-controls">
@@ -112,7 +191,7 @@
                 Justificación de la solicitud</label>
             <textarea></textarea>
         </div>
-        <div class="container-subcategories">
+        <div id="group-radios-type" class="container-subcategories" style="display: none;">
             <label>
                 Especifique la modificación:</label>
             <div class="btn-group" data-toggle="buttons">
@@ -146,7 +225,7 @@
     </div>
     <br />
     <br />
-    <div id="tabsRequest">
+    <div id="tabsRequest" style="display: none;">
         <ul>
             <li><a href="#actores">Actores</a></li>
             <li><a href="#flujos">Flujos de Pago</a></li>
@@ -154,18 +233,17 @@
         <div id="actores">
             <ul>
                 <li>
-                    <asp:Label ID="Label2" runat="server" Text="Actor"></asp:Label>
+                    <label>Actor</label>
                 </li>
                 <li>
-                    <select id="ddlactors" class="Ccombo">
-                        <asp:DropDownList ID="ddlactors" runat="server">
-                        </asp:DropDownList>
+                    <select id="ddlactors" class="">
+                        
                     </select>
                     <a id="linkactors" runat="server" href="~/GeneralPlanning/addThird.aspx?prety=1&op=add&iframe=true&width=100%&height=100%"
                         title="Nuevo actor" class="pretty">CREAR NUEVO ACTOR</a> </li>
                 <li>
                     <asp:Label ID="Label6" runat="server" Text="Tipo"></asp:Label>
-                    <asp:DropDownList ID="ddlType" runat="server" CssClass="Ccombo">
+                    <asp:DropDownList ID="ddlType" runat="server" CssClass="">
                         <asp:ListItem>Operador</asp:ListItem>
                         <asp:ListItem>Socio Operador</asp:ListItem>
                         <asp:ListItem>Socio</asp:ListItem>
@@ -202,18 +280,18 @@
                 <li>
                     <asp:Label ID="vrdiner" runat="server" Text="Vr Dinero"></asp:Label>
                     <asp:TextBox ID="Txtvrdiner" runat="server" Width="200px" MaxLength="22" Rows="3"
-                        onkeyup="format(this)" onchange="format(this)"></asp:TextBox>
+                        ></asp:TextBox>
                     <asp:Label ID="Lblhelpdinner" runat="server"></asp:Label>
                 </li>
                 <li>
                     <asp:Label ID="Label13" runat="server" Text="Vr Especie"></asp:Label>
-                    <asp:TextBox ID="Txtvresp" runat="server" Width="200px" MaxLength="22" Rows="3" onkeyup="format(this)"
-                        onchange="format(this)"></asp:TextBox>
+                    <asp:TextBox ID="Txtvresp" runat="server" Width="200px" MaxLength="22" Rows="3" ></asp:TextBox>
                 </li>
                 <li>
                     <asp:Label ID="Label14" runat="server" Text="Total Aporte del Actor"></asp:Label>
-                    <asp:TextBox ID="Txtaportfscocomp" runat="server" Width="200px" MaxLength="30" Rows="3"
-                        Enabled="False"></asp:TextBox>
+                    <input style="width: 0px; height: 0px; opacity: 0; position: absolute; z-index: 0px;" type="text" id="txtTotalThird" value="" />
+                    <br />
+                    <asp:Label ID="Txtaportfscocomp" runat="server" Width="200px" Text="0"></asp:Label>
                 </li>
                 <li>
                     <asp:Label ID="LblinformationFlujo" runat="server" Text="Requiere flujo de pago:"></asp:Label>
@@ -225,9 +303,10 @@
                     <asp:Label ID="Lblflujosinf" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
                 <li>
-                    <asp:Button ID="btnAddThird" Visible="false" runat="server" Text="Agregar Actor"
-                        ValidationGroup="thirdBYIdea" />
-                    <input id="BtnaddActors" type="button" value="Agregar Actor" name="Add_actors" onclick="return BtnaddActors_onclick()" />
+                    <br />  
+                    <input id="BtnaddActors" style="background-image: none;" type="button" value="Agregar Actor" class="btn btn-success" name="Add_actors" onclick="return BtnaddActors_onclick()" />
+                    <br />
+                    <br />
                     <asp:Label ID="lblavertenactors" runat="server" Font-Bold="True" Font-Names="Arial Narrow"
                         ForeColor="Red"></asp:Label>
                 </li>

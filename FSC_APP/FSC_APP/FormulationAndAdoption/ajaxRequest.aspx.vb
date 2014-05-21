@@ -1,5 +1,8 @@
 ﻿Imports System.Web.Script.Serialization
 Imports FSC_DAO.model
+Imports System.Linq
+Imports System.Data.Linq
+Imports Newtonsoft.Json
 ''' <summary>
 ''' TODO: Form ajaxRequest create by Juan Camilo Martinez Morales
 ''' Date: 16/05/2014
@@ -20,13 +23,17 @@ Partial Public Class ajaxRequest
             Dim countKeys As Integer = Request.Form.AllKeys.Length
 
             If countKeys > 0 Then
+                Dim idProject As Integer = Convert.ToInt32(Request.Form("idProject"))
                 Dim actionToResponse As String = Request.Form("action")
                 'Method for action depend of the request transaction
                 Select Case actionToResponse
                     Case "getInformationProject"
-                        Dim idProject As Integer = Convert.ToInt32(Request.Form("idProject"))
                         'Get the  project information relevant 
                         getInformationProject(idProject)
+                        Exit Select
+                    Case "loadThirdProject"
+                        'Get thirs by project
+                        getThirdsByProject(idProject)
                         Exit Select
                 End Select
             End If
@@ -46,7 +53,22 @@ Partial Public Class ajaxRequest
         objRequestObjCProject.BeginDate = Convert.ToDateTime(objRequestObjCProject.BeginDate).ToShortDateString()
 
         'Response data for file javascript
-        Response.Write(objJavaScriptSerializer.Serialize(objRequestObjCProject))
+        Response.Write(JsonConvert.SerializeObject(objRequestObjCProject))
+    End Sub
+
+    Protected Sub getThirdsByProject(ByVal idProject As Integer)
+        Dim objFscDaoDataContext As FSC_DAO.model.fscdaoDataContext = New FSC_DAO.model.fscdaoDataContext()
+
+        Dim objThirds = From objThirdByProject In objFscDaoDataContext.ThirdByProject Where objThirdByProject.IdProject = idProject Select objThirdByProject
+
+        Dim objSerializedObject = JsonConvert.SerializeObject(objThirds.ToArray())
+
+        objSerializedObject = objSerializedObject.Replace("""", "\""")
+
+        objSerializedObject = String.Format("{0}{1}{2}", """", objSerializedObject, """")
+
+        Response.Write(objSerializedObject)
+
     End Sub
 
 
