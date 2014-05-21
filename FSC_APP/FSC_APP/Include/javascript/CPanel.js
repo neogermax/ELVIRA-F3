@@ -197,3 +197,8 @@ function getParameterByName(name) {
         results = regex.exec(location.search);
     return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
+
+function Modification_onclick()
+{
+    window.location = '/FormulationAndAdoption/request.aspx?idproject=' + getParameterByName('id');
+}
