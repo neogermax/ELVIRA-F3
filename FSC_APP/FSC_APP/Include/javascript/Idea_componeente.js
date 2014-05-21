@@ -1,7 +1,7 @@
 ﻿
 //funcion que posiciona el combo en la linea estrategica de la idea seleccionada
 function ClineEstrategic_edit() {
-   
+
     if (componentes_editados == 1) {
         //ajax que posiciona la linea estrategica de la idea conasultada
         $.ajax({
@@ -14,7 +14,7 @@ function ClineEstrategic_edit() {
                 $("#ddlStrategicLines").trigger("liszt:updated");
 
                 edit_line_strategic = result;
-                
+
                 Cprogram(edit_line_strategic);
                 console.log("Linea");
                 $("#ddlStrategicLines").trigger("change");
@@ -25,7 +25,7 @@ function ClineEstrategic_edit() {
                 alert("No se pueden cargar la linea estrategica deseada.");
             }
         });
-        
+
     }
 
 }
@@ -463,6 +463,10 @@ function Btnaddcomponent_onclick() {
         //crea la lista nueva
         var htmlresult = "<li id = 'select" + arraycomponente[itemArray] + "' class = 'des_seleccionar' >" + htmlcomponente + "</li>";
         //se asigna la lista al ul
+        var id_componente = arraycomponente[itemArray];
+        id_componente = id_componente.replace("add", "");
+        arraycomponente_archivar.push(id_componente);
+
         $("#componentesseleccionados").append(htmlresult);
         //eliminar del ul de seleccionar
         $("#" + arraycomponente[itemArray]).remove();
@@ -515,7 +519,16 @@ function Btndeletecomponent_onclick() {
 
         //crea la lista nueva
         var htmlresult = "<li id = '" + arraycomponentedesechado[itemArray].replace('select', '') + "' class = 'seleccione' >" + htmlcomponente + "</li>";
-
+        var id_componente = arraycomponentedesechado[itemArray];
+        
+        id_componente = id_componente.replace("selectadd", "");
+        alert(id_componente);
+        
+        for (itemArray_bor in arraycomponente_archivar) {
+            if (id_componente == arraycomponente_archivar[itemArray_bor]) {
+                delete arraycomponente_archivar[itemArray_bor];
+            }
+        }
         //se asigna la lista al ul
         $("#seleccionarcomponente").append(htmlresult);
 

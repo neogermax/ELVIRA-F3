@@ -278,7 +278,8 @@ function View_flujos_p_array() {
             if (result == "vacio") {
                 //    alert(result + " flujo actores");
                 arrayflujosdepago = [];
-
+                swhich_flujos_exist = 0;
+        
             }
             else {
                 arrayflujosdepago_ed = result.split("|");
@@ -288,6 +289,7 @@ function View_flujos_p_array() {
                     var recibeact = JSON.parse(arrayflujosdepago_ed[itemArray]);
                     arrayflujosdepago.push(recibeact);
                 }
+                swhich_flujos_exist = 1;
             }
         },
         error: function(msg) {
