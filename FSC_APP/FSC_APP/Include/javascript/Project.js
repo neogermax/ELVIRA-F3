@@ -60,8 +60,10 @@ var contadorrestar = 0;
 var validateflujos_save;
 var componentes_editados;
 var contar_program = 0;
+var itemarrayflujos;
+var control_edit_compo;
 
-
+var validar_ini_ed;
 $(document).ready(function() {
 
     //capturamos la url
@@ -75,7 +77,7 @@ $(document).ready(function() {
         actors_transanccion();
         comboactor();
 
-        //        var timer = setTimeout("fix();", 2000);
+        var timer = setTimeout("fix();", 2000);
         validafecha();
         validafecha2();
 
@@ -298,9 +300,9 @@ function verificar_dat_idea() {
         //capturamos el valor de la idea del combo de ideas aprobadas
         idea_buscar = $(this).val();
         str_ideabuscar = $("#ddlididea option:selected").text();
-
+        validar_ini_ed = 0;
         //alert(str_ideabuscar);
-        
+
         confirmar = confirm("¿Traer datos de la Idea aprobada?", "SI", "NO");
         if (confirmar) {
 
@@ -330,27 +332,33 @@ function verificar_dat_idea() {
             View_anexos_array();
 
             //pestaña componentes del proyecto
-            ClineEstrategic_edit();
+            $("#ddlStrategicLines").ready(function() {
+                ClineEstrategic_edit();
+                view_Cprogram();
+            });
             edit_component_view();
 
             //bloquemos los controles de la pestaña componentes
             $("#ddlStrategicLines").attr("disabled", "disabled");
-            $("#ddlPrograms").attr("disabled", "disabled");
-            $("#Btnaddcomponent").attr("disabled", "disabled");
-            $("#Btndeletecomponent").attr("disabled", "disabled");
+            // $("#ddlPrograms").attr("disabled", "disabled");
+            // $("#Btnaddcomponent").attr("disabled", "disabled");
+            // $("#Btndeletecomponent").attr("disabled", "disabled");
 
         }
         else {
 
             //pestaña componentes del proyecto
-            ClineEstrategic_edit();
+            $("#ddlStrategicLines").ready(function() {
+                ClineEstrategic_edit();
+                view_Cprogram();
+            });
             edit_component_view();
 
             //bloquemos los controles de la pestaña componentes
             $("#ddlStrategicLines").attr("disabled", "disabled");
-            $("#ddlPrograms").attr("disabled", "disabled");
-            $("#Btnaddcomponent").attr("disabled", "disabled");
-            $("#Btndeletecomponent").attr("disabled", "disabled");
+            // $("#ddlPrograms").attr("disabled", "disabled");
+            //$("#Btnaddcomponent").attr("disabled", "disabled");
+            //$("#Btndeletecomponent").attr("disabled", "disabled");
 
         }
 
@@ -710,7 +718,7 @@ function Crear_proyecto() {
     Str_listcomponentes = Str_listcomponentes.replace(/id=/g, "");
     Str_listcomponentes = Str_listcomponentes.replace(/_add/g, "");
 
-//    Str_listcomponentes = Str_listcomponentes.replace(/_selectadd/g, "");
+    //    Str_listcomponentes = Str_listcomponentes.replace(/_selectadd/g, "");
 
 
     //recorer array para el ingreso de ubicaciones
@@ -795,7 +803,7 @@ function Crear_proyecto() {
             "listactores": listactores.toString(),
             "ididea": idea_buscar,
             "str_code": str_ideabuscar
-    
+
 
         },
         //mostrar resultados de la creacion de la idea

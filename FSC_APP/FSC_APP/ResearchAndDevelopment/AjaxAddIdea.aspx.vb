@@ -1182,7 +1182,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                 objResult &= "{"
 
                 objResult &= """DeptoVal"": """
-                DeptoVal = row.CITY.id
+                DeptoVal = row.DEPTO.id
 
                 objResult &= DeptoVal
 
@@ -1192,7 +1192,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                 objResult &= DeptoName
 
                 objResult &= """, ""CityVal"": """
-                CityVal = row.DEPTO.id
+                CityVal = row.CITY.id
 
                 objResult &= CityVal
 
@@ -2067,6 +2067,8 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                     objpaymentFlow.valortotal = Convert.ToInt32(tflujosexist)
                     objpaymentFlow.valorparcial = Convert.ToInt32(tflujosexist)
                     objpaymentFlow.idproject = 0
+                    objpaymentFlow.mother = Nothing
+
 
                     'cargamos al list
                     PaymentFlowList.Add(objpaymentFlow)
@@ -2113,6 +2115,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                     objDetalleflujo.Aportante = Aportanteexist
                     objDetalleflujo.Desembolso = desembolsoexist
                     objDetalleflujo.IdProject = 0
+                    objDetalleflujo.mother = Nothing
 
                     'cargamos al list
                     listDetalleflujo.Add(objDetalleflujo)
@@ -2374,6 +2377,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                 existespecie = Replace(arrayactor(contadoractor + 8), "especie : ", " ", 1)
                 existtotal = Replace(arrayactor(contadoractor + 9), "total : ", " ", 1)
                 estados_flujosexist = Replace(arrayactor(contadoractor + 10), "estado_flujo : ", " ", 1)
+                estados_flujosexist = estados_flujosexist.Replace(" ", "")
 
                 'asignamos al objeto
                 thirdByIdea.idthird = existactorsVal
@@ -2445,6 +2449,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                     objpaymentFlow.valortotal = Convert.ToInt32(tflujosexist)
                     objpaymentFlow.valorparcial = Convert.ToInt32(tflujosexist)
                     objpaymentFlow.idproject = 0
+                    objpaymentFlow.mother = Nothing
 
                     'cargamos al list
                     PaymentFlowList.Add(objpaymentFlow)
@@ -2493,6 +2498,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                     objDetalleflujo.Aportante = Aportanteexist
                     objDetalleflujo.Desembolso = desembolsoexist
                     objDetalleflujo.IdProject = 0
+                    objDetalleflujo.mother = Nothing
 
                     'cargamos al list
                     listDetalleflujo.Add(objDetalleflujo)

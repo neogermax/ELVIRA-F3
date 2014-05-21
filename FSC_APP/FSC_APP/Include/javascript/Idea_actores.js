@@ -228,7 +228,8 @@ function add_actor_grid() {
                 $("#ctl00_cphPrincipal_Txtvrdiner").val("");
                 $("#ctl00_cphPrincipal_Txtvresp").val("");
                 $("#ctl00_cphPrincipal_Txtaportfscocomp").val("");
-
+                $("#ddlactors").val("Seleccione...");
+                $("#ddlactors").trigger("liszt:updated");
             }
         }
     }

@@ -57,7 +57,8 @@ var contadorrestar = 0;
 var validateflujos_save;
 var componentes_editados;
 var contar_program = 0;
-
+var itemarrayflujos;
+var control_edit_compo;
 
 $(document).ready(function() {
 
@@ -87,7 +88,11 @@ $(document).ready(function() {
         Cpopulation();
         validarporcentaje();
         ClineEstrategic();
-        var timer_cline_edit = setTimeout("ClineEstrategic_edit();", 3000);
+
+        $("#ddlStrategicLines").ready(function() {
+            ClineEstrategic_edit();
+        });
+
 
         //Cprogram();
         cargarcomponente();
@@ -120,8 +125,8 @@ $(document).ready(function() {
 
         var timer_cline_edit = setTimeout("Cpopulation_view();", 2000);
         var timer_cline_edit = setTimeout("Ctypcontract_view();", 2000);
-        // var itemarrayflujos = 0;
-
+        itemarrayflujos = 0;
+        swhich_flujos_exist = 1;
         $("#SaveIdea").attr("value", "Editar Idea");
         $("#Export").css("display", "block");
         borrar_carpeta();
@@ -137,7 +142,7 @@ $(document).ready(function() {
         validafecha2();
 
         ClineEstrategic();
-        Cprogram();
+        Cprogram(0);
         Cdeptos();
         Cmunip();
         Cactors();

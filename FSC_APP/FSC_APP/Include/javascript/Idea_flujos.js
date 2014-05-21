@@ -887,6 +887,7 @@ function validarporcentaje() {
 
         if (s_revisarflujos == 1) {
 
+            var itemarrayflujos = 0;
             var idflujos = arrayActorFlujo[itemarrayflujos].actorsVal;
 
             valuecomparative = valcomas;

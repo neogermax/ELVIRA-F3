@@ -13,13 +13,17 @@ function ClineEstrategic_edit() {
             $("#ddlStrategicLines").trigger("liszt:updated");
 
             edit_line_strategic = result;
+
+            Cprogram(edit_line_strategic);
+            console.log("Linea");
+            $("#ddlStrategicLines").trigger("change");
         },
         error: function(msg) {
             alert("No se pueden cargar la linea estrategica deseada.");
         }
     });
 
-    var timer_cline_edit = setTimeout("Cprogram_edit();", 3500);
+    //var timer_cline_edit = setTimeout("Cprogram_edit();", 3500);
 
 
 }
@@ -112,31 +116,24 @@ function Cprogram() {
                         contar_program = 1;
                     }
 
-                    confirmar = confirm("Usted acaba de cambiar de linea estratégica la información diligenciada se perdera! desea cambiarla?", "SI", "NO");
-                    if (confirmar) {
 
-                        $("#componentesseleccionados").html("");
-                        $("#seleccionarcomponente").html("");
-
+                    if (validar_ini_ed == 1) {
+                        validar_cambio_linea(result);
+                    }
+                    else {
+                        validar_ini_ed = 1;
                         arraycomponente = [];
 
                         $("#ddlPrograms").html(result);
                         $("#ddlPrograms").trigger("liszt:updated");
 
+                        if (control_edit_compo == 0) {
+                            validar_cambio_linea(result);
+                          
+                        }
+                        control_edit_compo = 0;
+                        idLineStrategic = 0;
                     }
-                    else {
-
-                        $("#ddlStrategicLines").val(arraycompo[0]);
-                        $("#ddlStrategicLines").trigger("liszt:updated");
-
-                        $("#ddlPrograms").val(arraycompo[1]);
-                        $("#ddlPrograms").trigger("liszt:updated");
-
-                        contar_program = 0;
-                        arraycompo = [];
-                    }
-
-
                 }
             },
             error: function(msg) {
@@ -146,6 +143,38 @@ function Cprogram() {
     });
 }
 
+
+//funcion para validar los cambios de lineas 
+function validar_cambio_linea(str_result) {
+
+    confirmar = confirm("Usted acaba de cambiar de linea estratégica la información diligenciada se perdera! desea cambiarla?", "SI", "NO");
+    if (confirmar) {
+
+        $("#componentesseleccionados").html("");
+        $("#seleccionarcomponente").html("");
+
+        arraycomponente = [];
+
+        $("#ddlPrograms").html(str_result);
+        $("#ddlPrograms").trigger("liszt:updated");
+
+    }
+
+    else {
+
+        $("#ddlStrategicLines").val(arraycompo[0]);
+        $("#ddlStrategicLines").trigger("liszt:updated");
+
+        $("#ddlPrograms").val(arraycompo[1]);
+        $("#ddlPrograms").trigger("liszt:updated");
+
+        contar_program = 0;
+        arraycompo = [];
+
+
+    }
+
+}
 
 
 //cargar double lisbox componentes de programa
