@@ -168,22 +168,22 @@ Public Class ProjectDALC
         Dim code As String
 
         Try
-            sqlMaxIdProject.AppendLine("select MAX(Project.Id) from Project")
-            dtDataMax = GattacaApplication.RunSQLRDT(objApplicationCredentials, sqlMaxIdProject.ToString)
+            'sqlMaxIdProject.AppendLine("select MAX(Project.Id) from Project")
+            'dtDataMax = GattacaApplication.RunSQLRDT(objApplicationCredentials, sqlMaxIdProject.ToString)
 
-            'obtener la idea y su nombre
-            sqlCode.AppendLine("SELECT Idea.Id, Idea.name FROM Idea JOIN ProjectApprovalRecord par ON (Idea.Id=par.IdIdea) WHERE Idea.Id = " & Project.ididea)
-            'sqlCode.AppendLine(" " & dtDataMax.Rows(0)(0) & ")  GROUP BY Idea.Id, Idea.name")
-            dtDataCode = GattacaApplication.RunSQLRDT(objApplicationCredentials, sqlCode.ToString)
-            If dtDataCode.Rows.Count > 0 Then
+            ''obtener la idea y su nombre
+            'sqlCode.AppendLine("SELECT Idea.Id, Idea.name FROM Idea JOIN ProjectApprovalRecord par ON (Idea.Id=par.IdIdea) WHERE Idea.Id = " & Project.ididea)
+            ''sqlCode.AppendLine(" " & dtDataMax.Rows(0)(0) & ")  GROUP BY Idea.Id, Idea.name")
+            'dtDataCode = GattacaApplication.RunSQLRDT(objApplicationCredentials, sqlCode.ToString)
+            'If dtDataCode.Rows.Count > 0 Then
 
-                ' cargar los datos
-                code = dtDataCode.Rows(0)("Id")
-                code = code & "-" & dtDataCode.Rows(0)("name")
+            '    ' cargar los datos
+            '    code = dtDataCode.Rows(0)("Id")
+            '    code = code & "-" & dtDataCode.Rows(0)("name")
 
-            End If
-            numid = Convert.ToInt32(dtDataMax.Rows(0)(0)) + 1
-            code = code & "-" & numid
+            'End If
+            'numid = Convert.ToInt32(dtDataMax.Rows(0)(0)) + 1
+            'code = code & "-" & numid
             ' construir la sentencia
             sql.AppendLine("INSERT INTO Project(" & _
              "ididea," & _
@@ -214,15 +214,22 @@ Public Class ProjectDALC
              "idKey," & _
              "isLastVersion," & _
              "IdProcessInstance, " & _
-             "editablemoney, " & _
-             "editabletime, " & _
-             "editableresults, " & _
              "Typeapproval, " & _
+             "Mother, " & _
+             "OtherResults, " & _
+             "obligationsoftheparties, " & _
+             "BudgetRoute, " & _
+             "RisksIdentified, " & _
+             "RiskMitigation, " & _
+             "ideaappliesIVA, " & _
+             "days, " & _
+             "Project_derivados, " & _
              "completiondate " & _
-            ")")
+             ")")
+
             sql.AppendLine("VALUES (")
             sql.AppendLine("'" & Project.ididea & "',")
-            sql.AppendLine("'" & code & "',")
+            sql.AppendLine("'" & Project.code & "',")
             sql.AppendLine("'" & Project.name & "',")
             sql.AppendLine("'" & Project.objective & "',")
             sql.AppendLine("'" & Project.antecedent & "',")
@@ -242,10 +249,8 @@ Public Class ProjectDALC
             sql.AppendLine("'" & Project.zonedescription & "',")
             sql.AppendLine("'" & Project.population & "',")
             sql.AppendLine("'" & Project.strategicdescription & "',")
-
             sql.AppendLine("'" & Project.ResultsKnowledgeManagement & "',")
             sql.AppendLine("'" & Project.ResultsInstalledCapacity & "',")
-
             sql.AppendLine("'" & Project.results & "',")
             sql.AppendLine("'" & Project.source & "',")
             sql.AppendLine("'" & Project.purpose & "',")
@@ -262,10 +267,16 @@ Public Class ProjectDALC
             sql.AppendLine("'" & Project.isLastVersion & "',")
             sql.AppendLine("'" & Project.IdProcessInstance & "' , ")
             'sql.AppendLine("'" & Project.IdActivityInstance & "')")
-            sql.AppendLine("'" & Project.editablemoney & "' , ")
-            sql.AppendLine("'" & Project.editabletime & "' , ")
-            sql.AppendLine("'" & Project.editableresults & "' , ")
             sql.AppendLine("'" & Project.Typeapproval & "' , ")
+            sql.AppendLine("'" & Project.mother & "' , ")
+            sql.AppendLine("'" & Project.OthersResults & "' , ")
+            sql.AppendLine("'" & Project.Obligaciones & "' , ")
+            sql.AppendLine("'" & Project.presupuestal & "' , ")
+            sql.AppendLine("'" & Project.riesgos & "' , ")
+            sql.AppendLine("'" & Project.mitigacion & "' , ")
+            sql.AppendLine("'" & Project.iva & "' , ")
+            sql.AppendLine("'" & Project.dia & "' , ")
+            sql.AppendLine("'" & Project.Project_derivados & "' , ")
             sql.AppendLine("'" & Project.completiondate.ToString("yyyy/MM/dd HH:mm:ss") & "' ) ")
             ' intruccion para obtener el registro insertado
             sql.AppendLine(" SELECT SCOPE_IDENTITY() AS Id")
@@ -373,7 +384,7 @@ Public Class ProjectDALC
             ' ejecutar la intruccion
             data = GattacaApplication.RunSQLRDT(objApplicationCredentials, sql.ToString)
 
-            
+
 
 
             If data.Rows.Count > 0 Then
@@ -948,7 +959,7 @@ Public Class ProjectDALC
                 sql.Append("ORDER BY [dbo].[Project].[Id] DESC")
             End If
 
-            
+
             ' ejecutar la intruccion
             data = GattacaApplication.RunSQLRDT(objApplicationCredentials, sql.ToString)
 
@@ -1004,7 +1015,7 @@ Public Class ProjectDALC
                     objProject.name = row("name")
                     objProject.idKey = row("idkey")
                 End If
-                
+
                 ' agregar a la lista
                 ProjectList.Add(objProject)
 
@@ -1026,7 +1037,7 @@ Public Class ProjectDALC
             ExceptionPolicy.HandleException(ex, "GattacaStandardExceptionPolicy")
 
             ' subir el error de nivel
-            Throw New Exception("Error al cargar la lista de Project. ")
+            Throw New Exception("Error al cargar la lista de Project. - " & ex.Message)
 
         Finally
             ' liberando recursos
@@ -1141,7 +1152,7 @@ Public Class ProjectDALC
             ExceptionPolicy.HandleException(ex, "GattacaStandardExceptionPolicy")
 
             ' subir el error de nivel
-            Throw New Exception("Error al cargar la lista de Project. ")
+            Throw New Exception("Error al cargar la lista de Project. - " & ex.Message)
 
         Finally
             ' liberando recursos
@@ -1260,7 +1271,7 @@ Public Class ProjectDALC
             ExceptionPolicy.HandleException(ex, "GattacaStandardExceptionPolicy")
 
             ' subir el error de nivel
-            Throw New Exception("Error al cargar la lista de Project.")
+            Throw New Exception("Error al cargar la lista de Project." & ex.Message)
 
         Finally
             ' liberando recursos
@@ -1340,7 +1351,7 @@ Public Class ProjectDALC
 
                 ' TODO: 31 instancias nuevas para la idea
                 ' 04/06/13 german rodriguez MGgroup
-                
+
                 objidea.code = row("code")
                 objidea.name = row("name_code")
 
@@ -1373,7 +1384,7 @@ Public Class ProjectDALC
             ExceptionPolicy.HandleException(ex, "GattacaStandardExceptionPolicy")
 
             ' subir el error de nivel
-            Throw New Exception("Error al cargar la lista de Project.")
+            Throw New Exception("Error al cargar la lista de Project." & ex.Message)
 
         Finally
             ' liberando recursos
@@ -1469,7 +1480,7 @@ Public Class ProjectDALC
             ExceptionPolicy.HandleException(ex, "GattacaStandardExceptionPolicy")
 
             ' subir el error de nivel
-            Throw New Exception("Error al cargar la lista de Project.")
+            Throw New Exception("Error al cargar la lista de Project." & ex.Message)
 
         Finally
             ' liberando recursos

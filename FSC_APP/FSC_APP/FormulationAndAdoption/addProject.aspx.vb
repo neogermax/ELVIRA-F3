@@ -57,11 +57,11 @@ Partial Class addProject
             Me.checktiempo.Visible = False
             Me.checkalcance.Visible = False
             Me.lblmodifotrosi.Visible = False
-            Me.lblmsjporcent.Text = ""
+            '    Me.lblmsjporcent.Text = ""
             Me.lblMessageValidacionNombre.Text = ""
-            Me.btnRefresh.Visible = False
-            Me.lblFlowNfo.Text = "."
-            Me.lblFlowNfo.ForeColor = Drawing.Color.White
+            ''Me.btnRefresh.Visible = False
+            'Me.lblFlowNfo.Text = "."
+            'Me.lblFlowNfo.ForeColor = Drawing.Color.White
 
             If Me.HDswich_ubicacion.Value = "" Then
                 Me.HDswich_ubicacion.Value = 0
@@ -110,24 +110,22 @@ Partial Class addProject
             Session("totporcentajes") = 0
 
 
-
-
             ' de acuerdo a la opcion
             Select Case op
 
                 Case "add"
-                    Me.txtvalortotalflow.Enabled = True
+                    'Me.txtvalortotalflow.Enabled = True
                     ' cargar el titulo
-                    Session("lblTitle") = "AGREGAR UN NUEVO PROYECTO."
+                    Session("lblTitle") = "AGREGAR UN NUEVO PROYECTO DERIVADO."
 
                     ddltipoaprobacion.Items.Add(New ListItem("No aprobado", "4"))
                     ' ocultar algunos botones
-                    Me.btnAddData.Visible = True
+                    Me.btnAddData.Visible = False
                     Me.btnSave.Visible = False
-                    Me.btnDelete.Visible = False
-                    Me.btnCancelDelete.Visible = False
-                    Me.btnConfirmDelete.Visible = False
-                    Me.lblDelete.Visible = False
+                    'Me.btnDelete.Visible = False
+                    ''Me.btnCancelDelete.Visible = False
+                    'Me.btnConfirmDelete.Visible = False
+                    'Me.lblDelete.Visible = False
                     Me.lblid.Visible = False
                     Me.txtid.Visible = False
                     Me.lblcreatedate.Visible = False
@@ -135,12 +133,12 @@ Partial Class addProject
                     Me.lbliduser.Visible = False
                     Me.txtiduser.Visible = False
                     Me.rfvid.Visible = False
-                    Me.linkcharge.Visible = False
-                    Me.btnRefresh.Visible = False
+                    'Me.linkcharge.Visible = False
+                    '  'Me.btnRefresh.Visible = False
                     Me.txtcounterpartvalue.Text = "0"
-                    Me.tbpnAclaratorio.Visible = False
-                    Me.txtbegindate.ReadOnly = True
-                    Me.upoperatorbyproject.Visible = False
+                    'Me.tbpnAclaratorio.Visible = False
+                    ''Me.txtstartdate.ReadOnly = True
+                    ''Me.upoperatorbyproject.Visible = False
                     'validar para no mostrar terminos de referencia al inicio
                     Me.btntermsreference.Visible = False
                     Dim objProject As New ProjectEntity
@@ -155,7 +153,7 @@ Partial Class addProject
                 Case "edit", "show"
 
                     'Me.TabPanelCompProgramas.Visible = False
-                    Me.btnSave.Visible = True
+                    Me.btnSave.Visible = False
                     If (Request.QueryString("successSave") <> Nothing) Then
                         If Session("modificar") = 1 Then
                             '           lblstatesuccess.Text = "El proyecto se modificó exitosamente!"
@@ -174,58 +172,58 @@ Partial Class addProject
                         ddleffectivebudget.Items.Add(i.ToString)
                     Next
                     ' cargar el combo de Departamentos
-                    Me.ddliddepto.DataSource = facade.getDeptoList(applicationCredentials, idcountry:="7", order:="code")
-                    Me.ddliddepto.DataValueField = "Id"
-                    Me.ddliddepto.DataTextField = "Name"
-                    Me.ddliddepto.DataBind()
+                    ' Me.ddliddepto.DataSource = facade.getDeptoList(applicationCredentials, idcountry:="7", order:="code")
+                    'Me.ddliddepto.DataValueField = "Id"
+                    'Me.ddliddepto.DataTextField = "Name"
+                    'Me.ddliddepto.DataBind()
 
                     ' cargar el combo de Ciudad
-                    Me.ddlidcity.DataSource = facade.getCityList(applicationCredentials, iddepto:=Me.ddliddepto.SelectedValue, order:="code")
-                    Me.ddlidcity.DataValueField = "Id"
-                    Me.ddlidcity.DataTextField = "Name"
-                    Me.ddlidcity.DataBind()
+                    '                    Me.ddlidcity.DataSource = facade.getCityList(applicationCredentials, iddepto:=Me.ddliddepto.SelectedValue, order:="code")
+                    '                   Me.ddlidcity.DataValueField = "Id"
+                    '                  Me.ddlidcity.DataTextField = "Name"
+                    '                 Me.ddlidcity.DataBind()
 
 
                     ' tipo de actor
-                    ddltipooperador.Items.Add(New ListItem("Operador", "1"))
-                    ddltipooperador.SelectedValue = "1"
-                    ddltipooperador.Items.Add(New ListItem("Socio operador", "2"))
-                    ddltipooperador.Items.Add(New ListItem("Socio", "3"))
-                    ddltipooperador.Items.Add(New ListItem("Cliente", "4"))
-                    ddltipooperador.Items.Add(New ListItem("Contratante", "5"))
+                    'ddltipooperador.Items.Add(New ListItem("Operador", "1"))
+                    'ddltipooperador.SelectedValue = "1"
+                    'ddltipooperador.Items.Add(New ListItem("Socio operador", "2"))
+                    'ddltipooperador.Items.Add(New ListItem("Socio", "3"))
+                    'ddltipooperador.Items.Add(New ListItem("Cliente", "4"))
+                    'ddltipooperador.Items.Add(New ListItem("Contratante", "5"))
 
                     ' ocultar algunos botones
-                    Me.btnDelete.Visible = False
+                    'Me.btnDelete.Visible = False
                     Me.ddlididea.Visible = False
                     Me.lblididea.Visible = False
                     Me.btnAddData.Visible = False
-                    Me.btnSave.Visible = True
-                    Me.btnCancelDelete.Visible = False
-                    Me.btnCancel.Visible = False
-                    Me.btnConfirmDelete.Visible = False
-                    Me.lblDelete.Visible = False
+                    Me.btnSave.Visible = False
+                    '  'Me.btnCancelDelete.Visible = False
+                    'Me.btnCancel.Visible = False
+                    '   Me.btnConfirmDelete.Visible = False
+                    '  Me.lblDelete.Visible = False
                     Me.lblid.Enabled = False
                     Me.txtid.Enabled = False
                     Me.lblcreatedate.Enabled = False
                     Me.txtcreatedate.Enabled = False
                     Me.lbliduser.Enabled = False
                     Me.txtiduser.Enabled = False
-                    Me.linkcharge.Visible = False
+                    'Me.linkcharge.Visible = False
                     Me.txtcode.Visible = True
                     Me.lblcode.Visible = True
                     Me.txtenabled.Visible = False
                     Me.txtname.ReadOnly = True
                     Me.txtobjective.ReadOnly = True
                     Me.txtjustification.ReadOnly = True
-                    Me.txtzonedescription.ReadOnly = True
-                    Me.TextResultGestConocimiento.ReadOnly = True
+                    '    Me.txtzonedescription.ReadOnly = True
+                    '   Me.TextResultGestConocimiento.ReadOnly = True
                     Me.txtresults.ReadOnly = True
-                    Me.TextResCapacidInstal.ReadOnly = True
+                    '  Me.TextResCapacidInstal.ReadOnly = True
                     Me.lblenabled.Visible = False
                     Me.txtduration.ReadOnly = True
                     Me.txtcode.ReadOnly = True
-                    Me.ddlpopulation.Enabled = True
-                    'Me.txtbegindate.ReadOnly = True
+                    'Me.ddlpopulation.Enabled = True
+                    ''Me.txtstartdate.ReadOnly = True
                     'validar para  mostrar terminos de referencia al editar
                     Me.btntermsreference.Visible = True
 
@@ -251,13 +249,13 @@ Partial Class addProject
                         ' cargar el registro referenciado
                         objProject = facade.loadProject(applicationCredentials, Request.QueryString("id"), consultLastVersion)
                         Session("typeapprovalbegin") = objProject.Typeapproval
-                        Me.lblcomponentesprograma.InnerHtml = searchComponentsProgram(objProject.ididea, applicationCredentials)
+                        '     Me.lblcomponentesprograma.InnerHtml = searchComponentsProgram(objProject.ididea, applicationCredentials)
                         ' mostrar los valores
                         objDt = getLinStratbusqueda(objProject.id, applicationCredentials)
 
                         If objDt.Rows.Count > 0 Then
-                            Me.txtlinestrat.Text = objDt.Rows(0)(0).ToString
-                            Me.txtprograma.Text = objDt.Rows(0)(1).ToString
+                            '        Me.txtlinestrat.Text = objDt.Rows(0)(0).ToString
+                            '       Me.txtprograma.Text = objDt.Rows(0)(1).ToString
                             'Me.txtprograma.Text = objDt.Rows(0)(7).ToString
                         End If
                         ' CONSULTAR SI EXISTE CUNA CONTRATACION  PARA ESTE PROYECTO
@@ -298,7 +296,7 @@ Partial Class addProject
                             If objProject.Typeapproval = 4 Then
                                 ddltipoaprobacion.Items.Add(New ListItem("Contrato", "1"))
                             End If
-                            Me.txtaclaratorio.ReadOnly = True
+                            '      Me.txtaclaratorio.ReadOnly = True
                         End If
 
                         If codigogrupo = "ADMIN" Then
@@ -322,17 +320,17 @@ Partial Class addProject
                         Me.txtobjective.Text = objProject.objective
                         Me.txtantecedent.Text = objProject.antecedent
                         Me.txtjustification.Text = objProject.justification
-                        Me.TextResultGestConocimiento.Text = objProject.ResultsKnowledgeManagement
-                        Me.TextResCapacidInstal.Text = objProject.ResultsInstalledCapacity
+                        Me.txtresulgc.Text = objProject.ResultsKnowledgeManagement
+                        Me.txtresulci.Text = objProject.ResultsInstalledCapacity
                         If objProject.begindate <> defaultDate Then
-                            Me.txtbegindate.Text = objProject.begindate.ToString("yyyy/MM/dd")
+                            'Me.txtstartdate.Text = objProject.begindate.ToString("yyyy/MM/dd")
                         Else
-                            Me.txtbegindate.Text = ""
+                            'Me.txtstartdate.Text = ""
                         End If
                         Me.txtcounterpartvalue.Text = "0"
                         Me.txtduration.Text = objProject.duration
-                        Me.txtzonedescription.Text = objProject.zonedescription
-                        Me.ddlpopulation.SelectedValue = objProject.population
+                        Me.txtareadescription.Text = objProject.zonedescription
+                        ' Me.ddlpopulation.SelectedValue = objProject.population
                         Me.txtstrategicdescription.Text = objProject.strategicdescription
                         Me.txtresults.Text = objProject.results
                         Me.txtpurpose.Text = objProject.purpose
@@ -344,7 +342,7 @@ Partial Class addProject
                             Me.txtcounterpartvalue.Text = "0"
                         End If
                         If objProject.Typeapproval = 3 Then
-                            tbpnAclaratorio.Visible = True
+                            '       tbpnAclaratorio.Visible = True
                         End If
 
 
@@ -358,12 +356,12 @@ Partial Class addProject
 
                         'validar se tipo aprobado es contrato
                         If objProject.Typeapproval = 1 Then
-                            Me.tbpnAclaratorio.Visible = False
+                            'Me.tbpnAclaratorio.Visible = False
 
 
                         End If
                         If objProject.Typeapproval = 2 Then
-                            Me.tbpnAclaratorio.Visible = False
+                            'Me.tbpnAclaratorio.Visible = False
 
                             Me.checkvalor.Visible = True
                             Me.checktiempo.Visible = True
@@ -390,7 +388,7 @@ Partial Class addProject
                             If objProject.editabletime = "S" Then
                                 Me.checktiempo.Checked = True
                                 Me.txtduration.ReadOnly = False
-                                Me.txtbegindate.ReadOnly = False
+                                'Me.txtstartdate.ReadOnly = False
                             Else
                                 Me.checktiempo.Checked = False
                             End If
@@ -401,11 +399,11 @@ Partial Class addProject
                                 Me.txtobjective.ReadOnly = False
                                 Me.txtobjective.Enabled = True
                                 Me.txtjustification.ReadOnly = False
-                                Me.txtzonedescription.Enabled = True
-                                Me.txtzonedescription.ReadOnly = False
+                                Me.txtareadescription.Enabled = True
+                                Me.txtareadescription.ReadOnly = False
 
-                                Me.TextResultGestConocimiento.ReadOnly = False
-                                Me.TextResCapacidInstal.ReadOnly = False
+                                'Me.TextResultGestConocimiento.ReadOnly = False
+                                'Me.TextResCapacidInstal.ReadOnly = False
                             Else
                                 Me.checkalcance.Checked = False
                             End If
@@ -413,12 +411,12 @@ Partial Class addProject
                             Me.txtporcentaje.Enabled = False
                             Me.txtvalorpartial.Enabled = False
                             Me.txtentregable.Enabled = False
-                            Me.BtnAddPayment.Enabled = False
-                            ddlidoperator.Enabled = False
-                            Me.ddltipooperador.Enabled = False
-                            Me.btnaddoperatorbyproject.Enabled = False
-                            Me.btnadanexo.Enabled = False
-                            Me.btnAddProjectLocation.Enabled = False
+                            'Me.BtnAddPayment.Enabled = False
+                            'ddlidoperator.Enabled = False
+                            'Me.ddltipooperador.Enabled = False
+                            ' Me.btnaddoperatorbyproject.Enabled = False
+                            'Me.btnadanexo.Enabled = False
+                            '  Me.btnAddProjectLocation.Enabled = False
                         End If
 
                         If objProject.Typeapproval = 3 Or objProject.Typeapproval = 1 Then
@@ -426,31 +424,31 @@ Partial Class addProject
                             Me.txtresults.ReadOnly = True
                             Me.txtobjective.ReadOnly = True
                             Me.txtjustification.ReadOnly = True
-                            Me.txtzonedescription.ReadOnly = True
-                            Me.TextResultGestConocimiento.ReadOnly = True
-                            Me.TextResCapacidInstal.ReadOnly = True
+                            ' Me.txtzonedescription.ReadOnly = True
+                            'Me.TextResultGestConocimiento.ReadOnly = True
+                            'Me.TextResCapacidInstal.ReadOnly = True
                             Me.txtduration.ReadOnly = True
-                            Me.txtbegindate.ReadOnly = True
-                            Me.txtbegindate.Enabled = False
+                            'Me.txtstartdate.ReadOnly = True
+                            'Me.txtstartdate.Enabled = False
                             Me.txtcounterpartvalue.ReadOnly = True
                             Me.txtfsccontribution.ReadOnly = True
                             Me.txtfechapago.Enabled = False
                             Me.txtporcentaje.Enabled = False
                             Me.txtvalorpartial.Enabled = False
                             Me.txtentregable.Enabled = False
-                            Me.BtnAddPayment.Enabled = False
-                            Me.ddlidoperator.Enabled = False
-                            Me.ddltipooperador.Enabled = False
-                            Me.btnaddoperatorbyproject.Enabled = False
-                            Me.btnadanexo.Enabled = False
-                            Me.btnAddProjectLocation.Enabled = False
-                            Me.ddlpopulation.Enabled = False
-                            Me.ddliddepto.Enabled = False
-                            Me.ddlidcity.Enabled = False
-                            Me.gvprojectLocation.Enabled = False
-                            Me.gvPaymentFlow.Enabled = False
-                            Me.gvoperatorbyproject.Enabled = False
-                            Me.gvDocuments.Enabled = False
+                            'Me.BtnAddPayment.Enabled = False
+                            'Me.ddlidoperator.Enabled = False
+                            'Me.ddltipooperador.Enabled = False
+                            'Me.btnaddoperatorbyproject.Enabled = False
+                            'Me.btnadanexo.Enabled = False
+                            '.Enabled = False
+                            ' Me.ddlpopulation.Enabled = False
+                            ' Me.ddliddepto.Enabled = False
+                            ' Me.ddlidcity.Enabled = False
+                            ' Me.gvprojectLocation.Enabled = False
+                            'Me.gvPaymentFlow.Enabled = False
+                            'Me.gvoperatorbyproject.Enabled = False
+                            'Me.gvDocuments.Enabled = False
 
                         End If
 
@@ -460,37 +458,37 @@ Partial Class addProject
                                 Me.txtporcentaje.Enabled = True
                                 Me.txtvalorpartial.Enabled = True
                                 Me.txtentregable.Enabled = True
-                                Me.BtnAddPayment.Enabled = True
-                                Me.gvPaymentFlow.Enabled = True
+                                'Me.BtnAddPayment.Enabled = True
+                                'Me.gvPaymentFlow.Enabled = True
                             End If
                         End If
                         ' si es un proyecto no aprobado
                         If objProject.Typeapproval = 4 Then
                             'TODO: OJO HABILITACION DEL MODULO ELIMINAR EN PROYECTO
-                            'Me.btnDelete.Visible = True
-                            Me.tbpnAclaratorio.Visible = False
+                            ''Me.btnDelete.Visible = True
+                            'Me.tbpnAclaratorio.Visible = False
 
                             Me.ddleffectivebudget.Enabled = True
                             Me.ddlidphase.Enabled = True
                             ' carga combo de actores 
-                            Me.ddlidoperator.DataSource = facade.getThirdList(applicationCredentials, order:="code")
-                            Me.ddlidoperator.Items.Insert(0, New ListItem("Seleccione..", "-1"))
-                            Me.ddlidoperator.DataValueField = "Id"
-                            Me.ddlidoperator.DataTextField = "Name"
-                            Me.ddlidoperator.DataBind()
-                            Me.ddlidoperator.Items.Insert(0, New ListItem("Seleccione..", "-1"))
+                            'Me.ddlidoperator.DataSource = facade.getThirdList(applicationCredentials, order:="code")
+                            'Me.ddlidoperator.Items.Insert(0, New ListItem("Seleccione..", "-1"))
+                            'Me.ddlidoperator.DataValueField = "Id"
+                            'Me.ddlidoperator.DataTextField = "Name"
+                            'Me.ddlidoperator.DataBind()
+                            'Me.ddlidoperator.Items.Insert(0, New ListItem("Seleccione..", "-1"))
                             Me.txtname.ReadOnly = False
                             Me.txtresults.ReadOnly = False
                             Me.txtobjective.ReadOnly = False
                             Me.txtjustification.ReadOnly = False
-                            Me.txtzonedescription.ReadOnly = False
-                            Me.TextResultGestConocimiento.ReadOnly = False
-                            Me.TextResCapacidInstal.ReadOnly = False
+                            'Me.txtzonedescription.ReadOnly = False
+                            'Me.TextResultGestConocimiento.ReadOnly = False
+                            'Me.TextResCapacidInstal.ReadOnly = False
                             Me.txtduration.ReadOnly = False
-                            'Me.txtbegindate.ReadOnly = True
+                            ''Me.txtstartdate.ReadOnly = True
 
                             duration = Convert.ToDouble(Me.txtduration.Text.Replace(".", ","))
-                            Me.TextFinalizacion.Text = getDateFinalization(duration, Me.txtbegindate.Text)
+                            '  Me.TextFinalizacion.Text = getDateFinalization(duration, Me.txtstartdate.Text)
                             Me.txtcounterpartvalue.ReadOnly = False
                             Me.txtfsccontribution.ReadOnly = False
                         End If
@@ -499,13 +497,13 @@ Partial Class addProject
                             Me.txtresults.ReadOnly = True
                             Me.txtobjective.ReadOnly = True
                             Me.txtjustification.ReadOnly = True
-                            Me.txtzonedescription.ReadOnly = True
-                            Me.TextResultGestConocimiento.ReadOnly = True
-                            Me.TextResCapacidInstal.ReadOnly = True
+                            'Me.txtzonedescription.ReadOnly = True
+                            'Me.TextResultGestConocimiento.ReadOnly = True
+                            'Me.TextResCapacidInstal.ReadOnly = True
                             Me.txtduration.ReadOnly = True
-                            Me.txtbegindate.Enabled = False
+                            'Me.txtstartdate.Enabled = False
                             duration = Convert.ToDouble(Me.txtduration.Text.Replace(".", ","))
-                            Me.TextFinalizacion.Text = getDateFinalization(duration, Me.txtbegindate.Text)
+                            ' Me.TextFinalizacion.Text = getDateFinalization(duration, 'Me.txtstartdate.Text)
                             Me.txtcounterpartvalue.ReadOnly = True
                             Me.txtfsccontribution.ReadOnly = True
                         End If
@@ -519,21 +517,21 @@ Partial Class addProject
                             Me.txtporcentaje.Enabled = True
                             Me.txtvalorpartial.Enabled = True
                             Me.txtentregable.Enabled = True
-                            Me.BtnAddPayment.Enabled = True
-                            Me.gvPaymentFlow.Enabled = True
+                            'Me.BtnAddPayment.Enabled = True
+                            'Me.gvPaymentFlow.Enabled = True
 
 
-                            Me.ddlidoperator.Enabled = True
-                            Me.ddltipooperador.Enabled = True
-                            Me.btnaddoperatorbyproject.Enabled = True
-                            Me.btnadanexo.Enabled = True
-                            Me.btnAddProjectLocation.Enabled = True
-                            Me.ddlidoperator.DataSource = facade.getThirdList(applicationCredentials, order:="code")
-                            Me.ddlidoperator.Items.Insert(0, New ListItem("Seleccione..", "-1"))
-                            Me.ddlidoperator.DataValueField = "Id"
-                            Me.ddlidoperator.DataTextField = "Name"
-                            Me.ddlidoperator.DataBind()
-                            Me.ddlidoperator.Items.Insert(0, New ListItem("Seleccione..", "-1"))
+                            'Me.ddlidoperator.Enabled = True
+                            'Me.ddltipooperador.Enabled = True
+                            'Me.btnaddoperatorbyproject.Enabled = True
+                            'Me.btnadanexo.Enabled = True
+                            ''Me.btnAddProjectLocation.Enabled = True
+                            'Me.ddlidoperator.DataSource = facade.getThirdList(applicationCredentials, order:="code")
+                            'Me.ddlidoperator.Items.Insert(0, New ListItem("Seleccione..", "-1"))
+                            'Me.ddlidoperator.DataValueField = "Id"
+                            'Me.ddlidoperator.DataTextField = "Name"
+                            'Me.ddlidoperator.DataBind()
+                            'Me.ddlidoperator.Items.Insert(0, New ListItem("Seleccione..", "-1"))
                         End If
                         'SI EL GRUPO ES JURIDICA
                         If codigogrupo = "Juridica" Then
@@ -551,13 +549,13 @@ Partial Class addProject
                             End If
                             Me.txtjustification.ReadOnly = True
                             Me.txtobjective.ReadOnly = True
-                            Me.txtzonedescription.ReadOnly = True
+                            'Me.txtzonedescription.ReadOnly = True
                             Me.txtresults.ReadOnly = True
-                            Me.TextResultGestConocimiento.ReadOnly = True
-                            Me.TextResCapacidInstal.ReadOnly = True
-                            Me.txtbegindate.Enabled = False
+                            'Me.TextResultGestConocimiento.ReadOnly = True
+                            'Me.TextResCapacidInstal.ReadOnly = True
+                            'Me.txtstartdate.Enabled = False
                             Me.txtduration.ReadOnly = True
-                            Me.ddlpopulation.Enabled = False
+                            'Me.ddlpopulation.Enabled = False
                             Me.txtfsccontribution.ReadOnly = True
                             Me.txtcounterpartvalue.ReadOnly = True
 
@@ -568,24 +566,24 @@ Partial Class addProject
                             Me.btnSave.Visible = False
                         End If
 
-                        Me.ddlidoperator.DataSource = facade.getThirdList(applicationCredentials, order:="code")
+                        'Me.ddlidoperator.DataSource = facade.getThirdList(applicationCredentials, order:="code")
                         duration = Convert.ToDouble(Me.txtduration.Text.Replace(".", ","))
-                        Me.TextFinalizacion.Text = getDateFinalization(duration, Me.txtbegindate.Text)
+                        '  Me.TextFinalizacion.Text = getDateFinalization(duration, 'Me.txtstartdate.Text)
                         ' cargar y asignar la lista de fuentes del proyecto
-                        Me.gvSourceByProject.DataSource = objProject.sourceByProjectList
-                        Me.gvSourceByProject.DataBind()
-                        Session("sourceByProjectList") = objProject.sourceByProjectList
+                        ' Me.gvSourceByProject.DataSource = objProject.sourceByProjectList
+                        ' Me.gvSourceByProject.DataBind()
+                        '                        Session("sourceByProjectList") = objProject.sourceByProjectList
 
                         ' cargar y asignar la lista de ubicaciones del proyecto
 
-                        gvprojectLocation.DataSource = objProject.projectlocationlist
-                        gvprojectLocation.DataBind()
+                        'gvprojectLocation.DataSource = objProject.projectlocationlist
+                        'gvprojectLocation.DataBind()
                         Session("projectLocationList") = objProject.projectlocationlist
 
                         'cargar la lista de las aclaratorios
                         objProject.explanatoryEntityList = getExplanatoryByProject(objProject.id, applicationCredentials)
-                        GridViewAclaratorio.DataSource = objProject.explanatoryEntityList
-                        GridViewAclaratorio.DataBind()
+                        'GridViewAclaratorio.DataSource = objProject.explanatoryEntityList
+                        'GridViewAclaratorio.DataBind()
                         Session("explanatoryList") = objProject.explanatoryEntityList
 
 
@@ -610,8 +608,8 @@ Partial Class addProject
                             objDataTable.Rows.Add(itemDataTable.idthird, itemDataTable.THIRDNAME, itemDataTable.type, itemDataTable.THIRD.contact, itemDataTable.THIRD.documents, itemDataTable.THIRD.phone, itemDataTable.THIRD.email)
                         Next
 
-                        gvoperatorbyproject.DataSource = objDataTable
-                        gvoperatorbyproject.DataBind()
+                        'gvoperatorbyproject.DataSource = objDataTable
+                        'gvoperatorbyproject.DataBind()
 
                         'objProject.thirdbyprojectlist = getThirdByProject(objProject.id, applicationCredentials)
                         'gvoperatorbyproject.DataSource = getThirdBySession(objProject.id, applicationCredentials)
@@ -620,8 +618,8 @@ Partial Class addProject
 
                         'cargar la lista de laos flujos de pago
                         objProject.paymentflowByProjectList = getFlowPayment(objProject.id, applicationCredentials)
-                        gvPaymentFlow.DataSource = objProject.paymentflowByProjectList
-                        gvPaymentFlow.DataBind()
+                        'gvPaymentFlow.DataSource = objProject.paymentflowByProjectList
+                        'gvPaymentFlow.DataBind()
                         Session("paymentFlowList") = objProject.paymentflowByProjectList
                         Dim valortotal As Decimal
                         'For Each pf As PaymentFlowEntity In objProject.paymentflowByProjectList
@@ -634,7 +632,7 @@ Partial Class addProject
                             totporcentajes = totporcentajes + pf.porcentaje
                         Next
                         Session("totporcentajes") = totporcentajes
-                        Me.lblmensajeexitoerror.Text = Session("totporcentajes")
+                        ' Me.lblmensajeexitoerror.Text = Session("totporcentajes")
 
                         If Session("totporcentajes") < 100 Then
                             Me.txtvalortotalflow.Enabled = True
@@ -647,13 +645,13 @@ Partial Class addProject
                         If Session("valortotalflow") <> Nothing Then
                             Me.txtvalortotalflow.Text = Session("valortotalflow")
                         End If
-                        If (objProject.DOCUMENTLIST Is Nothing OrElse objProject.DOCUMENTLIST.Count = 0) Then Me.btnRefresh.Visible = False
+                        ' If (objProject.DOCUMENTLIST Is Nothing OrElse objProject.DOCUMENTLIST.Count = 0) Then 'Me.btnRefresh.Visible = False
 
                         'Se carga la lista de documentos adjuntos
                         'Se almacena la lista en una variable de sesion.
-                        Me.DocumentsList = objProject.DOCUMENTLIST
-                        Me.gvDocuments.DataSource = objProject.DOCUMENTLIST
-                        Me.gvDocuments.DataBind()
+                        'Me.DocumentsList = objProject.DOCUMENTLIST
+                        'Me.gvDocuments.DataSource = objProject.DOCUMENTLIST
+                        'Me.gvDocuments.DataBind()
 
                         Session("valortotalflow") = txtvalortotalflow.Text
 
@@ -694,8 +692,8 @@ Partial Class addProject
 
                             ' ocultar algunos botones
                             Me.btnSave.Visible = False
-                            Me.btnDelete.Visible = False
-                            Me.btnCancel.Visible = False
+                            'Me.btnDelete.Visible = False
+                            'Me.btnCancel.Visible = False
 
                             ' limpiar label
                             Me.lblVersion.Text = ""
@@ -717,10 +715,10 @@ Partial Class addProject
                         ' verificar si viene desde el BPM
                         If idProcessInstance IsNot Nothing Then
 
-                            Me.lblBPMMessage.Visible = True
-                            Me.rblCondition.Visible = True
-                            Me.btnDelete.Visible = False
-                            Me.btnCancel.Visible = False
+                            'Me.lblBPMMessage.Visible = True
+                            'Me.rblCondition.Visible = True
+                            ''Me.btnDelete.Visible = False
+                            ''Me.btnCancel.Visible = False
 
                             ' cargar la lista de condiciones de la actividad
                             Dim conditions As Array = GattacaApplication.getConditions(applicationCredentials, idActivityInstance)
@@ -728,31 +726,31 @@ Partial Class addProject
                             For Each condition As ListItem In conditions
 
                                 ' cargar la lista de condiciones para la actividad
-                                Me.rblCondition.Items.Add(New ListItem(condition.Text, condition.Value))
+                                '      Me.rblCondition.Items.Add(New ListItem(condition.Text, condition.Value))
 
                             Next
 
                             ' seleccionar el primero
-                            Me.rblCondition.SelectedIndex = 0
+                            'Me.rblCondition.SelectedIndex = 0
 
                             ' cargar el mensaje
-                            Me.lblBPMMessage.Text = PublicFunction.getSettingValue("BPM.Condition.Message")
+                            ' Me.lblBPMMessage.Text = PublicFunction.getSettingValue("BPM.Condition.Message")
 
                         End If
 
                         If op.Equals("show") Then
 
                             ' cargar el titulo
-                            Session("lblTitle") = "MOSTRAR INFORMACION DEL PROYECTO."
+                            Session("lblTitle") = "MOSTRAR INFORMACION DEL PROYECTO DERIVADO."
 
                             ' ocultar los botones para realizar modificaciones
                             Me.btnSave.Visible = False
-                            Me.btnDelete.Visible = False
-                            Me.btnCancel.Visible = False
+                            'Me.btnDelete.Visible = False
+                            'Me.btnCancel.Visible = False
 
                         Else
                             ' cargar el titulo
-                            Session("lblTitle") = "MODIFICAR PROYECTO."
+                            Session("lblTitle") = "MODIFICAR PROYECTO DERIVADO."
 
                             'Rutina agregada por Jose Olmes Torres - Julio 22 de 2010
                             'Se verifica si el identificador de la fase del proyecto es la fase de cerrado
@@ -760,13 +758,13 @@ Partial Class addProject
                             If (objProject.idphase.ToString() = idClosedState) Then
                                 'Se oculta el botón grabar y el botón eliminar
                                 'Me.btnSave.Visible = False
-                                Me.btnDelete.Visible = False
+                                'Me.btnDelete.Visible = False
                             End If
                         End If
 
                         'Verificar titulo aprobacion
                         If (Request.QueryString("apr") <> Nothing) Then
-                            Session("lblTitle") = "APROBAR PROYECTO."
+                            Session("lblTitle") = "APROBAR PROYECTO DERIVADO."
                         End If
 
                     Catch ex As Exception
@@ -791,24 +789,24 @@ Partial Class addProject
             End Select
 
             'Se selecciona la pestaña inicial
-            Me.TabContainer1.ActiveTabIndex = 0
+            'Me.TabContainer1.ActiveTabIndex = 0
 
         End If
 
     End Sub
 
-    Protected Sub gvDocuments_RowDataBound(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.GridViewRowEventArgs) Handles gvDocuments.RowDataBound
+    'Protected Sub gvDocuments_RowDataBound(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.GridViewRowEventArgs) Handles gvDocuments.RowDataBound
 
-        Dim objHyperlink As HyperLink
-        If e.Row.RowType = DataControlRowType.DataRow Then
-            Dim miEntidad As DocumentsEntity = e.Row.DataItem
-            objHyperlink = e.Row.Cells(6).Controls(0)
-            If (miEntidad.attachfile.Length > 0) Then
-                objHyperlink.NavigateUrl = PublicFunction.getSettingValue("documentPath") & "/" & miEntidad.attachfile
-                objHyperlink.Target = "_blank"
-            End If
-        End If
-    End Sub
+    '    Dim objHyperlink As HyperLink
+    '    If e.Row.RowType = DataControlRowType.DataRow Then
+    '        Dim miEntidad As DocumentsEntity = e.Row.DataItem
+    '        objHyperlink = e.Row.Cells(6).Controls(0)
+    '        If (miEntidad.attachfile.Length > 0) Then
+    '            objHyperlink.NavigateUrl = PublicFunction.getSettingValue("documentPath") & "/" & miEntidad.attachfile
+    '            objHyperlink.Target = "_blank"
+    '        End If
+    '    End If
+    'End Sub
 
     Protected Sub btnAddData_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnAddData.Click
 
@@ -828,150 +826,146 @@ Partial Class addProject
         'End If
 
         Try
-            If lblmensajeexitoerror.Text = "100" And Me.txtname.Text.Trim().Length > 0 Then
-                ' cargar los valores registrados por el usuario
+            'If lblmensajeexitoerror.Text = "100" And Me.txtname.Text.Trim().Length > 0 Then
+            '    ' cargar los valores registrados por el usuario
 
-                If validarcamposnum() = 1 Then
-                    Exit Sub
-                Else
-                    Me.lblHelpfsccontribution.Text = ""
-                    Me.lblHelpcounterpartvalue.Text = ""
-                End If
-
-                objProject.ididea = Me.ddlididea.SelectedValue
-                objProject.code = Me.txtcode.Text
-                objProject.name = Me.txtname.Text
-                objProject.objective = Me.txtobjective.Text
-                objProject.enabled = 1
-                'objProject.antecedent = Me.txtantecedent.Text
-                objProject.justification = Me.txtjustification.Text
-                objProject.zonedescription = Me.txtzonedescription.Text
-                objProject.results = Me.txtresults.Text
-                objProject.ResultsKnowledgeManagement = Me.TextResultGestConocimiento.Text
-                objProject.ResultsInstalledCapacity = Me.TextResCapacidInstal.Text
-                objProject.begindate = IIf((Me.txtbegindate.Text = ""), Nothing, Me.txtbegindate.Text)
-                objProject.duration = Me.txtduration.Text
-                objProject.population = Me.ddlpopulation.SelectedValue
-                objProject.totalcost = PublicFunction.ConvertStringToDouble(Me.txttotalcost.Text)
-                objProject.effectivebudget = Me.ddleffectivebudget.SelectedValue.ToString
-                'el dato no se guarda en tabla idea
-                'objProject.strategicdescription = Me.txtstrategicdescription.Text
-                objProject.counterpartvalue = PublicFunction.ConvertStringToDouble(Me.txtcounterpartvalue.Text)
-                objProject.fsccontribution = PublicFunction.ConvertStringToDouble(Me.txtfsccontribution.Text)
-                'Subir el archivo
-                'objProject.attachment = PublicFunction.LoadFile(Request)
-                objProject.Typeapproval = Me.ddltipoaprobacion.SelectedValue
-                objProject.idphase = Me.ddlidphase.SelectedValue
-
-
-
-                objProject.purpose = Me.txtpurpose.Text
-                objProject.fsccontribution = PublicFunction.ConvertStringToDouble(Me.txtfsccontribution.Text.Replace(".", ""))
-                objProject.counterpartvalue = PublicFunction.ConvertStringToDouble(Me.txtcounterpartvalue.Text.Replace(".", ""))
-
-                'objProject.enabled = Me.ddlenabled.SelectedValue
-                objProject.iduser = applicationCredentials.UserID
-
-                objProject.createdate = Now
-                objProject.editablemoney = "N"
-                objProject.editabletime = "N"
-                objProject.editableresults = "N"
-
-
-
-                'Cargar la lista de fuentes por proyecto
-                objProject.sourceByProjectList = Session("sourceByProjectList")
-
-                'Cargar la lista de ubicaciones ProjectLocation
-                'objProject.projectlocationlist = Session("projectLocationList")
-
-                Dim objDataTable As DataTable = Session("projectLocationList")
-                Dim objListProyectLocations As List(Of ProjectLocationEntity) = New List(Of ProjectLocationEntity)
-                For Each rowDataTable In objDataTable.Rows
-
-                    Dim objProjectLocation As ProjectLocationEntity = New ProjectLocationEntity()
-                    ' TODO: cambio de forma de xcaptura de variable por el grid
-                    'autor: german rodriguez 25/08/2013
-
-                    'objProjectLocation.idcity = Convert.ToInt32(rowDataTable(0))
-                    objProjectLocation.idcity = rowDataTable(0)
-                    objProjectLocation.DEPTONAME = rowDataTable(1)
-                    objProjectLocation.CITYNAME = rowDataTable(2)
-                    objListProyectLocations.Add(objProjectLocation)
-                Next
-
-                objProject.projectlocationlist = objListProyectLocations
-
-
-                'Cargar la lista de terceros ThirdByProject
-
-                Dim idea_id As Integer = Convert.ToInt32(Me.ddlididea.SelectedValue)
-
-                objProject.thirdbyprojectlist = getThirdByIdea(idea_id, applicationCredentials)
-
-
-                objProject.ProgramComponentbyprojectlist = ProgramComponentByProjectList
-
-                objProject.paymentflowByProjectList = Session("paymentFlowList")
-
-                'almacenar en BD 1 aclaratorio
-                '1° declaramos lista de objetos exploratoryEntity y se instancia
-                'Dim objListExplanatory As List(Of ExplanatoryEntity) = New List(Of ExplanatoryEntity)
-
-                'Dim objExplanatoryEntity As ExplanatoryEntity = New ExplanatoryEntity
-                'objExplanatoryEntity.observation = Me.txtaclaratorio.Text
-                'objExplanatoryEntity.fecha = Date.Now()
-                'objListExplanatory.Add(objExplanatoryEntity)
-                'objProject.explanatoryEntityList = objListExplanatory
-
-                'Se agrega la lista de documentos cargados en el servidor
-                Me.LoadFilesBySession(objProject, applicationCredentials.UserID)
-                'GUARDAR FECHA DE FINALIZACION
-                objProject.completiondate = TextFinalizacion.Text
-
-
-                'almacenar la entidad
-                objProject.id = facade.addProject(applicationCredentials, objProject)
-
-                'agregar los componentes de la idea al proyecto
-                Dim objProgramComponentByProjectDALC As New ProgramComponentByProjectDALC
-                Dim dt_componentsIdea As DataTable = queryComponentsProgram(idea_id, applicationCredentials)
-                Dim objListComponentesProject As List(Of ProgramComponentByProjectEntity) = New List(Of ProgramComponentByProjectEntity)
-                For Each rowDataTable In dt_componentsIdea.Rows
-
-                    Dim objProgramComponentByProjectEntity As ProgramComponentByProjectEntity = New ProgramComponentByProjectEntity()
-
-                    objProgramComponentByProjectEntity.idproject = objProject.id
-                    objProgramComponentByProjectEntity.idProgramComponent = rowDataTable(1)
-                    objProgramComponentByProjectDALC.add(applicationCredentials, objProgramComponentByProjectEntity)
-                    'objListComponentesProject.Add(objProgramComponentByProjectEntity)
-                Next
-
-                'objProject.ProgramComponentbyprojectlist = objListComponentesProject
-                'objProgramComponentByProjectDALC.add()
-
-                ' ir al administrador
-                Session("modificar") = 0
-                Response.Redirect("addProject.aspx?successSave=1&op=edit&id=" & objProject.id)
+            If validarcamposnum() = 1 Then
+                Exit Sub
             Else
-
-                If lblmensajeexitoerror.Text <> "100" Then
-                    'Me.lblmsjporcent.Text = "El total de pago debe ser igual al 100%"
-                    Me.TabContainer1.ActiveTabIndex = 0
-                    'Me.lblsaveinformation.Text = "El total de pago debe ser igual al 100%"
-                    Me.lblMessageValidacionNombre.Text = "El total de pago debe ser igual al 100%"
-                    Me.Label16.Text = "El total de pago debe ser igual al 100%"
-                    '          Me.LabelErrorGeneral.Text = "El total de pago debe ser igual al 100%"
-
-                End If
-                If Me.txtname.Text.Trim().Length = 0 Then
-                    Me.lblMessageValidacionNombre.Text = "El campo nombre esta vacio "
-                    Me.lblsaveinformation.Text = "El campo nombre esta vacio "
-                    Me.lblMessageValidacionNombre.Text = "El campo nombre esta vacio "
-                    Me.Label16.Text = "El campo nombre esta vacio "
-                    '     Me.LabelErrorGeneral.Text = "El campo nombre esta vacio "
-                End If
+                '    Me.lblHelpfsccontribution.Text = ""
+                '   Me.lblHelpcounterpartvalue.Text = ""
             End If
+
+            objProject.ididea = Me.ddlididea.SelectedValue
+            objProject.code = Me.txtcode.Text
+            objProject.name = Me.txtname.Text
+            objProject.objective = Me.txtobjective.Text
+            objProject.enabled = 1
+            objProject.antecedent = Me.txtantecedent.Text
+            objProject.justification = Me.txtjustification.Text
+            'objProject.zonedescription = Me.txtzonedescription.Text
+            objProject.results = Me.txtresults.Text
+            ' objProject.ResultsKnowledgeManagement = Me.TextResultGestConocimiento.Text
+            'objProject.ResultsInstalledCapacity = Me.TextResCapacidInstal.Text
+            'objProject.begindate = IIf(('Me.txtstartdate.Text = ""), Nothing, 'Me.txtstartdate.Text)
+            objProject.duration = Me.txtduration.Text
+            'objProject.population = Me.ddlpopulation.SelectedValue
+            objProject.totalcost = PublicFunction.ConvertStringToDouble(Me.txttotalcost.Text)
+            objProject.effectivebudget = Me.ddleffectivebudget.SelectedValue.ToString
+            'el dato no se guarda en tabla idea
+            objProject.strategicdescription = Me.txtstrategicdescription.Text
+            objProject.counterpartvalue = PublicFunction.ConvertStringToDouble(Me.txtcounterpartvalue.Text)
+            objProject.fsccontribution = PublicFunction.ConvertStringToDouble(Me.txtfsccontribution.Text)
+            'Subir el archivo
+            'objProject.attachment = PublicFunction.LoadFile(Request)
+            objProject.Typeapproval = Me.ddltipoaprobacion.SelectedValue
+            objProject.idphase = Me.ddlidphase.SelectedValue
+
+
+
+            '    objProject.purpose = Me.txtpurpose.Text
+            '    objProject.fsccontribution = PublicFunction.ConvertStringToDouble(Me.txtfsccontribution.Text.Replace(".", ""))
+            '    objProject.counterpartvalue = PublicFunction.ConvertStringToDouble(Me.txtcounterpartvalue.Text.Replace(".", ""))
+
+            '    'objProject.enabled = Me.ddlenabled.SelectedValue
+            objProject.iduser = applicationCredentials.UserID
+
+            '    objProject.createdate = Now
+            '    objProject.editablemoney = "N"
+            '    objProject.editabletime = "N"
+            '    objProject.editableresults = "N"
+
+            '    'Cargar la lista de fuentes por proyecto
+            'objProject.sourceByProjectList = Session("sourceByProjectList")
+
+            '    'Cargar la lista de ubicaciones ProjectLocation
+            objProject.projectlocationlist = Session("projectLocationList")
+
+            Dim objDataTable As DataTable = Session("projectLocationList")
+            Dim objListProyectLocations As List(Of ProjectLocationEntity) = New List(Of ProjectLocationEntity)
+            'For Each rowDataTable In objDataTable.Rows
+
+            '        Dim objProjectLocation As ProjectLocationEntity = New ProjectLocationEntity()
+            '        ' TODO: cambio de forma de xcaptura de variable por el grid
+            '        'autor: german rodriguez 25/08/2013
+
+            '        'objProjectLocation.idcity = Convert.ToInt32(rowDataTable(0))
+            '        objProjectLocation.idcity = rowDataTable(0)
+            '        objProjectLocation.DEPTONAME = rowDataTable(1)
+            '        objProjectLocation.CITYNAME = rowDataTable(2)
+            '        objListProyectLocations.Add(objProjectLocation)
+            '    Next
+
+            '    objProject.projectlocationlist = objListProyectLocations
+
+            '    'Cargar la lista de terceros ThirdByProject
+
+            '    Dim idea_id As Integer = Convert.ToInt32(Me.ddlididea.SelectedValue)
+
+            'objProject.thirdbyprojectlist = getThirdByIdea(idea_id, applicationCredentials)
+
+            '    objProject.ProgramComponentbyprojectlist = ProgramComponentByProjectList
+
+            '    objProject.paymentflowByProjectList = Session("paymentFlowList")
+
+            '    'almacenar en BD 1 aclaratorio
+            '    '1° declaramos lista de objetos exploratoryEntity y se instancia
+            '    'Dim objListExplanatory As List(Of ExplanatoryEntity) = New List(Of ExplanatoryEntity)
+
+            '    'Dim objExplanatoryEntity As ExplanatoryEntity = New ExplanatoryEntity
+            '    'objExplanatoryEntity.observation = Me.txtaclaratorio.Text
+            '    'objExplanatoryEntity.fecha = Date.Now()
+            '    'objListExplanatory.Add(objExplanatoryEntity)
+            '    'objProject.explanatoryEntityList = objListExplanatory
+
+            '    'Se agrega la lista de documentos cargados en el servidor
+            '    Me.LoadFilesBySession(objProject, applicationCredentials.UserID)
+            '    'GUARDAR FECHA DE FINALIZACION
+            '    ' objProject.completiondate = TextFinalizacion.Text
+
+
+            '    'almacenar la entidad
+            '    objProject.id = facade.addProject(applicationCredentials, objProject)
+
+            '    'agregar los componentes de la idea al proyecto
+            '    Dim objProgramComponentByProjectDALC As New ProgramComponentByProjectDALC
+            '    Dim dt_componentsIdea As DataTable = queryComponentsProgram(idea_id, applicationCredentials)
+            '    Dim objListComponentesProject As List(Of ProgramComponentByProjectEntity) = New List(Of ProgramComponentByProjectEntity)
+            '    For Each rowDataTable In dt_componentsIdea.Rows
+
+            '        Dim objProgramComponentByProjectEntity As ProgramComponentByProjectEntity = New ProgramComponentByProjectEntity()
+
+            '        objProgramComponentByProjectEntity.idproject = objProject.id
+            '        objProgramComponentByProjectEntity.idProgramComponent = rowDataTable(1)
+            '        objProgramComponentByProjectDALC.add(applicationCredentials, objProgramComponentByProjectEntity)
+            '        'objListComponentesProject.Add(objProgramComponentByProjectEntity)
+            '    Next
+
+            '    'objProject.ProgramComponentbyprojectlist = objListComponentesProject
+            '    'objProgramComponentByProjectDALC.add()
+
+            '    ' ir al administrador
+            '    Session("modificar") = 0
+            '    Response.Redirect("addProject.aspx?successSave=1&op=edit&id=" & objProject.id)
+            'Else
+
+            '    'If lblmensajeexitoerror.Text <> "100" Then
+            '    '    'Me.lblmsjporcent.Text = "El total de pago debe ser igual al 100%"
+            '    '    ' Me.TabContainer1.ActiveTabIndex = 0
+            '    '    'Me.lblsaveinformation.Text = "El total de pago debe ser igual al 100%"
+            '    '    Me.lblMessageValidacionNombre.Text = "El total de pago debe ser igual al 100%"
+            '    '    'Me.Label16.Text = "El total de pago debe ser igual al 100%"
+            '    '    '          Me.LabelErrorGeneral.Text = "El total de pago debe ser igual al 100%"
+
+            '    'End If
+            '    If Me.txtname.Text.Trim().Length = 0 Then
+            '        Me.lblMessageValidacionNombre.Text = "El campo nombre esta vacio "
+            '        Me.lblsaveinformation.Text = "El campo nombre esta vacio "
+            '        Me.lblMessageValidacionNombre.Text = "El campo nombre esta vacio "
+            '        ''Me.Label16.Text = "El campo nombre esta vacio "
+            '        '     Me.LabelErrorGeneral.Text = "El campo nombre esta vacio "
+            '    End If
+            'End If
         Catch oex As Threading.ThreadAbortException
             ' no hacer nada
 
@@ -994,12 +988,12 @@ Partial Class addProject
 
     End Sub
 
-    Protected Sub btnCancel_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnCancel.Click
+    'Protected Sub btnCancel_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnCancel.Click
 
-        ' ir al administrador
-        Response.Redirect("searchProject.aspx")
+    '    ' ir al administrador
+    '    Response.Redirect("searchProject.aspx")
 
-    End Sub
+    'End Sub
 
     Protected Sub btnSave_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnSave.Click
 
@@ -1048,259 +1042,259 @@ Partial Class addProject
             End If
 
 
-            If lblmensajeexitoerror.Text = "100" Or totPayments = 100 Then
-                objProject.code = Me.txtcode.Text
-                objProject.name = Me.txtname.Text
-                objProject.objective = Me.txtobjective.Text
-                objProject.antecedent = Me.txtantecedent.Text
-                objProject.justification = Me.txtjustification.Text
-                objProject.begindate = IIf((Me.txtbegindate.Text = ""), Nothing, Me.txtbegindate.Text)
-                objProject.duration = Me.txtduration.Text
-                objProject.zonedescription = Me.txtzonedescription.Text
-                objProject.population = Me.ddlpopulation.SelectedValue
-                objProject.strategicdescription = Me.txtstrategicdescription.Text
-                objProject.results = Me.txtresults.Text
-                objProject.purpose = Me.txtpurpose.Text
-                objProject.totalcost = PublicFunction.ConvertStringToDouble(Me.txttotalcost.Text)
-                objProject.fsccontribution = PublicFunction.ConvertStringToDouble(Me.txtfsccontribution.Text)
-                objProject.counterpartvalue = PublicFunction.ConvertStringToDouble(Me.txtcounterpartvalue.Text)
-                objProject.effectivebudget = Me.ddleffectivebudget.SelectedValue
-                objProject.idphase = Me.ddlidphase.SelectedValue
-                'objProject.enabled = Me.ddlenabled.SelectedValue
-                objProject.iduser = applicationCredentials.UserID
-                objProject.createdate = Now
-                objProject.ResultsKnowledgeManagement = Me.TextResultGestConocimiento.Text
-                objProject.ResultsInstalledCapacity = Me.TextResCapacidInstal.Text
-                objProject.begindate = IIf((Me.txtbegindate.Text = ""), Nothing, Me.txtbegindate.Text)
-                objProject.duration = Me.txtduration.Text
+            'If lblmensajeexitoerror.Text = "100" Or totPayments = 100 Then
+            '    objProject.code = Me.txtcode.Text
+            '    objProject.name = Me.txtname.Text
+            '    objProject.objective = Me.txtobjective.Text
+            '    objProject.antecedent = Me.txtantecedent.Text
+            '    objProject.justification = Me.txtjustification.Text
+            '    ' objProject.begindate = IIf(('Me.txtstartdate.Text = ""), Nothing, 'Me.txtstartdate.Text)
+            '    objProject.duration = Me.txtduration.Text
+            '    objProject.zonedescription = Me.txtzonedescription.Text
+            '    ' objProject.population = Me.ddlpopulation.SelectedValue
+            '    objProject.strategicdescription = Me.txtstrategicdescription.Text
+            '    objProject.results = Me.txtresults.Text
+            '    objProject.purpose = Me.txtpurpose.Text
+            '    objProject.totalcost = PublicFunction.ConvertStringToDouble(Me.txttotalcost.Text)
+            '    objProject.fsccontribution = PublicFunction.ConvertStringToDouble(Me.txtfsccontribution.Text)
+            '    objProject.counterpartvalue = PublicFunction.ConvertStringToDouble(Me.txtcounterpartvalue.Text)
+            '    objProject.effectivebudget = Me.ddleffectivebudget.SelectedValue
+            '    objProject.idphase = Me.ddlidphase.SelectedValue
+            '    'objProject.enabled = Me.ddlenabled.SelectedValue
+            '    objProject.iduser = applicationCredentials.UserID
+            '    objProject.createdate = Now
+            '    objProject.ResultsKnowledgeManagement = Me.TextResultGestConocimiento.Text
+            '    objProject.ResultsInstalledCapacity = Me.TextResCapacidInstal.Text
+            '    'objProject.begindate = IIf(('Me.txtstartdate.Text = ""), Nothing, 'Me.txtstartdate.Text)
+            '    objProject.duration = Me.txtduration.Text
 
 
-                'editar tipo de aprobacion
-                objProject.Typeapproval = ddltipoaprobacion.SelectedValue
-                'guardar valor
-                objProject.counterpartvalue = PublicFunction.ConvertStringToDouble(Me.txtcounterpartvalue.Text)
-                'Cargar el archivo
+            '    'editar tipo de aprobacion
+            '    objProject.Typeapproval = ddltipoaprobacion.SelectedValue
+            '    'guardar valor
+            '    objProject.counterpartvalue = PublicFunction.ConvertStringToDouble(Me.txtcounterpartvalue.Text)
+            '    'Cargar el archivo
 
-                'objProject.attachment = PublicFunction.LoadFile(Request)
+            '    'objProject.attachment = PublicFunction.LoadFile(Request)
 
-                'Cargar la lista de fuentes por proyecto
-                objProject.sourceByProjectList = Session("sourceByProjectList")
-
-
-                'Cargar la lista de ubicaciones ProjectLocation
-                Dim a = Session("projectLocationList").GetType
+            '    'Cargar la lista de fuentes por proyecto
+            '    objProject.sourceByProjectList = Session("sourceByProjectList")
 
 
-                If Not a.IsGenericType Then
-                    Dim objDataTable As DataTable = Session("projectLocationList")
-                    Session.Add("projectLocationList", objDataTable)
-                    Dim objListProyectLocations As List(Of ProjectLocationEntity) = New List(Of ProjectLocationEntity)
-                    For Each rowDataTable In objDataTable.Rows
-
-                        Dim objProjectLocation As ProjectLocationEntity = New ProjectLocationEntity()
-
-                        objProjectLocation.idcity = rowDataTable(0)
-                        objProjectLocation.DEPTONAME = rowDataTable(1)
-                        objProjectLocation.CITYNAME = rowDataTable(2)
-                        objListProyectLocations.Add(objProjectLocation)
-                    Next
-
-                    objProject.projectlocationlist = objListProyectLocations
-                End If
-
-                objProject.paymentflowByProjectList = Session("paymentFlowList")
-
-                objProject.thirdbyprojectlist = DirectCast(Session("operatorByProjectList"), List(Of ThirdByProjectEntity))
-
-                objProject.ProgramComponentbyprojectlist = ProgramComponentByProjectList
-                sOldFile = hlattachment.Text
-                ' si no se modifico el archivo
-                If objProject.attachment.Equals(String.Empty) Then
-
-                    'cargar el anterior
-                    objProject.attachment = Me.hlattachment.Text
-
-                End If
-
-                ' guardar valores de  campos para poder editar o no valor, tiempo y results
-                If checkvalor.Checked Then
-                    objProject.editablemoney = "S"
-                Else
-                    objProject.editablemoney = "N"
-                End If
-                If checktiempo.Checked Then
-                    objProject.editabletime = "S"
-                Else
-                    objProject.editabletime = "N"
-                End If
-                If checkalcance.Checked Then
-                    objProject.editableresults = "S"
-                Else
-                    objProject.editableresults = "N"
-                End If
-                'CARGA FECHA DE FINALIZACION EN EL OBJETO DEL PROYECTO
-                Dim duration As Double = Convert.ToDouble(Me.txtduration.Text.Replace(".", ","))
-                objProject.completiondate = getDateFinalization(duration, Me.txtbegindate.Text)
-                ' TODO: Arreglar
-
-                'Validar Alerta de Contrato
-                'Dim valoralerta As String = "0"
-                'If objProject.Typeapproval = 4 And Me.ddltipoaprobacion.SelectedValue = 1 Then
-                '    valoralerta = "1"
-                'End If
-
-                ' modificar el registro si el proyecto no esta aprobado
-                If objProject.Typeapproval = 4 Or Me.ddltipoaprobacion.SelectedValue = "1" Or objProject.Typeapproval = 2 Then
-                    Me.LoadFilesBySession(objProject, applicationCredentials.UserID)
-                    facade.updateProject(applicationCredentials, objProject, sOldFile)
-
-                Else
-
-                    'MODIFICAR CAMBIOS SEGUN ULTIMOS REQUERIMIENTOS
-                    Me.LoadFilesBySession(objProject, applicationCredentials.UserID)
-                    facade.updateProjectLastRequirements(applicationCredentials, objProject, sOldFile)
-
-                End If
-                'almacenar en BD 1 aclaratorio
-
-                'Enviar Notificación
-                If valoralerta = 1 Then
-                    Dim correo As PostMail_SndMail = New PostMail_SndMail()
-                    Dim asunto As String
-                    Dim mensajecorreo As String
-                    Dim destinatarios As String = ""
-
-                    Dim sql As New StringBuilder
-                    Dim data As DataTable
-                    Dim primero As Integer
-
-                    'consultar juridica y el usuario admin(Jose)
-                    sql.Append("select user_id from usersbymailgroup where usersbymailgroup.mailgroup = 1 or usersbymailgroup.mailgroup = 3")
-                    data = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
-
-                    If data.Rows.Count > 0 Then
-
-                        For Each itemdatatable As DataRow In data.Rows
-                            primero = primero + 1
-
-                            If primero = 1 Then
-                                destinatarios = itemdatatable("user_id")
-                            Else
-                                destinatarios = destinatarios & " or id=" & itemdatatable("user_id")
-                            End If
-
-                        Next
-
-                    End If
-
-                    'reiniciar las variables
-                    sql = New StringBuilder
-                    primero = 0
-
-                    'consultar el id del lider del proyecto
-                    sql.Append("select iduser from project where project.id = " & objProject.id)
-                    data = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
-
-                    If data.Rows.Count > 0 Then
-                        destinatarios = destinatarios & " or id=" & data(0)("iduser")
-                    End If
-
-                    'reiniciar las variables
-                    sql = New StringBuilder
-                    primero = 0
-
-                    'consultar los emails
-                    sql.Append("use FSC_eSecurity select email from ApplicationUser where id =" & destinatarios)
-                    data = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
-
-                    If data.Rows.Count > 0 Then
-
-                        For Each itemDataTable As DataRow In data.Rows
-
-                            primero = primero + 1
-
-                            If primero = 1 Then
-                                destinatarios = itemDataTable("email")
-                            Else
-                                destinatarios = destinatarios & "," & itemDataTable("email")
-                            End If
-
-                        Next
-
-                    End If
-
-                    asunto = "Se aprobó al proyecto " & objProject.id & " - " & objProject.name
-
-                    mensajecorreo = "Hola,"
-                    mensajecorreo = mensajecorreo & Chr(13) & Chr(13) & "El proyecto " & objProject.id & " - " & objProject.name & " fué aprobado; a partir de este momento, puede iniciar el proceso de contratación."
-                    mensajecorreo = mensajecorreo & Chr(13) & Chr(13) & "Cordialmente,"
-                    mensajecorreo = mensajecorreo & Chr(13) & Chr(13) & "ELVIRA"
-                    mensajecorreo = mensajecorreo & Chr(13) & "EvaLuación y Valoración de la InveRsión Articulada"
-                    mensajecorreo = mensajecorreo & Chr(13) & "Fundación Saldarriaga Concha"
-
-                    correo.SendMail(destinatarios, asunto, mensajecorreo)
-                End If
-
-                'se crea objeto Explanatory donde se guardan los datos
-                If Me.txtaclaratorio.Text <> "" Then
-                    Dim objExplanatoryEntity As ExplanatoryEntity = New ExplanatoryEntity
-                    objExplanatoryEntity.observation = Me.txtaclaratorio.Text
-                    objExplanatoryEntity.fecha = Date.Now()
-                    objExplanatoryEntity.idproject = objProject.id
-                    objExplanatoryDALC.add(applicationCredentials, objExplanatoryEntity)
-                End If
-
-                If idProcessInstance IsNot Nothing Then
-
-                    ' finalizar la actividad actual
-                    GattacaApplication.endActivityInstance(applicationCredentials, idProcessInstance, idActivityInstance, _
-                                                           Me.rblCondition.SelectedValue, "Se ha modificado el proyecto", _
-                                                           "", "", "", "")
-                    ' cerrar la ventana
-                    ' ir a la pagina de lista de tareas
-                    Response.Redirect(PublicFunction.getSettingValue("BPM.TaskList"))
-
-                Else
-                    'Me.lblsaveinformation.Text = "Se ha guardado proyecto satisfactoriamente"
-                    ' ir al administrador
-                    'Response.Redirect("searchProject.aspx")
+            '    'Cargar la lista de ubicaciones ProjectLocation
+            '    Dim a = Session("projectLocationList").GetType
 
 
+            '    If Not a.IsGenericType Then
+            '        Dim objDataTable As DataTable = Session("projectLocationList")
+            '        Session.Add("projectLocationList", objDataTable)
+            '        Dim objListProyectLocations As List(Of ProjectLocationEntity) = New List(Of ProjectLocationEntity)
+            '        For Each rowDataTable In objDataTable.Rows
 
+            '            Dim objProjectLocation As ProjectLocationEntity = New ProjectLocationEntity()
 
-                End If
-                'Me.lblstatesuccess.Text = "El proyecto se edito correctamente"
+            '            objProjectLocation.idcity = rowDataTable(0)
+            '            objProjectLocation.DEPTONAME = rowDataTable(1)
+            '            objProjectLocation.CITYNAME = rowDataTable(2)
+            '            objListProyectLocations.Add(objProjectLocation)
+            '        Next
 
-                If Me.ddltipoaprobacion.Text = "1" And Session("typeapprovalbegin") = 4 Then
-                    'mensaje de que se aprobo
-                    Session("modificar") = 2
-                Else
-                    'mensaje exito que se modifico
-                    Session("modificar") = 1
-                End If
-                Response.Redirect("addProject.aspx?successSave=1&op=edit&id=" & objProject.id)
+            '        objProject.projectlocationlist = objListProyectLocations
+            '    End If
+
+            '    objProject.paymentflowByProjectList = Session("paymentFlowList")
+
+            '    objProject.thirdbyprojectlist = DirectCast(Session("operatorByProjectList"), List(Of ThirdByProjectEntity))
+
+            '    objProject.ProgramComponentbyprojectlist = ProgramComponentByProjectList
+            '    sOldFile = hlattachment.Text
+            '    ' si no se modifico el archivo
+            '    If objProject.attachment.Equals(String.Empty) Then
+
+            '        'cargar el anterior
+            '        objProject.attachment = Me.hlattachment.Text
+
+            '    End If
+
+            '    ' guardar valores de  campos para poder editar o no valor, tiempo y results
+            '    If checkvalor.Checked Then
+            '        objProject.editablemoney = "S"
+            '    Else
+            '        objProject.editablemoney = "N"
+            '    End If
+            '    If checktiempo.Checked Then
+            '        objProject.editabletime = "S"
+            '    Else
+            '        objProject.editabletime = "N"
+            '    End If
+            '    If checkalcance.Checked Then
+            '        objProject.editableresults = "S"
+            '    Else
+            '        objProject.editableresults = "N"
+            '    End If
+            '    'CARGA FECHA DE FINALIZACION EN EL OBJETO DEL PROYECTO
+            '    Dim duration As Double = Convert.ToDouble(Me.txtduration.Text.Replace(".", ","))
+            '    ' objProject.completiondate = getDateFinalization(duration, 'Me.txtstartdate.Text)
+            '    ' TODO: Arreglar
+
+            '    'Validar Alerta de Contrato
+            '    'Dim valoralerta As String = "0"
+            '    'If objProject.Typeapproval = 4 And Me.ddltipoaprobacion.SelectedValue = 1 Then
+            '    '    valoralerta = "1"
+            '    'End If
+
+            '    ' modificar el registro si el proyecto no esta aprobado
+            '    If objProject.Typeapproval = 4 Or Me.ddltipoaprobacion.SelectedValue = "1" Or objProject.Typeapproval = 2 Then
+            '        Me.LoadFilesBySession(objProject, applicationCredentials.UserID)
+            '        facade.updateProject(applicationCredentials, objProject, sOldFile)
+
+            '    Else
+
+            '        'MODIFICAR CAMBIOS SEGUN ULTIMOS REQUERIMIENTOS
+            '        Me.LoadFilesBySession(objProject, applicationCredentials.UserID)
+            '        facade.updateProjectLastRequirements(applicationCredentials, objProject, sOldFile)
+
+            '    End If
+            '    'almacenar en BD 1 aclaratorio
+
+            '    'Enviar Notificación
+            '    If valoralerta = 1 Then
+            '        Dim correo As PostMail_SndMail = New PostMail_SndMail()
+            '        Dim asunto As String
+            '        Dim mensajecorreo As String
+            '        Dim destinatarios As String = ""
+
+            '        Dim sql As New StringBuilder
+            '        Dim data As DataTable
+            '        Dim primero As Integer
+
+            '        'consultar juridica y el usuario admin(Jose)
+            '        sql.Append("select user_id from usersbymailgroup where usersbymailgroup.mailgroup = 1 or usersbymailgroup.mailgroup = 3")
+            '        data = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+            '        If data.Rows.Count > 0 Then
+
+            '            For Each itemdatatable As DataRow In data.Rows
+            '                primero = primero + 1
+
+            '                If primero = 1 Then
+            '                    destinatarios = itemdatatable("user_id")
+            '                Else
+            '                    destinatarios = destinatarios & " or id=" & itemdatatable("user_id")
+            '                End If
+
+            '            Next
+
+            '        End If
+
+            '        'reiniciar las variables
+            '        sql = New StringBuilder
+            '        primero = 0
+
+            '        'consultar el id del lider del proyecto
+            '        sql.Append("select iduser from project where project.id = " & objProject.id)
+            '        data = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+            '        If data.Rows.Count > 0 Then
+            '            destinatarios = destinatarios & " or id=" & data(0)("iduser")
+            '        End If
+
+            '        'reiniciar las variables
+            '        sql = New StringBuilder
+            '        primero = 0
+
+            '        'consultar los emails
+            '        sql.Append("use FSC_eSecurity select email from ApplicationUser where id =" & destinatarios)
+            '        data = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+            '        If data.Rows.Count > 0 Then
+
+            '            For Each itemDataTable As DataRow In data.Rows
+
+            '                primero = primero + 1
+
+            '                If primero = 1 Then
+            '                    destinatarios = itemDataTable("email")
+            '                Else
+            '                    destinatarios = destinatarios & "," & itemDataTable("email")
+            '                End If
+
+            '            Next
+
+            '        End If
+
+            '        asunto = "Se aprobó al proyecto " & objProject.id & " - " & objProject.name
+
+            '        mensajecorreo = "Hola,"
+            '        mensajecorreo = mensajecorreo & Chr(13) & Chr(13) & "El proyecto " & objProject.id & " - " & objProject.name & " fué aprobado; a partir de este momento, puede iniciar el proceso de contratación."
+            '        mensajecorreo = mensajecorreo & Chr(13) & Chr(13) & "Cordialmente,"
+            '        mensajecorreo = mensajecorreo & Chr(13) & Chr(13) & "ELVIRA"
+            '        mensajecorreo = mensajecorreo & Chr(13) & "EvaLuación y Valoración de la InveRsión Articulada"
+            '        mensajecorreo = mensajecorreo & Chr(13) & "Fundación Saldarriaga Concha"
+
+            '        correo.SendMail(destinatarios, asunto, mensajecorreo)
+            '    End If
+
+            '    'se crea objeto Explanatory donde se guardan los datos
+            '    'If Me.txtaclaratorio.Text <> "" Then
+            '    '    Dim objExplanatoryEntity As ExplanatoryEntity = New ExplanatoryEntity
+            '    '    objExplanatoryEntity.observation = Me.txtaclaratorio.Text
+            '    '    objExplanatoryEntity.fecha = Date.Now()
+            '    '    objExplanatoryEntity.idproject = objProject.id
+            '    '    objExplanatoryDALC.add(applicationCredentials, objExplanatoryEntity)
+            '    'End If
+
+            '    If idProcessInstance IsNot Nothing Then
+
+            '        ' finalizar la actividad actual
+            '        GattacaApplication.endActivityInstance(applicationCredentials, idProcessInstance, idActivityInstance, _
+            '                                               Me.rblCondition.SelectedValue, "Se ha modificado el proyecto", _
+            '                                               "", "", "", "")
+            '        ' cerrar la ventana
+            '        ' ir a la pagina de lista de tareas
+            '        Response.Redirect(PublicFunction.getSettingValue("BPM.TaskList"))
+
+            '    Else
+            '        'Me.lblsaveinformation.Text = "Se ha guardado proyecto satisfactoriamente"
+            '        ' ir al administrador
+            '        'Response.Redirect("searchProject.aspx")
 
 
 
-            Else
 
-                If lblmensajeexitoerror.Text <> "100" Then
-                    'Me.lblmsjporcent.Text = "El total de pago debe ser igual al 100%"
-                    Me.TabContainer1.ActiveTabIndex = 0
-                    'Me.lblsaveinformation.Text = "El total de pago debe ser igual al 100%"
-                    Me.lblMessageValidacionNombre.Text = "El total de pago debe ser igual al 100%"
-                    Me.Label16.Text = "El total de pago debe ser igual al 100%"
-                    '     Me.LabelErrorGeneral.Text = "El total de pago debe ser igual al 100%"
+            '    End If
+            '    'Me.lblstatesuccess.Text = "El proyecto se edito correctamente"
 
-                End If
-                If Me.txtname.Text.Trim().Length = 0 Then
-                    Me.lblMessageValidacionNombre.Text = "El campo nombre esta vacio "
-                    Me.lblsaveinformation.Text = "El campo nombre esta vacio "
-                    Me.lblMessageValidacionNombre.Text = "El campo nombre esta vacio "
-                    Me.Label16.Text = "El campo nombre esta vacio "
-                    '          Me.LabelErrorGeneral.Text = "El campo nombre esta vacio "
-                End If
-            End If
+            '    If Me.ddltipoaprobacion.Text = "1" And Session("typeapprovalbegin") = 4 Then
+            '        'mensaje de que se aprobo
+            '        Session("modificar") = 2
+            '    Else
+            '        'mensaje exito que se modifico
+            '        Session("modificar") = 1
+            '    End If
+            '    Response.Redirect("addProject.aspx?successSave=1&op=edit&id=" & objProject.id)
+
+
+
+            'Else
+
+            '    'If lblmensajeexitoerror.Text <> "100" Then
+            '    '    'Me.lblmsjporcent.Text = "El total de pago debe ser igual al 100%"
+            '    '    '.ActiveTabIndex = 0
+            '    '    'Me.lblsaveinformation.Text = "El total de pago debe ser igual al 100%"
+            '    '    Me.lblMessageValidacionNombre.Text = "El total de pago debe ser igual al 100%"
+            '    '    'Me.Label16.Text = "El total de pago debe ser igual al 100%"
+            '    '    '     Me.LabelErrorGeneral.Text = "El total de pago debe ser igual al 100%"
+
+            '    'End If
+            '    If Me.txtname.Text.Trim().Length = 0 Then
+            '        Me.lblMessageValidacionNombre.Text = "El campo nombre esta vacio "
+            '        Me.lblsaveinformation.Text = "El campo nombre esta vacio "
+            '        Me.lblMessageValidacionNombre.Text = "El campo nombre esta vacio "
+            '        'Me.Label16.Text = "El campo nombre esta vacio "
+            '        '          Me.LabelErrorGeneral.Text = "El campo nombre esta vacio "
+            '    End If
+            'End If
 
         Catch oex As Threading.ThreadAbortException
             ' no hacer nada
@@ -1324,166 +1318,166 @@ Partial Class addProject
 
     End Sub
 
-    Protected Sub btnConfirmDelete_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnConfirmDelete.Click
+    'Protected Sub btnConfirmDelete_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnConfirmDelete.Click
 
-        ' definir los objetos
-        Dim facade As New Facade
-        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
-        Dim contract As DataTable
-        Dim idproyect = Request.QueryString("Id")
+    '    ' definir los objetos
+    '    Dim facade As New Facade
+    '    Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+    '    Dim contract As DataTable
+    '    Dim idproyect = Request.QueryString("Id")
 
-        Try
-            Dim SQL As New StringBuilder
+    '    Try
+    '        Dim SQL As New StringBuilder
 
-            'consulta para averiguar si el proyecto tiene contratos
-            ' German rodriguez MGgroup
-            SQL.AppendLine(" select idproject from ContractRequest ")
-            SQL.AppendLine(" where idproject = " & idproyect)
+    '        'consulta para averiguar si el proyecto tiene contratos
+    '        ' German rodriguez MGgroup
+    '        SQL.AppendLine(" select idproject from ContractRequest ")
+    '        SQL.AppendLine(" where idproject = " & idproyect)
 
-            'Ejecutar la Instruccion
-            contract = GattacaApplication.RunSQLRDT(applicationCredentials, SQL.ToString)
+    '        'Ejecutar la Instruccion
+    '        contract = GattacaApplication.RunSQLRDT(applicationCredentials, SQL.ToString)
 
-            'validamos la consusta de contratos
-            ' German rodriguez MGgroup
-            If contract.Rows.Count > 0 Then
+    '        'validamos la consusta de contratos
+    '        ' German rodriguez MGgroup
+    '        If contract.Rows.Count > 0 Then
 
-                Me.containerSuccess.Visible = True
-                '      Me.lblstatesuccess.Text = "El proyecto no se puede eliminar porque contiene contratos heredados! "
-                Exit Sub
-            Else
+    '            Me.containerSuccess.Visible = True
+    '            '      Me.lblstatesuccess.Text = "El proyecto no se puede eliminar porque contiene contratos heredados! "
+    '            Exit Sub
+    '        Else
 
-                ' eliminar el registro
-                facade.deleteProject(applicationCredentials, Request.QueryString("Id"), ViewState("idKey"))
+    '            ' eliminar el registro
+    '            facade.deleteProject(applicationCredentials, Request.QueryString("Id"), ViewState("idKey"))
 
-                ' ir al administrador
-                Response.Redirect("searchProject.aspx")
+    '            ' ir al administrador
+    '            Response.Redirect("searchProject.aspx")
 
-            End If
+    '        End If
 
 
-        Catch oex As Threading.ThreadAbortException
-            ' no hacer nada
+    '    Catch oex As Threading.ThreadAbortException
+    '        ' no hacer nada
 
-        Catch ex As Exception
+    '    Catch ex As Exception
 
-            ' ir a error
-            Session("sError") = ex.Message
-            Session("sUrl") = Request.UrlReferrer.PathAndQuery
-            Response.Redirect("~/errors/error.aspx")
-            Response.End()
+    '        ' ir a error
+    '        Session("sError") = ex.Message
+    '        Session("sUrl") = Request.UrlReferrer.PathAndQuery
+    '        Response.Redirect("~/errors/error.aspx")
+    '        Response.End()
 
-        Finally
+    '    Finally
 
-            ' liberar recursos
-            facade = Nothing
+    '        ' liberar recursos
+    '        facade = Nothing
 
-        End Try
+    '    End Try
 
-    End Sub
+    'End Sub
 
-    Protected Sub btnCancelDelete_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnCancelDelete.Click
+    'Protected Sub btnCancelDelete_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnCancelDelete.Click
 
-        ' ocultar algunos botones
-        Me.btnAddData.Visible = False
-        Me.btnSave.Visible = True
-        Me.btnDelete.Visible = True
-        Me.btnCancelDelete.Visible = False
-        Me.btnConfirmDelete.Visible = False
-        Me.lblDelete.Visible = False
-        Me.btnCancel.Visible = True
+    '    ' ocultar algunos botones
+    '    Me.btnAddData.Visible = False
+    '    Me.btnSave.Visible = True
+    '    'Me.btnDelete.Visible = True
+    '    'Me.btnCancelDelete.Visible = False
+    '    Me.btnConfirmDelete.Visible = False
+    '    Me.lblDelete.Visible = False
+    '    'Me.btnCancel.Visible = True
 
-    End Sub
+    'End Sub
 
-    Protected Sub btnDelete_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnDelete.Click
+    'Protected Sub btnDelete_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnDelete.Click
 
-        ' ocultar algunos botones
-        Me.btnSave.Visible = False
-        Me.btnDelete.Visible = False
-        Me.btnConfirmDelete.Visible = True
-        Me.btnCancel.Visible = False
-        Me.btnCancelDelete.Visible = True
-        Me.lblDelete.Visible = True
+    '    ' ocultar algunos botones
+    '    Me.btnSave.Visible = False
+    '    'Me.btnDelete.Visible = False
+    '    ' Me.btnConfirmDelete.Visible = True
+    '    'Me.btnCancel.Visible = False
+    '    ''Me.btnCancelDelete.Visible = True
+    '    'Me.lblDelete.Visible = True
 
-    End Sub
+    'End Sub
 
     Protected Sub txtcode_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtcode.TextChanged
         'Verificar Código
         verifyCode()
 
         'Se selecciona la pestaña inicial
-        Me.TabContainer1.ActiveTabIndex = 0
+        ' Me.TabContainer1.ActiveTabIndex = 0
         Me.txtname.Focus()
 
     End Sub
 
-    Protected Sub btnAddSource_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnAddSource.Click
+    'Protected Sub btnAddSource_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnAddSource.Click
 
-        ' cargar la lista de fuentes
-        Dim objSourceByProjectList As List(Of SourceByProjectEntity) = Session("sourceByProjectList")
-        Dim objSourceByProject As New SourceByProjectEntity()
-        Dim repeated As Boolean = 0
-        Me.lblSourceMessage.Text = ""
+    '    ' cargar la lista de fuentes
+    '    Dim objSourceByProjectList As List(Of SourceByProjectEntity) = Session("sourceByProjectList")
+    '    Dim objSourceByProject As New SourceByProjectEntity()
+    '    Dim repeated As Boolean = 0
+    '    'Me.lblSourceMessage.Text = ""
 
-        ' guardar los datos de la fecha
-        objSourceByProject.idsource = Me.ddlSource.SelectedValue
-        objSourceByProject.SOURCENAME = Me.ddlSource.SelectedItem.Text
+    '    ' guardar los datos de la fecha
+    '    'objSourceByProject.idsource = Me.ddlSource.SelectedValue
+    '    'objSourceByProject.SOURCENAME = Me.ddlSource.SelectedItem.Text
 
-        For Each objsource As SourceByProjectEntity In objSourceByProjectList
-            If (objsource.idsource = objSourceByProject.idsource) Then
-                repeated = 1
-                Exit For
-            End If
-        Next
+    '    For Each objsource As SourceByProjectEntity In objSourceByProjectList
+    '        If (objsource.idsource = objSourceByProject.idsource) Then
+    '            repeated = 1
+    '            Exit For
+    '        End If
+    '    Next
 
-        If Not repeated Then
-            ' agregar la fecha a la lista
-            objSourceByProjectList.Add(objSourceByProject)
-        Else
-            'Notificar al usuario
-            Me.lblSourceMessage.Text = "Ya existe esta fuente, por favor verifique."
-        End If
+    '    If Not repeated Then
+    '        ' agregar la fecha a la lista
+    '        objSourceByProjectList.Add(objSourceByProject)
+    '    Else
+    '        'Notificar al usuario
+    '        '    Me.lblSourceMessage.Text = "Ya existe esta fuente, por favor verifique."
+    '    End If
 
-        ' mostrar los datos en la grilla
-        Me.gvSourceByProject.DataSource = objSourceByProjectList
-        Me.gvSourceByProject.DataBind()
+    '    ' mostrar los datos en la grilla
+    '    'Me.gvSourceByProject.DataSource = objSourceByProjectList
+    '    'Me.gvSourceByProject.DataBind()
 
-    End Sub
-
-
-    Protected Sub btnAddProjectLocation_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnAddProjectLocation.Click
-
-        Dim objProjectLoactionList As DataTable = Session("projectLocationList")
-        Dim objProjectLocation As New ProjectLocationEntity
-        Dim repeated As Boolean = 0
-
-        If Me.HDswich_ubicacion.Value = "" Or Me.HDswich_ubicacion.Value = 0 Then
-            Me.HDswich_ubicacion.Value = 0
-        End If
+    'End Sub
 
 
-        ' guardar los datos de la fecha
-        objProjectLocation.idcity = ddlidcity.SelectedValue
-        objProjectLocation.CITYNAME = ddlidcity.SelectedItem.Text
-        objProjectLocation.DEPTONAME = ddliddepto.SelectedItem.Text
+    'Protected Sub btnAddProjectLocation_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnAddProjectLocation.Click
 
-        ' For Each objproloc In objProjectLoactionList.Rows
-        'If objproloc(0) = Convert.ToInt32(objProjectLocation.idcity) Then
-        'repeated = 1
-        ' End If
-        'Next
+    '    Dim objProjectLoactionList As DataTable = Session("projectLocationList")
+    '    Dim objProjectLocation As New ProjectLocationEntity
+    '    Dim repeated As Boolean = 0
 
-        'If Not repeated Then
-        ' agregar la fecha a la lista
-        objProjectLoactionList.Rows.Add(objProjectLocation.idcity, objProjectLocation.DEPTONAME, objProjectLocation.CITYNAME)
-        lblHelpprojectLocation.Text = "Recuerde hacer click en guardar para efectuar los cambios"
-        'Else
-        ' lblHelpprojectLocation.Text = "Ya existe esta ubicación, Recuerde hacer click en guardar para efectuar los cambios"
-        '  End If
-        Session("projectLocationList") = objProjectLoactionList
-        ' mostrar los datos en la grilla
-        Me.gvprojectLocation.DataSource = objProjectLoactionList
-        Me.gvprojectLocation.DataBind()
-    End Sub
+    '    If Me.HDswich_ubicacion.Value = "" Or Me.HDswich_ubicacion.Value = 0 Then
+    '        Me.HDswich_ubicacion.Value = 0
+    '    End If
+
+
+    '    ' guardar los datos de la fecha
+    '    objProjectLocation.idcity = ddlidcity.SelectedValue
+    '    objProjectLocation.CITYNAME = ddlidcity.SelectedItem.Text
+    '    objProjectLocation.DEPTONAME = ddliddepto.SelectedItem.Text
+
+    '    ' For Each objproloc In objProjectLoactionList.Rows
+    '    'If objproloc(0) = Convert.ToInt32(objProjectLocation.idcity) Then
+    '    'repeated = 1
+    '    ' End If
+    '    'Next
+
+    '    'If Not repeated Then
+    '    ' agregar la fecha a la lista
+    '    objProjectLoactionList.Rows.Add(objProjectLocation.idcity, objProjectLocation.DEPTONAME, objProjectLocation.CITYNAME)
+    '    lblHelpprojectLocation.Text = "Recuerde hacer click en guardar para efectuar los cambios"
+    '    'Else
+    '    ' lblHelpprojectLocation.Text = "Ya existe esta ubicación, Recuerde hacer click en guardar para efectuar los cambios"
+    '    '  End If
+    '    Session("projectLocationList") = objProjectLoactionList
+    '    ' mostrar los datos en la grilla
+    '    Me.gvprojectLocation.DataSource = objProjectLoactionList
+    '    Me.gvprojectLocation.DataBind()
+    'End Sub
 
     'Protected Sub btnaddthirdbyproject_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnaddthirdbyproject.Click
     '    ' cargar la lista de fechas
@@ -1522,160 +1516,160 @@ Partial Class addProject
     '    Me.gvthirdbyproject.DataBind()
     'End Sub
 
-    Protected Sub btnaddoperatorbyproject_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnaddoperatorbyproject.Click
-        'credenciales
-        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+    'Protected Sub btnaddoperatorbyproject_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnaddoperatorbyproject.Click
+    '    'credenciales
+    '    Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
 
-        ' cargar la lista de actores operatorByProjectList = thirdByProjectList
-        Dim objThirdByProjectList As List(Of ThirdByProjectEntity) = New List(Of ThirdByProjectEntity)()
-        Dim thirdlist As List(Of ThirdByProjectEntity) = New List(Of ThirdByProjectEntity)()
-        Dim objThirdByProject As ThirdByProjectEntity = New ThirdByProjectEntity()
+    '    ' cargar la lista de actores operatorByProjectList = thirdByProjectList
+    '    Dim objThirdByProjectList As List(Of ThirdByProjectEntity) = New List(Of ThirdByProjectEntity)()
+    '    Dim thirdlist As List(Of ThirdByProjectEntity) = New List(Of ThirdByProjectEntity)()
+    '    Dim objThirdByProject As ThirdByProjectEntity = New ThirdByProjectEntity()
 
-        Dim sql As New StringBuilder
-        Dim objSqlCommand As New SqlCommand
-        Dim data As DataTable
+    '    Dim sql As New StringBuilder
+    '    Dim objSqlCommand As New SqlCommand
+    '    Dim data As DataTable
 
-        'contador para saber la cantidad de datos en el grid ----------- German Rodriguez--- 
-        Dim countgve As Integer = Me.gvoperatorbyproject.Rows.Count
+    '    'contador para saber la cantidad de datos en el grid ----------- German Rodriguez--- 
+    '    Dim countgve As Integer = Me.gvoperatorbyproject.Rows.Count
 
-        Dim CAMBIO As Integer = 0
-
-
-        If countgve = 0 Then
-            countgve = 0
-            lblHelpoperatorbyproject.Text = ""
-        Else
-            countgve = countgve - 1
-            Dim ir As Integer = 0
-            For i = 1 To countgve
-                Dim lbltmoney = CType(gvoperatorbyproject.Rows(ir).Cells(1).FindControl("lblIdactor"), Label).Text
-                Dim comparar As Integer = Me.HDIDTHIRD.Value
-                If comparar = lbltmoney Then
-                    lblHelpoperatorbyproject.Text = "Este actor ya fue ingresado"
-                    CAMBIO = 1
-                    Exit For
-                End If
-                ir = ir + 1
-            Next
-        End If
+    '    Dim CAMBIO As Integer = 0
 
 
-        If CAMBIO = 0 Then
-
-            objThirdByProjectList = DirectCast(Session("operatorByProjectList"), List(Of ThirdByProjectEntity))
-
-            objThirdByProject.idthird = Me.HDIDTHIRD.Value
-            objThirdByProject.THIRDNAME = Me.HDNAMETHIRD.Value
-            ' guardar los datos del actor
-            objThirdByProject.idthird = ddlidoperator.SelectedValue
-            'capturar el typo de operador
-            objThirdByProject.type = ddltipooperador.SelectedItem.Text
-            'CONSULTA DE DATOS DEL ACTOR
-            sql.Append("select t.contact,t.documents,t.phone,t.email from third t where t.Id = " & Me.HDIDTHIRD.Value)
-            data = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
-            'VALIDAMOS LA CONSULTA Y LOS CARGAMOS
-            If data.Rows.Count > 0 Then
-
-                If IsDBNull(data.Rows(0)("contact")) = False Then
-                    objThirdByProject.THIRD.contact = data.Rows(0)("contact")
-                End If
-
-                If IsDBNull(data.Rows(0)("documents")) = False Then
-                    objThirdByProject.THIRD.documents = data.Rows(0)("documents")
-                End If
-
-                If IsDBNull(data.Rows(0)("phone")) = False Then
-                    objThirdByProject.THIRD.phone = data.Rows(0)("phone")
-                End If
-
-                If IsDBNull(data.Rows(0)("email")) = False Then
-                    objThirdByProject.THIRD.email = data.Rows(0)("email")
-                End If
-            Else
-
-                objThirdByProject.THIRD.contact = ""
-                objThirdByProject.THIRD.documents = ""
-                objThirdByProject.THIRD.email = ""
-                objThirdByProject.THIRD.phone = ""
-
-            End If
+    '    If countgve = 0 Then
+    '        countgve = 0
+    '        lblHelpoperatorbyproject.Text = ""
+    '    Else
+    '        countgve = countgve - 1
+    '        Dim ir As Integer = 0
+    '        For i = 1 To countgve
+    '            Dim lbltmoney = CType(gvoperatorbyproject.Rows(ir).Cells(1).FindControl("lblIdactor"), Label).Text
+    '            Dim comparar As Integer = Me.HDIDTHIRD.Value
+    '            If comparar = lbltmoney Then
+    '                lblHelpoperatorbyproject.Text = "Este actor ya fue ingresado"
+    '                CAMBIO = 1
+    '                Exit For
+    '            End If
+    '            ir = ir + 1
+    '        Next
+    '    End If
 
 
-            'AGREGAMOS A LA SECION
-            objThirdByProjectList.Add(objThirdByProject)
+    '    If CAMBIO = 0 Then
 
-            Dim objDataTableFin As DataTable = New DataTable()
+    '        objThirdByProjectList = DirectCast(Session("operatorByProjectList"), List(Of ThirdByProjectEntity))
 
-            objDataTableFin.Columns.Add("idthird")
-            objDataTableFin.Columns.Add("name")
-            objDataTableFin.Columns.Add("type")
-            objDataTableFin.Columns.Add("contact")
-            objDataTableFin.Columns.Add("documents")
-            objDataTableFin.Columns.Add("phone")
-            objDataTableFin.Columns.Add("email")
+    '        objThirdByProject.idthird = Me.HDIDTHIRD.Value
+    '        objThirdByProject.THIRDNAME = Me.HDNAMETHIRD.Value
+    '        ' guardar los datos del actor
+    '        objThirdByProject.idthird = ddlidoperator.SelectedValue
+    '        'capturar el typo de operador
+    '        objThirdByProject.type = ddltipooperador.SelectedItem.Text
+    '        'CONSULTA DE DATOS DEL ACTOR
+    '        sql.Append("select t.contact,t.documents,t.phone,t.email from third t where t.Id = " & Me.HDIDTHIRD.Value)
+    '        data = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+    '        'VALIDAMOS LA CONSULTA Y LOS CARGAMOS
+    '        If data.Rows.Count > 0 Then
 
-            For Each itemDataTablefin As ThirdByProjectEntity In objThirdByProjectList
-                objDataTableFin.Rows.Add(itemDataTablefin.idthird, itemDataTablefin.THIRDNAME, itemDataTablefin.type, itemDataTablefin.THIRD.contact, itemDataTablefin.THIRD.documents, itemDataTablefin.THIRD.phone, itemDataTablefin.THIRD.email)
-            Next
+    '            If IsDBNull(data.Rows(0)("contact")) = False Then
+    '                objThirdByProject.THIRD.contact = data.Rows(0)("contact")
+    '            End If
 
-            'CARGARMOS AL GRID
-            Me.gvoperatorbyproject.DataSource = objDataTableFin
-            Me.gvoperatorbyproject.DataBind()
+    '            If IsDBNull(data.Rows(0)("documents")) = False Then
+    '                objThirdByProject.THIRD.documents = data.Rows(0)("documents")
+    '            End If
 
-        End If
+    '            If IsDBNull(data.Rows(0)("phone")) = False Then
+    '                objThirdByProject.THIRD.phone = data.Rows(0)("phone")
+    '            End If
+
+    '            If IsDBNull(data.Rows(0)("email")) = False Then
+    '                objThirdByProject.THIRD.email = data.Rows(0)("email")
+    '            End If
+    '        Else
+
+    '            objThirdByProject.THIRD.contact = ""
+    '            objThirdByProject.THIRD.documents = ""
+    '            objThirdByProject.THIRD.email = ""
+    '            objThirdByProject.THIRD.phone = ""
+
+    '        End If
 
 
+    '        'AGREGAMOS A LA SECION
+    '        objThirdByProjectList.Add(objThirdByProject)
 
+    '        Dim objDataTableFin As DataTable = New DataTable()
 
-        'Dim idproject As Integer
+    '        objDataTableFin.Columns.Add("idthird")
+    '        objDataTableFin.Columns.Add("name")
+    '        objDataTableFin.Columns.Add("type")
+    '        objDataTableFin.Columns.Add("contact")
+    '        objDataTableFin.Columns.Add("documents")
+    '        objDataTableFin.Columns.Add("phone")
+    '        objDataTableFin.Columns.Add("email")
 
-        'For Each obt As ThirdByProjectEntity In objThirdByProjectList
-        '    idproject = obt.idproject
-        '    Exit For
-        'Next
+    '        For Each itemDataTablefin As ThirdByProjectEntity In objThirdByProjectList
+    '            objDataTableFin.Rows.Add(itemDataTablefin.idthird, itemDataTablefin.THIRDNAME, itemDataTablefin.type, itemDataTablefin.THIRD.contact, itemDataTablefin.THIRD.documents, itemDataTablefin.THIRD.phone, itemDataTablefin.THIRD.email)
+    '        Next
 
+    '        'CARGARMOS AL GRID
+    '        Me.gvoperatorbyproject.DataSource = objDataTableFin
+    '        Me.gvoperatorbyproject.DataBind()
 
-        ' Session("idProject") = idproject
-        'Dim objThirdByProjectList As List(Of ThirdByProjectEntity) = Session("operatorByProjectList")
-
-        'For Each objopepro As ThirdByProjectEntity In objThirdByProjectList
-        '    If (objopepro.id = objThirdByProject.idthird) Then
-        '        repeated = 1
-        '    End If
-        'Next
-
-        ''obtencion de los datos del actor segun id seleccionado del combo
-        'Dim objDataTableThird As New DataTable()
-        'objDataTableThird = getThirdById(objThirdByProject.idthird, applicationCredentials)
-        ''Dim num As Integer = Me.insertThirdProject(applicationCredentials, objThirdByProject.idthird, idproject, objThirdByProject.type)
-        ''obtencion de los datos de los terceros en Session
-        'Dim objDataTableThirdSession As New DataTable()
-        ''objDataTableThirdSession = getThirdBySession(idproject, applicationCredentials)
-
-        'lblHelpoperatorbyproject.Text = "Ya existe este Operador, Recuerde hacer click en guardar para efectuar los cambios"
+    '    End If
 
 
 
-        'For Each rowDataTable In objDataTableThirdSession.Rows
-        '    objDataTableFin.Rows.Add(rowDataTable(0), rowDataTable(1), rowDataTable(2), rowDataTable(3), rowDataTable(4), rowDataTable(5))
-        'Next
+
+    '    'Dim idproject As Integer
+
+    '    'For Each obt As ThirdByProjectEntity In objThirdByProjectList
+    '    '    idproject = obt.idproject
+    '    '    Exit For
+    '    'Next
 
 
-    End Sub
+    '    ' Session("idProject") = idproject
+    '    'Dim objThirdByProjectList As List(Of ThirdByProjectEntity) = Session("operatorByProjectList")
 
-    Protected Sub gvSourceByProject_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles gvSourceByProject.SelectedIndexChanged
-        Me.lblSourceMessage.Text = ""
+    '    'For Each objopepro As ThirdByProjectEntity In objThirdByProjectList
+    '    '    If (objopepro.id = objThirdByProject.idthird) Then
+    '    '        repeated = 1
+    '    '    End If
+    '    'Next
 
-        ' cargar la lista de ubicaciones
-        Dim sourceByProjectList As List(Of SourceByProjectEntity) = Session("sourceByProjectList")
+    '    ''obtencion de los datos del actor segun id seleccionado del combo
+    '    'Dim objDataTableThird As New DataTable()
+    '    'objDataTableThird = getThirdById(objThirdByProject.idthird, applicationCredentials)
+    '    ''Dim num As Integer = Me.insertThirdProject(applicationCredentials, objThirdByProject.idthird, idproject, objThirdByProject.type)
+    '    ''obtencion de los datos de los terceros en Session
+    '    'Dim objDataTableThirdSession As New DataTable()
+    '    ''objDataTableThirdSession = getThirdBySession(idproject, applicationCredentials)
 
-        ' eliminar la ubicación de la lista
-        sourceByProjectList.RemoveAt(Me.gvSourceByProject.SelectedIndex)
+    '    'lblHelpoperatorbyproject.Text = "Ya existe este Operador, Recuerde hacer click en guardar para efectuar los cambios"
 
-        ' mostrar las ubicaciones en la grilla
-        Me.gvSourceByProject.DataSource = sourceByProjectList
-        Me.gvSourceByProject.DataBind()
-    End Sub
+
+
+    '    'For Each rowDataTable In objDataTableThirdSession.Rows
+    '    '    objDataTableFin.Rows.Add(rowDataTable(0), rowDataTable(1), rowDataTable(2), rowDataTable(3), rowDataTable(4), rowDataTable(5))
+    '    'Next
+
+
+    'End Sub
+
+    'Protected Sub gvSourceByProject_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles gvSourceByProject.SelectedIndexChanged
+    '    Me.lblSourceMessage.Text = ""
+
+    '    ' cargar la lista de ubicaciones
+    '    Dim sourceByProjectList As List(Of SourceByProjectEntity) = Session("sourceByProjectList")
+
+    '    ' eliminar la ubicación de la lista
+    '    sourceByProjectList.RemoveAt(Me.gvSourceByProject.SelectedIndex)
+
+    '    ' mostrar las ubicaciones en la grilla
+    '    Me.gvSourceByProject.DataSource = sourceByProjectList
+    '    Me.gvSourceByProject.DataBind()
+    'End Sub
 
     'Protected Sub gvthirdbyproject_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles gvthirdbyproject.SelectedIndexChanged
     '    ' cargar la lista de terceros
@@ -1689,87 +1683,87 @@ Partial Class addProject
     '    Me.gvthirdbyproject.DataBind()
     'End Sub
 
-    Protected Sub gvoperatorbyproject_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles gvoperatorbyproject.SelectedIndexChanged
-        ' cargar la lista de operadores
-        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+    'Protected Sub gvoperatorbyproject_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles gvoperatorbyproject.SelectedIndexChanged
+    '    ' cargar la lista de operadores
+    '    Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
 
-        Dim ThirdByProjectList As List(Of ThirdByProjectEntity)
-        Dim index As Integer = 0
+    '    Dim ThirdByProjectList As List(Of ThirdByProjectEntity)
+    '    Dim index As Integer = 0
 
-        ' cargarla de la session
-        ThirdByProjectList = DirectCast(Session("operatorByProjectList"), List(Of ThirdByProjectEntity))
-
-
-        'Dim idproj As Integer = Session("idProject")
-        'Dim operatorByProjectList As DataTable = getThirdBySession(idproj, applicationCredentials)
-        'Dim operatorTable As DataTable
-        'Dim indiceEliminar As Integer = Me.gvoperatorbyproject.SelectedIndex
-        'Dim cont As Integer = 0
-        'Dim idThirdByProject As Integer
-        ' eliminar el operador de la lista
-        ' For Each rowDataTable In operatorByProjectList.Rows
-        '   If indiceEliminar = cont Then
-        '       idThirdByProject = rowDataTable(6)
-        '       deleteThirdByProject(applicationCredentials, idThirdByProject)
-        '   End If
-        '   cont = cont + 1
-        ' next
-
-        ThirdByProjectList.RemoveAt(Me.gvoperatorbyproject.SelectedIndex)
-
-        Dim objDataTableFin As DataTable = New DataTable()
-
-        objDataTableFin.Columns.Add("idthird")
-        objDataTableFin.Columns.Add("name")
-        objDataTableFin.Columns.Add("type")
-        objDataTableFin.Columns.Add("contact")
-        objDataTableFin.Columns.Add("documents")
-        objDataTableFin.Columns.Add("phone")
-        objDataTableFin.Columns.Add("email")
-
-        For Each itemDataTablefin As ThirdByProjectEntity In ThirdByProjectList
-            objDataTableFin.Rows.Add(itemDataTablefin.idthird, itemDataTablefin.THIRDNAME, itemDataTablefin.type, itemDataTablefin.THIRD.contact, itemDataTablefin.THIRD.documents, itemDataTablefin.THIRD.phone, itemDataTablefin.THIRD.email)
-        Next
-
-        Me.gvoperatorbyproject.DataSource = objDataTableFin
-        Me.gvoperatorbyproject.DataBind()
+    '    ' cargarla de la session
+    '    ThirdByProjectList = DirectCast(Session("operatorByProjectList"), List(Of ThirdByProjectEntity))
 
 
-        ' mostrar los operadores en la grilla
-        'Me.gvoperatorbyproject.DataSource = operatorByProjectList
-        ' Me.gvoperatorbyproject.DataSource = getThirdBySession(idproj, applicationCredentials)
-        'Me.gvoperatorbyproject.DataBind()
-        'Session("operatorByProjectList") = getThirdBySession(idproj, applicationCredentials)
-    End Sub
+    '    'Dim idproj As Integer = Session("idProject")
+    '    'Dim operatorByProjectList As DataTable = getThirdBySession(idproj, applicationCredentials)
+    '    'Dim operatorTable As DataTable
+    '    'Dim indiceEliminar As Integer = Me.gvoperatorbyproject.SelectedIndex
+    '    'Dim cont As Integer = 0
+    '    'Dim idThirdByProject As Integer
+    '    ' eliminar el operador de la lista
+    '    ' For Each rowDataTable In operatorByProjectList.Rows
+    '    '   If indiceEliminar = cont Then
+    '    '       idThirdByProject = rowDataTable(6)
+    '    '       deleteThirdByProject(applicationCredentials, idThirdByProject)
+    '    '   End If
+    '    '   cont = cont + 1
+    '    ' next
 
-    Protected Sub ddliddepto_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles ddliddepto.SelectedIndexChanged
-        ' definir los objetos
-        Dim facade As New Facade
-        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+    '    '  ThirdByProjectList.RemoveAt(Me.gvoperatorbyproject.SelectedIndex)
 
-        Try
+    '    Dim objDataTableFin As DataTable = New DataTable()
 
-            ' cargar el combo de Ciudad
-            Me.ddlidcity.DataSource = facade.getCityList(applicationCredentials, iddepto:=Me.ddliddepto.SelectedValue, order:="code")
-            Me.ddlidcity.DataValueField = "Id"
-            Me.ddlidcity.DataTextField = "name"
-            Me.ddlidcity.DataBind()
+    '    objDataTableFin.Columns.Add("idthird")
+    '    objDataTableFin.Columns.Add("name")
+    '    objDataTableFin.Columns.Add("type")
+    '    objDataTableFin.Columns.Add("contact")
+    '    objDataTableFin.Columns.Add("documents")
+    '    objDataTableFin.Columns.Add("phone")
+    '    objDataTableFin.Columns.Add("email")
 
-        Catch ex As Exception
+    '    For Each itemDataTablefin As ThirdByProjectEntity In ThirdByProjectList
+    '        objDataTableFin.Rows.Add(itemDataTablefin.idthird, itemDataTablefin.THIRDNAME, itemDataTablefin.type, itemDataTablefin.THIRD.contact, itemDataTablefin.THIRD.documents, itemDataTablefin.THIRD.phone, itemDataTablefin.THIRD.email)
+    '    Next
 
-            'mostrando el error
-            Session("serror") = ex.Message
-            Session("sUrl") = Request.UrlReferrer.PathAndQuery
-            Response.Redirect("~/errors/error.aspx")
-            Response.End()
+    '    'Me.gvoperatorbyproject.DataSource = objDataTableFin
+    '    'Me.gvoperatorbyproject.DataBind()
 
-        Finally
 
-            ' liberar recursos
-            facade = Nothing
+    '    ' mostrar los operadores en la grilla
+    '    'Me.gvoperatorbyproject.DataSource = operatorByProjectList
+    '    ' Me.gvoperatorbyproject.DataSource = getThirdBySession(idproj, applicationCredentials)
+    '    'Me.gvoperatorbyproject.DataBind()
+    '    'Session("operatorByProjectList") = getThirdBySession(idproj, applicationCredentials)
+    'End Sub
 
-        End Try
-    End Sub
+    'Protected Sub ddliddepto_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles ddliddepto.SelectedIndexChanged
+    '    ' definir los objetos
+    '    Dim facade As New Facade
+    '    Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+
+    '    Try
+
+    '        ' cargar el combo de Ciudad
+    '        Me.ddlidcity.DataSource = facade.getCityList(applicationCredentials, iddepto:=Me.ddliddepto.SelectedValue, order:="code")
+    '        Me.ddlidcity.DataValueField = "Id"
+    '        Me.ddlidcity.DataTextField = "name"
+    '        Me.ddlidcity.DataBind()
+
+    '    Catch ex As Exception
+
+    '        'mostrando el error
+    '        Session("serror") = ex.Message
+    '        Session("sUrl") = Request.UrlReferrer.PathAndQuery
+    '        Response.Redirect("~/errors/error.aspx")
+    '        Response.End()
+
+    '    Finally
+
+    '        ' liberar recursos
+    '        facade = Nothing
+
+    '    End Try
+    'End Sub
 
     'Protected Sub ddlidStrategicLine_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles ddlidStrategicLine.SelectedIndexChanged
     '    ' definir los objetos
@@ -2014,80 +2008,80 @@ Partial Class addProject
 
         Try
             ' cargar el combo de Ideas
-            If (Request.QueryString("op").Equals("add")) Then
-                Me.ddlididea.DataSource = facade.getIdeaListApproved(applicationCredentials, enabled:="1", order:="code")
-            Else
-                Me.ddlididea.DataSource = facade.loadProject(applicationCredentials, Request.QueryString("id"))
-            End If
-            Me.ddlididea.DataValueField = "Id"
-            Me.ddlididea.DataTextField = "Name"
+            'If (Request.QueryString("op").Equals("add")) Then
+            '    Me.ddlididea.DataSource = facade.getIdeaListApproved(applicationCredentials, enabled:="1", order:="code")
+            'Else
+            '    Me.ddlididea.DataSource = facade.loadProject(applicationCredentials, Request.QueryString("id"))
+            'End If
+            'Me.ddlididea.DataValueField = "Id"
+            'Me.ddlididea.DataTextField = "Name"
 
-            Me.ddlididea.DataBind()
-            Me.ddlididea.Items.Insert(0, New ListItem("Seleccione...", "-1"))
-            'ddlididea.Items.Add(New ListItem("Seleccione...", "-1"))
-            ddlididea.SelectedValue = "-1"
+            'Me.ddlididea.DataBind()
+            'Me.ddlididea.Items.Insert(0, New ListItem("Seleccione...", "-1"))
+            ''ddlididea.Items.Add(New ListItem("Seleccione...", "-1"))
+            'ddlididea.SelectedValue = "-1"
 
-            'Dim fechainicio As Integer = Session("txtbegindate")
+            'Dim fechainicio As Integer = Session("txtstartdate")
 
             'Cargar los años para vigencia presupuestal
             For i = 2011 To 2030
                 ddleffectivebudget.Items.Add(i.ToString)
             Next
             ' cargar el combo de fuentes
-            If (Request.QueryString("op").Equals("add")) Then
-                Me.ddlSource.DataSource = facade.getSourceList(applicationCredentials, enabled:="1", order:="name")
-            Else
-                Me.ddlSource.DataSource = facade.getSourceList(applicationCredentials, order:="name")
-            End If
-            Me.ddlSource.DataValueField = "Id"
-            Me.ddlSource.DataTextField = "name"
-            Me.ddlSource.DataBind()
+            'If (Request.QueryString("op").Equals("add")) Then
+            '    Me.ddlSource.DataSource = facade.getSourceList(applicationCredentials, enabled:="1", order:="name")
+            'Else
+            '    Me.ddlSource.DataSource = facade.getSourceList(applicationCredentials, order:="name")
+            'End If
+            'Me.ddlSource.DataValueField = "Id"
+            'Me.ddlSource.DataTextField = "name"
+            'Me.ddlSource.DataBind()
 
 
             ' cargar el combo de Departamentos
-            Me.ddliddepto.DataSource = facade.getDeptoList(applicationCredentials, idcountry:="7", order:="code")
-            Me.ddliddepto.DataValueField = "Id"
-            Me.ddliddepto.DataTextField = "Name"
-            Me.ddliddepto.DataBind()
+            'Me.ddliddepto.DataSource = facade.getDeptoList(applicationCredentials, idcountry:="7", order:="code")
+            'Me.ddliddepto.DataValueField = "Id"
+            'Me.ddliddepto.DataTextField = "Name"
+            'Me.ddliddepto.DataBind()
 
-            ' cargar el combo de Ciudad
-            Me.ddlidcity.DataSource = facade.getCityList(applicationCredentials, iddepto:=Me.ddliddepto.SelectedValue, order:="code")
-            Me.ddlidcity.DataValueField = "Id"
-            Me.ddlidcity.DataTextField = "Name"
-            Me.ddlidcity.DataBind()
+            '' cargar el combo de Ciudad
+            'Me.ddlidcity.DataSource = facade.getCityList(applicationCredentials, iddepto:=Me.ddliddepto.SelectedValue, order:="code")
+            'Me.ddlidcity.DataValueField = "Id"
+            'Me.ddlidcity.DataTextField = "Name"
+            'Me.ddlidcity.DataBind()
 
             ' cargar el combo de terceros
-            If (Request.QueryString("op").Equals("add")) Then
-                Me.ddlidoperator.DataSource = facade.getThirdList(applicationCredentials, enabled:="1", order:="code")
-            Else
-                Me.ddlidoperator.DataSource = facade.getThirdList(applicationCredentials, order:="code")
-            End If
-            'Me.ddlidthird.DataValueField = "Id"
+            'If (Request.QueryString("op").Equals("add")) Then
+            '    Me.ddlidoperator.DataSource = facade.getThirdList(applicationCredentials, enabled:="1", order:="code")
+            'Else
+            '    Me.ddlidoperator.DataSource = facade.getThirdList(applicationCredentials, order:="code")
+            'End If
+            ''Me.ddlidthird.DataValueField = "Id"
             'Me.ddlidthird.DataTextField = "Name"
             'Me.ddlidthird.DataBind()
 
             ' cargar el combo de operadores
-            Me.ddlidoperator.DataValueField = "Id"
-            Me.ddlidoperator.DataTextField = "Name"
-            Me.ddlidoperator.DataBind()
+            'Me.ddlidoperator.DataValueField = "Id"
+            'Me.ddlidoperator.DataTextField = "Name"
+            'Me.ddlidoperator.DataBind()
 
-            ' cargar el combo de Linea Estrategica
-            If (Request.QueryString("op").Equals("add")) Then
-                'Me.ddlidStrategicLine.DataSource = facade.getStrategicLineList(applicationCredentials, enabled:="1", order:="code")
-            Else
-                'Me.ddlidStrategicLine.DataSource = facade.getStrategicLineList(applicationCredentials, order:="code")
-            End If
-            'Me.ddlidStrategicLine.DataValueField = "Id"
+            '' cargar el combo de Linea Estrategica
+            'If (Request.QueryString("op").Equals("add")) Then
+            '    'Me.ddlidStrategicLine.DataSource = facade.getStrategicLineList(applicationCredentials, enabled:="1", order:="code")
+            'Else
+            '    'Me.ddlidStrategicLine.DataSource = facade.getStrategicLineList(applicationCredentials, order:="code")
+            'End If
+            ''Me.ddlidStrategicLine.DataValueField = "Id"
             'Me.ddlidStrategicLine.DataTextField = "Code"
             'Me.ddlidStrategicLine.DataBind()
 
             ' cargar el combo de programa
-            If (Request.QueryString("op").Equals("add")) Then
-                ' Me.ddlidProgram.DataSource = facade.getProgramList(applicationCredentials, idStrategicLine:=Me.ddlidStrategicLine.SelectedValue, enabled:="1", order:="code")
-            Else
-                'Me.ddlidProgram.DataSource = facade.getProgramList(applicationCredentials, idStrategicLine:=Me.ddlidStrategicLine.SelectedValue, order:="code")
-            End If
-            'Me.ddlidProgram.DataValueField = "Id"
+            'If (Request.QueryString("op").Equals("add")) Then
+            '    ' Me.ddlidProgram.DataSource = facade.getProgramList(applicationCredentials, idStrategicLine:=Me.ddlidStrategicLine.SelectedValue, enabled:="1", order:="code")
+            'Else
+            '    'Me.ddlidProgram.DataSource = facade.getProgramList(applicationCredentials, idStrategicLine:=Me.ddlidStrategicLine.SelectedValue, order:="code")
+            'End If
+            ''Me.ddlidProgram.DataValueField = "Id"
             'Me.ddlidProgram.DataTextField = "Code"
             'Me.ddlidProgram.DataBind()
 
@@ -2377,31 +2371,31 @@ Partial Class addProject
         End Try
     End Function
 
-    Protected Sub gvDocuments_RowDeleting(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.GridViewDeleteEventArgs) Handles gvDocuments.RowDeleting
+    'Protected Sub gvDocuments_RowDeleting(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.GridViewDeleteEventArgs) Handles gvDocuments.RowDeleting
 
-        'Se recupera la lista de documentos actual
-        Dim documentsList As List(Of DocumentsEntity)
-        documentsList = Me.DocumentsList
+    '    'Se recupera la lista de documentos actual
+    '    Dim documentsList As List(Of DocumentsEntity)
+    '    documentsList = Me.DocumentsList
 
-        'Se pone el estado de elminación al documento requerido
-        documentsList(e.RowIndex).ISDELETED = True
+    '    'Se pone el estado de elminación al documento requerido
+    '    documentsList(e.RowIndex).ISDELETED = True
 
-        'Se oculta de la grilla el registro seleccionado
-        Me.gvDocuments.Rows(e.RowIndex).Visible = False
+    '    'Se oculta de la grilla el registro seleccionado
+    '    Me.gvDocuments.Rows(e.RowIndex).Visible = False
 
-    End Sub
-    '***********************************************************************************************************
-    'funcion para refrescar lista de documentos
-    Protected Sub btnRefresh_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnRefresh.Click
+    'End Sub
+    ''***********************************************************************************************************
+    ''funcion para refrescar lista de documentos
+    'Protected Sub btnRefresh_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnRefresh.Click
 
-        'Se llama al metodo que cpnsulta la lista de documentos para el registro de idea actual
-        Me.LoadDocumentsList()
+    '    'Se llama al metodo que cpnsulta la lista de documentos para el registro de idea actual
+    '    Me.LoadDocumentsList()
 
-        'Se actualiza la grilla.
-        Me.gvDocuments.DataSource = Me.DocumentsList
-        Me.gvDocuments.DataBind()
+    '    'Se actualiza la grilla.
+    '    Me.gvDocuments.DataSource = Me.DocumentsList
+    '    Me.gvDocuments.DataBind()
 
-    End Sub
+    'End Sub
 
     ''' <summary>
     ''' Permite actualizar la lista de archivos anexos al proyecto actual
@@ -2476,102 +2470,102 @@ Partial Class addProject
 #End Region
 
 
-    Protected Sub BtnAddPayment_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles BtnAddPayment.Click
-        Page.Validate("validat")
-        If Page.IsValid Then
-            'deshabilitar campo valor total cuando se comienza a agregar pagos
-            If Session("totporcentajes") < 100 Then
-                txtvalortotalflow.Enabled = False
-            End If
-            Dim porcentajeT As Integer
-            Dim totalporcentajes As Double
-            Me.lblmensajeexitoerror.Text = ""
-            Me.lblmsjporcent.Text = ""
-            Dim paymentflow As PaymentFlowEntity = New PaymentFlowEntity()
-            Dim valorTotal As String = Session("valortotalflow")
-            valorTotal = Me.txtvalortotalflow.Text.Replace(",", "")
-            paymentflow.valortotal = valorTotal
-            Session("valortotalflow") = valorTotal
-            Dim PaymentFlowList As List(Of PaymentFlowEntity)
-            Dim paymentflowValidat As PaymentFlowEntity = New PaymentFlowEntity()
-            PaymentFlowList = DirectCast(Session("PaymentFlowList"), List(Of PaymentFlowEntity))
-            'sumar totales porcentajes presentes en el Grid View para validar
-            For Each paymentflowValidat In PaymentFlowList
-                porcentajeT = porcentajeT + CDbl(paymentflowValidat.porcentaje.ToString)
-            Next
-            paymentflow.valortotal = valorTotal
-            If Me.txtporcentaje.Text <> "" Then
-                paymentflow.porcentaje = Me.txtporcentaje.Text.Replace(".", ",")
+    'Protected Sub BtnAddPayment_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles BtnAddPayment.Click
+    '    Page.Validate("validat")
+    '    If Page.IsValid Then
+    '        'deshabilitar campo valor total cuando se comienza a agregar pagos
+    '        If Session("totporcentajes") < 100 Then
+    '            txtvalortotalflow.Enabled = False
+    '        End If
+    '        Dim porcentajeT As Integer
+    '        Dim totalporcentajes As Double
+    '        Me.lblmensajeexitoerror.Text = ""
+    '        Me.lblmsjporcent.Text = ""
+    '        Dim paymentflow As PaymentFlowEntity = New PaymentFlowEntity()
+    '        Dim valorTotal As String = Session("valortotalflow")
+    '        valorTotal = Me.txtvalortotalflow.Text.Replace(",", "")
+    '        paymentflow.valortotal = valorTotal
+    '        Session("valortotalflow") = valorTotal
+    '        Dim PaymentFlowList As List(Of PaymentFlowEntity)
+    '        Dim paymentflowValidat As PaymentFlowEntity = New PaymentFlowEntity()
+    '        PaymentFlowList = DirectCast(Session("PaymentFlowList"), List(Of PaymentFlowEntity))
+    '        'sumar totales porcentajes presentes en el Grid View para validar
+    '        For Each paymentflowValidat In PaymentFlowList
+    '            porcentajeT = porcentajeT + CDbl(paymentflowValidat.porcentaje.ToString)
+    '        Next
+    '        paymentflow.valortotal = valorTotal
+    '        If Me.txtporcentaje.Text <> "" Then
+    '            paymentflow.porcentaje = Me.txtporcentaje.Text.Replace(".", ",")
 
-            End If
-            paymentflow.entregable = Me.txtentregable.Text
+    '        End If
+    '        paymentflow.entregable = Me.txtentregable.Text
 
-            If Me.txtfechapago.Text <> "" Then
-                paymentflow.fecha = Me.txtfechapago.Text
-            End If
+    '        If Me.txtfechapago.Text <> "" Then
+    '            paymentflow.fecha = Me.txtfechapago.Text
+    '        End If
 
-            Dim val_parc As Decimal = paymentflow.porcentaje * (valorTotal / 100)
-            paymentflow.valorparcial = val_parc.ToString
-            PaymentFlowList.Add(paymentflow)
+    '        Dim val_parc As Decimal = paymentflow.porcentaje * (valorTotal / 100)
+    '        paymentflow.valorparcial = val_parc.ToString
+    '        PaymentFlowList.Add(paymentflow)
 
-            Dim objDataTable As DataTable = New DataTable()
-            objDataTable.Columns.Add("id")
-            objDataTable.Columns.Add("idproject")
-            objDataTable.Columns.Add("fecha")
-            objDataTable.Columns.Add("porcentaje")
-            objDataTable.Columns.Add("entregable")
-            objDataTable.Columns.Add("ididea")
-            objDataTable.Columns.Add("valorparcial")
+    '        Dim objDataTable As DataTable = New DataTable()
+    '        objDataTable.Columns.Add("id")
+    '        objDataTable.Columns.Add("idproject")
+    '        objDataTable.Columns.Add("fecha")
+    '        objDataTable.Columns.Add("porcentaje")
+    '        objDataTable.Columns.Add("entregable")
+    '        objDataTable.Columns.Add("ididea")
+    '        objDataTable.Columns.Add("valorparcial")
 
-            If lblmensajeexitoerror.Text = "" Then
-                lblmensajeexitoerror.Text = "0"
-            End If
+    '        'If lblmensajeexitoerror.Text = "" Then
+    '        '    lblmensajeexitoerror.Text = "0"
+    '        'End If
 
-            If Convert.ToInt32(lblmensajeexitoerror.Text) <= 100 Then
-                For Each itemDataTable As PaymentFlowEntity In Session("paymentFlowList")
-                    totalporcentajes = totalporcentajes + CDbl(itemDataTable.porcentaje.ToString)
-                Next
-                For Each itemDataTable As PaymentFlowEntity In Session("paymentFlowList")
-                    ' valida que el total de porcentajes no supere el 100 %
-                    'If totalporcentajes <= 100 Then
-                    objDataTable.Rows.Add(itemDataTable.id, itemDataTable.idproject, itemDataTable.fecha.ToShortDateString, itemDataTable.porcentaje, itemDataTable.entregable, itemDataTable.ididea, Format(itemDataTable.valorparcial, "Currency"))
+    '        If Convert.ToInt32(lblmensajeexitoerror.Text) <= 100 Then
+    '            For Each itemDataTable As PaymentFlowEntity In Session("paymentFlowList")
+    '                totalporcentajes = totalporcentajes + CDbl(itemDataTable.porcentaje.ToString)
+    '            Next
+    '            For Each itemDataTable As PaymentFlowEntity In Session("paymentFlowList")
+    '                ' valida que el total de porcentajes no supere el 100 %
+    '                'If totalporcentajes <= 100 Then
+    '                objDataTable.Rows.Add(itemDataTable.id, itemDataTable.idproject, itemDataTable.fecha.ToShortDateString, itemDataTable.porcentaje, itemDataTable.entregable, itemDataTable.ididea, Format(itemDataTable.valorparcial, "Currency"))
 
-                    Me.lblmensajeexitoerror.Text = totalporcentajes.ToString()
-                    Session("totporcentajes") = Me.lblmensajeexitoerror.Text
-                    Me.LblFlujodePagoPorcentajeIzquierda.Text = "Porcentaje de pagos asignados: "
-                    Me.LblFlujodePagoPorcentajeDerecha.Text = "% sobre 100%"
-                    'End If
+    '                Me.lblmensajeexitoerror.Text = totalporcentajes.ToString()
+    '                Session("totporcentajes") = Me.lblmensajeexitoerror.Text
+    '                Me.LblFlujodePagoPorcentajeIzquierda.Text = "Porcentaje de pagos asignados: "
+    '                Me.LblFlujodePagoPorcentajeDerecha.Text = "% sobre 100%"
+    '                'End If
 
-                    If totalporcentajes > 100 Then
-                        Me.lblExceed100.Text = "El porcentaje que intenta ingresar, supera el total aprobado."
-                    Else
-                        Me.lblExceed100.Text = ""
-                    End If
+    '                If totalporcentajes > 100 Then
+    '                    Me.lblExceed100.Text = "El porcentaje que intenta ingresar, supera el total aprobado."
+    '                Else
+    '                    Me.lblExceed100.Text = ""
+    '                End If
 
-                Next
-                ' Se actualiza la informacion de la grilla
-                'If totalporcentajes <= 100 Then
-                Me.gvPaymentFlow.DataSource = objDataTable
-                Me.gvPaymentFlow.DataBind()
-                'Else
-                'PaymentFlowList.Remove(paymentflow)
-                'End If
-            Else
+    '            Next
+    '            ' Se actualiza la informacion de la grilla
+    '            'If totalporcentajes <= 100 Then
+    '            Me.gvPaymentFlow.DataSource = objDataTable
+    '            Me.gvPaymentFlow.DataBind()
+    '            'Else
+    '            'PaymentFlowList.Remove(paymentflow)
+    '            'End If
+    '        Else
 
-            End If
-            Session("paymentFlowList") = PaymentFlowList
-        End If
-
-
-        ' se recarga el valor total de los flujos
-        'txtvalortotalflow.Text = Hdvtotalvalue.Value
-        'TextFinalizacion.Text = HiddenFieldDateEnd.Value
+    '        End If
+    '        Session("paymentFlowList") = PaymentFlowList
+    '    End If
 
 
-        clearflowpayment()
+    '    ' se recarga el valor total de los flujos
+    '    'txtvalortotalflow.Text = Hdvtotalvalue.Value
+    '    'TextFinalizacion.Text = HiddenFieldDateEnd.Value
 
 
-    End Sub
+    '    clearflowpayment()
+
+
+    'End Sub
 
     Public Sub clearflowpayment()
 
@@ -2582,167 +2576,167 @@ Partial Class addProject
 
     End Sub
 
-    Protected Sub gvPaymentFlow_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles gvPaymentFlow.SelectedIndexChanged
-        ' definir los objetos
-        Dim paymentFlowList As List(Of PaymentFlowEntity)
-        Dim index As Integer = 0
-        ' cargarla de la session
-        paymentFlowList = DirectCast(Session("paymentFlowList"), List(Of PaymentFlowEntity))
-        Dim totporcentajes As Double
+    'Protected Sub gvPaymentFlow_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles gvPaymentFlow.SelectedIndexChanged
+    '    ' definir los objetos
+    '    Dim paymentFlowList As List(Of PaymentFlowEntity)
+    '    Dim index As Integer = 0
+    '    ' cargarla de la session
+    '    paymentFlowList = DirectCast(Session("paymentFlowList"), List(Of PaymentFlowEntity))
+    '    Dim totporcentajes As Double
 
-        ' remover pago seleccionado
-        paymentFlowList.RemoveAt(Me.gvPaymentFlow.SelectedIndex)
+    '    ' remover pago seleccionado
+    '    paymentFlowList.RemoveAt(Me.gvPaymentFlow.SelectedIndex)
 
-        ' mostrar
-        Me.gvPaymentFlow.DataSource = paymentFlowList
-        Me.gvPaymentFlow.DataBind()
-        For Each pf As PaymentFlowEntity In paymentFlowList
-            totporcentajes = totporcentajes + pf.porcentaje
-        Next
-        Session("totporcentajes") = totporcentajes
-        Me.lblmensajeexitoerror.Text = Session("totporcentajes")
-        If totporcentajes < 101 Then
-            Me.lblExceed100.Text = ""
-        End If
+    '    ' mostrar
+    '    Me.gvPaymentFlow.DataSource = paymentFlowList
+    '    Me.gvPaymentFlow.DataBind()
+    '    For Each pf As PaymentFlowEntity In paymentFlowList
+    '        totporcentajes = totporcentajes + pf.porcentaje
+    '    Next
+    '    Session("totporcentajes") = totporcentajes
+    '    Me.lblmensajeexitoerror.Text = Session("totporcentajes")
+    '    If totporcentajes < 101 Then
+    '        Me.lblExceed100.Text = ""
+    '    End If
 
-        If Session("totporcentajes") < 1 Then
-            Me.txtvalortotalflow.Enabled = True
+    '    If Session("totporcentajes") < 1 Then
+    '        Me.txtvalortotalflow.Enabled = True
 
-        Else
-            Me.txtvalortotalflow.Enabled = False
-        End If
+    '    Else
+    '        Me.txtvalortotalflow.Enabled = False
+    '    End If
 
-        'Se selecciona la pestama de terceros por idea
+    '    'Se selecciona la pestama de terceros por idea
 
-        Me.TabContainer1.ActiveTabIndex = 2
-    End Sub
+    '    'Me.TabContainer1.ActiveTabIndex = 2
+    'End Sub
 
-    Protected Sub TabContainer1_ActiveTabChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles TabContainer1.ActiveTabChanged
+    'Protected Sub TabContainer1_ActiveTabChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles TabContainer1.ActiveTabChanged
 
-        Dim consultLastVersion As Boolean = True
-        Dim idea_id As Integer
-        Dim swhich As Integer = Me.HDswich_ubicacion.Value
-        Me.lblsaveinformation.Text = ""
-        If Not (Request.QueryString("consultLastVersion") Is Nothing) Then consultLastVersion = Request.QueryString("consultLastVersion")
-        If Me.hdfechainicio.Value <> "" Then
-            Me.txtbegindate.Text = Me.hdfechainicio.Value
-        End If
-        If Me.hdfechafinalizacion.Value <> "" Then
-            Me.TextFinalizacion.Text = Me.hdfechafinalizacion.Value
-        End If
-        Dim objLocationByIdeaDALC As New LocationByIdeaDALC
-        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
-        Dim objProject As New ProjectEntity
-        ' crear clase data table para traer la linea estrategica y el programa de la idea
-        Dim objDt As New DataTable()
-        If Me.ddlididea.SelectedValue <> "" Then
-            idea_id = Convert.ToInt32(Me.ddlididea.SelectedValue)
-        End If
-        If idea_id <> -1 Then
+    '    Dim consultLastVersion As Boolean = True
+    '    Dim idea_id As Integer
+    '    Dim swhich As Integer = Me.HDswich_ubicacion.Value
+    '    Me.lblsaveinformation.Text = ""
+    '    If Not (Request.QueryString("consultLastVersion") Is Nothing) Then consultLastVersion = Request.QueryString("consultLastVersion")
+    '    If Me.hdfechainicio.Value <> "" Then
+    '        'Me.txtstartdate.Text = Me.hdfechainicio.Value
+    '    End If
+    '    If Me.hdfechafinalizacion.Value <> "" Then
+    '        '    Me.TextFinalizacion.Text = Me.hdfechafinalizacion.Value
+    '    End If
+    '    Dim objLocationByIdeaDALC As New LocationByIdeaDALC
+    '    Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+    '    Dim objProject As New ProjectEntity
+    '    ' crear clase data table para traer la linea estrategica y el programa de la idea
+    '    Dim objDt As New DataTable()
+    '    If Me.ddlididea.SelectedValue <> "" Then
+    '        idea_id = Convert.ToInt32(Me.ddlididea.SelectedValue)
+    '    End If
+    '    If idea_id <> -1 Then
 
-            objDt = getLinStrat(idea_id, applicationCredentials)
+    '        objDt = getLinStrat(idea_id, applicationCredentials)
 
-            If objDt.Rows.Count > 0 Then
-                Me.txtlinestrat.Text = objDt.Rows(0)(0).ToString
-                Me.txtprograma.Text = objDt.Rows(0)(1).ToString
-                'Me.txtprograma.Text = objDt.Rows(0)(7).ToString
-            End If
-            If (Me.TabPanel2.Visible = True And swhich = 0) Then
-                Me.HDswich_ubicacion.Value = 1
-                Dim objDatatable As DataTable = New DataTable("proyectLocationList")
-                Dim objListLocationByIdea As List(Of LocationByIdeaEntity) = objLocationByIdeaDALC.getListByProject(applicationCredentials, idea_id, consultLastVersion)
+    '        If objDt.Rows.Count > 0 Then
+    '            Me.txtlinestrat.Text = objDt.Rows(0)(0).ToString
+    '            Me.txtprograma.Text = objDt.Rows(0)(1).ToString
+    '            'Me.txtprograma.Text = objDt.Rows(0)(7).ToString
+    '        End If
+    '        'If (Me.TabPanel2.Visible = True And swhich = 0) Then
+    '        '    Me.HDswich_ubicacion.Value = 1
+    '        '    Dim objDatatable As DataTable = New DataTable("proyectLocationList")
+    '        '    Dim objListLocationByIdea As List(Of LocationByIdeaEntity) = objLocationByIdeaDALC.getListByProject(applicationCredentials, idea_id, consultLastVersion)
 
-                objDatatable.Columns.Add("IDCITY")
-                objDatatable.Columns.Add("DEPTONAME")
-                objDatatable.Columns.Add("CITYNAME")
+    '        '    objDatatable.Columns.Add("IDCITY")
+    '        '    objDatatable.Columns.Add("DEPTONAME")
+    '        '    objDatatable.Columns.Add("CITYNAME")
 
-                For Each itemLocation In objListLocationByIdea
-                    objDatatable.Rows.Add(itemLocation.CITY.id, itemLocation.DEPTO.name, itemLocation.CITY.name)
-                Next
+    '        '    For Each itemLocation In objListLocationByIdea
+    '        '        objDatatable.Rows.Add(itemLocation.CITY.id, itemLocation.DEPTO.name, itemLocation.CITY.name)
+    '        '    Next
 
-                Dim cantidadRegistros_DataTable As Integer = objDatatable.Rows.Count
+    '        '    Dim cantidadRegistros_DataTable As Integer = objDatatable.Rows.Count
 
-                For Each itemGridView As GridViewRow In gvprojectLocation.Rows
+    '        '    For Each itemGridView As GridViewRow In gvprojectLocation.Rows
 
-                    If cantidadRegistros_DataTable >= itemGridView.DataItemIndex + 1 Then
+    '        '        If cantidadRegistros_DataTable >= itemGridView.DataItemIndex + 1 Then
 
-                        Dim bytesDepartamento As Byte() = UTF8Encoding.Default.GetBytes(itemGridView.Cells(2).Text)
-                        Dim objDepartamento = Encoding.UTF8.GetString(bytesDepartamento)
-                        Dim bytesCiudad As Byte() = UTF8Encoding.Default.GetBytes(itemGridView.Cells(2).Text)
-                        Dim objCiudad = Encoding.UTF8.GetString(bytesCiudad)
+    '        '            Dim bytesDepartamento As Byte() = UTF8Encoding.Default.GetBytes(itemGridView.Cells(2).Text)
+    '        '            Dim objDepartamento = Encoding.UTF8.GetString(bytesDepartamento)
+    '        '            Dim bytesCiudad As Byte() = UTF8Encoding.Default.GetBytes(itemGridView.Cells(2).Text)
+    '        '            Dim objCiudad = Encoding.UTF8.GetString(bytesCiudad)
 
-                        If Not objDatatable.Rows(itemGridView.DataItemIndex)(0) = gvprojectLocation.Rows(itemGridView.DataItemIndex).Cells(1).Text Then
-                            objDatatable.Rows.Add(itemGridView.Cells(1).Text, objDepartamento, objCiudad)
-                        End If
+    '        '            If Not objDatatable.Rows(itemGridView.DataItemIndex)(0) = gvprojectLocation.Rows(itemGridView.DataItemIndex).Cells(1).Text Then
+    '        '                objDatatable.Rows.Add(itemGridView.Cells(1).Text, objDepartamento, objCiudad)
+    '        '            End If
 
-                    Else
-                        objDatatable.Rows.Add(itemGridView.Cells(1).Text, Server.HtmlDecode(itemGridView.Cells(2).Text), Server.HtmlDecode(itemGridView.Cells(3).Text))
-                    End If
-
-
-                Next
-
-                Session.Add("projectLocationList", objDatatable)
-
-                gvprojectLocation.DataSource = objDatatable
-                gvprojectLocation.DataBind()
+    '        '        Else
+    '        '            objDatatable.Rows.Add(itemGridView.Cells(1).Text, Server.HtmlDecode(itemGridView.Cells(2).Text), Server.HtmlDecode(itemGridView.Cells(3).Text))
+    '        '        End If
 
 
-            End If
+    '        '    Next
+
+    '        '    Session.Add("projectLocationList", objDatatable)
+
+    '        '    gvprojectLocation.DataSource = objDatatable
+    '        '    gvprojectLocation.DataBind()
 
 
-        End If
-        If HiddenFieldFsc.Value <> "" Then
-            Me.txtvalortotalflow.Text = HiddenFieldFsc.Value
-            Me.txtvalortotalflow.Text = Me.txtvalortotalflow.Text.Replace(".", ",")
-        End If
+    '        'End If
 
 
-        Session("valortotalflow") = Me.txtvalortotalflow.Text
+    '    End If
+    '    If HiddenFieldFsc.Value <> "" Then
+    '        Me.txtvalortotalflow.Text = HiddenFieldFsc.Value
+    '        Me.txtvalortotalflow.Text = Me.txtvalortotalflow.Text.Replace(".", ",")
+    '    End If
 
 
-        hdididea.Value = Me.ddlididea.SelectedValue
-        Me.lblmensajeexitoerror.Text = Session("totporcentajes")
-        Me.LblFlujodePagoPorcentajeIzquierda.Text = "Porcentaje de pagos asignados: "
-        Me.LblFlujodePagoPorcentajeDerecha.Text = "% sobre 100%"
-    End Sub
-
-    Protected Sub ddltipoaprobacion_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles ddltipoaprobacion.SelectedIndexChanged
-        If Me.ddltipoaprobacion.SelectedValue.ToString = "3" Then
-            tbpnAclaratorio.Visible = True
-            Me.txtcounterpartvalue.ReadOnly = True
-            Me.txtfsccontribution.ReadOnly = True
-            Me.txtduration.ReadOnly = True
-            Me.txtbegindate.ReadOnly = True
-            Me.txtresults.ReadOnly = True
-            Me.txtobjective.ReadOnly = True
-            Me.txtjustification.ReadOnly = True
-            Me.txtzonedescription.ReadOnly = True
-            Me.TextResultGestConocimiento.ReadOnly = True
-            Me.TextResCapacidInstal.ReadOnly = True
-        End If
-        If Me.ddltipoaprobacion.SelectedValue.ToString = "2" Then
-            tbpnAclaratorio.Visible = False
-        End If
-        'validar que si tipo de aprobacion es otro si se activen los checks
-        If Me.ddltipoaprobacion.SelectedValue.ToString = "2" Then
-            Me.checkvalor.Visible = True
-            Me.checktiempo.Visible = True
-            Me.checkalcance.Visible = True
-            Me.lblmodifotrosi.Visible = True
-        End If
-        If Me.ddltipoaprobacion.SelectedValue.ToString = "3" Or Me.ddltipoaprobacion.SelectedValue.ToString = "1" Then
-            Me.checkvalor.Visible = False
-            Me.checktiempo.Visible = False
-            Me.checkalcance.Visible = False
-            Me.lblmodifotrosi.Visible = False
-        End If
+    '    Session("valortotalflow") = Me.txtvalortotalflow.Text
 
 
+    '    hdididea.Value = Me.ddlididea.SelectedValue
+    '    Me.lblmensajeexitoerror.Text = Session("totporcentajes")
+    '    Me.LblFlujodePagoPorcentajeIzquierda.Text = "Porcentaje de pagos asignados: "
+    '    Me.LblFlujodePagoPorcentajeDerecha.Text = "% sobre 100%"
+    'End Sub
+
+    'Protected Sub ddltipoaprobacion_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles ddltipoaprobacion.SelectedIndexChanged
+    '    If Me.ddltipoaprobacion.SelectedValue.ToString = "3" Then
+    '        tbpnAclaratorio.Visible = True
+    '        Me.txtcounterpartvalue.ReadOnly = True
+    '        Me.txtfsccontribution.ReadOnly = True
+    '        Me.txtduration.ReadOnly = True
+    '        'Me.txtstartdate.ReadOnly = True
+    '        Me.txtresults.ReadOnly = True
+    '        Me.txtobjective.ReadOnly = True
+    '        Me.txtjustification.ReadOnly = True
+    '        Me.txtzonedescription.ReadOnly = True
+    '        Me.TextResultGestConocimiento.ReadOnly = True
+    '        Me.TextResCapacidInstal.ReadOnly = True
+    '    End If
+    '    If Me.ddltipoaprobacion.SelectedValue.ToString = "2" Then
+    '        tbpnAclaratorio.Visible = False
+    '    End If
+    '    'validar que si tipo de aprobacion es otro si se activen los checks
+    '    If Me.ddltipoaprobacion.SelectedValue.ToString = "2" Then
+    '        Me.checkvalor.Visible = True
+    '        Me.checktiempo.Visible = True
+    '        Me.checkalcance.Visible = True
+    '        Me.lblmodifotrosi.Visible = True
+    '    End If
+    '    If Me.ddltipoaprobacion.SelectedValue.ToString = "3" Or Me.ddltipoaprobacion.SelectedValue.ToString = "1" Then
+    '        Me.checkvalor.Visible = False
+    '        Me.checktiempo.Visible = False
+    '        Me.checkalcance.Visible = False
+    '        Me.lblmodifotrosi.Visible = False
+    '    End If
 
 
 
-    End Sub
+
+
+    'End Sub
 
     'Protected Sub gvprojectLocation_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles gvprojectLocation.SelectedIndexChanged
     '    ' cargar la lista de ubicaciones
@@ -2756,57 +2750,57 @@ Partial Class addProject
     '    Me.gvprojectLocation.DataBind()
     'End Sub
 
-    Protected Sub gvprojectLocation_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles gvprojectLocation.SelectedIndexChanged
-        Me.HDswich_ubicacion.Value = 1
-        'definir los objetos
-        Dim objProjectLocationList As DataTable = Session("projectLocationList")
-        '     Dim objProjectLocation As New ProjectLocationEntity
-        Dim repeated As Boolean = 0
+    'Protected Sub gvprojectLocation_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles gvprojectLocation.SelectedIndexChanged
+    '    Me.HDswich_ubicacion.Value = 1
+    '    'definir los objetos
+    '    Dim objProjectLocationList As DataTable = Session("projectLocationList")
+    '    '     Dim objProjectLocation As New ProjectLocationEntity
+    '    Dim repeated As Boolean = 0
 
 
-        Dim index As Integer = 0
-        '   Dim listIndex As List(Of Integer) = New List(Of Integer)()
-        Try
+    '    Dim index As Integer = 0
+    '    '   Dim listIndex As List(Of Integer) = New List(Of Integer)()
+    '    Try
 
-            ' objProjectLocation.idcity = Me.gvprojectLocation.SelectedRow.Cells(1).Text
-            ' Dim positionDataTableRow As Integer = 0
-            ' For Each objproloc In objProjectLocationList.Rows
+    '        ' objProjectLocation.idcity = Me.gvprojectLocation.SelectedRow.Cells(1).Text
+    '        ' Dim positionDataTableRow As Integer = 0
+    '        ' For Each objproloc In objProjectLocationList.Rows
 
-            ' If objproloc(0) = (objProjectLocation.idcity) Then
-            '        repeated = 1
-            '              listIndex.Add(positionDataTableRow)
-            '            End If
+    '        ' If objproloc(0) = (objProjectLocation.idcity) Then
+    '        '        repeated = 1
+    '        '              listIndex.Add(positionDataTableRow)
+    '        '            End If
 
-            ' positionDataTableRow += 1
-            '           Next
+    '        ' positionDataTableRow += 1
+    '        '           Next
 
-            '    If repeated Then
-            '      For Each itemIndex As Integer In listIndex
-            ' remover ubicacion seleccionada
-
-
-            objProjectLocationList.Rows.RemoveAt(Me.gvprojectLocation.SelectedIndex)
-            'Next
-
-            ' mostrar
-            Session("projectLocationList") = objProjectLocationList
-
-            '  Me.gvprojectLocation.DataSource = Nothing
-            '  Me.gvprojectLocation.DataBind()
-            Me.gvprojectLocation.DataSource = objProjectLocationList
-            Me.gvprojectLocation.DataBind()
-            Me.lblmensajeexitoerror.Text = ""
-            'End If
-
-            Me.TabContainer1.ActiveTabIndex = 1
-
-        Catch ex As Exception
-            Me.lblmensajeexitoerror.Text = ex.Message
-        End Try
+    '        '    If repeated Then
+    '        '      For Each itemIndex As Integer In listIndex
+    '        ' remover ubicacion seleccionada
 
 
+    '        objProjectLocationList.Rows.RemoveAt(Me.gvprojectLocation.SelectedIndex)
+    '        'Next
 
-    End Sub
+    '        ' mostrar
+    '        Session("projectLocationList") = objProjectLocationList
+
+    '        '  Me.gvprojectLocation.DataSource = Nothing
+    '        '  Me.gvprojectLocation.DataBind()
+    '        Me.gvprojectLocation.DataSource = objProjectLocationList
+    '        Me.gvprojectLocation.DataBind()
+    '        Me.lblmensajeexitoerror.Text = ""
+    '        'End If
+
+    '        Me.TabContainer1.ActiveTabIndex = 1
+
+    '    Catch ex As Exception
+    '        Me.lblmensajeexitoerror.Text = ex.Message
+    '    End Try
+
+
+
+    'End Sub
 
     Protected Sub btntermsreference_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btntermsreference.Click
 
@@ -2847,19 +2841,19 @@ Partial Class addProject
         Response.Charset = "UTF8Encoding"
         Response.ContentType = "application/vnd.ms-word "
 
-        ddls = Me.txtlinestrat.Text
-        ddlp = Me.txtprograma.Text
+        '        ddls = Me.txtlinestrat.Text
+        '       ddlp = Me.txtprograma.Text
         ddlc = objProceeding_ReferenceTerms.ArchivedRecord
         name = Me.txtname.Text
         just = Me.txtjustification.Text
         objet = Me.txtobjective.Text
-        objetesp = Me.txtzonedescription.Text
+        objetesp = Me.txtareadescription.Text
         resulb = Me.txtresults.Text
-        resulgc = Me.TextResultGestConocimiento.Text
-        resulci = Me.TextResCapacidInstal.Text
-        fech = Me.txtbegindate.Text
+        resulgc = Me.txtresulgc.Text
+        resulci = Me.txtresulci.Text
+        '  fech = 'Me.txtstartdate.Text
         dura = Me.txtduration.Text
-        people = Me.ddlpopulation.SelectedItem.Text
+        'people = Me.ddlpopulation.SelectedItem.Text
         vt1 = Me.txtfsccontribution.Text
         vt2 = Me.txtcounterpartvalue.Text
         vt6 = Format(Convert.ToInt64(Me.txttotalcost.Text), "#,###.##")
@@ -3153,71 +3147,71 @@ Partial Class addProject
 
     End Function
 
-    Protected Sub btnadanexo_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnadanexo.Click
+    'Protected Sub btnadanexo_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnadanexo.Click
 
 
-        'Definiendo los objtetos
-        Dim strFileName() As String
-        Dim fileName As String = String.Empty
-        Dim files As HttpFileCollection = Request.Files
-        Dim DocumentsTmpList As New List(Of DocumentstmpEntity)
+    '    'Definiendo los objtetos
+    '    Dim strFileName() As String
+    '    Dim fileName As String = String.Empty
+    '    Dim files As HttpFileCollection = Request.Files
+    '    Dim DocumentsTmpList As New List(Of DocumentstmpEntity)
 
-        'Se verifica que existan archivos por cargar
-        If ((Not files Is Nothing) AndAlso (files.Count > 0)) Then
+    '    'Se verifica que existan archivos por cargar
+    '    If ((Not files Is Nothing) AndAlso (files.Count > 0)) Then
 
-            'Se verifica la opción actual
-            If (Request.QueryString("op").Equals("add")) Then
+    '        'Se verifica la opción actual
+    '        If (Request.QueryString("op").Equals("add")) Then
 
-                'Se instancia la lista de documentos temporales
-
-
-            Else
-                'Se recupera la lista de documentos de la variable de sesion
-                'If (Me.DocumentsList Is Nothing) Then
-                '    Dim DocumentsTmpList As List(Of DocumentstmpEntity)
-                'Else
-                '    objProject.DOCUMENTLIST = Me.DocumentsList
-                'End If
-
-            End If
-
-            'Se recorre la lista de archivos cargados al servidor
-            For i As Integer = 0 To files.Count - 1
-
-                Dim file As HttpPostedFile = files(i)
-
-                If file.ContentLength > 0 Then
-
-                    strFileName = file.FileName.Split("\".ToCharArray)
-
-                    ' dar nombre al anexo
-                    fileName = Now.ToString("yyyyMMddhhmmss") & "_" & strFileName(strFileName.Length - 1)
-
-                    ' determinanado la ruta destino
-                    Dim sFullPath As String = HttpContext.Current.Server.MapPath(PublicFunction.getSettingValue("documentPath")) & "\" & fileName
-
-                    'Subiendo el archivo al server
-                    file.SaveAs(sFullPath)
-
-                    'Se instancia un objeto de tipo documento y se pobla con la info. reuqerida.
-                    Dim objDocument As New DocumentstmpEntity()
-                    objDocument.namefile = fileName
+    '            'Se instancia la lista de documentos temporales
 
 
-                    'Se agrega el objeto de tipo documento a la lista de documentos
-                    DocumentsTmpList.Add(objDocument)
-                    Session("DocumentsTmp") = DocumentsTmpList
+    '        Else
+    '            'Se recupera la lista de documentos de la variable de sesion
+    '            'If (Me.DocumentsList Is Nothing) Then
+    '            '    Dim DocumentsTmpList As List(Of DocumentstmpEntity)
+    '            'Else
+    '            '    objProject.DOCUMENTLIST = Me.DocumentsList
+    '            'End If
+
+    '        End If
+
+    '        'Se recorre la lista de archivos cargados al servidor
+    '        For i As Integer = 0 To files.Count - 1
+
+    '            Dim file As HttpPostedFile = files(i)
+
+    '            If file.ContentLength > 0 Then
+
+    '                strFileName = file.FileName.Split("\".ToCharArray)
+
+    '                ' dar nombre al anexo
+    '                fileName = Now.ToString("yyyyMMddhhmmss") & "_" & strFileName(strFileName.Length - 1)
+
+    '                ' determinanado la ruta destino
+    '                Dim sFullPath As String = HttpContext.Current.Server.MapPath(PublicFunction.getSettingValue("documentPath")) & "\" & fileName
+
+    '                'Subiendo el archivo al server
+    '                file.SaveAs(sFullPath)
+
+    '                'Se instancia un objeto de tipo documento y se pobla con la info. reuqerida.
+    '                Dim objDocument As New DocumentstmpEntity()
+    '                objDocument.namefile = fileName
+
+
+    '                'Se agrega el objeto de tipo documento a la lista de documentos
+    '                DocumentsTmpList.Add(objDocument)
+    '                Session("DocumentsTmp") = DocumentsTmpList
 
 
 
-                End If
+    '            End If
 
-            Next
+    '        Next
 
-        End If
+    '    End If
 
 
-    End Sub
+    'End Sub
 
     Protected Function getThirdById(ByVal id As Integer, ByVal objApplicationCredentials As ApplicationCredentials) As DataTable
         Try

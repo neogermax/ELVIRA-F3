@@ -51,6 +51,12 @@ Partial Class Engagement_ajaxcontracrequest
                         buscarproyecto(proyecto, columna, applicationCredentials)
                     End If
 
+                Case "getsupervisor"
+                    contrato = Request.QueryString("contract").ToString()
+                    If contrato = "" Then
+                        contrato = 0
+                    End If
+                    buscarsupervisor(contrato, applicationCredentials)
                 Case Else
             End Select
         Catch ex As Exception
@@ -259,6 +265,51 @@ Partial Class Engagement_ajaxcontracrequest
         Else
             'No hay fechas
         End If
+
+    End Function
+
+    Public Function buscarsupervisor(ByVal contrato As String, ByVal objApplicationCredentials As Gattaca.Application.Credentials.ApplicationCredentials) As String
+
+        Dim sql As New StringBuilder
+        Dim objSqlCommand As New SqlCommand
+        Dim DATA As DataTable
+        Dim limite As Integer = 1
+
+        'consulta de los datos de actores por id de contratación
+        sql.Append("select Name from third ")
+        sql.Append("inner join supervisorbycontractreq on SupervisorbyContractReq.Third_Id = Third.Id ")
+        sql.Append("where(SupervisorbyContractReq.ContractRequest_Id = " & contrato & ")")
+
+        DATA = GattacaApplication.RunSQLRDT(objApplicationCredentials, sql.ToString)
+
+        Dim objResult As String = ""
+
+        If DATA.Rows.Count > 0 Then
+
+            objResult &= "{"
+
+            For Each row As DataRow In DATA.Rows
+
+                objResult &= String.Format("""Third{0}"": """, limite - 1)
+                objResult &= DATA.Rows(limite - 1)("Name") & Chr(34)
+
+                If limite = DATA.Rows.Count Then
+                    objResult &= "}"
+                Else
+                    objResult &= ", "
+                End If
+
+                limite = limite + 1
+
+            Next
+
+        Else
+            objResult &= "{"
+            objResult &= "Third"": """
+            objResult &= """}"
+        End If
+
+        Response.Write(objResult)
 
     End Function
 

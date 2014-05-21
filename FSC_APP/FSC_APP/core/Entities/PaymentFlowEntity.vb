@@ -15,6 +15,8 @@ Public Class PaymentFlowEntity
     Private _ididea As Integer
     Private _valortotal As Decimal
     Private _N_pagos As String
+    Private _mother As Integer
+
 #End Region
 
 #Region "Constructor"
@@ -102,6 +104,14 @@ Public Class PaymentFlowEntity
         End Get
         Set(ByVal value As String)
             Me._N_pagos = value
+        End Set
+    End Property
+    Public Property mother() As Integer
+        Get
+            Return Me._mother
+        End Get
+        Set(ByVal value As Integer)
+            Me._mother = value
         End Set
     End Property
 

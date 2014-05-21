@@ -92,6 +92,9 @@ Partial Class addContractRequest
                     'Se crea la variable de session que almacena la lista de polizas
                     Session("PolizaList") = New List(Of PolizaEntity)
 
+                    'Se crea la variable de sesion que contiene los supervisores
+                    Session("SupervisorList") = New List(Of SupervisorByContractRequestEntity)
+
                     'ocultar campo de solo lectura numero de proyecto
                     Me.txtProject.Visible = False
 
@@ -112,7 +115,7 @@ Partial Class addContractRequest
 
                     If op = "show" Then
                         Me.ddlSupervisor.Visible = False
-                        Me.btnAddSupervisor.Visible = False
+                        'Me.btnAddSupervisor.Visible = False
                     End If
 
                     If Request.QueryString("successSave") <> Nothing Then
@@ -167,6 +170,7 @@ Partial Class addContractRequest
                         Me.ddlContractNature.SelectedValue = objContractRequest.idcontractnature
                         Me.txtcontractnumberadjusted.Text = objContractRequest.contractnumberadjusted
                         Me.ddlEnabled.SelectedValue = objContractRequest.enabled
+                        Me.chkTypeContract.Checked = objContractRequest.ExternalContract
 
                         'Obtener el grupo del usuario para validar
                         Dim grupouser As String
@@ -295,7 +299,7 @@ Partial Class addContractRequest
                             Me.btnSave.Visible = False
                             Me.btnDelete.Visible = False
                             Me.btnCancel.Visible = False
-                            Me.btnAddSupervisor.Visible = False
+                            'Me.btnAddSupervisor.Visible = False
                             Me.addConcept.Visible = False
 
                         Else
@@ -309,7 +313,7 @@ Partial Class addContractRequest
                         If objContractRequest.enabled = True Then
                             ' cargar el titulo
                             Session("lblTitle") = "CONSULTAR CONTRATO"
-                            Me.btnAddSupervisor.Visible = False
+                            'Me.btnAddSupervisor.Visible = False
                             Me.addConcept.Visible = False
                         End If
 
@@ -342,7 +346,9 @@ Partial Class addContractRequest
         Dim objContractRequest As New ContractRequestEntity
         Dim objpoliza As New PolizaEntity
         Dim objpolizadetails As New PolizaDetailsEntity
+        Dim objSupervisor As New SupervisorByContractRequestEntity
         Dim requestNumber As String = ""
+        Dim arrsuperv As String()
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
 
         Me.txtEndingDate.Text = Me.HFEndDate.Value
@@ -372,6 +378,20 @@ Partial Class addContractRequest
                 Me.lblinformation.Text = "Falta ingresar datos de la poliza. Por favor verifique."
                 Exit Sub
 
+            End If
+
+        End If
+
+        'Verificar el formato de tipo de contrato
+        If Me.chkTypeContract.Checked = False Then
+
+            If Not IsNumeric(Me.txtcontractnumberadjusted.Text) Then
+                Me.lblHelpcontractnumberadjusted.Text = "El número de contrato no debe contener letras."
+                Me.lblHelpcontractnumberadjusted.ForeColor = Drawing.Color.Red
+                Me.txtcontractnumberadjusted.Text = ""
+                SetFocus(txtcontractnumberadjusted)
+            Else
+                Me.lblHelpcontractnumberadjusted.Text = ""
             End If
 
         End If
@@ -417,6 +437,7 @@ Partial Class addContractRequest
             End If
 
             'objContractRequest.supervisor = IIf(Me.txtSupervisor.Text <> "", Convert.ToString(Me.txtSupervisor.Text), "")
+            objContractRequest.ExternalContract = chkTypeContract.Checked
             objContractRequest.confidential = IIf(Me.ddlConfidential.SelectedValue.Length > 0, Me.ddlConfidential.SelectedValue, -1)
             objContractRequest.signedcontract = Me.chkSignedContract.Checked
             objContractRequest.notes = Convert.ToString(Me.txtObs.Text)
@@ -502,6 +523,23 @@ Partial Class addContractRequest
                 facade.updatePolizaId(applicationCredentials, objpoliza.id, objContractRequest.requestnumber)
             End If
 
+            'Capturar los supervisores y guardar
+
+            If Me.HFSupervisor.Value <> "" Then
+
+                'Dividir el string
+                arrsuperv = Split(Me.HFSupervisor.Value, "/")
+
+                For Each item In arrsuperv
+                    If item <> "" Then
+                        objSupervisor.Third_Id = facade.GetSupervisorId(item, applicationCredentials)
+                        objSupervisor.ContractRequest_Id = objContractRequest.requestnumber
+
+                        'Se agrega el supervisor a la tabla
+                    End If
+                Next
+
+            End If
 
             ' crear el proceso en el BPM
             'objContractRequest.idprocessinstance = GattacaApplication.createProcessInstance(applicationCredentials, PublicFunction.getSettingValue("BPM.ProcessCase.PR06"), _
@@ -573,8 +611,10 @@ Partial Class addContractRequest
         Dim objContractRequest As New ContractRequestEntity
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
         Dim objpoliza As New PolizaEntity
+        Dim objSupervisor As New SupervisorByContractRequestEntity
         Dim objpolizadetails As New PolizaDetailsEntity
         Dim requestNumber As String = ""
+        Dim arrsuperv As String()
 
         ' cargar el registro referenciado
         objContractRequest = facade.loadContractRequest(applicationCredentials, Request.QueryString("ID"))
@@ -618,8 +658,41 @@ Partial Class addContractRequest
                 objContractRequest.monthduration = Convert.ToDecimal(Me.txtContractDuration.Text)
             End If
 
+            'Verificar el formato de tipo de contrato
+            If Me.chkSignedContract.Checked = False Then
+
+                If Not IsNumeric(Me.txtcontractnumberadjusted.Text) Then
+                    Me.lblHelpcontractnumberadjusted.Text = "El número de contrato no debe contener letras."
+                    Me.lblHelpcontractnumberadjusted.ForeColor = Drawing.Color.Red
+                    Me.txtcontractnumberadjusted.Text = ""
+                    SetFocus(txtcontractnumberadjusted)
+                Else
+                    Me.lblHelpcontractnumberadjusted.Text = ""
+                End If
+
+            End If
+
             'objContractRequest.supervisor = IIf(Me.txtSupervisor.Text <> "", Convert.ToString(Me.txtSupervisor.Text), "")
             objContractRequest.notes = Convert.ToString(Me.txtObs.Text)
+            objContractRequest.ExternalContract = Me.chkTypeContract.Checked
+
+            'Capturar los supervisores y guardar
+
+            If Me.HFSupervisor.Value <> "" Then
+
+                'Dividir el string
+                arrsuperv = Split(Me.HFSupervisor.Value, "/")
+
+                For Each item In arrsuperv
+                    If item <> "" Then
+                        objSupervisor.Third_Id = facade.GetSupervisorId(item, applicationCredentials)
+                        objSupervisor.ContractRequest_Id = objContractRequest.requestnumber
+                        'Se agrega el supervisor a la tabla
+                        facade.addSupervisorByContractRequest(objSupervisor, applicationCredentials)
+                    End If
+                Next
+
+            End If
 
             If Me.txtExpeditionDate.Text = "" Then
             Else
@@ -1794,22 +1867,49 @@ Partial Class addContractRequest
     End Sub
 
 
-    Protected Sub btnAddSupervisor_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnAddSupervisor.Click
+    'Protected Sub btnAddSupervisor_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnAddSupervisor.Click
 
-        'Definir la pestaña activa para el update
-        Me.HFActivetab.Value = 1
+    '    Dim SupervisorList As List(Of SupervisorByContractRequestEntity)
+    '    Dim Supervisor As New SupervisorByContractRequestEntity
 
-        'validar que se haya realizado una selección
-        If Me.ddlSupervisor.SelectedItem.Text = "Seleccione..." Then
-            Me.lblAddSupervisor.ForeColor = Drawing.Color.Red
-            Me.lblAddSupervisor.Text = "Por favor seleccione un Actor."
-            Exit Sub
-        End If
+    '    'Definir la pestaña activa para el update
+    '    Me.HFActivetab.Value = 1
 
-        'limpiar el mensaje de error
-        Me.lblAddSupervisor.Text = ""
+    '    'validar que se haya realizado una selección
+    '    If Me.ddlSupervisor.SelectedItem.Text = "Seleccione..." Then
+    '        Me.lblAddSupervisor.ForeColor = Drawing.Color.Red
+    '        Me.lblAddSupervisor.Text = "Por favor seleccione un Actor."
+    '        Exit Sub
+    '    End If
 
+    '    'limpiar el mensaje de error
+    '    Me.lblAddSupervisor.Text = ""
 
+    '    Try
 
-    End Sub
+    '        'SupervisorList = DirectCast(Session("SupervisorList"), List(Of SupervisorByContractRequestEntity))
+
+    '        'Supervisor.ContractRequest_Id = "" 'Agregar numero contratacion
+    '        'Supervisor.Third_Id = "" 'Agregar id de tercero
+
+    '        'SupervisorList.Add(Supervisor)
+
+    '        ''Hacer el bind al Gridview
+    '        ''        Me.gvPolizaConcept.DataSource = PolizaDetailsList
+    '        ''        Me.gvPolizaConcept.DataBind()
+
+    '        ''Devolver el combo a su estado inicial
+    '        'Me.ddlSupervisor.SelectedValue = -1
+
+    '    Catch ex As Exception
+
+    '        'mostrando el error
+    '        Session("serror") = ex.Message
+    '        Session("sUrl") = Request.UrlReferrer.PathAndQuery
+    '        Response.Redirect("~/errors/error.aspx")
+    '        Response.End()
+
+    '    End Try
+
+    'End Sub
 End Class

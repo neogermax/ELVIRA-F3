@@ -11,6 +11,8 @@ Public Class DetailedcashflowsEntity
     Private _IdAportante As Integer
     Private _Aportante As String
     Private _Desembolso As String
+    Private _mother As Integer
+
 
 #End Region
 
@@ -72,6 +74,15 @@ Public Class DetailedcashflowsEntity
             Me._Desembolso = value
         End Set
     End Property
+    Public Property mother() As Integer
+        Get
+            Return Me._mother
+        End Get
+        Set(ByVal value As Integer)
+            Me._mother = value
+        End Set
+    End Property
+
 #End Region
 
 

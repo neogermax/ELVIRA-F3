@@ -36,6 +36,7 @@ Public Class ContractRequestEntity
     Private _paymentsListByContractRequestList As List(Of PaymentsListByContractRequestEntity)
     Private _contractDataByContractRequest As ContractDataByContractRequestEntity
     Private _commentsByContractRequest As CommentsByContractRequestEntity
+    Private _externalcontract As Boolean
    
 #End Region
 
@@ -194,7 +195,6 @@ Public Class ContractRequestEntity
             Me._commentsByContractRequest = value
         End Set
     End Property
-#End Region
 
     'Campos nuevos de contratacion
 
@@ -289,11 +289,22 @@ Public Class ContractRequestEntity
         End Set
     End Property
 
+    Public Property ExternalContract() As Boolean
+        Get
+            Return Me._externalcontract
+        End Get
+        Set(ByVal value As Boolean)
+            Me._externalcontract = value
+        End Set
+    End Property
+
+#End Region
+
 #Region "Constructor"
 
     Public Sub New()
 
-        'Se inicializan los bojetos requeridos
+        'Se inicializan los objetos requeridos
         Me._subjectAndValueByContractRequest = New SubjectAndValueByContractRequestEntity()
         Me._contractDataByContractRequest = New ContractDataByContractRequestEntity()
         Me._commentsByContractRequest = New CommentsByContractRequestEntity()

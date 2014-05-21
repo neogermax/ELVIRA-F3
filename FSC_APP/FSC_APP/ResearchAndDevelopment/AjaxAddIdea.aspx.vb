@@ -156,8 +156,8 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                 Case "buscar"
                     'convierte la variable y llama funcion para la validacion de la idea
                     id_b = Convert.ToInt32(Request.QueryString("id").ToString())
-
                     buscardatethird(id_b, applicationCredentials, Request.QueryString("id"))
+
                 Case "calculafechas"
 
                     fecha = Convert.ToDateTime(Request.QueryString("fecha").ToString())
@@ -735,7 +735,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                 estado_flujo = row.EstadoFlujos
 
 
-                If estado_flujo = "  s  " Then
+                If estado_flujo = "s" Then
 
                     objResult &= "{"
 
@@ -824,11 +824,18 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         Dim sql As New StringBuilder
         Dim objSqlCommand As New SqlCommand
         Dim data_actors_flujos As DataTable
+        Dim desembolso As String
 
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
 
+        sql.Append(" select id from Paymentflow where IdIdea = " & ididea)
+
+        Dim exist_flow = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
+
+        sql = New StringBuilder
+
         sql.Append(" select ti.idthird, ti.name,ti.FSCorCounterpartContribution from ThirdByIdea ti ")
-        sql.Append(" where ti.generatesflow ='  s' and  ti.IdIdea = " & ididea)
+        sql.Append(" where ti.generatesflow ='s' and  ti.IdIdea = " & ididea)
 
         data_actors_flujos = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
 
@@ -839,7 +846,15 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
             html_actors_flujo = "<table id=""T_Actorsflujos"" border=""1"" cellpadding=""1"" cellspacing=""1"" style=""width: 100%;""><thead><tr><th width=""1""></th><th>Aportante</th><th>Valor total aporte</th><th>Valor por programar</th><th>Saldo por programar</th></tr></thead><tbody>"
 
             For Each row As DataRow In data_actors_flujos.Rows
-                html_actors_flujo &= "<tr id=""flujo" & row(0).ToString() & """><td width=""1"" style=""color: #D3D6FF;font-size: 0.1em;"">" & row(0).ToString() & "</td><td>" & row(1).ToString() & "</td><td id= ""value" & row(0).ToString() & """ >" & row(2).ToString() & "</td><td><input id=""" & "txtinput" & row(0).ToString() & """ onkeyup=""formatvercionsuma(this)"" onchange=""formatvercionsuma(this)""  onblur=""sumar_flujos('" & row(0).ToString() & "')"""" onfocus=""restar_flujos('" & row(0).ToString() & "')""""></input></td><td id=""desenbolso" & row(0).ToString() & """>0</td></tr>"
+
+                If exist_flow <> 0 Then
+                    desembolso = "0"
+                Else
+                    desembolso = row(2).ToString()
+                End If
+
+                html_actors_flujo &= "<tr id=""flujo" & row(0).ToString() & """><td width=""1"" style=""color: #D3D6FF;font-size: 0.1em;"">" & row(0).ToString() & "</td><td>" & row(1).ToString() & "</td><td id= ""value" & row(0).ToString() & """ >" & row(2).ToString() & "</td><td><input id=""" & "txtinput" & row(0).ToString() & """ onkeyup=""formatvercionsuma(this)"" onchange=""formatvercionsuma(this)""  onblur=""sumar_flujos('" & row(0).ToString() & "')"""" onfocus=""restar_flujos('" & row(0).ToString() & "')""""></input></td><td id=""desenbolso" & row(0).ToString() & """>" & desembolso & "</td></tr>"
+
             Next
 
             html_actors_flujo &= "<tr><td width=""1"" style=""color: #D3D6FF; font-size: 0.1em;"">1000</td><td>Total</td><td id=""tflujosing""></td><td id=""totalflujos"">0</td></td id=""tflujosdesen""><td></tr></tbody></table>"
@@ -1182,7 +1197,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                 objResult &= "{"
 
                 objResult &= """DeptoVal"": """
-                DeptoVal = row.CITY.id
+                DeptoVal = row.DEPTO.id
 
                 objResult &= DeptoVal
 
@@ -1192,7 +1207,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                 objResult &= DeptoName
 
                 objResult &= """, ""CityVal"": """
-                CityVal = row.DEPTO.id
+                CityVal = row.CITY.id
 
                 objResult &= CityVal
 
@@ -1799,15 +1814,17 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
     Public Function borrar_archivos()
         Dim startinfo As New ProcessStartInfo("C:\Gattaca_pruebas\WebSiteFSC\ELVIRA-F3\FSC_APP\FSC_APP\bats\BORRAR_ARC.bat")
-        'Dim startinfo As New ProcessStartInfo("C:\Users\Administrador\Documents\Visual Studio 2008\Projects\ELVIRA-F3\FSC_APP\FSC_APP\bats\BORRAR_ARC.bat")
-        startinfo.WindowStyle = ProcessWindowStyle.Minimized
+        ' Dim startinfo As New ProcessStartInfo(Server.MapPath("\bats\BORRAR_ARC.bat"))
+        'startinfo.UseShellExecute = False
+        startinfo.WindowStyle = ProcessWindowStyle.Hidden
         Process.Start(startinfo)
     End Function
 
     Public Function copiar_archivos()
         Dim startinfo As New ProcessStartInfo("C:\Gattaca_pruebas\WebSiteFSC\ELVIRA-F3\FSC_APP\FSC_APP\bats\COPIAR_ARC.bat")
-        'Dim startinfo As New ProcessStartInfo("C:\Users\Administrador\Documents\Visual Studio 2008\Projects\ELVIRA-F3\FSC_APP\FSC_APP\bats\COPIAR_ARC.bat")
-        startinfo.WindowStyle = ProcessWindowStyle.Minimized
+        'Dim startinfo As New ProcessStartInfo(Server.MapPath("\bats\COPIAR_ARC.bat"))
+        'startinfo.UseShellExecute = False
+        startinfo.WindowStyle = ProcessWindowStyle.Hidden
         Process.Start(startinfo)
     End Function
 
@@ -1995,7 +2012,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                 existespecie = Replace(arrayactor(contadoractor + 8), "especie : ", " ", 1)
                 existtotal = Replace(arrayactor(contadoractor + 9), "total : ", " ", 1)
                 estados_flujosexist = Replace(arrayactor(contadoractor + 10), "estado_flujo : ", " ", 1)
-
+                estados_flujosexist = estados_flujosexist.Replace(" ", "")
                 'asignamos al objeto
                 thirdByIdea.idthird = existactorsVal
                 thirdByIdea.THIRD.name = existactorsName
@@ -2065,6 +2082,8 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                     objpaymentFlow.valortotal = Convert.ToInt32(tflujosexist)
                     objpaymentFlow.valorparcial = Convert.ToInt32(tflujosexist)
                     objpaymentFlow.idproject = 0
+                    objpaymentFlow.mother = Nothing
+
 
                     'cargamos al list
                     PaymentFlowList.Add(objpaymentFlow)
@@ -2111,12 +2130,18 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                     objDetalleflujo.Aportante = Aportanteexist
                     objDetalleflujo.Desembolso = desembolsoexist
                     objDetalleflujo.IdProject = 0
+                    objDetalleflujo.mother = Nothing
 
                     'cargamos al list
                     listDetalleflujo.Add(objDetalleflujo)
 
                     contadordetflu = contadordetflu + 4
                     index_fludet = index_fludet + 4
+
+                    If contadordetflu <> index_fludet Then
+                        index_fludet = contadordetflu
+                    End If
+
                 Next
 
             End If
@@ -2367,6 +2392,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                 existespecie = Replace(arrayactor(contadoractor + 8), "especie : ", " ", 1)
                 existtotal = Replace(arrayactor(contadoractor + 9), "total : ", " ", 1)
                 estados_flujosexist = Replace(arrayactor(contadoractor + 10), "estado_flujo : ", " ", 1)
+                estados_flujosexist = estados_flujosexist.Replace(" ", "")
 
                 'asignamos al objeto
                 thirdByIdea.idthird = existactorsVal
@@ -2438,6 +2464,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                     objpaymentFlow.valortotal = Convert.ToInt32(tflujosexist)
                     objpaymentFlow.valorparcial = Convert.ToInt32(tflujosexist)
                     objpaymentFlow.idproject = 0
+                    objpaymentFlow.mother = Nothing
 
                     'cargamos al list
                     PaymentFlowList.Add(objpaymentFlow)
@@ -2486,6 +2513,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                     objDetalleflujo.Aportante = Aportanteexist
                     objDetalleflujo.Desembolso = desembolsoexist
                     objDetalleflujo.IdProject = 0
+                    objDetalleflujo.mother = Nothing
 
                     'cargamos al list
                     listDetalleflujo.Add(objDetalleflujo)

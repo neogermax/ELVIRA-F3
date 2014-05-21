@@ -229,8 +229,8 @@ Public Class IdeaDALC
             sql.AppendLine("'" & Idea.idtypecontract & "',")
             sql.AppendLine("'" & Idea.Enddate.ToString("yyyyMMdd") & "',")
             sql.AppendLine("'" & Idea.Obligaciones & "',")
-            sql.AppendLine("'" & Idea.riesgos & "',")
             sql.AppendLine("'" & Idea.mitigacion & "',")
+            sql.AppendLine("'" & Idea.riesgos & "',")
             sql.AppendLine("'" & Idea.iva & "',")
             sql.AppendLine("'" & Idea.presupuestal & "')")
 

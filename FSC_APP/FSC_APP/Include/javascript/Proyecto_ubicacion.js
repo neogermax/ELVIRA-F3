@@ -1,7 +1,7 @@
 ﻿//cargar combo de departamentos
 function Cdeptos() {
     $.ajax({
-        url: "AjaxAddIdea.aspx",
+        url: "AjaxAddProject.aspx",
         type: "GET",
         data: { "action": "C_deptos" },
         success: function(result) {
@@ -18,7 +18,7 @@ function Cdeptos() {
 function Cmunip() {
     $("#ddlDepto").change(function() {
         $.ajax({
-            url: "AjaxAddIdea.aspx",
+            url: "AjaxAddProject.aspx",
             type: "GET",
             data: { "action": "C_munip", "iddepto": $(this).val() },
             success: function(result) {
@@ -87,7 +87,7 @@ function Add_location_onclick() {
 
                 for (itemArray in arrayUbicacion) {
                     var strdelete = arrayUbicacion[itemArray].DeptoName + "_" + arrayUbicacion[itemArray].CityName;
-                    htmlTable += "<tr><td>" + arrayUbicacion[itemArray].DeptoName + "</td><td>" + arrayUbicacion[itemArray].CityName + "</td><td><input type ='button' class= 'deleteUbicacion' value= 'Eliminar' onclick='deleteUbicacion(/" + strdelete + "/)' ></input></td></tr>";
+                    htmlTable += "<tr><td>" + arrayUbicacion[itemArray].DeptoName + "</td><td>" + arrayUbicacion[itemArray].CityName + "</td><td><input type ='button' class= 'deleteUbicacion' value= 'Eliminar'  onclick=\"deleteUbicacion('" + strdelete + "')\" ></input></td></tr>";
                 }
                 htmlTable += "</tbody></table>";
 
@@ -114,9 +114,9 @@ function Add_location_onclick() {
 //funcion para visualizar las ubicaciones en ediccion
 function view_ubicacion() {
     $.ajax({
-        url: "AjaxAddIdea.aspx",
+        url: "AjaxAddProject.aspx",
         type: "GET",
-        data: { "action": "View_ubicacion", "ididea": ideditar },
+        data: { "action": "View_ubicacion", "ididea": idea_buscar },
         success: function(result) {
 
             $("#T_locationContainer").html("");
@@ -135,7 +135,7 @@ function view_ubicacion() {
 
         },
         error: function(msg) {
-            alert("No se pueden cargar las ubicaciones seleccionadas de la idea = " + ideditar);
+            alert("No se pueden cargar las ubicaciones seleccionadas de la idea = " + idea_buscar);
         }
     });
 }
@@ -144,9 +144,9 @@ function view_ubicacion() {
 //funcion para cargar  array ubicaciones en ediccion
 function view_ubicacion_array() {
     $.ajax({
-        url: "AjaxAddIdea.aspx",
+        url: "AjaxAddProject.aspx",
         type: "GET",
-        data: { "action": "View_ubicacion_array", "ididea": ideditar },
+        data: { "action": "View_ubicacion_array", "ididea": idea_buscar },
         success: function(result) {
 
             array_ubicacion_ed = result.split("|");
@@ -160,7 +160,7 @@ function view_ubicacion_array() {
 
         },
         error: function(msg) {
-            alert("No se pueden cargar las ubicaciones seleccionadas de la idea = " + ideditar);
+            alert("No se pueden cargar las ubicaciones seleccionadas de la idea = " + idea_buscar);
         }
     });
 }
@@ -171,7 +171,7 @@ function deleteUbicacion(str) {
     //recorremos el array
     for (itemArray in arrayUbicacion) {
         //construimos la llave de validacion
-        var id = "/" + arrayUbicacion[itemArray].DeptoName + "_" + arrayUbicacion[itemArray].CityName + "/";
+        var id = arrayUbicacion[itemArray].DeptoName + "_" + arrayUbicacion[itemArray].CityName;
         //validamos el dato q nos trae la funcion
         if (str == id) {
             //borramos la ubicacion deseada

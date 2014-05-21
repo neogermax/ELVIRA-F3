@@ -5440,6 +5440,7 @@ Public Class Facade
         Dim objProgramComponentByProjectDALC As New ProgramComponentByProjectDALC
         Dim objPaymentFlowDALC As New PaymentFlowDALC()
         Dim objExplanatoryDALC As New ExplanatoryDALC()
+        Dim objdetallesflujoDALC As New DetailedcashflowsDALC()
 
         Try
 
@@ -5470,10 +5471,10 @@ Public Class Facade
             End If
 
             'Guardar la lista de fuentes del proyecto projectLocation
-            For Each objSourceByProject As SourceByProjectEntity In Project.sourceByProjectList
-                objSourceByProject.idproject = addProject
-                objSourceByProjectDALC.add(objApplicationCredentials, objSourceByProject)
-            Next
+            'For Each objSourceByProject As SourceByProjectEntity In Project.sourceByProjectList
+            '    objSourceByProject.idproject = addProject
+            '    objSourceByProjectDALC.add(objApplicationCredentials, objSourceByProject)
+            'Next
 
             'Guardar la lista de Ubicaciones del proyecto projectLocation
             For Each objProjectLocation As ProjectLocationEntity In Project.projectlocationlist
@@ -5487,7 +5488,6 @@ Public Class Facade
                 objThirdByProjectDALC.add(objApplicationCredentials, objThirdByProject)
             Next
 
-            
 
             'Guardar la lista de Componentes del Programa del proyecto ProgramComponentByProject
             For Each objProgramComponentByProject As ProgramComponentByProjectEntity In Project.ProgramComponentbyprojectlist
@@ -5495,12 +5495,15 @@ Public Class Facade
                 objProgramComponentByProjectDALC.add(objApplicationCredentials, objProgramComponentByProject)
             Next
 
-
-
             'Guardar la lista de flujos de pago del proyecto
             For Each objPaymentFlow As PaymentFlowEntity In Project.paymentflowByProjectList
                 objPaymentFlow.idproject = addProject
                 objPaymentFlowDALC.add(objApplicationCredentials, objPaymentFlow)
+            Next
+
+            For Each objdeteallesflujos As DetailedcashflowsEntity In Project.DetailedcashflowsbyProjectList
+                objdeteallesflujos.IdProject = addProject
+                objdetallesflujoDALC.add(objApplicationCredentials, objdeteallesflujos)
             Next
 
             'Guardar la lista de aclaratorios del proyecto   
@@ -5604,6 +5607,8 @@ Public Class Facade
         ByVal sRutaOldFile As String, _
         Optional ByVal idPhase As Integer = 0) As Long
 
+        Dim type_modulo As String = "Proyecto"
+
         ' definir los objetos
         Dim ProjectDALC As New ProjectDALC
         Dim objSourceByProjectDALC As New SourceByProjectDALC
@@ -5685,7 +5690,7 @@ Public Class Facade
             Next
 
             
-            objPaymentFlowDALC.delete(objApplicationCredentials, Project.id)
+            objPaymentFlowDALC.delete(objApplicationCredentials, Project.id, type_modulo)
             'Guardar la lista de flujos de pago del proyecto
             For Each objPaymentFlow As PaymentFlowEntity In Project.paymentflowByProjectList
                 objPaymentFlow.idproject = Project.id
@@ -5812,6 +5817,8 @@ Public Class Facade
        ByVal idProject As Integer, _
         ByVal idKey As Integer)
 
+        Dim type_modulo As String = "Proyecto"
+
         ' definir los objetos
         Dim ProjectDALC As New ProjectDALC
         Dim objSourceByProjectDALC As New SourceByProjectDALC
@@ -5828,7 +5835,7 @@ Public Class Facade
 
             'TODO: 60 borrarla lista de pagos anclados al proyecto
             'AUTOR: German Rodriguez MGgroup 29-10-2013
-            objpaimentflowDALC.delete(objApplicationCredentials, idProject)
+            objpaimentflowDALC.delete(objApplicationCredentials, idProject, type_modulo)
             'borrarla lista de aclaratorias anclados al proyecto
             objexplanatoryDALC.delete(objApplicationCredentials, idProject)
             'TODO: 60 borrarla lista de pagos anclados al proyecto
@@ -7175,15 +7182,76 @@ Public Class Facade
 
 #End Region
 
+#Region "SupervisorByProject"
+
+    Function addSupervisorByContractRequest(ByVal objSupervisorByContract As SupervisorByContractRequestEntity, ByVal objApplicationCredentials As Gattaca.Application.Credentials.ApplicationCredentials)
+
+        Dim SupervisorByContractDALC As New SupervisorByContractDALC
+
+        Try
+            'retornar el objeto
+            addSupervisorByContractRequest = SupervisorByContractDALC.add(objApplicationCredentials, objSupervisorByContract)
+            'finalizar la transaccion
+            CtxSetComplete()
+
+        Catch ex As Exception
+            'cancelar la transaccion
+            CtxSetAbort()
+            'publicar el error
+            GattacaApplication.Publish(ex, objApplicationCredentials.ClientName, MODULENAME, "AddSupervisorByContract")
+            ExceptionPolicy.HandleException(ex, "GattacaStandardExceptionPolicy")
+            'subir el error de nivel
+            Throw New Exception("Error al agregar un supervisor por contrato. - " & ex.Message)
+
+        Finally
+            'liberando recursos
+            SupervisorByContractDALC = Nothing
+
+        End Try
+
+    End Function
+
+    Function GetSupervisorId(ByVal name_Third As String, ByVal objApplicationCredentials As Gattaca.Application.Credentials.ApplicationCredentials)
+
+        Dim SupervisorByContractDALC As New SupervisorByContractDALC
+
+        Try
+            'retornar el objeto
+            GetSupervisorId = SupervisorByContractDALC.GetSupervisorID(name_Third, objApplicationCredentials)
+
+            'finalizar la transaccion
+            CtxSetComplete()
+
+        Catch ex As Exception
+            'cancelar la transaccion
+            CtxSetAbort()
+
+            'publicar el error
+            GattacaApplication.Publish(ex, objApplicationCredentials.ClientName, MODULENAME, "GetSupervisorId")
+            ExceptionPolicy.HandleException(ex, "GattacaStandardExceptionPolicy")
+
+            'subir el error de nivel
+            Throw New Exception("Error al consultar el id de un supervisor. - " & ex.Message)
+
+        Finally
+            'liberando recursos
+            SupervisorByContractDALC = Nothing
+
+        End Try
+
+    End Function
+
+#End Region
+
 #Region "ProgramComponentByProject"
 
-    ''' <summary>
-    ''' Obtener la lista de ProgramComponentByProject registradas en el sistema
-    ''' </summary>
-    ''' <param name="objApplicationCredentials"></param>
-    ''' <param name="order"></param>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
+        ''' <summary>
+        ''' Obtener la lista de ProgramComponentByProject registradas en el sistema
+        ''' </summary>
+        ''' <param name="objApplicationCredentials"></param>
+        ''' <param name="order"></param>
+        ''' <returns></returns>
+        ''' <remarks></remarks>
     Public Function getProgramComponentByProjectList(ByVal objApplicationCredentials As Gattaca.Application.Credentials.ApplicationCredentials, _
         Optional ByVal id As String = "", _
         Optional ByVal idproject As String = "", _
@@ -10687,9 +10755,11 @@ Public Class Facade
         ' definir los objetos
         Dim IdeaDALC As New IdeaDALC
         Dim idthird As Integer
+        Dim type_modulo As String = "Idea"
 
         Dim objPaymentFlowDALC As New PaymentFlowDALC()
         Dim objdetallesflujoDALC As New DetailedcashflowsDALC()
+
 
         Try
 
@@ -10768,10 +10838,10 @@ Public Class Facade
 
 
             'Se elimina la informacion existente de los flujos de pago para la idea actual
-            objPaymentFlowDALC.delete(objApplicationCredentials, Idea.id)
+            objPaymentFlowDALC.delete(objApplicationCredentials, Idea.id, type_modulo)
             'Guardar la lista de flujos de pago de la idea
             For Each objPaymentFlow As PaymentFlowEntity In Idea.paymentflowByProjectList
-                objPaymentFlow.idproject = Idea.id
+                objPaymentFlow.ididea = Idea.id
                 objPaymentFlowDALC.add(objApplicationCredentials, objPaymentFlow)
             Next
 

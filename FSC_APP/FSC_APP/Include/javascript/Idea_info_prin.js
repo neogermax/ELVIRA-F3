@@ -328,39 +328,8 @@ function operacionesIdea() {
         }
     });
 
-
-    //montaje de jquery para LOS TRES CAMPOS DE RESULTADO
-    //31-05-2013 GERMAN RODRIGUEZ
-
 }
 
-
-//montaje de jquery para recorrer el campo par montarle comas para los miles
-//22-07-2013 GERMAN RODRIGUEZ
-
-function addCommas(str) {
-    var amount = new String(str);
-    amount = amount.split("").reverse();
-
-    var output = "";
-    for (var i = 0; i <= amount.length - 1; i++) {
-        output = amount[i] + output;
-        if ((i + 1) % 3 == 0 && (amount.length - 1) !== i) output = '.' + output;
-    }
-    $("#ctl00_cphPrincipal_Txtaportfscocomp").val(output);
-}
-
-function addCommas2(str) {
-    var amount = new String(str);
-    amount = amount.split("").reverse();
-
-    var output = "";
-    for (var i = 0; i <= amount.length - 1; i++) {
-        output = amount[i] + output;
-        if ((i + 1) % 3 == 0 && (amount.length - 1) !== i) output = '.' + output;
-    }
-    $("#ctl00_cphPrincipal_ValueCostFSC").val(output);
-}
 
 //fucion para añadir los miles a los numeros refactorizada
 function addCommasrefactor(str) {

@@ -32,12 +32,33 @@ Public Class ThirdByProjectDALC
             sql.AppendLine("INSERT INTO ThirdByProject(" & _
              "idproject," & _
              "idThird, " & _
-             "Type" & _
-            ")")
+             "Type," & _
+             "Vrmoney," & _
+             "VrSpecies," & _
+             "FSCorCounterpartContribution," & _
+             "Name," & _
+             "Contact," & _
+             "Documents," & _
+             "Phone," & _
+             "Email," & _
+             "generatesflow," & _
+             "CreateDate" & _
+             ")")
             sql.AppendLine("VALUES (")
             sql.AppendLine("'" & ThirdByProject.idproject & "',")
             sql.AppendLine("'" & ThirdByProject.idthird & "',")
-            sql.AppendLine("'" & ThirdByProject.type & "')")
+            sql.AppendLine("'" & ThirdByProject.type & "',")
+            sql.AppendLine("'" & ThirdByProject.Vrmoney & "',")
+            sql.AppendLine("'" & ThirdByProject.VrSpecies & "',")
+            sql.AppendLine("'" & ThirdByProject.FSCorCounterpartContribution & "',")
+            sql.AppendLine("'" & ThirdByProject.Name & "',")
+            sql.AppendLine("'" & ThirdByProject.contact & "',")
+            sql.AppendLine("'" & ThirdByProject.Documents & "',")
+            sql.AppendLine("'" & ThirdByProject.Phone & "',")
+            sql.AppendLine("'" & ThirdByProject.Email & "',")
+            sql.AppendLine("'" & ThirdByProject.EstadoFlujos & "',")
+            sql.AppendLine("'" & ThirdByProject.CreateDate.ToString("yyyy/MM/dd HH:mm:ss") & "')")
+
 
             ' intruccion para obtener el registro insertado
             sql.AppendLine(" SELECT SCOPE_IDENTITY() AS Id")

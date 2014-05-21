@@ -40,3 +40,28 @@ C:\Users\Administrador\Documents\Visual Studio 2008\Projects\ELVIRA-F3\FSC_APP\F
 C:\Users\Administrador\Documents\Visual Studio 2008\Projects\ELVIRA-F3\FSC_APP\FSC_APP\obj\Release\FSC_APP.xml
 C:\Users\Administrador\Documents\Visual Studio 2008\Projects\ELVIRA-F3\FSC_APP\FSC_APP\obj\Release\FSC_APP.pdb
 C:\Users\Administrador\Documents\Visual Studio 2008\Projects\ELVIRA-F3\FSC_APP\FSC_APP\obj\Release\FSC_APP.XmlSerializers.dll
+C:\Gattaca\ELVIRA-F3\FSC_APP\FSC_APP\bin\FSC_APP.dll
+C:\Gattaca\ELVIRA-F3\FSC_APP\FSC_APP\bin\FSC_APP.XmlSerializers.dll
+C:\Gattaca\ELVIRA-F3\FSC_APP\FSC_APP\bin\FSC_APP.pdb
+C:\Gattaca\ELVIRA-F3\FSC_APP\FSC_APP\bin\FSC_APP.xml
+C:\Gattaca\ELVIRA-F3\FSC_APP\FSC_APP\bin\AjaxControls.dll
+C:\Gattaca\ELVIRA-F3\FSC_APP\FSC_APP\bin\AjaxControlToolkit.dll
+C:\Gattaca\ELVIRA-F3\FSC_APP\FSC_APP\bin\DoubleListBox.dll
+C:\Gattaca\ELVIRA-F3\FSC_APP\FSC_APP\bin\Gattaca.Application.eSecurity.resources.dll
+C:\Gattaca\ELVIRA-F3\FSC_APP\FSC_APP\bin\GTK.ADODB.dll
+C:\Gattaca\ELVIRA-F3\FSC_APP\FSC_APP\bin\Interop.Microsoft.Office.Core.dll
+C:\Gattaca\ELVIRA-F3\FSC_APP\FSC_APP\bin\Interop.Microsoft.Office.Interop.Access.dll
+C:\Gattaca\ELVIRA-F3\FSC_APP\FSC_APP\bin\Interop.Microsoft.Office.Interop.Word.dll
+C:\Gattaca\ELVIRA-F3\FSC_APP\FSC_APP\bin\Microsoft.SqlServer.DmfSqlClrWrapper.dll
+C:\Gattaca\ELVIRA-F3\FSC_APP\FSC_APP\bin\Microsoft.SqlServer.SQLTask.dll
+C:\Gattaca\ELVIRA-F3\FSC_APP\FSC_APP\bin\Microsoft.SqlServer.Replication.dll
+C:\Gattaca\ELVIRA-F3\FSC_APP\FSC_APP\bin\Interop.CrystalActiveXReportViewerLib105.dll
+C:\Gattaca\ELVIRA-F3\FSC_APP\FSC_APP\obj\Release\ResolveAssemblyReference.cache
+C:\Gattaca\ELVIRA-F3\FSC_APP\FSC_APP\obj\Release\Interop.CrystalActiveXReportViewerLib105.dll
+C:\Gattaca\ELVIRA-F3\FSC_APP\FSC_APP\obj\Release\FSC_APP.vbproj.ResolveComReference.cache
+C:\Gattaca\ELVIRA-F3\FSC_APP\FSC_APP\obj\Release\FSC_APP.Resources.resources
+C:\Gattaca\ELVIRA-F3\FSC_APP\FSC_APP\obj\Release\FSC_APP.vbproj.GenerateResource.Cache
+C:\Gattaca\ELVIRA-F3\FSC_APP\FSC_APP\obj\Release\FSC_APP.dll
+C:\Gattaca\ELVIRA-F3\FSC_APP\FSC_APP\obj\Release\FSC_APP.xml
+C:\Gattaca\ELVIRA-F3\FSC_APP\FSC_APP\obj\Release\FSC_APP.pdb
+C:\Gattaca\ELVIRA-F3\FSC_APP\FSC_APP\obj\Release\FSC_APP.XmlSerializers.dll

@@ -1,5 +1,4 @@
-﻿
-//Javascript para modulo de Idea por parte de MG GROUP Ltda.
+﻿//Javascript para modulo de Idea por parte de MG GROUP Ltda.
 //Autor: German Rodriguez
 //Fecha Inicio: 28/05/2013
 
@@ -17,6 +16,8 @@ var arrayactorflujo_ed = [];
 var arraycomponenteing = [];
 var arraycomponente = [];
 var arraycomponentedesechado = [];
+var arraycomponente_archivar = [];
+
 var arrayValorflujoTotal = [];
 var arrayinputflujos = [];
 
@@ -33,6 +34,8 @@ var arrayFiles = [];
 var arrayFiles_ed = [];
 
 var filescharge = [];
+
+var arraycompo = [];
 
 var args = [];
 var valI1;
@@ -55,6 +58,9 @@ var edit_swhich_fx;
 var contadorrestar = 0;
 var validateflujos_save;
 var componentes_editados;
+var contar_program = 0;
+var itemarrayflujos;
+var control_edit_compo;
 
 $(document).ready(function() {
 
@@ -74,7 +80,7 @@ $(document).ready(function() {
         validafecha2();
 
         componentes_editados = 1;
-        
+
         Cdeptos();
         Cmunip();
         Cactors();
@@ -84,7 +90,11 @@ $(document).ready(function() {
         Cpopulation();
         validarporcentaje();
         ClineEstrategic();
-        var timer_cline_edit = setTimeout("ClineEstrategic_edit();", 3000);
+
+        $("#ddlStrategicLines").ready(function() {
+            ClineEstrategic_edit();
+        });
+
 
         //Cprogram();
         cargarcomponente();
@@ -113,17 +123,15 @@ $(document).ready(function() {
         View_anexos_array();
         View_anexos();
 
-
         //$("#ddlStrategicLines").ready(function() { ClineEstrategic_edit(); });
 
         var timer_cline_edit = setTimeout("Cpopulation_view();", 2000);
         var timer_cline_edit = setTimeout("Ctypcontract_view();", 2000);
-        // var itemarrayflujos = 0;
-        $("#SaveIdea").attr("value", "Editar Idea");
+        itemarrayflujos = 0;
 
-        //$("#SaveIdea").css("display", "none");
+        
+        $("#SaveIdea").attr("value", "Editar Idea");
         $("#Export").css("display", "block");
-        //$("#EditIdea").css("display", "block");
         borrar_carpeta();
     }
     else {
@@ -137,7 +145,7 @@ $(document).ready(function() {
         validafecha2();
 
         ClineEstrategic();
-        Cprogram();
+        Cprogram(0);
         Cdeptos();
         Cmunip();
         Cactors();
@@ -148,22 +156,18 @@ $(document).ready(function() {
         Cpopulation();
         validarporcentaje();
 
-
         $("#SaveIdea").attr("value", "Crear Idea");
-
-        //     $("#SaveIdea").css("display", "block");
         $("#Export").css("display", "none");
-        //     $("#EditIdea").css("display", "none");
+
         borrar_carpeta();
+
     }
 
     $("#ctl00_cphPrincipal_containerSuccess").css("display", "none");
     $("#ctl00_cphPrincipal_containererrors").css("display", "none");
-
-
     $('#ctl00_cphPrincipal_gif_charge_Container').css("display", "none");
+    $('#ctl00_cphPrincipal_container_wait').css("display", "none");
 
-    //$("#tabsIdea").tabs();
 
     $("#matriz").dataTable({
         "bJQueryUI": true,
@@ -693,7 +697,6 @@ function Crear_idea() {
 
     var tflujos = $("#ValueCostotal").text();
     tflujos = tflujos.replace(/\./gi, '');
-    //alert(tflujos);
     //crear comunicacion ajax para el ingreso de los datos de la idea
     $.ajax({
         url: "AjaxAddIdea.aspx",
@@ -762,7 +765,7 @@ function editar_idea() {
     var listdetallesflujos = [];
     var listfiles = [];
 
-    valor_iva = $("#ctl00_cphPrincipal_HDiva").val(); 
+    valor_iva = $("#ctl00_cphPrincipal_HDiva").val();
 
     var Str_listcomponentes = $("#componentesseleccionados").html();
     Str_listcomponentes = Str_listcomponentes.replace(/"/g, "_");
@@ -872,8 +875,8 @@ function editar_idea() {
         }
     });
 
-   
-    
+
+
 
 }
 
@@ -907,7 +910,7 @@ function formatvercionsuma(input) {
     }
 }
 
-
+//valida si la idea fue aprobada y esconde el boton editar
 function aprobacion_idea() {
 
     $.ajax({
@@ -944,7 +947,7 @@ function borrar_carpeta() {
         type: "GET",
         data: { "action": "borrar_archivos" },
         success: function(result) {
-         //   alert("borrado");
+            //   alert("borrado");
         },
         error: function(msg) {
             alert("No ELIMINO LOS ARCHIVOS = " + ideditar);
@@ -960,7 +963,7 @@ function copiar_archivos() {
         type: "GET",
         data: { "action": "copiar_archivos" },
         success: function(result) {
-          //  alert("copiado");
+            //  alert("copiado");
         },
         error: function(msg) {
             alert("No COPIO LOS ARCHIVOS= " + ideditar);

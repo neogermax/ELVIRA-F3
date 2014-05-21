@@ -8,12 +8,15 @@
     <link href="../css/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" type="text/css" />
     <link href="../css/elvira_F3.css" rel="stylesheet" type="text/css" />
     <link href="../Pretty/css/prettyPhoto.css" rel="stylesheet" type="text/css" />
+    <link href="../css/datatables/jquery.dataTables.css" rel="stylesheet" type="text/css" />
 
     <script src="../Include/javascript/contractrequest.js" type="text/javascript"></script>
 
     <script src="../js/jquery-ui-1.10.3.custom.min.js" type="text/javascript"></script>
 
     <script src="../Pretty/js/jquery.prettyPhoto.js" type="text/javascript"></script>
+
+    <script src="../js/jquery.dataTables.min.js" type="text/javascript"></script>
 
     <script>
         $(function() {
@@ -106,6 +109,19 @@
                     </td>
                     <td>
                         <asp:Label ID="lblHelpidcontractnature" runat="server" Text=""></asp:Label>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 183px">
+                        <br />
+                        <asp:Label ID="lblTypeContract" runat="server" Text="Contrato externo:"></asp:Label>
+                    </td>
+                    <td style="width: 481px">
+                        <br />
+                        <asp:CheckBox ID="chkTypeContract" runat="server" />
+                    </td>
+                    <td>
+                        <asp:Label ID="Label3" runat="server" Text=""></asp:Label>
                     </td>
                 </tr>
                 <tr>
@@ -279,10 +295,43 @@
                         <br />
                         <asp:DropDownList ID="ddlSupervisor" runat="server" CssClass="Ccombo">
                         </asp:DropDownList>
-                        <asp:Button ID="btnAddSupervisor" runat="server" Text="Agregar supervisor" /><asp:Label
-                            ID="lblAddSupervisor" runat="server"></asp:Label>
+                        <div>
+                            <input id="btnAddSupervisor" type="button" class="ui-button ui-widget ui-state-default ui-corner-all"
+                                value="Agregar" onclick="btnaddsupervisor_onclick()" />
+                            <a id="linkactors" runat="server" href="~/GeneralPlanning/addThird.aspx?prety=1&op=add&iframe=true&width=100%&height=100%"
+                                title="Nuevo actor" style="height: 2em;" class="pretty">Crear supervisor</a>
+                        </div>
+                        <asp:Label ID="lblAddSupervisor" runat="server"></asp:Label>
                     </td>
                 </tr>
+                <%--Inicio gvsuper--%>
+                <tr>
+                    <td colspan="2">
+                        <div id="T_SuperVContainer">
+                            <table id="T_supervisor" border="2" cellpadding="2" cellspacing="2" style="width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <span><strong style="font-size: large">Supervisor</strong> </span>
+                                        </th>
+                                        <th>
+                                            <span><strong style="font-size: large">Eliminar</strong> </span>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                        </td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+                <%--Fin gvsuper--%>
                 <tr>
                     <td style="width: 183px">
                         <br />
@@ -473,4 +522,5 @@
         <asp:HiddenField ID="HFProject" runat="server" />
         <asp:HiddenField ID="HFActivetab" runat="server" />
         <asp:HiddenField ID="HFPolRequired" runat="server" />
+        <asp:HiddenField ID="HFSupervisor" runat="server" />
 </asp:Content>

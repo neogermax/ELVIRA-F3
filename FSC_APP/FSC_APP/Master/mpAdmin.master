@@ -78,7 +78,7 @@ german rodriguez y pedro cruz-->
                     operacionesaprobacion();
                 }
                 if ($("#ctl00_cphPrincipal_Hdvtotalvalue").length > 0) {
-                    projectoperate();
+                 //   projectoperate();
                     comboactor();
                 }
 
