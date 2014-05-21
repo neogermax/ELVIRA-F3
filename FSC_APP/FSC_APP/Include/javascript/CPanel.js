@@ -200,5 +200,5 @@ function getParameterByName(name) {
 
 function Modification_onclick()
 {
-    window.location = '/FormulationAndAdoption/request.aspx?idproject=' + getParameterByName('id');
+    window.location = '/FSC_APP/FormulationAndAdoption/request.aspx?idproject=' + getParameterByName('id');
 }
