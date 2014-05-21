@@ -907,7 +907,7 @@ function formatvercionsuma(input) {
     }
 }
 
-
+//valida si la idea fue aprobada y esconde el boton editar
 function aprobacion_idea() {
 
     $.ajax({
