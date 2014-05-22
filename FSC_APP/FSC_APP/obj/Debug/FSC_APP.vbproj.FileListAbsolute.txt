@@ -59,3 +59,6 @@ C:\Gattaca\ELVIRA-F3\FSC_APP\FSC_APP\obj\Debug\FSC_APP.vbproj.GenerateResource.C
 C:\Gattaca\ELVIRA-F3\FSC_APP\FSC_APP\obj\Debug\FSC_APP.dll
 C:\Gattaca\ELVIRA-F3\FSC_APP\FSC_APP\obj\Debug\FSC_APP.xml
 C:\Gattaca\ELVIRA-F3\FSC_APP\FSC_APP\obj\Debug\FSC_APP.pdb
+C:\Users\Administrador\Documents\Visual Studio 2008\Projects\ELVIRA-F3\FSC_APP\FSC_APP\bin\Newtonsoft.Json.pdb
+C:\Users\Administrador\Documents\Visual Studio 2008\Projects\ELVIRA-F3\FSC_APP\FSC_APP\bin\Newtonsoft.Json.xml
+C:\Users\Administrador\Documents\Visual Studio 2008\Projects\ELVIRA-F3\FSC_APP\FSC_APP\bin\FSC_DAO.pdb

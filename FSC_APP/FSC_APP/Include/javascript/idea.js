@@ -17,6 +17,7 @@ var arraycomponenteing = [];
 var arraycomponente = [];
 var arraycomponentedesechado = [];
 var arraycomponente_archivar = [];
+var arraycomponente_archivar_ed = [];
 
 var arrayValorflujoTotal = [];
 var arrayinputflujos = [];
@@ -95,13 +96,13 @@ $(document).ready(function() {
             ClineEstrategic_edit();
         });
 
-
         //Cprogram();
+        View_componentes_array();
         cargarcomponente();
-        load_idarchive();
-
         edit_component_view();
 
+        load_idarchive();
+        
         view_ubicacion();
         view_ubicacion_array();
 
@@ -117,7 +118,7 @@ $(document).ready(function() {
         View_flujos_actors_array();
 
         View_detalle_flujo_array();
-
+        
         aprobacion_idea();
 
         View_anexos_array();
@@ -129,7 +130,6 @@ $(document).ready(function() {
         var timer_cline_edit = setTimeout("Ctypcontract_view();", 2000);
         itemarrayflujos = 0;
 
-        
         $("#SaveIdea").attr("value", "Editar Idea");
         $("#Export").css("display", "block");
         borrar_carpeta();
@@ -776,6 +776,7 @@ function editar_idea() {
     Str_listcomponentes = Str_listcomponentes.replace(/class=/g, "*");
     Str_listcomponentes = Str_listcomponentes.replace(/id=/g, "");
     Str_listcomponentes = Str_listcomponentes.replace(/_add/g, "");
+    Str_listcomponentes = Str_listcomponentes.replace(/_selectadd/g, "");
 
 
     //recorer array para el ingreso de ubicaciones

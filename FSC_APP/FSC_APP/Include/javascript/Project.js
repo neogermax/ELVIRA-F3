@@ -16,6 +16,9 @@ var arrayactorflujo_ed = [];
 var arraycomponenteing = [];
 var arraycomponente = [];
 var arraycomponentedesechado = [];
+var arraycomponente_archivar = [];
+var arraycomponente_archivar_ed = [];
+
 var arrayValorflujoTotal = [];
 var arrayinputflujos = [];
 
@@ -306,6 +309,7 @@ function verificar_dat_idea() {
         confirmar = confirm("¿Traer datos de la Idea aprobada?", "SI", "NO");
         if (confirmar) {
 
+            componentes_editados = 1;
             //pestaña descripcion del proyecto
             traer_datos_idea_inf_p();
             View_matriz_principal();
@@ -334,8 +338,9 @@ function verificar_dat_idea() {
             //pestaña componentes del proyecto
             $("#ddlStrategicLines").ready(function() {
                 ClineEstrategic_edit();
-                view_Cprogram();
+                //    view_Cprogram();
             });
+
             edit_component_view();
 
             //bloquemos los controles de la pestaña componentes
@@ -529,7 +534,7 @@ function SaveProject_onclick() {
     }
     else {
         //CREAR MENSAJE
-        mensaje_info_idea = "La idea no ha sido creada. Existe información sin diligenciar, verifique la(s) pestaña(s): ";
+        mensaje_info_idea = "El Proyecto no ha sido creada. Existe información sin diligenciar, verifique la(s) pestaña(s): ";
         //informacion
         if (verificar_informacion_p == 0) {
             //cuerpo del mensaje
