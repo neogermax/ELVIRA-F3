@@ -23,7 +23,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         Dim fecha As Date
         Dim duracion, dia As String
         Dim idprogram_list, S_code, S_linea_estrategica, S_programa, S_nombre, S_justificacion, S_objetivo, S_objetivo_esp, S_Resultados_Benef, S_Resultados_Ges_c, S_Resultados_Cap_i, S_Resultados_otros_resul, S_Fecha_inicio, S_mes, S_dia, S_Fecha_fin, S_Población, S_contratacion, S_A_Mfsc, S_A_Efsc, S_A_Mcounter, S_A_Ecounter, S_cost, S_obligaciones, S_iva, S_listubicaciones, S_listactors, S_mitigacion, S_riesgos, S_presupuestal, S_listcomponentes, S_listflujos, S_listdetallesflujos, S_listfiles As String
-        Dim ideditar, id_lineStrategic, id_depto, idprogram, idpopulation, Countarchivo As Integer
+        Dim estado_proceso, ideditar, id_lineStrategic, id_depto, idprogram, idpopulation, Countarchivo As Integer
 
         Dim strFileName() As String
         Dim fileName As String = String.Empty
@@ -199,7 +199,10 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                 Case "C_component"
 
                     idprogram_list = Request.QueryString("idprogram").ToString
-                    charge_component(idprogram_list)
+                    estado_proceso = Request.QueryString("estado_proceso").ToString
+                    ideditar = Convert.ToInt32(Request.QueryString("id").ToString)
+
+                    charge_component(idprogram_list, estado_proceso, ideditar)
 
                 Case "C_type_project"
 
@@ -308,6 +311,9 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                 Case "copiar_archivos"
                     copiar_archivos()
 
+                Case "View_componentes_array"
+                    ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
+                    searh_component_array(ideditar)
                 Case Else
 
             End Select
@@ -315,6 +321,54 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         End If
 
     End Sub
+
+    Public Function searh_component_array(ByVal ididea As Integer)
+
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+
+        Dim sql As New StringBuilder
+        Dim objSqlCommand As New SqlCommand
+        Dim component_value As DataTable
+        Dim id_component As String
+
+        Dim objResult As String
+
+        sql.Append("select IdProgramComponent from ProgramComponentByIdea  where IdIdea=" & ididea)
+
+        component_value = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+        Dim valuar_ubi As Integer = 1
+
+        If component_value.Rows.Count > 0 Then
+
+
+            For Each row As DataRow In component_value.Rows
+
+                objResult &= ""
+
+                id_component = row(0).ToString()
+
+                objResult &= id_component
+
+                If valuar_ubi = component_value.Rows.Count Then
+
+                    objResult &= ""
+
+                Else
+                    objResult &= ","
+
+                End If
+
+                valuar_ubi = valuar_ubi + 1
+
+            Next
+
+        End If
+
+        Response.Write(objResult)
+
+
+    End Function
 
     Public Function load_id_archive(ByVal ididea As Integer)
 
@@ -579,7 +633,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         If component_value.Rows.Count > 0 Then
 
             For Each row As DataRow In component_value.Rows
-                htmlcomponente &= "<li id= 'add" + row(0).ToString() + "' class='seleccione'>" + row(1).ToString() + "</li>"
+                htmlcomponente &= "<li id= 'selectadd" + row(0).ToString() + "' class='des_seleccionar'>" + row(1).ToString() + "</li>"
             Next
 
         End If
@@ -1344,24 +1398,63 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
     ''' <param name="idprogram"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Function charge_component(ByVal idprogram As String)
+    Public Function charge_component(ByVal idprogram As String, ByVal estado_proceso As Integer, ByVal ididea As Integer)
 
         Dim facade As New Facade
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
         Dim Data_programcomponent As List(Of ProgramComponentEntity)
 
+        Dim sql As New StringBuilder
+        Dim objSqlCommand As New SqlCommand
+        Dim component_value As DataTable
+        Dim id_component As String
+
+
+        sql.Append("select IdProgramComponent from ProgramComponentByIdea  where IdIdea=" & ididea)
+        component_value = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
         Dim htmlresults As String = ""
         Dim id, code As String
+        Dim s_html As Integer = 0
 
         Data_programcomponent = facade.getProgramComponentList(applicationCredentials, idProgram:=idprogram, enabled:="1", order:="Code")
 
+    
         For Each row In Data_programcomponent
             ' cargar el valor del campo
             id = row.id
             code = row.code
-            htmlresults &= "<li id= add" + id + " class='seleccione'>" + code + "</li>"
+
+            If estado_proceso = 1 Then
+
+                For Each row_comp As DataRow In component_value.Rows
+
+                    id_component = row_comp(0).ToString()
+                    If id = id_component Then
+                        ' swichear en ves de crear el ul
+                        s_html = 1
+                    End If
+
+                Next
+
+                If s_html = 0 Then
+                    htmlresults &= "<li id= add" + id + " class='seleccione'>" + code + "</li>"
+                Else
+                    s_html = 0
+                End If
+
+            Else
+                htmlresults &= "<li id= add" + id + " class='seleccione'>" + code + "</li>"
+
+            End If
+
         Next
+      
         Response.Write(htmlresults)
+
+
+
+
 
     End Function
 
@@ -2507,7 +2600,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                     desembolsoexist = desembolsoexist.Replace(".", "")
 
                     'asignamos al objeto
-                    
+
                     objDetalleflujo.N_pago = Convert.ToInt32(N_pagodetexist)
                     objDetalleflujo.IdAportante = Convert.ToInt32(idaportanteexist)
                     objDetalleflujo.Aportante = Aportanteexist
