@@ -48,11 +48,10 @@ function supervisor_array() {
             var htmlTable = "<table id='T_supervisor' border='2' cellpadding='2' cellspacing='2' style='width: 100%;'><thead><tr><th>Supervisor</th><th>Eliminar</th></tr></thead><tbody>";
 
             for (itemArray in recibesuper) {
-                //arraySupervisor.push(recibesuper);
                 strasp = strasp += "/" + recibesuper[itemArray];
                 var strdelete = recibesuper[itemArray];
                 htmlTable += "<tr><td>" + recibesuper[itemArray] + "</td><td><input type ='button' class= 'deleteSuperV' value= 'Eliminar' onclick='deleteSuperV(/" + strdelete + "/)' ></input></td></tr>";
-                //document.getElementById("ctl00_cphPrincipal_HFSupervisor").value = strasp;
+                document.getElementById("ctl00_cphPrincipal_HFSupervisor").value = strasp;
             }
 
             htmlTable += "</tbody></table>";
@@ -417,7 +416,7 @@ function fecha() {
         $.ajax({
             url: "ajaxcontracrequest.aspx",
             type: "GET",
-            data: { "action": "calculafechas", "fecha": $("#ctl00_cphPrincipal_txtInitialDate").val(), "duracion": $(this).val() },
+            data: { "action": "calculafechas", "fecha": $("#ctl00_cphPrincipal_txtInitialDate").val(), "duracion": $(this).val(), "dias": $("#ctl00_cphPrincipal_txtContractDays").val() },
             success: function(result) {
                 $("#ctl00_cphPrincipal_txtEndingDate").val(result);
                 $("#ctl00_cphPrincipal_HFEndDate").val(result);

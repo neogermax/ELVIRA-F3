@@ -608,6 +608,7 @@ Partial Class addContractRequest
 
         ' definir los objetos
         Dim facade As New Facade
+        Dim objProject As New ProjectEntity
         Dim objContractRequest As New ContractRequestEntity
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
         Dim objpoliza As New PolizaEntity
@@ -1378,13 +1379,18 @@ Partial Class addContractRequest
         'Pasar en el Hidden field el value del tab
         Me.HFActivetab.Value = 3
 
-        'controlar que este digitado un numero de contrato
-        If Not IsNumeric(Me.txtcontractnumberadjusted.Text) Then
-            Me.lblAddPolizaNfo.ForeColor = Drawing.Color.Red
-            Me.lblAddPolizaNfo.Text = "El numero del contrato no es un número. O no se ha diligenciado."
-            Exit Sub
-        Else
-            Me.lblAddPolizaNfo.Text = ""
+        'Verificar el formato de tipo de contrato
+        If Me.chkSignedContract.Checked = False Then
+
+            'controlar que este digitado un numero de contrato
+            If Not IsNumeric(Me.txtcontractnumberadjusted.Text) Then
+                Me.lblAddPolizaNfo.ForeColor = Drawing.Color.Red
+                Me.lblAddPolizaNfo.Text = "El numero del contrato no es un número. O no se ha diligenciado."
+                Exit Sub
+            Else
+                Me.lblAddPolizaNfo.Text = ""
+            End If
+
         End If
 
         'controlar que este digitado un numero de poliza
