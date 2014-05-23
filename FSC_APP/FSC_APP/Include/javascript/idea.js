@@ -134,9 +134,9 @@ $(document).ready(function() {
 
         itemarrayflujos = 0;
 
-        $("#li_estado").css("display", "block");
-        $("#SaveIdea").attr("value", "Editar Idea");
-        $("#Export").css("display", "block");
+        $("#li_estado").css("display", "compact");
+        $("#SaveIdea").attr("value", "Guardar cambios");
+        $("#Export").css("display", "compact");
         borrar_carpeta();
     }
     else {
@@ -641,7 +641,7 @@ function SaveIdea_onclick() {
         else {
             $("#ctl00_cphPrincipal_Lblinformation_flujos").text("");
         }
-        $("#ctl00_cphPrincipal_containererrors").css("display", "block");
+        $("#ctl00_cphPrincipal_containererrors").css("display", "compact");
         $("#ctl00_cphPrincipal_Lblerrors_save_idea").text(mensaje_info_idea);
     }
 
@@ -752,16 +752,16 @@ function Crear_idea() {
         },
         //mostrar resultados de la creacion de la idea
         success: function(result) {
-            $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
+            $("#ctl00_cphPrincipal_containerSuccess").css("display", "compact");
             $("#SaveIdea").css("display", "none");
-            $("#Export").css("display", "block");
+            $("#Export").css("display", "compact");
             $("#ctl00_cphPrincipal_lblsaveinformation").text(result);
             $("#ctl00_cphPrincipal_Lbladvertencia").text("");
             $("#ctl00_cphPrincipal_Txtobligationsoftheparties").focus();
         },
         error: function() {
-            $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
-            $("#SaveIdea").css("display", "block");
+            $("#ctl00_cphPrincipal_containerSuccess").css("display", "compact");
+            $("#SaveIdea").css("display", "compact");
             $("#ctl00_cphPrincipal_lblsaveinkdformation").text("Se genero error al entrar a la operacion Ajax :");
         }
     });
@@ -876,16 +876,16 @@ function editar_idea() {
         },
         //mostrar resultados de la creacion de la idea
         success: function(result) {
-            $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
+            $("#ctl00_cphPrincipal_containerSuccess").css("display", "compact");
             $("#SaveIdea").css("display", "none");
-            $("#Export").css("display", "block");
+            $("#Export").css("display", "compact");
             $("#ctl00_cphPrincipal_lblsaveinformation").text(result);
             $("#ctl00_cphPrincipal_Lbladvertencia").text("");
             $("#ctl00_cphPrincipal_Txtobligationsoftheparties").focus();
         },
         error: function() {
-            $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
-            $("#SaveIdea").css("display", "block");
+            $("#ctl00_cphPrincipal_containerSuccess").css("display", "compact");
+            $("#SaveIdea").css("display", "compact");
             $("#ctl00_cphPrincipal_lblsaveinkdformation").text("Se genero error al entrar a la operacion Ajax :");
         }
     });
@@ -935,7 +935,7 @@ function aprobacion_idea() {
         success: function(result) {
 
             if (result == 1) {
-                $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
+                $("#ctl00_cphPrincipal_containerSuccess").css("display", "compact");
                 $("#ctl00_cphPrincipal_lblsaveinformation").text("Esta Idea ya se encuentra aprobada y NO puede ser modificada!");
                 $("#SaveIdea").css("display", "none");
                 $("#dll_estado").attr("disabled", "disabled");
@@ -944,7 +944,7 @@ function aprobacion_idea() {
             }
             else {
                 $("#ctl00_cphPrincipal_containerSuccess").css("display", "none");
-                $("#SaveIdea").css("display", "block");
+                $("#SaveIdea").css("display", "compact");
                 //   $("#dll_estado").val(3);
 
             }

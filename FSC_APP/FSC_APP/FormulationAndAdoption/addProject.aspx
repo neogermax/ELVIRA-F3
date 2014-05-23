@@ -524,7 +524,7 @@
                         <asp:DropDownList ID="ddlactors" runat="server">
                         </asp:DropDownList>
                     </select><a id="linkactors" runat="server" href="~/GeneralPlanning/addThird.aspx?prety=1&op=add&iframe=true&width=100%&height=100%"
-                        title="Nuevo actor" class="pretty">CREAR NUEVO ACTOR</a></li>
+                        title="Nuevo actor" class="pretty" style= "height: 2em;">CREAR NUEVO ACTOR</a></li>
                 <li>
                     <asp:Label ID="Label53" runat="server" Text="Tipo"></asp:Label>
                     <asp:DropDownList ID="ddlType" runat="server" CssClass="Ccombo">

@@ -94,7 +94,7 @@
         </tr>
         <tr>
             <td style="width: 131px">
-                <asp:Label ID="Lblprogram" runat="server" Text="Programa"></asp:Label>
+                <asp:Label ID="Lblprogram" runat="server" Text="Objetivos Estratégicos"></asp:Label>
             </td>
             <td style="width: 577px">
                 <asp:TextBox ID="Txtprogram" runat="server" Width="400px" MaxLength="50" Height="25px"
