@@ -10670,7 +10670,7 @@ Public Class Facade
             ExceptionPolicy.HandleException(ex, "GattacaStandardExceptionPolicy")
 
             ' subir el error de nivel
-            Throw New Exception("Error al agregar una Idea. ")
+            Throw New Exception("Error al agregar una Idea. - " & ex.Message)
 
         Finally
             ' liberando recursos

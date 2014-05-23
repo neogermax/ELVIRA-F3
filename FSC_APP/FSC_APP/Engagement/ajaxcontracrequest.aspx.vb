@@ -18,6 +18,7 @@ Partial Class Engagement_ajaxcontracrequest
         Dim id_b As Integer
         Dim fecha As Date
         Dim duracion As String
+        Dim dias As Integer
         Dim contrato As String
         Dim proyecto As String
         Dim columna As String
@@ -36,8 +37,16 @@ Partial Class Engagement_ajaxcontracrequest
                 Case "calculafechas"
                     fecha = Convert.ToDateTime(Request.QueryString("fecha").ToString())
                     duracion = Request.QueryString("duracion").ToString()
+
+                    'Validar días
+                    If Request.QueryString("dias").ToString() = "" Then
+                        dias = 0
+                    Else
+                        dias = Request.QueryString("dias").ToString()
+                    End If
+
                     fecha = fecha.ToString("yyyy/MM/dd")
-                    calculafechas(fecha, duracion)
+                    calculafechas(fecha, duracion, dias)
 
                 Case "validarcontrato"
                     contrato = Request.QueryString("contrato").ToString()
@@ -59,8 +68,10 @@ Partial Class Engagement_ajaxcontracrequest
                     buscarsupervisor(contrato, applicationCredentials)
                 Case Else
             End Select
-        Catch ex As Exception
 
+        Catch ex As Exception
+            Dim merror As String
+            merror = ex.Message
         End Try
 
         
@@ -151,7 +162,7 @@ Partial Class Engagement_ajaxcontracrequest
 
     End Function
 
-    Public Function calculafechas(ByVal fecha As DateTime, ByVal duracion As String) As String
+    Public Function calculafechas(ByVal fecha As DateTime, ByVal duracion As String, ByVal diasadic As Integer) As String
 
         Dim objResult As String
 
@@ -177,6 +188,9 @@ Partial Class Engagement_ajaxcontracrequest
                 meses = duracion
                 dias = 0
             End If
+
+            'Agregar días extra
+            dias = dias + diasadic
 
             Dim fechafinal As Date
             'calcular la fecha final
