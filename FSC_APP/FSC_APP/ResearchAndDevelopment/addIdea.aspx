@@ -28,6 +28,7 @@
     <script src="../Include/javascript/F_globales_MGroup.js" type="text/javascript"></script>
 
     <link href="../css/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" type="text/css" />
+    
     <link href="../css/elvira_F3.css" rel="stylesheet" type="text/css" />
 
     <script src="../js/jquery-ui-1.10.3.custom.min.js" type="text/javascript"></script>
@@ -80,6 +81,13 @@
         <img style="margin-top: 5px;" src="/FSC_APP/images/alert_icon.png" width="24px" alt="Save" />
         <%-- <img style="margin-top: 5px;" src="/images/alert_icon.png" width="24px" alt="Save" />--%>
         <asp:Label ID="Lblerrors_save_idea" runat="server" Style="font-size: 14pt; color: #990000;"></asp:Label>
+    </div>
+    <div id="container_wait" runat="server" visible="true" style="width: 50%; text-align: center;
+        border: 15px solid #cecece; background: #E8E8DC; height: 200px; line-height: 50px;
+        vertical-align: middle;  z-index: 1000; position: absolute; left: 25%;">
+        <img style="margin-top: 15px;" src="../images/charge_emerging.gif" width="120px" alt="images" />
+        <asp:Label ID="Label22" runat="server" Text="Cargando información espere un momento..." Style="font-size: 14pt;
+            color: #9bbb58;"></asp:Label>
     </div>
     <br />
     <table style="width: 100%">
@@ -390,13 +398,6 @@
             </ul>
         </div>
         <div id="componentes">
-            <div id="container_wait" runat="server" visible="true" style="width: 90%; text-align: center;
-                border: 2px solid #cecece; background: #E8E8DC; height: 80px; line-height: 40px;
-                vertical-align: middle;">
-                <img style="margin-top: 10px;" src="../images/cargando.gif" width="24px" alt="images" />
-                <asp:Label ID="Label22" runat="server" Text="cargando datos espere un momento" Style="font-size: 14pt;
-                    color: #9bbb58;"></asp:Label>
-            </div>
             <ul class="left">
                 <li>
                     <asp:Label ID="Label7" runat="server" Text="Línea Estratégica "></asp:Label>

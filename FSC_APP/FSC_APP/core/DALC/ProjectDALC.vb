@@ -1328,12 +1328,12 @@ Public Class ProjectDALC
             ' 04/06/13 german rodriguez MGgroup
 
 
-            sql.Append("select distinct Idea.Code,Idea.Name,Idea.createDate, Idea.Code+'_'+Idea.Name as 'name_code' from Idea ")
-            sql.Append("left JOIN ProjectApprovalRecord par on par.Ididea = idea.Id  ")
-            sql.Append("where PAR.Ididea is null  ")
+            sql.Append(" select distinct I.Code,I.Name,I.createDate, I.Code+'_'+I.Name as 'name_code' from Idea i ")
+            sql.Append(" left JOIN ProjectApprovalRecord par on par.Ididea = i.Id ")
+            sql.Append(" where PAR.Ididea is null and i.Typeapproval = 3 ")
             If Not order.Equals(String.Empty) Then
 
-                sql.Append(" ORDER BY Idea.createDate  DESC")
+                sql.Append(" ORDER BY I.createDate  DESC")
 
             End If
 

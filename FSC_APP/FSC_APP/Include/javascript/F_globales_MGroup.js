@@ -34,3 +34,18 @@ function addCommasrefactor(str) {
     return output;
 
 }
+
+
+//funcion q genera ventana de avance de carga
+
+function carga_eventos(str_objeto) {
+
+    $("#" + str_objeto).css("display", "none");
+
+    $(document).ajaxStart(function() {
+        $(this).show($("#" + str_objeto).css("display", "block"));
+    }).ajaxStop(function() {
+        $(this).hide($("#" + str_objeto).css("display", "none"));
+    });
+
+}
