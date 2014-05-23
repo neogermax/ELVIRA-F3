@@ -641,7 +641,7 @@ function SaveIdea_onclick() {
         else {
             $("#ctl00_cphPrincipal_Lblinformation_flujos").text("");
         }
-        $("#ctl00_cphPrincipal_containererrors").css("display", "compact");
+        $("#ctl00_cphPrincipal_containererrors").css("display", "block");
         $("#ctl00_cphPrincipal_Lblerrors_save_idea").text(mensaje_info_idea);
     }
 
@@ -752,7 +752,7 @@ function Crear_idea() {
         },
         //mostrar resultados de la creacion de la idea
         success: function(result) {
-            $("#ctl00_cphPrincipal_containerSuccess").css("display", "compact");
+            $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
             $("#SaveIdea").css("display", "none");
             $("#Export").css("display", "compact");
             $("#ctl00_cphPrincipal_lblsaveinformation").text(result);
@@ -760,7 +760,7 @@ function Crear_idea() {
             $("#ctl00_cphPrincipal_Txtobligationsoftheparties").focus();
         },
         error: function() {
-            $("#ctl00_cphPrincipal_containerSuccess").css("display", "compact");
+            $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
             $("#SaveIdea").css("display", "compact");
             $("#ctl00_cphPrincipal_lblsaveinkdformation").text("Se genero error al entrar a la operacion Ajax :");
         }
@@ -876,7 +876,7 @@ function editar_idea() {
         },
         //mostrar resultados de la creacion de la idea
         success: function(result) {
-            $("#ctl00_cphPrincipal_containerSuccess").css("display", "compact");
+            $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
             $("#SaveIdea").css("display", "none");
             $("#Export").css("display", "compact");
             $("#ctl00_cphPrincipal_lblsaveinformation").text(result);
@@ -884,14 +884,11 @@ function editar_idea() {
             $("#ctl00_cphPrincipal_Txtobligationsoftheparties").focus();
         },
         error: function() {
-            $("#ctl00_cphPrincipal_containerSuccess").css("display", "compact");
+            $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
             $("#SaveIdea").css("display", "compact");
             $("#ctl00_cphPrincipal_lblsaveinkdformation").text("Se genero error al entrar a la operacion Ajax :");
         }
     });
-
-
-
 
 }
 
@@ -935,7 +932,7 @@ function aprobacion_idea() {
         success: function(result) {
 
             if (result == 1) {
-                $("#ctl00_cphPrincipal_containerSuccess").css("display", "compact");
+                $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
                 $("#ctl00_cphPrincipal_lblsaveinformation").text("Esta Idea ya se encuentra aprobada y NO puede ser modificada!");
                 $("#SaveIdea").css("display", "none");
                 $("#dll_estado").attr("disabled", "disabled");
