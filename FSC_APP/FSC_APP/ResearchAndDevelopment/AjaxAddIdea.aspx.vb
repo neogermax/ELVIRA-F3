@@ -22,7 +22,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         Dim id_b As Integer
         Dim fecha As Date
         Dim duracion, dia As String
-        Dim idprogram_list, S_code, S_linea_estrategica, S_programa, S_nombre, S_justificacion, S_objetivo, S_objetivo_esp, S_Resultados_Benef, S_Resultados_Ges_c, S_Resultados_Cap_i, S_Resultados_otros_resul, S_Fecha_inicio, S_mes, S_dia, S_Fecha_fin, S_Población, S_contratacion, S_A_Mfsc, S_A_Efsc, S_A_Mcounter, S_A_Ecounter, S_cost, S_obligaciones, S_iva, S_listubicaciones, S_listactors, S_mitigacion, S_riesgos, S_presupuestal, S_listcomponentes, S_listflujos, S_listdetallesflujos, S_listfiles As String
+        Dim type_i_p, idprogram_list, S_type_aproval, S_code, S_linea_estrategica, S_programa, S_nombre, S_justificacion, S_objetivo, S_objetivo_esp, S_Resultados_Benef, S_Resultados_Ges_c, S_Resultados_Cap_i, S_Resultados_otros_resul, S_Fecha_inicio, S_mes, S_dia, S_Fecha_fin, S_Población, S_contratacion, S_A_Mfsc, S_A_Efsc, S_A_Mcounter, S_A_Ecounter, S_cost, S_obligaciones, S_iva, S_listubicaciones, S_listactors, S_mitigacion, S_riesgos, S_presupuestal, S_listcomponentes, S_listflujos, S_listdetallesflujos, S_listfiles As String
         Dim estado_proceso, ideditar, id_lineStrategic, id_depto, idprogram, idpopulation, Countarchivo As Integer
 
         Dim strFileName() As String
@@ -108,8 +108,9 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                     S_listflujos = Request.Form("listflujos").ToString
                     S_listdetallesflujos = Request.Form("listdetallesflujos").ToString
                     S_listfiles = Request.Form("listfiles").ToString
+                    S_type_aproval = Request.Form("tipo_estado").ToString
 
-                    save_IDEA(S_code, S_linea_estrategica, S_programa, S_nombre, S_justificacion, S_objetivo, S_objetivo_esp, S_Resultados_Benef, S_Resultados_Ges_c, S_Resultados_Cap_i, S_Resultados_otros_resul, S_Fecha_inicio, S_mes, S_dia, S_Fecha_fin, S_Población, S_contratacion, S_riesgos, S_mitigacion, S_presupuestal, S_cost, S_obligaciones, S_iva, S_listubicaciones, S_listactors, S_listcomponentes, S_listflujos, S_listdetallesflujos, S_listfiles) '
+                    save_IDEA(S_code, S_linea_estrategica, S_programa, S_nombre, S_justificacion, S_objetivo, S_objetivo_esp, S_Resultados_Benef, S_Resultados_Ges_c, S_Resultados_Cap_i, S_Resultados_otros_resul, S_Fecha_inicio, S_mes, S_dia, S_Fecha_fin, S_Población, S_contratacion, S_riesgos, S_mitigacion, S_presupuestal, S_cost, S_obligaciones, S_iva, S_listubicaciones, S_listactors, S_listcomponentes, S_listflujos, S_listdetallesflujos, S_listfiles, S_type_aproval) '
 
                 Case "edit"
                     'cambio de metodologia
@@ -142,8 +143,9 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                     S_listdetallesflujos = Request.Form("listdetallesflujos").ToString
                     S_listfiles = Request.Form("listfiles").ToString
                     S_code = Request.Form("code").ToString
+                    S_type_aproval = Request.Form("tipo_estado").ToString
 
-                    edit_IDEA(S_code, S_linea_estrategica, S_programa, S_nombre, S_justificacion, S_objetivo, S_objetivo_esp, S_Resultados_Benef, S_Resultados_Ges_c, S_Resultados_Cap_i, S_Resultados_otros_resul, S_Fecha_inicio, S_mes, S_dia, S_Fecha_fin, S_Población, S_contratacion, S_riesgos, S_mitigacion, S_presupuestal, S_cost, S_obligaciones, S_iva, S_listubicaciones, S_listactors, S_listcomponentes, S_listflujos, S_listdetallesflujos, S_listfiles) '
+                    edit_IDEA(S_code, S_linea_estrategica, S_programa, S_nombre, S_justificacion, S_objetivo, S_objetivo_esp, S_Resultados_Benef, S_Resultados_Ges_c, S_Resultados_Cap_i, S_Resultados_otros_resul, S_Fecha_inicio, S_mes, S_dia, S_Fecha_fin, S_Población, S_contratacion, S_riesgos, S_mitigacion, S_presupuestal, S_cost, S_obligaciones, S_iva, S_listubicaciones, S_listactors, S_listcomponentes, S_listflujos, S_listdetallesflujos, S_listfiles, S_type_aproval) '
 
                 Case Else
 
@@ -314,6 +316,16 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                 Case "View_componentes_array"
                     ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
                     searh_component_array(ideditar)
+
+                Case "C_type_aproval"
+                    type_i_p = Request.QueryString("type").ToString
+                    charge_typeAproval(type_i_p)
+
+                Case "Ctypaproval_view"
+
+                    ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
+                    searh_c_typeaproval(ideditar)
+
                 Case Else
 
             End Select
@@ -321,6 +333,63 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         End If
 
     End Sub
+
+    Protected Function searh_c_typeaproval(ByVal ididea As Integer)
+
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+
+        Dim sql As New StringBuilder
+        Dim objSqlCommand As New SqlCommand
+        Dim type_aproval_value As String = ""
+
+        sql.Append(" select i.typeapproval from idea i where i.id =" & ididea)
+
+        Dim data_c_typeaproval = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
+
+        If data_c_typeaproval = 0 Then
+            type_aproval_value = "0"
+        Else
+            type_aproval_value = data_c_typeaproval
+        End If
+
+        Response.Write(type_aproval_value)
+
+    End Function
+
+    Protected Function charge_typeAproval(ByVal type As String)
+
+
+        Dim sql As New StringBuilder
+        Dim objSqlCommand As New SqlCommand
+        Dim data As DataTable
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+
+        If type = "I" Then
+
+            sql.Append(" select id,estados from Type_aproval_project ")
+            sql.Append(" where aplica_idea ='s' ")
+            sql.Append(" order by estados asc")
+
+        Else
+
+            sql.Append(" select id,estados from Type_aproval_project ")
+            sql.Append(" order by estados asc")
+
+        End If
+
+
+        ' ejecutar la intruccion
+        data = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+        Dim html As String = "<option>Seleccione...</opption>"
+        For Each row As DataRow In data.Rows
+            html &= String.Format("<option value = ""{0}"">{1}</option>", row(0).ToString(), row(1).ToString())
+        Next
+
+        ' retornar el objeto
+        Response.Write(html)
+
+    End Function
 
     Public Function searh_component_array(ByVal ididea As Integer)
 
@@ -406,7 +475,6 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
     Public Function searh_c_typecontract(ByVal ididea As Integer)
 
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
-        Dim ProgramComponentByIdea As New ProgramComponentByIdeaDALC
 
         Dim sql As New StringBuilder
         Dim objSqlCommand As New SqlCommand
@@ -1419,7 +1487,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
         Data_programcomponent = facade.getProgramComponentList(applicationCredentials, idProgram:=idprogram, enabled:="1", order:="Code")
 
-    
+
         For Each row In Data_programcomponent
             ' cargar el valor del campo
             id = row.id
@@ -1449,7 +1517,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
             End If
 
         Next
-      
+
         Response.Write(htmlresults)
 
 
@@ -1656,6 +1724,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
             'RECORREMOS LA CANTIDAD DE VECES ASIGNADAS
             For index_ubi As Integer = 0 To t_file
 
+
                 Dim objDocument As DocumentsEntity = New DocumentsEntity()
                 Dim objDocumentbyEntity As DocumentsByEntityEntity = New DocumentsByEntityEntity()
 
@@ -1684,6 +1753,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                 objDocument.Id_document = Convert.ToInt32(idfileexist)
 
                 'cargamos al list
+
                 Dim sql As New StringBuilder
                 Dim dtData, dtDatadoc As DataTable
 
@@ -1949,7 +2019,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
     ''' <param name="cost"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Function save_IDEA(ByVal code As String, ByVal line_strategic As String, ByVal program As String, ByVal name As String, ByVal justify As String, ByVal objetive As String, ByVal obj_esp As String, ByVal resul_bef As String, ByVal resul_ges_c As String, ByVal resul_cap_i As String, ByVal otros_resul As String, ByVal fecha_i As String, ByVal mes As String, ByVal dia As String, ByVal fecha_f As String, ByVal poblacion As String, ByVal contratacion As String, ByVal riesgos As String, ByVal mitigacion As String, ByVal presupuestal As String, ByVal cost As String, ByVal obligaciones As String, ByVal iva As String, ByVal list_ubicacion As String, ByVal list_actor As String, ByVal list_componentes As String, ByVal list_flujos As String, ByVal list_detalles_flujos As String, ByVal list_files As String) '
+    Public Function save_IDEA(ByVal code As String, ByVal line_strategic As String, ByVal program As String, ByVal name As String, ByVal justify As String, ByVal objetive As String, ByVal obj_esp As String, ByVal resul_bef As String, ByVal resul_ges_c As String, ByVal resul_cap_i As String, ByVal otros_resul As String, ByVal fecha_i As String, ByVal mes As String, ByVal dia As String, ByVal fecha_f As String, ByVal poblacion As String, ByVal contratacion As String, ByVal riesgos As String, ByVal mitigacion As String, ByVal presupuestal As String, ByVal cost As String, ByVal obligaciones As String, ByVal iva As String, ByVal list_ubicacion As String, ByVal list_actor As String, ByVal list_componentes As String, ByVal list_flujos As String, ByVal list_detalles_flujos As String, ByVal list_files As String, ByVal type_aproval As String) '
 
         Dim facade As New Facade
         Dim objIdea As New IdeaEntity
@@ -2277,6 +2347,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
             objIdea.presupuestal = presupuestal
             objIdea.dia = dia
             objIdea.iva = iva
+            objIdea.Typeapproval = 3
 
             ''objIdea.Loadingobservations = clean_vbCrLf(Me.txtobser.Text)
 
@@ -2331,7 +2402,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
     End Function
 
-    Public Function edit_IDEA(ByVal code As String, ByVal line_strategic As String, ByVal program As String, ByVal name As String, ByVal justify As String, ByVal objetive As String, ByVal obj_esp As String, ByVal resul_bef As String, ByVal resul_ges_c As String, ByVal resul_cap_i As String, ByVal otros_resul As String, ByVal fecha_i As String, ByVal mes As String, ByVal dia As String, ByVal fecha_f As String, ByVal poblacion As String, ByVal contratacion As String, ByVal riesgos As String, ByVal mitigacion As String, ByVal presupuestal As String, ByVal cost As String, ByVal obligaciones As String, ByVal iva As String, ByVal list_ubicacion As String, ByVal list_actor As String, ByVal list_componentes As String, ByVal list_flujos As String, ByVal list_detalles_flujos As String, ByVal list_files As String)
+    Public Function edit_IDEA(ByVal code As String, ByVal line_strategic As String, ByVal program As String, ByVal name As String, ByVal justify As String, ByVal objetive As String, ByVal obj_esp As String, ByVal resul_bef As String, ByVal resul_ges_c As String, ByVal resul_cap_i As String, ByVal otros_resul As String, ByVal fecha_i As String, ByVal mes As String, ByVal dia As String, ByVal fecha_f As String, ByVal poblacion As String, ByVal contratacion As String, ByVal riesgos As String, ByVal mitigacion As String, ByVal presupuestal As String, ByVal cost As String, ByVal obligaciones As String, ByVal iva As String, ByVal list_ubicacion As String, ByVal list_actor As String, ByVal list_componentes As String, ByVal list_flujos As String, ByVal list_detalles_flujos As String, ByVal list_files As String, ByVal type_aproval As String)
 
         Dim facade As New Facade
         Dim objIdea As New IdeaEntity
@@ -2655,6 +2726,8 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
             objIdea.presupuestal = presupuestal
             objIdea.dia = dia
             objIdea.iva = iva
+            objIdea.Typeapproval = type_aproval
+
 
             ''objIdea.Loadingobservations = clean_vbCrLf(Me.txtobser.Text)
 
@@ -2680,11 +2753,14 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
             facade.updateIdea(applicationCredentials, objIdea)
 
+            delete_documents(objIdea.id)
+            save_document_IDEA(list_files, objIdea.id)
+
             Dim Result As String
 
             If objIdea.id <> 0 Then
 
-                Result = "La idea se modifico correctamente !"
+                Result = "La idea se modifico correctamente!"
                 Response.Write(Result)
 
             Else
@@ -2701,6 +2777,22 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
     End Function
 
+    Protected Function delete_documents(ByVal id_idea As String)
+
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+
+        Dim sql As New StringBuilder
+        Dim dtData, dtDatadoc As DataTable
+
+        sql.Append(" delete Documents where id in (select iddocuments from DocumentsByEntity where EntityName = 'IdeaEntity' and  IdnEntity = " & id_idea & ")")
+        GattacaApplication.RunSQL(applicationCredentials, sql.ToString)
+
+        sql = New StringBuilder
+
+        sql.Append(" delete DocumentsByEntity where EntityName = 'IdeaEntity' and IdnEntity = " & id_idea)
+        GattacaApplication.RunSQL(applicationCredentials, sql.ToString)
+
+    End Function
 
 End Class
 

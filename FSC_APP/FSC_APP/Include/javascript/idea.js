@@ -90,6 +90,9 @@ $(document).ready(function() {
         Ctype_project();
         Cpopulation();
         validarporcentaje();
+
+        Ctypeaproval();
+
         ClineEstrategic();
 
         $("#ddlStrategicLines").ready(function() {
@@ -102,7 +105,7 @@ $(document).ready(function() {
         edit_component_view();
 
         load_idarchive();
-        
+
         view_ubicacion();
         view_ubicacion_array();
 
@@ -118,23 +121,27 @@ $(document).ready(function() {
         View_flujos_actors_array();
 
         View_detalle_flujo_array();
-        
+
         aprobacion_idea();
 
         View_anexos_array();
         View_anexos();
-
         //$("#ddlStrategicLines").ready(function() { ClineEstrategic_edit(); });
 
         var timer_cline_edit = setTimeout("Cpopulation_view();", 2000);
         var timer_cline_edit = setTimeout("Ctypcontract_view();", 2000);
+        var timer_cline_edit = setTimeout("Ctypaproval_view();", 2000);
+
         itemarrayflujos = 0;
 
+        $("#li_estado").css("display", "block");
         $("#SaveIdea").attr("value", "Editar Idea");
         $("#Export").css("display", "block");
         borrar_carpeta();
     }
     else {
+
+        $("#li_estado").css("display", "none");
 
         operacionesIdea();
         actors_transanccion();
@@ -156,12 +163,17 @@ $(document).ready(function() {
         Cpopulation();
         validarporcentaje();
 
+
         $("#SaveIdea").attr("value", "Crear Idea");
         $("#Export").css("display", "none");
-
         borrar_carpeta();
 
     }
+
+    //validar campos fechas
+    validar_campofecha('ctl00_cphPrincipal_txtstartdate', 'ctl00_cphPrincipal_lblHelpstartdate');
+    validar_campofecha('ctl00_cphPrincipal_txtfechapago', 'ctl00_cphPrincipal_helpfechapago');
+
 
     $("#ctl00_cphPrincipal_containerSuccess").css("display", "none");
     $("#ctl00_cphPrincipal_containererrors").css("display", "none");
@@ -458,7 +470,7 @@ function SaveIdea_onclick() {
 
         if (sURLVariables[0] == "op=edit") {
             editar_idea();
-            //copiar_archivos();
+            copiar_archivos();
         }
         else {
             Crear_idea();
@@ -734,6 +746,7 @@ function Crear_idea() {
             "listflujos": cambio_text(listflujos.toString()),
             "listdetallesflujos": listdetallesflujos.toString(),
             "listfiles": listfiles.toString(),
+            "tipo_estado": $("#dll_estado").val(),
             "listactores": listactores.toString()
 
         },
@@ -857,6 +870,7 @@ function editar_idea() {
             "listflujos": cambio_text(listflujos.toString()),
             "listdetallesflujos": listdetallesflujos.toString(),
             "listfiles": listfiles.toString(),
+            "tipo_estado": $("#dll_estado").val(),
             "listactores": listactores.toString()
 
         },
@@ -923,11 +937,16 @@ function aprobacion_idea() {
             if (result == 1) {
                 $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
                 $("#ctl00_cphPrincipal_lblsaveinformation").text("Esta Idea ya se encuentra aprobada y NO puede ser modificada!");
-                $("#EditIdea").css("display", "none");
+                $("#SaveIdea").css("display", "none");
+                $("#dll_estado").attr("disabled", "disabled");
+                $("#dll_estado").val(1);
+
             }
             else {
                 $("#ctl00_cphPrincipal_containerSuccess").css("display", "none");
-                $("#EditIdea").css("display", "block");
+                $("#SaveIdea").css("display", "block");
+                //   $("#dll_estado").val(3);
+
             }
 
 
@@ -971,5 +990,5 @@ function copiar_archivos() {
         }
     });
 
-
 }
+

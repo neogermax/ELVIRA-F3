@@ -197,6 +197,7 @@ Public Class IdeaDALC
              "RiskMitigation," & _
              "RisksIdentified," & _
              "ideaappliesIVA," & _
+             "Typeapproval," & _
              "BudgetRoute" & _
              ")")
 
@@ -232,6 +233,7 @@ Public Class IdeaDALC
             sql.AppendLine("'" & Idea.mitigacion & "',")
             sql.AppendLine("'" & Idea.riesgos & "',")
             sql.AppendLine("'" & Idea.iva & "',")
+            sql.AppendLine("'" & Idea.Typeapproval & "',")
             sql.AppendLine("'" & Idea.presupuestal & "')")
 
             ' TODO: 17 ideadalc add se crean nuevos campos
@@ -1021,6 +1023,7 @@ Public Class IdeaDALC
             sql.AppendLine(" OtherResults = '" & Idea.OthersResults & "',") 'campo nuevo fase II german rodriguez
             sql.AppendLine(" Enddate = '" & Idea.Enddate.ToString("yyyyMMdd") & "',") 'campo nuevo fase II german rodriguez
             sql.AppendLine(" obligationsoftheparties = '" & Idea.Obligaciones & "',") 'campo nuevo fase II german rodriguez
+            sql.AppendLine(" typeapproval = '" & Idea.Typeapproval & "',") 'campo nuevo fase II german rodriguez
             sql.AppendLine(" RiskMitigation = '" & Idea.mitigacion & "',") 'campo nuevo fase II german rodriguez
             sql.AppendLine(" RisksIdentified = '" & Idea.riesgos & "',") 'campo nuevo fase II german rodriguez
             sql.AppendLine(" ideaappliesIVA = '" & Idea.iva & "',") 'campo nuevo fase II german rodriguez

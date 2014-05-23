@@ -159,6 +159,10 @@ $(document).ready(function() {
         //        $("#Export").css("display", "none");
     }
 
+    //validar campos fechas
+    validar_campofecha('ctl00_cphPrincipal_txtstartdate', 'ctl00_cphPrincipal_lblHelpstartdate');
+    validar_campofecha('ctl00_cphPrincipal_txtfechapago', 'ctl00_cphPrincipal_helpfechapago');
+  
     $("#ctl00_cphPrincipal_containerSuccess").css("display", "none");
     $("#ctl00_cphPrincipal_containererrors").css("display", "none");
 
@@ -845,3 +849,4 @@ function cambio_text(str_txt) {
 
     return str_txt;
 }
+

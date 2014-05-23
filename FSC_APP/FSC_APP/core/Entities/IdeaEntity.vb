@@ -58,6 +58,7 @@ Public Class IdeaEntity
     Private _presupuestal As String
     Private _dia As String
     Private _OthersResults As String
+    Private _Typeapproval As String
 
     Private _paymentflowByProjectList As List(Of PaymentFlowEntity)
     Private _DetailedcashflowsbyIdeaList As List(Of DetailedcashflowsEntity)
@@ -434,6 +435,14 @@ Public Class IdeaEntity
         End Get
         Set(ByVal value As String)
             Me._OthersResults = value
+        End Set
+    End Property
+    Public Property Typeapproval() As String
+        Get
+            Return Me._Typeapproval
+        End Get
+        Set(ByVal value As String)
+            Me._Typeapproval = value
         End Set
     End Property
 

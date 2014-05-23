@@ -29,6 +29,8 @@
 
     <script src="../Include/javascript/proyecto_inf_prin.js" type="text/javascript"></script>
 
+    <script src="../Include/javascript/F_globales_MGroup.js" type="text/javascript"></script>
+
     <script src="../Include/javascript/Proyecto_componentes.js" type="text/javascript"></script>
 
     <script src="../Include/javascript/numeral.min.js"></script>
@@ -230,13 +232,22 @@
                     <select id="ddlPupulation" class="Ccombo">
                         <asp:DropDownList ID="ddlPupulation" runat="server">
                         </asp:DropDownList>
-                    </select><asp:Label ID="lblHelppopulation" runat="server" ForeColor="#990000"></asp:Label></li>
+                    </select><asp:Label ID="lblHelppopulation" runat="server" ForeColor="#990000"></asp:Label>
+                </li>
                 <li>
                     <asp:Label ID="Label13" runat="server" Text="Modalidad de Contratación"></asp:Label>
                     <select id="ddlmodcontract" class="Ccombo">
                         <asp:DropDownList ID="ddlmodcontract" runat="server">
                         </asp:DropDownList>
                     </select><asp:Label ID="Lblmodcontract" runat="server" ForeColor="#990000"></asp:Label></li>
+                <li>
+                    <asp:Label ID="Lblestado" runat="server" Text="Estado del proyecto"></asp:Label>
+                    <select id="dll_estado" class="Ccombo">
+                        <asp:DropDownList ID="dll_estado" runat="server">
+                        </asp:DropDownList>
+                    </select>
+                    <asp:Label ID="Lblhelp_estado" runat="server" ForeColor="#990000"></asp:Label>
+                </li>
                 <li>
                     <asp:Label ID="Label21" runat="server" Text="¿El IVA esta incluido en el valor total?"></asp:Label>
                     <asp:RadioButtonList ID="RBnList_iva" runat="server" Height="53px" RepeatDirection="Horizontal"
@@ -423,7 +434,7 @@
                         <asp:Label ID="Lbltitlecomponet" runat="server" Text="Componentes"></asp:Label>
                         <ul id="seleccionarcomponente"></ul>
                     </td>
-                    <td style="width: 100px; vertical-align: middle;" >
+                    <td style="width: 100px; vertical-align: middle;">
                         <input id="Btnaddcomponent" type="button" value=">>" name="Add_Componente" onclick="return Btnaddcomponent_onclick()" /><input
                             id="Btndeletecomponent" type="button" value="<<" name="Delete_Componente" onclick="return Btndeletecomponent_onclick()" />
                     </td>
@@ -686,6 +697,7 @@
                         <cc1:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtfechapago"
                             Format="yyyy/MM/dd" Enabled="True">
                         </cc1:CalendarExtender>
+                        <asp:Label ID="helpfechapago" runat="server" ForeColor="#990000"></asp:Label>
                     </li>
                     <li width="25%">
                         <asp:Label ID="lblporcentaje" runat="server" Text="Porcentaje"></asp:Label>

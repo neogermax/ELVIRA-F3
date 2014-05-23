@@ -90,6 +90,24 @@ function Ctypcontract_view() {
 
 }
 
+function Ctypaproval_view() {
+
+    $.ajax({
+        url: "AjaxAddIdea.aspx",
+        type: "GET",
+        data: { "action": "Ctypaproval_view", "ididea": ideditar },
+        success: function(result) {
+
+            $("#dll_estado").val(result);
+            $("#dll_estado").trigger("liszt:updated");
+
+        },
+        error: function(msg) {
+            alert("No se pueden cargar la linea estrategica deseada.");
+        }
+    });
+
+}
 
 //funcion para cargar matriz principal edicion
 function View_matriz_principal() {
@@ -331,20 +349,6 @@ function operacionesIdea() {
 }
 
 
-//fucion para añadir los miles a los numeros refactorizada
-function addCommasrefactor(str) {
-    var amount = new String(str);
-    amount = amount.split("").reverse();
-
-    var output = "";
-    for (var i = 0; i <= amount.length - 1; i++) {
-        output = amount[i] + output;
-        if ((i + 1) % 3 == 0 && (amount.length - 1) !== i) output = '.' + output;
-    }
-    return output;
-
-}
-
 //funcion para exportar los terminos de referencia
 function Export_onclick() {
 
@@ -379,5 +383,19 @@ function Export_onclick() {
     $("#Export").attr("href", str_url);
 }
 
+function Ctypeaproval() {
 
+    $.ajax({
+        url: "AjaxAddIdea.aspx",
+        type: "GET",
+        data: { "action": "C_type_aproval", "type": "I" },
+        success: function(result) {
+            $("#dll_estado").html(result);
+            $("#dll_estado").trigger("liszt:updated");
+        },
+        error: function(msg) {
+            alert("No se pueden cargar los estados de la idea.");
+        }
+    });
 
+}

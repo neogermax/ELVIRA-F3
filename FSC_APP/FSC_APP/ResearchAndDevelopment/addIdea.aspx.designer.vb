@@ -1681,6 +1681,15 @@ Partial Public Class addIdea
     Protected WithEvents cesfechapago As Global.AjaxControlToolkit.CalendarExtender
 
     '''<summary>
+    '''Control helpfechapago.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents helpfechapago As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
     '''Control lblporcentaje.
     '''</summary>
     '''<remarks>

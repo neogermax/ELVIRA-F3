@@ -25,6 +25,8 @@
 
     <script src="../Include/javascript/Idea_file.js" type="text/javascript"></script>
 
+    <script src="../Include/javascript/F_globales_MGroup.js" type="text/javascript"></script>
+
     <link href="../css/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" type="text/css" />
     <link href="../css/elvira_F3.css" rel="stylesheet" type="text/css" />
 
@@ -253,6 +255,14 @@
                         </asp:DropDownList>
                     </select>
                     <asp:Label ID="Lblmodcontract" runat="server" ForeColor="#990000"></asp:Label>
+                </li>
+                <li id="li_estado" >
+                    <asp:Label ID="Lblestado" runat="server" Text="Estado de la idea"></asp:Label>
+                    <select id="dll_estado" class="Ccombo">
+                        <asp:DropDownList ID="dll_estado" runat="server">
+                        </asp:DropDownList>
+                    </select>
+                    <asp:Label ID="Lblhelp_estado" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
                 <li>
                     <asp:Label ID="Label21" runat="server" Text="¿El IVA esta incluido en el valor total?"></asp:Label>
@@ -762,6 +772,7 @@
                         <cc1:CalendarExtender ID="cesfechapago" runat="server" TargetControlID="txtfechapago"
                             Format="yyyy/MM/dd" Enabled="True">
                         </cc1:CalendarExtender>
+                        <asp:Label ID="helpfechapago" runat="server" ForeColor="#990000"></asp:Label>
                     </li>
                     <li width="25%">
                         <asp:Label ID="lblporcentaje" runat="server" Text="Porcentaje"></asp:Label>
