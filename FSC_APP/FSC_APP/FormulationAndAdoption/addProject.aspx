@@ -397,12 +397,15 @@
                 <li>
                     <input id="SaveProject" type="button" value="Crear proyecto" name="Save_Project"
                         onclick="return SaveProject_onclick()" />
+                    <a id="Export" href="#" onclick="Export_onclick();" target="_blank" style= "height: 2em;">Exportar términos
+                        de referencia</a>
                     <asp:Button ID="btntermsreference" runat="server" Text="Exportar términos de referencia"
                         ValidationGroup="infoGenral" Visible="false" />
                     <asp:Button ID="btnAddData" runat="server" Text="Crear proyecto" ValidationGroup="infoGenral"
                         Visible="false" />
                     <asp:Button ID="btnSave" runat="server" Text="Guardar cambios" ValidationGroup="infoGenral"
                         Visible="false" />
+                   
                 </li>
             </ul>
         </div>

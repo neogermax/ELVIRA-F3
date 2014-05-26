@@ -86,6 +86,9 @@ Partial Class addProject
 
             'Cargar los combos
             Select Case op
+                Case "export"
+                    Export_Project()
+
                 Case "add"
                     loadCombos()
             End Select
@@ -3042,6 +3045,659 @@ Partial Class addProject
 
     End Sub
 
+    Public Function Export_Project()
+
+        Dim sql As New StringBuilder
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+
+        Dim Data_component_group, Data_idea, Data_pagos, Data_pagos_detalles, Data_detalles_actores, Data_totales_actors, Data_componet, Data_others, Data_ubicacion As DataTable
+
+        Dim arrayubicacion, arrayactor, arraycomponente As String()
+        Dim deptovalexist, Cityvalexist, existidprogram, existactorsVal, existactorsName, existtipoactors, existcontact, existcedula, existtelefono, existemail, existdiner, existespecie, existtotal As String
+
+
+        Dim ruta, riesgos, mitigacion, obligaciones, dia, ddlc, ddls, ddlp, name, just, objet, objetesp, resulb, resulgc, resulci, resulotros, fech, dura, people, vt1, vt2, vt3, fuent, est, datanex, dept, munip, actor, action, vt4, vt5, vt6, active As String
+        Dim FSCval As String = ""
+        Dim ididea As Integer
+
+        Dim idideastr = Request.QueryString("id")
+
+        If idideastr = "" Then
+
+            sql.Append("select MAX(id) from idea")
+            ididea = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
+
+        Else
+
+            ididea = idideastr
+
+        End If
+
+        sql = New StringBuilder
+
+        sql.Append("select convert(bigint,REPLACE(ti.FSCorCounterpartContribution,'.','')) from Idea i  ")
+        sql.Append("inner join ThirdByIdea ti on i.Id = ti.IdIdea  ")
+        sql.Append(" inner join Third t on t.Id= ti.IdThird ")
+        sql.Append("where (t.code = '8600383389' And ti.IdIdea = " & ididea & ")")
+
+        FSCval = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
+
+        If FSCval = 0 Then
+            vt5 = "0"
+        Else
+            vt5 = Format(Convert.ToInt64(FSCval), "#,###.##")
+        End If
+        sql = New StringBuilder
+        sql.Append("select sum(convert(bigint,REPLACE(ti.FSCorCounterpartContribution,'.',''))) from Idea i   ")
+        sql.Append("inner join ThirdByIdea ti on i.Id=ti.IdIdea  ")
+        sql.Append(" inner join Third t on t.Id= ti.IdThird ")
+        sql.Append("where(t.code <> '8600383389' And ti.IdIdea = " & ididea & ")")
+
+
+        Dim otrosval = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
+
+        If otrosval = 0 Then
+            vt4 = "0"
+        Else
+            vt4 = Format(Convert.ToInt64(otrosval), "#,###.##")
+        End If
+
+        sql = New StringBuilder
+        sql.Append("select Name,Justification,Objective,AreaDescription,results,ResultsKnowledgeManagement,ResultsInstalledCapacity,OtherResults,StartDate,Duration,days,Cost,obligationsoftheparties,RiskMitigation,RisksIdentified,BudgetRoute from idea ")
+        sql.Append(" where id = " & ididea)
+
+        ' ejecutar la intruccion
+        Data_idea = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+
+        sql = New StringBuilder
+
+        sql.Append(" select i.Id, p.Name as objetivo, l.Name as linea_estra from idea i ")
+        sql.Append(" inner join ProgramComponentByIdea pci on pci.IdIdea= i.Id ")
+        sql.Append(" inner join ProgramComponent pc on pc.Id = pci.IdProgramComponent ")
+        sql.Append(" inner join Program p on p.Id = pc.IdProgram ")
+        sql.Append(" inner join StrategicLine l on l.Id = p.IdStrategicLine ")
+
+        sql.Append(" where i.id = " & ididea)
+
+        Data_componet = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+        sql = New StringBuilder
+
+        sql.Append(" select distinct p.Code as objetivo_estrategico from ProgramComponentByIdea pci ")
+        sql.Append(" inner join ProgramComponent pc on pci.IdProgramComponent = pc.Id ")
+        sql.Append(" inner join Program P ON P.Id = pc.IdProgram ")
+
+        sql.Append(" where pci.IdIdea = " & ididea)
+
+        Data_component_group = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+        sql = New StringBuilder
+        sql.Append(" select  tp.Contract, p.Pupulation  from Idea i ")
+        sql.Append(" inner join typecontract tp on tp.id = i.Idtypecontract ")
+        sql.Append(" inner join Population p on p.Id= i.Population ")
+
+        sql.Append(" where i.id = " & ididea)
+
+        Data_others = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+        sql = New StringBuilder
+
+        sql.Append("select ti.Name, ti.Type, ti.Contact,ti.Documents,ti.Phone, ti.Email, ti.Vrmoney, ti.VrSpecies, ti.FSCorCounterpartContribution, ti.generatesflow  from ThirdByIdea ti where ti.IdIdea = " & ididea)
+
+        Data_detalles_actores = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+
+        sql = New StringBuilder
+        sql.Append(" select dep.Name as dapartamento, c.Name as municipio from LocationByIdea li ")
+        sql.Append(" inner join FSC_eSecurity.dbo.depto dep on dep.id = li.iddepto ")
+        sql.Append(" inner join FSC_eSecurity.dbo.City c on c.ID = li.IdCity ")
+        sql.Append(" where li.ididea = " & ididea)
+
+        Data_ubicacion = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+
+        If Data_componet.Rows.Count > 0 Then
+
+            If IsDBNull(Data_componet.Rows(0)("linea_estra")) = False Then
+                ddls = Data_componet.Rows(0)("linea_estra")
+            Else
+                ddls = ""
+            End If
+
+        End If
+
+        If Data_others.Rows.Count > 0 Then
+
+            If IsDBNull(Data_others.Rows(0)("Contract")) = False Then
+                ddlc = Data_others.Rows(0)("Contract")
+            Else
+                ddlc = ""
+            End If
+
+
+            If IsDBNull(Data_others.Rows(0)("Pupulation")) = False Then
+                people = Data_others.Rows(0)("Pupulation")
+            Else
+                people = ""
+            End If
+
+        End If
+
+
+
+        If Data_idea.Rows.Count > 0 Then
+
+            If IsDBNull(Data_idea.Rows(0)("Name")) = False Then
+                name = Data_idea.Rows(0)("Name")
+            Else
+                name = ""
+            End If
+
+            If IsDBNull(Data_idea.Rows(0)("Justification")) = False Then
+                just = Data_idea.Rows(0)("Justification")
+            Else
+                just = ""
+            End If
+
+            If IsDBNull(Data_idea.Rows(0)("Objective")) = False Then
+                objet = Data_idea.Rows(0)("Objective")
+            Else
+                objet = ""
+            End If
+
+            If IsDBNull(Data_idea.Rows(0)("AreaDescription")) = False Then
+                objetesp = Data_idea.Rows(0)("AreaDescription")
+            Else
+                objetesp = ""
+            End If
+
+            If IsDBNull(Data_idea.Rows(0)("results")) = False Then
+                resulb = Data_idea.Rows(0)("results")
+            Else
+                resulb = ""
+            End If
+
+            If IsDBNull(Data_idea.Rows(0)("ResultsKnowledgeManagement")) = False Then
+                resulgc = Data_idea.Rows(0)("ResultsKnowledgeManagement")
+            Else
+                resulgc = ""
+            End If
+
+            If IsDBNull(Data_idea.Rows(0)("ResultsInstalledCapacity")) = False Then
+                resulci = Data_idea.Rows(0)("ResultsInstalledCapacity")
+            Else
+                resulci = ""
+            End If
+
+            If IsDBNull(Data_idea.Rows(0)("OtherResults")) = False Then
+                resulotros = Data_idea.Rows(0)("OtherResults")
+            Else
+                resulotros = ""
+            End If
+
+            If IsDBNull(Data_idea.Rows(0)("StartDate")) = False Then
+                fech = Data_idea.Rows(0)("StartDate")
+            Else
+                fech = ""
+            End If
+
+            If IsDBNull(Data_idea.Rows(0)("Duration")) = False Then
+                dura = Data_idea.Rows(0)("Duration")
+            Else
+                dura = 0
+            End If
+
+            If IsDBNull(Data_idea.Rows(0)("days")) = False Then
+                dia = Data_idea.Rows(0)("days")
+            Else
+                dia = 0
+            End If
+
+            If IsDBNull(Data_idea.Rows(0)("cost")) = False Then
+                vt3 = Data_idea.Rows(0)("cost")
+                vt6 = Data_idea.Rows(0)("cost")
+            Else
+                vt3 = 0
+                vt6 = 0
+            End If
+
+            If IsDBNull(Data_idea.Rows(0)("obligationsoftheparties")) = False Then
+                obligaciones = Data_idea.Rows(0)("obligationsoftheparties")
+            Else
+                obligaciones = ""
+            End If
+
+            If IsDBNull(Data_idea.Rows(0)("RiskMitigation")) = False Then
+                mitigacion = Data_idea.Rows(0)("RiskMitigation")
+            Else
+                mitigacion = ""
+            End If
+
+            If IsDBNull(Data_idea.Rows(0)("RisksIdentified")) = False Then
+                riesgos = Data_idea.Rows(0)("RisksIdentified")
+            Else
+                riesgos = ""
+            End If
+
+            If IsDBNull(Data_idea.Rows(0)("BudgetRoute")) = False Then
+                ruta = Data_idea.Rows(0)("BudgetRoute")
+            Else
+                ruta = ""
+            End If
+
+        End If
+
+
+
+        Dim contador As Integer = 0
+        Dim contadoractor As Integer = 0
+        Dim contadorcomp As Integer = 0
+
+        Dim swicth As Integer = 0
+        Dim swicth_actor As Integer = 0
+
+        Response.Clear()
+        Response.Buffer = True
+        Response.AddHeader("content-disposition", "attachment;filename=IdeaExport.doc")
+        Response.Charset = "UTF8Encoding"
+        Response.ContentType = "application/vnd.ms-word "
+
+
+        If objetesp = "" Then
+            objetesp = "No Aplica"
+        End If
+        If resulb = "" Then
+            resulb = "No Aplica"
+        End If
+        If resulgc = "" Then
+            resulgc = "No Aplica"
+        End If
+        If resulci = "" Then
+            resulci = "No Aplica"
+        End If
+        If dura = "" Then
+            dura = "No Aplica"
+        End If
+        If obligaciones = "" Then
+            obligaciones = "No Aplica"
+        End If
+        If mitigacion = "" Then
+            mitigacion = "No Aplica"
+        End If
+
+        If riesgos = "" Then
+            riesgos = "No Aplica"
+        End If
+        If ruta = "" Then
+            ruta = "No Aplica"
+        End If
+
+        Response.Output.WriteLine("<meta http-equiv=""Content-Type"" content=""text/html; charset=UTF-8"" /><table  style=""font-family: 'Times New Roman';"" Width=""100%"">")
+
+        Response.Output.WriteLine("<body><p style=""text-align: center;""><strong><span style=""font-family:Times New Roman,helvetica,sans-serif;"">T&Eacute;RMINOS DE REFERENCIA</span></strong></p><p><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span></p>")
+        Response.Output.WriteLine("<table border=""0"" cellpadding=""1"" cellspacing=""1"" style=""width: 100%;""><tbody><tr><td style=""width: 20%;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>L&iacute;nea Estrat&eacute;gica:</strong></span></td><td>" & ddls.ToString() & "</td></tr>")
+        Response.Output.WriteLine("<tr><td style=""width: 50%;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Objetivos Estrat&eacute;gicos:</strong></span></td><td>")
+
+        Dim valuar_compo As Integer = Data_component_group.Rows.Count
+        valuar_compo = valuar_compo - 1
+
+        Dim celda_componente As Integer = 0
+
+        If Data_component_group.Rows.Count > 0 Then
+
+            For Each det_componente In Data_component_group.Rows
+
+                If IsDBNull(Data_component_group.Rows(celda_componente)("objetivo_estrategico")) = False Then
+                    ddlp = Data_component_group.Rows(celda_componente)("objetivo_estrategico")
+                End If
+
+
+                If valuar_compo = celda_componente Then
+
+                    Response.Output.WriteLine(ddlp)
+
+                Else
+                    Response.Output.WriteLine(ddlp & ", ")
+
+                End If
+
+                celda_componente = celda_componente + 1
+
+            Next
+
+        End If
+
+        Response.Output.WriteLine("</td></tr><tr><td style=""width: 50%;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Nombre de la Idea:</strong></span></td><td>" & name.ToString() & "</td></tr>")
+        Response.Output.WriteLine("<tr><td style=""width: 50%;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Localizaci&oacute;n Geogr&aacute;fica:</strong></span></td><td>")
+
+
+        Dim lbldepto, lblcity As String
+
+
+        Dim valuar_ubi As Integer = Data_ubicacion.Rows.Count
+        valuar_ubi = valuar_ubi - 1
+
+
+        Dim celda_ubicacion As Integer = 0
+
+        If Data_ubicacion.Rows.Count > 0 Then
+
+            For Each det_actor In Data_ubicacion.Rows
+
+                If IsDBNull(Data_ubicacion.Rows(celda_ubicacion)("dapartamento")) = False Then
+                    lbldepto = Data_ubicacion.Rows(celda_ubicacion)("dapartamento")
+                End If
+
+                If IsDBNull(Data_ubicacion.Rows(celda_ubicacion)("municipio")) = False Then
+                    lblcity = Data_ubicacion.Rows(celda_ubicacion)("municipio")
+                End If
+
+                If valuar_ubi = celda_ubicacion Then
+
+                    Response.Output.WriteLine(lbldepto.ToString() & ", " & lblcity.ToString())
+
+                Else
+                    Response.Output.WriteLine(lbldepto.ToString() & ", " & lblcity.ToString() & " || ")
+
+                End If
+
+                celda_ubicacion = celda_ubicacion + 1
+
+            Next
+
+        End If
+
+
+        Response.Output.WriteLine("</td></tr><tr><td style=""width: 50%;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Poblaci&oacute;n Objetivo:</strong></span></td><td>" & people.ToString() & "</td></tr>")
+        Response.Output.WriteLine("<tr><td style=""width: 50%;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Fecha de Inicio:</strong></span></td><td>" & fech.ToString() & "</td></tr>")
+        Response.Output.WriteLine("<tr><td style=""width: 50%;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Duraci&oacute;n en meses:</strong></span></td><td> Meses: " & dura.ToString() & " Dias: " & dia.ToString() & "</td></tr>")
+
+        Dim fechafinal = calculafechas(Convert.ToDateTime(fech), dura, dia)
+
+        Response.Output.WriteLine("<tr><td style=""width: 50%;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Fecha de Finalizaci&oacute;n:</strong></span></td><td>" & Convert.ToString(fechafinal) & "</td></tr>")
+        Response.Output.WriteLine("<tr><td style=""width: 50%;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Modalidad de contrataci&oacute;n:</strong></span></span></td><td>" & ddlc.ToString() & "</td></tr>")
+        Response.Output.WriteLine("<tr><td style=""width: 50%;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Ruta Presupuestal:</strong></span></span></td><td>" & ruta.ToString() & "</td></tr>")
+        Response.Output.WriteLine("<tr><td style=""width: 50%;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Valor Total:</strong></span></td><td>" & Format(Convert.ToInt64(vt3), "#,###.##") & "</td></tr>")
+        ''
+        Response.Output.WriteLine("<tr><td style=""width: 50%;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Aplica IVA:</strong></span></td><td> si </td></tr>")
+        Response.Output.WriteLine("<tr><td style=""width: 50%;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>No. de Idea:</strong></span></td><td>" & ididea.ToString() & "</td></tr></tbody></table>")
+        Response.Output.WriteLine("<p><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Actores:</strong></span></p>")
+        Response.Output.WriteLine("<table border=""1"" cellpadding=""1"" cellspacing=""1"" style=""width: 100%;""><tbody><tr><td style=""width: 16%; text-align: center;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Actor</strong></span></td><td style=""width: 16%; text-align: center;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Tipo</strong></span></td><td style=""width: 16%; text-align: center;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Contacto</strong></span></td><td style=""width: 16%; text-align: center;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Tel&eacute;fono</strong></span></td><td style=""width: 16%; text-align: center;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Correo electr&oacute;nico</strong></span></td></tr>")
+
+        Dim lblname, labelcontact, labeldocument, labeltype, labelphone, labelemail As String
+
+        Dim celda_det_actors_dat As Integer = 0
+
+        If Data_detalles_actores.Rows.Count > 0 Then
+
+            For Each det_actor In Data_detalles_actores.Rows
+
+                If IsDBNull(Data_detalles_actores.Rows(celda_det_actors_dat)("Name")) = False Then
+                    lblname = Data_detalles_actores.Rows(celda_det_actors_dat)("Name")
+                End If
+
+                If IsDBNull(Data_detalles_actores.Rows(celda_det_actors_dat)("Type")) = False Then
+                    labeltype = Data_detalles_actores.Rows(celda_det_actors_dat)("Type")
+                End If
+
+                If IsDBNull(Data_detalles_actores.Rows(celda_det_actors_dat)("Contact")) = False Then
+                    labelcontact = Data_detalles_actores.Rows(celda_det_actors_dat)("Contact")
+                End If
+
+                If IsDBNull(Data_detalles_actores.Rows(celda_det_actors_dat)("Documents")) = False Then
+                    labeldocument = Data_detalles_actores.Rows(celda_det_actors_dat)("Documents")
+                End If
+
+                If IsDBNull(Data_detalles_actores.Rows(celda_det_actors_dat)("Phone")) = False Then
+                    labelphone = Data_detalles_actores.Rows(celda_det_actors_dat)("Phone")
+                End If
+
+                If IsDBNull(Data_detalles_actores.Rows(celda_det_actors_dat)("Email")) = False Then
+                    labelemail = Data_detalles_actores.Rows(celda_det_actors_dat)("Email")
+                End If
+
+                Response.Output.WriteLine("<tr><td style=""width: 16%;"">" & lblname.ToString() & "</td><td style=""width: 16%;"">" & labeltype.ToString() & "</td><td style=""width: 16%;"">" & labelcontact.ToString() & "</td><td style=""width: 16%;"">" & labelphone.ToString() & "</td><td style=""width: 16%;"">" & labelemail.ToString() & "</tr>")
+
+                celda_det_actors_dat = celda_det_actors_dat + 1
+
+            Next
+
+        End If
+
+        Response.Output.WriteLine("</tbody></table><p><strong><span style=""font-family:Times New Roman,helvetica,sans-serif;"">JUSTIFICAC&Iacute;ON:</span></strong></p>")
+        Response.Output.WriteLine("<table border=""0"" cellpadding=""1"" cellspacing=""1"" height=""67"" width=""100%""><tbody><tr><td style=""text-align: justify;"">" & just.ToString() & "</td></tr></tbody></table>")
+        Response.Output.WriteLine("<p><strong><span style=""font-family:Times New Roman,helvetica,sans-serif;"">OBJETIVO GENERAL:</span></strong></p><table border=""0"" cellpadding=""1"" cellspacing=""1"" height=""71"" width=""100%""><tbody><tr><td style=""text-align: justify;"">" & objet.ToString() & "</td></tr></tbody></table>")
+        Response.Output.WriteLine("<p><strong><span style=""font-family:Times New Roman,helvetica,sans-serif;"">OBJETIVOS ESPEC&Iacute;FICOS:</span></strong></p><table border=""0"" cellpadding=""1"" cellspacing=""1"" height=""82"" style=""width: 100%;"" width=""100%""><tbody><tr><td style=""text-align: justify;"">" & objetesp.ToString() & "</td></tr></tbody></table>")
+        Response.Output.WriteLine("<p><strong><span style=""font-family:Times New Roman,helvetica,sans-serif;"">RESULTADOS ESPERADOS:</span></strong></p>")
+        Response.Output.WriteLine("<table border=""0"" cellpadding=""1"" cellspacing=""1"" style=""width: 100%;""><tbody><tr>")
+        Response.Output.WriteLine("<td style=""width: 5%; text-align: right;""><strong><span style=""font-family:Times New Roman,helvetica,sans-serif;"">&gt;</span></strong></td><td style=""width: 20%;""><strong><span style=""font-family:Times New Roman,helvetica,sans-serif;"">Beneficiarios:</span></strong></td><td style=""text-align: justify;"">" & resulb.ToString() & "</td></tr><tr>")
+        Response.Output.WriteLine("<td style=""width: 5%; text-align: right;""><strong><span style=""font-family:Times New Roman,helvetica,sans-serif;"">&gt;</span></strong></td><td style=""width: 20%;""><strong><span style=""font-family:Times New Roman,helvetica,sans-serif;"">Gesti&oacute;n del conocimiento:</span></strong></td><td style=""text-align: justify;"">" & resulgc.ToString() & "</td></tr><tr>")
+        Response.Output.WriteLine("<td style=""width: 5%; text-align: right;""><strong><span style=""font-family:Times New Roman,helvetica,sans-serif;"">&gt;</span></strong></td><td style=""width: 20%;""><strong><span style=""font-family:Times New Roman,helvetica,sans-serif;"">Capacidad instalada:</span></strong></td><td style=""text-align: justify;"">" & resulci.ToString() & "</td></tr><tr>")
+        Response.Output.WriteLine("<td style=""width: 5%; text-align: right;""><strong><span style=""font-family:Times New Roman,helvetica,sans-serif;"">&gt;</span></strong></td><td style=""width: 20%;""><strong><span style=""font-family:Times New Roman,helvetica,sans-serif;"">Otros:</span></strong></td><td style=""text-align: justify;"">" & resulotros.ToString() & "</td></tr></tbody></table>")
+
+        Response.Output.WriteLine("</tbody></table><p><strong><span style=""font-family:Times New Roman,helvetica,sans-serif;"">OBLIGACIONES DE LAS PARTES:</span></strong></p>")
+        Response.Output.WriteLine("<table border=""0"" cellpadding=""1"" cellspacing=""1"" height=""67"" width=""100%""><tbody><tr><td style=""text-align: justify;"">" & obligaciones.ToString() & "</td></tr></tbody></table>")
+
+
+        Response.Output.WriteLine("<p><strong><span style=""font-family:Times New Roman,helvetica,sans-serif;"">PRESUPUESTO GENERAL:</span></strong></p>")
+        Response.Output.WriteLine("<table border=""1"" cellpadding=""1"" cellspacing=""1"" style=""width: 100%;""><tbody><tr><td style=""text-align: center;""><b><span lang=""ES"" style=""font-size: 12pt; line-height: 115%; font-family: 'Times New Roman', serif;"">Actor</span></b></td><td style=""text-align: center;""><b><span lang=""ES"" style=""font-size: 12pt; line-height: 115%; font-family: 'Times New Roman', serif;"">Efectivo</span></b></td><td style=""text-align: center;""><b><span lang=""ES"" style=""font-size: 12pt; line-height: 115%; font-family: 'Times New Roman', serif;"">Especie</span></b></td><td style=""text-align: center;""><b><span lang=""ES"" style=""font-size: 12pt; line-height: 115%; font-family: 'Times New Roman', serif;"">Total Aporte</span></b></td></tr>")
+
+
+        Dim celda_det_actors As Integer = 0
+
+        Dim name_actor, V_Efectivo, V_Especie, V_total, T_efectivo, T_especies, T_total, flujos_gene As String
+
+        If Data_detalles_actores.Rows.Count > 0 Then
+
+            For Each det_actor In Data_detalles_actores.Rows
+
+                If IsDBNull(Data_detalles_actores.Rows(celda_det_actors)("Name")) = False Then
+                    name_actor = Data_detalles_actores.Rows(celda_det_actors)("Name")
+                End If
+
+                If IsDBNull(Data_detalles_actores.Rows(celda_det_actors)("Vrmoney")) = False Then
+                    V_Efectivo = Data_detalles_actores.Rows(celda_det_actors)("Vrmoney")
+
+                    If V_Efectivo = "" Then
+                        V_Efectivo = 0
+                    End If
+
+                End If
+
+                If IsDBNull(Data_detalles_actores.Rows(celda_det_actors)("VrSpecies")) = False Then
+                    V_Especie = Data_detalles_actores.Rows(celda_det_actors)("VrSpecies")
+
+                    If V_Especie = "" Then
+                        V_Especie = 0
+                    End If
+
+                End If
+
+                If IsDBNull(Data_detalles_actores.Rows(celda_det_actors)("FSCorCounterpartContribution")) = False Then
+                    V_total = Data_detalles_actores.Rows(celda_det_actors)("FSCorCounterpartContribution")
+
+                    If V_total = "" Then
+                        V_total = 0
+                    End If
+                End If
+
+                Response.Output.WriteLine("<tr><td>" & name_actor & "</td><td  style=""text-align: center;"">" & V_Efectivo & "</td><td  style=""text-align: center;"">" & V_Especie & "</td><td  style=""text-align: center;"">" & V_total & "</td></tr>")
+
+                celda_det_actors = celda_det_actors + 1
+
+            Next
+
+        End If
+
+        sql = New StringBuilder
+
+        sql.Append("select sum(cast(replace(Vrmoney,'.','') as int))as v_money, sum(cast(replace(VrSpecies,'.','') as int)) as v_especie,sum(cast(replace(FSCorCounterpartContribution,'.','') as int)) as V_total from ThirdByIdea where ididea =" & ididea)
+        Data_totales_actors = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+        If Data_totales_actors.Rows.Count > 0 Then
+
+            If IsDBNull(Data_totales_actors.Rows(0)("v_money")) = False Then
+                T_efectivo = Data_totales_actors.Rows(0)("v_money")
+            End If
+
+            If IsDBNull(Data_totales_actors.Rows(0)("v_especie")) = False Then
+                T_especies = Data_totales_actors.Rows(0)("v_especie")
+            End If
+
+            If IsDBNull(Data_totales_actors.Rows(0)("V_total")) = False Then
+                T_total = Data_totales_actors.Rows(0)("V_total")
+            End If
+
+        End If
+
+        Response.Output.WriteLine("<tr><td style=""text-align: center;""><b><span lang=""ES"" style=""font-size: 12pt; line-height: 115%; font-family: 'Times New Roman', serif;"">Total</span></b></td><td style=""text-align: center;""> " & Format(Convert.ToInt64(T_efectivo), "#,###.##") & "</td><td style=""text-align: center;""> " & Format(Convert.ToInt64(T_especies), "#,###.##") & "</td><td style=""text-align: center;""> " & Format(Convert.ToInt64(T_total), "#,###.##") & "</td></tr></tbody></table>")
+
+
+        Response.Output.WriteLine("<span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span>")
+
+        Response.Output.WriteLine("<p><u><strong><span style=""font-family:Times New Roman,helvetica,sans-serif;"">FLUJOS DE PAGOS</span></strong></u></p>")
+
+        Response.Output.WriteLine("<table border=""0"" cellpadding=""1"" cellspacing=""1"" style=""width: 100%;""><tbody><tr><td style=""width: 20%;""><strong>*Aporte de:</strong></td><td>")
+
+        name_actor = ""
+        Dim name_str As String
+        Dim celdanombre As Integer = 0
+
+        If Data_detalles_actores.Rows.Count > 0 Then
+
+            Dim valuar As Integer = Data_detalles_actores.Rows.Count
+            valuar = valuar - 1
+
+            For Each Eachnombreitem In Data_detalles_actores.Rows
+                name_actor = Data_detalles_actores.Rows(celdanombre)("Name")
+
+                flujos_gene = Data_detalles_actores.Rows(celdanombre)("generatesflow")
+
+                If flujos_gene = "s" Then
+
+                    If IsDBNull(Data_detalles_actores.Rows(celdanombre)("Name")) = False Then
+                        name_actor = Data_detalles_actores.Rows(celdanombre)("Name")
+                    End If
+
+                    If valuar = celdanombre Then
+                        name_str &= name_actor
+                    Else
+                        name_str &= name_actor & ", "
+                    End If
+
+                End If
+
+                celdanombre = celdanombre + 1
+            Next
+
+        End If
+
+        Response.Output.WriteLine(name_str & "</td></tr></tbody></table>")
+
+        Response.Output.WriteLine("<table border=""1"" cellpadding=""1"" cellspacing=""1"" height=""125"" width=""100%""><tbody><tr><td style=""width: 16%; text-align: center;"">&nbsp;</td><td style=""width: 16%; text-align: center;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Valor</strong></span></td><td style=""width: 5%; text-align: center;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>%</strong></span></td><td style=""width: 16%; text-align: center;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Origen de los Recursos</strong></span></td><td style=""width: 16%; text-align: center;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Contraentrega</strong></span></td><td style=""width: 16%; text-align: center;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Fecha</strong></span></td></tr>")
+
+        sql = New StringBuilder
+
+        sql.Append("select N_pagos,valorparcial, porcentaje,entregable,fecha  from Paymentflow where ididea = " & ididea)
+        Data_pagos = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+
+        Dim celdapago As Integer = 0
+        Dim celdadetalle As Integer = 0
+
+        Dim valorp, porsent, entregp, fechap, np, detalles, aport, desem As String
+
+        If Data_pagos.Rows.Count > 0 Then
+
+            For Each pagoitem In Data_pagos.Rows
+
+                If IsDBNull(Data_pagos.Rows(celdapago)("N_pagos")) = False Then
+                    np = Data_pagos.Rows(celdapago)("N_pagos")
+
+                    detalles = ""
+                    celdadetalle = 0
+
+                    sql = New StringBuilder
+
+                    sql.Append("select n_pago, Aportante, Desembolso from Detailedcashflows where IdIdea = " & ididea & " and N_pago = " & np)
+                    Data_pagos_detalles = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+                    If Data_pagos_detalles.Rows.Count > 0 Then
+
+                        Dim valuar_det As Integer = Data_pagos_detalles.Rows.Count
+                        valuar_det = valuar_det - 1
+
+                        For Each detalleitem In Data_pagos_detalles.Rows
+
+                            If IsDBNull(Data_pagos_detalles.Rows(celdadetalle)("Aportante")) = False Then
+                                aport = Data_pagos_detalles.Rows(celdadetalle)("Aportante")
+                            End If
+                            If IsDBNull(Data_pagos_detalles.Rows(celdadetalle)("Desembolso")) = False Then
+                                desem = Data_pagos_detalles.Rows(celdadetalle)("Desembolso")
+                            End If
+
+                            If valuar_det = celdadetalle Then
+
+                                detalles &= aport & " valor: " & desem
+                            Else
+
+                                detalles &= aport & " valor: " & desem & " || "
+                            End If
+
+
+                            celdadetalle = celdadetalle + 1
+                        Next
+                    End If
+
+
+                End If
+                If IsDBNull(Data_pagos.Rows(celdapago)("valorparcial")) = False Then
+                    valorp = Data_pagos.Rows(celdapago)("valorparcial")
+                End If
+                If IsDBNull(Data_pagos.Rows(celdapago)("porcentaje")) = False Then
+                    porsent = Data_pagos.Rows(celdapago)("porcentaje")
+                End If
+                If IsDBNull(Data_pagos.Rows(celdapago)("entregable")) = False Then
+                    entregp = Data_pagos.Rows(celdapago)("entregable")
+                End If
+                If IsDBNull(Data_pagos.Rows(celdapago)("fecha")) = False Then
+                    fechap = Data_pagos.Rows(celdapago)("fecha")
+                End If
+
+                Response.Output.WriteLine("<tr><td style=""width: 16%;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong> Desembolso " & np & "  </strong></span></td><td style=""width: 16%;"">" & Format(Convert.ToDecimal(valorp), "#,###.##") & "</td><td style=""width: 5%;"">" & porsent.ToString() & "</td><td style=""width: 16%;"">" & detalles & "</td><td style=""width: 16%;"">" & entregp.ToString() & "</td><td style=""width: 16%;"">" & fechap.ToString() & "</td></tr><tr>")
+
+                celdapago = celdapago + 1
+
+            Next
+
+            sql = New StringBuilder
+
+            sql.Append("select sum(valorparcial) from Paymentflow where ididea =" & ididea)
+            Dim valtpagos = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
+
+            Response.Output.WriteLine("<tr><td style=""width: 16%;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Total</strong></span></td><td style=""width: 16%;"">" & Format(Convert.ToInt64(valtpagos), "#,###.##") & "</td><td style=""width: 5%;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>100%</strong></span></td><td style=""width: 16%;""></td><td style=""width: 16%;""></td><td style=""width: 16%;""></td></tr><tr>")
+
+
+        End If
+
+
+        Response.Output.WriteLine("</tbody></table><p>&nbsp;</p><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong><u>IDENTIFICACI&Oacute;N DE RIESGOS</u></strong></span></p><p>&nbsp;</p>")
+        Response.Output.WriteLine("<table border=""1"" cellpadding=""1"" cellspacing=""1"" style=""width: 100%;""><tbody><tr><td style=""width: 50%; text-align: center;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Riesgo identificado</strong></span></td><td style=""text-align: center;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Acci&oacute;n de mitigaci&oacute;n</strong></span></td></tr><tr><td style=""width: 50%;"">" & mitigacion.ToString() & "</td><td>" & riesgos.ToString() & "</td></tr></tbody></table>")
+        Response.Output.WriteLine("<p><strong>*Nota:&nbsp; </strong>En la Fundaci&oacute;n Saldarriaga Concha promovemos la cultura de racionalizaci&oacute;n en el uso del papel, por lo que se solicita informar a nuestros operadores que solo debe enviar el <strong>informe final </strong>impreso<strong>.</strong></p>")
+
+        Response.Flush()
+        Response.End()
+
+        Try
+
+
+        Catch ex As Exception
+
+        End Try
+    End Function
+
+
     Protected Function getDateFinalization(ByVal duracion As Double, ByVal inicio As String) As String
 
         Dim objResult As String
@@ -3095,7 +3751,7 @@ Partial Class addProject
     End Function
 
     ' funcion que calcula fecha final segun duracion en meses
-    Public Function calculafechas(ByVal fecha As DateTime, ByVal duracion As String) As String
+    Public Function calculafechas(ByVal fecha As DateTime, ByVal duracion As String, ByVal dias_ope As String) As String
 
         Dim objResult As String
 
@@ -3104,19 +3760,26 @@ Partial Class addProject
             Dim arrdias() As String
             Dim decimas As String
             Dim dias As Double
+            Dim meses As Double
 
             'Cambiar puntos por comas
             duracion = Replace(duracion, ".", ",", 1)
 
             'Calcular los dias
-
             arrdias = Split(duracion, ",", , CompareMethod.Text)
 
             If UBound(arrdias) > 0 Then
                 decimas = "0," & arrdias(1)
                 dias = CInt(decimas * 30)
+                meses = CInt(arrdias(0))
             Else
-                dias = 0
+                meses = duracion
+                If dias_ope = "" Then
+                    dias = 0
+                Else
+                    dias = dias_ope
+                End If
+
             End If
 
             Dim fechafinal As Date
@@ -3126,16 +3789,18 @@ Partial Class addProject
             tipointervalo = DateInterval.Day
 
             'Agregar los meses a la fecha
-            Dim finalizacionpre As String = DateAdd(DateInterval.Month, CInt(duracion), fechafinal)
+            Dim finalizacionpre As String = DateAdd(DateInterval.Month, meses, fechafinal)
             finalizacionpre = CDate(finalizacionpre)
 
             'Agregar los días a la fecha
             Dim finalizacion As String = DateAdd("d", dias, finalizacionpre)
             finalizacion = CDate(finalizacion)
+
             Dim quitadia As String = DateAdd("d", -1, finalizacion)
+
             Dim fechaok As DateTime = quitadia
 
-            objResult = fechaok.ToString("yyyy/MM/dd")
+            objResult = fechaok.ToString("dd/MM/yyyy")
 
         Catch ex As Exception
 

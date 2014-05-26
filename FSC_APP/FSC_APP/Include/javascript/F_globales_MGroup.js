@@ -37,8 +37,19 @@ function addCommasrefactor(str) {
 
 
 //funcion q genera ventana de avance de carga
-
 function carga_eventos(str_objeto) {
+
+    //DIV GENERICO PARA LA VENTANA EMERGENTE CON PARAMETROS Y DISEÑO//
+
+    //COLOCAR EN LA PARTE SUPERIOR DESPUES DEL MODULO DE  <script></script>//
+
+    // <div id="container_wait" runat="server" visible="true" style="width: 50%; text-align: center;
+    //        border: 15px solid #cecece; background: #E8E8DC; height: 200px; line-height: 50px;
+    //        vertical-align: middle;  z-index: 1000;position: absolute; left: 25%; border-radius: 40px;">
+    //        <img style="margin-top: 15px;" src="../images/charge_emerging.gif" width="120px" alt="images" />
+    //        <asp:Label ID="Label22" runat="server" Text="Cargando información espere un momento..." Style="font-size: 14pt;
+    //            color: #9bbb58;"></asp:Label>
+    // </div>
 
     $("#" + str_objeto).css("display", "none");
 
@@ -47,5 +58,4 @@ function carga_eventos(str_objeto) {
     }).ajaxStop(function() {
         $(this).hide($("#" + str_objeto).css("display", "none"));
     });
-
-}
+ }
