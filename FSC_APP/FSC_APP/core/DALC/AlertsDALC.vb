@@ -86,7 +86,7 @@ Public Class AlertsDALC
 
             CtxSetAbort()
             GattacaApplication.Publish(ex, objApplicationCredentials.ClientName, MODULENAME, "load")
-            ExceptionPolicy.HandleException(ex, "GattacaStandardExceptionPolicy"
+            ExceptionPolicy.HandleException(ex, "GattacaStandardExceptionPolicy")
 
             Throw New Exception("Error al cargar una Alerta. " & ex.Message)
 

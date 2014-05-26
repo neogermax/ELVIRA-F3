@@ -22,6 +22,7 @@ Partial Class Engagement_ajaxcontracrequest
         Dim contrato As String
         Dim proyecto As String
         Dim columna As String
+        Dim fechacrea As Date
 
         Try
             action = Request.QueryString("action").ToString()
@@ -59,6 +60,10 @@ Partial Class Engagement_ajaxcontracrequest
                         columna = Request.QueryString("columna").ToString()
                         buscarproyecto(proyecto, columna, applicationCredentials)
                     End If
+
+                Case "validacreacion"
+                    fechacrea = Request.QueryString("fechacrea").ToString()
+
 
                 Case "getsupervisor"
                     contrato = Request.QueryString("contract").ToString()

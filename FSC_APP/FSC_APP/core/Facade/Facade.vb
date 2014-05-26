@@ -948,7 +948,7 @@ Public Class Facade
 
         Catch ex As Exception
             CtxSetAbort()
-            GattacaApplication.Publish(ex, objApplicationCredentials.ClientName, MODULENAME, "getAlertList"
+            GattacaApplication.Publish(ex, objApplicationCredentials.ClientName, MODULENAME, "getAlertList")
             ExceptionPolicy.HandleException(ex, "GattcaSatndardExceptionPolicy")
             Throw New Exception("Error al carga la lista de Alertas.")
 
@@ -994,7 +994,7 @@ Public Class Facade
 
             CtxSetAbort()
             GattacaApplication.Publish(ex, objApplicationCredentials.ClientName, MODULENAME, "loadAlert")
-            ExceptionPolicy.HandleException(ex, "GattacaStandardExceptionPolicy"
+            ExceptionPolicy.HandleException(ex, "GattacaStandardExceptionPolicy")
 
             Throw New Exception("Error al cargar una alerta.")
 
