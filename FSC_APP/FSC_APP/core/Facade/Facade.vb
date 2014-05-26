@@ -937,15 +937,128 @@ Public Class Facade
 
 #End Region
 
+#Region "Alerts"
+    Public Function getAlertList(ByVal objApplicationCredentials As Gattaca.Application.Credentials.ApplicationCredentials, Optional ByVal name As String = "", Optional ByVal subject As String = "") As List(Of AlertsEntity)
+
+        Dim Alert As New AlertsDALC
+
+        Try
+            getAlertList = Alert.getList(objApplicationCredentials, name, subject)
+            CtxSetComplete()
+
+        Catch ex As Exception
+            CtxSetAbort()
+            GattacaApplication.Publish(ex, objApplicationCredentials.ClientName, MODULENAME, "getAlertList"
+            ExceptionPolicy.HandleException(ex, "GattcaSatndardExceptionPolicy")
+            Throw New Exception("Error al carga la lista de Alertas.")
+
+        Finally
+            Alert = Nothing
+
+        End Try
+
+    End Function
+
+    Public Function addAlert(ByVal objApplicationCredentials As Gattaca.Application.Credentials.ApplicationCredentials, ByVal Alert As AlertsEntity) As Long
+
+        Dim AlertsDALC As New AlertsDALC
+
+        Try
+            addAlert = AlertsDALC.add(objApplicationCredentials, Alert)
+            CtxSetComplete()
+
+        Catch ex As Exception
+
+            CtxSetAbort()
+            GattacaApplication.Publish(ex, objApplicationCredentials.ClientName, MODULENAME, "addAlert")
+            ExceptionPolicy.HandleException(ex, "GattacaStandardExceptionPolicy")
+            Throw New Exception("Error al agregar una alerta.")
+
+        Finally
+
+            AlertsDALC = Nothing
+
+        End Try
+
+    End Function
+
+    Public Function loadAlert(ByVal objApplicationCredentials As Gattaca.Application.Credentials.ApplicationCredentials, ByVal idAlert As Long) As AlertsEntity
+
+        Dim AlertsDALC As New AlertsDALC
+
+        Try
+            loadAlert = AlertsDALC.load(objApplicationCredentials, idAlert)
+            CtxSetComplete()
+
+        Catch ex As Exception
+
+            CtxSetAbort()
+            GattacaApplication.Publish(ex, objApplicationCredentials.ClientName, MODULENAME, "loadAlert")
+            ExceptionPolicy.HandleException(ex, "GattacaStandardExceptionPolicy"
+
+            Throw New Exception("Error al cargar una alerta.")
+
+        Finally
+            AlertsDALC = Nothing
+
+        End Try
+
+    End Function
+
+    Public Function updateAlert(ByVal objApplicationCredentials As Gattaca.Application.Credentials.ApplicationCredentials, ByVal Alert As AlertsEntity) As Long
+
+        Dim AlertsDALC As New AlertsDALC
+
+        Try
+            updateAlert = AlertsDALC.update(objApplicationCredentials, Alert)
+            CtxSetComplete()
+
+        Catch ex As Exception
+            CtxSetAbort()
+            GattacaApplication.Publish(ex, objApplicationCredentials.ClientName, MODULENAME, "updateAlert")
+            ExceptionPolicy.HandleException(ex, "GattacaStandardExceptionPolicy")
+            Throw New Exception("Error al modificar una Alerta.")
+
+        Finally
+            AlertsDALC = Nothing
+
+        End Try
+
+    End Function
+
+    Public Sub deleteALert(ByVal objApplicationCredentials As Gattaca.Application.Credentials.ApplicationCredentials, ByVal IdAlert As Long)
+
+        Dim AlertsDALC As New AlertsDALC
+
+        Try
+            AlertsDALC.delete(objApplicationCredentials, IdAlert)
+            CtxSetComplete()
+
+        Catch ex As Exception
+            CtxSetAbort()
+            GattacaApplication.Publish(ex, objApplicationCredentials.ClientName, MODULENAME, "deleteAlert")
+            ExceptionPolicy.HandleException(ex, "GattacaStandardExceptionPolicy")
+
+            Throw New Exception("Error al eliminar una Alerta.")
+
+        Finally
+            AlertsDALC = Nothing
+
+        End Try
+
+    End Sub
+
+#End Region
+
 #Region "IndicatorByAccumulationIndicatorSet"
 
-    ''' <summary>
-    ''' Obtener la lista de IndicatorByAccumulationIndicatorSet registradas en el sistema
-    ''' </summary>
-    ''' <param name="objApplicationCredentials"></param>
-    ''' <param name="order"></param>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
+        ''' <summary>
+        ''' Obtener la lista de IndicatorByAccumulationIndicatorSet registradas en el sistema
+        ''' </summary>
+        ''' <param name="objApplicationCredentials"></param>
+        ''' <param name="order"></param>
+        ''' <returns></returns>
+        ''' <remarks></remarks>
     Public Function getIndicatorByAccumulationIndicatorSetList(ByVal objApplicationCredentials As Gattaca.Application.Credentials.ApplicationCredentials, _
         Optional ByVal id As String = "", _
         Optional ByVal idaccumulationindicatorset As String = "", _
@@ -5067,16 +5180,43 @@ Public Class Facade
     End Function
 
 
+    Public Function updateFromContract(ByVal objApplicationCredentials As Gattaca.Application.Credentials.ApplicationCredentials, ByVal ObjProject As ProjectEntity, ByVal ProjectId As Long) As Long
 
-    ''' <summary>
-    ''' Verifica que la entidad no este aprovada
-    ''' </summary>
-    ''' <param name="objApplicationCredentials"></param>
-    ''' <param name="EntryData"></param>
-    ''' <param name="idEntryData"></param>
-    ''' <param name="Status"></param>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
+        Dim Project As New ProjectDALC
+
+        Try
+
+            updateFromContract = Project.UpdateFromContract(objApplicationCredentials, ObjProject, ProjectId)
+
+            CtxSetComplete()
+
+        Catch ex As Exception
+
+            CtxSetAbort()
+
+            GattacaApplication.Publish(ex, objApplicationCredentials.ClientName, MODULENAME, "UpdateFromContract")
+            ExceptionPolicy.HandleException(ex, "GattacaStandardExceptionPolicy")
+
+            Throw New Exception("Error al actualizar Proyecto - " & ex.Message)
+
+        Finally
+
+            Project = Nothing
+
+        End Try
+
+    End Function
+
+
+        ''' <summary>
+        ''' Verifica que la entidad no este aprovada
+        ''' </summary>
+        ''' <param name="objApplicationCredentials"></param>
+        ''' <param name="EntryData"></param>
+        ''' <param name="idEntryData"></param>
+        ''' <param name="Status"></param>
+        ''' <returns></returns>
+        ''' <remarks></remarks>
     Public Function verifyapproveproject(ByVal objApplicationCredentials As Gattaca.Application.Credentials.ApplicationCredentials, _
     ByVal EntryData As String, _
      ByVal idEntryData As String, _

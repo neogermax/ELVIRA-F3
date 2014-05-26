@@ -435,8 +435,6 @@ function fecha() {
 
 }
 
-
-
 //funcion para traer los terceros de la idea a aprobar
 function buscaractores() {
 
