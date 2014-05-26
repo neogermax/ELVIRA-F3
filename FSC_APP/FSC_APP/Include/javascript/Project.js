@@ -96,6 +96,8 @@ $(document).ready(function() {
         Cprogram();
         cargarcomponente();
 
+        Ctypeaproval();
+
         //edit_component_view();
 
         //        view_ubicacion();
@@ -126,8 +128,8 @@ $(document).ready(function() {
         var timer_cline_edit = setTimeout("Ctypcontract_view();", 2000);
         var itemarrayflujos = 0;
 
-        $("#SaveProject").css("display", "none");
-        //        $("#Export").css("display", "block");
+        $("#SaveProject").css("display", "block");
+        $("#Export").css("display", "compact");
     }
     else {
 
@@ -154,9 +156,10 @@ $(document).ready(function() {
         Cpopulation();
         validarporcentaje();
 
+        Ctypeaproval();
 
         $("#SaveProject").css("display", "block");
-        //        $("#Export").css("display", "none");
+        $("#Export").css("display", "none");
     }
 
     //validar campos fechas
@@ -207,7 +210,7 @@ $(document).ready(function() {
     });
 
     $("#SaveProject").button();
-    //    $("#Export").button();
+    $("#Export").button();
     $("#B_add_location").button();
     $("#BtnaddActors").button();
     $("#Btn_add_flujo").button();
@@ -818,15 +821,15 @@ function Crear_proyecto() {
         //mostrar resultados de la creacion de la idea
         success: function(result) {
             $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
-            $("#SaveIdea").css("display", "none");
-            $("#Export").css("display", "block");
+            $("#SaveProject").css("display", "none");
+            $("#Export").css("display", "-webkit-inline-box");
             $("#ctl00_cphPrincipal_lblsaveinformation").text(result);
             $("#ctl00_cphPrincipal_Lbladvertencia").text("");
             $("#ctl00_cphPrincipal_Txtobligationsoftheparties").focus();
         },
         error: function() {
             $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
-            $("#SaveIdea").css("display", "block");
+            $("#SaveProject").css("display", "block");
             $("#ctl00_cphPrincipal_lblsaveinkdformation").text("Se genero error al entrar a la operacion Ajax :");
         }
     });

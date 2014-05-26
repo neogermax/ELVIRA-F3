@@ -397,12 +397,15 @@
                 <li>
                     <input id="SaveProject" type="button" value="Crear proyecto" name="Save_Project"
                         onclick="return SaveProject_onclick()" />
+                    <a id="Export" href="#" onclick="Export_onclick();" target="_blank" style= "height: 2em;">Exportar términos
+                        de referencia</a>
                     <asp:Button ID="btntermsreference" runat="server" Text="Exportar términos de referencia"
                         ValidationGroup="infoGenral" Visible="false" />
                     <asp:Button ID="btnAddData" runat="server" Text="Crear proyecto" ValidationGroup="infoGenral"
                         Visible="false" />
                     <asp:Button ID="btnSave" runat="server" Text="Guardar cambios" ValidationGroup="infoGenral"
                         Visible="false" />
+                   
                 </li>
             </ul>
         </div>
@@ -524,7 +527,7 @@
                         <asp:DropDownList ID="ddlactors" runat="server">
                         </asp:DropDownList>
                     </select><a id="linkactors" runat="server" href="~/GeneralPlanning/addThird.aspx?prety=1&op=add&iframe=true&width=100%&height=100%"
-                        title="Nuevo actor" class="pretty">CREAR NUEVO ACTOR</a></li>
+                        title="Nuevo actor" class="pretty" style= "height: 2em;">CREAR NUEVO ACTOR</a></li>
                 <li>
                     <asp:Label ID="Label53" runat="server" Text="Tipo"></asp:Label>
                     <asp:DropDownList ID="ddlType" runat="server" CssClass="Ccombo">

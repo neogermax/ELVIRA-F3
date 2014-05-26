@@ -134,9 +134,9 @@ $(document).ready(function() {
 
         itemarrayflujos = 0;
 
-        $("#li_estado").css("display", "block");
-        $("#SaveIdea").attr("value", "Editar Idea");
-        $("#Export").css("display", "block");
+        $("#li_estado").css("display", "compact");
+        $("#SaveIdea").attr("value", "Guardar cambios");
+        $("#Export").css("display", "compact");
         borrar_carpeta();
     }
     else {
@@ -173,7 +173,7 @@ $(document).ready(function() {
     //validar campos fechas
     validar_campofecha('ctl00_cphPrincipal_txtstartdate', 'ctl00_cphPrincipal_lblHelpstartdate');
     validar_campofecha('ctl00_cphPrincipal_txtfechapago', 'ctl00_cphPrincipal_helpfechapago');
-
+    carga_eventos("ctl00_cphPrincipal_container_wait");
 
     $("#ctl00_cphPrincipal_containerSuccess").css("display", "none");
     $("#ctl00_cphPrincipal_containererrors").css("display", "none");
@@ -754,14 +754,14 @@ function Crear_idea() {
         success: function(result) {
             $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
             $("#SaveIdea").css("display", "none");
-            $("#Export").css("display", "block");
+            $("#Export").css("display", "compact");
             $("#ctl00_cphPrincipal_lblsaveinformation").text(result);
             $("#ctl00_cphPrincipal_Lbladvertencia").text("");
             $("#ctl00_cphPrincipal_Txtobligationsoftheparties").focus();
         },
         error: function() {
             $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
-            $("#SaveIdea").css("display", "block");
+            $("#SaveIdea").css("display", "compact");
             $("#ctl00_cphPrincipal_lblsaveinkdformation").text("Se genero error al entrar a la operacion Ajax :");
         }
     });
@@ -878,20 +878,17 @@ function editar_idea() {
         success: function(result) {
             $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
             $("#SaveIdea").css("display", "none");
-            $("#Export").css("display", "block");
+            $("#Export").css("display", "compact");
             $("#ctl00_cphPrincipal_lblsaveinformation").text(result);
             $("#ctl00_cphPrincipal_Lbladvertencia").text("");
             $("#ctl00_cphPrincipal_Txtobligationsoftheparties").focus();
         },
         error: function() {
             $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
-            $("#SaveIdea").css("display", "block");
+            $("#SaveIdea").css("display", "compact");
             $("#ctl00_cphPrincipal_lblsaveinkdformation").text("Se genero error al entrar a la operacion Ajax :");
         }
     });
-
-
-
 
 }
 
@@ -944,7 +941,7 @@ function aprobacion_idea() {
             }
             else {
                 $("#ctl00_cphPrincipal_containerSuccess").css("display", "none");
-                $("#SaveIdea").css("display", "block");
+                $("#SaveIdea").css("display", "compact");
                 //   $("#dll_estado").val(3);
 
             }

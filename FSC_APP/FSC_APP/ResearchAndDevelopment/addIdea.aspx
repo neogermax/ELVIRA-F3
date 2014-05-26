@@ -28,6 +28,7 @@
     <script src="../Include/javascript/F_globales_MGroup.js" type="text/javascript"></script>
 
     <link href="../css/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" type="text/css" />
+    
     <link href="../css/elvira_F3.css" rel="stylesheet" type="text/css" />
 
     <script src="../js/jquery-ui-1.10.3.custom.min.js" type="text/javascript"></script>
@@ -81,6 +82,13 @@
         <%-- <img style="margin-top: 5px;" src="/images/alert_icon.png" width="24px" alt="Save" />--%>
         <asp:Label ID="Lblerrors_save_idea" runat="server" Style="font-size: 14pt; color: #990000;"></asp:Label>
     </div>
+    <div id="container_wait" runat="server" visible="true" style="width: 50%; text-align: center;
+        border: 15px solid #cecece; background: #E8E8DC; height: 200px; line-height: 50px;
+        vertical-align: middle;  z-index: 1000; position: absolute; left: 25%; border-radius: 40px;">
+        <img style="margin-top: 15px;" src="../images/charge_emerging.gif" width="120px" alt="images" />
+        <asp:Label ID="Label22" runat="server" Text="Cargando información espere un momento..." Style="font-size: 14pt;
+            color: #9bbb58;"></asp:Label>
+    </div>
     <br />
     <table style="width: 100%">
         <tr>
@@ -111,7 +119,7 @@
                     <asp:TextBox ID="txtid" runat="server" MaxLength="50" Width="200px"></asp:TextBox>
                     <asp:Label ID="lblHelpid" runat="server"></asp:Label>
                 </li>
-                <li>
+                <li id="li_code" runat="server" visible="false">
                     <asp:Label ID="lblcode" runat="server" Text="Código"></asp:Label>
                     <asp:TextBox ID="txtcode" runat="server" MaxLength="50" Width="400px" AutoPostBack="true"></asp:TextBox>
                     <asp:Label ID="lblHelpcode" runat="server"></asp:Label>
@@ -377,8 +385,9 @@
                     <%--<input id="EditIdea" type="button" value="Editar Idea" name="Edit_Idea" />--%>
                     <%--<input id="Export" type="button" value="Exportar términos de referencia" name="Export_Idea" onclick="return Export_onclick()" />--%>
                     <asp:HiddenField ID="HDaddidea" runat="server" />
-                    <a id="Export" href="#" onclick="Export_onclick();" target="_blank">Exportar términos
-                        de referencia</a> </li>
+                    <a id="Export" href="#" onclick="Export_onclick();" target="_blank" style= "height: 2em;">Exportar términos
+                        de referencia</a>
+                </li>
                 <asp:Label ID="Lbladvertencia" runat="server" ForeColor="#990000"></asp:Label>
                 <li>
                     <asp:Button ID="btnConfirmDelete" runat="server" Text="Eliminar" CausesValidation="False" />
@@ -389,13 +398,6 @@
             </ul>
         </div>
         <div id="componentes">
-            <div id="container_wait" runat="server" visible="true" style="width: 90%; text-align: center;
-                border: 2px solid #cecece; background: #E8E8DC; height: 80px; line-height: 40px;
-                vertical-align: middle;">
-                <img style="margin-top: 10px;" src="../images/cargando.gif" width="24px" alt="images" />
-                <asp:Label ID="Label22" runat="server" Text="cargando datos espere un momento" Style="font-size: 14pt;
-                    color: #9bbb58;"></asp:Label>
-            </div>
             <ul class="left">
                 <li>
                     <asp:Label ID="Label7" runat="server" Text="Línea Estratégica "></asp:Label>
@@ -429,7 +431,7 @@
                         <asp:Label ID="Lbltitlecomponet" runat="server" Text="Componentes"></asp:Label>
                         <ul id="seleccionarcomponente"></ul>
                     </td>
-                    <td style="width: 100px;">
+                    <td style="width: 100px; vertical-align: middle;">
                         <input id="Btnaddcomponent" type="button" value=">>" name="Add_Componente" onclick="return Btnaddcomponent_onclick()" />
                         <input id="Btndeletecomponent" type="button" value="<<" name="Delete_Componente"
                             onclick="return Btndeletecomponent_onclick()" />
@@ -541,7 +543,8 @@
                         </asp:DropDownList>
                     </select>
                     <a id="linkactors" runat="server" href="~/GeneralPlanning/addThird.aspx?prety=1&op=add&iframe=true&width=100%&height=100%"
-                        title="Nuevo actor" class="pretty">CREAR NUEVO ACTOR</a> </li>
+                        title="Nuevo actor" class="pretty" style= "height: 2em;">CREAR NUEVO ACTOR</a> 
+                </li>
                 <li>
                     <asp:Label ID="Label6" runat="server" Text="Tipo"></asp:Label>
                     <asp:DropDownList ID="ddlType" runat="server" CssClass="Ccombo">
@@ -937,6 +940,7 @@
                     <asp:TextBox ID="txtobser" runat="server" MaxLength="500" Width="400px"></asp:TextBox>
                 </li>
             </ul>
+            </br>
             <div id="gif_charge_Container" runat="server" visible="true" style="width: 100%;
                 text-align: center; border: 2px solid #cecece; background: #E8E8DC; height: 80px;
                 line-height: 40px; vertical-align: middle;">

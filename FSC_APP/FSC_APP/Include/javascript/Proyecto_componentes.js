@@ -31,7 +31,6 @@ function ClineEstrategic_edit() {
 //cargar los programas seleccionados de la linea seleccionada anteriormente "ClineEstrategic_edit()"
 function Cprogram_edit() {
 
-
     if (componentes_editados == 1) {
 
         var str_edit_line_strategic = edit_line_strategic;
@@ -68,6 +67,7 @@ function view_Cprogram() {
             $("#ddlPrograms").val(result);
             $("#ddlPrograms").trigger("liszt:updated");
 
+            edit_program = result;
         },
         error: function(msg) {
             alert("No se pueden cargar la linea estrategica deseada.");
@@ -128,7 +128,8 @@ function Cprogram(idLineStrategic) {
                         arraycompo[1] = $("#ddlPrograms").val();
                         contar_program = 1;
                     }
-                    alert(validar_ini_ed);
+                    
+                    alert(arraycompo[1] + "  " + validar_ini_ed);
 
                     if (validar_ini_ed == 1) {
                         validar_cambio_linea(result);
@@ -175,10 +176,10 @@ function validar_cambio_linea(str_result) {
 
     else {
 
-        $("#ddlStrategicLines").val(arraycompo[0]);
+        $("#ddlStrategicLines").val(edit_line_strategic);
         $("#ddlStrategicLines").trigger("liszt:updated");
 
-        $("#ddlPrograms").val(arraycompo[1]);
+        $("#ddlPrograms").val(edit_program);
         $("#ddlPrograms").trigger("liszt:updated");
 
         contar_program = 0;

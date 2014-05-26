@@ -22,7 +22,7 @@ Partial Public Class AjaxAddProject
         Dim id_b As Integer
         Dim fecha As Date
         Dim duracion, dia As String
-        Dim idprogram_list, S_ididea, S_strCode, S_code, S_linea_estrategica, S_programa, S_nombre, S_justificacion, S_objetivo, S_objetivo_esp, S_Resultados_Benef, S_Resultados_Ges_c, S_Resultados_Cap_i, S_Resultados_otros_resul, S_Fecha_inicio, S_mes, S_dia, S_Fecha_fin, S_Población, S_contratacion, S_A_Mfsc, S_A_Efsc, S_A_Mcounter, S_A_Ecounter, S_cost, S_obligaciones, S_iva, S_listubicaciones, S_listactors, S_mitigacion, S_riesgos, S_presupuestal, S_listcomponentes, S_listflujos, S_listdetallesflujos, S_listfiles As String
+        Dim type_i_p, idprogram_list, S_ididea, S_strCode, S_code, S_linea_estrategica, S_programa, S_nombre, S_justificacion, S_objetivo, S_objetivo_esp, S_Resultados_Benef, S_Resultados_Ges_c, S_Resultados_Cap_i, S_Resultados_otros_resul, S_Fecha_inicio, S_mes, S_dia, S_Fecha_fin, S_Población, S_contratacion, S_A_Mfsc, S_A_Efsc, S_A_Mcounter, S_A_Ecounter, S_cost, S_obligaciones, S_iva, S_listubicaciones, S_listactors, S_mitigacion, S_riesgos, S_presupuestal, S_listcomponentes, S_listflujos, S_listdetallesflujos, S_listfiles As String
         Dim estado_proceso, ideditar, id_lineStrategic, id_depto, idprogram, idpopulation, Countarchivo As Integer
 
         Dim strFileName() As String
@@ -206,6 +206,11 @@ Partial Public Class AjaxAddProject
 
                 Case "C_ideas_aprobada"
                     charge_idea_aproval()
+
+                Case "C_type_aproval"
+                    type_i_p = Request.QueryString("type").ToString
+                    charge_typeAproval(type_i_p)
+
                     '----------------- modulo ubicacion-------------------------------------------------------
                 Case "C_deptos"
 
@@ -296,6 +301,40 @@ Partial Public Class AjaxAddProject
 
     End Sub
 
+    Protected Function charge_typeAproval(ByVal type As String)
+
+
+        Dim sql As New StringBuilder
+        Dim objSqlCommand As New SqlCommand
+        Dim data As DataTable
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+
+        If type = "I" Then
+
+            sql.Append(" select id,estados from Type_aproval_project ")
+            sql.Append(" where aplica_idea ='s' ")
+            sql.Append(" order by estados asc")
+
+        Else
+
+            sql.Append(" select id,estados from Type_aproval_project ")
+            sql.Append(" order by estados asc")
+
+        End If
+
+
+        ' ejecutar la intruccion
+        data = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+        Dim html As String = "<option>Seleccione...</opption>"
+        For Each row As DataRow In data.Rows
+            html &= String.Format("<option value = ""{0}"">{1}</option>", row(0).ToString(), row(1).ToString())
+        Next
+
+        ' retornar el objeto
+        Response.Write(html)
+
+    End Function
 
     Public Function searh_document_anexos_array(ByVal ididea As Integer)
 
