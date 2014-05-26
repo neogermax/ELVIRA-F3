@@ -1,20 +1,22 @@
 ﻿//TODO: Juan Camilo Martinez Morales
 //16/05/2014
 //Document: ThirdRequest.js
-
 //Load data select thirds 
 var arrayActor = [];
-var arrayActorFlujo = [];
+var arrayActor = [];
+
 function loadThird() {
     $.ajax({
         url: "../ResearchAndDevelopment/AjaxAddIdea.aspx",
         type: "GET",
-        data: { "action": "C_Actors" },
-        success: function(result) {
+        data: {
+            "action": "C_Actors"
+        },
+        success: function (result) {
             $("#ddlactors").html(result);
             $("#ddlactors").trigger("liszt:updated");
         },
-        error: function(msg) {
+        error: function (msg) {
             alert("No se pueden cargar los actores.");
         }
     });
@@ -22,31 +24,35 @@ function loadThird() {
 
 //Get data information for thirds
 function SearchThirdInformation() {
-    $("#ddlactors").change(function() {
+    $("#ddlactors").change(function () {
         $.ajax({
             url: "../ResearchAndDevelopment/AjaxAddIdea.aspx",
             type: "GET",
-            data: { "action": "buscar", "id": $(this).val() },
-            success: function(result) {
+            data: {
+                "action": "buscar",
+                "id": $(this).val()
+            },
+            success: function (result) {
                 result = JSON.parse(result);
 
-                $("#ctl00_cphPrincipal_Txtcontact").val(result.contact);
+                $("#ctl00_cphPrincipal_Txtcontact").val(result.Contact);
                 $("#ctl00_cphPrincipal_Txtcedulacont").val(result.documents);
                 $("#ctl00_cphPrincipal_Txttelcont").val(result.phone);
-                $("#ctl00_cphPrincipal_Txtemail").val(result.email);
+                $("#ctl00_cphPrincipal_Txtemail").val(result.Email);
                 $("#ctl00_cphPrincipal_HDIDTHIRD").val(result.idthird);
                 $("#ctl00_cphPrincipal_HDNAMETHIRD").val(result.name);
                 $("#ctl00_cphPrincipal_lblavertenactors").text("");
 
             },
-            error: function()
-            { alert("los datos de terceros no pudieron ser cargados."); }
+            error: function () {
+                alert("los datos de terceros no pudieron ser cargados.");
+            }
         });
     });
 }
-    
+
 //Global function for sum values money third
-function sumMoneyValuesThird(domControlOne, domControlTwo){
+function sumMoneyValuesThird(domControlOne, domControlTwo) {
     var rev = $("#" + domControlOne).val();
     rev = rev.replace(/\./gi, '');
     var value = parseInt(rev);
@@ -54,18 +60,15 @@ function sumMoneyValuesThird(domControlOne, domControlTwo){
     if (isNaN(value)) {
         value = 0;
         $("#" + domControlOne).val(value);
-    }
-    else {
+    } else {
         var rev2 = $("#" + domControlTwo).val();
         rev2 = rev2.replace(/\./gi, '');
-        
+
         var value2 = parseInt(rev2);
-        
-        if (isNaN(value2)) 
-        { 
-            value2 = 0; 
-        }
-        else {
+
+        if (isNaN(value2)) {
+            value2 = 0;
+        } else {
             var resultSum = 0;
             resultSum = value + value2;
             $("#txtTotalThird").val(resultSum);
@@ -73,25 +76,25 @@ function sumMoneyValuesThird(domControlOne, domControlTwo){
             $("#txtTotalThird").trigger("change");
         }
     }
-    
+
 }
 
 //Set function for sum money values
 function setEventChangeSum() {
 
-    $("#ctl00_cphPrincipal_Txtvrdiner").change(function() {
-        sumMoneyValuesThird("ctl00_cphPrincipal_Txtvrdiner","ctl00_cphPrincipal_Txtvresp");
+    $("#ctl00_cphPrincipal_Txtvrdiner").change(function () {
+        sumMoneyValuesThird("ctl00_cphPrincipal_Txtvrdiner", "ctl00_cphPrincipal_Txtvresp");
     });
 
-    $("#ctl00_cphPrincipal_Txtvresp").change(function() {
+    $("#ctl00_cphPrincipal_Txtvresp").change(function () {
         sumMoneyValuesThird("ctl00_cphPrincipal_Txtvresp", "ctl00_cphPrincipal_Txtvrdiner");
     });
-    
-    $("#ctl00_cphPrincipal_Txtvresp").change(function() {
+
+    $("#ctl00_cphPrincipal_Txtvresp").change(function () {
         sumMoneyValuesThird("ctl00_cphPrincipal_Txtvresp", "ctl00_cphPrincipal_Txtvrdiner");
     });
-    
-    $("#txtTotalThird").change(function(){
+
+    $("#txtTotalThird").change(function () {
         $("#ctl00_cphPrincipal_Txtaportfscocomp").text($(this).val());
     });
 
@@ -136,12 +139,10 @@ function BtnaddActors_onclick() {
             "bJQueryUI": true,
             "bDestroy": true
         });
-        
+
         add_actor_grid();
 
-    }
-
-    else {
+    } else {
         add_actor_grid();
     }
 
@@ -152,18 +153,13 @@ function add_actor_grid() {
 
     if ($("#ctl00_cphPrincipal_RBListflujo :checked").val() == null) {
         $("#ctl00_cphPrincipal_Lblflujosinf").text("Escoja si o no");
-    }
-    else {
+    } else {
         $("#ctl00_cphPrincipal_Lblflujosinf").text("");
         //validamos si el combo actor este selecionado
         if ($("#ddlactors :selected").text() == 'Seleccione...') {
             $("#ctl00_cphPrincipal_Lblactorrep").text("debe seleccionar almenos un actor");
-        }
-        else {
+        } else {
             $("#ctl00_cphPrincipal_Lblactorrep").text("");
-
-
-
 
             //capturamos los valores de deseados
             var actorsVal = $("#ddlactors").val();
@@ -179,121 +175,67 @@ function add_actor_grid() {
 
             if ($("#ctl00_cphPrincipal_Txtvrdiner").val() == "") {
                 var diner = 0;
-            }
-            else {
+            } else {
                 var diner = $("#ctl00_cphPrincipal_Txtvrdiner").val();
             }
 
             if ($("#ctl00_cphPrincipal_Txtvresp").val() == "") {
                 var especie = 0;
-            }
-            else {
+            } else {
                 var especie = $("#ctl00_cphPrincipal_Txtvresp").val();
             }
 
             if ($("#ctl00_cphPrincipal_Txtaportfscocomp").val() == "") {
                 var total = totalconsulta;
-            }
-            else {
+            } else {
                 var total = $("#ctl00_cphPrincipal_Txtaportfscocomp").val();
             }
 
-            var flujo_in = $("#ctl00_cphPrincipal_RBListflujo :checked").val();
+            var requireFlowThird = $("#ctl00_cphPrincipal_RBListflujo :checked").val();
 
 
-            if (flujo_in == 1) {
+            if (requireFlowThird == 1) {
                 var estado_flujo = "s";
-            }
-            else {
+            } else {
                 var estado_flujo = "n";
             }
 
             //creamos json para guardarlos en un array
-            var jsonActor = { "actorsVal": actorsVal, "actorsName": actorsName, "tipoactors": tipoactors, "contact": contact, "cedula": cedula, "telefono": telefono, "email": email, "diner": diner, "especie": especie, "total": total, "estado_flujo": estado_flujo };
+            var jsonActor = {
+                "IdThird": parseInt(actorsVal),
+                "Name": actorsName,
+                "Type": tipoactors,
+                "Contact": contact,
+                "Documents": cedula,
+                "Phone": telefono,
+                "Email": email,
+                "Vrmoney": diner,
+                "VrSpecies": especie,
+                "FSCorCounterpartContribution": total,
+                "generatesflow": estado_flujo
+            };
 
             //recorremos el array para revisar repetidos        
             var validerepetido = 0;
             for (iArray in arrayActor) {
-                if (actorsVal == arrayActor[iArray].actorsVal) {
+                console.log("sd: " + actorsVal);
+                if (actorsVal == arrayActor[iArray].IdThird) {
                     validerepetido = 1;
                 }
             }
-
             //validamos si hay repetidos 
             if (validerepetido == 1) {
-                $("#ctl00_cphPrincipal_Lblactorrep").text("El actor ya fue ingresado");
-            }
-            else {
+                $("#ctl00_cphPrincipal_Lblactorrep").text("El actor ya existe en la lista.");
+            } else {
                 $("#ctl00_cphPrincipal_Lblactorrep").text("");
 
                 //cargamos el array con el json
-                if (flujo_in == 1) {
-                    arrayActorFlujo.push(jsonActor);
-                }
-                //cargamos el array con el json
                 arrayActor.push(jsonActor);
 
-                //creamos la tabla de actores
-                var htmlTableActores = "<table id='T_Actors' align='center' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr><th width='1'></th><th>Actores</th><th>Tipo</th><th>Contacto</th><th>Documento Identidad</th><th>Tel&eacute;fono</th><th>Correo electr&oacute;nico</th><th>Vr Dinero</th><th>Vr Especie</th><th>Vr Total</th><th>Eliminar</th></tr></thead><tbody>";
-                //creamos la tabla de flujo actores
-                if (flujo_in == 1) {
-                    var htmltableAflujos = "<table id='T_Actorsflujos' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr><th width='1'></th><th>Aportante</th><th>Valor total aporte</th><th>Valor por programar</th><th>Saldo por programar</th></tr></thead><tbody>";
-                }
-                //creamos la tabla matrizde informacion principal
-                var htmltablamatriz = "<table id='matriz' border='1' cellpadding='1' cellspacing='1' style='width: 100%'><thead><tr><th width='1'></th><th></th><th>Efectivo</th><th>Especie</th><th>Total</th></tr></thead><tbody>";
+                refreshTableThird();
 
-                for (itemArray in arrayActor) {
-                    htmlTableActores += "<tr id='actor" + arrayActor[itemArray].actorsVal + "' ><td width='1' style='color: #D3D6FF;font-size: 0.1em;'>" + arrayActor[itemArray].actorsVal + "</td><td>" + arrayActor[itemArray].actorsName + "</td><td>" + arrayActor[itemArray].tipoactors + "</td><td>" + arrayActor[itemArray].contact + "</td><td>" + arrayActor[itemArray].cedula + "</td><td>" + arrayActor[itemArray].telefono + "</td><td>" + arrayActor[itemArray].email + "</td><td>" + arrayActor[itemArray].diner + "</td><td>" + arrayActor[itemArray].especie + "</td><td>" + arrayActor[itemArray].total + "</td><td><input class='btn btn-warning' style='background-image: none;' type ='button' value= 'Eliminar' onclick=\"deleteActor('" + arrayActor[itemArray].actorsVal + "')\"></input></td></tr>";
-                    htmltablamatriz += "<tr id= 'matriz" + arrayActor[itemArray].actorsVal + "'><td width='1' style='color: #D3D6FF;font-size: 0.1em;'>" + arrayActor[itemArray].actorsVal + "</td><td style='text-align: left'>" + arrayActor[itemArray].actorsName + "</td><td>" + arrayActor[itemArray].diner + "</td><td> " + arrayActor[itemArray].especie + "</td><td> " + arrayActor[itemArray].total + " </td></tr>";
-
-                }
-                //creamos ciclo para los actores que si tienen flujo de pago
-                for (itemarrayflujos in arrayActorFlujo) {
-                    if (flujo_in == 1) {
-                        htmltableAflujos += "<tr id='flujo" + arrayActorFlujo[itemarrayflujos].actorsVal + "'><td width='1' style='color: #D3D6FF;font-size: 0.1em;'>" + arrayActorFlujo[itemarrayflujos].actorsVal + "</td><td>" + arrayActorFlujo[itemarrayflujos].actorsName + "</td><td id= 'value" + arrayActorFlujo[itemarrayflujos].actorsVal + "' >" + arrayActorFlujo[itemarrayflujos].diner + "</td><td><input id='" + "txtinput" + arrayActorFlujo[itemarrayflujos].actorsVal + "' onkeyup='formatvercionsuma(this)' onchange='formatvercionsuma(this)'  onblur=\"sumar_flujos('" + arrayActorFlujo[itemarrayflujos].actorsVal + "')\" onfocus=\"restar_flujos('" + arrayActorFlujo[itemarrayflujos].actorsVal + "')\"></input></td><td id='desenbolso" + arrayActorFlujo[itemarrayflujos].actorsVal + "'>" + arrayActorFlujo[itemarrayflujos].diner + "</td></tr>";
-                    }
-                }
-                //se anexa columna para totales
-                htmlTableActores += "<tr><td width='1' style='color: #D3D6FF; font-size: 0.1em;'>1000</td><td>Total</td><td></td><td></td><td></td><td></td><td></td><td id='val1'></td><td id='val2'>0</td><td id='val3'>0</td><td></td></tr></tbody></table>";
-
-                if (flujo_in == 1) {
-                    htmltableAflujos += "<tr><td width='1' style='color: #D3D6FF; font-size: 0.1em;'>1000</td><td>Total</td><td id='tflujosing'></td><td id='totalflujos'>0</td></td id='tflujosdesen'><td></tr></tbody></table>";
-                }
-                htmltablamatriz += "<tr><td width='1' style='color: #D3D6FF; font-size: 0.1em;'>1000</td><td>Valor Total</td><td id='valueMoneytotal'>0</td><td id='ValueEspeciestotal'>0</td><td id='ValueCostotal'>0</td></tr></tbody></table>";
-
-                //cargamos el div donde se generara la tabla actores
-                $("#T_ActorsContainer").html("");
-                $("#T_ActorsContainer").html(htmlTableActores);
-
-                if (flujo_in == 1) {
-                    //cargamos el div donde se generara la tabla flujo de actores
-                    $("#T_AflujosContainer").html("");
-                    $("#T_AflujosContainer").html(htmltableAflujos);
-                }
-
-                $("#T_matrizcontainer").html("");
-                $("#T_matrizcontainer").html(htmltablamatriz);
-
-
-                //llama la funcion sumar en la grilla de actores
-                sumAllColumnsTableThirds();
-
-
-                //llamar la funcion suma de primera columna efectivo
-                
-
-                //reconstruimos la tabla con los datos 
-                $("#T_Actors").dataTable({
-                    "bJQueryUI": true,
-                    "bDestroy": true
-                });
-
-                if (flujo_in == 1) {
-                    //reconstruimos la tabla con los datos 
-                    $("#T_Actorsflujos").dataTable({
-                        "bJQueryUI": true,
-                        "bDestroy": true
-                    });
+                if (requireFlowThird == 1) {
+                    refreshTableFlow();
                 }
                 //reconstruimos la tabla con los datos
                 $("#matriz").dataTable({
@@ -314,54 +256,97 @@ function add_actor_grid() {
     }
 }
 
+function refreshTableFlow(requireFlowThird) {
+    var htmltableAflujos = "<table id='T_Actorsflujos' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr>";
+    htmltableAflujos += "<th width='1'></th><th>Aportante</th><th>Valor total aporte</th><th>Valor por programar</th><th>Saldo por programar</th></tr></thead><tbody>";
+
+
+    //creamos ciclo para los actores que si tienen flujo de pago
+    for (itemarrayflujos in arrayActor) {
+        
+        if(arrayActor[itemarrayflujos].generatesflow == "s"){
+            htmltableAflujos += "<tr id='flujo" + arrayActor[itemarrayflujos].IdThird + "'><td width='1' style='color: #D3D6FF;font-size: 0.1em;'>";
+            htmltableAflujos += arrayActor[itemarrayflujos].IdThird + "</td><td>" + arrayActor[itemarrayflujos].Name + "</td><td id= 'value";
+            htmltableAflujos += arrayActor[itemarrayflujos].IdThird + "' >" + parseIntNull(arrayActor[itemarrayflujos].Vrmoney) + "</td><td><input id='";
+            htmltableAflujos += "txtinput" + arrayActor[itemarrayflujos].IdThird + "' onblur=\"sumar_flujos('";
+            htmltableAflujos += arrayActor[itemarrayflujos].IdThird + "')\" class=\"money\" value=\"0\" onfocus=\"restar_flujos('" + arrayActor[itemarrayflujos].IdThird;
+            htmltableAflujos += "')\"></input></td><td id='desenbolso" + arrayActor[itemarrayflujos].IdThird + "'>" + parseIntNull(arrayActor[itemarrayflujos].Vrmoney);
+            htmltableAflujos += "</td></tr>";
+        }
+    }
+        
+    htmltableAflujos += "<tr><td width='1' style='color: #D3D6FF; font-size: 0.1em;'>1000</td><td>Total</td><td id='tflujosing'></td><td id='totalflujos'>";
+    htmltableAflujos += "0</td></td id='tflujosdesen'><td></tr></tbody></table>";
+
+
+    $("#T_AflujosContainer").html("");
+    $("#T_AflujosContainer").html(htmltableAflujos);
+    
+    //reconstruimos la tabla con los datos 
+    $("#T_Actorsflujos").dataTable({
+        "bJQueryUI": true,
+        "bDestroy": true
+    });
+    
+    sumAllColumnsTableFlow();
+    
+    $(".money").maskMoney({thousands: '.', decimal:',', precision: 0, allowZero: true});
+    $(".money").trigger("change");
+}
+
+function refreshTableThird() {
+    //creamos la tabla de actores
+    var htmlTableActores = "<table id='T_Actors' align='center' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr>";
+    htmlTableActores += "<th width='1'></th><th>Actores</th><th>Tipo</th><th>Contacto</th><th>Documento Identidad</th><th>Tel&eacute;fono</th>";
+    htmlTableActores += "<th>Correo electr&oacute;nico</th><th>Vr Dinero</th><th>Vr Especie</th><th>Vr Total</th><th>Eliminar</th></tr></thead><tbody>";
+
+    //creamos la tabla de flujo actores
+    for (itemArray in arrayActor) {
+        htmlTableActores += "<tr id='actor" + arrayActor[itemArray].IdThird + "' ><td width='1' style='color: #D3D6FF;font-size: 0.1em;'>" + arrayActor[itemArray].IdThird;
+        htmlTableActores += "</td><td>" + arrayActor[itemArray].Name + "</td><td>" + arrayActor[itemArray].Type + "</td><td>" + arrayActor[itemArray].Contact + "</td><td>";
+        htmlTableActores += arrayActor[itemArray].Documents + "</td><td>" + arrayActor[itemArray].Phone + "</td><td>" + arrayActor[itemArray].Email + "</td><td>";
+        htmlTableActores += parseIntNull(arrayActor[itemArray].Vrmoney) + "</td><td>" + parseIntNull(arrayActor[itemArray].VrSpecies) + "</td><td>";
+        htmlTableActores += parseIntNull(arrayActor[itemArray].FSCorCounterpartContribution) + "</td><td><input class='btn btn-warning' style='background-image: none;'";
+        htmlTableActores += " type ='button' value= 'Eliminar' onclick=\"deleteActor('" + arrayActor[itemArray].IdThird + "')\"></input></td></tr>";
+    }
+
+    //se anexa columna para totales
+    htmlTableActores += "<tr><td width='1' style='color: #D3D6FF; font-size: 0.1em;'>1000</td><td>Total</td><td></td><td></td>";
+    htmlTableActores += "<td></td><td></td><td></td><td id='val1'></td><td id='val2'>0</td><td id='val3'>0</td><td></td></tr></tbody></table>";
+
+    //cargamos el div donde se generara la tabla actores
+    $("#T_ActorsContainer").html("");
+    $("#T_ActorsContainer").html(htmlTableActores);
+
+    //llama la funcion sumar en la grilla de actores
+    sumAllColumnsTableThirds();
+
+    //llamar la funcion suma de primera columna efectivo
+
+    //reconstruimos la tabla con los datos 
+    $("#T_Actors").dataTable({
+        "bJQueryUI": true,
+        "bDestroy": true
+    });
+}
+
 //load data thirs by project
 function loadDataThirsProject() {
 
     $.ajax({
         url: "AjaxRequest.aspx",
         type: "POST",
-        data: { "action": "loadThirdProject", "idProject": idproject },
-        success: function(result) {
+        data: {
+            "action": "loadThirdProject",
+            "idProject": idproject
+        },
+        success: function (result) {
             var resultJson = JSON.parse(result.toString());
             arrayActor = JSON.parse(resultJson.toString());
-            //cargamos el div donde se generara la tabla actores
-            //$("#T_ActorsContainer").html("");
-            //$("#T_ActorsContainer").html(result);
-
-            //reconstruimos la tabla con los datos
-            /*$("#T_Actors").dataTable({
-                "bJQueryUI": true,
-                "bDestroy": true
-            });*/
-
-            //llama la funcion sumar en la grilla de actores
-            //sumAllColumnsTableThirds();
-
+            refreshTableThird();
+            refreshTableFlow();
         },
-        error: function(msg) {
-            alert("No se pueden cargar los actores en general de la idea = " + ideditar);
-        }
-    });
-}
-
-function View_actores_array() {
-    $.ajax({
-        url: "AjaxAddIdea.aspx",
-        type: "GET",
-        data: { "action": "View_actores_array", "ididea": ideditar },
-        success: function(result) {
-
-            array_actores_ed = result.split("|");
-
-            for (itemArray in array_actores_ed) {
-
-                var recibeact = JSON.parse(array_actores_ed[itemArray]);
-                arrayActor.push(recibeact);
-            }
-
-
-        },
-        error: function(msg) {
+        error: function (msg) {
             alert("No se pueden cargar los actores en general de la idea = " + ideditar);
         }
     });
@@ -385,30 +370,30 @@ function deleteActor(str) {
         //recorremos el array
         for (itemArray in arrayActor) {
             //construimos la llave de validacion
-            var id = arrayActor[itemArray].actorsVal;
+            var id = arrayActor[itemArray].IdThird;
             //validamos el dato q nos trae la funcion
 
             if (str == id) {
                 //borramos el actor deseado
                 delete arrayActor[itemArray];
-                //arrayActor.splice(arrayActor[itemArray].actorsName, 1);
+                //arrayActor.splice(arrayActor[itemArray].Name, 1);
             }
         }
         //recorremos el array
-        for (itemArrayflujo in arrayActorFlujo) {
+        for (itemArrayflujo in arrayActor) {
             //construimos la llave de validacion
-            var idflujo = arrayActorFlujo[itemArrayflujo].actorsVal;
+            var idflujo = arrayActor[itemArrayflujo].IdThird;
             //validamos el dato q nos trae la funcion
 
             if (str == idflujo) {
                 //borramos el actor deseado
-                delete arrayActorFlujo[itemArrayflujo];
+                delete arrayActor[itemArrayflujo];
             }
         }
 
         $("#totalflujos").text(0);
         //recorremos la tabla de flujo de pagos
-        $("#T_Actorsflujos tr").slice(0, $("#T_Actorsflujos tr").length - 1).each(function() {
+        $("#T_Actorsflujos tr").slice(0, $("#T_Actorsflujos tr").length - 1).each(function () {
 
             arrayinputflujos = $(this).find("td").slice(0, 1);
 
@@ -442,29 +427,8 @@ function deleteActor(str) {
 
         //lamar la funcionsumar actores
         sumAllColumnsTableThirds();
-        //llamar la funcion suma de grid principal
-        
 
-        //        $("#T_Actors").dataTable({
-        //            "bJQueryUI": true,
-        //            "bDestroy": true
-        //        });
-
-        //        //reconstruimos la tabla con los datos 
-        //        $("#T_Actorsflujos").dataTable({
-        //            "bJQueryUI": true,
-        //            "bDestroy": true
-        //        });
-
-        //        //reconstruimos la tabla con los datos
-        //        $("#matriz").dataTable({
-        //            "bJQueryUI": true,
-        //            "bDestroy": true
-        //        });
-
-
-    }
-    else {
+    } else {
 
         var idflujo = "#flujo" + str;
         $(idflujo).remove();
@@ -478,48 +442,29 @@ function deleteActor(str) {
         //recorremos el array
         for (itemArray in arrayActor) {
             //construimos la llave de validacion
-            var id = arrayActor[itemArray].actorsVal;
+            var id = arrayActor[itemArray].IdThird;
             //validamos el dato q nos trae la funcion
 
             if (str == id) {
                 //borramos el actor deseado
                 delete arrayActor[itemArray];
-                //arrayActor.splice(arrayActor[itemArray].actorsName, 1);
+                //arrayActor.splice(arrayActor[itemArray].Name, 1);
             }
         }
         //recorremos el array
-        for (itemArrayflujo in arrayActorFlujo) {
+        for (itemArrayflujo in arrayActor) {
             //construimos la llave de validacion
-            var idflujo = arrayActorFlujo[itemArrayflujo].actorsVal;
+            var idflujo = arrayActor[itemArrayflujo].IdThird;
             //validamos el dato q nos trae la funcion
 
             if (str == idflujo) {
                 //borramos el actor deseado
-                delete arrayActorFlujo[itemArrayflujo];
+                delete arrayActor[itemArrayflujo];
             }
         }
         //lamar la funcionsumar actores
         sumAllColumnsTableThirds();
         //llamar la funcion suma de grid principal
-        
-
-
-        //        $("#T_Actors").dataTable({
-        //            "bJQueryUI": true,
-        //            "bDestroy": true
-        //        });
-
-        //        //reconstruimos la tabla con los datos 
-        //        $("#T_Actorsflujos").dataTable({
-        //            "bJQueryUI": true,
-        //            "bDestroy": true
-        //        });
-
-        //        //reconstruimos la tabla con los datos
-        //        $("#matriz").dataTable({
-        //            "bJQueryUI": true,
-        //            "bDestroy": true
-        //        });
 
     }
 
@@ -527,15 +472,15 @@ function deleteActor(str) {
 
 //Add char of thousand
 function addThousandChar(str) {
-   var amount = new String(str);
-   amount = amount.split("").reverse();
+    var amount = new String(str);
+    amount = amount.split("").reverse();
 
-   var output = "";
-   for (var i = 0; i <= amount.length - 1; i++) {
-       output = amount[i] + output;
-       if ((i + 1) % 3 == 0 && (amount.length - 1) !== i) output = '.' + output;
-   }
-   return output;
+    var output = "";
+    for (var i = 0; i <= amount.length - 1; i++) {
+        output = amount[i] + output;
+        if ((i + 1) % 3 == 0 && (amount.length - 1) !== i) output = '.' + output;
+    }
+    return output;
 
 }
 
@@ -552,7 +497,7 @@ function sumAllColumnsTableThirds() {
 
 
     //recorremos la tabla actores para calcular los totales
-    $("#T_Actors tr").slice(0, $("#T_Actors tr").length - 1).each(function() {
+    $("#T_Actors tr").slice(0, $("#T_Actors tr").length - 1).each(function () {
         var arrayValuesActors = $(this).find("td").slice(7, 10);
         //validamos si hay campos null en la tabla actores
         if ($(arrayValuesActors[0]).html() != null) {
@@ -577,32 +522,18 @@ function sumAllColumnsTableThirds() {
             $("#val1").text(addThousandChar(valdiner));
             $("#val2").text(addThousandChar(valespecie));
             $("#val3").text(addThousandChar(valtotal));
-        }
-        else {
+        } else {
             $("#val1").text(0);
             $("#val2").text(0);
             $("#val3").text(0);
         }
     });
-
-    //recorremos la tabla flujo de actores para calcular los totales
-    $("#T_Actorsflujos tr").slice(0, $("#T_Actorsflujos tr").length - 1).each(function() {
-        var arrayValuesflujos = $(this).find("td").slice(0, 4);
-        //validamos si hay campos null en la tabla flujos actores
-        if ($(arrayValuesflujos[0]).html() != null) {
-            //capturamos e incrementamos los valores para la suma
-
-            valdinerflujos = valdinerflujos + parseInt($(arrayValuesflujos[2]).html().replace(/\./gi, ''));
-
-            if (isNaN(valdinerflujos)) {
-                valdinerflujos = 0;
-            }
-            //cargamos los campos con la operacion realizada
-            $("#tflujosing").text(addCommasrefactor(valdinerflujos));
-        }
-        else {
-            $("#tflujosing").text(0);
-        }
-    });
 }
 
+function parseIntNull(number) {
+    if (number == null) {
+        return 0;
+    } else {
+        return number;
+    }
+}

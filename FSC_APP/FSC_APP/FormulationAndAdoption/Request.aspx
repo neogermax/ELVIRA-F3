@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="vb" AutoEventWireup="false" MasterPageFile="~/Master/mpAdmin.master"
-    CodeBehind="Request.aspx.vb" Inherits="FSC_APP.Request" Title="Página sin título" %>
+    CodeBehind="Request.aspx.vb" Inherits="FSC_APP.Request" Title="Solicitudes" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="cphPrincipal" runat="server">
     <!-- Style -->
@@ -92,6 +92,8 @@
 
     <script src="../Include/javascript/ThirdRequest.js" type="text/javascript"></script>
     
+    <script src="../Include/javascript/FlowRequest.js" type="text/javascript"></script>
+    
     <script src="../Include/javascript/jquery.maskMoney.js" type="text/javascript"></script>
     
     <script type="text/javascript">
@@ -111,8 +113,13 @@
             //Load thirds in case add
             loadDataThirsProject();
             
+            //Process German
+            validarporcentaje();
+            
             //mask controls money
-            $('#ctl00_cphPrincipal_Txtvrdiner, #ctl00_cphPrincipal_Txtvresp, #txtTotalThird').maskMoney({thousands: '.', decimal:',', precision: 0});
+            $('#ctl00_cphPrincipal_Txtvrdiner, #ctl00_cphPrincipal_Txtvresp, #txtTotalThird, .money').maskMoney({thousands: '.', decimal:',', precision: 0});
+            //set datepicker control
+            $("#ctl00_cphPrincipal_txtfechapago").datepicker();
             
             //New instance pretty photo
             $("a.pretty").prettyPhoto({
@@ -463,8 +470,8 @@
                 <ul id="listFlujosPagos">
                     <li width="25%">
                         <asp:Label ID="lblvalortotal" runat="server" Text="Pago No"></asp:Label>
-                        <asp:TextBox ID="txtvalortotalflow" runat="server" Width="100px" MaxLength="50" onkeychange="ValidaSoloNumeros()"
-                            onkeyup="ValidaSoloNumeros()" onkeypress="ValidaSoloNumeros()"></asp:TextBox>
+                        <asp:TextBox ID="txtvalortotalflow" runat="server" Width="100px" MaxLength="5"
+                            onkeyup="this.value=this.value.replace(/[^\d]/,'')" ></asp:TextBox>
                     </li>
                     <li width="25%">
                         <asp:Label ID="lblfechapago" runat="server" Text="Fecha de pago"></asp:Label>
