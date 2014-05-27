@@ -63,7 +63,8 @@ Partial Class Engagement_ajaxcontracrequest
 
                 Case "validacreacion"
                     fechacrea = Request.QueryString("fechacrea").ToString()
-
+                    proyecto = Request.QueryString("proyecto").ToString()
+                    projectcreatedate(applicationCredentials, fechacrea, proyecto)
 
                 Case "getsupervisor"
                     contrato = Request.QueryString("contract").ToString()
@@ -82,6 +83,54 @@ Partial Class Engagement_ajaxcontracrequest
         
 
     End Sub
+
+    Public Function projectcreatedate(ByVal objApplicationCredentials As Gattaca.Application.Credentials.ApplicationCredentials, ByVal fechacompara As Date, ByVal idproyect As Long) As String
+
+        Dim sql As New StringBuilder
+        Dim data As DataTable
+        Dim madre As Integer
+        Dim proyecto As Integer
+        Dim fechaproyecto As Date
+        Dim valida As Boolean
+
+        sql.AppendLine("Select CreateDate, mother, Project_derivados from project ")
+        sql.AppendLine("where id = " & idproyect)
+
+        Data = GattacaApplication.RunSQLRDT(objApplicationCredentials, sql.ToString)
+
+        'verificar si hay datos
+        If data.Rows.Count > 0 Then
+            madre = data.Rows(0)("mother")
+
+            'verificar si el proyecto es madre
+            If madre = 0 Then
+                'si el proyecto no es madre, buscar el proyecto madre
+                proyecto = data.Rows(0)("Project_derivados")
+            Else
+                'si es madre capturar el id
+                proyecto = idproyect
+            End If
+
+            'consultar la fecha de creacion del proyecto madre
+            fechaproyecto = data.Rows(0)("CreateDate")
+
+            'sql.AppendLine("Select ")
+
+            'comparar ambas fechas
+            If fechacompara < fechaproyecto Then
+                'fecha es mayor de creacion de proyecto
+                valida = False
+            Else
+                'fecha no es mayor que creacion de proyecto
+                valida = True
+            End If
+
+            'devolver el resultado
+            Response.Write(valida)
+
+        End If
+
+    End Function
 
     Public Function loadthirdddl(ByVal objApplicationCredentials As Gattaca.Application.Credentials.ApplicationCredentials, _
           ByVal idThird As Integer, ByVal persona As String) As String
