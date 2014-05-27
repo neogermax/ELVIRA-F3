@@ -65,8 +65,10 @@ var componentes_editados;
 var contar_program = 0;
 var itemarrayflujos;
 var control_edit_compo;
-
 var validar_ini_ed;
+
+var flujos_disponible;
+
 $(document).ready(function() {
 
     //capturamos la url
@@ -165,10 +167,13 @@ $(document).ready(function() {
     //validar campos fechas
     validar_campofecha('ctl00_cphPrincipal_txtstartdate', 'ctl00_cphPrincipal_lblHelpstartdate');
     validar_campofecha('ctl00_cphPrincipal_txtfechapago', 'ctl00_cphPrincipal_helpfechapago');
-  
+
     $("#ctl00_cphPrincipal_containerSuccess").css("display", "none");
     $("#ctl00_cphPrincipal_containererrors").css("display", "none");
 
+    $("#ctl00_cphPrincipal_container_date_mother_actores").css("display", "none");
+    $("#ctl00_cphPrincipal_container_date_mother_flujos").css("display", "none");
+    $("#ctl00_cphPrincipal_container_date_mother").css("display", "none");
 
     $('#ctl00_cphPrincipal_gif_charge_Container').css("display", "none");
 
@@ -246,6 +251,9 @@ $(document).ready(function() {
 
     $("#tabsproyecto").tabs();
 
+    $(function() {
+        $("#datepicker").datepicker();
+    });
 
     //validar que pestaña esta ingresando
     $("#tabsproyecto").click(function() {
@@ -312,6 +320,8 @@ function verificar_dat_idea() {
         str_ideabuscar = $("#ddlididea option:selected").text();
         validar_ini_ed = 0;
         //alert(str_ideabuscar);
+
+        traer_valores_madre();
 
         confirmar = confirm("¿Traer datos de la Idea aprobada?", "SI", "NO");
         if (confirmar) {
@@ -395,6 +405,7 @@ function SaveProject_onclick() {
     var F_iva = 1;
     var F_linea_Es = 1;
     var F_objetivo = 1;
+    var F_estado = 1;
     var F_tipo_pro = 1;
     var F_poblacion = 1;
     var F_contrato = 1;
@@ -456,7 +467,7 @@ function SaveProject_onclick() {
     }
 
     //validar campos de informacion principal obligatorios
-    if ($("#ctl00_cphPrincipal_RBnList_iva :checked").val() == null || $("#ddlPupulation :selected").text() == 'Seleccione...' || $("#ddlmodcontract :selected").text() == 'Seleccione...' || $("#ddlStrategicLines :selected").text() == 'Seleccione...' || $("#ddlPrograms :selected").text() == 'Seleccione...' || $("#ctl00_cphPrincipal_txtname").val() == '' || $("#ctl00_cphPrincipal_txtjustification").val() == '' || $("#ctl00_cphPrincipal_txtobjective").val() == '' || $("#ctl00_cphPrincipal_txtstartdate").val() == '') {
+    if ($("#dll_estado :selected").text() == 'Seleccione...' || $("#ctl00_cphPrincipal_RBnList_iva :checked").val() == null || $("#ddlPupulation :selected").text() == 'Seleccione...' || $("#ddlmodcontract :selected").text() == 'Seleccione...' || $("#ddlStrategicLines :selected").text() == 'Seleccione...' || $("#ddlPrograms :selected").text() == 'Seleccione...' || $("#ctl00_cphPrincipal_txtname").val() == '' || $("#ctl00_cphPrincipal_txtjustification").val() == '' || $("#ctl00_cphPrincipal_txtobjective").val() == '' || $("#ctl00_cphPrincipal_txtstartdate").val() == '') {
 
         verificar_informacion_p = 0;
 
@@ -471,6 +482,11 @@ function SaveProject_onclick() {
         if ($("#ddlPrograms :selected").text() == 'Seleccione...') {
             F_objetivo = 0;
         }
+        //validar estado del proyecto
+        if ($("#dll_estado :selected").text() == 'Seleccione...') {
+            F_estado = 0;
+        }
+
         //validar tipo de proyectos
         //        if ($("#ddltype_proyect :selected").text() == 'Seleccione...') {
         //            F_tipo_pro = 0;
@@ -502,7 +518,7 @@ function SaveProject_onclick() {
     }
     //   alert("verificar_C_fechas" + verificar_C_fechas + "verificar_informacion_p:" + verificar_informacion_p + " verificar_actor:" + verificar_actor + " verificar_ubicaciones:" + verificar_ubicaciones + " verificar_componentes" + verificar_componentes + " verificar_flujos:" + verificar_flujos + " verificar_C_resultados:" + verificar_C_resultados + " fsc_exist" + fsc_exist);
     //VALIDAR RESULTADOS DE LAS VALIDACIONES
-    if (F_fecha_ini == 1 && verificar_C_fechas == 1 && verificar_actor == 1 && verificar_ubicaciones == 1 && verificar_componentes == 1 && verificar_flujos == 1 && verificar_C_resultados == 1 && fsc_exist == 1 && verificar_informacion_p == 1) {
+    if (F_estado == 1 && F_fecha_ini == 1 && verificar_C_fechas == 1 && verificar_actor == 1 && verificar_ubicaciones == 1 && verificar_componentes == 1 && verificar_flujos == 1 && verificar_C_resultados == 1 && fsc_exist == 1 && verificar_informacion_p == 1) {
 
         $("#ctl00_cphPrincipal_containererrors").css("display", "none");
 
@@ -525,6 +541,7 @@ function SaveProject_onclick() {
         $("#ctl00_cphPrincipal_Lblhelpiva").text("");
         $("#ctl00_cphPrincipal_Lblhelpduraton").text("");
         $("#ctl00_cphPrincipal_Lblhelpday").text("");
+        $("#ctl00_cphPrincipal_Lblhelp_estado").text("");
 
         //capturamos la url
         var sPageURL = window.location.search.substring(1);
@@ -595,6 +612,13 @@ function SaveProject_onclick() {
             else {
                 $("#ctl00_cphPrincipal_lblinpro").text("");
             }
+            //estado del proyecto
+            if (F_estado == 0) {
+                $("#ctl00_cphPrincipal_Lblhelp_estado").text("Campo Requerido");
+            }
+            else {
+                $("#ctl00_cphPrincipal_Lblhelp_estado").text("");
+            }
             //poblacion
             if (F_poblacion == 0) {
                 $("#ctl00_cphPrincipal_lblHelppopulation").text("Campo Requerido");
@@ -628,6 +652,7 @@ function SaveProject_onclick() {
             $("#ctl00_cphPrincipal_lblHelpobjective").text("");
             $("#ctl00_cphPrincipal_lblHelpname").text("");
             $("#ctl00_cphPrincipal_lblHelpstartdate").text("");
+            $("#ctl00_cphPrincipal_Lblhelp_estado").text("");
         }
         //campos resutados
         if (verificar_C_resultados == 0) {
@@ -797,6 +822,7 @@ function Crear_proyecto() {
             "Fecha_fin": $("#ctl00_cphPrincipal_Txtdatecierre").val(),
             "Población": $("#ddlPupulation").val(),
             "contratacion": $("#ddlmodcontract").val(),
+            "aproval_project": $("#dll_estado").val(),
             "A_Mfsc": $("#ValueMoneyFSC").val(),
             "A_Efsc": $("#ValueEspeciesFSC").val(),
             "A_Mcounter": $("#ValueMoneyCounter").val(),
@@ -830,7 +856,7 @@ function Crear_proyecto() {
         error: function() {
             $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
             $("#SaveProject").css("display", "block");
-            $("#ctl00_cphPrincipal_lblsaveinkdformation").text("Se genero error al entrar a la operacion Ajax :");
+            $("#ctl00_cphPrincipal_lblsaveinformation").text("Se genero error al entrar a la operacion Ajax :");
         }
     });
 
@@ -851,5 +877,98 @@ function cambio_text(str_txt) {
     str_txt = str_txt.replace(/\"/g, '\"');
 
     return str_txt;
+}
+
+function traer_valores_madre() {
+
+    $.ajax({
+        url: "AjaxAddProject.aspx",
+        type: "GET",
+        data: { "action": "traer_valores_madre", "ididea": idea_buscar },
+        success: function(result) {
+
+            result = JSON.parse(result);
+
+            $("#ctl00_cphPrincipal_Txtvalor_mother").val(result.total_value_mother);
+            $("#ctl00_cphPrincipal_Txtvalor_disponible").val(result.ressiduo_valor_mother);
+            $("#ctl00_cphPrincipal_Txtdate_start_mother").val(result.BeginDate);
+            $("#ctl00_cphPrincipal_Txtdate_end_mother").val(result.completiondate);
+
+            $("#ctl00_cphPrincipal_Txtvalor_mother_flujos").val(result.total_value_mother);
+            $("#ctl00_cphPrincipal_Txtvalor_disponible_flujos").val(result.ressiduo_valor_mother);
+            $("#ctl00_cphPrincipal_Txtdate_start_mother_flujos").val(result.BeginDate);
+            $("#ctl00_cphPrincipal_Txtdate_end_mother_flujos").val(result.completiondate);
+
+            $("#ctl00_cphPrincipal_Txtvalor_mother_actores").val(result.total_value_mother);
+            $("#ctl00_cphPrincipal_Txtvalor_disponible_actores").val(result.ressiduo_valor_mother);
+            $("#ctl00_cphPrincipal_Txtdate_start_mother_actores").val(result.BeginDate);
+            $("#ctl00_cphPrincipal_Txtdate_end_mother_actores").val(result.completiondate);
+
+            $("#ctl00_cphPrincipal_container_date_mother_actores").css("display", "block");
+            $("#ctl00_cphPrincipal_container_date_mother_flujos").css("display", "block");
+            $("#ctl00_cphPrincipal_container_date_mother").css("display", "block");
+
+            flujos_disponible = result.ressiduo_valor_mother;
+            flujos_disponible = parseInt(flujos_disponible);
+
+            var fecha_actual = new Date();
+            var fecha_limite_madre = new Date(result.completiondate);
+
+            var mensaje;
+            var S_mensaje_flujo;
+            var S_mensaje_fecha;
+            //validamos saldo disponible
+            if (flujos_disponible <= 0) {
+                S_mensaje_flujo = 1;
+            }
+            else {
+                S_mensaje_flujo = 0;
+            }
+            //validacion para la fecha limite del proyecto madre
+            if (fecha_actual > fecha_limite_madre) {
+                S_mensaje_fecha = 1;
+            }
+            else {
+                S_mensaje_fecha = 0;
+            }
+
+            if (S_mensaje_fecha == 0 && S_mensaje_flujo == 0) {
+
+                $("#ctl00_cphPrincipal_containerSuccess").css("display", "none");
+                $("#ctl00_cphPrincipal_lblsaveinformation").text("");
+                $("#SaveProject").css("display", "block");
+                $("#Export").css("display", "none");
+
+            }
+
+            else {
+
+                if (S_mensaje_fecha == 1 && S_mensaje_flujo == 1) {
+                    mensaje = " No tiene saldo disponible en el proyecto Madre y el tiempo para este proyecto expiro! "
+                }
+                else {
+
+                    if (S_mensaje_flujo == 1) {
+                        mensaje = "No tiene saldo disponible en el proyecto Madre!";
+                    }
+                    if (S_mensaje_fecha == 1) {
+                        mensaje = " El tiempo para este proyecto expiro!";
+                    }
+
+                }
+
+                $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
+                $("#ctl00_cphPrincipal_lblsaveinformation").text(mensaje);
+                $("#SaveProject").css("display", "none");
+                $("#Export").css("display", "-webkit-inline-box");
+            }
+
+        },
+        error: function(msg) {
+            alert("No se pueden cargar los fdatos del proyecto madre ");
+        }
+    });
+
+
 }
 

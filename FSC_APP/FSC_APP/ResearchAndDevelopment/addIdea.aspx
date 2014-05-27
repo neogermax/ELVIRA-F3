@@ -755,7 +755,7 @@
         </div>
         <div id="flujos">
             <div id="marco_1" style="border-top: solid; border-left: solid; border-right: solid;
-                border-bottom: solid; border-color: white;" align="left">
+                border-bottom: solid; border: 3px solid #9bbb58; background: #E8E8DC; border-radius: 15px;" align="left">
                 <br />
                 <ul>
                     <li style="margin-left: 3em;">
@@ -800,7 +800,7 @@
             </div>
             <br />
             <div id="marco_2" style="border-top: solid; border-left: solid; border-right: solid;
-                border-bottom: solid; border-color: white;" align="left">
+                border-bottom: solid; border: 3px solid #9bbb58; background: #E8E8DC; border-radius: 15px;" align="left">
                 <br />
                 <ul>
                     <li style="margin-left: 3em;">
@@ -856,7 +856,7 @@
             </div>
             <br />
             <div id="marco_3" style="border-top: solid; border-left: solid; border-right: solid;
-                border-bottom: solid; border-color: white;" align="left">
+                border-bottom: solid;  border: 3px solid #9bbb58; background: #E8E8DC; border-radius: 15px;" align="left">
                 <br />
                 <ul>
                     <li style="margin-left: 3em;">

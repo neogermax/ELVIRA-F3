@@ -22,7 +22,7 @@ Partial Public Class AjaxAddProject
         Dim id_b As Integer
         Dim fecha As Date
         Dim duracion, dia As String
-        Dim type_i_p, idprogram_list, S_ididea, S_strCode, S_code, S_linea_estrategica, S_programa, S_nombre, S_justificacion, S_objetivo, S_objetivo_esp, S_Resultados_Benef, S_Resultados_Ges_c, S_Resultados_Cap_i, S_Resultados_otros_resul, S_Fecha_inicio, S_mes, S_dia, S_Fecha_fin, S_Población, S_contratacion, S_A_Mfsc, S_A_Efsc, S_A_Mcounter, S_A_Ecounter, S_cost, S_obligaciones, S_iva, S_listubicaciones, S_listactors, S_mitigacion, S_riesgos, S_presupuestal, S_listcomponentes, S_listflujos, S_listdetallesflujos, S_listfiles As String
+        Dim S_estado, type_i_p, idprogram_list, S_ididea, S_strCode, S_code, S_linea_estrategica, S_programa, S_nombre, S_justificacion, S_objetivo, S_objetivo_esp, S_Resultados_Benef, S_Resultados_Ges_c, S_Resultados_Cap_i, S_Resultados_otros_resul, S_Fecha_inicio, S_mes, S_dia, S_Fecha_fin, S_Población, S_contratacion, S_A_Mfsc, S_A_Efsc, S_A_Mcounter, S_A_Ecounter, S_cost, S_obligaciones, S_iva, S_listubicaciones, S_listactors, S_mitigacion, S_riesgos, S_presupuestal, S_listcomponentes, S_listflujos, S_listdetallesflujos, S_listfiles As String
         Dim estado_proceso, ideditar, id_lineStrategic, id_depto, idprogram, idpopulation, Countarchivo As Integer
 
         Dim strFileName() As String
@@ -116,8 +116,9 @@ Partial Public Class AjaxAddProject
                     S_listfiles = Request.Form("listfiles").ToString
                     S_ididea = Request.Form("ididea").ToString
                     S_strCode = Request.Form("str_code").ToString
+                    S_estado = Request.Form("aproval_project").ToString
 
-                    save_PROYECTO(S_ididea, S_strCode, S_code, S_linea_estrategica, S_programa, S_nombre, S_justificacion, S_objetivo, S_objetivo_esp, S_Resultados_Benef, S_Resultados_Ges_c, S_Resultados_Cap_i, S_Resultados_otros_resul, S_Fecha_inicio, S_mes, S_dia, S_Fecha_fin, S_Población, S_contratacion, S_riesgos, S_mitigacion, S_presupuestal, S_cost, S_obligaciones, S_iva, S_listubicaciones, S_listactors, S_listcomponentes, S_listflujos, S_listdetallesflujos, S_listfiles) '
+                    save_PROYECTO(S_ididea, S_strCode, S_code, S_linea_estrategica, S_programa, S_nombre, S_justificacion, S_objetivo, S_objetivo_esp, S_Resultados_Benef, S_Resultados_Ges_c, S_Resultados_Cap_i, S_Resultados_otros_resul, S_Fecha_inicio, S_mes, S_dia, S_Fecha_fin, S_Población, S_contratacion, S_riesgos, S_mitigacion, S_presupuestal, S_cost, S_obligaciones, S_iva, S_listubicaciones, S_listactors, S_listcomponentes, S_listflujos, S_listdetallesflujos, S_listfiles, S_estado) '
 
 
                 Case "edit"
@@ -292,6 +293,10 @@ Partial Public Class AjaxAddProject
                     ideditar = Convert.ToInt32(Request.QueryString("id").ToString)
                     searchIdea_inf_p(ideditar, applicationCredentials)
 
+                Case "traer_valores_madre"
+                    ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
+                    SearchProject_values_mother(ideditar)
+
                 Case Else
 
 
@@ -301,8 +306,74 @@ Partial Public Class AjaxAddProject
 
     End Sub
 
-    Protected Function charge_typeAproval(ByVal type As String)
+    Protected Function SearchProject_values_mother(ByVal ididea As String)
 
+        Dim sql As New StringBuilder
+        Dim objSqlCommand As New SqlCommand
+        Dim data As DataTable
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+        Dim objResult, completiondate, BeginDate As String
+
+        'consulta para saber el proyecto madre del derivado seleccionado
+        sql.Append(" select distinct p.Project_derivados from  Project p where p.ididea = " & ididea)
+        Dim id_proyect_mother = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
+
+        sql = New StringBuilder
+
+        'consulta para saber el total del proyecto madre
+        sql.Append(" select sum(CONVERT(INT,replace(tp.Vrmoney,'.',''))) AS TOTAL_VALOR from ThirdByProject tp where tp.IdProject = " & id_proyect_mother)
+        Dim total_value_mother = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
+
+        sql = New StringBuilder
+
+        'consulta para saber la suma del proyectos derivados
+        sql.Append("select sum (convert(int, valortotal)) as total_derivados from Paymentflow where idproject in (select p.id  from Project p where  p.Mother=0 and p.Project_derivados = " & id_proyect_mother & ")")
+        Dim ressiduo_valor_mother = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
+
+        Dim disponible As String
+
+        disponible = Convert.ToInt32(total_value_mother) - Convert.ToInt32(ressiduo_valor_mother)
+
+        sql = New StringBuilder
+
+        sql.Append("select distinct  p.BeginDate, p.completiondate from  Project p where p.id = " & id_proyect_mother)
+        data = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+        objResult &= "{"
+
+        objResult &= """total_value_mother"": """
+        objResult &= total_value_mother
+
+        objResult &= """, ""ressiduo_valor_mother"": """
+        objResult &= disponible
+
+        If data.Rows.Count > 0 Then
+
+            objResult &= """, ""BeginDate"": """
+
+            If IsDBNull(data.Rows(0)("BeginDate")) = False Then
+                BeginDate = data.Rows(0)("BeginDate")
+            End If
+            Dim dateFormated_START As Date = BeginDate
+            objResult &= dateFormated_START.ToString("yyyy/MM/dd")
+
+            objResult &= """, ""completiondate"": """
+
+            If IsDBNull(data.Rows(0)("completiondate")) = False Then
+                completiondate = data.Rows(0)("completiondate")
+            End If
+            Dim dateFormated_END As Date = completiondate
+            objResult &= dateFormated_END.ToString("yyyy/MM/dd")
+
+        End If
+
+        objResult &= """}"
+
+        Response.Write(objResult)
+
+    End Function
+
+    Protected Function charge_typeAproval(ByVal type As String)
 
         Dim sql As New StringBuilder
         Dim objSqlCommand As New SqlCommand
@@ -1055,7 +1126,6 @@ Partial Public Class AjaxAddProject
 
     End Function
 
-
     ''' <summary>
     ''' funcion que carga el combo de tipo de poblacion segun la selección del tipo de proyecto
     ''' Autor: German Rodriguez MGgroup
@@ -1087,7 +1157,6 @@ Partial Public Class AjaxAddProject
 
     End Function
 
-
     ''' <summary>
     ''' funcion que carga el combo de tipo de proyectos
     ''' Autor: German Rodriguez MGgroup
@@ -1118,7 +1187,6 @@ Partial Public Class AjaxAddProject
         Response.Write(html)
 
     End Function
-
 
     ''' <summary>
     ''' funcion que carga el combo de tipo de contrato
@@ -1234,7 +1302,6 @@ Partial Public Class AjaxAddProject
         Response.Write(objResult)
 
     End Function
-
 
     Public Function searh_actores_array(ByVal ididea As Integer)
 
@@ -1409,7 +1476,6 @@ Partial Public Class AjaxAddProject
         Response.Write(htmlresults)
     End Function
 
-
     Public Function buscardatethird(ByVal bybal As Integer, ByVal objApplicationCredentials As Gattaca.Application.Credentials.ApplicationCredentials, _
     ByVal idThird As Integer) As String
 
@@ -1482,7 +1548,6 @@ Partial Public Class AjaxAddProject
 
 
     End Function
-
 
     ''' <summary>
     ''' funcion que carga el combo de tipo de componente de programa
@@ -1862,7 +1927,7 @@ Partial Public Class AjaxAddProject
 
     End Function
 
-    Public Function save_PROYECTO(ByVal ididea As String, ByVal str_code As String, ByVal code As String, ByVal line_strategic As String, ByVal program As String, ByVal name As String, ByVal justify As String, ByVal objetive As String, ByVal obj_esp As String, ByVal resul_bef As String, ByVal resul_ges_c As String, ByVal resul_cap_i As String, ByVal otros_resul As String, ByVal fecha_i As String, ByVal mes As String, ByVal dia As String, ByVal fecha_f As String, ByVal poblacion As String, ByVal contratacion As String, ByVal riesgos As String, ByVal mitigacion As String, ByVal presupuestal As String, ByVal cost As String, ByVal obligaciones As String, ByVal iva As String, ByVal list_ubicacion As String, ByVal list_actor As String, ByVal list_componentes As String, ByVal list_flujos As String, ByVal list_detalles_flujos As String, ByVal list_files As String) '
+    Public Function save_PROYECTO(ByVal ididea As String, ByVal str_code As String, ByVal code As String, ByVal line_strategic As String, ByVal program As String, ByVal name As String, ByVal justify As String, ByVal objetive As String, ByVal obj_esp As String, ByVal resul_bef As String, ByVal resul_ges_c As String, ByVal resul_cap_i As String, ByVal otros_resul As String, ByVal fecha_i As String, ByVal mes As String, ByVal dia As String, ByVal fecha_f As String, ByVal poblacion As String, ByVal contratacion As String, ByVal riesgos As String, ByVal mitigacion As String, ByVal presupuestal As String, ByVal cost As String, ByVal obligaciones As String, ByVal iva As String, ByVal list_ubicacion As String, ByVal list_actor As String, ByVal list_componentes As String, ByVal list_flujos As String, ByVal list_detalles_flujos As String, ByVal list_files As String, ByVal estado As String) '
 
         Dim facade As New Facade
         Dim objProject As New ProjectEntity
@@ -2152,7 +2217,7 @@ Partial Public Class AjaxAddProject
             'Se almacena en el objeto idea la lista de Componentes del Programa obtenida
             objProject.ProgramComponentbyprojectlist = ProgramComponentByProjectList
 
-            
+
             'buscamos el id del proyecto madre
             Dim idproyect_mother = search_id_project_mother(ididea)
             'lo asignamos al proyecto derivado
@@ -2176,6 +2241,7 @@ Partial Public Class AjaxAddProject
             objProject.ResultsInstalledCapacity = clean_vbCrLf(resul_cap_i)
             objProject.OthersResults = clean_vbCrLf(otros_resul)
             objProject.idtypecontract = contratacion
+            objProject.Typeapproval = estado
             objProject.Obligaciones = obligaciones
             objProject.mitigacion = mitigacion
             objProject.riesgos = riesgos
@@ -2187,7 +2253,6 @@ Partial Public Class AjaxAddProject
             objProject.completiondate = Convert.ToDateTime(fecha_f)
 
             objProject.effectivebudget = ""
-            objProject.Typeapproval = "1"
             objProject.idphase = "1"
             objProject.strategicdescription = ""
             objProject.attachment = ""
@@ -2371,8 +2436,8 @@ Partial Public Class AjaxAddProject
                 objDocumentbyEntity.idnentity = idPROYECTO
                 objDocumentbyEntity.entityname = "ProjectEntity"
 
-
                 sql = New StringBuilder
+
                 ' construir la sentencia
                 sql.AppendLine("INSERT INTO DocumentsByEntity( iddocuments,idnentity,entityName) ")
                 sql.AppendLine("VALUES (")

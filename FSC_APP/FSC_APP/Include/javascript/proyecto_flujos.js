@@ -879,6 +879,7 @@ function validarporcentaje() {
 
         //realiza la operacion del porcentaje seleccionado
         var parcial = (parseFloat(porc) * parseFloat(valortotalflow)) / 100;
+        parcial = Math.round(parcial);
 
         //parcial = numeral(parcial).format('0,0');
         var valcomas = addCommasrefactor(parcial);

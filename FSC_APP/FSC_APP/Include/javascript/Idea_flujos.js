@@ -279,7 +279,7 @@ function View_flujos_p_array() {
                 //    alert(result + " flujo actores");
                 arrayflujosdepago = [];
                 swhich_flujos_exist = 0;
-        
+
             }
             else {
                 arrayflujosdepago_ed = result.split("|");
@@ -880,7 +880,9 @@ function validarporcentaje() {
 
         //realiza la operacion del porcentaje seleccionado
         var parcial = (parseFloat(porc) * parseFloat(valortotalflow)) / 100;
-
+        parcial = Math.round(parcial);
+        alert(parcial);
+        
         //parcial = numeral(parcial).format('0,0');
         var valcomas = addCommasrefactor(parcial);
 

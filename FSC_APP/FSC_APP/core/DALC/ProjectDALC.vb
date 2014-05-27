@@ -214,6 +214,7 @@ Public Class ProjectDALC
              "idKey," & _
              "isLastVersion," & _
              "IdProcessInstance, " & _
+             "Idtypecontract, " & _
              "Typeapproval, " & _
              "Mother, " & _
              "OtherResults, " & _
@@ -267,6 +268,7 @@ Public Class ProjectDALC
             sql.AppendLine("'" & Project.isLastVersion & "',")
             sql.AppendLine("'" & Project.IdProcessInstance & "' , ")
             'sql.AppendLine("'" & Project.IdActivityInstance & "')")
+            sql.AppendLine("'" & Project.idtypecontract & "' , ")
             sql.AppendLine("'" & Project.Typeapproval & "' , ")
             sql.AppendLine("'" & Project.mother & "' , ")
             sql.AppendLine("'" & Project.OthersResults & "' , ")
