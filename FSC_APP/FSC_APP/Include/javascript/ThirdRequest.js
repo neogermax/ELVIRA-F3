@@ -264,7 +264,7 @@ function refreshTableFlow(requireFlowThird) {
     //creamos ciclo para los actores que si tienen flujo de pago
     for (itemarrayflujos in arrayActor) {
         
-        if(arrayActor[itemarrayflujos].generatesflow == "s"){
+        if($.trim(arrayActor[itemarrayflujos].generatesflow) == "s"){
             htmltableAflujos += "<tr id='flujo" + arrayActor[itemarrayflujos].IdThird + "'><td width='1' style='color: #D3D6FF;font-size: 0.1em;'>";
             htmltableAflujos += arrayActor[itemarrayflujos].IdThird + "</td><td>" + arrayActor[itemarrayflujos].Name + "</td><td id= 'value";
             htmltableAflujos += arrayActor[itemarrayflujos].IdThird + "' >" + parseIntNull(arrayActor[itemarrayflujos].Vrmoney) + "</td><td><input id='";

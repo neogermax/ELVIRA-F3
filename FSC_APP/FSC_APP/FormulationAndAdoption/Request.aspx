@@ -113,6 +113,9 @@
             //Load thirds in case add
             loadDataThirsProject();
             
+            //Load Flows in case add
+            loadPaymentFlowsByProject();
+            
             //Process German
             validarporcentaje();
             
@@ -550,7 +553,8 @@
                         <asp:Label ID="Lblinformation_flujos" runat="server" ForeColor="#990000"></asp:Label>
                     </li>
                     <li style="margin-left: 3em;">
-                        <input id="Btn_add_flujo" type="button" value="Agregar pago" name="Add_flujo" onclick="return Btn_add_flujo_onclick()" />
+                        <br />
+                        <input id="Btn_add_flujo" type="button" value="Agregar Pago" style="background-image: none;" class="btn btn-success" name="Add_flujo" onclick="return Btn_add_flujo_onclick()" />
                     </li>
                 </ul>
                 <br />
