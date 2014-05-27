@@ -24,7 +24,7 @@ Partial Class addProjectApprovalRecord
         End If
 
     End Sub
-    
+
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
         If Not Page.IsPostBack Then
@@ -40,7 +40,7 @@ Partial Class addProjectApprovalRecord
             Me.ddlidproject.Items.Insert(0, New ListItem("Seleccione...", "-1"))
             Me.ddlidproject.SelectedValue = "-1"
 
-           
+
             ' de acuerdo a la opcion
             Select Case op
 
@@ -187,9 +187,33 @@ Partial Class addProjectApprovalRecord
         Me.Label9.Text = ""
 
 
+        If Me.txtapprovaldate.Text = "" Or Me.txtactnumber.Text = "" Then
+
+            If Me.txtapprovaldate.Text = "" Then
+                Me.lblHelpapprovaldate.Text = "Campo obligatorio"
+            Else
+                Me.lblHelpapprovaldate.Text = ""
+            End If
+
+            If Me.txtactnumber.Text = "" Then
+                Me.lblHelpactnumber.Text = "Campo obligatorio"
+            Else
+                Me.lblHelpactnumber.Text = ""
+            End If
+
+            Me.Txtline.Text = Me.HDline.Value
+            Me.Txtnameidea.Text = Me.HDidea.Value
+            Me.Txtprogram.Text = Me.HDprogram.Value
+            Me.txtapprovedvalue.Text = Me.HDvalue.Value
+
+            Exit Sub
+        End If
+
+        Me.lblHelpapprovaldate.Text = ""
+        Me.lblHelpactnumber.Text = ""
+
         If Me.btnAddData.Text = "Confirmar aprobación" Then
             salvar = 1
-    
         Else
 
             Me.btnAddData.Text = "Confirmar aprobación"
@@ -209,8 +233,8 @@ Partial Class addProjectApprovalRecord
             Else
                 Me.lblHelpapprovedvalue.Text = ""
             End If
-           
-            
+
+
             ' Me.lblsaveinformation.ForeColor = Drawing.Color.Green
 
             'Subir el archivo
@@ -224,7 +248,7 @@ Partial Class addProjectApprovalRecord
 
             ' definir los objetos
             Dim facade As New Facade
-           
+
             Me.Txtline.Text = Me.HDline.Value
             Me.Txtnameidea.Text = Me.HDidea.Value
             Me.Txtprogram.Text = Me.HDprogram.Value
@@ -276,6 +300,8 @@ Partial Class addProjectApprovalRecord
 
                 ' almacenar la entidad
                 objProjectApprovalRecord.id = facade.addProjectApprovalRecord(applicationCredentials, objProjectApprovalRecord)
+                'actualizamos la idea
+                update_idea_approval(objProjectApprovalRecord.Ididea)
 
                 If idProcessInstance IsNot Nothing Then
 
@@ -323,10 +349,24 @@ Partial Class addProjectApprovalRecord
 
     End Sub
 
+    Protected Function update_idea_approval(ByVal ididea As String)
+
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+
+        Dim sql As New StringBuilder
+        Dim dtData, dtDatadoc As DataTable
+
+        sql.Append(" update Idea set Typeapproval = 1 where id = " & ididea)
+        GattacaApplication.RunSQL(applicationCredentials, sql.ToString)
+
+
+    End Function
+
     Protected Sub btnCancel_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnCancel.Click
 
         ' ir al administrador
-        Response.Redirect("/fsc/ResearchAndDevelopment/searchIdea.aspx")
+        Response.Redirect("/ResearchAndDevelopment/searchIdea.aspx")
+        'Response.Redirect("/FSC_APP/ResearchAndDevelopment/searchIdea.aspx")
 
     End Sub
 
@@ -353,12 +393,12 @@ Partial Class addProjectApprovalRecord
             'TODO: 21 campos nuesvos para la validacion de aprobacion idea
             '12-06-2013 german rodriguez 
 
-            objProjectApprovalRecord.codeapprovedidea = Me.txtcodeapproved.text
+            objProjectApprovalRecord.codeapprovedidea = Me.txtcodeapproved.Text
             objProjectApprovalRecord.Ididea = Me.ddlidproject.SelectedValue
 
             objProjectApprovalRecord.approvaldate = IIf((Me.txtapprovaldate.Text = ""), Nothing, Me.txtapprovaldate.Text)
             objProjectApprovalRecord.actnumber = Me.txtactnumber.Text
-            objProjectApprovalRecord.approvedvalue = PublicFunction.ConvertStringToDouble(Me.txtapprovedvalue.Text)            
+            objProjectApprovalRecord.approvedvalue = PublicFunction.ConvertStringToDouble(Me.txtapprovedvalue.Text)
             objProjectApprovalRecord.approved = Me.ddlapproved.SelectedValue
             objProjectApprovalRecord.enabled = Me.ddlenabled.SelectedValue
 
@@ -388,7 +428,7 @@ Partial Class addProjectApprovalRecord
         End Try
 
     End Sub
-    
+
     Protected Sub btnConfirmDelete_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnConfirmDelete.Click
 
         ' definir los objetos
@@ -421,7 +461,7 @@ Partial Class addProjectApprovalRecord
         End Try
 
     End Sub
-    
+
     Protected Sub btnCancelDelete_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnCancelDelete.Click
 
         ' ocultar algunos botones

@@ -154,6 +154,23 @@
                 <tr>
                     <td>
                         <br />
+                        <asp:Label ID="lblSubscriptionDate" runat="server" Text="Fecha de Suscripción"></asp:Label>
+                    </td>
+                    <td>
+                        <br />
+                        <asp:TextBox ID="txtSubscriptionDate" runat="server" MaxLength="50" Width="400px"></asp:TextBox><cc1:CalendarExtender
+                            ID="CalendarExtender2" runat="server" Enabled="True" Format="yyyy/MM/dd" TargetControlID="txtSubscriptionDate">
+                        </cc1:CalendarExtender>
+                        <asp:CompareValidator ID="cvsubscriptiondate" runat="server" ControlToValidate="txtSubscriptionDate"
+                            ErrorMessage="aaaa/mm/dd" Operator="DataTypeCheck" SetFocusOnError="True" Type="Date"></asp:CompareValidator>
+                    </td>
+                    <td>
+                        <asp:Label ID="lblInfoSubscriptionDate" runat="server"></asp:Label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <br />
                         <asp:Label ID="lblInitialDate" runat="server" Text="Fecha de Inicio"></asp:Label>
                     </td>
                     <td>
@@ -167,23 +184,6 @@
                     </td>
                     <td>
                         <asp:Label ID="lblinformation" runat="server"></asp:Label>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <br />
-                        <asp:Label ID="lblSubscriptionDate" runat="server" Text="Fecha de Suscripción"></asp:Label>
-                    </td>
-                    <td>
-                        <br />
-                        <asp:TextBox ID="txtSubscriptionDate" runat="server" MaxLength="50" Width="400px"></asp:TextBox><cc1:CalendarExtender
-                            ID="CalendarExtender2" runat="server" Enabled="True" Format="yyyy/MM/dd" TargetControlID="txtSubscriptionDate">
-                        </cc1:CalendarExtender>
-                        <asp:CompareValidator ID="cvsubscriptiondate" runat="server" ControlToValidate="txtSubscriptionDate"
-                            ErrorMessage="aaaa/mm/dd" Operator="DataTypeCheck" SetFocusOnError="True" Type="Date"></asp:CompareValidator>
-                    </td>
-                    <td>
-                        <asp:Label ID="lblInfoSubscriptionDate" runat="server"></asp:Label>
                     </td>
                 </tr>
                 <tr>

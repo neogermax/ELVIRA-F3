@@ -409,3 +409,56 @@ function traer_datos_idea_inf_p() {
     });
 
 }
+
+
+
+//funcion para exportar los terminos de referencia
+function Export_onclick() {
+
+    var listubicaciones = [];
+    var listactores = [];
+
+    //recorer array para el ingreso de ubicaciones
+    for (item in arrayUbicacion) {
+        listubicaciones.push(JSON.stringify(arrayUbicacion[item]));
+    }
+    //recorer array para el ingreso de actores
+    for (item in arrayActor) {
+        listactores.push(JSON.stringify(arrayActor[item]));
+    }
+
+    //capturamos la url
+    var sPageURL = window.location.search.substring(1);
+    var sURLVariables = sPageURL.split('&');
+    //validamos si creamos la idea o editamos
+    if (sURLVariables[0] == "op=edit") {
+        ideditar = sURLVariables[1];
+        // alert(ideditar);
+        var str_url = "addProject.aspx?op=export&" + ideditar;
+        // alert(str_url);
+    }
+    else {
+        var str_url = "addProject.aspx?op=export";
+
+    }
+
+    //  $("#linkExport").attr({ href: str_url });
+    $("#Export").attr("href", str_url);
+}
+
+function Ctypeaproval() {
+
+    $.ajax({
+        url: "AjaxAddProject.aspx",
+        type: "GET",
+        data: { "action": "C_type_aproval", "type": "P" },
+        success: function(result) {
+            $("#dll_estado").html(result);
+            $("#dll_estado").trigger("liszt:updated");
+        },
+        error: function(msg) {
+            alert("No se pueden cargar los estados de la idea.");
+        }
+    });
+
+}

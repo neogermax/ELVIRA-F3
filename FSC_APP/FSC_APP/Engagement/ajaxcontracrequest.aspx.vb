@@ -18,9 +18,11 @@ Partial Class Engagement_ajaxcontracrequest
         Dim id_b As Integer
         Dim fecha As Date
         Dim duracion As String
+        Dim dias As Integer
         Dim contrato As String
         Dim proyecto As String
         Dim columna As String
+        Dim fechacrea As Date
 
         Try
             action = Request.QueryString("action").ToString()
@@ -36,8 +38,16 @@ Partial Class Engagement_ajaxcontracrequest
                 Case "calculafechas"
                     fecha = Convert.ToDateTime(Request.QueryString("fecha").ToString())
                     duracion = Request.QueryString("duracion").ToString()
+
+                    'Validar días
+                    If Request.QueryString("dias").ToString() = "" Then
+                        dias = 0
+                    Else
+                        dias = Request.QueryString("dias").ToString()
+                    End If
+
                     fecha = fecha.ToString("yyyy/MM/dd")
-                    calculafechas(fecha, duracion)
+                    calculafechas(fecha, duracion, dias)
 
                 Case "validarcontrato"
                     contrato = Request.QueryString("contrato").ToString()
@@ -51,6 +61,11 @@ Partial Class Engagement_ajaxcontracrequest
                         buscarproyecto(proyecto, columna, applicationCredentials)
                     End If
 
+                Case "validacreacion"
+                    fechacrea = Request.QueryString("fechacrea").ToString()
+                    proyecto = Request.QueryString("proyecto").ToString()
+                    projectcreatedate(applicationCredentials, fechacrea, proyecto)
+
                 Case "getsupervisor"
                     contrato = Request.QueryString("contract").ToString()
                     If contrato = "" Then
@@ -59,13 +74,63 @@ Partial Class Engagement_ajaxcontracrequest
                     buscarsupervisor(contrato, applicationCredentials)
                 Case Else
             End Select
-        Catch ex As Exception
 
+        Catch ex As Exception
+            Dim merror As String
+            merror = ex.Message
         End Try
 
         
 
     End Sub
+
+    Public Function projectcreatedate(ByVal objApplicationCredentials As Gattaca.Application.Credentials.ApplicationCredentials, ByVal fechacompara As Date, ByVal idproyect As Long) As String
+
+        Dim sql As New StringBuilder
+        Dim data As DataTable
+        Dim madre As Integer
+        Dim proyecto As Integer
+        Dim fechaproyecto As Date
+        Dim valida As Boolean
+
+        sql.AppendLine("Select CreateDate, mother, Project_derivados from project ")
+        sql.AppendLine("where id = " & idproyect)
+
+        Data = GattacaApplication.RunSQLRDT(objApplicationCredentials, sql.ToString)
+
+        'verificar si hay datos
+        If data.Rows.Count > 0 Then
+            madre = data.Rows(0)("mother")
+
+            'verificar si el proyecto es madre
+            If madre = 0 Then
+                'si el proyecto no es madre, buscar el proyecto madre
+                proyecto = data.Rows(0)("Project_derivados")
+            Else
+                'si es madre capturar el id
+                proyecto = idproyect
+            End If
+
+            'consultar la fecha de creacion del proyecto madre
+            fechaproyecto = data.Rows(0)("CreateDate")
+
+            'sql.AppendLine("Select ")
+
+            'comparar ambas fechas
+            If fechacompara < fechaproyecto Then
+                'fecha es mayor de creacion de proyecto
+                valida = False
+            Else
+                'fecha no es mayor que creacion de proyecto
+                valida = True
+            End If
+
+            'devolver el resultado
+            Response.Write(valida)
+
+        End If
+
+    End Function
 
     Public Function loadthirdddl(ByVal objApplicationCredentials As Gattaca.Application.Credentials.ApplicationCredentials, _
           ByVal idThird As Integer, ByVal persona As String) As String
@@ -151,7 +216,7 @@ Partial Class Engagement_ajaxcontracrequest
 
     End Function
 
-    Public Function calculafechas(ByVal fecha As DateTime, ByVal duracion As String) As String
+    Public Function calculafechas(ByVal fecha As DateTime, ByVal duracion As String, ByVal diasadic As Integer) As String
 
         Dim objResult As String
 
@@ -177,6 +242,9 @@ Partial Class Engagement_ajaxcontracrequest
                 meses = duracion
                 dias = 0
             End If
+
+            'Agregar días extra
+            dias = dias + diasadic
 
             Dim fechafinal As Date
             'calcular la fecha final

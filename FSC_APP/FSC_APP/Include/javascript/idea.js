@@ -17,6 +17,7 @@ var arraycomponenteing = [];
 var arraycomponente = [];
 var arraycomponentedesechado = [];
 var arraycomponente_archivar = [];
+var arraycomponente_archivar_ed = [];
 
 var arrayValorflujoTotal = [];
 var arrayinputflujos = [];
@@ -89,18 +90,21 @@ $(document).ready(function() {
         Ctype_project();
         Cpopulation();
         validarporcentaje();
+
+        Ctypeaproval();
+
         ClineEstrategic();
 
         $("#ddlStrategicLines").ready(function() {
             ClineEstrategic_edit();
         });
 
-
         //Cprogram();
+        View_componentes_array();
         cargarcomponente();
-        load_idarchive();
-
         edit_component_view();
+
+        load_idarchive();
 
         view_ubicacion();
         view_ubicacion_array();
@@ -122,19 +126,22 @@ $(document).ready(function() {
 
         View_anexos_array();
         View_anexos();
-
         //$("#ddlStrategicLines").ready(function() { ClineEstrategic_edit(); });
 
         var timer_cline_edit = setTimeout("Cpopulation_view();", 2000);
         var timer_cline_edit = setTimeout("Ctypcontract_view();", 2000);
+        var timer_cline_edit = setTimeout("Ctypaproval_view();", 2000);
+
         itemarrayflujos = 0;
 
-        
-        $("#SaveIdea").attr("value", "Editar Idea");
-        $("#Export").css("display", "block");
+        $("#li_estado").css("display", "compact");
+        $("#SaveIdea").attr("value", "Guardar cambios");
+        $("#Export").css("display", "compact");
         borrar_carpeta();
     }
     else {
+
+        $("#li_estado").css("display", "none");
 
         operacionesIdea();
         actors_transanccion();
@@ -156,12 +163,17 @@ $(document).ready(function() {
         Cpopulation();
         validarporcentaje();
 
+
         $("#SaveIdea").attr("value", "Crear Idea");
         $("#Export").css("display", "none");
-
         borrar_carpeta();
 
     }
+
+    //validar campos fechas
+    validar_campofecha('ctl00_cphPrincipal_txtstartdate', 'ctl00_cphPrincipal_lblHelpstartdate');
+    validar_campofecha('ctl00_cphPrincipal_txtfechapago', 'ctl00_cphPrincipal_helpfechapago');
+    carga_eventos("ctl00_cphPrincipal_container_wait");
 
     $("#ctl00_cphPrincipal_containerSuccess").css("display", "none");
     $("#ctl00_cphPrincipal_containererrors").css("display", "none");
@@ -458,7 +470,7 @@ function SaveIdea_onclick() {
 
         if (sURLVariables[0] == "op=edit") {
             editar_idea();
-            //copiar_archivos();
+            copiar_archivos();
         }
         else {
             Crear_idea();
@@ -734,6 +746,7 @@ function Crear_idea() {
             "listflujos": cambio_text(listflujos.toString()),
             "listdetallesflujos": listdetallesflujos.toString(),
             "listfiles": listfiles.toString(),
+            "tipo_estado": $("#dll_estado").val(),
             "listactores": listactores.toString()
 
         },
@@ -741,14 +754,14 @@ function Crear_idea() {
         success: function(result) {
             $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
             $("#SaveIdea").css("display", "none");
-            $("#Export").css("display", "block");
+            $("#Export").css("display", "compact");
             $("#ctl00_cphPrincipal_lblsaveinformation").text(result);
             $("#ctl00_cphPrincipal_Lbladvertencia").text("");
             $("#ctl00_cphPrincipal_Txtobligationsoftheparties").focus();
         },
         error: function() {
             $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
-            $("#SaveIdea").css("display", "block");
+            $("#SaveIdea").css("display", "compact");
             $("#ctl00_cphPrincipal_lblsaveinkdformation").text("Se genero error al entrar a la operacion Ajax :");
         }
     });
@@ -776,6 +789,7 @@ function editar_idea() {
     Str_listcomponentes = Str_listcomponentes.replace(/class=/g, "*");
     Str_listcomponentes = Str_listcomponentes.replace(/id=/g, "");
     Str_listcomponentes = Str_listcomponentes.replace(/_add/g, "");
+    Str_listcomponentes = Str_listcomponentes.replace(/_selectadd/g, "");
 
 
     //recorer array para el ingreso de ubicaciones
@@ -856,6 +870,7 @@ function editar_idea() {
             "listflujos": cambio_text(listflujos.toString()),
             "listdetallesflujos": listdetallesflujos.toString(),
             "listfiles": listfiles.toString(),
+            "tipo_estado": $("#dll_estado").val(),
             "listactores": listactores.toString()
 
         },
@@ -863,20 +878,17 @@ function editar_idea() {
         success: function(result) {
             $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
             $("#SaveIdea").css("display", "none");
-            $("#Export").css("display", "block");
+            $("#Export").css("display", "compact");
             $("#ctl00_cphPrincipal_lblsaveinformation").text(result);
             $("#ctl00_cphPrincipal_Lbladvertencia").text("");
             $("#ctl00_cphPrincipal_Txtobligationsoftheparties").focus();
         },
         error: function() {
             $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
-            $("#SaveIdea").css("display", "block");
+            $("#SaveIdea").css("display", "compact");
             $("#ctl00_cphPrincipal_lblsaveinkdformation").text("Se genero error al entrar a la operacion Ajax :");
         }
     });
-
-
-
 
 }
 
@@ -922,11 +934,16 @@ function aprobacion_idea() {
             if (result == 1) {
                 $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
                 $("#ctl00_cphPrincipal_lblsaveinformation").text("Esta Idea ya se encuentra aprobada y NO puede ser modificada!");
-                $("#EditIdea").css("display", "none");
+                $("#SaveIdea").css("display", "none");
+                $("#dll_estado").attr("disabled", "disabled");
+                $("#dll_estado").val(1);
+
             }
             else {
                 $("#ctl00_cphPrincipal_containerSuccess").css("display", "none");
-                $("#EditIdea").css("display", "block");
+                $("#SaveIdea").css("display", "compact");
+                //   $("#dll_estado").val(3);
+
             }
 
 
@@ -970,5 +987,5 @@ function copiar_archivos() {
         }
     });
 
-
 }
+

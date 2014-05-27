@@ -133,6 +133,15 @@ Partial Public Class addIdea
     Protected WithEvents lblHelpid As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
+    '''Control li_code.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents li_code As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+    '''<summary>
     '''Control lblcode.
     '''</summary>
     '''<remarks>
@@ -698,6 +707,33 @@ Partial Public Class addIdea
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
     Protected WithEvents Lblmodcontract As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''Control Lblestado.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Lblestado As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''Control dll_estado.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents dll_estado As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''Control Lblhelp_estado.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Lblhelp_estado As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''Control Label21.
@@ -1679,6 +1715,15 @@ Partial Public Class addIdea
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
     Protected WithEvents cesfechapago As Global.AjaxControlToolkit.CalendarExtender
+
+    '''<summary>
+    '''Control helpfechapago.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents helpfechapago As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''Control lblporcentaje.

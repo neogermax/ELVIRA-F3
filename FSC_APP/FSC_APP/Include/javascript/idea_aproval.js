@@ -9,8 +9,13 @@ $(document).ready(function() {
     validaraprobacion();
     operacionesaprobacion();
     $("#ctl00_cphPrincipal_containerSuccess2").css("display", "none");
-    
+    $("#tabsaproval").tabs();
+
+    carga_eventos("ctl00_cphPrincipal_container_wait");
+    validar_campofecha('ctl00_cphPrincipal_txtapprovaldate', 'ctl00_cphPrincipal_lblHelpapprovaldate');
+
 });
+
 
 function validar_new_campos() {
     $("#ctl00_cphPrincipal_ddlidproject").change(function() {
@@ -20,15 +25,15 @@ function validar_new_campos() {
             data: { "action": "validar_campos_new", "code": $(this).val() },
             success: function(result) {
 
-            if (result != "Falta por diligenciar :") {
-                   
+                if (result != "Falta por diligenciar :") {
+
                     $("#ctl00_cphPrincipal_Lblnewcampos").text(result);
                     $("#ctl00_cphPrincipal_containerSuccess2").css("display", "block");
                     $("#ctl00_cphPrincipal_btnAddData").css("display", "none");
                 }
                 else {
                     $("#ctl00_cphPrincipal_containerSuccess2").css("display", "none");
-                 }
+                }
 
             },
             error: function()
@@ -146,7 +151,7 @@ function validaraprobacion() {
                         //  window.location = "/FSC/ResearchAndDevelopment/searchIdea.aspx";
                     }
                     else
-                      //  $("#ctl00_cphPrincipal_containerSuccess2").css("display", "none");
+                    //  $("#ctl00_cphPrincipal_containerSuccess2").css("display", "none");
                         $("#ctl00_cphPrincipal_txtcodeapproved").val(result.noaprobacion);
                 }
             },
@@ -188,7 +193,7 @@ function validaraprobacion() {
             data: { "action": "buscaractores", "code": $(this).val() },
             success: function(result) {
                 $("#gridthird").html(result);
-                
+
                 $("#T_Actors").dataTable({
                     "bJQueryUI": true,
                     "bDestroy": true

@@ -1328,12 +1328,12 @@ Public Class ProjectDALC
             ' 04/06/13 german rodriguez MGgroup
 
 
-            sql.Append("select distinct Idea.Code,Idea.Name,Idea.createDate, Idea.Code+'_'+Idea.Name as 'name_code' from Idea ")
-            sql.Append("left JOIN ProjectApprovalRecord par on par.Ididea = idea.Id  ")
-            sql.Append("where PAR.Ididea is null  ")
+            sql.Append(" select distinct I.Code,I.Name,I.createDate, I.Code+'_'+I.Name as 'name_code' from Idea i ")
+            sql.Append(" left JOIN ProjectApprovalRecord par on par.Ididea = i.Id ")
+            sql.Append(" where PAR.Ididea is null and i.Typeapproval = 3 ")
             If Not order.Equals(String.Empty) Then
 
-                sql.Append(" ORDER BY Idea.createDate  DESC")
+                sql.Append(" ORDER BY I.createDate  DESC")
 
             End If
 
@@ -2164,6 +2164,41 @@ Public Class ProjectDALC
     End Function
 
 
+    Public Function UpdateFromContract(ByVal objApplicationCredentials As Gattaca.Application.Credentials.ApplicationCredentials, ByVal Project As ProjectEntity, ByVal ProjectId As Long) As Long
+
+        Dim sql As New StringBuilder
+
+        Try
+
+            'construir la sentencia
+            sql.AppendLine("Update Project SET")
+            sql.AppendLine(" BeginDate = '" & Project.begindate.ToString("yyyyMMdd HH:mm:ss") & "',")
+            sql.AppendLine(" completiondate = '" & Project.Enddate.ToString("yyyyMMdd HH:mm:ss") & "'")
+            sql.AppendLine(" WHERE Id = " & ProjectId)
+
+            'Ejecutar la Instrucción
+            GattacaApplication.RunSQL(objApplicationCredentials, sql.ToString)
+
+            'Finalizar la transaccion
+            CtxSetComplete()
+
+        Catch ex As Exception
+
+            CtxSetAbort()
+
+            GattacaApplication.Publish(ex, objApplicationCredentials.ClientName, MODULENAME, "UpdateFromContract")
+            ExceptionPolicy.HandleException(ex, "GattacaStandardExceptionPolicy")
+
+            Throw New Exception("Error al actualizar el proyecto. - " & ex.Message)
+
+        Finally
+
+            sql = Nothing
+
+        End Try
+
+
+    End Function
 
     ''' <summary>
     ''' Edita campos del proyecto

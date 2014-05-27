@@ -26,6 +26,7 @@ function inicial() {
     pendiente("#btncrono");
     pendiente("#btncontratacion");
     //pendiente("#btnproceed");
+    
 };
 
 //-Verificacion inicial-//
@@ -175,7 +176,7 @@ function Contract_onclick() {
             if (result != "") {
                 window.location.href = '/Engagement/addContractRequest.aspx?op=edit&ID=' + result;
             } else {
-                window.location.href = '/Engagement/addContractRequest.aspx?op=add';
+            window.location.href = '/Engagement/addContractRequest.aspx?op=add';
             }
         },
         error: function()
@@ -200,5 +201,5 @@ function getParameterByName(name) {
 
 function Modification_onclick()
 {
-    window.location = '/FSC_APP/FormulationAndAdoption/request.aspx?idproject=' + getParameterByName('id');
+    window.location = '/FormulationAndAdoption/request.aspx?idproject=' + getParameterByName('id');
 }

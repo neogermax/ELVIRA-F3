@@ -673,6 +673,33 @@ Partial Public Class addProject
     Protected WithEvents Lblmodcontract As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
+    '''Control Lblestado.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Lblestado As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''Control dll_estado.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents dll_estado As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''Control Lblhelp_estado.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Lblhelp_estado As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
     '''Control Label21.
     '''</summary>
     '''<remarks>
@@ -1805,6 +1832,15 @@ Partial Public Class addProject
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
     Protected WithEvents CalendarExtender1 As Global.AjaxControlToolkit.CalendarExtender
+
+    '''<summary>
+    '''Control helpfechapago.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents helpfechapago As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''Control lblporcentaje.

@@ -106,7 +106,6 @@ function ClineEstrategic() {
     });
 }
 
-
 //cargar combo de programas
 function Cprogram(idLineStrategic) {
 
@@ -306,12 +305,26 @@ function validar_cambio_linea(str_result) {
 //cargar double lisbox componentes de programa
 function cargarcomponente() {
 
+    var editable;
+    var id_idea;
+    var sPageURL = window.location.search.substring(1);
+    var sURLVariables = sPageURL.split('&');
+
+    if (sURLVariables[0] == "op=edit") {
+        editable = 1;
+        id_idea = ideditar;
+    }
+    else {
+        editable = 0;
+        id_idea = 0;
+    }
+
 
     $("#ddlPrograms").change(function() {
         $.ajax({
             url: "AjaxAddIdea.aspx",
             type: "GET",
-            data: { "action": "C_component", "idprogram": $(this).val() },
+            data: { "action": "C_component", "idprogram": $(this).val(), "estado_proceso": editable, "id": id_idea },
             success: function(result) {
 
                 $("#seleccionarcomponente").html(result);
@@ -520,10 +533,9 @@ function Btndeletecomponent_onclick() {
         //crea la lista nueva
         var htmlresult = "<li id = '" + arraycomponentedesechado[itemArray].replace('select', '') + "' class = 'seleccione' >" + htmlcomponente + "</li>";
         var id_componente = arraycomponentedesechado[itemArray];
-        
+
         id_componente = id_componente.replace("selectadd", "");
-        alert(id_componente);
-        
+     
         for (itemArray_bor in arraycomponente_archivar) {
             if (id_componente == arraycomponente_archivar[itemArray_bor]) {
                 delete arraycomponente_archivar[itemArray_bor];
@@ -572,4 +584,27 @@ function Btndeletecomponent_onclick() {
         $(this).css("color", "#fff");
     });
 
+}
+
+//trae los componentes de la idea para asignarlos al array de datos
+function View_componentes_array() {
+    $.ajax({
+        url: "AjaxAddIdea.aspx",
+        type: "GET",
+        data: { "action": "View_componentes_array", "ididea": ideditar },
+        success: function(result) {
+
+            arraycomponente_archivar_ed = result.split(",");
+
+            for (itemArray in arraycomponente_archivar_ed) {
+
+                // var recibecomp = JSON.parse(arraycomponente_archivar_ed[itemArray]);
+                arraycomponente_archivar.push(arraycomponente_archivar_ed[itemArray]);
+            }
+
+        },
+        error: function(msg) {
+            alert("No se pueden cargar los componentes  en el array de la idea = " + ideditar);
+        }
+    });
 }
