@@ -344,6 +344,7 @@ Partial Class addContractRequest
         ' definir los objetos
         Dim facade As New Facade
         Dim objContractRequest As New ContractRequestEntity
+        Dim objProject As New ProjectEntity
         Dim objpoliza As New PolizaEntity
         Dim objpolizadetails As New PolizaDetailsEntity
         Dim objSupervisor As New SupervisorByContractRequestEntity
@@ -509,6 +510,19 @@ Partial Class addContractRequest
 
             ' almacenar la entidad
             objContractRequest.requestnumber = facade.addContractRequest(applicationCredentials, objContractRequest)
+
+            'crear objeto para proyecto
+            If Me.txtInitialDate.Text <> "" Then
+                objProject.begindate = Me.txtInitialDate.Text
+            End If
+
+            If Me.txtEndingDate.Text <> "" Then
+                objProject.Enddate = Me.txtEndingDate.Text
+            End If
+
+            'actualizar proyecto
+            facade.updateFromContract(applicationCredentials, objProject, objContractRequest.idproject)
+
 
             If Me.PolizaRequired.Checked = False Then
             Else
@@ -781,6 +795,18 @@ Partial Class addContractRequest
 
             ' modificar el registro
             facade.updateContractRequest(applicationCredentials, objContractRequest)
+
+            'crear objeto para proyecto
+            If Me.txtInitialDate.Text <> "" Then
+                objProject.begindate = Me.txtInitialDate.Text
+            End If
+
+            If Me.HFEndDate.Value <> "" Then
+                objProject.Enddate = Me.HFEndDate.Value
+            End If
+
+            'actualizar proyecto
+            facade.updateFromContract(applicationCredentials, objProject, objContractRequest.idproject)
 
             If Finished = "True" Then
                 'Actualizar el proyecto a estado contratado.

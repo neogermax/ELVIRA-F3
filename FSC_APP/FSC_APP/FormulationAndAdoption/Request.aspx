@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="vb" AutoEventWireup="false" MasterPageFile="~/Master/mpAdmin.master"
-    CodeBehind="Request.aspx.vb" Inherits="FSC_APP.Request" Title="Página sin título" %>
+    CodeBehind="Request.aspx.vb" Inherits="FSC_APP.Request" Title="Solicitudes" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="cphPrincipal" runat="server">
     <!-- Style -->
@@ -92,6 +92,8 @@
 
     <script src="../Include/javascript/ThirdRequest.js" type="text/javascript"></script>
     
+    <script src="../Include/javascript/FlowRequest.js" type="text/javascript"></script>
+    
     <script src="../Include/javascript/jquery.maskMoney.js" type="text/javascript"></script>
     
     <script type="text/javascript">
@@ -111,8 +113,16 @@
             //Load thirds in case add
             loadDataThirsProject();
             
+            //Load Flows in case add
+            loadPaymentFlowsByProject();
+            
+            //Process German
+            validarporcentaje();
+            
             //mask controls money
-            $('#ctl00_cphPrincipal_Txtvrdiner, #ctl00_cphPrincipal_Txtvresp, #txtTotalThird').maskMoney({thousands: '.', decimal:',', precision: 0});
+            $('#ctl00_cphPrincipal_Txtvrdiner, #ctl00_cphPrincipal_Txtvresp, #txtTotalThird, .money').maskMoney({thousands: '.', decimal:',', precision: 0});
+            //set datepicker control
+            $("#ctl00_cphPrincipal_txtfechapago").datepicker();
             
             //New instance pretty photo
             $("a.pretty").prettyPhoto({
@@ -463,8 +473,8 @@
                 <ul id="listFlujosPagos">
                     <li width="25%">
                         <asp:Label ID="lblvalortotal" runat="server" Text="Pago No"></asp:Label>
-                        <asp:TextBox ID="txtvalortotalflow" runat="server" Width="100px" MaxLength="50" onkeychange="ValidaSoloNumeros()"
-                            onkeyup="ValidaSoloNumeros()" onkeypress="ValidaSoloNumeros()"></asp:TextBox>
+                        <asp:TextBox ID="txtvalortotalflow" runat="server" Width="100px" MaxLength="5"
+                            onkeyup="this.value=this.value.replace(/[^\d]/,'')" ></asp:TextBox>
                     </li>
                     <li width="25%">
                         <asp:Label ID="lblfechapago" runat="server" Text="Fecha de pago"></asp:Label>
@@ -543,7 +553,8 @@
                         <asp:Label ID="Lblinformation_flujos" runat="server" ForeColor="#990000"></asp:Label>
                     </li>
                     <li style="margin-left: 3em;">
-                        <input id="Btn_add_flujo" type="button" value="Agregar pago" name="Add_flujo" onclick="return Btn_add_flujo_onclick()" />
+                        <br />
+                        <input id="Btn_add_flujo" type="button" value="Agregar Pago" style="background-image: none;" class="btn btn-success" name="Add_flujo" onclick="return Btn_add_flujo_onclick()" />
                     </li>
                 </ul>
                 <br />

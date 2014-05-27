@@ -18,7 +18,7 @@
     $("#ctl00_cphPrincipal_linkactors").button();
     $('#T_supervisor').dataTable();
 
-})
+});
 
 //Funcion que muestra el div de confirmación al momento de finalizar contratación
 function polizas() {
@@ -29,7 +29,7 @@ function polizas() {
     });
 
     //Chequea el control "Requiere poliza" al cargar la pagina
-    if ($("#ctl00_cphPrincipal_HFPolRequired").val() == 1) {
+    if ($("#ctl00_cphPrincipal_HFPolRequired").val() === 1) {
         $("#ctl00_cphPrincipal_TabContainer1_TabPanel7_PolizaRequired").prop('checked', true);
     }
 
@@ -55,7 +55,7 @@ function supervisor_array() {
             }
 
             htmlTable += "</tbody></table>";
-            
+
             $("#T_SuperVContainer").html("");
             $("#T_SuperVContainer").html(htmlTable);
 
@@ -67,7 +67,7 @@ function supervisor_array() {
                 "bJQueryUI": true,
                 "bDestroy": true
             });
-            
+
         },
         error: function(msg) {
             alert("Los datos de supervisores no pudieron ser cargados.");
@@ -86,7 +86,7 @@ function btnaddsupervisor_onclick() {
     }
     $("#ctl00_cphPrincipal_lblAddSupervisor").text("");
     var JsonSupervisor = { "SuperVal": $("#ctl00_cphPrincipal_ddlSupervisor option:selected").text() };
-    var SuperVal = $("#ctl00_cphPrincipal_ddlSupervisor option:selected").text()
+    var SuperVal = $("#ctl00_cphPrincipal_ddlSupervisor option:selected").text();
 
     var validerepetido = 0;
     var strasp = "";
@@ -261,7 +261,7 @@ function checkContract() {
 
         $("#ctl00_cphPrincipal_txtcontractnumberadjusted").trigger("blur");
 
-    })
+    });
 }
 
 
@@ -293,7 +293,7 @@ function fecha() {
 
     //Validacion fechas contrato
     $("#ctl00_cphPrincipal_txtInitialDate").change(function() {
-        if ($("#ctl00_cphPrincipal_txtSubscriptionDate").val() == '') {
+        if ($("#ctl00_cphPrincipal_txtSubscriptionDate").val() === '') {
             $("#ctl00_cphPrincipal_lblinformation").css("color", "red");
             $("#ctl00_cphPrincipal_blinformation").text("La fecha de suscripción no puede estar vacía.");
         }
@@ -311,7 +311,40 @@ function fecha() {
                 $("#ctl00_cphPrincipal_lblinformation").text("");
             }
         }
-    })
+    });
+
+    $("#ctl00_cphPrincipal_txtSubscriptionDate").change(function() {
+        //console.log("Aqui valida fecha madre");
+
+        if($("#ctl00_cphPrincipal_ddlProject").val() == '-1') {
+            //console.log("el valor es -1");
+            $("#ctl00_cphPrincipal_lblInfoSubscriptionDate").css("color", "red");
+            $("#ctl00_cphPrincipal_lblInfoSubscriptionDate").css("display", "block");
+            $("#ctl00_cphPrincipal_lblInfoSubscriptionDate").text("No se ha seleccionado un proyecto.");
+        return;
+        }else{
+            //console.log("el valor no es -1");
+            $("#ctl00_cphPrincipal_lblInfoSubscriptionDate").val("");
+        }
+
+
+
+        //Ejecutar validacion de la fecha
+        $.ajax({
+            url: "ajaxcontracrequest.aspx",
+            type: "GET",
+            data: { "action": "validacreacion", "fechacrea": $("#ctl00_cphPrincipal_txtSubscriptionDate").val(), "proyecto": $("#ctl00_cphPrincipal_ddlProject").val() },
+            success: function(result) {
+                //Si la fecha no es valida notificar
+                $("#ctl00_cphPrincipal_lblInfoSubscriptionDate").val("La fecha de suscripción no puede ser inferior a la fecha de creación del proyecto madre.");
+                $("#ctl00_cphPrincipal_txtSubscriptionDate").val("");
+            },
+            error: function() {
+                alert("Hay un error con el calculo de las fechas");
+                $("#ctl00_cphPrincipal_lblInfoSubscriptionDate").val("");
+            }
+        });
+    });
 
     $("#ctl00_cphPrincipal_txtContractDays").change(function() {
         var dias = $("#ctl00_cphPrincipal_txtContractDays").val();
@@ -322,11 +355,11 @@ function fecha() {
             $("#ctl00_cphPrincipal_lblNfoContractDays").text("El valor de los días debe ser numérico.");
             $("#ctl00_cphPrincipal_txtContractDays").val("");
         }
-    })
+    });
 
     //Validacion fechas contrato
     $("#ctl00_cphPrincipal_txtLiquidationDate").change(function() {
-        if ($("#ctl00_cphPrincipal_txtEndingDate").val() == '') {
+        if ($("#ctl00_cphPrincipal_txtEndingDate").val() === '') {
             $("#ctl00_cphPrincipal_lblNfoEndingdate").css("color", "red");
             $("#ctl00_cphPrincipal_lblNfoEndingdate").text("La fecha de cierre no se ha diligenciado.");
             $("#ctl00_cphPrincipal_txtLiquidationDate").val("");
@@ -337,7 +370,6 @@ function fecha() {
             var fechaliquida = $("#ctl00_cphPrincipal_txtLiquidationDate").val();
 
             if (fechacierre > fechaliquida) {
-                $("#ctl00_cphPrincipal_lblNfoEndingdate").css("color", "red");
                 $("#ctl00_cphPrincipal_lblNfoEndingdate").text("La fecha de cierre no puede ser anterior a la fecha de liquidación.");
                 $("#ctl00_cphPrincipal_txtLiquidationDate").val("");
             }
@@ -345,21 +377,21 @@ function fecha() {
                 $("#ctl00_cphPrincipal_lblNfoEndingdate").text("");
             }
         }
-    })
+    });
 
     //Limpiar campos fechas de contrato
     $("#ctl00_cphPrincipal_txtSubscriptionDate").change(function() {
         $("#ctl00_cphPrincipal_txtInitialDate").val("");
-    })
+    });
 
     //Limpiar campos fechas de poliza
     $("#ctl00_cphPrincipal_txtExpeditionDate").change(function() {
         $("#ctl00_cphPrincipal_txtFinishdate").val("");
-    })
+    });
 
     //Validacion fechas conceptos de poliza
     $("#ctl00_cphPrincipal_txtFinishDatePoliza").change(function() {
-        if ($("#ctl00_cphPrincipal_txtInitDatePoliza").val() != "" && $("#ctl00_cphPrincipal_txtFinishDatePoliza").val() != "") {
+        if ($("#ctl00_cphPrincipal_txtInitDatePoliza").val() !== "" && $("#ctl00_cphPrincipal_txtFinishDatePoliza").val() !== "") {
             if ($("#ctl00_cphPrincipal_txtInitDatePoliza").val() > $("#ctl00_cphPrincipal_txtFinishDatePoliza").val()) {
                 $("#ctl00_cphPrincipal_lblAddPolizaNfo").css("color", "red");
                 $("#ctl00_cphPrincipal_lblAddPolizaNfo").text("La fecha de fin de vigencia no debe se inferior a la fecha de inicio de la vigencia.");
@@ -367,15 +399,15 @@ function fecha() {
                 $("#ctl00_cphPrincipal_lblAddPolizaNfo").text("");
             }
         }
-    })
+    });
 
     $("#ctl00_cphPrincipal_txtInitDatePoliza").change(function() {
         $("#ctl00_cphPrincipal_txtFinishDatePoliza").trigger("change");
-    })
+    });
 
     //Validacion fechas poliza
     $("#ctl00_cphPrincipal_txtFinishdate").change(function() {
-        if ($("#ctl00_cphPrincipal_txtExpeditionDate").val() == '') {
+        if ($("#ctl00_cphPrincipal_txtExpeditionDate").val() === '') {
             $("#ctl00_cphPrincipal_lblInfo2").css("color", "red");
             $("#ctl00_cphPrincipal_lblInfo2").text("La fecha de expedición no puede estar vacía.");
             $("#ctl00_cphPrincipal_txtContractDuration").val("");
@@ -395,12 +427,12 @@ function fecha() {
                 $("#ctl00_cphPrincipal_lblInfo2").text("");
             }
         }
-    })
+    });
 
     $("#ctl00_cphPrincipal_txtContractDuration").change(function() {
 
         //Verificar que el numero cumpla con las caracteristicas
-        var validacion = /(\d+)(((.|,)\d+)+)?/
+        var validacion = /(\d+)(((.|,)\d+)+)?/;
 
         if ($("#ctl00_cphPrincipal_txtContractDuration").val().search(validacion) == -1) {
             $("#ctl00_cphPrincipal_lblNfoContractDuration").css("color", "red");
@@ -425,7 +457,7 @@ function fecha() {
                 $("#ctl00_cphPrincipal_txtContractDuration").val("");
             }
         });
-    })
+    });
 
     //Verificar si es edicion
     if ($.trim($("#ctl00_cphPrincipal_txtContractDuration").val()).length > 0) {
@@ -434,8 +466,6 @@ function fecha() {
     }
 
 }
-
-
 
 //funcion para traer los terceros de la idea a aprobar
 function buscaractores() {
@@ -448,7 +478,7 @@ function buscaractores() {
     $("#ctl00_cphPrincipal_ddlProject").change(function() {
         var proyecto = document.getElementById("ctl00_cphPrincipal_ddlProject");
         var selproyecto = proyecto.options[proyecto.selectedIndex].text;
-        $("#ctl00_cphPrincipal_lblProjectNumber").text(selproyecto)
+        $("#ctl00_cphPrincipal_lblProjectNumber").text(selproyecto);
         $.ajax({
             url: "/FormulationAndAdoption/ajaxaddProjectApprovalRecordshearch.aspx",
             type: "GET",
@@ -481,7 +511,7 @@ function loadproject(proyecto) {
         data: { "action": "getproject", "proyectid": $("#ctl00_cphPrincipal_ddlProject").val(), "columna": "BeginDate" },
         success: function(result) {
             //Busca registros de contratación
-            if (result != "") {
+            if (result !== "") {
                 $("#ctl00_cphPrincipal_txtInitialDate").val(result);
             }
         },
@@ -499,7 +529,7 @@ function loadproject(proyecto) {
         data: { "action": "getproject", "proyectid": $("#ctl00_cphPrincipal_ddlProject").val(), "columna": "duration" },
         success: function(result) {
             //Busca registros de contratación
-            if (result != "") {
+            if (result !== "") {
                 $("#ctl00_cphPrincipal_txtContractDuration").val(result);
             }
         },
@@ -517,7 +547,7 @@ function loadproject(proyecto) {
         data: { "action": "getproject", "proyectid": $("#ctl00_cphPrincipal_ddlProject").val(), "columna": "days" },
         success: function(result) {
             //Busca registros de contratación
-            if (result != "") {
+            if (result !== "") {
                 $("#ctl00_cphPrincipal_txtContractDays").val(result);
             }
         },
@@ -535,7 +565,7 @@ function loadproject(proyecto) {
         data: { "action": "getproject", "proyectid": $("#ctl00_cphPrincipal_ddlProject").val(), "columna": "completiondate" },
         success: function(result) {
             //Busca registros de contratación
-            if (result != "") {
+            if (result !== "") {
                 $("#ctl00_cphPrincipal_txtEndingDate").val(result);
             }
         },
@@ -551,17 +581,17 @@ function loadproject(proyecto) {
 function arreglo() {
     $("#ctl00_cphPrincipal_btnAddData").click(function() {
         fecha();
-    })
+    });
 
     $("#ctl00_cphPrincipal_ddlContractNature").change(function() {
         $("#ctl00_cphPrincipal_txtcontractnumberadjusted").trigger("blur");
         validacontrato();
-    })
+    });
 
 }
 
 function tabs() {
-    if ($("#ctl00_cphPrincipal_HFActivetab").val() != 0) {
+    if ($("#ctl00_cphPrincipal_HFActivetab").val() !== 0) {
         $("#tabs").tabs("option", "active", $("#ctl00_cphPrincipal_HFActivetab").val());
     }
 }
@@ -608,14 +638,14 @@ function validacontrato() {
                 }
             });
         }
-    })
+    });
 
-};
+}
 
 //-Extraer parametros QueryString-//
 function getParameterByName(name) {
     name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
     var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
             results = regex.exec(location.search);
-    return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }

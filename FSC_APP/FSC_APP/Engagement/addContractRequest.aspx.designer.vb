@@ -250,51 +250,6 @@ Partial Public Class addContractRequest
     Protected WithEvents lblHelpenabled As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''Control lblInitialDate.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents lblInitialDate As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''Control txtInitialDate.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents txtInitialDate As Global.System.Web.UI.WebControls.TextBox
-
-    '''<summary>
-    '''Control cesapprovaldate.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents cesapprovaldate As Global.AjaxControlToolkit.CalendarExtender
-
-    '''<summary>
-    '''Control cvinitialdate.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents cvinitialdate As Global.System.Web.UI.WebControls.CompareValidator
-
-    '''<summary>
-    '''Control lblinformation.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents lblinformation As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
     '''Control lblSubscriptionDate.
     '''</summary>
     '''<remarks>
@@ -338,6 +293,51 @@ Partial Public Class addContractRequest
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
     Protected WithEvents lblInfoSubscriptionDate As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''Control lblInitialDate.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents lblInitialDate As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''Control txtInitialDate.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents txtInitialDate As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''Control cesapprovaldate.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents cesapprovaldate As Global.AjaxControlToolkit.CalendarExtender
+
+    '''<summary>
+    '''Control cvinitialdate.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents cvinitialdate As Global.System.Web.UI.WebControls.CompareValidator
+
+    '''<summary>
+    '''Control lblinformation.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents lblinformation As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''Control lblContractDuration.
@@ -554,6 +554,15 @@ Partial Public Class addContractRequest
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
     Protected WithEvents ddlSupervisor As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''Control linkactors.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents linkactors As Global.System.Web.UI.HtmlControls.HtmlAnchor
 
     '''<summary>
     '''Control lblAddSupervisor.

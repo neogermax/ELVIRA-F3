@@ -2166,6 +2166,41 @@ Public Class ProjectDALC
     End Function
 
 
+    Public Function UpdateFromContract(ByVal objApplicationCredentials As Gattaca.Application.Credentials.ApplicationCredentials, ByVal Project As ProjectEntity, ByVal ProjectId As Long) As Long
+
+        Dim sql As New StringBuilder
+
+        Try
+
+            'construir la sentencia
+            sql.AppendLine("Update Project SET")
+            sql.AppendLine(" BeginDate = '" & Project.begindate.ToString("yyyyMMdd HH:mm:ss") & "',")
+            sql.AppendLine(" completiondate = '" & Project.Enddate.ToString("yyyyMMdd HH:mm:ss") & "'")
+            sql.AppendLine(" WHERE Id = " & ProjectId)
+
+            'Ejecutar la Instrucción
+            GattacaApplication.RunSQL(objApplicationCredentials, sql.ToString)
+
+            'Finalizar la transaccion
+            CtxSetComplete()
+
+        Catch ex As Exception
+
+            CtxSetAbort()
+
+            GattacaApplication.Publish(ex, objApplicationCredentials.ClientName, MODULENAME, "UpdateFromContract")
+            ExceptionPolicy.HandleException(ex, "GattacaStandardExceptionPolicy")
+
+            Throw New Exception("Error al actualizar el proyecto. - " & ex.Message)
+
+        Finally
+
+            sql = Nothing
+
+        End Try
+
+
+    End Function
 
     ''' <summary>
     ''' Edita campos del proyecto

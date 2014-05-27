@@ -215,7 +215,7 @@ Public Class ContractRequestDALC
     ''' <param name="contractnumberadjusted"></param>
     ''' <param name="enabled"></param>
     ''' <param name="enabledtext"></param>
-    ''' <param name="iduser"></param>
+    ''' <param name="iduser"></param>, _
     ''' <param name="username"></param>
     ''' <param name="createdate"></param>
     ''' <returns>un objeto de tipo List(Of ContractRequestEntity)</returns>
