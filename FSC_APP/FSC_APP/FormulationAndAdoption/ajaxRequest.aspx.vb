@@ -35,6 +35,14 @@ Partial Public Class ajaxRequest
                         'Get thirs by project
                         getThirdsByProject(idProject)
                         Exit Select
+                    Case "loadFlowProject"
+                        'Get flows by project
+                        getFlowsByProject(idProject)
+                        Exit Select
+                    Case "loadDetailsFlowsProject"
+                        'Get flows by project
+                        getDetailsFlowsByProject(idProject)
+                        Exit Select
                 End Select
             End If
 
@@ -64,6 +72,40 @@ Partial Public Class ajaxRequest
         Dim objSerializedObject = JsonConvert.SerializeObject(objThirds.ToArray())
 
         objSerializedObject = objSerializedObject.Replace("""", "\""")
+
+        objSerializedObject = String.Format("{0}{1}{2}", """", objSerializedObject, """")
+
+        Response.Write(objSerializedObject)
+
+    End Sub
+
+    Protected Sub getFlowsByProject(ByVal idProject As Integer)
+        Dim objFscDaoDataContext As FSC_DAO.model.fscdaoDataContext = New FSC_DAO.model.fscdaoDataContext()
+
+        Dim objFlows = From objPaymentflow In objFscDaoDataContext.Paymentflow Where objPaymentflow.idproject = idProject Select objPaymentflow
+
+        Dim objSerializedObject = JsonConvert.SerializeObject(objFlows.ToArray())
+
+        objSerializedObject = objSerializedObject.Replace("""", "\""")
+        objSerializedObject = objSerializedObject.Replace("\n", "\\n")
+        objSerializedObject = objSerializedObject.Replace("\r", "\\r")
+
+        objSerializedObject = String.Format("{0}{1}{2}", """", objSerializedObject, """")
+
+        Response.Write(objSerializedObject)
+
+    End Sub
+
+    Protected Sub getDetailsFlowsByProject(ByVal idProject As Integer)
+        Dim objFscDaoDataContext As FSC_DAO.model.fscdaoDataContext = New FSC_DAO.model.fscdaoDataContext()
+
+        Dim objDetailsFlows = From objDetailedcashflows In objFscDaoDataContext.Detailedcashflows Where objDetailedcashflows.IdProject = idProject Select objDetailedcashflows
+
+        Dim objSerializedObject = JsonConvert.SerializeObject(objDetailsFlows.ToArray())
+
+        objSerializedObject = objSerializedObject.Replace("""", "\""")
+        objSerializedObject = objSerializedObject.Replace("\n", "\\n")
+        objSerializedObject = objSerializedObject.Replace("\r", "\\r")
 
         objSerializedObject = String.Format("{0}{1}{2}", """", objSerializedObject, """")
 

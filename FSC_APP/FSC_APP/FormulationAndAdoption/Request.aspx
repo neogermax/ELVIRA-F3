@@ -116,8 +116,20 @@
             //Load Flows in case add
             loadPaymentFlowsByProject();
             
+            //Load Details Flows in case add
+            loadPaymentDetailsFlowsByProject();
+            
             //Process German
             validarporcentaje();
+            
+            $("#dialog").dialog({
+                modal: true,
+                minWidth: 700,
+                closeOnEscape: true,
+                autoOpen: false
+            });
+            
+            //End Process German
             
             //mask controls money
             $('#ctl00_cphPrincipal_Txtvrdiner, #ctl00_cphPrincipal_Txtvresp, #txtTotalThird, .money').maskMoney({thousands: '.', decimal:',', precision: 0});
@@ -618,6 +630,41 @@
                 </div>
                 <br />
             </div>
+        </div>
+    </div>
+    <div id="dialog" title="Desembolso detallado">
+        <table id="T_detalle_desembolso" border="1" cellpadding="1" cellspacing="1" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th>
+                        No pago
+                    </th>
+                    <th>
+                        Id aportante
+                    </th>
+                    <th>
+                        Aportante
+                    </th>
+                    <th>
+                        desembolso
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div>
+            <input id="close_dialog" type="button" value="Cerrar X" name="close_dialog" />
         </div>
     </div>
 </asp:Content>
