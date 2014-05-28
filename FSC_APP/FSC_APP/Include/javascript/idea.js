@@ -754,7 +754,7 @@ function Crear_idea() {
         success: function(result) {
             $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
             $("#SaveIdea").css("display", "none");
-            $("#Export").css("display", "compact");
+            $("#Export").css("display", "-webkit-inline-box");
             $("#ctl00_cphPrincipal_lblsaveinformation").text(result);
             $("#ctl00_cphPrincipal_Lbladvertencia").text("");
             $("#ctl00_cphPrincipal_Txtobligationsoftheparties").focus();

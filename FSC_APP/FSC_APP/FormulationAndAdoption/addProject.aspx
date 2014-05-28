@@ -81,12 +81,12 @@
     <br />
     <div id="containerSuccess" runat="server" visible="true" style="width: 100%; text-align: center;
         border: 2px solid #cecece; background: #E8E8DC; height: 80px; line-height: 40px;
-        vertical-align: middle; border-radius: 15px;" >
+        vertical-align: middle; border-radius: 15px;">
         <img style="margin-top: 5px;" src="/images/save_icon.png" width="24px" alt="Save" /><asp:Label
             ID="lblsaveinformation" runat="server" Style="font-size: 14pt; color: #9bbb58;"></asp:Label></div>
     <div id="containererrors" runat="server" visible="true" style="width: 100%; text-align: center;
         border: 2px solid #cecece; background: #E8E8DC; height: 120px; line-height: 40px;
-        vertical-align: middle;  border-radius: 15px;">
+        vertical-align: middle; border-radius: 15px;">
         <img style="margin-top: 5px;" src="/images/save_icon.png" width="24px" alt="Save" /><asp:Label
             ID="Lblerrors_save_idea" runat="server" Style="font-size: 14pt; color: #990000;"></asp:Label></div>
     <br />
@@ -658,6 +658,12 @@
                     </li>
                 </ul>
             </div>
+            <br />
+            <div id="sucess_mother_help" runat="server" visible="true" style="width: 100%;
+                text-align: center; border: 2px solid #9bbb58; background: #E8E8DC; height: 40px;
+                line-height: 40px; vertical-align: middle; border-radius: 15px;">
+                <asp:Label ID="Lblmesanje_mother" runat="server" Style="font-size: 14pt; color: #990000;"></asp:Label></div>
+            <br />
             <br />
             <div id="T_ActorsContainer">
                 <table id="T_Actors" align="center" border="1" cellpadding="1" cellspacing="1" style="width: 100%;">

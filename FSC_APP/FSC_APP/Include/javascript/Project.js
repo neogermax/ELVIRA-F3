@@ -68,6 +68,10 @@ var control_edit_compo;
 var validar_ini_ed;
 
 var flujos_disponible;
+var fecha_limite_madre;
+var fecha_inicial_madre;
+var validar_valor_ingresado;
+var S_validar_valores_madre; 
 
 $(document).ready(function() {
 
@@ -99,6 +103,8 @@ $(document).ready(function() {
         cargarcomponente();
 
         Ctypeaproval();
+
+        validarcampos_fecha_madre();
 
         //edit_component_view();
 
@@ -160,6 +166,8 @@ $(document).ready(function() {
 
         Ctypeaproval();
 
+        validarcampos_fecha_madre();
+        
         $("#SaveProject").css("display", "block");
         $("#Export").css("display", "none");
     }
@@ -174,7 +182,8 @@ $(document).ready(function() {
     $("#ctl00_cphPrincipal_container_date_mother_actores").css("display", "none");
     $("#ctl00_cphPrincipal_container_date_mother_flujos").css("display", "none");
     $("#ctl00_cphPrincipal_container_date_mother").css("display", "none");
-
+    $("#ctl00_cphPrincipal_sucess_mother_help").css("display", "none");
+    
     $('#ctl00_cphPrincipal_gif_charge_Container').css("display", "none");
 
     $("#tabsIdea").tabs();
@@ -889,18 +898,21 @@ function traer_valores_madre() {
 
             result = JSON.parse(result);
 
-            $("#ctl00_cphPrincipal_Txtvalor_mother").val(result.total_value_mother);
-            $("#ctl00_cphPrincipal_Txtvalor_disponible").val(result.ressiduo_valor_mother);
+            var total_value = addCommasrefactor(result.total_value_mother);
+            var disponible = addCommasrefactor(result.ressiduo_valor_mother); 
+
+            $("#ctl00_cphPrincipal_Txtvalor_mother").val(total_value);
+            $("#ctl00_cphPrincipal_Txtvalor_disponible").val(disponible);
             $("#ctl00_cphPrincipal_Txtdate_start_mother").val(result.BeginDate);
             $("#ctl00_cphPrincipal_Txtdate_end_mother").val(result.completiondate);
 
-            $("#ctl00_cphPrincipal_Txtvalor_mother_flujos").val(result.total_value_mother);
-            $("#ctl00_cphPrincipal_Txtvalor_disponible_flujos").val(result.ressiduo_valor_mother);
+            $("#ctl00_cphPrincipal_Txtvalor_mother_flujos").val(total_value);
+            $("#ctl00_cphPrincipal_Txtvalor_disponible_flujos").val(disponible);
             $("#ctl00_cphPrincipal_Txtdate_start_mother_flujos").val(result.BeginDate);
             $("#ctl00_cphPrincipal_Txtdate_end_mother_flujos").val(result.completiondate);
 
-            $("#ctl00_cphPrincipal_Txtvalor_mother_actores").val(result.total_value_mother);
-            $("#ctl00_cphPrincipal_Txtvalor_disponible_actores").val(result.ressiduo_valor_mother);
+            $("#ctl00_cphPrincipal_Txtvalor_mother_actores").val(total_value);
+            $("#ctl00_cphPrincipal_Txtvalor_disponible_actores").val(disponible);
             $("#ctl00_cphPrincipal_Txtdate_start_mother_actores").val(result.BeginDate);
             $("#ctl00_cphPrincipal_Txtdate_end_mother_actores").val(result.completiondate);
 
@@ -912,7 +924,8 @@ function traer_valores_madre() {
             flujos_disponible = parseInt(flujos_disponible);
 
             var fecha_actual = new Date();
-            var fecha_limite_madre = new Date(result.completiondate);
+            fecha_limite_madre = new Date(result.completiondate);
+            fecha_inicial_madre = new Date(result.BeginDate);
 
             var mensaje;
             var S_mensaje_flujo;

@@ -293,6 +293,8 @@ function startdate() {
         }
 
     })
+
+
 }
 
 
@@ -461,4 +463,53 @@ function Ctypeaproval() {
         }
     });
 
+}
+
+
+
+function validarcampos_fecha_madre() {
+
+    $("#ctl00_cphPrincipal_txtstartdate").blur(function() {
+
+        var fecha_ing = new Date($("#ctl00_cphPrincipal_txtstartdate").val());
+
+        if (fecha_limite_madre < fecha_ing || fecha_ing < fecha_inicial_madre) {
+
+            $("#ctl00_cphPrincipal_txtstartdate").focus();
+            $("#ctl00_cphPrincipal_lblHelpstartdate").text("La fecha no debe superar los rango de fechas del proyecto madre");
+
+        }
+    })
+
+    $("#ctl00_cphPrincipal_txtduration").change(function() {
+
+        var fecha_ing = new Date($("#ctl00_cphPrincipal_Txtdatecierre").val());
+        if (fecha_limite_madre < fecha_ing) {
+
+            $("#ctl00_cphPrincipal_txtduration").val("");
+            $("#ctl00_cphPrincipal_txtduration").focus();
+            $("#ctl00_cphPrincipal_Lblhelpduraton").text("La fecha de cierre no debe superar la fecha de cierre del proyecto madre");
+        }
+        else {
+            $("#ctl00_cphPrincipal_Lblhelpduraton").text("");
+        }
+
+    })
+
+    $("#ctl00_cphPrincipal_Txtday").change(function() {
+
+    var fecha_ing = new Date($("#ctl00_cphPrincipal_Txtdatecierre").val());
+    
+    if (fecha_limite_madre < fecha_ing) {
+
+        $("#ctl00_cphPrincipal_Txtday").val("");
+        $("#ctl00_cphPrincipal_Txtday").focus();
+        $("#ctl00_cphPrincipal_Lblhelpday").text("La fecha de cierre no debe superar la fecha de cierre del proyecto madre");
+    }
+    else {
+        $("#ctl00_cphPrincipal_Lblhelpday").text("");
+    }
+
+
+    })
 }

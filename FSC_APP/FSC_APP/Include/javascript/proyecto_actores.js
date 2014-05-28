@@ -33,8 +33,8 @@ function BtnaddActors_onclick() {
     $("#ctl00_cphPrincipal_txtfechapago").val("");
     $("#ctl00_cphPrincipal_txtporcentaje").val("");
     $("#ctl00_cphPrincipal_Lbltotalvalor").text("");
-    $("#ctl00_cphPrincipal_txtentregable").val("");   
-  
+    $("#ctl00_cphPrincipal_txtentregable").val("");
+
 
     if (swhich_flujos_exist == 1) {
         alert("Se ha detectado información el la pestaña de flujos de pagos, al eliminar el actor toda la información se perdera!");
@@ -292,127 +292,99 @@ function View_actores_array() {
 //borrar de la grilla html de actores
 function deleteActor(str) {
 
-    // $(objbutton).parent().parent().remove();
+    //validamos si se ha ingresado algun flujo de pago
     if (swhich_flujos_exist == 1) {
-        alert("Se ha detectado información el la pestaña de flujos de pagos, al eliminar el actor toda la información se perdera!");
-
-        var idactor = "#actor" + str;
-        $(idactor).remove();
-
-        var idflujo = "#flujo" + str;
-        $(idflujo).remove();
-
-        var idmatriz = "#matriz" + str;
-        $(idmatriz).remove();
-        //recorremos el array
-        for (itemArray in arrayActor) {
-            //construimos la llave de validacion
-            var id = arrayActor[itemArray].actorsVal;
-            //validamos el dato q nos trae la funcion
-
-            if (str == id) {
-                //borramos el actor deseado
-                delete arrayActor[itemArray];
-                //arrayActor.splice(arrayActor[itemArray].actorsName, 1);
-            }
-        }
-        //recorremos el array
-        for (itemArrayflujo in arrayActorFlujo) {
-            //construimos la llave de validacion
-            var idflujo = arrayActorFlujo[itemArrayflujo].actorsVal;
-            //validamos el dato q nos trae la funcion
-
-            if (str == idflujo) {
-                //borramos el actor deseado
-                delete arrayActorFlujo[itemArrayflujo];
-            }
-        }
-
-        $("#totalflujos").text(0);
-        //recorremos la tabla de flujo de pagos
-        $("#T_Actorsflujos tr").slice(0, $("#T_Actorsflujos tr").length - 1).each(function() {
-
-            arrayinputflujos = $(this).find("td").slice(0, 1);
-
-            if ($(arrayinputflujos[0]).html() != null) {
-                var idflujo = "#txtinput" + $(arrayinputflujos[0]).html();
-                $(idflujo).val("");
-            }
-        });
-
-        var htmlTableflujos = "<table id='T_flujos' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr><th style='text-align: center;'>No pago</th><th style='text-align: center;'>Fecha</th><th style='text-align: center;'>Porcentaje</th><th style='text-align: center;'>Entregable</th><th style='text-align: center;'>Valor parcial</th><th style='text-align: center;'>Editar/Eliminar</th><th style='text-align: center;' >Detalle</th></tr></thead><tbody>";
-        htmlTableflujos += "<tr><td width='1' style='color: #D3D6FF; font-size: 0.1em;'>1000</td><td>Porcentaje acumulado</td><td id='porcentaje'>0 %</td><td>Total</td><td id='totalflujospagos'>0</td><td></td><td></td></tr></tbody></table>";
-
-        //cargamos el div donde se generara la tabla actores
-        $("#T_flujosContainer").html("");
-        $("#T_flujosContainer").html(htmlTableflujos);
-
-        arrayValorflujoTotal[0] = 0;
-
-        arrayflujosdepago = [];
-        arrayinputflujos = [];
-        matriz_flujos = [];
-        reversedesembolsos = [];
-
-        swhich_flujos_exist = 0;
-
-        //reconstruimos la tabla con los datos
-        $("#T_flujos").dataTable({
-            "bJQueryUI": true,
-            "bDestroy": true
-        });
-
-        //lamar la funcionsumar actores
-        sumar_grid_actores();
-        //llamar la funcion suma de grid principal
-        sumavalores_gridprincipal();
-
-
+        validar_exist_flujos();
     }
-    else {
 
-        var idflujo = "#flujo" + str;
-        $(idflujo).remove();
+    //validamos si se paso del limite del proyecto madre
+    if (S_validar_valores_madre == 1){
 
-        var idmatriz = "#matriz" + str;
-        $(idmatriz).remove();
-
-        var idactor = "#actor" + str;
-        $(idactor).remove();
-
-        //recorremos el array
-        for (itemArray in arrayActor) {
-            //construimos la llave de validacion
-            var id = arrayActor[itemArray].actorsVal;
-            //validamos el dato q nos trae la funcion
-
-            if (str == id) {
-                //borramos el actor deseado
-                delete arrayActor[itemArray];
-                //arrayActor.splice(arrayActor[itemArray].actorsName, 1);
-            }
-        }
-        //recorremos el array
-        for (itemArrayflujo in arrayActorFlujo) {
-            //construimos la llave de validacion
-            var idflujo = arrayActorFlujo[itemArrayflujo].actorsVal;
-            //validamos el dato q nos trae la funcion
-
-            if (str == idflujo) {
-                //borramos el actor deseado
-                delete arrayActorFlujo[itemArrayflujo];
-            }
-        }
-        //lamar la funcionsumar actores
-        sumar_grid_actores();
-        //llamar la funcion suma de grid principal
-        sumavalores_gridprincipal();
-
-
+        $("#ctl00_cphPrincipal_Lblmesanje_mother").text("");
+        $("#ctl00_cphPrincipal_sucess_mother_help").css("display", "none");
     }
+
+    var idactor = "#actor" + str;
+    $(idactor).remove();
+
+    var idflujo = "#flujo" + str;
+    $(idflujo).remove();
+
+    var idmatriz = "#matriz" + str;
+    $(idmatriz).remove();
+
+    //recorremos el array
+    for (itemArray in arrayActor) {
+        //construimos la llave de validacion
+        var id = arrayActor[itemArray].actorsVal;
+        //validamos el dato q nos trae la funcion
+
+        if (str == id) {
+            //borramos el actor deseado
+            delete arrayActor[itemArray];
+            //arrayActor.splice(arrayActor[itemArray].actorsName, 1);
+        }
+    }
+    //recorremos el array
+    for (itemArrayflujo in arrayActorFlujo) {
+        //construimos la llave de validacion
+        var idflujo = arrayActorFlujo[itemArrayflujo].actorsVal;
+        //validamos el dato q nos trae la funcion
+
+        if (str == idflujo) {
+            //borramos el actor deseado
+            delete arrayActorFlujo[itemArrayflujo];
+        }
+    }
+
+
+    //lamar la funcionsumar actores
+    sumar_grid_actores();
+    //llamar la funcion suma de grid principal
+    sumavalores_gridprincipal();
 
 }
 
+//valida si se han ingresado flujos de pago y los reinicia
+function validar_exist_flujos() {
+
+    alert("Se ha detectado información el la pestaña de flujos de pagos, al eliminar el actor toda la información se perdera!");
+
+    $("#totalflujos").text(0);
+    //recorremos la tabla de flujo de pagos
+    $("#T_Actorsflujos tr").slice(0, $("#T_Actorsflujos tr").length - 1).each(function() {
+
+        arrayinputflujos = $(this).find("td").slice(0, 1);
+
+        if ($(arrayinputflujos[0]).html() != null) {
+            var idflujo = "#txtinput" + $(arrayinputflujos[0]).html();
+            $(idflujo).val("");
+        }
+    });
+
+    var htmlTableflujos = "<table id='T_flujos' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr><th style='text-align: center;'>No pago</th><th style='text-align: center;'>Fecha</th><th style='text-align: center;'>Porcentaje</th><th style='text-align: center;'>Entregable</th><th style='text-align: center;'>Valor parcial</th><th style='text-align: center;'>Editar/Eliminar</th><th style='text-align: center;' >Detalle</th></tr></thead><tbody>";
+    htmlTableflujos += "<tr><td width='1' style='color: #D3D6FF; font-size: 0.1em;'>1000</td><td>Porcentaje acumulado</td><td id='porcentaje'>0 %</td><td>Total</td><td id='totalflujospagos'>0</td><td></td><td></td></tr></tbody></table>";
+
+    //cargamos el div donde se generara la tabla actores
+    $("#T_flujosContainer").html("");
+    $("#T_flujosContainer").html(htmlTableflujos);
+
+    arrayValorflujoTotal[0] = 0;
+
+    arrayflujosdepago = [];
+    arrayinputflujos = [];
+    matriz_flujos = [];
+    reversedesembolsos = [];
+
+    swhich_flujos_exist = 0;
+
+    //reconstruimos la tabla con los datos
+    $("#T_flujos").dataTable({
+        "bJQueryUI": true,
+        "bDestroy": true
+    });
+
+}
 
 //funcion para la suma de valoes en el grid de actores
 function sumar_grid_actores() {
@@ -437,6 +409,9 @@ function sumar_grid_actores() {
 
             valespecie = valespecie + parseInt($(arrayValuesActors[1]).html().replace(/\./gi, ''));
             valtotal = valtotal + parseInt($(arrayValuesActors[2]).html().replace(/\./gi, ''));
+
+            validar_valor_ingresado = valdiner;
+            validar_valor_actor_madre();
             //validamos valores si vienen vacios
             if (isNaN(valdiner)) {
                 valdiner = 0;
@@ -626,3 +601,19 @@ function comboactor() {
 }
 
 
+function validar_valor_actor_madre() {
+
+    if (validar_valor_ingresado > flujos_disponible) {
+
+        $("#ctl00_cphPrincipal_Lblmesanje_mother").text("El valor del efectivo total de actores no debe sobrepasar los valores disponibles del  proyecto madre ");
+        $("#ctl00_cphPrincipal_sucess_mother_help").css("display", "block");
+        //variable q activa el elliminar en boton borrar
+        S_validar_valores_madre = 1;
+    }
+    else {
+
+        $("#ctl00_cphPrincipal_Lblmesanje_mother").text("");
+        $("#ctl00_cphPrincipal_sucess_mother_help").css("display", "none");
+    }
+
+}

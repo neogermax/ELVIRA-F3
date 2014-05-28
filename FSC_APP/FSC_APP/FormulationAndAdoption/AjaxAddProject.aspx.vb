@@ -323,13 +323,13 @@ Partial Public Class AjaxAddProject
         'consulta para saber el total del proyecto madre
         sql.Append(" select sum(CONVERT(INT,replace(tp.Vrmoney,'.',''))) AS TOTAL_VALOR from ThirdByProject tp where tp.IdProject = " & id_proyect_mother)
         Dim total_value_mother = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
-
+    
         sql = New StringBuilder
 
         'consulta para saber la suma del proyectos derivados
         sql.Append("select sum (convert(int, valortotal)) as total_derivados from Paymentflow where idproject in (select p.id  from Project p where  p.Mother=0 and p.Project_derivados = " & id_proyect_mother & ")")
         Dim ressiduo_valor_mother = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
-
+    
         Dim disponible As String
 
         disponible = Convert.ToInt32(total_value_mother) - Convert.ToInt32(ressiduo_valor_mother)
