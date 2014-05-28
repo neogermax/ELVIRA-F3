@@ -667,4 +667,5 @@
             <input id="close_dialog" type="button" value="Cerrar X" name="close_dialog" />
         </div>
     </div>
+    <input type='button' id="buttonSaveRequest" value="Guardar Solicitud" class="btn btn-success" style="background-image: none;" />
 </asp:Content>

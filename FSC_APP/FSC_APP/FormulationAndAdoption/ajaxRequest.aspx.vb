@@ -43,6 +43,10 @@ Partial Public Class ajaxRequest
                         'Get flows by project
                         getDetailsFlowsByProject(idProject)
                         Exit Select
+                    Case "saveInformationRerquest"
+                        'Get flows by project
+                        saveInformationRerquest()
+                        Exit Select
                 End Select
             End If
 
@@ -113,5 +117,45 @@ Partial Public Class ajaxRequest
 
     End Sub
 
+    Protected Sub saveInformationRerquest()
+        Dim JSONProjectInformation = JsonConvert.DeserializeObject(Of FSC_DAO.model.Project)(Request.Form("projectInformation"))
+        Dim JSONThirdsInformation = JsonConvert.DeserializeObject(Of List(Of FSC_DAO.model.ThirdByProject))(Request.Form("thirdsInformation"))
+        Dim JSONFlowsInformation = JsonConvert.DeserializeObject(Of List(Of FSC_DAO.model.Paymentflow))(Request.Form("flowsInformation"))
+        Dim JSONDetailsInformation = JsonConvert.DeserializeObject(Of List(Of FSC_DAO.model.Detailedcashflows))(Request.Form("detailsInformation"))
+
+        Dim IdRequest As Integer = saveProjectInformation(JSONProjectInformation)
+        saveThirdsInformation(JSONThirdsInformation, IdRequest)
+        saveFlowsInformation(JSONFlowsInformation, IdRequest)
+
+        Response.Write("ok")
+
+    End Sub
+
+    Protected Function saveProjectInformation(ByVal JSONProjectInformation As FSC_DAO.model.Project) As Integer
+        Dim objCRequest As FSC_DAO.model.CRequest = New FSC_DAO.model.CRequest()
+
+        objCRequest.setPropertiesFromProject(JSONProjectInformation)
+        objCRequest.executeInsert()
+
+        Return objCRequest.Id
+    End Function
+
+    Protected Sub saveThirdsInformation(ByVal JSONThirdsInformation As List(Of FSC_DAO.model.ThirdByProject), ByVal IdRequest As Integer)
+        For Each item In JSONThirdsInformation
+            Dim objCThirdByRequest As FSC_DAO.model.CThirdByRequest = New FSC_DAO.model.CThirdByRequest()
+            objCThirdByRequest.IdRequest = IdRequest
+            objCThirdByRequest.setPropertiesFromThirdByProject(item)
+            objCThirdByRequest.executeInsert()
+        Next
+    End Sub
+
+    Protected Sub saveFlowsInformation(ByVal JSONFlowsInformation As List(Of FSC_DAO.model.Paymentflow), ByVal IdRequest As Integer)
+        For Each item In JSONFlowsInformation
+            Dim objCPaymentFlow_Request As FSC_DAO.model.CPaymentFlow_Request = New FSC_DAO.model.CPaymentFlow_Request()
+            objCPaymentFlow_Request.IdRequest = IdRequest
+            objCPaymentFlow_Request.setPropertiesFromProject(item)
+            objCPaymentFlow_Request.executeInsert()
+        Next
+    End Sub
 
 End Class
