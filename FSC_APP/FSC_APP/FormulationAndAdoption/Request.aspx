@@ -150,12 +150,18 @@
             });
             
             $("#typeRequest").change(function(){
+                /*Adicion-prorroga-entregables*/
                 if($(this).val() == "1"){
                     $("#group-radios-type").css("display", "block");
+                    $("#divsuspension").css("display", "none");
                 }
                 else{
                     $("#group-radios-type").css("display", "none");
                     $("#tabsRequest").css("display", "none");
+                }
+                /*Suspension*/
+                if($(this).val() == "2"){
+                    $("#divsuspension").css("display", "block");
                 }
             });
             
@@ -619,5 +625,8 @@
                 <br />
             </div>
         </div>
+    </div>
+    <div id="divsuspension" style="display: none;">
+    <label>Suspension</label>
     </div>
 </asp:Content>
