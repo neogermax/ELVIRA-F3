@@ -455,15 +455,9 @@
             </ul>
             <table style="margin: 0 auto;">
                 <tr>
-                    <%--<td id="tr_listbox_program" runat="server" visible="false">
-                     <asp:Label ID="Lbltitleprogram" runat="server" Text="Programa"></asp:Label>
-                        <ul id="ulprograms">
-                        </ul>
-                    </td>--%><%-- <td style="width: 100px">
-                    </td>--%><td>
+                    <td>
                         <asp:Label ID="Lbltitlecomponet" runat="server" Text="Componentes"></asp:Label>
-                        <ul id="seleccionarcomponente">
-                        </ul>
+                        <ul id="seleccionarcomponente"></ul>
                     </td>
                     <td style="width: 100px; vertical-align: middle;">
                         <input id="Btnaddcomponent" type="button" value=">>" name="Add_Componente" onclick="return Btnaddcomponent_onclick()" /><input
@@ -471,8 +465,7 @@
                     </td>
                     <td>
                         <asp:Label ID="Label20" runat="server" Text="Componentes seleccionados"></asp:Label>
-                        <ul id="componentesseleccionados">
-                        </ul>
+                        <ul id="componentesseleccionados"></ul>
                     </td>
                     <td id="viejocomp" runat="server" visible="false">
                         <cc2:DoubleListBox ID="dlbActivity" runat="server" Width="100%" />
@@ -492,14 +485,16 @@
                     <select id="ddlDepto" class="Ccombo">
                         <asp:DropDownList ID="ddlDepto" runat="server">
                         </asp:DropDownList>
-                    </select></li>
+                    </select>
+                </li>
                 <br />
                 <li>
                     <asp:Label ID="lbidcity" runat="server" Text="Municipio"></asp:Label>
                     <select id="ddlCity" class="Ccombo">
                         <asp:DropDownList ID="ddlCity" runat="server">
                         </asp:DropDownList>
-                    </select></li>
+                    </select>
+                </li>
             </ul>
             <br />
             <ul>

@@ -91,40 +91,6 @@ function Ctypcontract_view() {
 }
 
 
-//funcion para cargar matriz principal edicion
-function View_matriz_principal() {
-
-    $.ajax({
-        url: "AjaxAddProject.aspx",
-        type: "GET",
-        data: { "action": "View_matriz_principal", "ididea": idea_buscar },
-        success: function(result) {
-
-            //cargamos el div donde se generara la tabla actores
-            $("#T_matrizcontainer").html("");
-            $("#T_matrizcontainer").html(result);
-
-            //reconstruimos la tabla con los datos
-            $("#matriz").dataTable({
-                "bJQueryUI": true,
-                "bDestroy": true
-            });
-
-            //llamar la funcion suma de primera columna efectivo
-            sumavalores_gridprincipal();
-
-
-        },
-        error: function(msg) {
-            alert("No se pueden cargar los actores de informacion principal de la idea = " + ideditar);
-        }
-    });
-}
-
-
-
-
-
 //funcion suma de primera columna efectivo
 function sumavalores_gridprincipal() {
 
@@ -498,17 +464,17 @@ function validarcampos_fecha_madre() {
 
     $("#ctl00_cphPrincipal_Txtday").change(function() {
 
-    var fecha_ing = new Date($("#ctl00_cphPrincipal_Txtdatecierre").val());
-    
-    if (fecha_limite_madre < fecha_ing) {
+        var fecha_ing = new Date($("#ctl00_cphPrincipal_Txtdatecierre").val());
 
-        $("#ctl00_cphPrincipal_Txtday").val("");
-        $("#ctl00_cphPrincipal_Txtday").focus();
-        $("#ctl00_cphPrincipal_Lblhelpday").text("La fecha de cierre no debe superar la fecha de cierre del proyecto madre");
-    }
-    else {
-        $("#ctl00_cphPrincipal_Lblhelpday").text("");
-    }
+        if (fecha_limite_madre < fecha_ing) {
+
+            $("#ctl00_cphPrincipal_Txtday").val("");
+            $("#ctl00_cphPrincipal_Txtday").focus();
+            $("#ctl00_cphPrincipal_Lblhelpday").text("La fecha de cierre no debe superar la fecha de cierre del proyecto madre");
+        }
+        else {
+            $("#ctl00_cphPrincipal_Lblhelpday").text("");
+        }
 
 
     })

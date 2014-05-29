@@ -1897,6 +1897,24 @@ Partial Public Class addProject
     Protected WithEvents Txtdate_end_mother_actores As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
+    '''Control sucess_mother_help.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents sucess_mother_help As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+    '''<summary>
+    '''Control Lblmesanje_mother.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Lblmesanje_mother As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
     '''Control totales.
     '''</summary>
     '''<remarks>

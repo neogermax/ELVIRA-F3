@@ -7,7 +7,6 @@ function Btn_add_flujo_onclick() {
     }
     else {
 
-
         //inicializamos variables
         var valuecomparative = $("#ctl00_cphPrincipal_Lbltotalvalor").text();
         //quitamos el valor decimal
@@ -78,36 +77,10 @@ function Btn_add_flujo_onclick() {
                     edit_swhich_fx = 0;
                     //cargamos el array con el json
                     arrayflujosdepago.push(jsonflujo);
-                    //creamos la tabla de flujo de pagos      
-                    var htmlTableflujos = "<table id='T_flujos' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr><th style='text-align: center;'>No pago</th><th style='text-align: center;'>Fecha</th><th style='text-align: center;'>Porcentaje</th><th style='text-align: center;'>Entregable</th><th style='text-align: center;'>Valor parcial</th><th style='text-align: center;'>Editar/Eliminar</th><th style='text-align: center;' >Detalle</th></tr></thead><tbody>";
-
-                    for (itemArray in arrayflujosdepago) {
-
-                        var entregacomas = arrayflujosdepago[itemArray].entrega;
-                        entregacomas = entregacomas.replace(/¬/g, ',');
-
-                        var pagoadd = arrayflujosdepago[itemArray].tflujos;
-
-                        pagoadd = addCommasrefactor(pagoadd);
-                        htmlTableflujos += "<tr id='flow" + arrayflujosdepago[itemArray].N_pago + "' ><td>" + arrayflujosdepago[itemArray].N_pago + "</td><td>" + arrayflujosdepago[itemArray].fecha_pago + "</td><td>" + arrayflujosdepago[itemArray].porcentaje + "</td><td>" + entregacomas + "</td><td>" + pagoadd + "</td><td><input type ='button' value= 'Editar' onclick=\"editflujo('" + arrayflujosdepago[itemArray].N_pago + "','" + arrayflujosdepago[itemArray].fecha_pago + "',' " + arrayflujosdepago[itemArray].porcentaje + "','" + arrayflujosdepago[itemArray].entrega + "','" + pagoadd + "')\" ></input><input type ='button' value= 'Eliminar' onclick=\" eliminarflujo('" + arrayflujosdepago[itemArray].N_pago + "')\"></input></td><td><input type ='button' value= 'Detalle' onclick=\"traerdetalles('" + arrayflujosdepago[itemArray].N_pago + "',this)\"></input></td></tr>";
-                    }
-                    htmlTableflujos += "<tr><td width='1' style='color: #D3D6FF; font-size: 0.1em;'>1000</td><td>Porcentaje acumulado</td><td id='porcentaje'>0 %</td><td>Total</td><td id='totalflujospagos'>0</td><td></td><td></td></tr></tbody></table>";
-
-                    htmlTableflujos += "</tbody></table>";
-                    //cargamos el div donde se generara la tabla actores
-                    $("#T_flujosContainer").html("");
-                    $("#T_flujosContainer").html(htmlTableflujos);
-
-
-                    swhich_flujos_exist = 1;
-
-                    //reconstruimos la tabla con los datos
-                    $("#T_flujos").dataTable({
-                        "bJQueryUI": true,
-                        "bDestroy": true
-                    });
+                    
+                    //llamamos funcion que crea la tabla  de flujos de pago
+                    crear_tabla_flujos_pagos();
                 }
-
 
                 var contadormatriz = 0;
                 //recorremos la tabla de flujo de pagos para guardar los detalles
@@ -128,6 +101,7 @@ function Btn_add_flujo_onclick() {
 
                         //cargamos el array con el json
                         matriz_flujos.push(jsonflujodetalle);
+
 
                     }
                 });
@@ -154,8 +128,7 @@ function Btn_add_flujo_onclick() {
                 $("#ctl00_cphPrincipal_Lbltotalvalor").text("");
                 $("#ctl00_cphPrincipal_txtentregable").val("");
 
-                //lamar funcion para la suma de los subtotales de flujos de pagos
-                sumarflujospagos();
+              
                 //validamos si los desembolsos son del 100%
                 if (validaporcentaje == 100) {
                     $("#Btn_add_flujo").attr("disabled", "disabled");
@@ -191,6 +164,41 @@ function Btn_add_flujo_onclick() {
     }
 }
 
+//creamos la tabla de flujo de pagos
+function crear_tabla_flujos_pagos() {
+
+    var htmlTableflujos = "<table id='T_flujos' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr><th style='text-align: center;'>No pago</th><th style='text-align: center;'>Fecha</th><th style='text-align: center;'>Porcentaje</th><th style='text-align: center;'>Entregable</th><th style='text-align: center;'>Valor parcial</th><th style='text-align: center;'>Editar/Eliminar</th><th style='text-align: center;' >Detalle</th></tr></thead><tbody>";
+
+    for (itemArray in arrayflujosdepago) {
+
+        var entregacomas = arrayflujosdepago[itemArray].entrega;
+        entregacomas = entregacomas.replace(/¬/g, ',');
+
+        var pagoadd = arrayflujosdepago[itemArray].tflujos;
+        pagoadd = addCommasrefactor(pagoadd);
+
+        htmlTableflujos += "<tr id='flow" + arrayflujosdepago[itemArray].N_pago + "' ><td>" + arrayflujosdepago[itemArray].N_pago + "</td><td>" + arrayflujosdepago[itemArray].fecha_pago + "</td><td>" + arrayflujosdepago[itemArray].porcentaje + "</td><td>" + entregacomas + "</td><td>" + pagoadd + "</td><td><input type ='button' value= 'Editar' onclick=\"editflujo('" + arrayflujosdepago[itemArray].N_pago + "','" + arrayflujosdepago[itemArray].fecha_pago + "',' " + arrayflujosdepago[itemArray].porcentaje + "','" + arrayflujosdepago[itemArray].entrega + "','" + pagoadd + "')\" ></input><input type ='button' value= 'Eliminar' onclick=\" eliminarflujo('" + arrayflujosdepago[itemArray].N_pago + "')\"></input></td><td><input type ='button' value= 'Detalle' onclick=\"traerdetalles('" + arrayflujosdepago[itemArray].N_pago + "',this)\"></input></td></tr>";
+    }
+    htmlTableflujos += "<tr><td width='1' style='color: #D3D6FF; font-size: 0.1em;'>1000</td><td>Porcentaje acumulado</td><td id='porcentaje'>0 %</td><td>Total</td><td id='totalflujospagos'>0</td><td></td><td></td></tr></tbody></table>";
+
+    htmlTableflujos += "</tbody></table>";
+    //cargamos el div donde se generara la tabla actores
+    $("#T_flujosContainer").html("");
+    $("#T_flujosContainer").html(htmlTableflujos);
+
+    swhich_flujos_exist = 1;
+    //lamar funcion para la suma de los subtotales de flujos de pagos
+    sumarflujospagos();
+
+    //reconstruimos la tabla con los datos
+    $("#T_flujos").dataTable({
+        "bJQueryUI": true,
+        "bDestroy": true
+    });
+
+}
+
+
 function cambio_text_flujos(str_txt) {
 
     str_txt = str_txt.replace(/,/g, '¬');
@@ -205,34 +213,6 @@ function cambio_text_flujos(str_txt) {
 }
 
 
-function View_flujos_p() {
-    $.ajax({
-        url: "AjaxAddProject.aspx",
-        type: "GET",
-        data: { "action": "View_flujos_p", "ididea": idea_buscar },
-        success: function(result) {
-
-            //cargamos el div donde se generara la tabla actores
-            $("#T_flujosContainer").html("");
-            $("#T_flujosContainer").html(result);
-
-
-            //reconstruimos la tabla con los datos
-            $("#T_flujos").dataTable({
-                "bJQueryUI": true,
-                "bDestroy": true
-            });
-
-            //lamar funcion para la suma de los subtotales de flujos de pagos
-            sumarflujospagos();
-
-        },
-        error: function(msg) {
-            alert("No se pueden cargar los flujos de pago de la idea = " + idea_buscar);
-        }
-    });
-
-}
 
 function View_detalle_flujo_array() {
 
@@ -258,6 +238,7 @@ function View_detalle_flujo_array() {
                     matriz_flujos.push(recibeact);
                 }
             }
+                      
         },
         error: function(msg) {
             alert("No se pueden cargar los flujos de pago de la idea = " + idea_buscar);
@@ -290,6 +271,9 @@ function View_flujos_p_array() {
                 }
                 swhich_flujos_exist = 1;
             }
+            //llamamos funcion que crea la tabla  de flujos de pago
+            crear_tabla_flujos_pagos();
+            
         },
         error: function(msg) {
             alert("No se pueden cargar los flujos de pago de la idea = " + idea_buscar);
@@ -298,34 +282,58 @@ function View_flujos_p_array() {
 
 }
 
+//creamos la tabla de flujo actores
+function crear_tabla_flujo_actor() {
 
-function View_flujos_actors() {
-    $.ajax({
-        url: "AjaxAddProject.aspx",
-        type: "GET",
-        data: { "action": "View_flujos_actors", "ididea": idea_buscar },
-        success: function(result) {
+    var htmltableAflujos = "<table id='T_Actorsflujos' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr><th width='1'></th><th>Aportante</th><th>Valor total aporte</th><th>Valor por programar</th><th>Saldo por programar</th></tr></thead><tbody>";
 
-            //cargamos el div donde se generara la tabla actores
-            $("#T_AflujosContainer").html("");
-            $("#T_AflujosContainer").html(result);
+    for (itemarrayflujos in arrayActorFlujo) {
+        htmltableAflujos += "<tr id='flujo" + arrayActorFlujo[itemarrayflujos].actorsVal + "'><td width='1' style='color: #D3D6FF;font-size: 0.1em;'>" + arrayActorFlujo[itemarrayflujos].actorsVal + "</td><td>" + arrayActorFlujo[itemarrayflujos].actorsName + "</td><td id= 'value" + arrayActorFlujo[itemarrayflujos].actorsVal + "' >" + arrayActorFlujo[itemarrayflujos].diner + "</td><td><input id='" + "txtinput" + arrayActorFlujo[itemarrayflujos].actorsVal + "' onkeyup='formatvercionsuma(this)' onchange='formatvercionsuma(this)'  onblur=\"sumar_flujos('" + arrayActorFlujo[itemarrayflujos].actorsVal + "')\" onfocus=\"restar_flujos('" + arrayActorFlujo[itemarrayflujos].actorsVal + "')\"></input></td><td id='desenbolso" + arrayActorFlujo[itemarrayflujos].actorsVal + "'>" + arrayActorFlujo[itemarrayflujos].diner + "</td></tr>";
+    }
 
-            //reconstruimos la tabla con los datos
-            $("#T_Actorsflujos").dataTable({
-                "bJQueryUI": true,
-                "bDestroy": true
-            });
+    htmltableAflujos += "<tr><td width='1' style='color: #D3D6FF; font-size: 0.1em;'>1000</td><td>Total</td><td id='tflujosing'></td><td id='totalflujos'>0</td></td id='tflujosdesen'><td></tr></tbody></table>";
 
-            //lamar la funcionsumar actores
-            sumar_grid_actores();
+    //cargamos el div donde se generara la tabla flujo de actores
+    $("#T_AflujosContainer").html("");
+    $("#T_AflujosContainer").html(htmltableAflujos);
 
-        },
-        error: function(msg) {
-            alert("No se pueden cargar los actores de flujos de pago de la idea = " + idea_buscar);
+    sumar_flujos_actores();
+
+    //reconstruimos la tabla con los datos 
+    $("#T_Actorsflujos").dataTable({
+        "bJQueryUI": true,
+        "bDestroy": true
+    });
+
+}
+
+//funcion para la suma de valor en efectivo en el grid de flujo_actores
+function sumar_flujos_actores() {
+
+    var valdinerflujos = 0;
+
+    //recorremos la tabla flujo de actores para calcular los totales
+    $("#T_Actorsflujos tr").slice(0, $("#T_Actorsflujos tr").length - 1).each(function() {
+        var arrayValuesflujos = $(this).find("td").slice(0, 4);
+        //validamos si hay campos null en la tabla flujos actores
+        if ($(arrayValuesflujos[0]).html() != null) {
+            //capturamos e incrementamos los valores para la suma
+
+            valdinerflujos = valdinerflujos + parseInt($(arrayValuesflujos[2]).html().replace(/\./gi, ''));
+
+            if (isNaN(valdinerflujos)) {
+                valdinerflujos = 0;
+            }
+            //cargamos los campos con la operacion realizada
+            $("#tflujosing").text(addCommasrefactor(valdinerflujos));
+        }
+        else {
+            $("#tflujosing").text(0);
         }
     });
 
 }
+
 
 //funtion crear array de flujos de pagos
 function View_flujos_actors_array() {
@@ -352,9 +360,12 @@ function View_flujos_actors_array() {
                 }
             }
 
+            //llama la funcion crear la tabla de flujo_actor
+            crear_tabla_flujo_actor();
+
         },
         error: function(msg) {
-        alert("No se pueden cargar los actores de flujos de pago de la idea = " + idea_buscar);
+            alert("No se pueden cargar los actores de flujos de pago de la idea = " + idea_buscar);
         }
     });
 
@@ -889,7 +900,7 @@ function validarporcentaje() {
 
         if (s_revisarflujos == 1) {
 
-            var idflujos = arrayActorFlujo[itemarrayflujos].actorsVal;
+            var idflujos = arrayActorFlujo[0].actorsVal;
 
             valuecomparative = valcomas;
 

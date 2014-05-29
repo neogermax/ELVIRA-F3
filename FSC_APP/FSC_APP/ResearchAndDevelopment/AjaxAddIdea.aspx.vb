@@ -155,18 +155,8 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
             action = Request.QueryString("action").ToString()
             Select Case action
-                Case "buscar"
-                    'convierte la variable y llama funcion para la validacion de la idea
-                    id_b = Convert.ToInt32(Request.QueryString("id").ToString())
-                    buscardatethird(id_b, applicationCredentials, Request.QueryString("id"))
 
-                Case "calculafechas"
-
-                    fecha = Convert.ToDateTime(Request.QueryString("fecha").ToString())
-                    duracion = Request.QueryString("duracion").ToString()
-                    dia = Request.QueryString("dias").ToString()
-                    calculafechas(fecha, duracion, dia)
-
+                '----------------- modulo componentes------------------------------------------------------------
                 Case "C_linestrategic"
 
                     Charge_Lstrategic()
@@ -181,23 +171,6 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                     id_lineStrategic = Convert.ToInt32(Request.QueryString("idlinestrategic").ToString)
                     charge_list_program(id_lineStrategic)
 
-                Case "C_deptos"
-
-                    Charge_deptos()
-
-                Case "C_munip"
-
-                    id_depto = Convert.ToInt32(Request.QueryString("iddepto").ToString)
-                    Charge_munip(id_depto)
-
-                Case "C_Actors"
-
-                    Charge_actors()
-
-                Case "C_typecontract"
-
-                    Charge_typeContract()
-
                 Case "C_component"
 
                     idprogram_list = Request.QueryString("idprogram").ToString
@@ -205,65 +178,6 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                     ideditar = Convert.ToInt32(Request.QueryString("id").ToString)
 
                     charge_component(idprogram_list, estado_proceso, ideditar)
-
-                Case "C_type_project"
-
-                    Charge_project_type()
-
-                Case "C_population"
-
-                    idpopulation = Convert.ToInt32(Request.QueryString("idpopulation").ToString)
-                    Charge_population(idpopulation)
-
-
-                Case "View_ubicacion"
-
-                    ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
-                    searh_location(ideditar)
-
-                Case "View_ubicacion_array"
-
-                    ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
-                    searh_location_array(ideditar)
-
-                Case "View_actores"
-
-                    ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
-                    searh_actores(ideditar)
-
-                Case "View_actores_array"
-                    ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
-                    searh_actores_array(ideditar)
-
-                Case "View_matriz_principal"
-
-                    ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
-                    searh_matriz_p(ideditar)
-
-                Case "View_flujos_p"
-
-                    ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
-                    searh_flujos(ideditar)
-
-                Case "View_flujos_p_array"
-
-                    ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
-                    searh_flujos_array(ideditar)
-
-                Case "View_flujos_actors"
-
-                    ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
-                    searh_actors_flujos(ideditar)
-
-                Case "View_flujos_actors_array"
-
-                    ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
-                    searh_actors_flujos_array(ideditar)
-
-                Case "View_detalle_flujo_array"
-
-                    ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
-                    searh_detalles_array(ideditar)
 
                 Case "View_line_strategic"
 
@@ -280,20 +194,30 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                     ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
                     searh_component(ideditar)
 
-                Case "View_anexos"
-
+                Case "View_componentes_array"
                     ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
-                    searh_document_anexos(ideditar)
+                    searh_component_array(ideditar)
 
-                Case "View_anexos_array"
-                    ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
-                    searh_document_anexos_array(ideditar)
+                    '----------------- modulo descripcion-------------------------------------------------------
+                Case "calculafechas"
 
+                    fecha = Convert.ToDateTime(Request.QueryString("fecha").ToString())
+                    duracion = Request.QueryString("duracion").ToString()
+                    dia = Request.QueryString("dias").ToString()
+                    calculafechas(fecha, duracion, dia)
 
-                Case "aprobacion_idea"
+                Case "C_typecontract"
 
-                    ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
-                    validar_aprobacion_idea(ideditar)
+                    Charge_typeContract()
+
+                Case "C_type_project"
+
+                    Charge_project_type()
+
+                Case "C_population"
+
+                    idpopulation = Convert.ToInt32(Request.QueryString("idpopulation").ToString)
+                    Charge_population(idpopulation)
 
                 Case "Cpopulation_view"
                     ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
@@ -302,6 +226,71 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                 Case "Ctypcontract_view"
                     ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
                     searh_c_typecontract(ideditar)
+
+                Case "C_type_aproval"
+                    type_i_p = Request.QueryString("type").ToString
+                    charge_typeAproval(type_i_p)
+
+                Case "Ctypaproval_view"
+
+                    ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
+                    searh_c_typeaproval(ideditar)
+
+                    '----------------- modulo ubicacion-------------------------------------------------------
+                Case "C_deptos"
+
+                    Charge_deptos()
+
+                Case "C_munip"
+
+                    id_depto = Convert.ToInt32(Request.QueryString("iddepto").ToString)
+                    Charge_munip(id_depto)
+
+                Case "View_ubicacion_array"
+
+                    ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
+                    searh_location_array(ideditar)
+
+                    '----------------- modulo actores-------------------------------------------------------
+                Case "buscar"
+                    'convierte la variable y llama funcion para la validacion de la idea
+                    id_b = Convert.ToInt32(Request.QueryString("id").ToString())
+                    buscardatethird(id_b, applicationCredentials, Request.QueryString("id"))
+
+                Case "C_Actors"
+
+                    Charge_actors()
+
+                Case "View_actores_array"
+                    ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
+                    searh_actores_array(ideditar)
+
+                    '----------------- modulo flujos-------------------------------------------------------
+                Case "View_flujos_p_array"
+
+                    ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
+                    searh_flujos_array(ideditar)
+
+                Case "View_flujos_actors_array"
+
+                    ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
+                    searh_actors_flujos_array(ideditar)
+
+                Case "View_detalle_flujo_array"
+
+                    ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
+                    searh_detalles_array(ideditar)
+
+                    '----------------- modulo anexos-------------------------------------------------------
+                Case "View_anexos_array"
+                    ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
+                    searh_document_anexos_array(ideditar)
+
+                    '----------------- tareas generales-------------------------------------------------------
+                Case "aprobacion_idea"
+
+                    ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
+                    validar_aprobacion_idea(ideditar)
 
                 Case "load_idarchive"
                     ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
@@ -312,19 +301,6 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
                 Case "copiar_archivos"
                     copiar_archivos()
-
-                Case "View_componentes_array"
-                    ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
-                    searh_component_array(ideditar)
-
-                Case "C_type_aproval"
-                    type_i_p = Request.QueryString("type").ToString
-                    charge_typeAproval(type_i_p)
-
-                Case "Ctypaproval_view"
-
-                    ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
-                    searh_c_typeaproval(ideditar)
 
                 Case Else
 
@@ -613,54 +589,6 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
     End Function
 
-    Public Function searh_document_anexos(ByVal ididea As Integer)
-
-        Dim sql As New StringBuilder
-        Dim objSqlCommand As New SqlCommand
-        Dim data_anexos As DataTable
-
-        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
-
-        sql.Append(" select d.id, d.AttachFile,d.Description, d.id_document from DocumentsByEntity de ")
-        sql.Append(" inner join Documents d on d.Id =de.IdDocuments ")
-        sql.Append(" where  de.EntityName ='IdeaEntity' and de.IdnEntity=" & ididea)
-
-        data_anexos = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
-
-        Dim html_anexos As String
-        Dim id_files As Integer
-        Dim name_archive As String
-
-        If data_anexos.Rows.Count > 0 Then
-
-            html_anexos = "<table id=""T_files"" border=""1"" cellpadding=""1"" cellspacing=""1"" style=""width: 100%;""><thead><tr><th style=""text-align: center;"">Archivo</th><th style=""text-align: center;"">Observaciones</th><th style=""text-align: center;"">Eliminar</th></tr></thead><tbody>"
-
-            For Each row As DataRow In data_anexos.Rows
-                If row(3).ToString() = "" Then
-                    id_files = row(0).ToString()
-                Else
-                    id_files = row(3).ToString()
-                End If
-
-                name_archive = row(1).ToString()
-                name_archive = name_archive.Replace(" ", "")
-
-                name_archive = name_archive.Replace("_", " ")
-
-                html_anexos &= "<tr id=""archivo" & id_files & """><td><a id=""linkarchives" & id_files & """ runat=""server"" href=""/FSC_APP/document/" & name_archive & """ target= ""_blank"" title=""link"">" & name_archive & "</a></td><td style=""text-align: left;"">" & row(2).ToString & "</td><td style=""text-align: center;""><input type =""button"" value= ""Eliminar"" onclick=""deletefile('" & id_files & "')""></input></td></tr>"
-            Next
-            html_anexos &= "</tbody></table>"
-        Else
-            html_anexos = "<table id=""T_files"" border=""1"" cellpadding=""1"" cellspacing=""1"" style=""width: 100%;""><thead><tr><th style=""text-align: center;"">Archivo</th><th style=""text-align: center;"">Observaciones</th><th style=""text-align: center;"">Eliminar</th></tr></thead><tbody>"
-            html_anexos &= "</tbody></table>"
-
-        End If
-
-        Response.Write(html_anexos)
-
-
-    End Function
-
     Public Function charge_list_program(ByVal idLinestrategic As Integer)
         Dim facade As New Facade
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
@@ -941,57 +869,6 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
     End Function
 
-    Public Function searh_actors_flujos(ByVal ididea As Integer)
-
-        Dim sql As New StringBuilder
-        Dim objSqlCommand As New SqlCommand
-        Dim data_actors_flujos As DataTable
-        Dim desembolso As String
-
-        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
-
-        sql.Append(" select id from Paymentflow where IdIdea = " & ididea)
-
-        Dim exist_flow = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
-
-        sql = New StringBuilder
-
-        sql.Append(" select ti.idthird, ti.name,ti.FSCorCounterpartContribution from ThirdByIdea ti ")
-        sql.Append(" where ti.generatesflow ='s' and  ti.IdIdea = " & ididea)
-
-        data_actors_flujos = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
-
-        Dim html_actors_flujo As String
-
-        If data_actors_flujos.Rows.Count > 0 Then
-
-            html_actors_flujo = "<table id=""T_Actorsflujos"" border=""1"" cellpadding=""1"" cellspacing=""1"" style=""width: 100%;""><thead><tr><th width=""1""></th><th>Aportante</th><th>Valor total aporte</th><th>Valor por programar</th><th>Saldo por programar</th></tr></thead><tbody>"
-
-            For Each row As DataRow In data_actors_flujos.Rows
-
-                If exist_flow <> 0 Then
-                    desembolso = "0"
-                Else
-                    desembolso = row(2).ToString()
-                End If
-
-                html_actors_flujo &= "<tr id=""flujo" & row(0).ToString() & """><td width=""1"" style=""color: #D3D6FF;font-size: 0.1em;"">" & row(0).ToString() & "</td><td>" & row(1).ToString() & "</td><td id= ""value" & row(0).ToString() & """ >" & row(2).ToString() & "</td><td><input id=""" & "txtinput" & row(0).ToString() & """ onkeyup=""formatvercionsuma(this)"" onchange=""formatvercionsuma(this)""  onblur=""sumar_flujos('" & row(0).ToString() & "')"""" onfocus=""restar_flujos('" & row(0).ToString() & "')""""></input></td><td id=""desenbolso" & row(0).ToString() & """>" & desembolso & "</td></tr>"
-
-            Next
-
-            html_actors_flujo &= "<tr><td width=""1"" style=""color: #D3D6FF; font-size: 0.1em;"">1000</td><td>Total</td><td id=""tflujosing""></td><td id=""totalflujos"">0</td></td id=""tflujosdesen""><td></tr></tbody></table>"
-
-        Else
-
-            html_actors_flujo = "<table id=""T_Actorsflujos"" border=""1"" cellpadding=""1"" cellspacing=""1"" style=""width: 100%;""><thead><tr><th width=""1""></th><th>Aportante</th><th>Valor total aporte</th><th>Valor por programar</th><th>Saldo por programar</th></tr></thead><tbody>"
-            html_actors_flujo &= "<tr><td width=""1"" style=""color: #D3D6FF; font-size: 0.1em;"">1000</td><td>Total</td><td id=""tflujosing""></td><td id=""totalflujos"">0</td></td id=""tflujosdesen""><td></tr></tbody></table>"
-
-        End If
-
-        Response.Write(html_actors_flujo)
-
-    End Function
-
     Public Function searh_flujos_array(ByVal ididea As Integer)
 
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
@@ -1061,94 +938,6 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         End If
 
         Response.Write(objResult)
-    End Function
-
-    Public Function searh_flujos(ByVal ididea As Integer)
-
-        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
-
-        Dim flujopagos As New PaymentFlowDALC()
-        Dim objflujos As PaymentFlowEntity
-        Dim data_listpagos As New List(Of PaymentFlowEntity)
-
-        Dim npagos, vpar, entregable, porcent, fecha As String
-
-        Dim htmlflujo As String
-
-        data_listpagos = flujopagos.getFlowPayment("i", ididea, applicationCredentials)
-
-        If data_listpagos.Count > 0 Then
-
-            htmlflujo = "<table id=""T_flujos"" border=""1"" cellpadding=""1"" cellspacing=""1"" style=""width: 100%;""><thead><tr><th style=""text-align: center;"">No pago</th><th style=""text-align: center;"">Fecha</th><th style=""text-align: center;"">Porcentaje</th><th style=""text-align: center;"">Entregable</th><th style=""text-align: center;"">Valor parcial</th><th style=""text-align: center;"">Editar/Eliminar</th><th style=""text-align: center;"" >Detalle</th></tr></thead><tbody>"
-
-            For Each row In data_listpagos
-
-                npagos = row.N_pagos
-                npagos = Replace(npagos, " ", "")
-
-                vpar = row.valorparcial
-                vpar = Format(Convert.ToInt64(vpar), "#,###.##")
-                entregable = row.entregable
-                porcent = row.porcentaje
-                fecha = row.fecha
-
-                htmlflujo &= "<tr id='flow" & npagos & "' ><td>" & npagos & "</td><td>" & fecha & "</td><td>" & porcent & "</td><td>" & entregable & "</td><td>" & vpar & "</td><td><input type =""button"" value= ""Editar"" onclick=""editflujo('" & npagos & "','" & fecha & "','" & porcent & "','" & entregable & "','" & vpar & "')""></input><input type =""button"" value= ""Eliminar"" onclick=""eliminarflujo('" & npagos & "')""></input></td><td><input type =""button"" value= ""Detalle"" onclick=""traerdetalles('" & npagos & "',this)""></input></td></tr>"
-
-            Next
-
-            htmlflujo &= "<tr><td width=""1"" style=""color: #D3D6FF; font-size: 0.1em;"">1000</td><td>Porcentaje acumulado</td><td id=""porcentaje"">0 %</td><td>Total</td><td id=""totalflujospagos"">0</td><td></td><td></td></tr></tbody></table>"
-
-
-        Else
-            htmlflujo = "<table id=""T_flujos"" border=""1"" cellpadding=""1"" cellspacing=""1"" style=""width: 100%;""><thead><tr><th style=""text-align: center;"">No pago</th><th style=""text-align: center;"">Fecha</th><th style=""text-align: center;"">Porcentaje</th><th style=""text-align: center;"">Entregable</th><th style=""text-align: center;"">Valor parcial</th><th style=""text-align: center;"">Editar/Eliminar</th><th style=""text-align: center;"" >Detalle</th></tr></thead><tbody>"
-            htmlflujo &= "<tr><td width=""1"" style=""color: #D3D6FF; font-size: 0.1em;"">1000</td><td>Porcentaje acumulado</td><td id=""porcentaje"">0 %</td><td>Total</td><td id=""totalflujospagos"">0</td><td></td><td></td></tr></tbody></table>"
-
-        End If
-
-        Response.Write(htmlflujo)
-
-    End Function
-
-    Public Function searh_matriz_p(ByVal ididea As Integer)
-        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
-
-        Dim thirdbyidea As New ThirdByIdeaDALC
-        Dim objactores As ThirdByIdeaEntity
-        Dim data_listactores As List(Of ThirdByIdeaEntity)
-        Dim name, vd, ve, vt, id As String
-
-        Dim htmlactores As String
-
-        data_listactores = thirdbyidea.getList(applicationCredentials, , ididea, , , , , , )
-
-        If data_listactores.Count > 0 Then
-
-            htmlactores = "<table id=""matriz"" border=""1"" cellpadding=""1"" cellspacing=""1"" style=""width: 100%""><thead><tr><th width=""1""></th><th></th><th>Efectivo</th><th>Especie</th><th>Total</th></tr></thead><tbody>"
-
-            For Each row In data_listactores
-
-                id = row.idthird
-                name = row.Name
-                vd = row.Vrmoney
-                ve = row.VrSpecies
-                vt = row.FSCorCounterpartContribution
-
-                htmlactores &= "<tr id= ""matriz" & id & """><td width=""1"" style=""color: #D3D6FF;font-size: 0.1em;"">" & id & "</td><td style=""text-align: left"">" & name & "</td><td>" & vd & "</td><td> " & ve & "</td><td> " & vt & " </td></tr>"
-
-
-            Next
-
-            htmlactores &= "<tr><td width=""1"" style=""color: #D3D6FF; font-size: 0.1em;"">1000</td><td>Valor Total</td><td id=""valueMoneytotal"">0</td><td id=""ValueEspeciestotal"">0</td><td id=""ValueCostotal"">0</td></tr></tbody></table>"
-        Else
-
-            htmlactores = "<table id=""matriz"" border=""1"" cellpadding=""1"" cellspacing=""1"" style=""width: 100%""><thead><tr><th width=""1""></th><th></th><th>Efectivo</th><th>Especie</th><th>Total</th></tr></thead><tbody>"
-            htmlactores &= "<tr><td width=""1"" style=""color: #D3D6FF; font-size: 0.1em;"">1000</td><td>Valor Total</td><td id=""valueMoneytotal"">0</td><td id=""ValueEspeciestotal"">0</td><td id=""ValueCostotal"">0</td></tr></tbody></table>"
-
-        End If
-
-        Response.Write(htmlactores)
-
-
     End Function
 
     Public Function searh_actores_array(ByVal ididea As Integer)
@@ -1247,54 +1036,6 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
     End Function
 
-    Public Function searh_actores(ByVal ididea As Integer)
-
-        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
-
-        Dim thirdbyidea As New ThirdByIdeaDALC
-        Dim objactores As ThirdByIdeaEntity
-        Dim data_listactores As List(Of ThirdByIdeaEntity)
-        Dim name, contacto, email, tel, documet, tipo, vd, ve, vt, id As String
-
-        Dim htmlactores As String
-
-        data_listactores = thirdbyidea.getList(applicationCredentials, , ididea, , , , , , )
-
-        If data_listactores.Count > 0 Then
-
-            htmlactores = "<table id=""T_Actors"" align=""center"" border=""1"" cellpadding=""1"" cellspacing=""1"" style=""width: 100%;""><thead><tr><th width=""1""></th><th>Actores</th><th>Tipo</th><th>Contacto</th><th>Documento Identidad</th><th>Tel&eacute;fono</th><th>Correo electr&oacute;nico</th><th>Vr Dinero</th><th>Vr Especie</th><th>Vr Total</th><th>Eliminar</th></tr></thead><tbody>"
-
-            For Each row In data_listactores
-
-                id = row.idthird
-                name = row.Name
-                contacto = row.contact
-                tipo = row.type
-                email = row.Email
-                tel = row.Phone
-                documet = row.Documents
-                vd = row.Vrmoney
-                ve = row.VrSpecies
-                vt = row.FSCorCounterpartContribution
-
-                htmlactores &= "<tr id=""actor" & id & """ ><td width=""1"" style=""color: #D3D6FF;font-size: 0.1em;"">" & id & "</td><td>" & name & "</td><td>" & tipo & "</td><td>" & contacto & "</td><td>" & documet & "</td><td>" & tel & "</td><td>" & email & "</td><td>" & vd & "</td><td>" & ve & "</td><td>" & vt & "</td><td><input type =""button"" value= ""Eliminar"" onclick=""deleteActor('" & id & "')""></input></td></tr>"
-
-
-            Next
-
-            htmlactores &= "<tr><td width=""1"" style=""color: #D3D6FF; font-size: 0.1em;"">1000</td><td>Total</td><td></td><td></td><td></td><td></td><td></td><td id=""val1""></td><td id=""val2"">0</td><td id=""val3"">0</td><td></td></tr></tbody></table>"
-        Else
-
-            htmlactores = "<table id=""T_Actors"" align=""center"" border=""1"" cellpadding=""1"" cellspacing=""1"" style=""width: 100%;""><thead><tr><th width=""1""></th><th>Actores</th><th>Tipo</th><th>Contacto</th><th>Documento Identidad</th><th>Tel&eacute;fono</th><th>Correo electr&oacute;nico</th><th>Vr Dinero</th><th>Vr Especie</th><th>Vr Total</th><th>Eliminar</th></tr></thead><tbody>"
-            htmlactores &= "<tr><td width=""1"" style=""color: #D3D6FF; font-size: 0.1em;"">1000</td><td>Total</td><td></td><td></td><td></td><td></td><td></td><td id=""val1"">0</td><td id=""val2"">0</td><td id=""val3"">0</td><td></td></tr></tbody></table>"
-
-        End If
-
-        Response.Write(htmlactores)
-
-
-    End Function
-
     Public Function searh_location_array(ByVal ididea As Integer)
 
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
@@ -1353,45 +1094,6 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
         End If
         Response.Write(objResult)
-
-
-    End Function
-
-    Public Function searh_location(ByVal ididea As Integer)
-        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
-
-        Dim LocationByIdea As New LocationByIdeaDALC
-        Dim objlocation As LocationByIdeaEntity
-        Dim data_listlocation As List(Of LocationByIdeaEntity)
-        Dim idcity, iddepto, namecyty, namedepto As String
-
-        Dim htmlubications As String
-
-        data_listlocation = LocationByIdea.getList(applicationCredentials, , ididea, , , )
-
-        If data_listlocation.Count > 0 Then
-
-            htmlubications = "<table id=""T_location"" border=""2"" cellpadding=""2"" cellspacing=""2"" style=""width: 100%;""><thead><tr><th>Departamento</th><th>Ciudad</th><th>Eliminar</th></tr></thead><tbody>"
-
-            For Each row In data_listlocation
-
-                namecyty = row.CITY.name
-                namedepto = row.DEPTO.name
-
-                Dim strdelete As String = namecyty & "_" & namedepto
-
-                htmlubications &= "<tr><td>" & namedepto & "</td><td>" & namecyty & "</td><td><input type =""button"" class= ""deleteUbicacion"" value= ""Eliminar"" onclick=""deleteUbicacion(""" & strdelete & """)"" ></input></td></tr>"
-
-
-            Next
-            htmlubications &= "</tbody></table>"
-
-        Else
-            htmlubications = "<table id=""T_location"" border=""2"" cellpadding=""2"" cellspacing=""2"" style=""width: 100%;""><thead><tr><th>Departamento</th><th>Ciudad</th><th>Eliminar</th></tr></thead><tbody>"
-            htmlubications &= "<tr><td></td><td></td><td><input type =""button"" class= ""deleteUbicacion"" value= ""Eliminar"" onclick=""deleteUbicacion()"" ></input></td></tr>"
-
-        End If
-        Response.Write(htmlubications)
 
 
     End Function

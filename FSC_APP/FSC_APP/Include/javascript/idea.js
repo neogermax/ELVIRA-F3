@@ -106,18 +106,14 @@ $(document).ready(function() {
 
         load_idarchive();
 
-        view_ubicacion();
         view_ubicacion_array();
 
-        View_actores();
         View_actores_array();
 
-        View_matriz_principal();
 
-        View_flujos_p();
+        
         View_flujos_p_array();
 
-        View_flujos_actors();
         View_flujos_actors_array();
 
         View_detalle_flujo_array();
@@ -125,9 +121,8 @@ $(document).ready(function() {
         aprobacion_idea();
 
         View_anexos_array();
-        View_anexos();
-        //$("#ddlStrategicLines").ready(function() { ClineEstrategic_edit(); });
-
+       
+       
         var timer_cline_edit = setTimeout("Cpopulation_view();", 2000);
         var timer_cline_edit = setTimeout("Ctypcontract_view();", 2000);
         var timer_cline_edit = setTimeout("Ctypaproval_view();", 2000);
@@ -273,7 +268,7 @@ $(document).ready(function() {
                 //alert(tamaño_flujos);
                 //validar la cantidad de actores
                 if (tamaño_flujos == 1) {
-                    var Aflujos = arrayActorFlujo[itemarrayflujos].actorsVal;
+                    var Aflujos = arrayActorFlujo[0].actorsVal;
                     //   alert(Aflujos);
                     $("#txtinput" + Aflujos).attr("disabled", "disabled");
                     $("#desenbolso" + Aflujos).text("");

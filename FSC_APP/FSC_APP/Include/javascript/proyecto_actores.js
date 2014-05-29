@@ -86,9 +86,6 @@ function add_actor_grid() {
         else {
             $("#ctl00_cphPrincipal_Lblactorrep").text("");
 
-
-
-
             //capturamos los valores de deseados
             var actorsVal = $("#ddlactors").val();
             var actorsName = $("#ddlactors :selected").text();
@@ -157,73 +154,13 @@ function add_actor_grid() {
                 //cargamos el array con el json
                 arrayActor.push(jsonActor);
 
-                //creamos la tabla de actores
-                var htmlTableActores = "<table id='T_Actors' align='center' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr><th width='1'></th><th>Actores</th><th>Tipo</th><th>Contacto</th><th>Documento Identidad</th><th>Tel&eacute;fono</th><th>Correo electr&oacute;nico</th><th>Vr Dinero</th><th>Vr Especie</th><th>Vr Total</th><th>Eliminar</th></tr></thead><tbody>";
-                //creamos la tabla de flujo actores
-                if (flujo_in == 1) {
-                    var htmltableAflujos = "<table id='T_Actorsflujos' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr><th width='1'></th><th>Aportante</th><th>Valor total aporte</th><th>Valor por programar</th><th>Saldo por programar</th></tr></thead><tbody>";
-                }
-                //creamos la tabla matrizde informacion principal
-                var htmltablamatriz = "<table id='matriz' border='1' cellpadding='1' cellspacing='1' style='width: 100%'><thead><tr><th width='1'></th><th></th><th>Efectivo</th><th>Especie</th><th>Total</th></tr></thead><tbody>";
+                //llama la funcion crear la tabla de grid principal
+                crear_tabla_inf_prin();
+                //llama la funcion crear la tabla de actores
+                crear_tabla_actores();
+                //llama la funcion crear la tabla de flujo_actor
+                crear_tabla_flujo_actor();
 
-                for (itemArray in arrayActor) {
-                    htmlTableActores += "<tr id='actor" + arrayActor[itemArray].actorsVal + "' ><td width='1' style='color: #D3D6FF;font-size: 0.1em;'>" + arrayActor[itemArray].actorsVal + "</td><td>" + arrayActor[itemArray].actorsName + "</td><td>" + arrayActor[itemArray].tipoactors + "</td><td>" + arrayActor[itemArray].contact + "</td><td>" + arrayActor[itemArray].cedula + "</td><td>" + arrayActor[itemArray].telefono + "</td><td>" + arrayActor[itemArray].email + "</td><td>" + arrayActor[itemArray].diner + "</td><td>" + arrayActor[itemArray].especie + "</td><td>" + arrayActor[itemArray].total + "</td><td><input type ='button' value= 'Eliminar' onclick=\"deleteActor('" + arrayActor[itemArray].actorsVal + "')\"></input></td></tr>";
-                    htmltablamatriz += "<tr id= 'matriz" + arrayActor[itemArray].actorsVal + "'><td width='1' style='color: #D3D6FF;font-size: 0.1em;'>" + arrayActor[itemArray].actorsVal + "</td><td style='text-align: left'>" + arrayActor[itemArray].actorsName + "</td><td>" + arrayActor[itemArray].diner + "</td><td> " + arrayActor[itemArray].especie + "</td><td> " + arrayActor[itemArray].total + " </td></tr>";
-
-                }
-                //creamos ciclo para los actores que si tienen flujo de pago
-                for (itemarrayflujos in arrayActorFlujo) {
-                    if (flujo_in == 1) {
-                        htmltableAflujos += "<tr id='flujo" + arrayActorFlujo[itemarrayflujos].actorsVal + "'><td width='1' style='color: #D3D6FF;font-size: 0.1em;'>" + arrayActorFlujo[itemarrayflujos].actorsVal + "</td><td>" + arrayActorFlujo[itemarrayflujos].actorsName + "</td><td id= 'value" + arrayActorFlujo[itemarrayflujos].actorsVal + "' >" + arrayActorFlujo[itemarrayflujos].diner + "</td><td><input id='" + "txtinput" + arrayActorFlujo[itemarrayflujos].actorsVal + "' onkeyup='formatvercionsuma(this)' onchange='formatvercionsuma(this)'  onblur=\"sumar_flujos('" + arrayActorFlujo[itemarrayflujos].actorsVal + "')\" onfocus=\"restar_flujos('" + arrayActorFlujo[itemarrayflujos].actorsVal + "')\"></input></td><td id='desenbolso" + arrayActorFlujo[itemarrayflujos].actorsVal + "'>" + arrayActorFlujo[itemarrayflujos].diner + "</td></tr>";
-                    }
-                }
-                //se anexa columna para totales
-                htmlTableActores += "<tr><td width='1' style='color: #D3D6FF; font-size: 0.1em;'>1000</td><td>Total</td><td></td><td></td><td></td><td></td><td></td><td id='val1'></td><td id='val2'>0</td><td id='val3'>0</td><td></td></tr></tbody></table>";
-
-                if (flujo_in == 1) {
-                    htmltableAflujos += "<tr><td width='1' style='color: #D3D6FF; font-size: 0.1em;'>1000</td><td>Total</td><td id='tflujosing'></td><td id='totalflujos'>0</td></td id='tflujosdesen'><td></tr></tbody></table>";
-                }
-                htmltablamatriz += "<tr><td width='1' style='color: #D3D6FF; font-size: 0.1em;'>1000</td><td>Valor Total</td><td id='valueMoneytotal'>0</td><td id='ValueEspeciestotal'>0</td><td id='ValueCostotal'>0</td></tr></tbody></table>";
-
-                //cargamos el div donde se generara la tabla actores
-                $("#T_ActorsContainer").html("");
-                $("#T_ActorsContainer").html(htmlTableActores);
-
-                if (flujo_in == 1) {
-                    //cargamos el div donde se generara la tabla flujo de actores
-                    $("#T_AflujosContainer").html("");
-                    $("#T_AflujosContainer").html(htmltableAflujos);
-                }
-
-                $("#T_matrizcontainer").html("");
-                $("#T_matrizcontainer").html(htmltablamatriz);
-
-
-                //llama la funcion sumar en la grilla de actores
-                sumar_grid_actores();
-
-
-                //llamar la funcion suma de primera columna efectivo
-                sumavalores_gridprincipal();
-
-                //reconstruimos la tabla con los datos 
-                $("#T_Actors").dataTable({
-                    "bJQueryUI": true,
-                    "bDestroy": true
-                });
-
-                if (flujo_in == 1) {
-                    //reconstruimos la tabla con los datos 
-                    $("#T_Actorsflujos").dataTable({
-                        "bJQueryUI": true,
-                        "bDestroy": true
-                    });
-                }
-                //reconstruimos la tabla con los datos
-                $("#matriz").dataTable({
-                    "bJQueryUI": true,
-                    "bDestroy": true
-                });
                 //limpiamos los campos para empesar el ciclo de nuevo
                 $("#ctl00_cphPrincipal_Txtcontact").val("");
                 $("#ctl00_cphPrincipal_Txtcedulacont").val("");
@@ -233,39 +170,64 @@ function add_actor_grid() {
                 $("#ctl00_cphPrincipal_Txtvresp").val("");
                 $("#ctl00_cphPrincipal_Txtaportfscocomp").val("");
 
+                $("#Btn_add_flujo").removeAttr("disabled");
             }
         }
     }
 }
 
-//funcion para cargar actores en general
-function View_actores() {
 
-    $.ajax({
-        url: "AjaxAddProject.aspx",
-        type: "GET",
-        data: { "action": "View_actores", "ididea": idea_buscar },
-        success: function(result) {
+//creamos la tabla matrizde informacion principal
+function crear_tabla_inf_prin() {
 
-            //cargamos el div donde se generara la tabla actores
-            $("#T_ActorsContainer").html("");
-            $("#T_ActorsContainer").html(result);
+    var htmltablamatriz = "<table id='matriz' border='1' cellpadding='1' cellspacing='1' style='width: 100%'><thead><tr><th width='1'></th><th></th><th>Efectivo</th><th>Especie</th><th>Total</th></tr></thead><tbody>";
 
-            //reconstruimos la tabla con los datos
-            $("#T_Actors").dataTable({
-                "bJQueryUI": true,
-                "bDestroy": true
-            });
+    for (itemArray in arrayActor) {
+        htmltablamatriz += "<tr id= 'matriz" + arrayActor[itemArray].actorsVal + "'><td width='1' style='color: #D3D6FF;font-size: 0.1em;'>" + arrayActor[itemArray].actorsVal + "</td><td style='text-align: left'>" + arrayActor[itemArray].actorsName + "</td><td>" + arrayActor[itemArray].diner + "</td><td> " + arrayActor[itemArray].especie + "</td><td> " + arrayActor[itemArray].total + " </td></tr>";
+    }
 
-            //llama la funcion sumar en la grilla de actores
-            sumar_grid_actores();
+    htmltablamatriz += "<tr><td width='1' style='color: #D3D6FF; font-size: 0.1em;'>1000</td><td>Valor Total</td><td id='valueMoneytotal'>0</td><td id='ValueEspeciestotal'>0</td><td id='ValueCostotal'>0</td></tr></tbody></table>";
 
-        },
-        error: function(msg) {
-            alert("No se pueden cargar los actores en general de la idea = " + idea_buscar);
-        }
+    $("#T_matrizcontainer").html("");
+    $("#T_matrizcontainer").html(htmltablamatriz);
+
+    //llamar la funcion suma de primera columna efectivo
+    sumavalores_gridprincipal();
+
+    //reconstruimos la tabla con los datos
+    $("#matriz").dataTable({
+        "bJQueryUI": true,
+        "bDestroy": true
     });
 }
+
+//creamos la tabla de actores
+function crear_tabla_actores() {
+
+    var htmlTableActores = "<table id='T_Actors' align='center' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr><th width='1'></th><th>Actores</th><th>Tipo</th><th>Contacto</th><th>Documento Identidad</th><th>Tel&eacute;fono</th><th>Correo electr&oacute;nico</th><th>Vr Dinero</th><th>Vr Especie</th><th>Vr Total</th><th>Eliminar</th></tr></thead><tbody>";
+
+    for (itemArray in arrayActor) {
+        htmlTableActores += "<tr id='actor" + arrayActor[itemArray].actorsVal + "' ><td width='1' style='color: #D3D6FF;font-size: 0.1em;'>" + arrayActor[itemArray].actorsVal + "</td><td>" + arrayActor[itemArray].actorsName + "</td><td>" + arrayActor[itemArray].tipoactors + "</td><td>" + arrayActor[itemArray].contact + "</td><td>" + arrayActor[itemArray].cedula + "</td><td>" + arrayActor[itemArray].telefono + "</td><td>" + arrayActor[itemArray].email + "</td><td>" + arrayActor[itemArray].diner + "</td><td>" + arrayActor[itemArray].especie + "</td><td>" + arrayActor[itemArray].total + "</td><td><input type ='button' value= 'Eliminar' onclick=\"deleteActor('" + arrayActor[itemArray].actorsVal + "')\"></input></td></tr>";
+    }
+
+    //se anexa columna para totales
+    htmlTableActores += "<tr><td width='1' style='color: #D3D6FF; font-size: 0.1em;'>1000</td><td>Total</td><td></td><td></td><td></td><td></td><td></td><td id='val1'></td><td id='val2'>0</td><td id='val3'>0</td><td></td></tr></tbody></table>";
+
+    //cargamos el div donde se generara la tabla actores
+    $("#T_ActorsContainer").html("");
+    $("#T_ActorsContainer").html(htmlTableActores);
+
+    //llama la funcion sumar en la grilla de actores
+    sumar_grid_actores();
+
+    //reconstruimos la tabla con los datos 
+    $("#T_Actors").dataTable({
+        "bJQueryUI": true,
+        "bDestroy": true
+    });
+}
+
+
 
 function View_actores_array() {
     $.ajax({
@@ -281,7 +243,11 @@ function View_actores_array() {
                 var recibeact = JSON.parse(array_actores_ed[itemArray]);
                 arrayActor.push(recibeact);
             }
-
+            //llamamos funcion crea la tabla del descripcion de proyecto
+            crear_tabla_inf_prin();
+            //llama la funcion crear la tabla de actores
+            crear_tabla_actores();
+           
         },
         error: function(msg) {
             alert("No se pueden cargar los actores en general de la idea = " + idea_buscar);
@@ -298,7 +264,7 @@ function deleteActor(str) {
     }
 
     //validamos si se paso del limite del proyecto madre
-    if (S_validar_valores_madre == 1){
+    if (S_validar_valores_madre == 1) {
 
         $("#ctl00_cphPrincipal_Lblmesanje_mother").text("");
         $("#ctl00_cphPrincipal_sucess_mother_help").css("display", "none");
@@ -343,6 +309,7 @@ function deleteActor(str) {
     //llamar la funcion suma de grid principal
     sumavalores_gridprincipal();
 
+    $("#Btn_add_flujo").removeAttr("disabled");
 }
 
 //valida si se han ingresado flujos de pago y los reinicia
@@ -395,9 +362,6 @@ function sumar_grid_actores() {
     var valespecie = 0;
     var valtotal = 0;
 
-
-
-
     //recorremos la tabla actores para calcular los totales
     $("#T_Actors tr").slice(0, $("#T_Actors tr").length - 1).each(function() {
         var arrayValuesActors = $(this).find("td").slice(7, 10);
@@ -435,26 +399,9 @@ function sumar_grid_actores() {
         }
     });
 
-    //recorremos la tabla flujo de actores para calcular los totales
-    $("#T_Actorsflujos tr").slice(0, $("#T_Actorsflujos tr").length - 1).each(function() {
-        var arrayValuesflujos = $(this).find("td").slice(0, 4);
-        //validamos si hay campos null en la tabla flujos actores
-        if ($(arrayValuesflujos[0]).html() != null) {
-            //capturamos e incrementamos los valores para la suma
-
-            valdinerflujos = valdinerflujos + parseInt($(arrayValuesflujos[2]).html().replace(/\./gi, ''));
-
-            if (isNaN(valdinerflujos)) {
-                valdinerflujos = 0;
-            }
-            //cargamos los campos con la operacion realizada
-            $("#tflujosing").text(addCommasrefactor(valdinerflujos));
-        }
-        else {
-            $("#tflujosing").text(0);
-        }
-    });
+   
 }
+
 
 
 //funcion que sumas cuando agregan un actor desde el boton

@@ -81,30 +81,7 @@ function Add_location_onclick() {
                 //cargamos el array con el json
                 arrayUbicacion.push(jsonUbicacion);
 
-                //creamos la tabla de ubicaciones
-
-                var htmlTable = "<table id='T_location' border='2' cellpadding='2' cellspacing='2' style='width: 100%;'><thead><tr><th>Departamento</th><th>Ciudad</th><th>Eliminar</th></tr></thead><tbody>";
-
-                for (itemArray in arrayUbicacion) {
-                    var strdelete = arrayUbicacion[itemArray].DeptoName + "_" + arrayUbicacion[itemArray].CityName;
-                    htmlTable += "<tr><td>" + arrayUbicacion[itemArray].DeptoName + "</td><td>" + arrayUbicacion[itemArray].CityName + "</td><td><input type ='button' class= 'deleteUbicacion' value= 'Eliminar' onclick=\"deleteUbicacion('" + strdelete + "')\" ></input></td></tr>";
-                }
-                htmlTable += "</tbody></table>";
-
-                //cargamos el div donde se generara la tabla
-                $("#T_locationContainer").html("");
-                $("#T_locationContainer").html(htmlTable);
-
-                //agregamos atributos de eliminar fila
-                $(".deleteUbicacion").click(function() {
-                    $(this).parent().parent().remove();
-                });
-
-                //reconstruimos la tabla con los datos 
-                $("#T_location").dataTable({
-                    "bJQueryUI": true,
-                    "bDestroy": true
-                });
+                Crear_tabla_ubicacion();
 
                 $("#ddlDepto").val("Seleccione...");
                 $("#ddlDepto").trigger("liszt:updated");
@@ -116,36 +93,33 @@ function Add_location_onclick() {
     }
 }
 
+//creamos la tabla de ubicaciones
+function Crear_tabla_ubicacion() {
 
-//funcion para visualizar las ubicaciones en ediccion
-function view_ubicacion() {
-    $.ajax({
-        url: "AjaxAddIdea.aspx",
-        type: "GET",
-        data: { "action": "View_ubicacion", "ididea": ideditar },
-        success: function(result) {
+    var htmlTable = "<table id='T_location' border='2' cellpadding='2' cellspacing='2' style='width: 100%;'><thead><tr><th>Departamento</th><th>Ciudad</th><th>Eliminar</th></tr></thead><tbody>";
 
-            $("#T_locationContainer").html("");
-            $("#T_locationContainer").html(result);
+    for (itemArray in arrayUbicacion) {
+        var strdelete = arrayUbicacion[itemArray].DeptoName + "_" + arrayUbicacion[itemArray].CityName;
+        htmlTable += "<tr><td>" + arrayUbicacion[itemArray].DeptoName + "</td><td>" + arrayUbicacion[itemArray].CityName + "</td><td><input type ='button' class= 'deleteUbicacion' value= 'Eliminar'  onclick=\"deleteUbicacion('" + strdelete + "')\" ></input></td></tr>";
+    }
+    htmlTable += "</tbody></table>";
 
-            //agregamos atributos de eliminar fila
-            $(".deleteUbicacion").click(function() {
-                $(this).parent().parent().remove();
-            });
+    //cargamos el div donde se generara la tabla
+    $("#T_locationContainer").html("");
+    $("#T_locationContainer").html(htmlTable);
 
-            //reconstruimos la tabla con los datos 
-            $("#T_location").dataTable({
-                "bJQueryUI": true,
-                "bDestroy": true
-            });
-
-        },
-        error: function(msg) {
-            alert("No se pueden cargar las ubicaciones seleccionadas de la idea = " + ideditar);
-        }
+    //agregamos atributos de eliminar fila
+    $(".deleteUbicacion").click(function() {
+        $(this).parent().parent().remove();
     });
-}
 
+    //reconstruimos la tabla con los datos 
+    $("#T_location").dataTable({
+        "bJQueryUI": true,
+        "bDestroy": true
+    });
+
+}
 
 //funcion para cargar  array ubicaciones en ediccion
 function view_ubicacion_array() {
@@ -163,6 +137,8 @@ function view_ubicacion_array() {
                 arrayUbicacion.push(recibeubi);
             }
 
+            //llamamos la funcion q nos genera la tabla
+            Crear_tabla_ubicacion();
 
         },
         error: function(msg) {

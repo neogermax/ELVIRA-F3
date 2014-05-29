@@ -71,7 +71,8 @@ var flujos_disponible;
 var fecha_limite_madre;
 var fecha_inicial_madre;
 var validar_valor_ingresado;
-var S_validar_valores_madre; 
+var S_validar_valores_madre;
+ 
 
 $(document).ready(function() {
 
@@ -278,7 +279,7 @@ $(document).ready(function() {
 
                 //validar la cantidad de actores
                 if (tamaño_flujos == 1) {
-                    var Aflujos = arrayActorFlujo[itemarrayflujos].actorsVal;
+                    var Aflujos = arrayActorFlujo[0].actorsVal;
                     //   alert(Aflujos);
                     $("#txtinput" + Aflujos).attr("disabled", "disabled");
                     $("#desenbolso" + Aflujos).text("");
@@ -328,37 +329,25 @@ function verificar_dat_idea() {
         idea_buscar = $(this).val();
         str_ideabuscar = $("#ddlididea option:selected").text();
         validar_ini_ed = 0;
-        //alert(str_ideabuscar);
-
+        
         traer_valores_madre();
-
+       
         confirmar = confirm("¿Traer datos de la Idea aprobada?", "SI", "NO");
         if (confirmar) {
 
             componentes_editados = 1;
             //pestaña descripcion del proyecto
             traer_datos_idea_inf_p();
-            View_matriz_principal();
-
             //pestaña ubicacion del proyecto
-            view_ubicacion();
             view_ubicacion_array();
-
             //pestaña actores del proyecto
-            View_actores();
             View_actores_array();
-
             //pestaña flujos del proyecto
-            View_flujos_p();
             View_flujos_p_array();
-
-            View_flujos_actors();
             View_flujos_actors_array();
-
             View_detalle_flujo_array();
 
             //pestaña anexos del proyecto
-            View_anexos();
             View_anexos_array();
 
             //pestaña componentes del proyecto
@@ -368,6 +357,8 @@ function verificar_dat_idea() {
             });
 
             edit_component_view();
+
+            
 
             //bloquemos los controles de la pestaña componentes
             $("#ddlStrategicLines").attr("disabled", "disabled");
@@ -985,3 +976,18 @@ function traer_valores_madre() {
 
 }
 
+//funcion que valida los miles en tiempo real
+function formatvercionsuma(input) {
+
+    var num = input.value.replace(/\./g, "");
+    if (!isNaN(num)) {
+        num = num.toString().split("").reverse().join("").replace(/(?=\d*\.?)(\d{3})/g, "$1.");
+        num = num.split("").reverse().join("").replace(/^[\.]/, "");
+        input.value = num;
+    }
+
+    else {
+        alert('Solo se permiten numeros');
+        input.value = input.value.replace(/[^\d\.]*/g, "");
+    }
+}
