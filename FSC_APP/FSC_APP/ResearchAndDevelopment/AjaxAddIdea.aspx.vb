@@ -1222,10 +1222,6 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
         Response.Write(htmlresults)
 
-
-
-
-
     End Function
 
     ''' <summary>

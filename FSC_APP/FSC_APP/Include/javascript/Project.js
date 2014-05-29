@@ -349,39 +349,28 @@ function verificar_dat_idea() {
 
             //pestaña anexos del proyecto
             View_anexos_array();
-
             //pestaña componentes del proyecto
             $("#ddlStrategicLines").ready(function() {
                 ClineEstrategic_edit();
-                //    view_Cprogram();
             });
-
             edit_component_view();
-
-            
 
             //bloquemos los controles de la pestaña componentes
             $("#ddlStrategicLines").attr("disabled", "disabled");
-            // $("#ddlPrograms").attr("disabled", "disabled");
-            // $("#Btnaddcomponent").attr("disabled", "disabled");
-            // $("#Btndeletecomponent").attr("disabled", "disabled");
-
+          
         }
         else {
 
             //pestaña componentes del proyecto
             $("#ddlStrategicLines").ready(function() {
                 ClineEstrategic_edit();
-                view_Cprogram();
             });
+          
             edit_component_view();
 
             //bloquemos los controles de la pestaña componentes
             $("#ddlStrategicLines").attr("disabled", "disabled");
-            // $("#ddlPrograms").attr("disabled", "disabled");
-            //$("#Btnaddcomponent").attr("disabled", "disabled");
-            //$("#Btndeletecomponent").attr("disabled", "disabled");
-
+          
         }
 
     });
