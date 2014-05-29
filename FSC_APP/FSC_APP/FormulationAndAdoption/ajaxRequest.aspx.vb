@@ -156,6 +156,7 @@ Partial Public Class ajaxRequest
             objCPaymentFlow_Request.setPropertiesFromProject(item)
             objCPaymentFlow_Request.executeInsert()
         Next
+
     End Sub
 
 End Class

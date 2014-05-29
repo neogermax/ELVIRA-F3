@@ -26,7 +26,7 @@
             color: #3D3D3D;
             font-family: Tahoma, Geneva, sans-serif;
             overflow: scroll;
-            background-position-y:-84px;
+            /*background-position-y:-84px;*/
         }
         
         .menuprincipal
@@ -114,6 +114,25 @@
             color: #006B66;
             border-bottom: 1px solid #FBBA42;
             padding-bottom: 1em;
+            font-size: 1em;
+        }
+        /* iPads (portrait) ----------- */
+        @media only screen 
+        and (min-device-width : 768px) 
+        and (max-device-width : 1024px){
+        /* Styles */
+            .submenu ol li
+            {
+                display: inline-block;
+                font-weight: bold;
+                width: 12%;
+                margin: 0 auto;
+                cursor: pointer;
+                color: #006B66;
+                border-bottom: 1px solid #FBBA42;
+                padding-bottom: 1em;
+                font-size: 0.8em !important;
+            }
         }
         .submenu_dos
         {
@@ -139,10 +158,27 @@
             -moz-box-shadow: 2px 2px 5px #999;
         }
         
+        #jFlowSlider
+        {
+        	margin-top: 7em !important;
+        }
+        #nav-menu
+        {
+        	width: 100%;
+        }
+        #nav-menu li
+        {
+        	display: inline;
+        	float: right !important;
+        	color: rgb(0, 128, 128);
+        	height: 75px !important;
+        	line-height: 75px !important;
+        	text-align: center;
+        }
     </style>
 
     <script type="text/javascript">
-
+        var host = "<%= Request.Url.Authority %>";
         $(function () {
 
             $("#myController").jFlow({
@@ -260,7 +296,7 @@
             }
         };
 
-        $(function() {
+        $(document).ready(function() {
         
             $(".tarjeta").hover(function() {
                 var menuText = $(this).attr("menu");
@@ -288,9 +324,11 @@
                 data: { "action": "loadmenu", "level": "1"},
                 success: function(result){
                     arrayLevel1 = result.split(",");
-                    for(item in arrayLevel1){
+                    for(var item in arrayLevel1){
                         var itemArray = $.trim(arrayLevel1[item]).toString();
+                        console.log(arrayLevel1[item]);
                         if(itemArray != ""){
+                            console.log($("#" + itemArray));
                             $("#" + itemArray).removeClass('visible');
                         }
                     }
@@ -310,7 +348,7 @@
             var nombremenu = $(objDOM).attr("item");
             parent = nombremenu;
             $("#listsubmenu").html("");
-            for (itemMenu in jsonMenu[nombremenu].items) {
+            for (var itemMenu in jsonMenu[nombremenu].items) {
                 console.log(jsonMenu[nombremenu][itemMenu]);
                 if (arrayLevel2.indexOf(jsonMenu[nombremenu].items[itemMenu])!=-1){
                     $("#listsubmenu").append("<li onclick='mostrarTercerNivelMenu(this);' item='" + jsonMenu[nombremenu].items[itemMenu] + "'>" + jsonMenu[nombremenu].items[itemMenu] + "</li>");
@@ -319,11 +357,14 @@
         }
         function mostrarTercerNivelMenu(objDOM) {
             $(".submenu_dos").css("display", "block");
+            $('html, body').animate({
+                scrollTop: 550
+            }, 500);
             var nombremenu = $(objDOM).attr("item");
             nombremenu = nombremenu.replace(/ /g, "_");
             $("#listsubmenu_dos").html("");
             child = nombremenu;
-            for (itemMenu in jsonMenu[parent][nombremenu]) {
+            for (var itemMenu in jsonMenu[parent][nombremenu]) {
                 console.log(jsonMenu[parent][nombremenu][itemMenu][0, 0]);
                 if (arrayLevel3.indexOf(jsonMenu[parent][nombremenu][itemMenu][0, 0])!=-1){
                     if (jsonMenu[parent][nombremenu][itemMenu][0, 1] == "") {
@@ -396,18 +437,16 @@
             </div>
         </div>
     </div>
-    <div align="center" style="margin-top: -108px;">
-        <table border="2" bordercolor="#9BBB59" style="width: 85%;" class="tablasombra">
+    <div style="margin: 7em auto;">
+        <table border="2" bordercolor="#9BBB59" style="width: 85%; margin: 0 auto;" class="tablasombra">
             <tbody>
                 <tr>
                     <td style="border: solid 1px; border-color: #FFFFFF;">
-                        <p style="text-align: center; font-size: 24px; color: #FFFFFF;">
-                            A</p>
                         <p style="text-align: center; font-size: 28px; color: #499591;">
                             Bienvenidos al Sistema de Gestión de Proyectos</p>
                         <p style="text-align: center; font-size: 30px; color: #499591;">
                             ELVIRA</p>
-                        <p style="text-align: center; color: #499591;">
+                        <p style="text-align: center; color: #499591;  margin-top: 1em;">
                             <em><strong>E</strong>va<strong>L</strong>uaci&oacute;n y <strong>V</strong>aloraci&oacute;n
                                 de la <strong>I</strong>nve<strong>R</strong>si&oacute;n <strong>A</strong>rticulada</em></p>
                         <div class="menuprincipal">
@@ -465,27 +504,9 @@
             </tbody>
         </table>
     </div>
-    <div style="float: right; z-index: 9; height: 75px; position: absolute; right: 0;
+    <div style="float: right; z-index: 9; width:60%; height: 75px; text-align:right; margin-right: 1em; position: absolute; right: 0;
         top: 0; margin-top: 20px;">
-        <table border="0" cellpadding="0" cellspacing="0" style="margin: auto; width: 100%;">
-            <tr>
-                <td>
-                    <table width="100%" border="0" cellpadding="0" cellspacing="0" class="cssHeaderBg">
-                        <tr>
-                            <td width="42%">
-                            </td>
-                            <td align="right" class="cssHeaderRight">
-                                <uc1:User ID="ucUserData" runat="server" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2" class="cssBgMenuTop">
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-        </table>
+        <uc1:User ID="ucUserData" runat="server" />
     </div> 
     <form id="HFFrm" runat="server">
     <asp:HiddenField ID="hfUGr" runat="server" />
