@@ -169,7 +169,7 @@ $(document).ready(function() {
 
         validarcampos_fecha_madre();
         
-        $("#SaveProject").css("display", "block");
+        $("#SaveProject").css("display", "none");
         $("#Export").css("display", "none");
     }
 
@@ -333,6 +333,8 @@ function verificar_dat_idea() {
 
         traer_valores_madre();
 
+        $("#SaveProject").css("display", "block");
+        
         confirmar = confirm("¿Traer datos de la Idea aprobada?", "SI", "NO");
         if (confirmar) {
 
