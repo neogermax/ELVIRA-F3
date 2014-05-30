@@ -2,6 +2,10 @@
 // Date: 16/05/2014
 // File: Rquest.js
 
+$(document).ready(function() {
+        HideAreas();
+})
+
 // idproject depend from page father and save into variable named idproject
 
 var numberRequest;
@@ -51,3 +55,22 @@ function Now(){
 
     return today = dd+'/'+mm+'/'+yyyy;
 }
+
+function HideAreas() {
+    var elem;
+    var controltmp;
+    var controles = ["Objective", "SpecificObjectives", "InstalledCapacityResults", "BenefitiaryResults", "KnowledgeResults", "OtherResults", "PartObligations"];
+
+    for (elem in controles) {
+        //Label
+        controltmp = '#lbl' + controles[elem] + '2'
+        ocultar(controltmp);
+        //Textarea
+        controltmp = '#txtar' + controles[elem] + '2'
+        ocultar(controltmp);
+    }
+}
+
+function ocultar(control) {
+    $(control).css("display", "none");
+};

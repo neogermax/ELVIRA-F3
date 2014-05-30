@@ -1,16 +1,13 @@
 ﻿<%@ Page Language="vb" AutoEventWireup="false" MasterPageFile="~/Master/mpAdmin.master"
     CodeBehind="Request.aspx.vb" Inherits="FSC_APP.Request" Title="Solicitudes" %>
 
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="cphPrincipal" runat="server">
     <!-- Style -->
     <link href="../css/jquery-ui-1.10.4.customRequest.min.css" rel="stylesheet" type="text/css" />
-    
     <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css" />
-    
     <link href="../css/datatables/jquery.dataTables.css" rel="stylesheet" type="text/css" />
-    
     <link href="../Pretty/css/prettyPhoto.css" rel="stylesheet" type="text/css" />
-    
     <style>
         .container-request
         {
@@ -74,28 +71,27 @@
             margin-top: 2em;
         }
     </style>
-    
     <!-- End Style -->
-    
     <!-- Script -->
+
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    
+
     <script src="../js/jquery-ui-1.10.3.custom.min.js" type="text/javascript"></script>
-    
+
     <script src="../Pretty/js/jquery.prettyPhoto.js" type="text/javascript"></script>
 
     <script type="text/javascript" src="../js/bootstrap.min.js"></script>
 
     <script src="../Include/javascript/Request.js" type="text/javascript"></script>
-    
+
     <script src="../js/jquery.dataTables.min.js" type="text/javascript"></script>
 
     <script src="../Include/javascript/ThirdRequest.js" type="text/javascript"></script>
-    
+
     <script src="../Include/javascript/FlowRequest.js" type="text/javascript"></script>
-    
+
     <script src="../Include/javascript/jquery.maskMoney.js" type="text/javascript"></script>
-    
+
     <script type="text/javascript">
         var idproject = <%= Request.QueryString("idproject") %>;
         $(document).ready(function(){
@@ -162,6 +158,14 @@
                 /*Suspension*/
                 if($(this).val() == "2"){
                     $("#divsuspension").css("display", "block");
+                    }else{
+                    $("#divsuspension").css("display", "none");
+                }
+                /*Alcance*/
+                if($(this).val() == "3"){
+                    $("#divalcance").css("display","block");
+                    }else{
+                    $("#divalcance").css("display","none");
                 }
             });
             
@@ -177,9 +181,8 @@
             });
         });
     </script>
-    <!-- End Script -->
 
-    
+    <!-- End Script -->
     <div class="container-request">
         <h1 id="project-title">
         </h1>
@@ -249,11 +252,11 @@
         <div id="actores">
             <ul>
                 <li>
-                    <label>Actor</label>
+                    <label>
+                        Actor</label>
                 </li>
                 <li>
                     <select id="ddlactors" class="">
-                        
                     </select>
                     <a id="linkactors" runat="server" href="~/GeneralPlanning/addThird.aspx?prety=1&op=add&iframe=true&width=100%&height=100%"
                         title="Nuevo actor" class="pretty">CREAR NUEVO ACTOR</a> </li>
@@ -295,17 +298,17 @@
                 </li>
                 <li>
                     <asp:Label ID="vrdiner" runat="server" Text="Vr Dinero"></asp:Label>
-                    <asp:TextBox ID="Txtvrdiner" runat="server" Width="200px" MaxLength="22" Rows="3"
-                        ></asp:TextBox>
+                    <asp:TextBox ID="Txtvrdiner" runat="server" Width="200px" MaxLength="22" Rows="3"></asp:TextBox>
                     <asp:Label ID="Lblhelpdinner" runat="server"></asp:Label>
                 </li>
                 <li>
                     <asp:Label ID="Label13" runat="server" Text="Vr Especie"></asp:Label>
-                    <asp:TextBox ID="Txtvresp" runat="server" Width="200px" MaxLength="22" Rows="3" ></asp:TextBox>
+                    <asp:TextBox ID="Txtvresp" runat="server" Width="200px" MaxLength="22" Rows="3"></asp:TextBox>
                 </li>
                 <li>
                     <asp:Label ID="Label14" runat="server" Text="Total Aporte del Actor"></asp:Label>
-                    <input style="width: 0px; height: 0px; opacity: 0; position: absolute; z-index: 0px;" type="text" id="txtTotalThird" value="" />
+                    <input style="width: 0px; height: 0px; opacity: 0; position: absolute; z-index: 0px;"
+                        type="text" id="txtTotalThird" value="" />
                     <br />
                     <asp:Label ID="Txtaportfscocomp" runat="server" Width="200px" Text="0"></asp:Label>
                 </li>
@@ -319,8 +322,9 @@
                     <asp:Label ID="Lblflujosinf" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
                 <li>
-                    <br />  
-                    <input id="BtnaddActors" style="background-image: none;" type="button" value="Agregar Actor" class="btn btn-success" name="Add_actors" onclick="return BtnaddActors_onclick()" />
+                    <br />
+                    <input id="BtnaddActors" style="background-image: none;" type="button" value="Agregar Actor"
+                        class="btn btn-success" name="Add_actors" onclick="return BtnaddActors_onclick()" />
                     <br />
                     <br />
                     <asp:Label ID="lblavertenactors" runat="server" Font-Bold="True" Font-Names="Arial Narrow"
@@ -479,13 +483,12 @@
                 <ul id="listFlujosPagos">
                     <li width="25%">
                         <asp:Label ID="lblvalortotal" runat="server" Text="Pago No"></asp:Label>
-                        <asp:TextBox ID="txtvalortotalflow" runat="server" Width="100px" MaxLength="5"
-                            onkeyup="this.value=this.value.replace(/[^\d]/,'')" ></asp:TextBox>
+                        <asp:TextBox ID="txtvalortotalflow" runat="server" Width="100px" MaxLength="5" onkeyup="this.value=this.value.replace(/[^\d]/,'')"></asp:TextBox>
                     </li>
                     <li width="25%">
                         <asp:Label ID="lblfechapago" runat="server" Text="Fecha de pago"></asp:Label>
                         <asp:TextBox ID="txtfechapago" runat="server" Width="100px" MaxLength="50"></asp:TextBox>
-                        <input ID="cesfechapago" value="" />
+                        <input id="cesfechapago" value="" />
                     </li>
                     <li width="25%">
                         <asp:Label ID="lblporcentaje" runat="server" Text="Porcentaje"></asp:Label>
@@ -560,7 +563,8 @@
                     </li>
                     <li style="margin-left: 3em;">
                         <br />
-                        <input id="Btn_add_flujo" type="button" value="Agregar Pago" style="background-image: none;" class="btn btn-success" name="Add_flujo" onclick="return Btn_add_flujo_onclick()" />
+                        <input id="Btn_add_flujo" type="button" value="Agregar Pago" style="background-image: none;"
+                            class="btn btn-success" name="Add_flujo" onclick="return Btn_add_flujo_onclick()" />
                     </li>
                 </ul>
                 <br />
@@ -627,6 +631,111 @@
         </div>
     </div>
     <div id="divsuspension" style="display: none;">
-    <label>Suspension</label>
+        <h2>
+            Fechas de suspensión</h2>
+        <br />
+        <div>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            <asp:Label ID="lblStartSuspend" runat="server" Text="Fecha de inicio de suspensión:"></asp:Label>
+                        </td>
+                        <td>
+                            <asp:TextBox ID="txtStartSuspend" runat="server" MaxLength="50" Width="200px"></asp:TextBox><cc1:CalendarExtender
+                                ID="ceStartSuspend" runat="server" Enabled="True" Format="yyyy/MM/dd" TargetControlID="txtStartSuspend">
+                            </cc1:CalendarExtender>
+                            <asp:CompareValidator ID="cvStartSuspend" runat="server" ControlToValidate="txtStartSuspend"
+                                ErrorMessage="aaaa/mm/dd" Operator="DataTypeCheck" SetFocusOnError="True" Type="Date"></asp:CompareValidator>
+                        </td>
+                        <td>
+                            <asp:Label ID="lblEndSuspend" runat="server" Text="Fecha de fin de suspensión:"></asp:Label>
+                        </td>
+                        <td>
+                            <asp:TextBox ID="txtEndSuspend" runat="server" MaxLength="50" Width="200px"></asp:TextBox><cc1:CalendarExtender
+                                ID="ceEndSuspend" runat="server" Enabled="True" Format="yyyy/MM/dd" TargetControlID="txtEndSuspend">
+                            </cc1:CalendarExtender>
+                            <asp:CompareValidator ID="cvEndSuspend" runat="server" ControlToValidate="txtEndSuspend"
+                                ErrorMessage="aaaa/mm/dd" Operator="DataTypeCheck" SetFocusOnError="True" Type="Date"></asp:CompareValidator>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <asp:Label ID="lblRestartType" runat="server" Text="Tipo de reinicio:"></asp:Label>
+                        </td>
+                        <td>
+                            <asp:DropDownList ID="ddlRestartType" runat="server" CssClass="Ccombo">
+                                <asp:ListItem Value="1">Reinicio automático</asp:ListItem>
+                                <asp:ListItem Value="2">Reinicio condicionado</asp:ListItem>
+                            </asp:DropDownList>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div id="divalcance" style="display: none;">
+        <h2>
+            Información actual del proyecto:</h2>
+        <div style="width: 45%; float: left;">
+            <label>
+                Objetivo:</label>
+            <textarea id="txtarObjective"></textarea>
+            <br />
+            <label>
+                Objetivos Especificos:</label>
+            <textarea id="txtarSpecificObjectives"></textarea>
+            <label><input type="checkbox" name="chkSpecificObjectives"> Modificar</label>
+            <br />
+            <label>
+                Resultados capacidad instalada:</label>
+            <textarea id="txtarInstalledCapacityResults"></textarea>
+            <br />
+            <label>
+                Resultados beneficiarios:</label>
+            <textarea id="txtarBenefitiaryResults"></textarea>
+            <br />
+            <label>
+                Resultados gestión del conocimiento:</label>
+            <textarea id="txtarKnowledgeResults"></textarea>
+            <br />
+            <label>
+                Otros resultados:</label>
+            <textarea id="txtarOtherResults"></textarea>
+            <br />
+            <label>
+                Obligaciones de las partes:</label>
+            <textarea id="txtarPartObligations"></textarea>
+            <br />
+        </div>
+        <div style="width: 45%; float: right;">
+            <label id="lblObjective2">
+                Objetivo:</label>
+            <textarea id="txtarObjective2"></textarea>
+            <br />
+            <label id="lblSpecificObjectives2">
+                Objetivos Especificos:</label>
+            <textarea id="txtarSpecificObjectives2"></textarea>
+            <br />
+            <label id="lblInstalledCapacityResults2">
+                Resultados capacidad instalada:</label>
+            <textarea id="txtarInstalledCapacityResults2"></textarea>
+            <br />
+            <label id="lblBenefitiaryResults2">
+                Resultados beneficiarios:</label>
+            <textarea id="txtarBenefitiaryResults2"></textarea>
+            <br />
+            <label id="lblKnowledgeResults2">
+                Resultados gestión del conocimiento:</label>
+            <textarea id="txtarKnowledgeResults2"></textarea>
+            <br />
+            <label id="lblOtherResults2">
+                Otros resultados:</label>
+            <textarea id="txtarOtherResults2"></textarea>
+            <br />
+            <label id="lblPartObligations2">
+                Obligaciones de las partes:</label>
+            <textarea id="txtarPartObligations2"></textarea>
+        </div>
     </div>
 </asp:Content>
