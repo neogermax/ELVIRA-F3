@@ -56,7 +56,8 @@ function Cprogram(idLineStrategic) {
 
                     if (contar_program == 0) {
                         arraycompo[1] = $("#ddlPrograms").val();
-                        contar_program = 1;
+                     //   contar_program = 1;
+                     //   alert(arraycompo[1]);
                     }
 
 
@@ -104,10 +105,10 @@ function validar_cambio_linea(str_result) {
 
     else {
 
-        $("#ddlStrategicLines").val(arraycompo[0]);
+        $("#ddlStrategicLines").val(edit_line_strategic);
         $("#ddlStrategicLines").trigger("liszt:updated");
 
-        $("#ddlPrograms").val(arraycompo[1]);
+        $("#ddlPrograms").val(edit_program);
         $("#ddlPrograms").trigger("liszt:updated");
 
         contar_program = 0;

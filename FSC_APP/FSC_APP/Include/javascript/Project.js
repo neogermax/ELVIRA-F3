@@ -176,6 +176,7 @@ $(document).ready(function() {
     //validar campos fechas
     validar_campofecha('ctl00_cphPrincipal_txtstartdate', 'ctl00_cphPrincipal_lblHelpstartdate');
     validar_campofecha('ctl00_cphPrincipal_txtfechapago', 'ctl00_cphPrincipal_helpfechapago');
+    carga_eventos("ctl00_cphPrincipal_container_wait");
 
     $("#ctl00_cphPrincipal_containerSuccess").css("display", "none");
     $("#ctl00_cphPrincipal_containererrors").css("display", "none");
@@ -329,9 +330,9 @@ function verificar_dat_idea() {
         idea_buscar = $(this).val();
         str_ideabuscar = $("#ddlididea option:selected").text();
         validar_ini_ed = 0;
-        
+
         traer_valores_madre();
-       
+
         confirmar = confirm("¿Traer datos de la Idea aprobada?", "SI", "NO");
         if (confirmar) {
 
@@ -353,11 +354,13 @@ function verificar_dat_idea() {
             $("#ddlStrategicLines").ready(function() {
                 ClineEstrategic_edit();
             });
+
             edit_component_view();
 
             //bloquemos los controles de la pestaña componentes
             $("#ddlStrategicLines").attr("disabled", "disabled");
-          
+
+            validar_ini_ed = 0;
         }
         else {
 
@@ -365,12 +368,13 @@ function verificar_dat_idea() {
             $("#ddlStrategicLines").ready(function() {
                 ClineEstrategic_edit();
             });
-          
+
             edit_component_view();
 
             //bloquemos los controles de la pestaña componentes
             $("#ddlStrategicLines").attr("disabled", "disabled");
-          
+            validar_ini_ed = 0;
+
         }
 
     });
