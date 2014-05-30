@@ -167,6 +167,16 @@
                     }else{
                     $("#divalcance").css("display","none");
                 }
+                /*Cesion*/
+                if($(this).val() == "4"){
+                }else{
+                }
+                /*Otros*/
+                if($(this).val() == "5"){
+                    $("#divotros").css("display", "block");
+                }else{
+                    $("#divotros").css("display", "none");
+                }
             });
             
             $("input[name='subgroup']").change(function(){
@@ -681,6 +691,7 @@
             <label>
                 Objetivo:</label>
             <textarea id="txtarObjective"></textarea>
+            <label><input type="checkbox" name="chkObjective"> Modificar</label>
             <br />
             <label>
                 Objetivos Especificos:</label>
@@ -690,22 +701,27 @@
             <label>
                 Resultados capacidad instalada:</label>
             <textarea id="txtarInstalledCapacityResults"></textarea>
+            <label><input type="checkbox" name="chkInstalledCapacityResults"> Modificar</label>
             <br />
             <label>
                 Resultados beneficiarios:</label>
             <textarea id="txtarBenefitiaryResults"></textarea>
+            <label><input type="checkbox" name="chkBenefitiaryResults"> Modificar</label>
             <br />
             <label>
                 Resultados gestión del conocimiento:</label>
             <textarea id="txtarKnowledgeResults"></textarea>
+            <label><input type="checkbox" name="chkKnowledgeResults"> Modificar</label>
             <br />
             <label>
                 Otros resultados:</label>
             <textarea id="txtarOtherResults"></textarea>
+            <label><input type="checkbox" name="chkOtherResults"> Modificar</label>
             <br />
             <label>
                 Obligaciones de las partes:</label>
             <textarea id="txtarPartObligations"></textarea>
+            <label><input type="checkbox" name="chkPartObligations"> Modificar</label>
             <br />
         </div>
         <div style="width: 45%; float: right;">
@@ -737,5 +753,9 @@
                 Obligaciones de las partes:</label>
             <textarea id="txtarPartObligations2"></textarea>
         </div>
+    </div>
+    <div id="divotros" style="display: none;">
+    <h2>Solicitud</h2>
+    <textarea id="txtarRequest"></textarea>
     </div>
 </asp:Content>
