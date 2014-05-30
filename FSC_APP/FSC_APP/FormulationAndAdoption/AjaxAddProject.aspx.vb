@@ -1341,6 +1341,8 @@ Partial Public Class AjaxAddProject
 
         Next
 
+        Response.Write(htmlresults)
+
     End Function
 
     Public Function charge_list_program(ByVal idLinestrategic As Integer)
@@ -1383,7 +1385,7 @@ Partial Public Class AjaxAddProject
         If component_value.Rows.Count > 0 Then
 
             For Each row As DataRow In component_value.Rows
-                htmlcomponente &= "<li id= 'add" + row(0).ToString() + "' class='seleccione'>" + row(1).ToString() + "</li>"
+                htmlcomponente &= "<li id= 'selectadd" + row(0).ToString() + "' class='des_seleccionar'>" + row(1).ToString() + "</li>"
             Next
 
         End If

@@ -169,13 +169,14 @@ $(document).ready(function() {
 
         validarcampos_fecha_madre();
         
-        $("#SaveProject").css("display", "block");
+        $("#SaveProject").css("display", "none");
         $("#Export").css("display", "none");
     }
 
     //validar campos fechas
     validar_campofecha('ctl00_cphPrincipal_txtstartdate', 'ctl00_cphPrincipal_lblHelpstartdate');
     validar_campofecha('ctl00_cphPrincipal_txtfechapago', 'ctl00_cphPrincipal_helpfechapago');
+    carga_eventos("ctl00_cphPrincipal_container_wait");
 
     $("#ctl00_cphPrincipal_containerSuccess").css("display", "none");
     $("#ctl00_cphPrincipal_containererrors").css("display", "none");
@@ -329,9 +330,11 @@ function verificar_dat_idea() {
         idea_buscar = $(this).val();
         str_ideabuscar = $("#ddlididea option:selected").text();
         validar_ini_ed = 0;
-        
+
         traer_valores_madre();
-       
+
+        $("#SaveProject").css("display", "block");
+        
         confirmar = confirm("¿Traer datos de la Idea aprobada?", "SI", "NO");
         if (confirmar) {
 
@@ -349,38 +352,30 @@ function verificar_dat_idea() {
 
             //pestaña anexos del proyecto
             View_anexos_array();
-
             //pestaña componentes del proyecto
             $("#ddlStrategicLines").ready(function() {
                 ClineEstrategic_edit();
-                //    view_Cprogram();
             });
 
             edit_component_view();
 
-            
-
             //bloquemos los controles de la pestaña componentes
             $("#ddlStrategicLines").attr("disabled", "disabled");
-            // $("#ddlPrograms").attr("disabled", "disabled");
-            // $("#Btnaddcomponent").attr("disabled", "disabled");
-            // $("#Btndeletecomponent").attr("disabled", "disabled");
 
+            validar_ini_ed = 0;
         }
         else {
 
             //pestaña componentes del proyecto
             $("#ddlStrategicLines").ready(function() {
                 ClineEstrategic_edit();
-                view_Cprogram();
             });
+
             edit_component_view();
 
             //bloquemos los controles de la pestaña componentes
             $("#ddlStrategicLines").attr("disabled", "disabled");
-            // $("#ddlPrograms").attr("disabled", "disabled");
-            //$("#Btnaddcomponent").attr("disabled", "disabled");
-            //$("#Btndeletecomponent").attr("disabled", "disabled");
+            validar_ini_ed = 0;
 
         }
 
