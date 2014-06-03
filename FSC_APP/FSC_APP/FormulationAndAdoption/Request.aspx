@@ -668,6 +668,7 @@
                             <asp:CompareValidator ID="cvEndSuspend" runat="server" ControlToValidate="txtEndSuspend"
                                 ErrorMessage="aaaa/mm/dd" Operator="DataTypeCheck" SetFocusOnError="True" Type="Date"></asp:CompareValidator>
                         </td>
+                        <td><asp:Label ID="lblInfoSuspend" runat="server" Text=""></asp:Label></td>
                     </tr>
                     <tr>
                         <td>
@@ -679,6 +680,7 @@
                                 <asp:ListItem Value="2">Reinicio condicionado</asp:ListItem>
                             </asp:DropDownList>
                         </td>
+                        <td></td>
                     </tr>
                 </tbody>
             </table>
@@ -691,37 +693,37 @@
             <label>
                 Objetivo:</label>
             <textarea id="txtarObjective"></textarea>
-            <label><input type="checkbox" name="chkObjective"> Modificar</label>
+            <label><input type="checkbox" id="chkObjective" onclick="mostrar('chkObjective');"> Modificar</label>
             <br />
             <label>
                 Objetivos Especificos:</label>
             <textarea id="txtarSpecificObjectives"></textarea>
-            <label><input type="checkbox" name="chkSpecificObjectives"> Modificar</label>
+            <label><input type="checkbox" id="chkSpecificObjectives" onclick="mostrar('chkSpecificObjectives');"> Modificar</label>
             <br />
             <label>
                 Resultados capacidad instalada:</label>
             <textarea id="txtarInstalledCapacityResults"></textarea>
-            <label><input type="checkbox" name="chkInstalledCapacityResults"> Modificar</label>
+            <label><input type="checkbox" id="chkInstalledCapacityResults" onclick="mostrar('chkInstalledCapacityResults');"> Modificar</label>
             <br />
             <label>
                 Resultados beneficiarios:</label>
             <textarea id="txtarBenefitiaryResults"></textarea>
-            <label><input type="checkbox" name="chkBenefitiaryResults"> Modificar</label>
+            <label><input type="checkbox" id="chkBenefitiaryResults" onclick="mostrar('chkBenefitiaryResults');"> Modificar</label>
             <br />
             <label>
                 Resultados gestión del conocimiento:</label>
             <textarea id="txtarKnowledgeResults"></textarea>
-            <label><input type="checkbox" name="chkKnowledgeResults"> Modificar</label>
+            <label><input type="checkbox" id="chkKnowledgeResults" onclick="mostrar('chkKnowledgeResults');"> Modificar</label>
             <br />
             <label>
                 Otros resultados:</label>
             <textarea id="txtarOtherResults"></textarea>
-            <label><input type="checkbox" name="chkOtherResults"> Modificar</label>
+            <label><input type="checkbox" id="chkOtherResults" onclick="mostrar('chkOtherResults');"> Modificar</label>
             <br />
             <label>
                 Obligaciones de las partes:</label>
             <textarea id="txtarPartObligations"></textarea>
-            <label><input type="checkbox" name="chkPartObligations"> Modificar</label>
+            <label><input type="checkbox" id="chkPartObligations" onclick="mostrar('chkPartObligations');"> Modificar</label>
             <br />
         </div>
         <div style="width: 45%; float: right;">
