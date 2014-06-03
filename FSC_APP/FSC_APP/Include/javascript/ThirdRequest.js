@@ -114,38 +114,31 @@ function BtnaddActors_onclick() {
     var valespeciegridfsc = 0;
     var valtotalgridfsc = 0;
 
+    alert("Se ha detectado información el la pestaña de flujos de pagos, al eliminar el actor toda la información se perdera!");
 
-    if (swhich_flujos_exist == 1) {
-        alert("Se ha detectado información el la pestaña de flujos de pagos, al eliminar el actor toda la información se perdera!");
+    var htmlTableflujos = "<table id='T_flujos' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr><th style='text-align: center;'>No pago</th><th style='text-align: center;'>Fecha</th><th style='text-align: center;'>Porcentaje</th><th style='text-align: center;'>Entregable</th><th style='text-align: center;'>Valor parcial</th><th style='text-align: center;'>Editar/Eliminar</th><th style='text-align: center;' >Detalle</th></tr></thead><tbody>";
+    htmlTableflujos += "<tr><td width='1' style='color: #D3D6FF; font-size: 0.1em;'>1000</td><td>Porcentaje acumulado</td><td id='porcentaje'>0 %</td><td>Total</td><td id='totalflujospagos'>0</td><td></td><td></td></tr></tbody></table>";
 
-        var htmlTableflujos = "<table id='T_flujos' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr><th style='text-align: center;'>No pago</th><th style='text-align: center;'>Fecha</th><th style='text-align: center;'>Porcentaje</th><th style='text-align: center;'>Entregable</th><th style='text-align: center;'>Valor parcial</th><th style='text-align: center;'>Editar/Eliminar</th><th style='text-align: center;' >Detalle</th></tr></thead><tbody>";
-        htmlTableflujos += "<tr><td width='1' style='color: #D3D6FF; font-size: 0.1em;'>1000</td><td>Porcentaje acumulado</td><td id='porcentaje'>0 %</td><td>Total</td><td id='totalflujospagos'>0</td><td></td><td></td></tr></tbody></table>";
+    //cargamos el div donde se generara la tabla actores
+    $("#T_flujosContainer").html("");
+    $("#T_flujosContainer").html(htmlTableflujos);
 
-        //cargamos el div donde se generara la tabla actores
-        $("#T_flujosContainer").html("");
-        $("#T_flujosContainer").html(htmlTableflujos);
+    arrayValorflujoTotal[0] = 0;
 
-        arrayValorflujoTotal[0] = 0;
+    arrayflujosdepago = [];
+    arrayinputflujos = [];
+    matriz_flujos = [];
+    reversedesembolsos = [];
 
-        arrayflujosdepago = [];
-        arrayinputflujos = [];
-        matriz_flujos = [];
-        reversedesembolsos = [];
+    swhich_flujos_exist = 0;
 
-        swhich_flujos_exist = 0;
+    //reconstruimos la tabla con los datos
+    $("#T_flujos").dataTable({
+        "bJQueryUI": true,
+        "bDestroy": true
+    });
 
-        //reconstruimos la tabla con los datos
-        $("#T_flujos").dataTable({
-            "bJQueryUI": true,
-            "bDestroy": true
-        });
-
-        add_actor_grid();
-
-    } else {
-        add_actor_grid();
-    }
-
+    add_actor_grid();
 }
 
 //funtion para agreagar al grid despues de validar si hay flujos de datos
@@ -264,7 +257,7 @@ function refreshTableFlow(requireFlowThird) {
     //creamos ciclo para los actores que si tienen flujo de pago
     for (itemarrayflujos in arrayActor) {
         
-        if(arrayActor[itemarrayflujos].generatesflow == "s"){
+        if($.trim(arrayActor[itemarrayflujos].generatesflow) == "s"){
             htmltableAflujos += "<tr id='flujo" + arrayActor[itemarrayflujos].IdThird + "'><td width='1' style='color: #D3D6FF;font-size: 0.1em;'>";
             htmltableAflujos += arrayActor[itemarrayflujos].IdThird + "</td><td>" + arrayActor[itemarrayflujos].Name + "</td><td id= 'value";
             htmltableAflujos += arrayActor[itemarrayflujos].IdThird + "' >" + parseIntNull(arrayActor[itemarrayflujos].Vrmoney) + "</td><td><input id='";

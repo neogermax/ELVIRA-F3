@@ -4,7 +4,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="cphPrincipal" runat="server">
     <!-- Style -->
     <link href="../css/jquery-ui-1.10.4.customRequest.min.css" rel="stylesheet" type="text/css" />
-    
+     
     <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css" />
     
     <link href="../css/datatables/jquery.dataTables.css" rel="stylesheet" type="text/css" />
@@ -113,8 +113,23 @@
             //Load thirds in case add
             loadDataThirsProject();
             
+            //Load Flows in case add
+            loadPaymentFlowsByProject();
+            
+            //Load Details Flows in case add
+            loadPaymentDetailsFlowsByProject();
+            
             //Process German
             validarporcentaje();
+            
+            $("#dialog").dialog({
+                modal: true,
+                minWidth: 700,
+                closeOnEscape: true,
+                autoOpen: false
+            });
+            
+            //End Process German
             
             //mask controls money
             $('#ctl00_cphPrincipal_Txtvrdiner, #ctl00_cphPrincipal_Txtvresp, #txtTotalThird, .money').maskMoney({thousands: '.', decimal:',', precision: 0});
@@ -550,7 +565,8 @@
                         <asp:Label ID="Lblinformation_flujos" runat="server" ForeColor="#990000"></asp:Label>
                     </li>
                     <li style="margin-left: 3em;">
-                        <input id="Btn_add_flujo" type="button" value="Agregar pago" name="Add_flujo" onclick="return Btn_add_flujo_onclick()" />
+                        <br />
+                        <input id="Btn_add_flujo" type="button" value="Agregar Pago" style="background-image: none;" class="btn btn-success" name="Add_flujo" onclick="return Btn_add_flujo_onclick()" />
                     </li>
                 </ul>
                 <br />
@@ -616,4 +632,40 @@
             </div>
         </div>
     </div>
+    <div id="dialog" title="Desembolso detallado">
+        <table id="T_detalle_desembolso" border="1" cellpadding="1" cellspacing="1" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th>
+                        No pago
+                    </th>
+                    <th>
+                        Id aportante
+                    </th>
+                    <th>
+                        Aportante
+                    </th>
+                    <th>
+                        desembolso
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div>
+            <input id="close_dialog" type="button" value="Cerrar X" name="close_dialog" />
+        </div>
+    </div>
+    <input type='button' id="buttonSaveRequest" value="Guardar Solicitud" class="btn btn-success" style="background-image: none;" />
 </asp:Content>

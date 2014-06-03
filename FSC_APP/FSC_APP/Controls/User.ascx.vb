@@ -8,7 +8,7 @@ Partial Class Controls_User
 
             ' mostrar los datos del usuario
             Me.lblUserName.Text = CType(Session("ApplicationUserEntity"), Gattaca.Entity.eSecurity.ApplicationUserEntity).Name
-            Me.lblLastLogin.Text = CType(Session("ApplicationUserEntity"), Gattaca.Entity.eSecurity.ApplicationUserEntity).LastLogin.ToString("yyyy/MM/dd hh:mm:ss")
+            'Me.lblLastLogin.Text = CType(Session("ApplicationUserEntity"), Gattaca.Entity.eSecurity.ApplicationUserEntity).LastLogin.ToString("yyyy/MM/dd hh:mm:ss")
 
         End If
 
