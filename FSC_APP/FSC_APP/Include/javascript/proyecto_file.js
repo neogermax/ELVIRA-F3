@@ -153,6 +153,40 @@ function View_anexos_array() {
 
 }
 
+
+function View_anexos_project(){
+
+    $.ajax({
+        url: "AjaxAddProject.aspx",
+        type: "GET",
+        data: { "action": "View_anexos_project", "idproject": ideditar },
+        success: function(result) {
+
+            if (result == "vacio") {
+                arrayFiles = [];
+
+            }
+            else {
+                arrayFiles_ed = result.split("|");
+
+                for (itemArray in arrayFiles_ed) {
+
+                    var recibefiles = JSON.parse(arrayFiles_ed[itemArray]);
+                    arrayFiles.push(recibefiles);
+                }
+            }
+
+            //llamamos funcion para crear tabla anexos
+            crear_tabla_anexos();
+
+        },
+        error: function(msg) {
+            alert("No se pueden cargar los actores de flujos de pago de la idea = " + idea_buscar);
+        }
+    });
+    
+}
+
 function load_idarchive() {
 
     $.ajax({

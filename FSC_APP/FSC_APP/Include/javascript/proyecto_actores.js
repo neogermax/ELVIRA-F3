@@ -227,8 +227,7 @@ function crear_tabla_actores() {
     });
 }
 
-
-
+//llama los datos de la idea para crear el proyecto
 function View_actores_array() {
     $.ajax({
         url: "AjaxAddProject.aspx",
@@ -247,12 +246,41 @@ function View_actores_array() {
             crear_tabla_inf_prin();
             //llama la funcion crear la tabla de actores
             crear_tabla_actores();
-           
+
         },
         error: function(msg) {
             alert("No se pueden cargar los actores en general de la idea = " + idea_buscar);
         }
     });
+}
+
+//llama los datos de la proyecto para edicion
+function View_actores_project() {
+
+    $.ajax({
+        url: "AjaxAddProject.aspx",
+        type: "GET",
+        data: { "action": "View_actores_project", "idproject": ideditar },
+        success: function(result) {
+
+            array_actores_ed = result.split("|");
+
+            for (itemArray in array_actores_ed) {
+
+                var recibeact = JSON.parse(array_actores_ed[itemArray]);
+                arrayActor.push(recibeact);
+            }
+            //llamamos funcion crea la tabla del descripcion de proyecto
+            crear_tabla_inf_prin();
+            //llama la funcion crear la tabla de actores
+            crear_tabla_actores();
+
+        },
+        error: function(msg) {
+            alert("No se pueden cargar los actores en general de la idea = " + idea_buscar);
+        }
+    });
+
 }
 
 //borrar de la grilla html de actores
@@ -308,6 +336,8 @@ function deleteActor(str) {
     sumar_grid_actores();
     //llamar la funcion suma de grid principal
     sumavalores_gridprincipal();
+    //llamar la funcion sumar flujos actores
+    sumar_flujos_actores();
 
     $("#Btn_add_flujo").removeAttr("disabled");
 }
@@ -399,7 +429,7 @@ function sumar_grid_actores() {
         }
     });
 
-   
+
 }
 
 

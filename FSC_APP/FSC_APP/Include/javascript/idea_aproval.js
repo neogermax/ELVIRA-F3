@@ -16,7 +16,6 @@ $(document).ready(function() {
 
 });
 
-
 function validar_new_campos() {
     $("#ctl00_cphPrincipal_ddlidproject").change(function() {
         $.ajax({

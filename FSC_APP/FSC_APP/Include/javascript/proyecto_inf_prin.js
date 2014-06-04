@@ -479,3 +479,37 @@ function validarcampos_fecha_madre() {
 
     })
 }
+
+function charge_others_droplist() {
+
+    $.ajax({
+        url: "AjaxAddProject.aspx",
+        type: "GET",
+        data: { "action": "C_charge_others", "idproject": ideditar },
+        success: function(result) {
+
+            result = JSON.parse(result);
+
+            $("#ddlmodcontract").val(result.Idtypecontract);
+            $("#ddlmodcontract").trigger("liszt:updated");
+
+            $("#ddlPupulation").val(result.Population);
+            $("#ddlPupulation").trigger("liszt:updated");
+
+            $("#dll_estado").val(result.Typeapproval);
+            $("#dll_estado").trigger("liszt:updated");
+
+            $("#ddlididea").html(result.ididea);
+            $("#ddlididea").trigger("liszt:updated");
+
+            //cargamos el control de aplica iva
+            $("#ctl00_cphPrincipal_RBnList_iva :radio[value='" + result.ideaappliesIVA + "']").attr('checked', true);
+            valor_iva = result.ideaappliesIVA;
+
+        },
+        error: function(msg) {
+            alert("No se pueden cargar los combos deseados.");
+        }
+    });
+
+}

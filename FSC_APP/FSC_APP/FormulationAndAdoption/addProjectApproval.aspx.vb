@@ -28,9 +28,9 @@ Partial Class FormulationAndAdoption_addProjectApproval
     End Sub
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        loadCombos()
-        Me.ddlproyect.Items.Insert(0, New ListItem("Seleccione...", "-1"))
-        Me.ddlproyect.SelectedValue = "-1"
+        'loadCombos()
+        'Me.ddlproyect.Items.Insert(0, New ListItem("Seleccione...", "-1"))
+        'Me.ddlproyect.SelectedValue = "-1"
 
     End Sub
 #End Region

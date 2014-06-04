@@ -37,13 +37,13 @@
     <br />
     <div id="containerSuccess" runat="server" visible="false" style="width: 100%; text-align: center;
         border: 2px solid #cecece; background: #E8E8DC; height: 80px; line-height: 40px;
-        vertical-align: middle;">
+        vertical-align: middle;border-radius: 15px;">
         <img style="margin-top: 5px;" src="/images/save_icon.png" width="24px" alt="Save" />
         <asp:Label ID="lblsaveinformation" runat="server" Style="font-size: 14pt; color: #9bbb58;"></asp:Label>
     </div>
     <div id="containerSuccess2" runat="server" style="width: 100%; text-align: center;
         border: 2px solid #cecece; background: #E8E8DC; height: 80px; line-height: 40px;
-        vertical-align: middle;">
+        vertical-align: middle; border-radius: 15px;">
         <img style="margin-top: 5px;" src="/images/alert_icon.png" width="24px" alt="Save" />
         <asp:Label ID="Lblnewcampos" runat="server" Style="font-size: 14pt; color: #8A0808;"></asp:Label>
     </div>

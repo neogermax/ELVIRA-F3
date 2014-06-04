@@ -77,7 +77,7 @@ function Btn_add_flujo_onclick() {
                     edit_swhich_fx = 0;
                     //cargamos el array con el json
                     arrayflujosdepago.push(jsonflujo);
-                    
+
                     //llamamos funcion que crea la tabla  de flujos de pago
                     crear_tabla_flujos_pagos();
                 }
@@ -128,7 +128,7 @@ function Btn_add_flujo_onclick() {
                 $("#ctl00_cphPrincipal_Lbltotalvalor").text("");
                 $("#ctl00_cphPrincipal_txtentregable").val("");
 
-              
+
                 //validamos si los desembolsos son del 100%
                 if (validaporcentaje == 100) {
                     $("#Btn_add_flujo").attr("disabled", "disabled");
@@ -238,7 +238,7 @@ function View_detalle_flujo_array() {
                     matriz_flujos.push(recibeact);
                 }
             }
-                      
+
         },
         error: function(msg) {
             alert("No se pueden cargar los flujos de pago de la idea = " + idea_buscar);
@@ -247,6 +247,37 @@ function View_detalle_flujo_array() {
 
 }
 
+function View_detalle_flujo_project() {
+
+    $.ajax({
+        url: "AjaxAddProject.aspx",
+        type: "GET",
+        data: { "action": "View_detalle_flujo_project", "idproject": ideditar },
+        success: function(result) {
+
+            if (result == "vacio") {
+
+                matriz_flujos = [];
+
+            }
+            else {
+
+                matriz_flujos_ed = result.split("|");
+
+                for (itemArray in matriz_flujos_ed) {
+
+                    var recibeact = JSON.parse(matriz_flujos_ed[itemArray]);
+                    matriz_flujos.push(recibeact);
+                }
+            }
+
+        },
+        error: function(msg) {
+            alert("No se pueden cargar los flujos de pago de la idea = " + idea_buscar);
+        }
+    });
+
+}
 
 function View_flujos_p_array() {
 
@@ -273,7 +304,7 @@ function View_flujos_p_array() {
             }
             //llamamos funcion que crea la tabla  de flujos de pago
             crear_tabla_flujos_pagos();
-            
+
         },
         error: function(msg) {
             alert("No se pueden cargar los flujos de pago de la idea = " + idea_buscar);
@@ -282,8 +313,44 @@ function View_flujos_p_array() {
 
 }
 
+//creamos la funcion para traer los datos de flujo de pagos en edicion
+function View_flujos_p_project() {
+
+    $.ajax({
+        url: "AjaxAddProject.aspx",
+        type: "GET",
+        data: { "action": "View_flujos_p_project", "idproject": ideditar },
+        success: function(result) {
+
+            if (result == "vacio") {
+                arrayflujosdepago = [];
+                swhich_flujos_exist = 0;
+            }
+            else {
+                arrayflujosdepago_ed = result.split("|");
+
+                for (itemArray in arrayflujosdepago_ed) {
+
+                    var recibeact = JSON.parse(arrayflujosdepago_ed[itemArray]);
+                    arrayflujosdepago.push(recibeact);
+                }
+                swhich_flujos_exist = 1;
+            }
+            //llamamos funcion que crea la tabla  de flujos de pago
+            crear_tabla_flujos_pagos();
+
+        },
+        error: function(msg) {
+            alert("No se pueden cargar los flujos de pago de la idea = " + idea_buscar);
+        }
+    });
+
+}
+
+
 //creamos la tabla de flujo actores
 function crear_tabla_flujo_actor() {
+
 
     var htmltableAflujos = "<table id='T_Actorsflujos' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr><th width='1'></th><th>Aportante</th><th>Valor total aporte</th><th>Valor por programar</th><th>Saldo por programar</th></tr></thead><tbody>";
 
@@ -337,6 +404,7 @@ function sumar_flujos_actores() {
 
 //funtion crear array de flujos de pagos
 function View_flujos_actors_array() {
+
     $.ajax({
         url: "AjaxAddProject.aspx",
         type: "GET",
@@ -363,6 +431,41 @@ function View_flujos_actors_array() {
             //llama la funcion crear la tabla de flujo_actor
             crear_tabla_flujo_actor();
 
+        },
+        error: function(msg) {
+            alert("No se pueden cargar los actores de flujos de pago de la idea = " + idea_buscar);
+        }
+    });
+
+}
+
+
+function View_flujos_actors_project() {
+
+    $.ajax({
+        url: "AjaxAddProject.aspx",
+        type: "GET",
+        data: { "action": "View_flujos_actors_project", "idproject": ideditar },
+        success: function(result) {
+
+            if (result == "vacio") {
+                //    alert(result);
+                arrayActorFlujo = [];
+
+            }
+            
+            else {
+                arrayactorflujo_ed = result.split("|");
+
+                // alert(arrayactorflujo_ed);
+                for (itemArray in arrayactorflujo_ed) {
+                    var recibeact = JSON.parse(arrayactorflujo_ed[itemArray]);
+                    arrayActorFlujo.push(recibeact);
+
+                    //llama la funcion crear la tabla de flujo_actor
+                    crear_tabla_flujo_actor();
+                }
+            }
         },
         error: function(msg) {
             alert("No se pueden cargar los actores de flujos de pago de la idea = " + idea_buscar);

@@ -123,12 +123,47 @@ Partial Public Class AjaxAddProject
 
                 Case "edit"
 
+                    'cambio de metodologia
+                    S_linea_estrategica = Request.Form("linea_estrategica").ToString()
+                    S_programa = Request.Form("programa").ToString()
+                    S_nombre = Request.Form("nombre").ToString
+                    S_justificacion = Request.Form("justificacion").ToString
+                    S_objetivo = Request.Form("objetivo").ToString
+                    S_objetivo_esp = Request.Form("objetivo_esp").ToString
+                    S_Resultados_Benef = Request.Form("Resultados_Benef").ToString
+                    S_Resultados_Ges_c = Request.Form("Resultados_Ges_c").ToString
+                    S_Resultados_Cap_i = Request.Form("Resultados_Cap_i").ToString
+                    S_Resultados_otros_resul = Request.Form("Resultados_otros_resul").ToString
+                    S_Fecha_inicio = Request.Form("Fecha_inicio").ToString
+                    S_mes = Request.Form("mes").ToString
+                    S_dia = Request.Form("dia").ToString
+                    S_Fecha_fin = Request.Form("Fecha_fin").ToString
+                    S_Población = Request.Form("Población").ToString
+                    S_contratacion = Request.Form("contratacion").ToString
+                    S_riesgos = Request.Form("riesgo").ToString
+                    S_mitigacion = Request.Form("mitigacion").ToString
+                    S_presupuestal = Request.Form("presupuestal").ToString
+                    S_cost = Request.Form("cost").ToString
+                    S_iva = Request.Form("iva").ToString
+                    S_obligaciones = Request.Form("obligaciones").ToString
+                    S_listubicaciones = Request.Form("listubicaciones").ToString
+                    S_listactors = Request.Form("listactores").ToString
+                    S_listcomponentes = Request.Form("listcomponentes").ToString
+                    S_listflujos = Request.Form("listflujos").ToString
+                    S_listdetallesflujos = Request.Form("listdetallesflujos").ToString
+                    S_listfiles = Request.Form("listfiles").ToString
+                    S_ididea = Request.Form("ididea").ToString
+                    S_strCode = Request.Form("str_code").ToString
+                    S_estado = Request.Form("aproval_project").ToString
+
+                    edit_PROYECTO(S_ididea, S_strCode, S_code, S_linea_estrategica, S_programa, S_nombre, S_justificacion, S_objetivo, S_objetivo_esp, S_Resultados_Benef, S_Resultados_Ges_c, S_Resultados_Cap_i, S_Resultados_otros_resul, S_Fecha_inicio, S_mes, S_dia, S_Fecha_fin, S_Población, S_contratacion, S_riesgos, S_mitigacion, S_presupuestal, S_cost, S_obligaciones, S_iva, S_listubicaciones, S_listactors, S_listcomponentes, S_listflujos, S_listdetallesflujos, S_listfiles, S_estado) '
+
                 Case Else
 
             End Select
 
         Else
-    
+
 
             action = Request.QueryString("action").ToString()
             Select Case action
@@ -161,6 +196,11 @@ Partial Public Class AjaxAddProject
                     ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
                     searh_line_Strategic(ideditar)
 
+                Case "View_line_strategic_project"
+
+                    ideditar = Convert.ToInt32(Request.QueryString("idproject").ToString)
+                    searh_line_Strategic_project(ideditar)
+
                 Case "View_program"
 
                     ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
@@ -170,6 +210,11 @@ Partial Public Class AjaxAddProject
 
                     ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
                     searh_component(ideditar)
+
+                Case "View_component_project"
+
+                    ideditar = Convert.ToInt32(Request.QueryString("idproject").ToString)
+                    searh_component_project(ideditar)
                     '----------------- modulo descripcion-------------------------------------------------------
 
                 Case "calculafechas"
@@ -207,6 +252,9 @@ Partial Public Class AjaxAddProject
                     type_i_p = Request.QueryString("type").ToString
                     charge_typeAproval(type_i_p)
 
+                Case "C_charge_others"
+                    ideditar = Convert.ToInt32(Request.QueryString("idproject").ToString)
+                    charge_others_droplist(ideditar)
                     '----------------- modulo ubicacion-------------------------------------------------------
                 Case "C_deptos"
 
@@ -222,6 +270,11 @@ Partial Public Class AjaxAddProject
                     ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
                     searh_location_array(ideditar)
 
+                Case "view_ubicacion_proyect"
+
+                    ideditar = Convert.ToInt32(Request.QueryString("idproject").ToString)
+                    searh_location_project(ideditar)
+
                     '----------------- modulo actores-------------------------------------------------------
                 Case "buscar"
                     'convierte la variable y llama funcion para la validacion de la idea
@@ -236,26 +289,49 @@ Partial Public Class AjaxAddProject
                     ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
                     searh_actores_array(ideditar)
 
+                Case "View_actores_project"
+                    ideditar = Convert.ToInt32(Request.QueryString("idproject").ToString)
+                    searh_actores_project(ideditar)
+
                     '----------------- modulo flujos-------------------------------------------------------
                 Case "View_flujos_p_array"
 
                     ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
                     searh_flujos_array(ideditar)
 
+                Case "View_flujos_p_project"
+
+                    ideditar = Convert.ToInt32(Request.QueryString("idproject").ToString)
+                    searh_flujos_project(ideditar)
+
                 Case "View_flujos_actors_array"
 
                     ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
                     searh_actors_flujos_array(ideditar)
 
+                Case "View_flujos_actors_project"
+
+                    ideditar = Convert.ToInt32(Request.QueryString("idproject").ToString)
+                    searh_actors_flujos_project(ideditar)
+
                 Case "View_detalle_flujo_array"
 
                     ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
                     searh_detalles_array(ideditar)
+
+                Case "View_detalle_flujo_project"
+
+                    ideditar = Convert.ToInt32(Request.QueryString("idproject").ToString)
+                    searh_detalles_project(ideditar)
                     '----------------- modulo anexos-------------------------------------------------------
-               
+
                 Case "View_anexos_array"
                     ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
                     searh_document_anexos_array(ideditar)
+
+                Case "View_anexos_project"
+                    ideditar = Convert.ToInt32(Request.QueryString("idproject").ToString)
+                    searh_document_anexos_project(ideditar)
                     '----------------- tareas generales-------------------------------------------------------
 
                 Case "getIdeaProject_inf_p"
@@ -292,13 +368,13 @@ Partial Public Class AjaxAddProject
         'consulta para saber el total del proyecto madre
         sql.Append(" select sum(CONVERT(INT,replace(tp.Vrmoney,'.',''))) AS TOTAL_VALOR from ThirdByProject tp where tp.IdProject = " & id_proyect_mother)
         Dim total_value_mother = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
-    
+
         sql = New StringBuilder
 
         'consulta para saber la suma del proyectos derivados
         sql.Append("select sum (convert(int, valortotal)) as total_derivados from Paymentflow where idproject in (select p.id  from Project p where  p.Mother=0 and p.Project_derivados = " & id_proyect_mother & ")")
         Dim ressiduo_valor_mother = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
-    
+
         Dim disponible As String
 
         disponible = Convert.ToInt32(total_value_mother) - Convert.ToInt32(ressiduo_valor_mother)
@@ -342,6 +418,62 @@ Partial Public Class AjaxAddProject
 
     End Function
 
+    Protected Function charge_others_droplist(ByVal idproject As String)
+
+        Dim sql As New StringBuilder
+        Dim objSqlCommand As New SqlCommand
+        Dim data As DataTable
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+
+        Dim Population, Typeapproval, Idtypecontract, ideaappliesIVA As String
+
+        sql.Append(" select Population, Typeapproval, Idtypecontract, ideaappliesIVA from Project where id = " & idproject)
+        data = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+        If data.Rows.Count > 0 Then
+
+            Dim objResult As String = "{"
+
+            ' obtiene el objetivo de IDEA 
+            objResult &= " ""Population"": """
+            If IsDBNull(data.Rows(0)("Population")) = False Then
+                Population = data.Rows(0)("Population")
+            End If
+            objResult &= Population
+
+            ' obtiene la justificacion de IDEA
+            objResult &= """, ""Typeapproval"": """
+            If IsDBNull(data.Rows(0)("Typeapproval")) = False Then
+                Typeapproval = data.Rows(0)("Typeapproval")
+            End If
+            objResult &= Typeapproval
+
+            objResult &= """, ""Idtypecontract"": """
+            If IsDBNull(data.Rows(0)("Idtypecontract")) = False Then
+                Idtypecontract = data.Rows(0)("Idtypecontract")
+            End If
+            objResult &= Idtypecontract
+
+            objResult &= """, ""ideaappliesIVA"": """
+            If IsDBNull(data.Rows(0)("ideaappliesIVA")) = False Then
+                ideaappliesIVA = data.Rows(0)("ideaappliesIVA")
+            End If
+            objResult &= ideaappliesIVA
+
+            'objResult &= """, ""ididea"": """
+            'If IsDBNull(data.Rows(0)("ididea")) = False Then
+            '    ididea = data.Rows(0)("ididea")
+            'End If
+            'objResult &= ididea
+
+            objResult &= """}"
+
+            Response.Write(objResult)
+
+        End If
+
+    End Function
+
     Protected Function charge_typeAproval(ByVal type As String)
 
         Dim sql As New StringBuilder
@@ -362,11 +494,10 @@ Partial Public Class AjaxAddProject
 
         End If
 
-
         ' ejecutar la intruccion
         data = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
 
-        Dim html As String = "<option>Seleccione...</opption>"
+        Dim html As String = "<option>Seleccione...</option>"
         For Each row As DataRow In data.Rows
             html &= String.Format("<option value = ""{0}"">{1}</option>", row(0).ToString(), row(1).ToString())
         Next
@@ -376,7 +507,78 @@ Partial Public Class AjaxAddProject
 
     End Function
 
-    Public Function searh_document_anexos_array(ByVal ididea As Integer)
+    Protected Function searh_document_anexos_project(ByVal idproject As Integer)
+
+        Dim sql As New StringBuilder
+        Dim objSqlCommand As New SqlCommand
+        Dim data_anexos As DataTable
+        Dim idfile, filename, Description As String
+
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+
+        sql.Append(" select d.id, d.AttachFile,d.Description, d.id_document from DocumentsByEntity de ")
+        sql.Append(" inner join Documents d on d.Id =de.IdDocuments ")
+        sql.Append(" where  de.EntityName ='ProjectEntity' and de.IdnEntity=" & idproject)
+
+        data_anexos = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+        Dim valuar_anexo As Integer = 1
+        Dim objResult As String = ""
+
+        If data_anexos.Rows.Count > 0 Then
+
+            For Each row As DataRow In data_anexos.Rows
+                '{ "idfile": idfile, "filename": filename, "Description": description }
+
+                objResult &= "{"
+
+                objResult &= """idfile"": """
+                idfile = row(3).ToString
+
+                If idfile = "" Then
+                    idfile = row(0).ToString
+                End If
+
+                idfile = Replace(idfile, " ", "")
+
+                objResult &= idfile
+
+                objResult &= """, ""filename"": """
+                filename = row(1).ToString
+
+                objResult &= filename
+
+                objResult &= """, ""Description"": """
+                Description = row(2).ToString
+
+                objResult &= Description
+
+                If valuar_anexo = data_anexos.Rows.Count Then
+
+                    objResult &= """}"
+
+                Else
+                    objResult &= """}|"
+
+                End If
+
+                valuar_anexo = valuar_anexo + 1
+
+            Next
+
+        End If
+
+        If objResult = "" Then
+
+            objResult = "vacio"
+
+        End If
+
+        Response.Write(objResult)
+
+    End Function
+
+    Protected Function searh_document_anexos_array(ByVal ididea As Integer)
 
         Dim sql As New StringBuilder
         Dim objSqlCommand As New SqlCommand
@@ -447,7 +649,72 @@ Partial Public Class AjaxAddProject
 
     End Function
 
-    Public Function searh_detalles_array(ByVal ididea As Integer)
+    Protected Function searh_detalles_project(ByVal idproject As Integer)
+
+        Dim sql As New StringBuilder
+        Dim objSqlCommand As New SqlCommand
+        Dim data As DataTable
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+
+        Dim idpago, idaportante, Aportante, desembolso As String
+
+        sql.Append(" select dcf.N_pago, dcf.IdAportante, dcf.Aportante, dcf.Desembolso  from Detailedcashflows dcf where dcf.Idproject = " & idproject)
+
+        data = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+        Dim valuar_detalle As Integer = 1
+        Dim objResult As String = ""
+
+        For Each row As DataRow In data.Rows
+
+            objResult &= "{"
+
+            objResult &= """idpago"": """
+            idpago = row(0).ToString()
+
+            objResult &= idpago
+
+            objResult &= """, ""idaportante"": """
+            idaportante = row(1).ToString()
+
+            objResult &= idaportante
+
+            objResult &= """, ""Aportante"": """
+            Aportante = row(2).ToString()
+
+            objResult &= Aportante
+
+            objResult &= """, ""desembolso"": """
+            desembolso = row(3).ToString()
+            desembolso = desembolso.Replace(" ", "")
+
+            objResult &= desembolso
+
+
+            If valuar_detalle = data.Rows.Count Then
+
+                objResult &= """}"
+
+            Else
+                objResult &= """}|"
+
+            End If
+
+            valuar_detalle = valuar_detalle + 1
+
+        Next
+
+        If objResult = "" Then
+
+            objResult = "vacio"
+
+        End If
+
+        Response.Write(objResult)
+
+    End Function
+
+    Protected Function searh_detalles_array(ByVal ididea As Integer)
 
         Dim sql As New StringBuilder
         Dim objSqlCommand As New SqlCommand
@@ -512,7 +779,117 @@ Partial Public Class AjaxAddProject
 
     End Function
 
-    Public Function searh_actors_flujos_array(ByVal ididea As Integer)
+    Protected Function searh_actors_flujos_project(ByVal idproject As Integer)
+
+        Dim sql As New StringBuilder
+        Dim objSqlCommand As New SqlCommand
+        Dim data_actors_flujos As DataTable
+
+        Dim thirdbyproject As New ThirdByProjectDALC
+        Dim data_listactores As List(Of ThirdByProjectEntity)
+
+        Dim actorsVal, actorsName, tipoactors, contact, cedula, telefono, email, diner, especie, total, estado_flujo As String
+
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+
+        data_listactores = thirdbyproject.getList(applicationCredentials, , idproject, , , , , )
+
+
+        Dim valuar_actor As Integer = 1
+        Dim objResult As String = ""
+
+        If data_listactores.Count > 0 Then
+
+            For Each row In data_listactores
+
+                estado_flujo = row.EstadoFlujos
+
+
+                If estado_flujo = "s" Then
+
+                    objResult &= "{"
+
+                    objResult &= """actorsVal"": """
+                    actorsVal = row.idthird
+
+                    objResult &= actorsVal
+
+                    objResult &= """, ""actorsName"": """
+                    actorsName = row.Name
+
+                    objResult &= actorsName
+
+                    objResult &= """, ""tipoactors"": """
+                    tipoactors = row.type
+
+                    objResult &= tipoactors
+
+                    objResult &= """, ""contact"": """
+                    contact = row.contact
+
+                    objResult &= contact
+
+                    objResult &= """, ""cedula"": """
+                    cedula = row.Documents
+
+                    objResult &= cedula
+
+                    objResult &= """, ""telefono"": """
+                    telefono = row.Phone
+
+                    objResult &= telefono
+
+                    objResult &= """, ""email"": """
+                    email = row.Email
+
+                    objResult &= email
+
+                    objResult &= """, ""diner"": """
+                    diner = row.Vrmoney
+
+                    objResult &= diner
+
+                    objResult &= """, ""especie"": """
+                    especie = row.VrSpecies
+
+                    objResult &= especie
+
+                    objResult &= """, ""total"": """
+                    total = row.FSCorCounterpartContribution
+
+                    objResult &= total
+
+                    objResult &= """, ""estado_flujo"": """
+
+                    objResult &= estado_flujo
+
+                    If valuar_actor = data_listactores.Count Then
+
+                        objResult &= """}"
+
+                    Else
+                        objResult &= """}|"
+
+                    End If
+
+                    valuar_actor = valuar_actor + 1
+
+
+                End If
+            Next
+        End If
+
+        If objResult = "" Then
+
+            objResult = "vacio"
+
+        End If
+
+        Response.Write(objResult)
+
+    End Function
+
+    Protected Function searh_actors_flujos_array(ByVal ididea As Integer)
 
         Dim sql As New StringBuilder
         Dim objSqlCommand As New SqlCommand
@@ -622,7 +999,78 @@ Partial Public Class AjaxAddProject
 
     End Function
 
-    Public Function searh_flujos_array(ByVal ididea As Integer)
+    Protected Function searh_flujos_project(ByVal idproject As Integer)
+
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+
+        Dim flujopagos As New PaymentFlowDALC()
+        Dim objflujos As PaymentFlowEntity
+        Dim data_listpagos As New List(Of PaymentFlowEntity)
+
+        Dim N_pago, fecha_pago, porcentaje, entrega, tflujos As String
+
+        Dim valuar_flujo As Integer = 1
+        Dim objResult As String
+
+        data_listpagos = flujopagos.getFlowPayment("p", idproject, applicationCredentials)
+
+        If data_listpagos.Count > 0 Then
+
+            For Each row In data_listpagos
+
+                objResult &= "{"
+
+                objResult &= """N_pago"": """
+                N_pago = row.N_pagos
+
+                N_pago = Replace(N_pago, " ", "")
+                objResult &= N_pago
+
+                objResult &= """, ""fecha_pago"": """
+                fecha_pago = row.fecha
+
+                objResult &= fecha_pago
+
+                objResult &= """, ""porcentaje"": """
+                porcentaje = row.porcentaje
+
+                objResult &= porcentaje
+
+                objResult &= """, ""entrega"": """
+                entrega = row.entregable
+
+                objResult &= entrega
+
+                objResult &= """, ""tflujos"": """
+                tflujos = row.valorparcial
+                tflujos = tflujos.Replace(" ", "")
+                tflujos = Format(Convert.ToInt64(tflujos), "#,###.##")
+                objResult &= tflujos
+
+                If valuar_flujo = data_listpagos.Count Then
+
+                    objResult &= """}"
+
+                Else
+                    objResult &= """}|"
+
+                End If
+
+                valuar_flujo = valuar_flujo + 1
+
+            Next
+        End If
+
+        If objResult = "" Then
+
+            objResult = "vacio"
+
+        End If
+
+        Response.Write(objResult)
+    End Function
+
+    Protected Function searh_flujos_array(ByVal ididea As Integer)
 
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
 
@@ -693,7 +1141,7 @@ Partial Public Class AjaxAddProject
         Response.Write(objResult)
     End Function
 
-    Public Sub searchIdea_inf_p(ByVal id As Integer, ByVal objApplicationCredentials As Gattaca.Application.Credentials.ApplicationCredentials)
+    Protected Sub searchIdea_inf_p(ByVal id As Integer, ByVal objApplicationCredentials As Gattaca.Application.Credentials.ApplicationCredentials)
 
         Dim sql As New StringBuilder
 
@@ -856,11 +1304,12 @@ Partial Public Class AjaxAddProject
             objResult &= """}"
 
             Response.Write(objResult)
+
         End If
 
     End Sub
 
-    Public Function searh_c_typecontract(ByVal ididea As Integer)
+    Protected Function searh_c_typecontract(ByVal ididea As Integer)
 
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
         Dim ProgramComponentByIdea As New ProgramComponentByIdeaDALC
@@ -884,7 +1333,7 @@ Partial Public Class AjaxAddProject
 
     End Function
 
-    Public Function searh_c_population(ByVal ididea As Integer)
+    Protected Function searh_c_population(ByVal ididea As Integer)
 
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
         Dim ProgramComponentByIdea As New ProgramComponentByIdeaDALC
@@ -916,7 +1365,7 @@ Partial Public Class AjaxAddProject
     ''' <param name="id_population"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Function Charge_population(ByVal id_population As Integer)
+    Protected Function Charge_population(ByVal id_population As Integer)
 
         Dim sql As New StringBuilder
         Dim objSqlCommand As New SqlCommand
@@ -929,7 +1378,7 @@ Partial Public Class AjaxAddProject
 
         data = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
 
-        Dim html As String = "<option>Seleccione...</opption>"
+        Dim html As String = "<option>Seleccione...</option>"
         For Each row As DataRow In data.Rows
             html &= String.Format("<option value = ""{0}"">{1}</option>", row(0).ToString(), row(1).ToString())
         Next
@@ -946,7 +1395,7 @@ Partial Public Class AjaxAddProject
     ''' </summary>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Function Charge_project_type()
+    Protected Function Charge_project_type()
 
         Dim sql As New StringBuilder
         Dim objSqlCommand As New SqlCommand
@@ -960,7 +1409,7 @@ Partial Public Class AjaxAddProject
         ' ejecutar la intruccion
         data = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
 
-        Dim html As String = "<option>Seleccione...</opption>"
+        Dim html As String = "<option>Seleccione...</option>"
         For Each row As DataRow In data.Rows
             html &= String.Format("<option value = ""{0}"">{1}</option>", row(0).ToString(), row(1).ToString())
         Next
@@ -977,7 +1426,7 @@ Partial Public Class AjaxAddProject
     ''' </summary>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Function Charge_typeContract()
+    Protected Function Charge_typeContract()
 
         Dim facade As New Facade
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
@@ -1000,7 +1449,7 @@ Partial Public Class AjaxAddProject
 
     End Function
 
-    Public Function charge_idea_aproval()
+    Protected Function charge_idea_aproval()
 
         Dim sql As New StringBuilder
         Dim objSqlCommand As New SqlCommand
@@ -1013,7 +1462,7 @@ Partial Public Class AjaxAddProject
         ' ejecutar la intruccion
         data = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
 
-        Dim html As String = "<option>Seleccione...</opption>"
+        Dim html As String = "<option>Seleccione...</option>"
         For Each row As DataRow In data.Rows
             html &= String.Format("<option value = ""{0}"">{1}</option>", row(0).ToString(), row(4).ToString())
         Next
@@ -1024,7 +1473,7 @@ Partial Public Class AjaxAddProject
 
     End Function
 
-    Public Function calculafechas(ByVal fecha As DateTime, ByVal duracion As String, ByVal dias_ope As String) As String
+    Protected Function calculafechas(ByVal fecha As DateTime, ByVal duracion As String, ByVal dias_ope As String) As String
 
         Dim objResult As String
 
@@ -1085,7 +1534,103 @@ Partial Public Class AjaxAddProject
 
     End Function
 
-    Public Function searh_actores_array(ByVal ididea As Integer)
+    Protected Function searh_actores_project(ByVal ididea As Integer)
+
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+
+        Dim thirdbyproject As New ThirdByProjectDALC
+        Dim objactores As ThirdByProjectEntity
+        Dim data_listactores As List(Of ThirdByProjectEntity)
+        Dim actorsVal, actorsName, tipoactors, contact, cedula, telefono, email, diner, especie, total, estado_flujo As String
+
+        Dim htmlactores As String
+
+        data_listactores = thirdbyproject.getList(applicationCredentials, , ididea, , , , , )
+
+        Dim valuar_actor As Integer = 1
+        Dim objResult As String
+
+        If data_listactores.Count > 0 Then
+
+            For Each row In data_listactores
+
+                objResult &= "{"
+
+                objResult &= """actorsVal"": """
+                actorsVal = row.idthird
+
+                objResult &= actorsVal
+
+                objResult &= """, ""actorsName"": """
+                actorsName = row.Name
+
+                objResult &= actorsName
+
+                objResult &= """, ""tipoactors"": """
+                tipoactors = row.type
+
+                objResult &= tipoactors
+
+                objResult &= """, ""contact"": """
+                contact = row.contact
+
+                objResult &= contact
+
+                objResult &= """, ""cedula"": """
+                cedula = row.Documents
+
+                objResult &= cedula
+
+                objResult &= """, ""telefono"": """
+                telefono = row.Phone
+
+                objResult &= telefono
+
+                objResult &= """, ""email"": """
+                email = row.Email
+
+                objResult &= email
+
+                objResult &= """, ""diner"": """
+                diner = row.Vrmoney
+
+                objResult &= diner
+
+                objResult &= """, ""especie"": """
+                especie = row.VrSpecies
+
+                objResult &= especie
+
+                objResult &= """, ""total"": """
+                total = row.FSCorCounterpartContribution
+
+                objResult &= total
+
+                objResult &= """, ""estado_flujo"": """
+                estado_flujo = row.EstadoFlujos
+
+                objResult &= estado_flujo
+
+                If valuar_actor = data_listactores.Count Then
+
+                    objResult &= """}"
+
+                Else
+                    objResult &= """}|"
+
+                End If
+
+                valuar_actor = valuar_actor + 1
+            Next
+
+        End If
+
+        Response.Write(objResult)
+
+
+    End Function
+
+    Protected Function searh_actores_array(ByVal ididea As Integer)
 
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
 
@@ -1100,7 +1645,6 @@ Partial Public Class AjaxAddProject
 
         Dim valuar_actor As Integer = 1
         Dim objResult As String
-
 
         If data_listactores.Count > 0 Then
 
@@ -1188,13 +1732,13 @@ Partial Public Class AjaxAddProject
     ''' </summary>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Function Charge_actors()
+    Protected Function Charge_actors()
 
         Dim facade As New Facade
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
         Dim data_actors As List(Of ThirdEntity)
 
-        Dim htmlresults As String = "<option>Seleccione...</opption>"
+        Dim htmlresults As String = "<option>Seleccione...</option>"
         Dim id, name As String
 
         data_actors = facade.getThirdList(applicationCredentials, enabled:="1", order:="Code")
@@ -1210,7 +1754,7 @@ Partial Public Class AjaxAddProject
         Response.Write(htmlresults)
     End Function
 
-    Public Function buscardatethird(ByVal bybal As Integer, ByVal objApplicationCredentials As Gattaca.Application.Credentials.ApplicationCredentials, _
+    Protected Function buscardatethird(ByVal bybal As Integer, ByVal objApplicationCredentials As Gattaca.Application.Credentials.ApplicationCredentials, _
     ByVal idThird As Integer) As String
 
         Dim sql As New StringBuilder
@@ -1291,7 +1835,7 @@ Partial Public Class AjaxAddProject
     ''' <param name="idprogram"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Function charge_component(ByVal idprogram As String, ByVal estado_proceso As Integer, ByVal ididea As Integer)
+    Protected Function charge_component(ByVal idprogram As String, ByVal estado_proceso As Integer, ByVal ididea As Integer)
 
         Dim facade As New Facade
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
@@ -1345,7 +1889,7 @@ Partial Public Class AjaxAddProject
 
     End Function
 
-    Public Function charge_list_program(ByVal idLinestrategic As Integer)
+    Protected Function charge_list_program(ByVal idLinestrategic As Integer)
         Dim facade As New Facade
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
         Dim program_data As List(Of ProgramEntity)
@@ -1365,7 +1909,35 @@ Partial Public Class AjaxAddProject
 
     End Function
 
-    Public Function searh_component(ByVal ididea As Integer)
+    Protected Function searh_component_project(ByVal idproject As Integer)
+
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+        Dim ProgramComponentByIdea As New ProgramComponentByIdeaDALC
+
+        Dim sql As New StringBuilder
+        Dim objSqlCommand As New SqlCommand
+        Dim component_value As DataTable
+
+        Dim htmlcomponente As String = ""
+        sql.Append(" SELECT  pc.Id ,pc.Code FROM ProgramComponentByProject pcp ")
+        sql.Append(" INNER JOIN ProgramComponent pc ON pcp.idProgramComponent = Pc.Id ")
+        sql.Append(" INNER JOIN Program p ON Pc.IdProgram = P.Id ")
+        sql.Append(" where pcp.IdProject = " & idproject)
+
+        component_value = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+        If component_value.Rows.Count > 0 Then
+
+            For Each row As DataRow In component_value.Rows
+                htmlcomponente &= "<li id= 'selectadd" + row(0).ToString() + "' class='des_seleccionar'>" + row(1).ToString() + "</li>"
+            Next
+
+        End If
+
+        Response.Write(htmlcomponente)
+    End Function
+
+    Protected Function searh_component(ByVal ididea As Integer)
 
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
         Dim ProgramComponentByIdea As New ProgramComponentByIdeaDALC
@@ -1394,7 +1966,7 @@ Partial Public Class AjaxAddProject
 
     End Function
 
-    Public Function searh_Program(ByVal ididea As Integer)
+    Protected Function searh_Program(ByVal ididea As Integer)
 
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
         Dim ProgramComponentByIdea As New ProgramComponentByIdeaDALC
@@ -1421,10 +1993,34 @@ Partial Public Class AjaxAddProject
 
     End Function
 
-    Public Function searh_line_Strategic(ByVal ididea As Integer)
+    Protected Function searh_line_Strategic_project(ByVal idproject As Integer)
 
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
-        Dim ProgramComponentByIdea As New ProgramComponentByIdeaDALC
+
+        Dim sql As New StringBuilder
+        Dim objSqlCommand As New SqlCommand
+        Dim linevalue As String = ""
+
+        sql.Append(" select TOP 1(SL.Id) from ProgramComponentByProject pcp  ")
+        sql.Append(" INNER JOIN ProgramComponent pc ON pcp.idProgramComponent = pc.Id ")
+        sql.Append(" INNER JOIN Program p ON Pc.IdProgram = P.Id ")
+        sql.Append(" INNER JOIN StrategicLine SL ON SL.Id = P.IdStrategicLine ")
+        sql.Append(" where pcp.IdProject = " & idproject)
+
+        Dim data_lineStrategig = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
+
+        If data_lineStrategig = 0 Then
+            linevalue = "0"
+        Else
+            linevalue = data_lineStrategig
+        End If
+
+        Response.Write(linevalue)
+    End Function
+
+    Protected Function searh_line_Strategic(ByVal ididea As Integer)
+
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
 
         Dim sql As New StringBuilder
         Dim objSqlCommand As New SqlCommand
@@ -1456,12 +2052,12 @@ Partial Public Class AjaxAddProject
     ''' <param name="idLinestrategic"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Function charge_program(ByVal idLinestrategic As Integer)
+    Protected Function charge_program(ByVal idLinestrategic As Integer)
         Dim facade As New Facade
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
         Dim program_data As List(Of ProgramEntity)
 
-        Dim htmlresults As String = "<option>Seleccione...</opption>"
+        Dim htmlresults As String = "<option>Seleccione...</option>"
         Dim id, code As String
 
         program_data = facade.getProgramList(applicationCredentials, idStrategicLine:=idLinestrategic, enabled:="1", order:="Code")
@@ -1484,12 +2080,12 @@ Partial Public Class AjaxAddProject
     ''' </summary>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Function Charge_Lstrategic()
+    Protected Function Charge_Lstrategic()
         Dim facade As New Facade
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
         Dim line_data As List(Of StrategicLineEntity)
 
-        Dim htmlresults As String = "<option>Seleccione...</opption>"
+        Dim htmlresults As String = "<option>Seleccione...</option>"
         Dim id, code As String
 
         line_data = facade.getStrategicLineList(applicationCredentials, enabled:="1", order:="Code")
@@ -1513,12 +2109,12 @@ Partial Public Class AjaxAddProject
     ''' <param name="iddepto"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Function Charge_munip(ByVal iddepto As Integer)
+    Protected Function Charge_munip(ByVal iddepto As Integer)
         Dim facade As New Facade
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
         Dim data_munip As List(Of CityEntity)
 
-        Dim htmlresults As String = "<option>Seleccione...</opption>"
+        Dim htmlresults As String = "<option>Seleccione...</option>"
         Dim id, name As String
 
         data_munip = facade.getCityList(applicationCredentials, iddepto:=iddepto, enabled:="T", order:="City.Code")
@@ -1541,12 +2137,12 @@ Partial Public Class AjaxAddProject
     ''' </summary>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Function Charge_deptos()
+    Protected Function Charge_deptos()
         Dim facade As New Facade
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
         Dim depto_data As List(Of DeptoEntity)
 
-        Dim htmlresults As String = "<option>Seleccione...</opption>"
+        Dim htmlresults As String = "<option>Seleccione...</option>"
         Dim id, name As String
 
         depto_data = facade.getDeptoList(applicationCredentials, enabled:="T", order:="Depto.Code")
@@ -1562,7 +2158,65 @@ Partial Public Class AjaxAddProject
 
     End Function
 
-    Public Function searh_location_array(ByVal ididea As Integer)
+    Protected Function searh_location_project(ByVal idproject As Integer)
+
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+
+        Dim LocationByproject As New ProjectLocationDALC
+        Dim objlocation As ProjectLocationEntity
+        Dim data_listlocation As List(Of ProjectLocationEntity)
+        Dim DeptoVal, CityVal, CityName, DeptoName As String
+
+        Dim objResult As String
+
+        data_listlocation = LocationByproject.getList(applicationCredentials, , idproject, , )
+
+        Dim valuar_ubi As Integer = 1
+
+        If data_listlocation.Count > 0 Then
+
+            For Each row In data_listlocation
+
+                objResult &= "{"
+
+                objResult &= """DeptoVal"": """
+                DeptoVal = row.IDDEPTO
+                objResult &= DeptoVal
+
+                objResult &= """, ""DeptoName"": """
+                DeptoName = row.DEPTONAME
+
+                objResult &= DeptoName
+
+                objResult &= """, ""CityVal"": """
+                CityVal = row.idcity
+
+                objResult &= CityVal
+
+                objResult &= """, ""CityName"": """
+                CityName = row.CITYNAME
+
+                objResult &= CityName
+
+                If valuar_ubi = data_listlocation.Count Then
+
+                    objResult &= """}"
+
+                Else
+                    objResult &= """}|"
+
+                End If
+
+                valuar_ubi = valuar_ubi + 1
+            Next
+
+        End If
+
+        Response.Write(objResult)
+
+    End Function
+
+    Protected Function searh_location_array(ByVal ididea As Integer)
 
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
 
@@ -1623,7 +2277,12 @@ Partial Public Class AjaxAddProject
 
     End Function
 
-    Public Function save_PROYECTO(ByVal ididea As String, ByVal str_code As String, ByVal code As String, ByVal line_strategic As String, ByVal program As String, ByVal name As String, ByVal justify As String, ByVal objetive As String, ByVal obj_esp As String, ByVal resul_bef As String, ByVal resul_ges_c As String, ByVal resul_cap_i As String, ByVal otros_resul As String, ByVal fecha_i As String, ByVal mes As String, ByVal dia As String, ByVal fecha_f As String, ByVal poblacion As String, ByVal contratacion As String, ByVal riesgos As String, ByVal mitigacion As String, ByVal presupuestal As String, ByVal cost As String, ByVal obligaciones As String, ByVal iva As String, ByVal list_ubicacion As String, ByVal list_actor As String, ByVal list_componentes As String, ByVal list_flujos As String, ByVal list_detalles_flujos As String, ByVal list_files As String, ByVal estado As String) '
+    Protected Function edit_PROYECTO(ByVal ididea As String, ByVal str_code As String, ByVal code As String, ByVal line_strategic As String, ByVal program As String, ByVal name As String, ByVal justify As String, ByVal objetive As String, ByVal obj_esp As String, ByVal resul_bef As String, ByVal resul_ges_c As String, ByVal resul_cap_i As String, ByVal otros_resul As String, ByVal fecha_i As String, ByVal mes As String, ByVal dia As String, ByVal fecha_f As String, ByVal poblacion As String, ByVal contratacion As String, ByVal riesgos As String, ByVal mitigacion As String, ByVal presupuestal As String, ByVal cost As String, ByVal obligaciones As String, ByVal iva As String, ByVal list_ubicacion As String, ByVal list_actor As String, ByVal list_componentes As String, ByVal list_flujos As String, ByVal list_detalles_flujos As String, ByVal list_files As String, ByVal estado As String) '
+
+    End Function
+
+
+    Protected Function save_PROYECTO(ByVal ididea As String, ByVal str_code As String, ByVal code As String, ByVal line_strategic As String, ByVal program As String, ByVal name As String, ByVal justify As String, ByVal objetive As String, ByVal obj_esp As String, ByVal resul_bef As String, ByVal resul_ges_c As String, ByVal resul_cap_i As String, ByVal otros_resul As String, ByVal fecha_i As String, ByVal mes As String, ByVal dia As String, ByVal fecha_f As String, ByVal poblacion As String, ByVal contratacion As String, ByVal riesgos As String, ByVal mitigacion As String, ByVal presupuestal As String, ByVal cost As String, ByVal obligaciones As String, ByVal iva As String, ByVal list_ubicacion As String, ByVal list_actor As String, ByVal list_componentes As String, ByVal list_flujos As String, ByVal list_detalles_flujos As String, ByVal list_files As String, ByVal estado As String) '
 
         Dim facade As New Facade
         Dim objProject As New ProjectEntity
@@ -2044,7 +2703,7 @@ Partial Public Class AjaxAddProject
 
     End Function
 
-    Public Function save_document_PROYECTO(ByVal list_file As String, ByVal idPROYECTO As Integer)
+    Protected Function save_document_PROYECTO(ByVal list_file As String, ByVal idPROYECTO As Integer)
 
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
         Dim ArrayFile As String()

@@ -194,7 +194,7 @@ Public Class ThirdByProjectDALC
             'descripcion: modificacion de query de proyecto para actores por cambio de modelo de datos
 
             ' construir la sentencia
-            sql.Append(" select TP.Id,tp.IdThird, t.Name as thirdname, tp.Type, t.contact,t.documents, t.phone, t.email, TP.IdProject   ")
+            sql.Append(" select TP.Id,tp.IdThird, tp.Name as thirdname, tp.Type, tp.contact,tp.documents, tp.phone, tp.email, tp.IdProject, tp.VrSpecies, tp.Vrmoney, tp.FSCorCounterpartContribution, tp.generatesflow    ")
             sql.Append(" FROM ThirdByProject tp  ")
             sql.Append(" inner join Project p on p.id = tp.IdProject ")
             sql.Append(" inner join third t on t.Id= tp.IdThird ")
@@ -247,12 +247,17 @@ Public Class ThirdByProjectDALC
                 objThirdByProject.id = row("id")
                 objThirdByProject.idproject = row("idproject")
                 objThirdByProject.idthird = row("idthird")
-                objThirdByProject.type = row("type")
                 objThirdByProject.THIRDNAME = row("thirdname")
-                objThirdByProject.THIRD.contact = IIf(Not IsDBNull(row("contact")), row("contact"), "")
-                objThirdByProject.THIRD.documents = IIf(Not IsDBNull(row("documents")), row("documents"), "")
-                objThirdByProject.THIRD.phone = IIf(Not IsDBNull(row("phone")), row("phone"), "")
-                objThirdByProject.THIRD.email = IIf(Not IsDBNull(row("email")), row("email"), "")
+                objThirdByProject.Name = row("thirdname")
+                objThirdByProject.contact = IIf(Not IsDBNull(row("contact")), row("contact"), "")
+                objThirdByProject.Documents = IIf(Not IsDBNull(row("documents")), row("documents"), "")
+                objThirdByProject.Phone = IIf(Not IsDBNull(row("phone")), row("phone"), "")
+                objThirdByProject.Email = IIf(Not IsDBNull(row("email")), row("email"), "")
+                objThirdByProject.type = row("type")
+                objThirdByProject.Vrmoney = IIf(Not IsDBNull(row("Vrmoney")), row("Vrmoney"), 0)
+                objThirdByProject.VrSpecies = IIf(Not IsDBNull(row("VrSpecies")), row("VrSpecies"), 0)
+                objThirdByProject.FSCorCounterpartContribution = IIf(Not IsDBNull(row("FSCorCounterpartContribution")), row("FSCorCounterpartContribution"), 0)
+                objThirdByProject.EstadoFlujos = IIf(Not IsDBNull(row("generatesflow")), row("generatesflow"), "")
 
 
 

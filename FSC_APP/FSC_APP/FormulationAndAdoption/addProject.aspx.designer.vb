@@ -2347,6 +2347,15 @@ Partial Public Class addProject
     Protected WithEvents hdfechainicio As Global.System.Web.UI.WebControls.HiddenField
 
     '''<summary>
+    '''Control HDiva.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents HDiva As Global.System.Web.UI.WebControls.HiddenField
+
+    '''<summary>
     '''Control hdfechafinalizacion.
     '''</summary>
     '''<remarks>
