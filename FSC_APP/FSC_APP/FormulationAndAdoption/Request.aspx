@@ -112,8 +112,20 @@
             //Load Flows in case add
             loadPaymentFlowsByProject();
             
+            //Load Details Flows in case add
+            loadPaymentDetailsFlowsByProject();
+            
             //Process German
             validarporcentaje();
+            
+            $("#dialog").dialog({
+                modal: true,
+                minWidth: 700,
+                closeOnEscape: true,
+                autoOpen: false
+            });
+            
+            //End Process German
             
             //mask controls money
             $('#ctl00_cphPrincipal_Txtvrdiner, #ctl00_cphPrincipal_Txtvresp, #txtTotalThird, .money').maskMoney({thousands: '.', decimal:',', precision: 0});
@@ -146,6 +158,9 @@
             });
             
             $("#typeRequest").change(function(){
+                alert($(this).val());
+            
+            
                 /*Adicion-prorroga-entregables*/
                 if($(this).val() == "1"){
                     $("#group-radios-type").css("display", "block");
@@ -640,124 +655,181 @@
             </div>
         </div>
     </div>
-    <div id="divsuspension" style="display: none;">
-        <h2>
-            Fechas de suspensión</h2>
-        <br />
+    <div id="dialog" title="Desembolso detallado">
+        <table id="T_detalle_desembolso" border="1" cellpadding="1" cellspacing="1" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th>
+                        No pago
+                    </th>
+                    <th>
+                        Id aportante
+                    </th>
+                    <th>
+                        Aportante
+                    </th>
+                    <th>
+                        desembolso
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+            </tbody>
+        </table>        
         <div>
-            <table>
-                <tbody>
-                    <tr>
-                        <td>
-                            <asp:Label ID="lblStartSuspend" runat="server" Text="Fecha de inicio de suspensión:"></asp:Label>
-                        </td>
-                        <td>
-                            <asp:TextBox ID="txtStartSuspend" runat="server" MaxLength="50" Width="200px"></asp:TextBox><cc1:CalendarExtender
-                                ID="ceStartSuspend" runat="server" Enabled="True" Format="yyyy/MM/dd" TargetControlID="txtStartSuspend">
-                            </cc1:CalendarExtender>
-                            <asp:CompareValidator ID="cvStartSuspend" runat="server" ControlToValidate="txtStartSuspend"
-                                ErrorMessage="aaaa/mm/dd" Operator="DataTypeCheck" SetFocusOnError="True" Type="Date"></asp:CompareValidator>
-                        </td>
-                        <td>
-                            <asp:Label ID="lblEndSuspend" runat="server" Text="Fecha de fin de suspensión:"></asp:Label>
-                        </td>
-                        <td>
-                            <asp:TextBox ID="txtEndSuspend" runat="server" MaxLength="50" Width="200px"></asp:TextBox><cc1:CalendarExtender
-                                ID="ceEndSuspend" runat="server" Enabled="True" Format="yyyy/MM/dd" TargetControlID="txtEndSuspend">
-                            </cc1:CalendarExtender>
-                            <asp:CompareValidator ID="cvEndSuspend" runat="server" ControlToValidate="txtEndSuspend"
-                                ErrorMessage="aaaa/mm/dd" Operator="DataTypeCheck" SetFocusOnError="True" Type="Date"></asp:CompareValidator>
-                        </td>
-                        <td><asp:Label ID="lblInfoSuspend" runat="server" Text=""></asp:Label></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <asp:Label ID="lblRestartType" runat="server" Text="Tipo de reinicio:"></asp:Label>
-                        </td>
-                        <td>
-                            <asp:DropDownList ID="ddlRestartType" runat="server" CssClass="Ccombo">
-                                <asp:ListItem Value="1">Reinicio automático</asp:ListItem>
-                                <asp:ListItem Value="2">Reinicio condicionado</asp:ListItem>
-                            </asp:DropDownList>
-                        </td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
+            <input id="close_dialog" type="button" value="Cerrar X" name="close_dialog" />
         </div>
     </div>
-    <div id="divalcance" style="display: none;">
-        <h2>
-            Información actual del proyecto:</h2>
-        <div style="width: 45%; float: left;">
-            <label>
-                Objetivo:</label>
-            <textarea id="txtarObjective"></textarea>
-            <label><input type="checkbox" id="chkObjective" onclick="mostrar('chkObjective');"> Modificar</label>
+    
+            <div id="divsuspension" style="display: none;">
+            <h2>
+                Fechas de suspensión</h2>
             <br />
-            <label>
-                Objetivos Especificos:</label>
-            <textarea id="txtarSpecificObjectives"></textarea>
-            <label><input type="checkbox" id="chkSpecificObjectives" onclick="mostrar('chkSpecificObjectives');"> Modificar</label>
-            <br />
-            <label>
-                Resultados capacidad instalada:</label>
-            <textarea id="txtarInstalledCapacityResults"></textarea>
-            <label><input type="checkbox" id="chkInstalledCapacityResults" onclick="mostrar('chkInstalledCapacityResults');"> Modificar</label>
-            <br />
-            <label>
-                Resultados beneficiarios:</label>
-            <textarea id="txtarBenefitiaryResults"></textarea>
-            <label><input type="checkbox" id="chkBenefitiaryResults" onclick="mostrar('chkBenefitiaryResults');"> Modificar</label>
-            <br />
-            <label>
-                Resultados gestión del conocimiento:</label>
-            <textarea id="txtarKnowledgeResults"></textarea>
-            <label><input type="checkbox" id="chkKnowledgeResults" onclick="mostrar('chkKnowledgeResults');"> Modificar</label>
-            <br />
-            <label>
-                Otros resultados:</label>
-            <textarea id="txtarOtherResults"></textarea>
-            <label><input type="checkbox" id="chkOtherResults" onclick="mostrar('chkOtherResults');"> Modificar</label>
-            <br />
-            <label>
-                Obligaciones de las partes:</label>
-            <textarea id="txtarPartObligations"></textarea>
-            <label><input type="checkbox" id="chkPartObligations" onclick="mostrar('chkPartObligations');"> Modificar</label>
-            <br />
+            <div>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <asp:Label ID="lblStartSuspend" runat="server" Text="Fecha de inicio de suspensión:"></asp:Label>
+                            </td>
+                            <td>
+                                <asp:TextBox ID="txtStartSuspend" runat="server" MaxLength="50" Width="200px"></asp:TextBox><cc1:CalendarExtender
+                                    ID="ceStartSuspend" runat="server" Enabled="True" Format="yyyy/MM/dd" TargetControlID="txtStartSuspend">
+                                </cc1:CalendarExtender>
+                                <asp:CompareValidator ID="cvStartSuspend" runat="server" ControlToValidate="txtStartSuspend"
+                                    ErrorMessage="aaaa/mm/dd" Operator="DataTypeCheck" SetFocusOnError="True" Type="Date"></asp:CompareValidator>
+                            </td>
+                            <td>
+                                <asp:Label ID="lblEndSuspend" runat="server" Text="Fecha de fin de suspensión:"></asp:Label>
+                            </td>
+                            <td>
+                                <asp:TextBox ID="txtEndSuspend" runat="server" MaxLength="50" Width="200px"></asp:TextBox><cc1:CalendarExtender
+                                    ID="ceEndSuspend" runat="server" Enabled="True" Format="yyyy/MM/dd" TargetControlID="txtEndSuspend">
+                                </cc1:CalendarExtender>
+                                <asp:CompareValidator ID="cvEndSuspend" runat="server" ControlToValidate="txtEndSuspend"
+                                    ErrorMessage="aaaa/mm/dd" Operator="DataTypeCheck" SetFocusOnError="True" Type="Date"></asp:CompareValidator>
+                            </td>
+                            <td>
+                                <asp:Label ID="lblInfoSuspend" runat="server" Text=""></asp:Label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <asp:Label ID="lblRestartType" runat="server" Text="Tipo de reinicio:"></asp:Label>
+                            </td>
+                            <td>
+                                <asp:DropDownList ID="ddlRestartType" runat="server" CssClass="Ccombo">
+                                    <asp:ListItem Value="1">Reinicio automático</asp:ListItem>
+                                    <asp:ListItem Value="2">Reinicio condicionado</asp:ListItem>
+                                </asp:DropDownList>
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <div style="width: 45%; float: right;">
-            <label id="lblObjective2">
-                Objetivo:</label>
-            <textarea id="txtarObjective2"></textarea>
-            <br />
-            <label id="lblSpecificObjectives2">
-                Objetivos Especificos:</label>
-            <textarea id="txtarSpecificObjectives2"></textarea>
-            <br />
-            <label id="lblInstalledCapacityResults2">
-                Resultados capacidad instalada:</label>
-            <textarea id="txtarInstalledCapacityResults2"></textarea>
-            <br />
-            <label id="lblBenefitiaryResults2">
-                Resultados beneficiarios:</label>
-            <textarea id="txtarBenefitiaryResults2"></textarea>
-            <br />
-            <label id="lblKnowledgeResults2">
-                Resultados gestión del conocimiento:</label>
-            <textarea id="txtarKnowledgeResults2"></textarea>
-            <br />
-            <label id="lblOtherResults2">
-                Otros resultados:</label>
-            <textarea id="txtarOtherResults2"></textarea>
-            <br />
-            <label id="lblPartObligations2">
-                Obligaciones de las partes:</label>
-            <textarea id="txtarPartObligations2"></textarea>
+        <div id="divalcance" style="display: none;">
+            <h2>
+                Información actual del proyecto:</h2>
+            <div style="width: 45%; float: left;">
+                <label>
+                    Objetivo:</label>
+                <textarea id="txtarObjective"></textarea>
+                <label>
+                    <input type="checkbox" id="chkObjective" onclick="mostrar('chkObjective');">
+                    Modificar</label>
+                <br />
+                <label>
+                    Objetivos Especificos:</label>
+                <textarea id="txtarSpecificObjectives"></textarea>
+                <label>
+                    <input type="checkbox" id="chkSpecificObjectives" onclick="mostrar('chkSpecificObjectives');">
+                    Modificar</label>
+                <br />
+                <label>
+                    Resultados capacidad instalada:</label>
+                <textarea id="txtarInstalledCapacityResults"></textarea>
+                <label>
+                    <input type="checkbox" id="chkInstalledCapacityResults" onclick="mostrar('chkInstalledCapacityResults');">
+                    Modificar</label>
+                <br />
+                <label>
+                    Resultados beneficiarios:</label>
+                <textarea id="txtarBenefitiaryResults"></textarea>
+                <label>
+                    <input type="checkbox" id="chkBenefitiaryResults" onclick="mostrar('chkBenefitiaryResults');">
+                    Modificar</label>
+                <br />
+                <label>
+                    Resultados gestión del conocimiento:</label>
+                <textarea id="txtarKnowledgeResults"></textarea>
+                <label>
+                    <input type="checkbox" id="chkKnowledgeResults" onclick="mostrar('chkKnowledgeResults');">
+                    Modificar</label>
+                <br />
+                <label>
+                    Otros resultados:</label>
+                <textarea id="txtarOtherResults"></textarea>
+                <label>
+                    <input type="checkbox" id="chkOtherResults" onclick="mostrar('chkOtherResults');">
+                    Modificar</label>
+                <br />
+                <label>
+                    Obligaciones de las partes:</label>
+                <textarea id="txtarPartObligations"></textarea>
+                <label>
+                    <input type="checkbox" id="chkPartObligations" onclick="mostrar('chkPartObligations');">
+                    Modificar</label>
+                <br />
+            </div>
+            <div style="width: 45%; float: right;">
+                <label id="lblObjective2">
+                    Objetivo:</label>
+                <textarea id="txtarObjective2"></textarea>
+                <br />
+                <label id="lblSpecificObjectives2">
+                    Objetivos Especificos:</label>
+                <textarea id="txtarSpecificObjectives2"></textarea>
+                <br />
+                <label id="lblInstalledCapacityResults2">
+                    Resultados capacidad instalada:</label>
+                <textarea id="txtarInstalledCapacityResults2"></textarea>
+                <br />
+                <label id="lblBenefitiaryResults2">
+                    Resultados beneficiarios:</label>
+                <textarea id="txtarBenefitiaryResults2"></textarea>
+                <br />
+                <label id="lblKnowledgeResults2">
+                    Resultados gestión del conocimiento:</label>
+                <textarea id="txtarKnowledgeResults2"></textarea>
+                <br />
+                <label id="lblOtherResults2">
+                    Otros resultados:</label>
+                <textarea id="txtarOtherResults2"></textarea>
+                <br />
+                <label id="lblPartObligations2">
+                    Obligaciones de las partes:</label>
+                <textarea id="txtarPartObligations2"></textarea>
+            </div>
         </div>
-    </div>
-    <div id="divotros" style="display: none;">
-    <h2>Solicitud</h2>
-    <textarea id="txtarRequest"></textarea>
-    </div>
+        <div id="divotros" style="display: none;">
+            <h2>
+                Solicitud</h2>
+            <textarea id="txtarRequest"></textarea>
+        </div>
+    
+    <input type='button' id="buttonSaveRequest" value="Guardar Solicitud" class="btn btn-success"
+        style="background-image: none;" />
 </asp:Content>
