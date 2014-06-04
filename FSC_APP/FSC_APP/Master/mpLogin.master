@@ -115,8 +115,8 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>
-                        <img alt="" src="/FSC/App_Themes/GattacaAdmin/Images/Template/V9/logo2.png" />
+                    <td> 
+                        <img alt="" src="http://<%= Request.Url.Authority %>/App_Themes/GattacaAdmin/Images/Template/V9/logo2.png" />
                     </td>
                 </tr>
             </tbody>
