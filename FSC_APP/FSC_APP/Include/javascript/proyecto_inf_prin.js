@@ -91,40 +91,6 @@ function Ctypcontract_view() {
 }
 
 
-//funcion para cargar matriz principal edicion
-function View_matriz_principal() {
-
-    $.ajax({
-        url: "AjaxAddProject.aspx",
-        type: "GET",
-        data: { "action": "View_matriz_principal", "ididea": idea_buscar },
-        success: function(result) {
-
-            //cargamos el div donde se generara la tabla actores
-            $("#T_matrizcontainer").html("");
-            $("#T_matrizcontainer").html(result);
-
-            //reconstruimos la tabla con los datos
-            $("#matriz").dataTable({
-                "bJQueryUI": true,
-                "bDestroy": true
-            });
-
-            //llamar la funcion suma de primera columna efectivo
-            sumavalores_gridprincipal();
-
-
-        },
-        error: function(msg) {
-            alert("No se pueden cargar los actores de informacion principal de la idea = " + ideditar);
-        }
-    });
-}
-
-
-
-
-
 //funcion suma de primera columna efectivo
 function sumavalores_gridprincipal() {
 
@@ -293,6 +259,8 @@ function startdate() {
         }
 
     })
+
+
 }
 
 
@@ -461,4 +429,53 @@ function Ctypeaproval() {
         }
     });
 
+}
+
+
+
+function validarcampos_fecha_madre() {
+
+    $("#ctl00_cphPrincipal_txtstartdate").blur(function() {
+
+        var fecha_ing = new Date($("#ctl00_cphPrincipal_txtstartdate").val());
+
+        if (fecha_limite_madre < fecha_ing || fecha_ing < fecha_inicial_madre) {
+
+            $("#ctl00_cphPrincipal_txtstartdate").focus();
+            $("#ctl00_cphPrincipal_lblHelpstartdate").text("La fecha no debe superar los rango de fechas del proyecto madre");
+
+        }
+    })
+
+    $("#ctl00_cphPrincipal_txtduration").change(function() {
+
+        var fecha_ing = new Date($("#ctl00_cphPrincipal_Txtdatecierre").val());
+        if (fecha_limite_madre < fecha_ing) {
+
+            $("#ctl00_cphPrincipal_txtduration").val("");
+            $("#ctl00_cphPrincipal_txtduration").focus();
+            $("#ctl00_cphPrincipal_Lblhelpduraton").text("La fecha de cierre no debe superar la fecha de cierre del proyecto madre");
+        }
+        else {
+            $("#ctl00_cphPrincipal_Lblhelpduraton").text("");
+        }
+
+    })
+
+    $("#ctl00_cphPrincipal_Txtday").change(function() {
+
+        var fecha_ing = new Date($("#ctl00_cphPrincipal_Txtdatecierre").val());
+
+        if (fecha_limite_madre < fecha_ing) {
+
+            $("#ctl00_cphPrincipal_Txtday").val("");
+            $("#ctl00_cphPrincipal_Txtday").focus();
+            $("#ctl00_cphPrincipal_Lblhelpday").text("La fecha de cierre no debe superar la fecha de cierre del proyecto madre");
+        }
+        else {
+            $("#ctl00_cphPrincipal_Lblhelpday").text("");
+        }
+
+
+    })
 }

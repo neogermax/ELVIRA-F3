@@ -109,39 +109,6 @@ function Ctypaproval_view() {
 
 }
 
-//funcion para cargar matriz principal edicion
-function View_matriz_principal() {
-
-    $.ajax({
-        url: "AjaxAddIdea.aspx",
-        type: "GET",
-        data: { "action": "View_matriz_principal", "ididea": ideditar },
-        success: function(result) {
-
-            //cargamos el div donde se generara la tabla actores
-            $("#T_matrizcontainer").html("");
-            $("#T_matrizcontainer").html(result);
-
-            //reconstruimos la tabla con los datos
-            $("#matriz").dataTable({
-                "bJQueryUI": true,
-                "bDestroy": true
-            });
-
-            //llamar la funcion suma de primera columna efectivo
-            sumavalores_gridprincipal();
-
-
-        },
-        error: function(msg) {
-            alert("No se pueden cargar los actores de informacion principal de la idea = " + ideditar);
-        }
-    });
-}
-
-
-
-
 
 //funcion suma de primera columna efectivo
 function sumavalores_gridprincipal() {

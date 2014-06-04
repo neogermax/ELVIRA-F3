@@ -52,6 +52,105 @@ Partial Public Class addProject
     Protected WithEvents Lblerrors_save_idea As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
+    '''Control container_wait.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents container_wait As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+    '''<summary>
+    '''Control Label1.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Label1 As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''Control container_date_mother.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents container_date_mother As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+    '''<summary>
+    '''Control Lblvalor_mother.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Lblvalor_mother As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''Control Txtvalor_mother.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Txtvalor_mother As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''Control Llbvalor_disponible.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Llbvalor_disponible As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''Control Txtvalor_disponible.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Txtvalor_disponible As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''Control Lbldate_start_mother.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Lbldate_start_mother As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''Control Txtdate_start_mother.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Txtdate_start_mother As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''Control Lbldate_end_mother.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Lbldate_end_mother As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''Control Txtdate_end_mother.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Txtdate_end_mother As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
     '''Control lblididea.
     '''</summary>
     '''<remarks>
@@ -1735,6 +1834,105 @@ Partial Public Class addProject
     Protected WithEvents Lblactorrep As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
+    '''Control container_date_mother_actores.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents container_date_mother_actores As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+    '''<summary>
+    '''Control Lblvalor_mother_actores.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Lblvalor_mother_actores As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''Control Txtvalor_mother_actores.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Txtvalor_mother_actores As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''Control Llbvalor_disponible_actores.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Llbvalor_disponible_actores As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''Control Txtvalor_disponible_actores.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Txtvalor_disponible_actores As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''Control Lbldate_start_mother_actores.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Lbldate_start_mother_actores As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''Control Txtdate_start_mother_actores.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Txtdate_start_mother_actores As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''Control Lbldate_end_mother_actores.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Lbldate_end_mother_actores As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''Control Txtdate_end_mother_actores.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Txtdate_end_mother_actores As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''Control sucess_mother_help.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents sucess_mother_help As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+    '''<summary>
+    '''Control Lblmesanje_mother.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Lblmesanje_mother As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
     '''Control totales.
     '''</summary>
     '''<remarks>
@@ -1778,6 +1976,87 @@ Partial Public Class addProject
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
     Protected WithEvents Txtsub3 As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''Control container_date_mother_flujos.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents container_date_mother_flujos As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+    '''<summary>
+    '''Control Lblvalor_mother_flujos.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Lblvalor_mother_flujos As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''Control Txtvalor_mother_flujos.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Txtvalor_mother_flujos As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''Control Llbvalor_disponible_flujos.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Llbvalor_disponible_flujos As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''Control Txtvalor_disponible_flujos.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Txtvalor_disponible_flujos As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''Control Lbldate_start_mother_flujos.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Lbldate_start_mother_flujos As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''Control Txtdate_start_mother_flujos.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Txtdate_start_mother_flujos As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''Control Lbldate_end_mother_flujos.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Lbldate_end_mother_flujos As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''Control Txtdate_end_mother_flujos.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents Txtdate_end_mother_flujos As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
     '''Control Lbltitleflujo1.

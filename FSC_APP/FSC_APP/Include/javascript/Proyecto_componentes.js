@@ -16,13 +16,103 @@ function ClineEstrategic_edit() {
                 edit_line_strategic = result;
 
                 Cprogram(edit_line_strategic);
-                console.log("Linea");
                 $("#ddlStrategicLines").trigger("change");
             },
             error: function(msg) {
                 alert("No se pueden cargar la linea estrategica deseada.");
             }
         });
+
+    }
+}
+
+//cargar combo de programas
+function Cprogram(idLineStrategic) {
+
+    $("#ddlStrategicLines").change(function() {
+        var idLine = idLineStrategic;
+        if (idLine == null) {
+            idLine = $(this).val();
+        }
+
+        $.ajax({
+            url: "AjaxAddProject.aspx",
+            type: "GET",
+            data: { "action": "C_program", "idlinestrategic": idLine },
+            success: function(result) {
+
+                var textoLista = $("#componentesseleccionados").html();
+
+                if (textoLista == "") {
+
+                    if (contar_program == 0) {
+                        arraycompo[0] = $("#ddlStrategicLines").val();
+                    }
+
+                    $("#ddlPrograms").html(result);
+                    $("#ddlPrograms").trigger("liszt:updated");
+                }
+                else {
+
+                    if (contar_program == 0) {
+                        arraycompo[1] = $("#ddlPrograms").val();
+                     //   contar_program = 1;
+                     //   alert(arraycompo[1]);
+                    }
+
+
+                    if (validar_ini_ed == 1) {
+                        validar_cambio_linea(result);
+                    }
+                    else {
+                        // validar_ini_ed = 1;
+                        arraycomponente = [];
+
+                        $("#ddlPrograms").html(result);
+                        $("#ddlPrograms").trigger("liszt:updated");
+
+                        if (control_edit_compo == 0) {
+                            validar_cambio_linea(result);
+
+                        }
+                        control_edit_compo = 0;
+                        idLineStrategic = 0;
+                    }
+                }
+            },
+            error: function(msg) {
+                alert("No se pueden cargar los programas de la linea estrategica selecionada.");
+            }
+        });
+    });
+}
+
+//funcion para validar los cambios de lineas 
+function validar_cambio_linea(str_result) {
+
+    confirmar = confirm("Usted acaba de cambiar de linea estratégica la información diligenciada se perdera! desea cambiarla?", "SI", "NO");
+    if (confirmar) {
+
+        $("#componentesseleccionados").html("");
+        $("#seleccionarcomponente").html("");
+
+        arraycomponente = [];
+
+        $("#ddlPrograms").html(str_result);
+        $("#ddlPrograms").trigger("liszt:updated");
+
+    }
+
+    else {
+
+        $("#ddlStrategicLines").val(edit_line_strategic);
+        $("#ddlStrategicLines").trigger("liszt:updated");
+
+        $("#ddlPrograms").val(edit_program);
+        $("#ddlPrograms").trigger("liszt:updated");
+
+        contar_program = 0;
+        arraycompo = [];
 
     }
 
@@ -67,7 +157,7 @@ function view_Cprogram() {
             $("#ddlPrograms").val(result);
             $("#ddlPrograms").trigger("liszt:updated");
 
-            edit_program = result;
+            //edit_program = result;
         },
         error: function(msg) {
             alert("No se pueden cargar la linea estrategica deseada.");
@@ -96,99 +186,7 @@ function ClineEstrategic() {
     });
 }
 
-//cargar combo de programas
-function Cprogram(idLineStrategic) {
 
-    $("#ddlStrategicLines").change(function() {
-        var idLine = idLineStrategic;
-        if (idLine == 0) {
-            idLine = $(this).val();
-        }
-
-        $.ajax({
-            url: "AjaxAddProject.aspx",
-            type: "GET",
-            data: { "action": "C_program", "idlinestrategic": $(this).val() },
-            success: function(result) {
-
-                var textoLista = $("#componentesseleccionados").html();
-
-                if (textoLista == "") {
-
-                    if (contar_program == 0) {
-                        arraycompo[0] = $("#ddlStrategicLines").val();
-                    }
-
-                    $("#ddlPrograms").html(result);
-                    $("#ddlPrograms").trigger("liszt:updated");
-                }
-                else {
-
-                    if (contar_program == 0) {
-                        arraycompo[1] = $("#ddlPrograms").val();
-                        contar_program = 1;
-                    }
-                    
-                    alert(arraycompo[1] + "  " + validar_ini_ed);
-
-                    if (validar_ini_ed == 1) {
-                        validar_cambio_linea(result);
-                    }
-                    else {
-                       // validar_ini_ed = 1;
-                        arraycomponente = [];
-
-                        $("#ddlPrograms").html(result);
-                        $("#ddlPrograms").trigger("liszt:updated");
-
-                        if (control_edit_compo == 0) {
-                            validar_cambio_linea(result);
-
-                        }
-                        control_edit_compo = 0;
-                        idLineStrategic = 0;
-                    }
-                }
-            },
-            error: function(msg) {
-                alert("No se pueden cargar los programas de la linea estrategica selecionada.");
-            }
-        });
-    });
-}
-
-
-//funcion para validar los cambios de lineas 
-function validar_cambio_linea(str_result) {
-
-    confirmar = confirm("Usted acaba de cambiar de linea estratégica la información diligenciada se perdera! desea cambiarla?", "SI", "NO");
-    if (confirmar) {
-
-        $("#componentesseleccionados").html("");
-        $("#seleccionarcomponente").html("");
-
-        arraycomponente = [];
-
-        $("#ddlPrograms").html(str_result);
-        $("#ddlPrograms").trigger("liszt:updated");
-
-    }
-
-    else {
-
-        $("#ddlStrategicLines").val(edit_line_strategic);
-        $("#ddlStrategicLines").trigger("liszt:updated");
-
-        $("#ddlPrograms").val(edit_program);
-        $("#ddlPrograms").trigger("liszt:updated");
-
-        contar_program = 0;
-        arraycompo = [];
-
-
-    }
-
-}
 
 
 //cargar double lisbox componentes de programa
@@ -210,6 +208,12 @@ function cargarcomponente() {
 
 
     $("#ddlPrograms").change(function() {
+
+        if (id_idea == 0 && idea_buscar != null) {
+            id_idea = idea_buscar;
+            editable = 1;
+        }
+       
         $.ajax({
             url: "AjaxAddProject.aspx",
             type: "GET",
@@ -267,8 +271,8 @@ function edit_component() {
 
             //darle atributos de seleccione
             $(".seleccione").click(function() {
-                var swhich_array_component_exist = 0;
 
+                var swhich_array_component_exist = 0;
                 var validaarray = $(this).attr("id");
                 //validamos si el array esta vacio
                 if (arraycomponente.length == 0) {
@@ -285,9 +289,9 @@ function edit_component() {
                     if (swhich_array_component_exist == 0) {
                         arraycomponente.push($(this).attr("id"));
                     }
-
                 }
             });
+
             //Compoentes Style
             $("#seleccionarcomponente li, #componentesseleccionados li").click(function() {
                 $(this).css("background", "#9bbb58");

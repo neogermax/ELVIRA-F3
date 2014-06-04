@@ -76,21 +76,29 @@
                 input.value = input.value.replace(/[^\d\.]*/g, "");
             }
         }
-
-
     </script>
 
     <br />
     <div id="containerSuccess" runat="server" visible="true" style="width: 100%; text-align: center;
         border: 2px solid #cecece; background: #E8E8DC; height: 80px; line-height: 40px;
-        vertical-align: middle;">
+        vertical-align: middle; border-radius: 15px;">
         <img style="margin-top: 5px;" src="/images/save_icon.png" width="24px" alt="Save" /><asp:Label
-            ID="lblsaveinformation" runat="server" Style="font-size: 14pt; color: #9bbb58;"></asp:Label></div>
+            ID="lblsaveinformation" runat="server" Style="font-size: 14pt; color: #9bbb58;"></asp:Label>
+    </div>
     <div id="containererrors" runat="server" visible="true" style="width: 100%; text-align: center;
         border: 2px solid #cecece; background: #E8E8DC; height: 120px; line-height: 40px;
-        vertical-align: middle;">
+        vertical-align: middle; border-radius: 15px;">
         <img style="margin-top: 5px;" src="/images/save_icon.png" width="24px" alt="Save" /><asp:Label
-            ID="Lblerrors_save_idea" runat="server" Style="font-size: 14pt; color: #990000;"></asp:Label></div>
+            ID="Lblerrors_save_idea" runat="server" Style="font-size: 14pt; color: #990000;"></asp:Label>
+    </div>
+      <div id="container_wait" runat="server" visible="true" style="width: 50%; text-align: center;
+        border: 15px solid #cecece; background: #E8E8DC; height: 200px; line-height: 50px;
+        vertical-align: middle;  z-index: 1000; position: absolute; left: 25%; border-radius: 40px;">
+        <img style="margin-top: 15px;" src="../images/charge_emerging.gif" width="120px" alt="images" />
+        <asp:Label ID="Label1" runat="server" Text="Cargando información espere un momento..." Style="font-size: 14pt;
+            color: #9bbb58;"></asp:Label>
+    </div>
+    <br />
     <div id="tabsproyecto">
         <ul>
             <li><a href="#componentes">Planeación Estratégica</a></li>
@@ -101,6 +109,36 @@
             <li><a href="#anexos">Archivos Anexos</a></li>
         </ul>
         <div id="informacion">
+            <ul>
+                <li>
+                    <div id="container_date_mother" runat="server" visible="true" style="width: 100%;
+                        text-align: center; border: 3px solid #9bbb58; background: #E8E8DC; height: 70px;
+                        vertical-align: middle; margin-top: 10px; border-radius: 15px;">
+                        <ul id="mother_date" style="margin-top: 5px;">
+                            <li>
+                                <asp:Label ID="Lblvalor_mother" runat="server" Text="Valor total Madre"></asp:Label>
+                                <asp:TextBox ID="Txtvalor_mother" runat="server" Width="150px" MaxLength="100" Enabled="False"></asp:TextBox>
+                            </li>
+                            <li>
+                                <asp:Label ID="Llbvalor_disponible" runat="server" Text=" Valor Disponible"></asp:Label>
+                                <asp:TextBox ID="Txtvalor_disponible" runat="server" Width="150px" MaxLength="100"
+                                    Enabled="False"></asp:TextBox>
+                            </li>
+                            <li>
+                                <asp:Label ID="Lbldate_start_mother" runat="server" Text=" Fecha Inicial Proyecto Madre"></asp:Label>
+                                <asp:TextBox ID="Txtdate_start_mother" runat="server" Width="150px" MaxLength="100"
+                                    Enabled="False"></asp:TextBox>
+                            </li>
+                            <li>
+                                <asp:Label ID="Lbldate_end_mother" runat="server" Text=" Fecha final Proyecto Madre"></asp:Label>
+                                <asp:TextBox ID="Txtdate_end_mother" runat="server" Width="150px" MaxLength="100"
+                                    Enabled="False"></asp:TextBox>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+            <br />
             <ul>
                 <li>
                     <asp:Label ID="lblididea" runat="server" Text="Idea"></asp:Label>
@@ -232,8 +270,7 @@
                     <select id="ddlPupulation" class="Ccombo">
                         <asp:DropDownList ID="ddlPupulation" runat="server">
                         </asp:DropDownList>
-                    </select><asp:Label ID="lblHelppopulation" runat="server" ForeColor="#990000"></asp:Label>
-                </li>
+                    </select><asp:Label ID="lblHelppopulation" runat="server" ForeColor="#990000"></asp:Label></li>
                 <li>
                     <asp:Label ID="Label13" runat="server" Text="Modalidad de Contratación"></asp:Label>
                     <select id="ddlmodcontract" class="Ccombo">
@@ -268,7 +305,7 @@
                                 <th>
                                 </th>
                                 <th>
-                                    Efectivo
+                                    Efectivo Efectivo
                                 </th>
                                 <th>
                                     Especie
@@ -397,15 +434,14 @@
                 <li>
                     <input id="SaveProject" type="button" value="Crear proyecto" name="Save_Project"
                         onclick="return SaveProject_onclick()" />
-                    <a id="Export" href="#" onclick="Export_onclick();" target="_blank" style= "height: 2em;">Exportar términos
-                        de referencia</a>
+                    <a id="Export" href="#" onclick="Export_onclick();" target="_blank" style="height: 2em;">
+                        Exportar términos de referencia</a>
                     <asp:Button ID="btntermsreference" runat="server" Text="Exportar términos de referencia"
                         ValidationGroup="infoGenral" Visible="false" />
                     <asp:Button ID="btnAddData" runat="server" Text="Crear proyecto" ValidationGroup="infoGenral"
                         Visible="false" />
                     <asp:Button ID="btnSave" runat="server" Text="Guardar cambios" ValidationGroup="infoGenral"
                         Visible="false" />
-                   
                 </li>
             </ul>
         </div>
@@ -428,12 +464,7 @@
             </ul>
             <table style="margin: 0 auto;">
                 <tr>
-                    <%--<td id="tr_listbox_program" runat="server" visible="false">
-                     <asp:Label ID="Lbltitleprogram" runat="server" Text="Programa"></asp:Label>
-                        <ul id="ulprograms">
-                        </ul>
-                    </td>--%><%-- <td style="width: 100px">
-                    </td>--%><td>
+                    <td>
                         <asp:Label ID="Lbltitlecomponet" runat="server" Text="Componentes"></asp:Label>
                         <ul id="seleccionarcomponente"></ul>
                     </td>
@@ -463,14 +494,16 @@
                     <select id="ddlDepto" class="Ccombo">
                         <asp:DropDownList ID="ddlDepto" runat="server">
                         </asp:DropDownList>
-                    </select></li>
+                    </select>
+                </li>
                 <br />
                 <li>
                     <asp:Label ID="lbidcity" runat="server" Text="Municipio"></asp:Label>
                     <select id="ddlCity" class="Ccombo">
                         <asp:DropDownList ID="ddlCity" runat="server">
                         </asp:DropDownList>
-                    </select></li>
+                    </select>
+                </li>
             </ul>
             <br />
             <ul>
@@ -518,6 +551,7 @@
             </ul>
         </div>
         <div id="actores">
+            <br />
             <ul>
                 <li>
                     <asp:Label ID="Label22" runat="server" Text="Actor"></asp:Label>
@@ -526,8 +560,10 @@
                     <select id="ddlactors" class="Ccombo">
                         <asp:DropDownList ID="ddlactors" runat="server">
                         </asp:DropDownList>
-                    </select><a id="linkactors" runat="server" href="~/GeneralPlanning/addThird.aspx?prety=1&op=add&iframe=true&width=100%&height=100%"
-                        title="Nuevo actor" class="pretty" style= "height: 2em;">CREAR NUEVO ACTOR</a></li>
+                    </select>
+                    <a id="linkactors" runat="server" href="~/GeneralPlanning/addThird.aspx?prety=1&op=add&iframe=true&width=100%&height=100%"
+                        title="Nuevo actor" class="pretty" style="height: 2em;">CREAR NUEVO ACTOR</a>
+                </li>
                 <li>
                     <asp:Label ID="Label53" runat="server" Text="Tipo"></asp:Label>
                     <asp:DropDownList ID="ddlType" runat="server" CssClass="Ccombo">
@@ -598,74 +634,107 @@
                 <li>
                     <asp:Label ID="Lblactorrep" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
-                <div id="T_ActorsContainer">
-                    <table id="T_Actors" align="center" border="1" cellpadding="1" cellspacing="1" style="width: 100%;">
-                        <thead>
-                            <tr>
-                                <th>
-                                </th>
-                                <th>
-                                    Actores
-                                </th>
-                                <th>
-                                    Tipo
-                                </th>
-                                <th>
-                                    Contacto
-                                </th>
-                                <th>
-                                    Documento Identidad
-                                </th>
-                                <th>
-                                    Teléfono
-                                </th>
-                                <th>
-                                    Correo electrónico
-                                </th>
-                                <th>
-                                    Vr Dinero
-                                </th>
-                                <th>
-                                    Vr Especie
-                                </th>
-                                <th>
-                                    Vr total
-                                </th>
-                                <th>
-                                    Eliminar
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                </li>
             </ul>
+            <br />
+            <div id="container_date_mother_actores" runat="server" visible="true" style="width: 100%;
+                text-align: center; border: 3px solid #9bbb58; background: #E8E8DC; height: 70px;
+                vertical-align: middle; margin-top: 10px; border-radius: 15px;">
+                <ul id="mother_date_actores" style="margin-top: 5px; display: inline-flex; float: left;">
+                    <li>
+                        <asp:Label ID="Lblvalor_mother_actores" runat="server" Text="Valor total Madre"></asp:Label>
+                        <asp:TextBox ID="Txtvalor_mother_actores" runat="server" Width="150px" MaxLength="100"
+                            Enabled="False"></asp:TextBox>
+                    </li>
+                    <li>
+                        <asp:Label ID="Llbvalor_disponible_actores" runat="server" Text=" Valor Disponible"></asp:Label>
+                        <asp:TextBox ID="Txtvalor_disponible_actores" runat="server" Width="150px" MaxLength="100"
+                            Enabled="False"></asp:TextBox>
+                    </li>
+                    <li>
+                        <asp:Label ID="Lbldate_start_mother_actores" runat="server" Text=" Fecha Inicial Proyecto Madre"></asp:Label>
+                        <asp:TextBox ID="Txtdate_start_mother_actores" runat="server" Width="150px" MaxLength="100"
+                            Enabled="False"></asp:TextBox>
+                    </li>
+                    <li>
+                        <asp:Label ID="Lbldate_end_mother_actores" runat="server" Text=" Fecha Final Proyecto Madre"></asp:Label>
+                        <asp:TextBox ID="Txtdate_end_mother_actores" runat="server" Width="150px" MaxLength="100"
+                            Enabled="False"></asp:TextBox>
+                    </li>
+                </ul>
+            </div>
+            <br />
+            <div id="sucess_mother_help" runat="server" visible="true" style="width: 100%;
+                text-align: center; border: 2px solid #9bbb58; background: #E8E8DC; height: 40px;
+                line-height: 40px; vertical-align: middle; border-radius: 15px;">
+                <asp:Label ID="Lblmesanje_mother" runat="server" Style="font-size: 14pt; color: #990000;"></asp:Label></div>
+            <br />
+            <br />
+            <div id="T_ActorsContainer">
+                <table id="T_Actors" align="center" border="1" cellpadding="1" cellspacing="1" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th>
+                            </th>
+                            <th>
+                                Actores
+                            </th>
+                            <th>
+                                Tipo
+                            </th>
+                            <th>
+                                Contacto
+                            </th>
+                            <th>
+                                Documento Identidad
+                            </th>
+                            <th>
+                                Teléfono
+                            </th>
+                            <th>
+                                Correo electrónico
+                            </th>
+                            <th>
+                                Vr Dinero
+                            </th>
+                            <th>
+                                Vr Especie
+                            </th>
+                            <th>
+                                Vr total
+                            </th>
+                            <th>
+                                Eliminar
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
             <ul>
                 <li id="totales" runat="server" visible="false">
                     <asp:Label ID="Label33" runat="server" Text=" Totales"></asp:Label>
@@ -679,8 +748,40 @@
             </ul>
         </div>
         <div id="flujos">
+            <ul>
+                <li>
+                    <div id="container_date_mother_flujos" runat="server" visible="true" style="width: 100%;
+                        text-align: center; border: 3px solid #9bbb58; background: #E8E8DC; height: 70px;
+                        vertical-align: middle; margin-top: 10px; border-radius: 15px;">
+                        <ul id="mother_date_flujos" style="margin-top: 5px;">
+                            <li>
+                                <asp:Label ID="Lblvalor_mother_flujos" runat="server" Text="Valor total Madre"></asp:Label>
+                                <asp:TextBox ID="Txtvalor_mother_flujos" runat="server" Width="150px" MaxLength="100"
+                                    Enabled="False"></asp:TextBox>
+                            </li>
+                            <li>
+                                <asp:Label ID="Llbvalor_disponible_flujos" runat="server" Text=" Valor Disponible"></asp:Label>
+                                <asp:TextBox ID="Txtvalor_disponible_flujos" runat="server" Width="150px" MaxLength="100"
+                                    Enabled="False"></asp:TextBox>
+                            </li>
+                            <li>
+                                <asp:Label ID="Lbldate_start_mother_flujos" runat="server" Text=" Fecha Inicial Proyecto Madre"></asp:Label>
+                                <asp:TextBox ID="Txtdate_start_mother_flujos" runat="server" Width="150px" MaxLength="100"
+                                    Enabled="False"></asp:TextBox>
+                            </li>
+                            <li>
+                                <asp:Label ID="Lbldate_end_mother_flujos" runat="server" Text=" Fecha Final Proyecto Madre"></asp:Label>
+                                <asp:TextBox ID="Txtdate_end_mother_flujos" runat="server" Width="150px" MaxLength="100"
+                                    Enabled="False"></asp:TextBox>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+            <br />
             <div id="marco_1" style="border-top: solid; border-left: solid; border-right: solid;
-                border-bottom: solid; border-color: white;" align="left">
+                border-bottom: solid; border: 3px solid #9bbb58; background: #E8E8DC; border-radius: 15px;"
+                align="left">
                 <br />
                 <ul>
                     <li style="margin-left: 3em;">
@@ -725,7 +826,8 @@
             </div>
             <br />
             <div id="marco_2" style="border-top: solid; border-left: solid; border-right: solid;
-                border-bottom: solid; border-color: white;" align="left">
+                border-bottom: solid; border: 3px solid #9bbb58; background: #E8E8DC; border-radius: 15px;"
+                align="left">
                 <br />
                 <ul>
                     <li style="margin-left: 3em;">
@@ -780,7 +882,8 @@
             </div>
             <br />
             <div id="marco_3" style="border-top: solid; border-left: solid; border-right: solid;
-                border-bottom: solid; border-color: white;" align="left">
+                border-bottom: solid; border: 3px solid #9bbb58; background: #E8E8DC; border-radius: 15px;"
+                align="left">
                 <br />
                 <ul>
                     <li style="margin-left: 3em;">
@@ -862,12 +965,14 @@
                     <asp:TextBox ID="txtobser" runat="server" MaxLength="500" Width="400px"></asp:TextBox>
                 </li>
             </ul>
+            <br />
             <div id="gif_charge_Container" runat="server" visible="true" style="width: 100%;
                 text-align: center; border: 2px solid #cecece; background: #E8E8DC; height: 80px;
                 line-height: 40px; vertical-align: middle;">
                 <img style="margin-top: 10px;" src="../images/cargando.gif" width="24px" alt="images" /><asp:Label
                     ID="Label12" runat="server" Text="Subiendo archivos..." Style="font-size: 14pt;
                     color: #9bbb58;"></asp:Label></div>
+            <br />
             <div id="tdFileInputs">
                 <table id="T_files" border="1" cellpadding="1" cellspacing="1" style="width: 100%;">
                     <thead>

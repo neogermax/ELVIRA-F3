@@ -111,13 +111,23 @@
 	background: #9bbb58;
 	color: #fff;
 }
-#listFlujosPagos li
+#listFlujosPagos li, #mother_date li,  #mother_date_flujos li
 {
 	display: inline-block;
 	float: left;
 	margin-right: 3em;
 	margin-left: 3em;
+	font-family: Tahoma, Geneva, sans-serif;
 }
+
+#mother_date_actores li
+{
+	
+	margin-right: 3em;
+	margin-left: 3em;
+	font-family: Tahoma, Geneva, sans-serif;
+}
+
 .btnCtrlPan
 {
 	background: #428BCA;

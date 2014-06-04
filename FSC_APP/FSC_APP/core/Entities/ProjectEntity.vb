@@ -82,8 +82,7 @@ Public Class ProjectEntity
     Private _Enddate As DateTime
     Private _mother As Integer
     Private _Project_derivados As String
-
-
+   
     Private _DetailedcashflowsbyProjectList As List(Of DetailedcashflowsEntity)
 
 

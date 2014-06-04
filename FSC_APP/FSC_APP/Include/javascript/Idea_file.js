@@ -44,36 +44,11 @@ function subirArchivos() {
                 //creamos json para guardarlos en un array
                 var jsonFiles = { "idfile": idfile, "filename": filename, "Description": description };
 
-
-
                 //cargamos el array con el json
                 arrayFiles.push(jsonFiles);
 
-
-
-                var htmlTablefiles = "<table id='T_files' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr><th style='text-align: center;'>Archivo</th><th style='text-align: center;'>Observaciones</th><th style='text-align: center;'>Eliminar</th></tr></thead><tbody>";
-                //recorremos el array para generar datos del la tabla anexos
-                for (itemArray in arrayFiles) {
-
-                    var entregacomas = arrayFiles[itemArray].Description;
-                    entregacomas = entregacomas.replace(/¬/g, ',');
-
-                    var namefile = arrayFiles[itemArray].filename;
-                    namefile = namefile.replace(/_/g, ' ');
-
-                    htmlTablefiles += "<tr id='archivo" + arrayFiles[itemArray].idfile + "'><td><a id='linkarchives" + arrayFiles[itemArray].idfile + "' runat='server' href='/FSC_APP/document/temp/" + namefile + "' target= '_blank' title='link'>" + arrayFiles[itemArray].filename + "</a></td><td style='text-align: left;'>" + entregacomas + "</td><td style='text-align: center;'><input type ='button' value= 'Eliminar' onclick=\"deletefile('" + arrayFiles[itemArray].idfile + "')\"></input></td></tr>";
-                }
-                htmlTablefiles += "</tbody></table>";
-
-                //cargamos el div donde se generara la tabla anexos
-                $("#tdFileInputs").html("");
-                $("#tdFileInputs").html(htmlTablefiles);
-
-                //reconstruimos el pluging de la tabla
-                $("#T_files").dataTable({
-                    "bJQueryUI": true,
-                    "bDestroy": true
-                });
+                //llamamos funcion para crear tabla anexos
+                crear_tabla_anexos();
 
                 $("#fileupload").val("");
 
@@ -95,6 +70,34 @@ function subirArchivos() {
 
 }
 
+//creamos tabla de anexos
+function crear_tabla_anexos() {
+
+    var htmlTablefiles = "<table id='T_files' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr><th style='text-align: center;'>Archivo</th><th style='text-align: center;'>Observaciones</th><th style='text-align: center;'>Eliminar</th></tr></thead><tbody>";
+    //recorremos el array para generar datos del la tabla anexos
+    for (itemArray in arrayFiles) {
+
+        var entregacomas = arrayFiles[itemArray].Description;
+        entregacomas = entregacomas.replace(/¬/g, ',');
+
+        var namefile = arrayFiles[itemArray].filename;
+        namefile = namefile.replace(/_/g, ' ');
+
+        htmlTablefiles += "<tr id='archivo" + arrayFiles[itemArray].idfile + "'><td><a id='linkarchives" + arrayFiles[itemArray].idfile + "' runat='server' href='/FSC_APP/document/temp/" + namefile + "' target= '_blank' title='link'>" + arrayFiles[itemArray].filename + "</a></td><td style='text-align: left;'>" + entregacomas + "</td><td style='text-align: center;'><input type ='button' value= 'Eliminar' onclick=\"deletefile('" + arrayFiles[itemArray].idfile + "')\"></input></td></tr>";
+    }
+    htmlTablefiles += "</tbody></table>";
+
+    //cargamos el div donde se generara la tabla anexos
+    $("#tdFileInputs").html("");
+    $("#tdFileInputs").html(htmlTablefiles);
+
+    //reconstruimos el pluging de la tabla
+    $("#T_files").dataTable({
+        "bJQueryUI": true,
+        "bDestroy": true
+    });
+}
+
 //funcion  para borrar los archivos de la lista
 function deletefile(stridfile) {
 
@@ -111,34 +114,6 @@ function deletefile(stridfile) {
             delete arrayFiles[itemArray];
         }
     }
-
-}
-
-function View_anexos() {
-
-    $.ajax({
-        url: "AjaxAddIdea.aspx",
-        type: "GET",
-        data: { "action": "View_anexos", "ididea": ideditar },
-        success: function(result) {
-
-            //cargamos el div donde se generara la documentos anexos
-            $("#tdFileInputs").html("");
-            $("#tdFileInputs").html(result);
-
-            //reconstruimos la tabla con los datos
-            $("#T_files").dataTable({
-                "bJQueryUI": true,
-                "bDestroy": true
-            });
-
-        },
-        error: function(msg) {
-            alert("No se pueden cargar los documentos anexos de la idea = " + ideditar);
-        }
-    });
-
-
 }
 
 //funtion crear array de files
@@ -163,6 +138,9 @@ function View_anexos_array() {
                     arrayFiles.push(recibefiles);
                 }
             }
+
+            //llamamos funcion para crear tabla anexos
+            crear_tabla_anexos();
 
         },
         error: function(msg) {

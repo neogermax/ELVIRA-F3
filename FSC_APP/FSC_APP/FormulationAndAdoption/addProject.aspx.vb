@@ -2844,8 +2844,8 @@ Partial Class addProject
         Response.Charset = "UTF8Encoding"
         Response.ContentType = "application/vnd.ms-word "
 
-        '        ddls = Me.txtlinestrat.Text
-        '       ddlp = Me.txtprograma.Text
+        ' ddls = Me.txtlinestrat.Text
+        'ddlp = Me.txtprograma.Text
         ddlc = objProceeding_ReferenceTerms.ArchivedRecord
         name = Me.txtname.Text
         just = Me.txtjustification.Text
@@ -2880,7 +2880,7 @@ Partial Class addProject
             ddlc = ""
         End If
 
-
+        '------------------------------------------------------------
         Response.Output.WriteLine("<meta http-equiv=""Content-Type"" content=""text/html; charset=UTF-8"" /><table  style=""font-family: 'Times New Roman';"" Width=""100%"">")
 
         Response.Output.WriteLine("<body><p style=""text-align: center;""><strong><span style=""font-family:Times New Roman,helvetica,sans-serif;"">T&Eacute;RMINOS DE REFERENCIA</span></strong></p><p><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span></p>")
@@ -3047,145 +3047,50 @@ Partial Class addProject
 
     Public Function Export_Project()
 
-        Dim sql As New StringBuilder
-        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+        Dim id_project As String
+
+        Dim objProceeding_ReferenceTerms As Proceedings = New Proceedings()
+
+        Dim ddlc, ddls, ddlp, name, just, objet, objetesp, resulb, resulgc, resulci, fech, dura, people, vt1, vt2, vt6 As String
+        Dim aplica_iva, ruta, riesgos, mitigacion, obligaciones, dia, resulotros, vt3, fuent, est, datanex, dept, munip, actor, action, vt4, vt5, active As String
+
+        Dim FSCval As String = ""
 
         Dim Data_component_group, Data_idea, Data_pagos, Data_pagos_detalles, Data_detalles_actores, Data_totales_actors, Data_componet, Data_others, Data_ubicacion As DataTable
 
-        Dim arrayubicacion, arrayactor, arraycomponente As String()
-        Dim deptovalexist, Cityvalexist, existidprogram, existactorsVal, existactorsName, existtipoactors, existcontact, existcedula, existtelefono, existemail, existdiner, existespecie, existtotal As String
+        Dim sql As New StringBuilder
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
 
+        Response.Clear()
+        Response.Buffer = True
+        Response.AddHeader("content-disposition", "attachment;filename=ProyectExport.doc")
+        Response.Charset = "UTF8Encoding"
+        Response.ContentType = "application/vnd.ms-word "
 
-        Dim ruta, riesgos, mitigacion, obligaciones, dia, ddlc, ddls, ddlp, name, just, objet, objetesp, resulb, resulgc, resulci, resulotros, fech, dura, people, vt1, vt2, vt3, fuent, est, datanex, dept, munip, actor, action, vt4, vt5, vt6, active As String
-        Dim FSCval As String = ""
-        Dim ididea As Integer
+        Dim id_proyect_str = Request.QueryString("id")
 
-        Dim idideastr = Request.QueryString("id")
+        'validamos el id del proyecto si es edicion o creacion
+        If id_proyect_str = "" Then
 
-        If idideastr = "" Then
-
-            sql.Append("select MAX(id) from idea")
-            ididea = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
+            sql.Append("select MAX(id) from Project")
+            id_project = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
 
         Else
 
-            ididea = idideastr
+            id_project = id_proyect_str
 
         End If
 
+        '----------------------------- sentencia para traer todos los datos del proyecto de la pestaña descripcion del proyecto ------------------------------
         sql = New StringBuilder
 
-        sql.Append("select convert(bigint,REPLACE(ti.FSCorCounterpartContribution,'.','')) from Idea i  ")
-        sql.Append("inner join ThirdByIdea ti on i.Id = ti.IdIdea  ")
-        sql.Append(" inner join Third t on t.Id= ti.IdThird ")
-        sql.Append("where (t.code = '8600383389' And ti.IdIdea = " & ididea & ")")
-
-        FSCval = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
-
-        If FSCval = 0 Then
-            vt5 = "0"
-        Else
-            vt5 = Format(Convert.ToInt64(FSCval), "#,###.##")
-        End If
-        sql = New StringBuilder
-        sql.Append("select sum(convert(bigint,REPLACE(ti.FSCorCounterpartContribution,'.',''))) from Idea i   ")
-        sql.Append("inner join ThirdByIdea ti on i.Id=ti.IdIdea  ")
-        sql.Append(" inner join Third t on t.Id= ti.IdThird ")
-        sql.Append("where(t.code <> '8600383389' And ti.IdIdea = " & ididea & ")")
-
-
-        Dim otrosval = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
-
-        If otrosval = 0 Then
-            vt4 = "0"
-        Else
-            vt4 = Format(Convert.ToInt64(otrosval), "#,###.##")
-        End If
-
-        sql = New StringBuilder
-        sql.Append("select Name,Justification,Objective,AreaDescription,results,ResultsKnowledgeManagement,ResultsInstalledCapacity,OtherResults,StartDate,Duration,days,Cost,obligationsoftheparties,RiskMitigation,RisksIdentified,BudgetRoute from idea ")
-        sql.Append(" where id = " & ididea)
+        sql.Append(" select ididea ,Name,Justification,Objective,ZoneDescription,results,ResultsKnowledgeManagement,ResultsInstalledCapacity,OtherResults,BeginDate,Duration,days,TotalCost,obligationsoftheparties,RiskMitigation,RisksIdentified,BudgetRoute,ideaappliesIVA from Project")
+        sql.Append(" where id = " & id_project)
 
         ' ejecutar la intruccion
         Data_idea = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
 
-
-        sql = New StringBuilder
-
-        sql.Append(" select i.Id, p.Name as objetivo, l.Name as linea_estra from idea i ")
-        sql.Append(" inner join ProgramComponentByIdea pci on pci.IdIdea= i.Id ")
-        sql.Append(" inner join ProgramComponent pc on pc.Id = pci.IdProgramComponent ")
-        sql.Append(" inner join Program p on p.Id = pc.IdProgram ")
-        sql.Append(" inner join StrategicLine l on l.Id = p.IdStrategicLine ")
-
-        sql.Append(" where i.id = " & ididea)
-
-        Data_componet = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
-
-        sql = New StringBuilder
-
-        sql.Append(" select distinct p.Code as objetivo_estrategico from ProgramComponentByIdea pci ")
-        sql.Append(" inner join ProgramComponent pc on pci.IdProgramComponent = pc.Id ")
-        sql.Append(" inner join Program P ON P.Id = pc.IdProgram ")
-
-        sql.Append(" where pci.IdIdea = " & ididea)
-
-        Data_component_group = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
-
-        sql = New StringBuilder
-        sql.Append(" select  tp.Contract, p.Pupulation  from Idea i ")
-        sql.Append(" inner join typecontract tp on tp.id = i.Idtypecontract ")
-        sql.Append(" inner join Population p on p.Id= i.Population ")
-
-        sql.Append(" where i.id = " & ididea)
-
-        Data_others = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
-
-        sql = New StringBuilder
-
-        sql.Append("select ti.Name, ti.Type, ti.Contact,ti.Documents,ti.Phone, ti.Email, ti.Vrmoney, ti.VrSpecies, ti.FSCorCounterpartContribution, ti.generatesflow  from ThirdByIdea ti where ti.IdIdea = " & ididea)
-
-        Data_detalles_actores = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
-
-
-        sql = New StringBuilder
-        sql.Append(" select dep.Name as dapartamento, c.Name as municipio from LocationByIdea li ")
-        sql.Append(" inner join FSC_eSecurity.dbo.depto dep on dep.id = li.iddepto ")
-        sql.Append(" inner join FSC_eSecurity.dbo.City c on c.ID = li.IdCity ")
-        sql.Append(" where li.ididea = " & ididea)
-
-        Data_ubicacion = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
-
-
-        If Data_componet.Rows.Count > 0 Then
-
-            If IsDBNull(Data_componet.Rows(0)("linea_estra")) = False Then
-                ddls = Data_componet.Rows(0)("linea_estra")
-            Else
-                ddls = ""
-            End If
-
-        End If
-
-        If Data_others.Rows.Count > 0 Then
-
-            If IsDBNull(Data_others.Rows(0)("Contract")) = False Then
-                ddlc = Data_others.Rows(0)("Contract")
-            Else
-                ddlc = ""
-            End If
-
-
-            If IsDBNull(Data_others.Rows(0)("Pupulation")) = False Then
-                people = Data_others.Rows(0)("Pupulation")
-            Else
-                people = ""
-            End If
-
-        End If
-
-
-
+        'cargamos datos de la consulta a las variables
         If Data_idea.Rows.Count > 0 Then
 
             If IsDBNull(Data_idea.Rows(0)("Name")) = False Then
@@ -3206,8 +3111,8 @@ Partial Class addProject
                 objet = ""
             End If
 
-            If IsDBNull(Data_idea.Rows(0)("AreaDescription")) = False Then
-                objetesp = Data_idea.Rows(0)("AreaDescription")
+            If IsDBNull(Data_idea.Rows(0)("ZoneDescription")) = False Then
+                objetesp = Data_idea.Rows(0)("ZoneDescription")
             Else
                 objetesp = ""
             End If
@@ -3236,8 +3141,8 @@ Partial Class addProject
                 resulotros = ""
             End If
 
-            If IsDBNull(Data_idea.Rows(0)("StartDate")) = False Then
-                fech = Data_idea.Rows(0)("StartDate")
+            If IsDBNull(Data_idea.Rows(0)("BeginDate")) = False Then
+                fech = Data_idea.Rows(0)("BeginDate")
             Else
                 fech = ""
             End If
@@ -3254,9 +3159,9 @@ Partial Class addProject
                 dia = 0
             End If
 
-            If IsDBNull(Data_idea.Rows(0)("cost")) = False Then
-                vt3 = Data_idea.Rows(0)("cost")
-                vt6 = Data_idea.Rows(0)("cost")
+            If IsDBNull(Data_idea.Rows(0)("TotalCost")) = False Then
+                vt3 = Data_idea.Rows(0)("TotalCost")
+                vt6 = Data_idea.Rows(0)("TotalCost")
             Else
                 vt3 = 0
                 vt6 = 0
@@ -3286,24 +3191,136 @@ Partial Class addProject
                 ruta = ""
             End If
 
+            If IsDBNull(Data_idea.Rows(0)("ideaappliesIVA")) = False Then
+                aplica_iva = Data_idea.Rows(0)("ideaappliesIVA")
+            Else
+                aplica_iva = 0
+            End If
+
         End If
 
+        '----------------- consulta para saber el valor del aporte de la fsc---------------------------------------------------------------------
 
+        sql = New StringBuilder
 
-        Dim contador As Integer = 0
-        Dim contadoractor As Integer = 0
-        Dim contadorcomp As Integer = 0
+        sql.Append(" select convert(bigint,REPLACE(tp.FSCorCounterpartContribution,'.','')) from Project p  ")
+        sql.Append(" inner join ThirdByProject tp on p.Id = tp.IdProject ")
+        sql.Append(" inner join Third t on t.Id = tp.IdThird ")
+        sql.Append(" where (t.code = '8600383389' And tp.IdProject =  " & id_project & ")")
 
-        Dim swicth As Integer = 0
-        Dim swicth_actor As Integer = 0
+        FSCval = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
 
-        Response.Clear()
-        Response.Buffer = True
-        Response.AddHeader("content-disposition", "attachment;filename=IdeaExport.doc")
-        Response.Charset = "UTF8Encoding"
-        Response.ContentType = "application/vnd.ms-word "
+        If FSCval = 0 Then
+            vt5 = "0"
+        Else
+            vt5 = Format(Convert.ToInt64(FSCval), "#,###.##")
+        End If
 
+        '----------------- consulta para saber el valor del aporte de los otros actores en total------------------------------------------------------
 
+        sql = New StringBuilder
+
+        sql.Append(" select sum(convert(bigint,REPLACE(tp.FSCorCounterpartContribution,'.',''))) from Project p ")
+        sql.Append(" inner join ThirdByProject tp on p.Id = tp.IdProject ")
+        sql.Append(" inner join Third t on t.Id = tp.IdThird ")
+        sql.Append(" where (t.code <> '8600383389' And tp.IdProject = " & id_project & ")")
+
+        Dim otrosval = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
+
+        If otrosval = 0 Then
+            vt4 = "0"
+        Else
+            vt4 = Format(Convert.ToInt64(otrosval), "#,###.##")
+        End If
+
+        '---------------------- consulta para saber la linea estrategica del proyecto derivado --------------------------------
+
+        sql = New StringBuilder
+
+        sql.Append(" select p.Id, pr.Name as objetivo, l.Name as linea_estra from Project p ")
+        sql.Append(" inner join ProgramComponentByProject pcp on pcp.IdProject= p.Id ")
+        sql.Append(" inner join ProgramComponent pc on pc.Id = pcp.IdProgramComponent ")
+        sql.Append(" inner join Program pr on pr.Id = pc.IdProgram ")
+        sql.Append(" inner join StrategicLine l on l.Id = pr.IdStrategicLine ")
+
+        sql.Append(" where p.id = " & id_project)
+
+        Data_componet = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+        'cargamos datos de la consulta a las variables
+        If Data_componet.Rows.Count > 0 Then
+
+            If IsDBNull(Data_componet.Rows(0)("linea_estra")) = False Then
+                ddls = Data_componet.Rows(0)("linea_estra")
+            Else
+                ddls = ""
+            End If
+
+        End If
+
+        '---------------------- consulta para saber los objetivos estrategica del proyecto derivado --------------------------------
+
+        sql = New StringBuilder
+
+        sql.Append(" select distinct p.Code as objetivo_estrategico from ProgramComponentByProject pcp  ")
+        sql.Append(" inner join ProgramComponent pc on pcp.IdProgramComponent = pc.Id ")
+        sql.Append(" inner join Program P ON P.Id = pc.IdProgram ")
+
+        sql.Append(" where pcp.IdProject = " & id_project)
+
+        Data_component_group = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+        '---------------------- consulta para saber el tipo de contrato y poblacion del proyecto derivado --------------------------------
+
+        sql = New StringBuilder
+
+        sql.Append(" select  tp.Contract, po.Pupulation  from Project p ")
+        sql.Append(" inner join typecontract tp on tp.id = p.Idtypecontract ")
+        sql.Append(" inner join Population po on po.Id= p.Population ")
+
+        sql.Append(" where p.id = " & id_project)
+
+        Data_others = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+        'cargamos datos de la consulta a las variables
+        If Data_others.Rows.Count > 0 Then
+
+            If IsDBNull(Data_others.Rows(0)("Contract")) = False Then
+                ddlc = Data_others.Rows(0)("Contract")
+            Else
+                ddlc = ""
+            End If
+
+            If IsDBNull(Data_others.Rows(0)("Pupulation")) = False Then
+                people = Data_others.Rows(0)("Pupulation")
+            Else
+                people = ""
+            End If
+
+        End If
+
+        '---------------------- consulta para saber los actores del proyecto derivado --------------------------------
+
+        sql = New StringBuilder
+
+        sql.Append(" select tp.Name, tp.Type, tp.Contact,tp.Documents,tp.Phone, tp.Email, ")
+        sql.Append(" tp.Vrmoney, tp.VrSpecies, tp.FSCorCounterpartContribution, tp.generatesflow ")
+        sql.Append(" from ThirdByProject tp where tp.IdProject = " & id_project)
+
+        Data_detalles_actores = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+        '--------------------- consulta para saber las ubicaciones del proyecto derivado --------------------------------
+
+        sql = New StringBuilder
+
+        sql.Append(" select dep.Name as dapartamento, c.Name as municipio from ProjectLocation pl ")
+        sql.Append(" inner join FSC_eSecurity.dbo.depto dep on dep.id = pl.IdCity ")
+        sql.Append(" inner join FSC_eSecurity.dbo.City c on c.ID = pl.iddepto ")
+        sql.Append(" where pl.IdProject = " & id_project)
+
+        Data_ubicacion = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+        'validamos los campos q vienen vacios
         If objetesp = "" Then
             objetesp = "No Aplica"
         End If
@@ -3325,7 +3342,6 @@ Partial Class addProject
         If mitigacion = "" Then
             mitigacion = "No Aplica"
         End If
-
         If riesgos = "" Then
             riesgos = "No Aplica"
         End If
@@ -3333,17 +3349,41 @@ Partial Class addProject
             ruta = "No Aplica"
         End If
 
+        '--------------------- consulta para saber los totales de los valores de los actores del proyecto derivado --------------------------------
+
+        sql = New StringBuilder
+
+        sql.Append("select sum(cast(replace(Vrmoney,'.','') as int))as v_money, sum(cast(replace(VrSpecies,'.','') as int)) as v_especie,sum(cast(replace(FSCorCounterpartContribution,'.','') as int)) as V_total from ThirdByProject where IdProject = " & id_project)
+        Data_totales_actors = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+        '--------------------- consulta para saber los detalles de los flujos de pagos generados en el proyecto derivado --------------------------------
+
+        sql = New StringBuilder
+
+        sql.Append("select N_pagos,valorparcial, porcentaje,entregable,fecha  from Paymentflow where idproject = " & id_project)
+        Data_pagos = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+        '--------------------- consulta para saber el total de los flujos de pagos generados en el proyecto derivado --------------------------------
+
+        sql = New StringBuilder
+
+        sql.Append("select sum(valorparcial) from Paymentflow where idproject = " & id_project)
+        Dim valtpagos = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
+
+
+        'construimos el documento html
         Response.Output.WriteLine("<meta http-equiv=""Content-Type"" content=""text/html; charset=UTF-8"" /><table  style=""font-family: 'Times New Roman';"" Width=""100%"">")
 
         Response.Output.WriteLine("<body><p style=""text-align: center;""><strong><span style=""font-family:Times New Roman,helvetica,sans-serif;"">T&Eacute;RMINOS DE REFERENCIA</span></strong></p><p><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span></p>")
         Response.Output.WriteLine("<table border=""0"" cellpadding=""1"" cellspacing=""1"" style=""width: 100%;""><tbody><tr><td style=""width: 20%;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>L&iacute;nea Estrat&eacute;gica:</strong></span></td><td>" & ddls.ToString() & "</td></tr>")
         Response.Output.WriteLine("<tr><td style=""width: 50%;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Objetivos Estrat&eacute;gicos:</strong></span></td><td>")
 
+        'istanciamos valores iniciales
         Dim valuar_compo As Integer = Data_component_group.Rows.Count
         valuar_compo = valuar_compo - 1
-
         Dim celda_componente As Integer = 0
 
+        'cargamos en variables de los componentes ingresados en el proyecto
         If Data_component_group.Rows.Count > 0 Then
 
             For Each det_componente In Data_component_group.Rows
@@ -3352,14 +3392,10 @@ Partial Class addProject
                     ddlp = Data_component_group.Rows(celda_componente)("objetivo_estrategico")
                 End If
 
-
                 If valuar_compo = celda_componente Then
-
                     Response.Output.WriteLine(ddlp)
-
                 Else
                     Response.Output.WriteLine(ddlp & ", ")
-
                 End If
 
                 celda_componente = celda_componente + 1
@@ -3368,19 +3404,16 @@ Partial Class addProject
 
         End If
 
-        Response.Output.WriteLine("</td></tr><tr><td style=""width: 50%;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Nombre de la Idea:</strong></span></td><td>" & name.ToString() & "</td></tr>")
+        Response.Output.WriteLine("</td></tr><tr><td style=""width: 50%;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Nombre del Proyecto:</strong></span></td><td>" & name.ToString() & "</td></tr>")
         Response.Output.WriteLine("<tr><td style=""width: 50%;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Localizaci&oacute;n Geogr&aacute;fica:</strong></span></td><td>")
 
-
+        'istanciamos valores iniciales
         Dim lbldepto, lblcity As String
-
-
         Dim valuar_ubi As Integer = Data_ubicacion.Rows.Count
         valuar_ubi = valuar_ubi - 1
-
-
         Dim celda_ubicacion As Integer = 0
 
+        'cargamos en variables de las ubicaciones ingresadas en el proyecto
         If Data_ubicacion.Rows.Count > 0 Then
 
             For Each det_actor In Data_ubicacion.Rows
@@ -3394,12 +3427,9 @@ Partial Class addProject
                 End If
 
                 If valuar_ubi = celda_ubicacion Then
-
                     Response.Output.WriteLine(lbldepto.ToString() & ", " & lblcity.ToString())
-
                 Else
                     Response.Output.WriteLine(lbldepto.ToString() & ", " & lblcity.ToString() & " || ")
-
                 End If
 
                 celda_ubicacion = celda_ubicacion + 1
@@ -3408,27 +3438,35 @@ Partial Class addProject
 
         End If
 
-
         Response.Output.WriteLine("</td></tr><tr><td style=""width: 50%;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Poblaci&oacute;n Objetivo:</strong></span></td><td>" & people.ToString() & "</td></tr>")
         Response.Output.WriteLine("<tr><td style=""width: 50%;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Fecha de Inicio:</strong></span></td><td>" & fech.ToString() & "</td></tr>")
         Response.Output.WriteLine("<tr><td style=""width: 50%;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Duraci&oacute;n en meses:</strong></span></td><td> Meses: " & dura.ToString() & " Dias: " & dia.ToString() & "</td></tr>")
 
+        'utilizamos la funcion q nos calcula  la fecha final del proyecto
         Dim fechafinal = calculafechas(Convert.ToDateTime(fech), dura, dia)
 
         Response.Output.WriteLine("<tr><td style=""width: 50%;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Fecha de Finalizaci&oacute;n:</strong></span></td><td>" & Convert.ToString(fechafinal) & "</td></tr>")
         Response.Output.WriteLine("<tr><td style=""width: 50%;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Modalidad de contrataci&oacute;n:</strong></span></span></td><td>" & ddlc.ToString() & "</td></tr>")
         Response.Output.WriteLine("<tr><td style=""width: 50%;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Ruta Presupuestal:</strong></span></span></td><td>" & ruta.ToString() & "</td></tr>")
         Response.Output.WriteLine("<tr><td style=""width: 50%;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Valor Total:</strong></span></td><td>" & Format(Convert.ToInt64(vt3), "#,###.##") & "</td></tr>")
-        ''
-        Response.Output.WriteLine("<tr><td style=""width: 50%;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Aplica IVA:</strong></span></td><td> si </td></tr>")
-        Response.Output.WriteLine("<tr><td style=""width: 50%;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>No. de Idea:</strong></span></td><td>" & ididea.ToString() & "</td></tr></tbody></table>")
+
+        'validamos si aplica iva y lo traducimos
+        If aplica_iva = 1 Then
+            aplica_iva = "Si"
+        Else
+            aplica_iva = "No"
+        End If
+
+        Response.Output.WriteLine("<tr><td style=""width: 50%;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Aplica IVA:</strong></span></td><td> " & aplica_iva.ToString() & " </td></tr>")
+        Response.Output.WriteLine("<tr><td style=""width: 50%;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>No. de proyecto:</strong></span></td><td>" & id_project.ToString() & "</td></tr></tbody></table>")
         Response.Output.WriteLine("<p><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Actores:</strong></span></p>")
         Response.Output.WriteLine("<table border=""1"" cellpadding=""1"" cellspacing=""1"" style=""width: 100%;""><tbody><tr><td style=""width: 16%; text-align: center;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Actor</strong></span></td><td style=""width: 16%; text-align: center;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Tipo</strong></span></td><td style=""width: 16%; text-align: center;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Contacto</strong></span></td><td style=""width: 16%; text-align: center;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Tel&eacute;fono</strong></span></td><td style=""width: 16%; text-align: center;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Correo electr&oacute;nico</strong></span></td></tr>")
 
+        'istanciamos valores iniciales
         Dim lblname, labelcontact, labeldocument, labeltype, labelphone, labelemail As String
-
         Dim celda_det_actors_dat As Integer = 0
 
+        'cargamos en variables de los datos de los actores ingresados en el proyecto
         If Data_detalles_actores.Rows.Count > 0 Then
 
             For Each det_actor In Data_detalles_actores.Rows
@@ -3475,19 +3513,16 @@ Partial Class addProject
         Response.Output.WriteLine("<td style=""width: 5%; text-align: right;""><strong><span style=""font-family:Times New Roman,helvetica,sans-serif;"">&gt;</span></strong></td><td style=""width: 20%;""><strong><span style=""font-family:Times New Roman,helvetica,sans-serif;"">Gesti&oacute;n del conocimiento:</span></strong></td><td style=""text-align: justify;"">" & resulgc.ToString() & "</td></tr><tr>")
         Response.Output.WriteLine("<td style=""width: 5%; text-align: right;""><strong><span style=""font-family:Times New Roman,helvetica,sans-serif;"">&gt;</span></strong></td><td style=""width: 20%;""><strong><span style=""font-family:Times New Roman,helvetica,sans-serif;"">Capacidad instalada:</span></strong></td><td style=""text-align: justify;"">" & resulci.ToString() & "</td></tr><tr>")
         Response.Output.WriteLine("<td style=""width: 5%; text-align: right;""><strong><span style=""font-family:Times New Roman,helvetica,sans-serif;"">&gt;</span></strong></td><td style=""width: 20%;""><strong><span style=""font-family:Times New Roman,helvetica,sans-serif;"">Otros:</span></strong></td><td style=""text-align: justify;"">" & resulotros.ToString() & "</td></tr></tbody></table>")
-
         Response.Output.WriteLine("</tbody></table><p><strong><span style=""font-family:Times New Roman,helvetica,sans-serif;"">OBLIGACIONES DE LAS PARTES:</span></strong></p>")
         Response.Output.WriteLine("<table border=""0"" cellpadding=""1"" cellspacing=""1"" height=""67"" width=""100%""><tbody><tr><td style=""text-align: justify;"">" & obligaciones.ToString() & "</td></tr></tbody></table>")
-
-
         Response.Output.WriteLine("<p><strong><span style=""font-family:Times New Roman,helvetica,sans-serif;"">PRESUPUESTO GENERAL:</span></strong></p>")
         Response.Output.WriteLine("<table border=""1"" cellpadding=""1"" cellspacing=""1"" style=""width: 100%;""><tbody><tr><td style=""text-align: center;""><b><span lang=""ES"" style=""font-size: 12pt; line-height: 115%; font-family: 'Times New Roman', serif;"">Actor</span></b></td><td style=""text-align: center;""><b><span lang=""ES"" style=""font-size: 12pt; line-height: 115%; font-family: 'Times New Roman', serif;"">Efectivo</span></b></td><td style=""text-align: center;""><b><span lang=""ES"" style=""font-size: 12pt; line-height: 115%; font-family: 'Times New Roman', serif;"">Especie</span></b></td><td style=""text-align: center;""><b><span lang=""ES"" style=""font-size: 12pt; line-height: 115%; font-family: 'Times New Roman', serif;"">Total Aporte</span></b></td></tr>")
 
-
+        'istanciamos valores iniciales
         Dim celda_det_actors As Integer = 0
-
         Dim name_actor, V_Efectivo, V_Especie, V_total, T_efectivo, T_especies, T_total, flujos_gene As String
 
+        'cargamos en variables de los valores de los actores ingresados en el proyecto
         If Data_detalles_actores.Rows.Count > 0 Then
 
             For Each det_actor In Data_detalles_actores.Rows
@@ -3530,11 +3565,7 @@ Partial Class addProject
 
         End If
 
-        sql = New StringBuilder
-
-        sql.Append("select sum(cast(replace(Vrmoney,'.','') as int))as v_money, sum(cast(replace(VrSpecies,'.','') as int)) as v_especie,sum(cast(replace(FSCorCounterpartContribution,'.','') as int)) as V_total from ThirdByIdea where ididea =" & ididea)
-        Data_totales_actors = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
-
+        'cargamos en variables de totales de los actores ingresados en el proyecto
         If Data_totales_actors.Rows.Count > 0 Then
 
             If IsDBNull(Data_totales_actors.Rows(0)("v_money")) = False Then
@@ -3552,18 +3583,16 @@ Partial Class addProject
         End If
 
         Response.Output.WriteLine("<tr><td style=""text-align: center;""><b><span lang=""ES"" style=""font-size: 12pt; line-height: 115%; font-family: 'Times New Roman', serif;"">Total</span></b></td><td style=""text-align: center;""> " & Format(Convert.ToInt64(T_efectivo), "#,###.##") & "</td><td style=""text-align: center;""> " & Format(Convert.ToInt64(T_especies), "#,###.##") & "</td><td style=""text-align: center;""> " & Format(Convert.ToInt64(T_total), "#,###.##") & "</td></tr></tbody></table>")
-
-
         Response.Output.WriteLine("<span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span><span _fck_bookmark=""1"" style=""display: none;"">&nbsp;</span>")
-
         Response.Output.WriteLine("<p><u><strong><span style=""font-family:Times New Roman,helvetica,sans-serif;"">FLUJOS DE PAGOS</span></strong></u></p>")
-
         Response.Output.WriteLine("<table border=""0"" cellpadding=""1"" cellspacing=""1"" style=""width: 100%;""><tbody><tr><td style=""width: 20%;""><strong>*Aporte de:</strong></td><td>")
 
+        'istanciamos valores iniciales
         name_actor = ""
         Dim name_str As String
         Dim celdanombre As Integer = 0
 
+        ' cargamos en variables los nombres de actores ingresados en el proyecto que tienen flujos de pagos
         If Data_detalles_actores.Rows.Count > 0 Then
 
             Dim valuar As Integer = Data_detalles_actores.Rows.Count
@@ -3571,7 +3600,6 @@ Partial Class addProject
 
             For Each Eachnombreitem In Data_detalles_actores.Rows
                 name_actor = Data_detalles_actores.Rows(celdanombre)("Name")
-
                 flujos_gene = Data_detalles_actores.Rows(celdanombre)("generatesflow")
 
                 If flujos_gene = "s" Then
@@ -3594,20 +3622,14 @@ Partial Class addProject
         End If
 
         Response.Output.WriteLine(name_str & "</td></tr></tbody></table>")
-
         Response.Output.WriteLine("<table border=""1"" cellpadding=""1"" cellspacing=""1"" height=""125"" width=""100%""><tbody><tr><td style=""width: 16%; text-align: center;"">&nbsp;</td><td style=""width: 16%; text-align: center;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Valor</strong></span></td><td style=""width: 5%; text-align: center;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>%</strong></span></td><td style=""width: 16%; text-align: center;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Origen de los Recursos</strong></span></td><td style=""width: 16%; text-align: center;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Contraentrega</strong></span></td><td style=""width: 16%; text-align: center;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Fecha</strong></span></td></tr>")
 
-        sql = New StringBuilder
-
-        sql.Append("select N_pagos,valorparcial, porcentaje,entregable,fecha  from Paymentflow where ididea = " & ididea)
-        Data_pagos = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
-
-
+        'istanciamos valores iniciales
         Dim celdapago As Integer = 0
         Dim celdadetalle As Integer = 0
-
         Dim valorp, porsent, entregp, fechap, np, detalles, aport, desem As String
 
+        ' cargamos en variables los flujos pagos ingresados en el proyecto derivado
         If Data_pagos.Rows.Count > 0 Then
 
             For Each pagoitem In Data_pagos.Rows
@@ -3618,11 +3640,13 @@ Partial Class addProject
                     detalles = ""
                     celdadetalle = 0
 
+                    '-------- consulta para saber los detalles segun el numero de pago generados en el proyecto derivado --------------------------------
                     sql = New StringBuilder
 
-                    sql.Append("select n_pago, Aportante, Desembolso from Detailedcashflows where IdIdea = " & ididea & " and N_pago = " & np)
+                    sql.Append("select n_pago, Aportante, Desembolso from Detailedcashflows where Idproject = " & id_project & " and N_pago = " & np)
                     Data_pagos_detalles = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
 
+                    ' cargamos en variables los detalles de los flujos pagos ingresados en el proyecto derivado
                     If Data_pagos_detalles.Rows.Count > 0 Then
 
                         Dim valuar_det As Integer = Data_pagos_detalles.Rows.Count
@@ -3645,11 +3669,9 @@ Partial Class addProject
                                 detalles &= aport & " valor: " & desem & " || "
                             End If
 
-
                             celdadetalle = celdadetalle + 1
                         Next
                     End If
-
 
                 End If
                 If IsDBNull(Data_pagos.Rows(celdapago)("valorparcial")) = False Then
@@ -3671,16 +3693,9 @@ Partial Class addProject
 
             Next
 
-            sql = New StringBuilder
-
-            sql.Append("select sum(valorparcial) from Paymentflow where ididea =" & ididea)
-            Dim valtpagos = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
-
             Response.Output.WriteLine("<tr><td style=""width: 16%;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Total</strong></span></td><td style=""width: 16%;"">" & Format(Convert.ToInt64(valtpagos), "#,###.##") & "</td><td style=""width: 5%;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>100%</strong></span></td><td style=""width: 16%;""></td><td style=""width: 16%;""></td><td style=""width: 16%;""></td></tr><tr>")
 
-
         End If
-
 
         Response.Output.WriteLine("</tbody></table><p>&nbsp;</p><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong><u>IDENTIFICACI&Oacute;N DE RIESGOS</u></strong></span></p><p>&nbsp;</p>")
         Response.Output.WriteLine("<table border=""1"" cellpadding=""1"" cellspacing=""1"" style=""width: 100%;""><tbody><tr><td style=""width: 50%; text-align: center;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Riesgo identificado</strong></span></td><td style=""text-align: center;""><span style=""font-family:Times New Roman,helvetica,sans-serif;""><strong>Acci&oacute;n de mitigaci&oacute;n</strong></span></td></tr><tr><td style=""width: 50%;"">" & mitigacion.ToString() & "</td><td>" & riesgos.ToString() & "</td></tr></tbody></table>")
@@ -3689,12 +3704,6 @@ Partial Class addProject
         Response.Flush()
         Response.End()
 
-        Try
-
-
-        Catch ex As Exception
-
-        End Try
     End Function
 
 
