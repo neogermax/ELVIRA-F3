@@ -5,7 +5,7 @@
         <ContentTemplate>
 --%>
     <style media="all" type="text/css">
-        #contenedor
+        #contenedor 
         {
             background-image: url(/FSC/App_Themes/GattacaAdmin/Images/Template/V9/bg.jpg);
             background-repeat: repeat-x;

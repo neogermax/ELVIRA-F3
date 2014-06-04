@@ -7,9 +7,11 @@ var entradaflujos = 0;
 var arrayflujosdepago = [];
 var edit_flujo_inicializa = 0;
 var edit_swhich_fx = 0;
+var swhich_flujos_exist = 0;
 var swhich_validar_estado_1 = 0;
 var matriz_flujos = [];
 var reversedesembolsos = [];
+var switch_editar = 0;
 
 function Btn_add_flujo_onclick() {
 
@@ -49,7 +51,7 @@ function Btn_add_flujo_onclick() {
 
             //creamos json para guardarlos en un array
             var jsonflujo = {
-                "N_pago": N_pago,
+                "N_pagos": N_pago,
                 "fecha": fecha_pago,
                 "porcentaje": porcentaje,
                 "entregable": entrega,
@@ -192,12 +194,12 @@ function refreshTablePaymentFlow() {
 
         valorTotalMask = addThousandChar(valorTotalMask);
         
-        htmlTableflujos += "<tr id='flow" + parseIntNull(arrayflujosdepago[itemArray].N_pagos) + "' ><td>" + parseIntNull(arrayflujosdepago[itemArray].N_pagos) + "</td><td>";
-        htmlTableflujos += arrayflujosdepago[itemArray].fecha + "</td><td>" + arrayflujosdepago[itemArray].porcentaje + "</td><td>" + arrayflujosdepago[itemArray].entregable;
+        htmlTableflujos += "<tr id='flow" + parseIntNull($.trim(arrayflujosdepago[itemArray].N_pagos)) + "' ><td>" + parseIntNull($.trim(arrayflujosdepago[itemArray].N_pagos)) + "</td><td>";
+        htmlTableflujos += arrayflujosdepago[itemArray].fecha + "</td><td>" + parseInt(arrayflujosdepago[itemArray].porcentaje) + "</td><td>" + arrayflujosdepago[itemArray].entregable;
         htmlTableflujos += "</td><td>" + valorTotalMask + "</td><td><input type ='button' value= 'Editar'";
         htmlTableflujos += " class=\"btn\" style='background-image: none;' onclick=\"editflujo(" + itemArray + ")\" >";
         htmlTableflujos += "</input><input type ='button' class=\"btn btn-warning\" style='background-image: none;' value= 'Eliminar' onclick=\" eliminarflujo('" + arrayflujosdepago[itemArray].N_pagos + "')\"></input>";
-        htmlTableflujos += "</td><td><input type ='button' value= 'Detalle' onclick=\"traerdetalles('" + arrayflujosdepago[itemArray].N_pagos + "',this)\"></input></td></tr>";
+        htmlTableflujos += "</td><td><input type ='button' value= 'Detalle' onclick=\"traerdetalles('" + $.trim(arrayflujosdepago[itemArray].N_pagos) + "',this)\"></input></td></tr>";
     }
     htmlTableflujos += "<tr><td width='1' style='color: #D3D6FF; font-size: 0.1em;'>1000</td><td>Porcentaje acumulado</td>";
     htmlTableflujos += "<td id='porcentaje'>0 %</td><td>Total</td><td id='totalflujospagos'>0</td><td></td><td></td></tr></tbody></table>";
@@ -237,11 +239,28 @@ function loadPaymentFlowsByProject() {
         },
         success: function (result) {
             var resultJson = JSON.parse(result.toString());
-            console.log(resultJson);
             arrayflujosdepago = JSON.parse(resultJson.toString());
-            console.log(arrayflujosdepago);
             refreshTablePaymentFlow();
             refreshTableFlow();
+            sumarflujospagos();
+        },
+        error: function (msg) {
+            //
+        }
+    });
+}
+
+function loadPaymentDetailsFlowsByProject() {
+    $.ajax({
+        url: "AjaxRequest.aspx",
+        type: "POST",
+        data: {
+            "action": "loadDetailsFlowsProject",
+            "idProject": idproject
+        },
+        success: function (result) {
+            var resultJson = JSON.parse(result.toString());
+            matriz_flujos = JSON.parse(resultJson.toString());
         },
         error: function (msg) {
             //
@@ -393,8 +412,8 @@ function traerdetalles(str_idpago) {
 
 
     for (itemArray in matriz_flujos) {
-        if (matriz_flujos[itemArray].idpago == str_idpago) {
-            htmlTableflujosdetalles += "<tr><td>" + matriz_flujos[itemArray].idpago + "</td><td width='1' style='color: #D3D6FF; font-size: 0.1em;'>" + matriz_flujos[itemArray].idaportante + "</td><td>" + matriz_flujos[itemArray].Aportante + "</td><td>" + matriz_flujos[itemArray].desembolso + "</td></tr>";
+        if (matriz_flujos[itemArray].N_pago == str_idpago) {
+            htmlTableflujosdetalles += "<tr><td>" + matriz_flujos[itemArray].N_pago + "</td><td width='1' style='color: #D3D6FF; font-size: 0.1em;'>" + matriz_flujos[itemArray].IdAportante + "</td><td>" + matriz_flujos[itemArray].Aportante + "</td><td>" + matriz_flujos[itemArray].Desembolso + "</td></tr>";
         }
     }
 
@@ -424,16 +443,15 @@ var porcentaje;
 function editflujo(index) {
     
     //capturamos los datos otraves para la edicion
-    $("#ctl00_cphPrincipal_txtvalortotalflow").val(arrayflujosdepago[index].valortotal);
+    $("#ctl00_cphPrincipal_txtvalortotalflow").val($.trim(arrayflujosdepago[index].N_pagos));
     $("#ctl00_cphPrincipal_txtfechapago").val(arrayflujosdepago[index].fecha);
-    $("#ctl00_cphPrincipal_txtporcentaje").val(arrayflujosdepago[index].porcentaje.replace(' %', ''));
+    $("#ctl00_cphPrincipal_txtporcentaje").val(parseInt(arrayflujosdepago[index].porcentaje.replace(' %', '')));
     // tflujos = tflujos.replace(/\./gi, ',');
     $("#ctl00_cphPrincipal_Lbltotalvalor").text(arrayflujosdepago[index].valortotal);
     $("#ctl00_cphPrincipal_txtentregable").val(arrayflujosdepago[index].entregable);
 
     switch_editar = 1;
     //lamar funcion borrar flujos de pagos
-
     eliminarflujo(arrayflujosdepago[index].N_pagos);
     //llamar suma de pagos
     sumarflujospagos();
@@ -459,7 +477,7 @@ function eliminarflujo(strN_pago) {
     //recorremos el array detalles de pagos
     for (itemArraymatriz in matriz_flujos) {
         //construimos la llave de validacion
-        var idmatriz = matriz_flujos[itemArraymatriz].idpago;
+        var idmatriz = matriz_flujos[itemArraymatriz].N_pago;
         //validamos el dato q nos trae la funcion
 
         if (strN_pago == idmatriz) {
@@ -468,9 +486,9 @@ function eliminarflujo(strN_pago) {
             var actorsreverse;
             var desembolsorev;
 
-            actorsreverse = matriz_flujos[itemArraymatriz].idaportante;
+            actorsreverse = matriz_flujos[itemArraymatriz].IdAportante;
 
-            desembolsorev = matriz_flujos[itemArraymatriz].desembolso;
+            desembolsorev = matriz_flujos[itemArraymatriz].Desembolso;
 
             var jsonreverdesembolsos = {
                 "actorsreverse": actorsreverse,
@@ -495,7 +513,7 @@ function eliminarflujo(strN_pago) {
     }
     reversedesembolsos = [];
 
-    var idflow = "#flow" + strN_pago;
+    var idflow = "#flow" + $.trim(strN_pago);
     //borramos de la vista el td seleccionado 
     $(idflow).remove();
 
@@ -753,7 +771,7 @@ function validar_limite_actores(opeValuesActorsflujos, opevaluesActorsdesembolso
 
 
 
-var swhich_flujos_exist;
+
 
 //funcion suma de flujos de pagos
 function sumarflujospagos() {
