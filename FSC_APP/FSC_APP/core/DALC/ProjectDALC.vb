@@ -387,8 +387,6 @@ Public Class ProjectDALC
             data = GattacaApplication.RunSQLRDT(objApplicationCredentials, sql.ToString)
 
 
-
-
             If data.Rows.Count > 0 Then
 
                 ' cargar los datos
@@ -401,14 +399,14 @@ Public Class ProjectDALC
                 objProject.justification = data.Rows(0)("justification")
                 objProject.begindate = IIf(Not IsDBNull(data.Rows(0)("begindate")), data.Rows(0)("begindate"), Nothing)
                 objProject.duration = data.Rows(0)("duration")
-                objProject.zonedescription = data.Rows(0)("zonedescription")
+                objProject.zonedescription = IIf(Not IsDBNull(data.Rows(0)("zonedescription")), data.Rows(0)("zonedescription"), "")
                 objProject.population = data.Rows(0)("population")
                 objProject.ResultsKnowledgeManagement = IIf(Not IsDBNull(data.Rows(0)("ResultsKnowledgeManagement")), data.Rows(0)("ResultsKnowledgeManagement"), "")
                 objProject.ResultsInstalledCapacity = IIf(Not IsDBNull(data.Rows(0)("ResultsInstalledCapacity")), data.Rows(0)("ResultsInstalledCapacity"), "")
-                objProject.strategicdescription = data.Rows(0)("strategicdescription")
+                objProject.strategicdescription = IIf(Not IsDBNull(data.Rows(0)("strategicdescription")), data.Rows(0)("strategicdescription"), "")
                 objProject.results = data.Rows(0)("results")
-                objProject.source = data.Rows(0)("source")
-                objProject.purpose = data.Rows(0)("purpose")
+                objProject.source = IIf(Not IsDBNull(data.Rows(0)("source")), data.Rows(0)("source"), "")
+                objProject.purpose = IIf(Not IsDBNull(data.Rows(0)("purpose")), data.Rows(0)("purpose"), "")
                 objProject.totalcost = data.Rows(0)("totalcost")
                 objProject.fsccontribution = data.Rows(0)("fsccontribution")
                 objProject.counterpartvalue = data.Rows(0)("counterpartvalue")
@@ -433,9 +431,19 @@ Public Class ProjectDALC
                 objProject.IdProcessInstance = data.Rows(0)("IdProcessInstance")
                 objProject.Typeapproval = data.Rows(0)("Typeapproval")
 
-                objProject.editablemoney = data.Rows(0)("editablemoney")
-                objProject.editabletime = data.Rows(0)("editabletime")
-                objProject.editableresults = data.Rows(0)("editableresults")
+                objProject.OthersResults = IIf(Not IsDBNull(data.Rows(0)("OtherResults")), data.Rows(0)("OtherResults"), "")
+                objProject.Obligaciones = IIf(Not IsDBNull(data.Rows(0)("obligationsoftheparties")), data.Rows(0)("obligationsoftheparties"), "")
+                objProject.presupuestal = IIf(Not IsDBNull(data.Rows(0)("BudgetRoute")), data.Rows(0)("BudgetRoute"), "")
+                objProject.riesgos = IIf(Not IsDBNull(data.Rows(0)("RisksIdentified")), data.Rows(0)("RisksIdentified"), "")
+                objProject.mitigacion = IIf(Not IsDBNull(data.Rows(0)("RiskMitigation")), data.Rows(0)("RiskMitigation"), "")
+                objProject.dia = IIf(Not IsDBNull(data.Rows(0)("days")), data.Rows(0)("days"), "")
+                objProject.iva = IIf(Not IsDBNull(data.Rows(0)("ideaappliesIVA")), data.Rows(0)("ideaappliesIVA"), "")
+                objProject.idtypecontract = IIf(Not IsDBNull(data.Rows(0)("Idtypecontract")), data.Rows(0)("Idtypecontract"), "")
+
+                objProject.editablemoney = IIf(Not IsDBNull(data.Rows(0)("editablemoney")), data.Rows(0)("editablemoney"), "")
+                objProject.editabletime = IIf(Not IsDBNull(data.Rows(0)("editabletime")), data.Rows(0)("editabletime"), "")
+                objProject.editableresults = IIf(Not IsDBNull(data.Rows(0)("editableresults")), data.Rows(0)("editableresults"), "")
+
                 'objProject.IdActivityInstance = data.Rows(0)("IdActivityInstance")
 
             End If
