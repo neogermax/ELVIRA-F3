@@ -491,4 +491,103 @@ Partial Public Class Request
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
     Protected WithEvents Lblpaso3 As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''Control lblStartSuspend.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents lblStartSuspend As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''Control txtStartSuspend.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents txtStartSuspend As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''Control ceStartSuspend.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents ceStartSuspend As Global.AjaxControlToolkit.CalendarExtender
+
+    '''<summary>
+    '''Control cvStartSuspend.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents cvStartSuspend As Global.System.Web.UI.WebControls.CompareValidator
+
+    '''<summary>
+    '''Control lblEndSuspend.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents lblEndSuspend As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''Control txtEndSuspend.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents txtEndSuspend As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''Control ceEndSuspend.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents ceEndSuspend As Global.AjaxControlToolkit.CalendarExtender
+
+    '''<summary>
+    '''Control cvEndSuspend.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents cvEndSuspend As Global.System.Web.UI.WebControls.CompareValidator
+
+    '''<summary>
+    '''Control lblInfoSuspend.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents lblInfoSuspend As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''Control lblRestartType.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents lblRestartType As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''Control ddlRestartType.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents ddlRestartType As Global.System.Web.UI.WebControls.DropDownList
 End Class
