@@ -189,12 +189,9 @@ Partial Class addProject
                     Me.txtcode.Visible = True
                     Me.lblcode.Visible = True
                     Me.txtenabled.Visible = False
-                    Me.txtname.ReadOnly = True
-                    Me.txtobjective.ReadOnly = True
-                    Me.txtjustification.ReadOnly = True
-                    Me.txtresults.ReadOnly = True
+                    
                     Me.lblenabled.Visible = False
-                    Me.txtduration.ReadOnly = True
+
                     Me.txtcode.ReadOnly = True
                     Me.btntermsreference.Visible = False
 

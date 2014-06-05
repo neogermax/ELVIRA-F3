@@ -5756,6 +5756,7 @@ Public Class Facade
         Dim objThirdByProjectDALC As New ThirdByProjectDALC
         ' crear objeto flujo de pago
         Dim objPaymentFlowDALC As New PaymentFlowDALC()
+        Dim objdetallesflujoDALC As New DetailedcashflowsDALC()
 
         Dim objOperatorByProjectDALC As New OperatorByProjectDALC
         Dim objProgramComponentByProjectDALC As New ProgramComponentByProjectDALC
@@ -5811,6 +5812,14 @@ Public Class Facade
             '    objSourceByProjectDALC.add(objApplicationCredentials, objSourceByProject)
             'Next
 
+            'Se elimina la informacion existente de las Componentes del Programa para la idea actual
+            objProgramComponentByProjectDALC.delete(objApplicationCredentials, 0, Project.id)
+            'Guardar la lista de Componentes del Programa del proyecto ProgramComponentByProject
+            For Each objProgramComponentByProject As ProgramComponentByProjectEntity In Project.ProgramComponentbyprojectlist
+                objProgramComponentByProject.idproject = Project.id
+                objProgramComponentByProjectDALC.add(objApplicationCredentials, objProgramComponentByProject)
+            Next
+
             'Borrar la lista de Ubicaciones del proyecto projectLocation
             objProjectLocationDALC.delete(objApplicationCredentials, 0, Project.id)
             'Guardar la lista de Ubicaciones del proyecto projectLocation
@@ -5818,8 +5827,6 @@ Public Class Facade
                 objProjectLocation.idproject = Project.id
                 objProjectLocationDALC.add(objApplicationCredentials, objProjectLocation)
             Next
-
-            
 
             'Borrar la lista de terceros del proyecto thirdByProject
             objThirdByProjectDALC.delete(objApplicationCredentials, 0, Project.id)
@@ -5837,6 +5844,15 @@ Public Class Facade
                 objPaymentFlowDALC.add(objApplicationCredentials, objPaymentFlow)
             Next
 
+
+            'Se elimina la informacion existente de los detalles de flujo para la idea actual
+            objdetallesflujoDALC.delete(objApplicationCredentials, Project.id, type_modulo)
+
+            'Guardar la lista de los detalles de flujo de pago del proyecto
+            For Each objdeteallesflujos As DetailedcashflowsEntity In Project.DetailedcashflowsbyProjectList
+                objdeteallesflujos.IdProject = Project.id
+                objdetallesflujoDALC.add(objApplicationCredentials, objdeteallesflujos)
+            Next
 
             'End If
 
@@ -10986,7 +11002,7 @@ Public Class Facade
             Next
 
             'Se elimina la informacion existente de los detalles de flujo para la idea actual
-            objdetallesflujoDALC.delete(objApplicationCredentials, Idea.id)
+            objdetallesflujoDALC.delete(objApplicationCredentials, Idea.id, type_modulo)
 
             'Guardar la lista de detalles flujos de pago de la idea
             For Each objdeteallesflujos As DetailedcashflowsEntity In Idea.DetailedcashflowsbyIdeaList

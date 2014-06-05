@@ -294,7 +294,7 @@ Public Class ProgramComponentByProjectDALC
     ''' <remarks></remarks>
     Public Function delete(ByVal objApplicationCredentials As Gattaca.Application.Credentials.ApplicationCredentials, _
        ByVal idProgramComponentByProject As Integer, _
-       Optional ByVal idProject As Integer = 0) As Long
+       ByVal idProject As Integer) As Long
 
         ' definiendo los objtos
         Dim SQL As New StringBuilder
