@@ -83,14 +83,12 @@
         border: 2px solid #cecece; background: #E8E8DC; height: 80px; line-height: 40px;
         vertical-align: middle; border-radius: 15px;">
         <img style="margin-top: 5px;" src="/images/save_icon.png" width="24px" alt="Save" /><asp:Label
-            ID="lblsaveinformation" runat="server" Style="font-size: 14pt; color: #9bbb58;"></asp:Label>
-    </div>
+            ID="lblsaveinformation" runat="server" Style="font-size: 14pt; color: #9bbb58;"></asp:Label></div>
     <div id="containererrors" runat="server" visible="true" style="width: 100%; text-align: center;
         border: 2px solid #cecece; background: #E8E8DC; height: 120px; line-height: 40px;
         vertical-align: middle; border-radius: 15px;">
         <img style="margin-top: 5px;" src="/images/save_icon.png" width="24px" alt="Save" /><asp:Label
-            ID="Lblerrors_save_idea" runat="server" Style="font-size: 14pt; color: #990000;"></asp:Label>
-    </div>
+            ID="Lblerrors_save_idea" runat="server" Style="font-size: 14pt; color: #990000;"></asp:Label></div>
       <div id="container_wait" runat="server" visible="true" style="width: 50%; text-align: center;
         border: 15px solid #cecece; background: #E8E8DC; height: 200px; line-height: 50px;
         vertical-align: middle;  z-index: 1000; position: absolute; left: 25%; border-radius: 40px;">
@@ -1009,6 +1007,7 @@
     <asp:HiddenField ID="Hdvtotalvalue" runat="server" />
     <asp:HiddenField ID="hdididea" runat="server" />
     <asp:HiddenField ID="hdfechainicio" runat="server" />
+    <asp:HiddenField ID="HDiva" runat="server" />
     <asp:HiddenField ID="hdfechafinalizacion" runat="server" />
     <asp:HiddenField ID="HiddenFieldFiles" runat="server" />
     <asp:HiddenField ID="HDIDTHIRD" runat="server" />

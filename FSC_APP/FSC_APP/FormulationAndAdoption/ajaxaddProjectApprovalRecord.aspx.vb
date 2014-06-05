@@ -325,26 +325,6 @@ Partial Class FormulationAndAdoption_ajaxaddProjectApprovalRecord
         ' ejecutar la intruccion
         data = GattacaApplication.RunSQLRDT(objApplicationCredentials, sql.ToString)
 
-
-        'sql = New StringBuilder
-        'consulta de los datos de actores por id
-        'sql.Append("select t.Id, t.Name,t.contact,ti.Type,ti.VrSpecies,ti.Vrmoney ,ti.FSCorCounterpartContribution  from Third t       ")
-        'sql.Append("inner join ThirdByIdea ti on ti.IdThird= t.Id             ")
-        'sql.Append("inner join Idea i on i.Id = ti.IdIdea                     ")
-
-        'sql.Append("where i.Id = " & ididea)
-
-        '' ejecutar la intruccion
-        'datatableactores = GattacaApplication.RunSQLRDT(objApplicationCredentials, sql.ToString)
-
-
-        'html = "<table  style=""font-family: 'Calibri';"" border=1 cellspacing=0 cellpadding=2 bordercolor=""666633"" ><tr><td colspan=""7"" align=center>Actores</td></tr><tr align=""center""><td style=""width: 0px"">Id</td><td style=""width: 200px"">Actor</td><td style=""width: 200px"">Contacto</td><td style=""width: 131px"">Tipo</td><td style=""width: 131px"">Vr Especie</td><td style=""width: 131px"">Vr Dinero</td><td style=""width: 131px"">Valor Total</td></tr> "
-        'For Each itemDataTable As DataRow In datatableactores.Rows
-        '    html &= String.Format(" <tr align=""center""><td style=""width: 0px"" >{0}</td><td style=""width: 200px"">{1}</td><td style=""width: 200px"">{2}</td><td style=""width: 131px"">{3}</td><td style=""width: 131px"">{4}</td><td style=""width: 131px"">{5}</td><td style=""width: 131px"">{6}</td></tr>", itemDataTable(0), itemDataTable(1), itemDataTable(2), itemDataTable(3), itemDataTable(4), itemDataTable(5), itemDataTable(6))
-        'Next
-        'html &= " </table>"
-
-
         If data.Rows.Count > 0 Then
 
             Dim objResult As String = "{"
@@ -410,7 +390,7 @@ Partial Class FormulationAndAdoption_ajaxaddProjectApprovalRecord
         Dim data As DataTable
 
         'consulta de los datos de actores por id
-        sql.Append("select t.Id, t.Name,t.contact,ti.Type,ti.VrSpecies,ti.Vrmoney ,ti.FSCorCounterpartContribution  from Third t       ")
+        sql.Append("select t.Name,t.contact,ti.Type,ti.VrSpecies,ti.Vrmoney ,ti.FSCorCounterpartContribution  from Third t       ")
         sql.Append("inner join ThirdByIdea ti on ti.IdThird= t.Id             ")
         sql.Append("inner join Idea i on i.Id = ti.IdIdea                     ")
 
@@ -420,9 +400,9 @@ Partial Class FormulationAndAdoption_ajaxaddProjectApprovalRecord
         data = GattacaApplication.RunSQLRDT(objApplicationCredentials, sql.ToString)
 
         Dim html As String
-        html = "<table id=""T_Actors"" style=""width: 100%;"" border=""1"" cellspacing=""1"" cellpadding=""1""><thead><tr align=""center""><th style=""width: 0px"">Id</th><th style=""width: 200px"">Actor</th><th style=""width: 200px"">Contacto</th><th style=""width: 131px"">Tipo</th><th style=""width: 131px"">Vr Especie</th><th style=""width: 131px"">Vr Dinero</th><th style=""width: 131px"">Valor Total</th></tr></thead><tbody>"
+        html = "<table id=""T_Actors"" style=""width: 100%;"" border=""1"" cellspacing=""1"" cellpadding=""1""><thead><tr align=""center""><th style=""width: 200px"">Actor</th><th style=""width: 200px"">Contacto</th><th style=""width: 131px"">Tipo</th><th style=""width: 131px"">Vr Especie</th><th style=""width: 131px"">Vr Dinero</th><th style=""width: 131px"">Valor Total</th></tr></thead><tbody>"
         For Each itemDataTable As DataRow In data.Rows
-            html &= String.Format(" <tr align=""center""><td style=""width: 0px"" >{0}</td><td style=""width: 200px"">{1}</td><td style=""width: 200px"">{2}</td><td style=""width: 131px"">{3}</td><td style=""width: 131px"">{4}</td><td style=""width: 131px"">{5}</td><td style=""width: 131px"">{6}</td></tr>", itemDataTable(0), itemDataTable(1), itemDataTable(2), itemDataTable(3), itemDataTable(4), itemDataTable(5), itemDataTable(6))
+            html &= String.Format(" <tr align=""center""><td style=""width: 200px"">{0}</td><td style=""width: 200px"">{1}</td><td style=""width: 131px"">{2}</td><td style=""width: 131px"">{3}</td><td style=""width: 131px"">{4}</td><td style=""width: 131px"">{5}</td></tr>", itemDataTable(0), itemDataTable(1), itemDataTable(2), itemDataTable(3), itemDataTable(4), itemDataTable(5))
         Next
         html &= "</tbody></table>"
 

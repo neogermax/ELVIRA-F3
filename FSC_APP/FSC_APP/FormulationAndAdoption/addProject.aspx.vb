@@ -174,62 +174,31 @@ Partial Class addProject
                     For i = 2012 To 2030
                         ddleffectivebudget.Items.Add(i.ToString)
                     Next
-                    ' cargar el combo de Departamentos
-                    ' Me.ddliddepto.DataSource = facade.getDeptoList(applicationCredentials, idcountry:="7", order:="code")
-                    'Me.ddliddepto.DataValueField = "Id"
-                    'Me.ddliddepto.DataTextField = "Name"
-                    'Me.ddliddepto.DataBind()
-
-                    ' cargar el combo de Ciudad
-                    '                    Me.ddlidcity.DataSource = facade.getCityList(applicationCredentials, iddepto:=Me.ddliddepto.SelectedValue, order:="code")
-                    '                   Me.ddlidcity.DataValueField = "Id"
-                    '                  Me.ddlidcity.DataTextField = "Name"
-                    '                 Me.ddlidcity.DataBind()
-
-
-                    ' tipo de actor
-                    'ddltipooperador.Items.Add(New ListItem("Operador", "1"))
-                    'ddltipooperador.SelectedValue = "1"
-                    'ddltipooperador.Items.Add(New ListItem("Socio operador", "2"))
-                    'ddltipooperador.Items.Add(New ListItem("Socio", "3"))
-                    'ddltipooperador.Items.Add(New ListItem("Cliente", "4"))
-                    'ddltipooperador.Items.Add(New ListItem("Contratante", "5"))
-
                     ' ocultar algunos botones
                     'Me.btnDelete.Visible = False
                     Me.ddlididea.Visible = False
                     Me.lblididea.Visible = False
                     Me.btnAddData.Visible = False
                     Me.btnSave.Visible = False
-                    '  'Me.btnCancelDelete.Visible = False
-                    'Me.btnCancel.Visible = False
-                    '   Me.btnConfirmDelete.Visible = False
-                    '  Me.lblDelete.Visible = False
                     Me.lblid.Enabled = False
                     Me.txtid.Enabled = False
                     Me.lblcreatedate.Enabled = False
                     Me.txtcreatedate.Enabled = False
                     Me.lbliduser.Enabled = False
                     Me.txtiduser.Enabled = False
-                    'Me.linkcharge.Visible = False
                     Me.txtcode.Visible = True
                     Me.lblcode.Visible = True
                     Me.txtenabled.Visible = False
                     Me.txtname.ReadOnly = True
                     Me.txtobjective.ReadOnly = True
                     Me.txtjustification.ReadOnly = True
-                    '    Me.txtzonedescription.ReadOnly = True
-                    '   Me.TextResultGestConocimiento.ReadOnly = True
                     Me.txtresults.ReadOnly = True
-                    '  Me.TextResCapacidInstal.ReadOnly = True
                     Me.lblenabled.Visible = False
                     Me.txtduration.ReadOnly = True
                     Me.txtcode.ReadOnly = True
-                    'Me.ddlpopulation.Enabled = True
-                    ''Me.txtstartdate.ReadOnly = True
-                    'validar para  mostrar terminos de referencia al editar
-                    Me.btntermsreference.Visible = True
+                    Me.btntermsreference.Visible = False
 
+                    
                     'deshabilitar campos de valores por defecto en la edicion
                     Me.txtfsccontribution.ReadOnly = True
                     Me.txtcounterpartvalue.ReadOnly = True
@@ -257,9 +226,6 @@ Partial Class addProject
                         objDt = getLinStratbusqueda(objProject.id, applicationCredentials)
 
                         If objDt.Rows.Count > 0 Then
-                            '        Me.txtlinestrat.Text = objDt.Rows(0)(0).ToString
-                            '       Me.txtprograma.Text = objDt.Rows(0)(1).ToString
-                            'Me.txtprograma.Text = objDt.Rows(0)(7).ToString
                         End If
                         ' CONSULTAR SI EXISTE CUNA CONTRATACION  PARA ESTE PROYECTO
                         Dim haveContract As DataTable = getRecruitment(objProject.id, applicationCredentials)
@@ -302,13 +268,13 @@ Partial Class addProject
                             '      Me.txtaclaratorio.ReadOnly = True
                         End If
 
-                        If codigogrupo = "ADMIN" Then
-                            ddltipoaprobacion.Items.Add(New ListItem("No aprobado", "4"))
-                            ddltipoaprobacion.Items.Add(New ListItem("contrato", "1"))
-                            ddltipoaprobacion.Items.Add(New ListItem("Otro si", "2"))
-                            ddltipoaprobacion.Items.Add(New ListItem("Aclaratorio", "3"))
-                            Me.ddltipoaprobacion.SelectedValue = objProject.Typeapproval
-                        End If
+                        'If codigogrupo = "ADMIN" Then
+                        '    ddltipoaprobacion.Items.Add(New ListItem("No aprobado", "4"))
+                        '    ddltipoaprobacion.Items.Add(New ListItem("contrato", "1"))
+                        '    ddltipoaprobacion.Items.Add(New ListItem("Otro si", "2"))
+                        '    ddltipoaprobacion.Items.Add(New ListItem("Aclaratorio", "3"))
+                        '    Me.ddltipoaprobacion.SelectedValue = objProject.Typeapproval
+                        'End If
 
                         Dim duration As Double
 
@@ -325,13 +291,18 @@ Partial Class addProject
                         Me.txtjustification.Text = objProject.justification
                         Me.txtresulgc.Text = objProject.ResultsKnowledgeManagement
                         Me.txtresulci.Text = objProject.ResultsInstalledCapacity
-                        If objProject.begindate <> defaultDate Then
-                            'Me.txtstartdate.Text = objProject.begindate.ToString("yyyy/MM/dd")
-                        Else
-                            'Me.txtstartdate.Text = ""
-                        End If
-                        Me.txtcounterpartvalue.Text = "0"
+                        Me.txtstartdate.text = objProject.begindate
                         Me.txtduration.Text = objProject.duration
+
+                        Me.Txtothersresults.Text = objProject.OthersResults
+                        Me.Txtobligationsoftheparties.Text = objProject.Obligaciones
+                        Me.Txtroutepresupuestal.Text = objProject.presupuestal
+                        Me.Txtriesgos.Text = objProject.riesgos
+                        Me.Txtaccionmitig.Text = objProject.mitigacion
+                        Me.Txtday.Text = objProject.dia
+                        Me.RBnList_iva.SelectedValue = objProject.iva
+                        Me.HDiva.value = objProject.iva
+
                         Me.txtareadescription.Text = objProject.zonedescription
                         ' Me.ddlpopulation.SelectedValue = objProject.population
                         Me.txtstrategicdescription.Text = objProject.strategicdescription
@@ -339,235 +310,236 @@ Partial Class addProject
                         Me.txtpurpose.Text = objProject.purpose
                         Me.txttotalcost.Text = objProject.totalcost.ToString("#,###")
                         Me.txtfsccontribution.Text = objProject.fsccontribution.ToString("#,###")
-                        If objProject.counterpartvalue.ToString("#,###") <> "" Then
-                            Me.txtcounterpartvalue.Text = objProject.counterpartvalue.ToString("#,###")
-                        Else
-                            Me.txtcounterpartvalue.Text = "0"
-                        End If
-                        If objProject.Typeapproval = 3 Then
-                            '       tbpnAclaratorio.Visible = True
-                        End If
+
+                        'If objProject.counterpartvalue.ToString("#,###") <> "" Then
+                        '    Me.txtcounterpartvalue.Text = objProject.counterpartvalue.ToString("#,###")
+                        'Else
+                        '    Me.txtcounterpartvalue.Text = "0"
+                        'End If
+                        'If objProject.Typeapproval = 3 Then
+                        '    '       tbpnAclaratorio.Visible = True
+                        'End If
 
 
-                        Me.ddleffectivebudget.SelectedValue = objProject.effectivebudget
-                        Me.ddlidphase.SelectedValue = objProject.idphase
+                        'Me.ddleffectivebudget.SelectedValue = objProject.effectivebudget
+                        'Me.ddlidphase.SelectedValue = objProject.idphase
                         Me.ddlidphase.Enabled = False
                         'Me.ddlenabled.SelectedValue = objProject.enabled
                         Me.txtiduser.Text = objProject.USERNAME
                         Me.txtcreatedate.Text = objProject.createdate
-                        Me.txttotalcost.Text = objProject.fsccontribution + objProject.counterpartvalue
+                        Me.txttotalcost.Text = objProject.totalcost
 
                         'validar se tipo aprobado es contrato
-                        If objProject.Typeapproval = 1 Then
-                            'Me.tbpnAclaratorio.Visible = False
+                        'If objProject.Typeapproval = 1 Then
+                        '    'Me.tbpnAclaratorio.Visible = False
 
 
-                        End If
-                        If objProject.Typeapproval = 2 Then
-                            'Me.tbpnAclaratorio.Visible = False
+                        'End If
+                        ' If objProject.Typeapproval = 2 Then
+                        'Me.tbpnAclaratorio.Visible = False
 
-                            Me.checkvalor.Visible = True
-                            Me.checktiempo.Visible = True
-                            Me.checkalcance.Visible = True
-                            Me.lblmodifotrosi.Visible = True
+                        'Me.checkvalor.Visible = True
+                        'Me.checktiempo.Visible = True
+                        'Me.checkalcance.Visible = True
+                        'Me.lblmodifotrosi.Visible = True
 
-                            If objProject.editablemoney = "S" Then
+                        'If objProject.editablemoney = "S" Then
 
-                                Me.checkvalor.Checked = True
-                                Me.txtcounterpartvalue.ReadOnly = False
-                                Me.txtfsccontribution.ReadOnly = False
-                            Else
-                                Me.checkvalor.Checked = False
-                            End If
-                            'VALIDA SI EL GRUPO ES SEGUIMIENTO DEJA NO EDITABLE
-                            ' LOS CHECKS DE VALOR , TIEMPO Y ALCANCE
-                            If codigogrupo = "Seg y Eval" Then
-                                Me.checkvalor.Enabled = False
-                                Me.checktiempo.Enabled = False
-                                Me.checkalcance.Enabled = False
+                        '    Me.checkvalor.Checked = True
+                        '    Me.txtcounterpartvalue.ReadOnly = False
+                        '    Me.txtfsccontribution.ReadOnly = False
+                        'Else
+                        '    Me.checkvalor.Checked = False
+                        'End If
+                        ''VALIDA SI EL GRUPO ES SEGUIMIENTO DEJA NO EDITABLE
+                        ' LOS CHECKS DE VALOR , TIEMPO Y ALCANCE
+                        'If codigogrupo = "Seg y Eval" Then
+                        '    Me.checkvalor.Enabled = False
+                        '    Me.checktiempo.Enabled = False
+                        '    Me.checkalcance.Enabled = False
 
-                            End If
+                        'End If
 
-                            If objProject.editabletime = "S" Then
-                                Me.checktiempo.Checked = True
-                                Me.txtduration.ReadOnly = False
-                                'Me.txtstartdate.ReadOnly = False
-                            Else
-                                Me.checktiempo.Checked = False
-                            End If
+                        'If objProject.editabletime = "S" Then
+                        '    Me.checktiempo.Checked = True
+                        '    Me.txtduration.ReadOnly = False
+                        '    'Me.txtstartdate.ReadOnly = False
+                        'Else
+                        '    Me.checktiempo.Checked = False
+                        'End If
 
-                            If objProject.editableresults = "S" Then
-                                Me.checkalcance.Checked = True
-                                Me.txtresults.ReadOnly = False
-                                Me.txtobjective.ReadOnly = False
-                                Me.txtobjective.Enabled = True
-                                Me.txtjustification.ReadOnly = False
-                                Me.txtareadescription.Enabled = True
-                                Me.txtareadescription.ReadOnly = False
+                        'If objProject.editableresults = "S" Then
+                        '    Me.checkalcance.Checked = True
+                        '    Me.txtresults.ReadOnly = False
+                        '    Me.txtobjective.ReadOnly = False
+                        '    Me.txtobjective.Enabled = True
+                        '    Me.txtjustification.ReadOnly = False
+                        '    Me.txtareadescription.Enabled = True
+                        '    Me.txtareadescription.ReadOnly = False
 
-                                'Me.TextResultGestConocimiento.ReadOnly = False
-                                'Me.TextResCapacidInstal.ReadOnly = False
-                            Else
-                                Me.checkalcance.Checked = False
-                            End If
-                            Me.txtfechapago.Enabled = False
-                            Me.txtporcentaje.Enabled = False
-                            Me.txtvalorpartial.Enabled = False
-                            Me.txtentregable.Enabled = False
-                            'Me.BtnAddPayment.Enabled = False
-                            'ddlidoperator.Enabled = False
-                            'Me.ddltipooperador.Enabled = False
-                            ' Me.btnaddoperatorbyproject.Enabled = False
-                            'Me.btnadanexo.Enabled = False
-                            '  Me.btnAddProjectLocation.Enabled = False
-                        End If
+                        '    'Me.TextResultGestConocimiento.ReadOnly = False
+                        '    'Me.TextResCapacidInstal.ReadOnly = False
+                        'Else
+                        '    Me.checkalcance.Checked = False
+                        'End If
+                        'Me.txtfechapago.Enabled = False
+                        'Me.txtporcentaje.Enabled = False
+                        'Me.txtvalorpartial.Enabled = False
+                        'Me.txtentregable.Enabled = False
+                        ''Me.BtnAddPayment.Enabled = False
+                        'ddlidoperator.Enabled = False
+                        'Me.ddltipooperador.Enabled = False
+                        ' Me.btnaddoperatorbyproject.Enabled = False
+                        'Me.btnadanexo.Enabled = False
+                        '  Me.btnAddProjectLocation.Enabled = False
+                        ' End If
 
-                        If objProject.Typeapproval = 3 Or objProject.Typeapproval = 1 Then
+                        'If objProject.Typeapproval = 3 Or objProject.Typeapproval = 1 Then
 
-                            Me.txtresults.ReadOnly = True
-                            Me.txtobjective.ReadOnly = True
-                            Me.txtjustification.ReadOnly = True
-                            ' Me.txtzonedescription.ReadOnly = True
-                            'Me.TextResultGestConocimiento.ReadOnly = True
-                            'Me.TextResCapacidInstal.ReadOnly = True
-                            Me.txtduration.ReadOnly = True
-                            'Me.txtstartdate.ReadOnly = True
-                            'Me.txtstartdate.Enabled = False
-                            Me.txtcounterpartvalue.ReadOnly = True
-                            Me.txtfsccontribution.ReadOnly = True
-                            Me.txtfechapago.Enabled = False
-                            Me.txtporcentaje.Enabled = False
-                            Me.txtvalorpartial.Enabled = False
-                            Me.txtentregable.Enabled = False
-                            'Me.BtnAddPayment.Enabled = False
-                            'Me.ddlidoperator.Enabled = False
-                            'Me.ddltipooperador.Enabled = False
-                            'Me.btnaddoperatorbyproject.Enabled = False
-                            'Me.btnadanexo.Enabled = False
-                            '.Enabled = False
-                            ' Me.ddlpopulation.Enabled = False
-                            ' Me.ddliddepto.Enabled = False
-                            ' Me.ddlidcity.Enabled = False
-                            ' Me.gvprojectLocation.Enabled = False
-                            'Me.gvPaymentFlow.Enabled = False
-                            'Me.gvoperatorbyproject.Enabled = False
-                            'Me.gvDocuments.Enabled = False
+                        'Me.txtresults.ReadOnly = True
+                        'Me.txtobjective.ReadOnly = True
+                        'Me.txtjustification.ReadOnly = True
+                        '' Me.txtzonedescription.ReadOnly = True
+                        'Me.TextResultGestConocimiento.ReadOnly = True
+                        'Me.TextResCapacidInstal.ReadOnly = True
+                        'Me.txtduration.ReadOnly = True
+                        ''Me.txtstartdate.ReadOnly = True
+                        'Me.txtstartdate.Enabled = False
+                        'Me.txtcounterpartvalue.ReadOnly = True
+                        'Me.txtfsccontribution.ReadOnly = True
+                        'Me.txtfechapago.Enabled = False
+                        'Me.txtporcentaje.Enabled = False
+                        'Me.txtvalorpartial.Enabled = False
+                        'Me.txtentregable.Enabled = False
+                        ''Me.BtnAddPayment.Enabled = False
+                        'Me.ddlidoperator.Enabled = False
+                        'Me.ddltipooperador.Enabled = False
+                        'Me.btnaddoperatorbyproject.Enabled = False
+                        'Me.btnadanexo.Enabled = False
+                        '.Enabled = False
+                        ' Me.ddlpopulation.Enabled = False
+                        ' Me.ddliddepto.Enabled = False
+                        ' Me.ddlidcity.Enabled = False
+                        ' Me.gvprojectLocation.Enabled = False
+                        'Me.gvPaymentFlow.Enabled = False
+                        'Me.gvoperatorbyproject.Enabled = False
+                        'Me.gvDocuments.Enabled = False
 
-                        End If
+                        'End If
 
-                        If objProject.Typeapproval = 2 Then
-                            If objProject.editablemoney = "S" Then
-                                Me.txtfechapago.Enabled = True
-                                Me.txtporcentaje.Enabled = True
-                                Me.txtvalorpartial.Enabled = True
-                                Me.txtentregable.Enabled = True
-                                'Me.BtnAddPayment.Enabled = True
-                                'Me.gvPaymentFlow.Enabled = True
-                            End If
-                        End If
-                        ' si es un proyecto no aprobado
-                        If objProject.Typeapproval = 4 Then
-                            'TODO: OJO HABILITACION DEL MODULO ELIMINAR EN PROYECTO
-                            ''Me.btnDelete.Visible = True
-                            'Me.tbpnAclaratorio.Visible = False
+                        'If objProject.Typeapproval = 2 Then
+                        '    If objProject.editablemoney = "S" Then
+                        '        Me.txtfechapago.Enabled = True
+                        '        Me.txtporcentaje.Enabled = True
+                        '        Me.txtvalorpartial.Enabled = True
+                        '        Me.txtentregable.Enabled = True
+                        '        'Me.BtnAddPayment.Enabled = True
+                        '        'Me.gvPaymentFlow.Enabled = True
+                        '    End If
+                        'End If
+                        '' si es un proyecto no aprobado
+                        'If objProject.Typeapproval = 4 Then
+                        '    'TODO: OJO HABILITACION DEL MODULO ELIMINAR EN PROYECTO
+                        '    ''Me.btnDelete.Visible = True
+                        '    'Me.tbpnAclaratorio.Visible = False
 
-                            Me.ddleffectivebudget.Enabled = True
-                            Me.ddlidphase.Enabled = True
-                            ' carga combo de actores 
-                            'Me.ddlidoperator.DataSource = facade.getThirdList(applicationCredentials, order:="code")
-                            'Me.ddlidoperator.Items.Insert(0, New ListItem("Seleccione..", "-1"))
-                            'Me.ddlidoperator.DataValueField = "Id"
-                            'Me.ddlidoperator.DataTextField = "Name"
-                            'Me.ddlidoperator.DataBind()
-                            'Me.ddlidoperator.Items.Insert(0, New ListItem("Seleccione..", "-1"))
-                            Me.txtname.ReadOnly = False
-                            Me.txtresults.ReadOnly = False
-                            Me.txtobjective.ReadOnly = False
-                            Me.txtjustification.ReadOnly = False
-                            'Me.txtzonedescription.ReadOnly = False
-                            'Me.TextResultGestConocimiento.ReadOnly = False
-                            'Me.TextResCapacidInstal.ReadOnly = False
-                            Me.txtduration.ReadOnly = False
-                            ''Me.txtstartdate.ReadOnly = True
+                        '    Me.ddleffectivebudget.Enabled = True
+                        '    Me.ddlidphase.Enabled = True
+                        '    ' carga combo de actores 
+                        '    'Me.ddlidoperator.DataSource = facade.getThirdList(applicationCredentials, order:="code")
+                        '    'Me.ddlidoperator.Items.Insert(0, New ListItem("Seleccione..", "-1"))
+                        '    'Me.ddlidoperator.DataValueField = "Id"
+                        '    'Me.ddlidoperator.DataTextField = "Name"
+                        '    'Me.ddlidoperator.DataBind()
+                        '    'Me.ddlidoperator.Items.Insert(0, New ListItem("Seleccione..", "-1"))
+                        '    Me.txtname.ReadOnly = False
+                        '    Me.txtresults.ReadOnly = False
+                        '    Me.txtobjective.ReadOnly = False
+                        '    Me.txtjustification.ReadOnly = False
+                        '    'Me.txtzonedescription.ReadOnly = False
+                        '    'Me.TextResultGestConocimiento.ReadOnly = False
+                        '    'Me.TextResCapacidInstal.ReadOnly = False
+                        '    Me.txtduration.ReadOnly = False
+                        '    ''Me.txtstartdate.ReadOnly = True
 
-                            duration = Convert.ToDouble(Me.txtduration.Text.Replace(".", ","))
-                            '  Me.TextFinalizacion.Text = getDateFinalization(duration, Me.txtstartdate.Text)
-                            Me.txtcounterpartvalue.ReadOnly = False
-                            Me.txtfsccontribution.ReadOnly = False
-                        End If
+                        '    duration = Convert.ToDouble(Me.txtduration.Text.Replace(".", ","))
+                        '    '  Me.TextFinalizacion.Text = getDateFinalization(duration, Me.txtstartdate.Text)
+                        '    Me.txtcounterpartvalue.ReadOnly = False
+                        '    Me.txtfsccontribution.ReadOnly = False
+                        'End If
                         'SI ES LIDER Y OTRO SI
-                        If objProject.Typeapproval = 2 And codigogrupo = "Lider" Then
-                            Me.txtresults.ReadOnly = True
-                            Me.txtobjective.ReadOnly = True
-                            Me.txtjustification.ReadOnly = True
-                            'Me.txtzonedescription.ReadOnly = True
-                            'Me.TextResultGestConocimiento.ReadOnly = True
-                            'Me.TextResCapacidInstal.ReadOnly = True
-                            Me.txtduration.ReadOnly = True
-                            'Me.txtstartdate.Enabled = False
-                            duration = Convert.ToDouble(Me.txtduration.Text.Replace(".", ","))
-                            ' Me.TextFinalizacion.Text = getDateFinalization(duration, 'Me.txtstartdate.Text)
-                            Me.txtcounterpartvalue.ReadOnly = True
-                            Me.txtfsccontribution.ReadOnly = True
-                        End If
+                        'If objProject.Typeapproval = 2 And codigogrupo = "Lider" Then
+                        '    Me.txtresults.ReadOnly = True
+                        '    Me.txtobjective.ReadOnly = True
+                        '    Me.txtjustification.ReadOnly = True
+                        '    'Me.txtzonedescription.ReadOnly = True
+                        '    'Me.TextResultGestConocimiento.ReadOnly = True
+                        '    'Me.TextResCapacidInstal.ReadOnly = True
+                        '    Me.txtduration.ReadOnly = True
+                        '    'Me.txtstartdate.Enabled = False
+                        '    duration = Convert.ToDouble(Me.txtduration.Text.Replace(".", ","))
+                        '    ' Me.TextFinalizacion.Text = getDateFinalization(duration, 'Me.txtstartdate.Text)
+                        '    Me.txtcounterpartvalue.ReadOnly = True
+                        '    Me.txtfsccontribution.ReadOnly = True
+                        'End If
                         'SI ES ADMIN ACTIVA TODO
-                        If codigogrupo = "ADMIN" Then
-                            Me.txtduration.ReadOnly = False
-                            Me.txtfsccontribution.ReadOnly = False
-                            Me.txtcounterpartvalue.ReadOnly = False
-                            Me.ddleffectivebudget.Enabled = True
-                            Me.txtfechapago.Enabled = True
-                            Me.txtporcentaje.Enabled = True
-                            Me.txtvalorpartial.Enabled = True
-                            Me.txtentregable.Enabled = True
-                            'Me.BtnAddPayment.Enabled = True
-                            'Me.gvPaymentFlow.Enabled = True
+                        'If codigogrupo = "ADMIN" Then
+                        '    Me.txtduration.ReadOnly = False
+                        '    Me.txtfsccontribution.ReadOnly = False
+                        '    Me.txtcounterpartvalue.ReadOnly = False
+                        '    Me.ddleffectivebudget.Enabled = True
+                        '    Me.txtfechapago.Enabled = True
+                        '    Me.txtporcentaje.Enabled = True
+                        '    Me.txtvalorpartial.Enabled = True
+                        '    Me.txtentregable.Enabled = True
+                        '    'Me.BtnAddPayment.Enabled = True
+                        '    'Me.gvPaymentFlow.Enabled = True
 
 
-                            'Me.ddlidoperator.Enabled = True
-                            'Me.ddltipooperador.Enabled = True
-                            'Me.btnaddoperatorbyproject.Enabled = True
-                            'Me.btnadanexo.Enabled = True
-                            ''Me.btnAddProjectLocation.Enabled = True
-                            'Me.ddlidoperator.DataSource = facade.getThirdList(applicationCredentials, order:="code")
-                            'Me.ddlidoperator.Items.Insert(0, New ListItem("Seleccione..", "-1"))
-                            'Me.ddlidoperator.DataValueField = "Id"
-                            'Me.ddlidoperator.DataTextField = "Name"
-                            'Me.ddlidoperator.DataBind()
-                            'Me.ddlidoperator.Items.Insert(0, New ListItem("Seleccione..", "-1"))
-                        End If
+                        '    'Me.ddlidoperator.Enabled = True
+                        '    'Me.ddltipooperador.Enabled = True
+                        '    'Me.btnaddoperatorbyproject.Enabled = True
+                        '    'Me.btnadanexo.Enabled = True
+                        '    ''Me.btnAddProjectLocation.Enabled = True
+                        '    'Me.ddlidoperator.DataSource = facade.getThirdList(applicationCredentials, order:="code")
+                        '    'Me.ddlidoperator.Items.Insert(0, New ListItem("Seleccione..", "-1"))
+                        '    'Me.ddlidoperator.DataValueField = "Id"
+                        '    'Me.ddlidoperator.DataTextField = "Name"
+                        '    'Me.ddlidoperator.DataBind()
+                        '    'Me.ddlidoperator.Items.Insert(0, New ListItem("Seleccione..", "-1"))
+                        'End If
                         'SI EL GRUPO ES JURIDICA
-                        If codigogrupo = "Juridica" Then
-                            If objProject.Typeapproval = 4 Then
-                                ddltipoaprobacion.Items.Add(New ListItem("No aprobado", "4"))
-                            End If
-                            If objProject.Typeapproval = 1 Then
-                                ddltipoaprobacion.Items.Add(New ListItem("contrato", "1"))
-                            End If
-                            If objProject.Typeapproval = 2 Then
-                                ddltipoaprobacion.Items.Add(New ListItem("Otro si", "2"))
-                            End If
-                            If objProject.Typeapproval = 3 Then
-                                ddltipoaprobacion.Items.Add(New ListItem("Aclaratorio", "3"))
-                            End If
-                            Me.txtjustification.ReadOnly = True
-                            Me.txtobjective.ReadOnly = True
-                            'Me.txtzonedescription.ReadOnly = True
-                            Me.txtresults.ReadOnly = True
-                            'Me.TextResultGestConocimiento.ReadOnly = True
-                            'Me.TextResCapacidInstal.ReadOnly = True
-                            'Me.txtstartdate.Enabled = False
-                            Me.txtduration.ReadOnly = True
-                            'Me.ddlpopulation.Enabled = False
-                            Me.txtfsccontribution.ReadOnly = True
-                            Me.txtcounterpartvalue.ReadOnly = True
+                        'If codigogrupo = "Juridica" Then
+                        '    If objProject.Typeapproval = 4 Then
+                        '        ddltipoaprobacion.Items.Add(New ListItem("No aprobado", "4"))
+                        '    End If
+                        '    If objProject.Typeapproval = 1 Then
+                        '        ddltipoaprobacion.Items.Add(New ListItem("contrato", "1"))
+                        '    End If
+                        '    If objProject.Typeapproval = 2 Then
+                        '        ddltipoaprobacion.Items.Add(New ListItem("Otro si", "2"))
+                        '    End If
+                        '    If objProject.Typeapproval = 3 Then
+                        '        ddltipoaprobacion.Items.Add(New ListItem("Aclaratorio", "3"))
+                        '    End If
+                        '    Me.txtjustification.ReadOnly = True
+                        '    Me.txtobjective.ReadOnly = True
+                        '    'Me.txtzonedescription.ReadOnly = True
+                        '    Me.txtresults.ReadOnly = True
+                        '    'Me.TextResultGestConocimiento.ReadOnly = True
+                        '    'Me.TextResCapacidInstal.ReadOnly = True
+                        '    'Me.txtstartdate.Enabled = False
+                        '    Me.txtduration.ReadOnly = True
+                        '    'Me.ddlpopulation.Enabled = False
+                        '    Me.txtfsccontribution.ReadOnly = True
+                        '    Me.txtcounterpartvalue.ReadOnly = True
 
-                            Me.checkvalor.Enabled = False
-                            Me.checktiempo.Enabled = False
-                            Me.checkalcance.Enabled = False
+                        '    Me.checkvalor.Enabled = False
+                        '    Me.checktiempo.Enabled = False
+                        '    Me.checkalcance.Enabled = False
 
-                            Me.btnSave.Visible = False
-                        End If
+                        '    Me.btnSave.Visible = False
+                        'End If
 
                         'Me.ddlidoperator.DataSource = facade.getThirdList(applicationCredentials, order:="code")
                         duration = Convert.ToDouble(Me.txtduration.Text.Replace(".", ","))
@@ -581,35 +553,35 @@ Partial Class addProject
 
                         'gvprojectLocation.DataSource = objProject.projectlocationlist
                         'gvprojectLocation.DataBind()
-                        Session("projectLocationList") = objProject.projectlocationlist
+                        ' Session("projectLocationList") = objProject.projectlocationlist
 
                         'cargar la lista de las aclaratorios
-                        objProject.explanatoryEntityList = getExplanatoryByProject(objProject.id, applicationCredentials)
+                        'objProject.explanatoryEntityList = getExplanatoryByProject(objProject.id, applicationCredentials)
                         'GridViewAclaratorio.DataSource = objProject.explanatoryEntityList
                         'GridViewAclaratorio.DataBind()
-                        Session("explanatoryList") = objProject.explanatoryEntityList
+                        'Session("explanatoryList") = objProject.explanatoryEntityList
 
 
                         ' cargar y asignar la lista de id actores del proyecto, operador 
-                        Session("operatorByProjectList") = objProject.thirdbyprojectlist
+                        'Session("operatorByProjectList") = objProject.thirdbyprojectlist
 
-                        Dim objDataTable As DataTable = New DataTable()
+                        'Dim objDataTable As DataTable = New DataTable()
 
-                        objDataTable.Columns.Add("idthird")
-                        objDataTable.Columns.Add("name")
-                        objDataTable.Columns.Add("type")
-                        objDataTable.Columns.Add("contact")
-                        objDataTable.Columns.Add("documents")
-                        objDataTable.Columns.Add("phone")
-                        objDataTable.Columns.Add("email")
-                        ' objDataTable.Columns.Add("Vrmoney")
-                        ' objDataTable.Columns.Add("VrSpecies")
-                        'objDataTable.Columns.Add("FSCorCounterpartContribution")
+                        'objDataTable.Columns.Add("idthird")
+                        'objDataTable.Columns.Add("name")
+                        'objDataTable.Columns.Add("type")
+                        'objDataTable.Columns.Add("contact")
+                        'objDataTable.Columns.Add("documents")
+                        'objDataTable.Columns.Add("phone")
+                        'objDataTable.Columns.Add("email")
+                        '' objDataTable.Columns.Add("Vrmoney")
+                        '' objDataTable.Columns.Add("VrSpecies")
+                        ''objDataTable.Columns.Add("FSCorCounterpartContribution")
 
 
-                        For Each itemDataTable As ThirdByProjectEntity In Session("operatorByProjectList")
-                            objDataTable.Rows.Add(itemDataTable.idthird, itemDataTable.THIRDNAME, itemDataTable.type, itemDataTable.THIRD.contact, itemDataTable.THIRD.documents, itemDataTable.THIRD.phone, itemDataTable.THIRD.email)
-                        Next
+                        'For Each itemDataTable As ThirdByProjectEntity In Session("operatorByProjectList")
+                        '    objDataTable.Rows.Add(itemDataTable.idthird, itemDataTable.THIRDNAME, itemDataTable.type, itemDataTable.THIRD.contact, itemDataTable.THIRD.documents, itemDataTable.THIRD.phone, itemDataTable.THIRD.email)
+                        'Next
 
                         'gvoperatorbyproject.DataSource = objDataTable
                         'gvoperatorbyproject.DataBind()
@@ -620,7 +592,7 @@ Partial Class addProject
                         ' Session("operatorByProjectList") = objProject.thirdbyprojectlist
 
                         'cargar la lista de laos flujos de pago
-                        objProject.paymentflowByProjectList = getFlowPayment(objProject.id, applicationCredentials)
+                        'objProject.paymentflowByProjectList = getFlowPayment(objProject.id, applicationCredentials)
                         'gvPaymentFlow.DataSource = objProject.paymentflowByProjectList
                         'gvPaymentFlow.DataBind()
                         Session("paymentFlowList") = objProject.paymentflowByProjectList
@@ -629,26 +601,26 @@ Partial Class addProject
                         '    valortotal = valortotal + pf.valortotal
 
                         'Next
-                        Session("valortotalflow") = valortotal
-                        Dim totporcentajes As Double
-                        For Each pf As PaymentFlowEntity In objProject.paymentflowByProjectList
-                            totporcentajes = totporcentajes + pf.porcentaje
-                        Next
-                        Session("totporcentajes") = totporcentajes
+                        'Session("valortotalflow") = valortotal
+                        'Dim totporcentajes As Double
+                        'For Each pf As PaymentFlowEntity In objProject.paymentflowByProjectList
+                        '    totporcentajes = totporcentajes + pf.porcentaje
+                        'Next
+                        'Session("totporcentajes") = totporcentajes
                         ' Me.lblmensajeexitoerror.Text = Session("totporcentajes")
 
-                        If Session("totporcentajes") < 100 Then
-                            Me.txtvalortotalflow.Enabled = True
+                        'If Session("totporcentajes") < 100 Then
+                        '    Me.txtvalortotalflow.Enabled = True
 
-                        Else
-                            Me.txtvalortotalflow.Enabled = False
-                        End If
+                        'Else
+                        '    Me.txtvalortotalflow.Enabled = False
+                        'End If
 
-                        Me.txtvalortotalflow.Text = valortotal
-                        If Session("valortotalflow") <> Nothing Then
-                            Me.txtvalortotalflow.Text = Session("valortotalflow")
-                        End If
-                        ' If (objProject.DOCUMENTLIST Is Nothing OrElse objProject.DOCUMENTLIST.Count = 0) Then 'Me.btnRefresh.Visible = False
+                        'Me.txtvalortotalflow.Text = valortotal
+                        'If Session("valortotalflow") <> Nothing Then
+                        '    Me.txtvalortotalflow.Text = Session("valortotalflow")
+                        'End If
+                        '' If (objProject.DOCUMENTLIST Is Nothing OrElse objProject.DOCUMENTLIST.Count = 0) Then 'Me.btnRefresh.Visible = False
 
                         'Se carga la lista de documentos adjuntos
                         'Se almacena la lista en una variable de sesion.
@@ -656,7 +628,7 @@ Partial Class addProject
                         'Me.gvDocuments.DataSource = objProject.DOCUMENTLIST
                         'Me.gvDocuments.DataBind()
 
-                        Session("valortotalflow") = txtvalortotalflow.Text
+                        'Session("valortotalflow") = txtvalortotalflow.Text
 
 
 

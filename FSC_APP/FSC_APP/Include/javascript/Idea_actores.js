@@ -295,11 +295,12 @@ function deleteActor(str) {
         }
     }
 
-
     //lamar la funcionsumar actores
     sumar_grid_actores();
     //llamar la funcion suma de grid principal
     sumavalores_gridprincipal();
+    //llamar la funcion sumar flujos actores
+    sumar_flujos_actores();
 
 }
 

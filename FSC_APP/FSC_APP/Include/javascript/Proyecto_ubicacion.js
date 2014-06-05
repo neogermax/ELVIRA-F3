@@ -123,7 +123,7 @@ function Crear_tabla_ubicacion() {
 
 
 
-//funcion para cargar  array ubicaciones en ediccion
+//funcion para cargar  array ubicaciones en traerdatos de la idea
 function view_ubicacion_array() {
     $.ajax({
         url: "AjaxAddProject.aspx",
@@ -141,11 +141,38 @@ function view_ubicacion_array() {
 
             //llamamos la funcion q nos genera la tabla
             Crear_tabla_ubicacion();
+          },
+        error: function(msg) {
+            alert("No se pueden cargar las ubicaciones seleccionadas de la idea = " + idea_buscar);
+        }
+    });
+}
+
+//funcion para cargar  array ubicaciones en editar proyecto
+function view_ubicacion_proyect() {
+
+    $.ajax({
+        url: "AjaxAddProject.aspx",
+        type: "GET",
+        data: { "action": "view_ubicacion_proyect", "idproject": ideditar },
+        success: function(result) {
+
+            array_ubicacion_ed = result.split("|");
+
+            for (itemArray in array_ubicacion_ed) {
+
+                var recibeubi = JSON.parse(array_ubicacion_ed[itemArray]);
+                arrayUbicacion.push(recibeubi);
+            }
+
+            //llamamos la funcion q nos genera la tabla
+            Crear_tabla_ubicacion();
         },
         error: function(msg) {
             alert("No se pueden cargar las ubicaciones seleccionadas de la idea = " + idea_buscar);
         }
     });
+
 }
 
 

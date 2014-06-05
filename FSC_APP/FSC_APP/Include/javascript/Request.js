@@ -11,6 +11,7 @@ $(document).ready(function() {
 
 var numberRequest;
 var swhich_flujos_exist;
+var projectObject = {};
 //ready event for elements DOM into page
 $(document).ready(function() {
     numberRequest = (((idproject * 365) + 638) * 715953);
@@ -21,9 +22,10 @@ $(document).ready(function() {
         data: { "idProject": idproject, "action": "getInformationProject" },
         success: function(result) {
             result = JSON.parse(result);
-            console.log(result);
 
-            $("#project-title").html("SOLICITUD DE PROYECTO: " + result.Name.toUpperCase());
+            projectObject = result;
+            
+            $("#project-title").html("SOLICITUD DE PROYECTO: " +  result.Name.toUpperCase());
             $("#information-contract").html(result.Code.toUpperCase());
             $("#numberRequest").html(numberRequest);
             $("#dateRequest").html("<strong>Fecha de solicitud: </strong>" + Now());
@@ -37,6 +39,20 @@ $(document).ready(function() {
         }
     });
     //End ---- Ajax transaction for get project information
+    
+    $("#buttonSaveRequest").click(function(){
+        $.ajax({
+            url: "../FormulationAndAdoption/ajaxRequest.aspx",
+            type: "POST",
+            data: {"idProject": idproject, "action": "saveInformationRerquest", "projectInformation": JSON.stringify(projectObject), "thirdsInformation": JSON.stringify(arrayActor), "flowsInformation": JSON.stringify(arrayflujosdepago), "detailsInformation": JSON.stringify(matriz_flujos)},
+            success: function(result){
+                console.log(result);
+            },
+            error: function(){
+                alert("Opsss! Algo salio mal, por favor intentelo mas tarde.")
+            }
+        });
+    });
 });
 
 //Function for get now date

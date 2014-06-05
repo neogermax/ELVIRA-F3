@@ -18,7 +18,7 @@ Public Class ProjectLocationDALC
     ''' <returns></returns>
     ''' <remarks></remarks>
     Public Function add(ByVal objApplicationCredentials As Gattaca.Application.Credentials.ApplicationCredentials, _
-						ByVal ProjectLocation As ProjectLocationEntity) As Long
+      ByVal ProjectLocation As ProjectLocationEntity) As Long
 
         ' definiendo los objtos
         Dim sql As New StringBuilder
@@ -77,14 +77,14 @@ Public Class ProjectLocationDALC
         End Try
 
     End Function
-   
+
     ''' <summary>
     ''' Cargar un ProjectLocation por el Id
     ''' </summary>
     ''' <param name="idProjectLocation"></param>
     ''' <remarks></remarks>
     Public Function load(ByVal objApplicationCredentials As Gattaca.Application.Credentials.ApplicationCredentials, _
-							ByVal idProjectLocation As Integer) As ProjectLocationEntity
+       ByVal idProjectLocation As Integer) As ProjectLocationEntity
 
         ' definiendo los objtos
         Dim sql As New StringBuilder
@@ -144,7 +144,7 @@ Public Class ProjectLocationDALC
         End Try
 
     End Function
-    
+
     ''' <summary>
     ''' Cargar lista de capitulos de una forma
     ''' </summary>
@@ -153,11 +153,11 @@ Public Class ProjectLocationDALC
     ''' <param name="idcity"></param>
     ''' <returns>un objeto de tipo List(Of ProjectLocationEntity)</returns>
     ''' <remarks></remarks>
-    Public Function getList( ByVal objApplicationCredentials As Gattaca.Application.Credentials.ApplicationCredentials, _
-								Optional ByVal id As String = "", _
-								Optional ByVal idproject As String = "", _
-								Optional ByVal idcity As String = "", _
-								Optional order as string = "") As List(Of ProjectLocationEntity)
+    Public Function getList(ByVal objApplicationCredentials As Gattaca.Application.Credentials.ApplicationCredentials, _
+        Optional ByVal id As String = "", _
+        Optional ByVal idproject As String = "", _
+        Optional ByVal idcity As String = "", _
+        Optional ByVal order As String = "") As List(Of ProjectLocationEntity)
 
         ' definiendo los objetos
         Dim sql As New StringBuilder
@@ -183,7 +183,7 @@ Public Class ProjectLocationDALC
                 where = " AND "
 
             End If
-             
+
             ' verificar si hay entrada de datos para el campo
             If Not idproject.Equals("") Then
 
@@ -191,7 +191,7 @@ Public Class ProjectLocationDALC
                 where = " AND "
 
             End If
-             
+
             ' verificar si hay entrada de datos para el campo
             If Not idcity.Equals("") Then
 
@@ -199,12 +199,12 @@ Public Class ProjectLocationDALC
                 where = " AND "
 
             End If
-             
+
             If Not order.Equals(String.Empty) Then
-            
-				' ordernar
-				SQL.Append(" ORDER BY " & order)
-            
+
+                ' ordernar
+                sql.Append(" ORDER BY " & order)
+
             End If
 
             ' ejecutar la intruccion
@@ -215,9 +215,9 @@ Public Class ProjectLocationDALC
                 ' cargar los datos
                 objProjectLocation = New ProjectLocationEntity
 
-				' cargar el valor del campo
-				objProjectLocation.id = row("id")
-				objProjectLocation.idproject = row("idproject")
+                ' cargar el valor del campo
+                objProjectLocation.id = row("id")
+                objProjectLocation.idproject = row("idproject")
                 objProjectLocation.idcity = row("idcity")
                 objProjectLocation.CITYNAME = row("citiyname")
                 objProjectLocation.IDDEPTO = row("iddepto")
@@ -248,7 +248,7 @@ Public Class ProjectLocationDALC
 
         Finally
             ' liberando recursos
-            SQL = Nothing
+            sql = Nothing
             objProjectLocation = Nothing
             ProjectLocationList = Nothing
             data = Nothing
@@ -257,7 +257,7 @@ Public Class ProjectLocationDALC
         End Try
 
     End Function
-    
+
     ''' <summary>
     ''' Modificar un objeto de tipo ProjectLocation
     ''' </summary>
@@ -265,7 +265,7 @@ Public Class ProjectLocationDALC
     ''' <returns></returns>
     ''' <remarks></remarks>
     Public Function update(ByVal objApplicationCredentials As Gattaca.Application.Credentials.ApplicationCredentials, _
-							ByVal ProjectLocation As ProjectLocationEntity) As Long
+       ByVal ProjectLocation As ProjectLocationEntity) As Long
 
         ' definiendo los objtos
         Dim sql As New StringBuilder
@@ -273,12 +273,12 @@ Public Class ProjectLocationDALC
         Try
             ' construir la sentencia
             sql.AppendLine("Update ProjectLocation SET")
-            SQL.AppendLine(" idproject = '" & ProjectLocation.idproject & "',")           
+            sql.AppendLine(" idproject = '" & ProjectLocation.idproject & "',")
             sql.AppendLine(" idcity = '" & ProjectLocation.idcity & "'")
-            SQL.AppendLine("WHERE id = " & ProjectLocation.id)
+            sql.AppendLine("WHERE id = " & ProjectLocation.id)
 
             'Ejecutar la Instruccion
-            GattacaApplication.RunSQL(objApplicationCredentials, SQL.ToString)
+            GattacaApplication.RunSQL(objApplicationCredentials, sql.ToString)
 
             ' finalizar la transaccion
             CtxSetComplete()
@@ -297,12 +297,12 @@ Public Class ProjectLocationDALC
 
         Finally
             ' liberando recursos
-            SQL = Nothing
+            sql = Nothing
 
         End Try
 
     End Function
-    
+
     ''' <summary>
     ''' Borra el ProjectLocation de una forma
     ''' </summary>
@@ -311,7 +311,7 @@ Public Class ProjectLocationDALC
     ''' <remarks></remarks>
     Public Function delete(ByVal objApplicationCredentials As Gattaca.Application.Credentials.ApplicationCredentials, _
        ByVal idProjectLocation As Integer, _
-       Optional ByVal idProject As Integer = 0) As Long
+       ByVal idProject As Integer) As Long
 
         ' definiendo los objtos
         Dim SQL As New StringBuilder

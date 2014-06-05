@@ -683,12 +683,14 @@
                     </td>
                 </tr>
             </tbody>
-        </table>        
+
+        </table>
         <div>
             <input id="close_dialog" type="button" value="Cerrar X" name="close_dialog" />
         </div>
     </div>
     
+        
             <div id="divsuspension" style="display: none;">
             <h2>
                 Fechas de suspensión</h2>
@@ -828,6 +830,7 @@
             <textarea id="txtarRequest"></textarea>
         </div>
     
-    <input type='button' id="buttonSaveRequest" value="Guardar Solicitud" class="btn btn-success"
-        style="background-image: none;" />
+    
+    <input type='button' id="buttonSaveRequest" value="Guardar Solicitud" class="btn btn-success" style="background-image: none;" />
+
 </asp:Content>

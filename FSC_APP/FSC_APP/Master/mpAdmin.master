@@ -16,6 +16,23 @@
     <meta name="Content-Language" content="english" />
     <link href="../App_Themes/GattacaAdmin/Styles/chosen.css" rel="stylesheet" type="text/css" />
 
+    <style type="text/css">
+        #nav-menu
+        {
+        	width: 100%;
+        	margin: 1
+        }
+        #nav-menu li
+        {
+        	display: inline;
+        	float: right !important;
+        	color: rgb(0, 128, 128);
+        	height: 75px !important;
+        	line-height: 75px !important;
+        	text-align: center;
+        }
+    </style>
+    
     <script type="text/javascript" src="../Include/javascript/jquery-1.6.1.min.js"></script>
 
     <script src="../Include/javascript/chosen.jquery.min.js" type="text/javascript"></script>
@@ -125,6 +142,8 @@ german rodriguez y pedro cruz-->
                 }
             }
         });
+        
+        var host = "<%= Request.Url.Authority %>";
     </script>
 
     <asp:UpdateProgress ID="upPrincipal" runat="server" DisplayAfter="0">
