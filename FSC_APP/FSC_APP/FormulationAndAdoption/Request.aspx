@@ -113,7 +113,7 @@
             loadPaymentFlowsByProject();
             
             //Load Details Flows in case add
-            loadPaymentDetailsFlowsByProject();
+            //loadPaymentDetailsFlowsByProject();
             
             //Process German
             validarporcentaje();
@@ -157,9 +157,7 @@
                 "bDestroy": true
             });
             
-            $("#typeRequest").change(function(){
-                alert($(this).val());
-            
+            $("#typeRequest").change(function(){            
             
                 /*Adicion-prorroga-entregables*/
                 if($(this).val() == "1"){
