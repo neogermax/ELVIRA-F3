@@ -2245,6 +2245,16 @@ Public Class ProjectDALC
             sql.Append("', ResultsKnowledgeManagement= '" & Project.ResultsKnowledgeManagement)
             sql.Append("', ResultsInstalledCapacity= '" & Project.ResultsInstalledCapacity)
 
+            sql.Append("', OtherResults= '" & Project.OthersResults)
+            sql.Append("', Idtypecontract= '" & Project.idtypecontract)
+
+            sql.Append("', obligationsoftheparties= '" & Project.Obligaciones)
+            sql.Append("', BudgetRoute= '" & Project.presupuestal)
+            sql.Append("', RiskMitigation= '" & Project.mitigacion)
+            sql.Append("', RisksIdentified= '" & Project.riesgos)
+            sql.Append("', ideaappliesIVA= '" & Project.iva)
+            sql.Append("', days= '" & Project.dia)
+
             sql.Append("', source= '" & Project.source)
             sql.Append("', purpose= '" & Project.purpose)
             sql.Append("', totalcost= '" & Project.totalcost)

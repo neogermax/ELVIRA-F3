@@ -5812,7 +5812,7 @@ Public Class Facade
             'Next
 
             'Borrar la lista de Ubicaciones del proyecto projectLocation
-            objProjectLocationDALC.delete(objApplicationCredentials, 0, Project.idKey)
+            objProjectLocationDALC.delete(objApplicationCredentials, 0, Project.id)
             'Guardar la lista de Ubicaciones del proyecto projectLocation
             For Each objProjectLocation As ProjectLocationEntity In Project.projectlocationlist
                 objProjectLocation.idproject = Project.id
@@ -5822,10 +5822,10 @@ Public Class Facade
             
 
             'Borrar la lista de terceros del proyecto thirdByProject
-            objThirdByProjectDALC.delete(objApplicationCredentials, 0, Project.idKey)
+            objThirdByProjectDALC.delete(objApplicationCredentials, 0, Project.id)
             'Guardar la lista de terceros del proyecto thirdByProject
             For Each objThirdByProject As ThirdByProjectEntity In Project.thirdbyprojectlist
-                objThirdByProject.idproject = Project.idKey
+                objThirdByProject.idproject = Project.id
                 objThirdByProjectDALC.add(objApplicationCredentials, objThirdByProject)
             Next
 
