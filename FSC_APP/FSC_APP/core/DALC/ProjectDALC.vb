@@ -588,13 +588,13 @@ Public Class ProjectDALC
                 sql.Append(" 		FROM ProgramComponentByProject INNER JOIN ")
                 sql.Append(" 			ProgramComponent ON ProgramComponentByProject.IdProgramComponent = ProgramComponent.Id LEFT OUTER JOIN ")
                 sql.Append(" 			Program ON ProgramComponent.IdProgram = Program.Id ")
-                sql.Append(" 		WHERE (ProgramComponentByProject.IdProject = Project.idkey)) AS Programname, ")
+                sql.Append(" 		WHERE (ProgramComponentByProject.IdProject = Project.id)) AS Programname, ")
                 sql.Append(" 	  (SELECT TOP (1) isnull(StrategicLine.Name,'') ")
                 sql.Append(" 		FROM ProgramComponentByProject AS ProgramComponentByProject_1 LEFT OUTER JOIN ")
                 sql.Append(" 			ProgramComponent AS ProgramComponent_1 ON ProgramComponentByProject_1.IdProgramComponent = ProgramComponent_1.Id LEFT OUTER JOIN ")
                 sql.Append(" 			Program AS Program_1 ON ProgramComponent_1.IdProgram = Program_1.Id LEFT OUTER JOIN ")
                 sql.Append(" 			StrategicLine ON Program_1.IdStrategicLine = StrategicLine.Id ")
-                sql.Append(" 		WHERE (ProgramComponentByProject_1.IdProject = Project.idkey)) AS StrategicLinename ")
+                sql.Append(" 		WHERE (ProgramComponentByProject_1.IdProject = Project.id)) AS StrategicLinename ")
                 sql.Append(" FROM Project INNER JOIN Idea ON Project.IdIdea = Idea.Id LEFT OUTER JOIN ")
                 sql.Append(" 	" & dbSecurityName & ".dbo.ApplicationUser ApplicationUser ON Project.IdUser = ApplicationUser.ID  ")
 
@@ -2244,6 +2244,16 @@ Public Class ProjectDALC
             sql.Append("',  strategicdescription= '" & Project.strategicdescription)
             sql.Append("', ResultsKnowledgeManagement= '" & Project.ResultsKnowledgeManagement)
             sql.Append("', ResultsInstalledCapacity= '" & Project.ResultsInstalledCapacity)
+
+            sql.Append("', OtherResults= '" & Project.OthersResults)
+            sql.Append("', Idtypecontract= '" & Project.idtypecontract)
+
+            sql.Append("', obligationsoftheparties= '" & Project.Obligaciones)
+            sql.Append("', BudgetRoute= '" & Project.presupuestal)
+            sql.Append("', RiskMitigation= '" & Project.mitigacion)
+            sql.Append("', RisksIdentified= '" & Project.riesgos)
+            sql.Append("', ideaappliesIVA= '" & Project.iva)
+            sql.Append("', days= '" & Project.dia)
 
             sql.Append("', source= '" & Project.source)
             sql.Append("', purpose= '" & Project.purpose)

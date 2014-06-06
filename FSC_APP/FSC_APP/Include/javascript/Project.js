@@ -126,6 +126,9 @@ $(document).ready(function() {
         });
 
 
+
+        traer_valores_madre("editar", ideditar);
+
         //var timer_cline_edit = setTimeout("ClineEstrategic_edit();", 2000);
 
         var timer_cline_edit = setTimeout("Cpopulation_view();", 2000);
@@ -135,6 +138,9 @@ $(document).ready(function() {
         // $("#SaveProject").css("display", "block");
         $("#SaveProject").attr("value", "Guardar cambios");
         $("#Export").css("display", "compact");
+        $("#li_C_idea").css("display", "none");
+
+        
     }
     else {
 
@@ -180,11 +186,11 @@ $(document).ready(function() {
 
     $("#ctl00_cphPrincipal_container_wait").css("display", "none");
 
-    $(document).ajaxStart(function() {
-        $(this).show($("#ctl00_cphPrincipal_container_wait").css("display", "block"));
-    }).ajaxStop(function() {
-        $(this).hide($("#ctl00_cphPrincipal_container_wait").css("display", "none"));
-    });
+//    $(document).ajaxStart(function() {
+//        $(this).show($("#ctl00_cphPrincipal_container_wait").css("display", "block"));
+//    }).ajaxStop(function() {
+//        $(this).hide($("#ctl00_cphPrincipal_container_wait").css("display", "none"));
+//    });
 
 
     $("#ctl00_cphPrincipal_container_date_mother_actores").css("display", "none");
@@ -337,7 +343,7 @@ function verificar_dat_idea() {
         str_ideabuscar = $("#ddlididea option:selected").text();
         validar_ini_ed = 0;
 
-        traer_valores_madre();
+        traer_valores_madre("crear", 0);
 
         $("#SaveProject").css("display", "block");
 
@@ -877,7 +883,7 @@ function editar_proyecto() {
 
     idea_capturada_edicion = $("#ctl00_cphPrincipal_txtcode").val();
     var idea_str_array = idea_capturada_edicion.split("_");
-    
+
     var Str_listcomponentes = $("#componentesseleccionados").html();
     Str_listcomponentes = Str_listcomponentes.replace(/"/g, "_");
     Str_listcomponentes = Str_listcomponentes.replace(/<li/g, "");
@@ -1005,12 +1011,16 @@ function cambio_text(str_txt) {
     return str_txt;
 }
 
-function traer_valores_madre() {
+function traer_valores_madre(Str_estado_creacion, Str_id_project) {
 
+    if (Str_id_project == 0) {
+        Str_id_project = idea_buscar;
+    }
+    
     $.ajax({
         url: "AjaxAddProject.aspx",
         type: "GET",
-        data: { "action": "traer_valores_madre", "ididea": idea_buscar },
+        data: { "action": "traer_valores_madre", "ididea": Str_id_project, "estado": Str_estado_creacion },
         success: function(result) {
 
             result = JSON.parse(result);
@@ -1091,7 +1101,6 @@ function traer_valores_madre() {
                 $("#ctl00_cphPrincipal_lblsaveinformation").text(mensaje);
                 $("#SaveProject").css("display", "none");
                 //$("#Export").css("display", "-webkit-inline-box");
-
 
             }
 

@@ -71,14 +71,14 @@
     <div id="containerSuccess" runat="server" visible="true" style="width: 100%; text-align: center;
         border: 2px solid #cecece; background: #E8E8DC; height: 80px; line-height: 40px;
         vertical-align: middle; border-radius: 15px;" >
-        <img style="margin-top: 5px;" src="/FSC_APP/images/save_icon.png" width="24px" alt="Save" />
+        <img style="margin-top: 5px;" src="../images/save_icon.png" width="24px" alt="Save" />
         <%--<img style="margin-top: 5px;" src="/images/save_icon.png" width="24px" alt="Save" />--%>
         <asp:Label ID="lblsaveinformation" runat="server" Style="font-size: 14pt; color: #9bbb58;"></asp:Label>
     </div>
     <div id="containererrors" runat="server" visible="true" style="width: 100%; text-align: center;
         border: 2px solid #cecece; background: #E8E8DC; height: 120px; line-height: 40px;
         vertical-align: middle;border-radius: 15px;">
-        <img style="margin-top: 5px;" src="/FSC_APP/images/alert_icon.png" width="24px" alt="Save" />
+        <img style="margin-top: 5px;" src="../images/alert_icon.png" width="24px" alt="Save" />
         <%-- <img style="margin-top: 5px;" src="/images/alert_icon.png" width="24px" alt="Save" />--%>
         <asp:Label ID="Lblerrors_save_idea" runat="server" Style="font-size: 14pt; color: #990000;"></asp:Label>
     </div>

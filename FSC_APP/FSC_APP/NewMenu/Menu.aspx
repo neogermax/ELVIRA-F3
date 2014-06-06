@@ -1,4 +1,4 @@
-﻿<%@ Page Language="VB" AutoEventWireup="false" Inherits="FSC_APP.NewMenu_Menu" Codebehind="Menu.aspx.vb" %>
+﻿<%@ Page Language="VB" AutoEventWireup="false" Inherits="FSC_APP.NewMenu_Menu" CodeBehind="Menu.aspx.vb" %>
 
 <%@ Register Src="../Controls/User.ascx" TagName="User" TagPrefix="uc1" %>
 <!DOCTYPE html />
@@ -6,7 +6,7 @@
 <head>
     <title>Menu FSC</title>
     <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css" />
- 
+
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
     <link href="../Include/javascript/jfm/styles/style.css" rel="stylesheet" type="text/css" />
@@ -22,13 +22,11 @@
         body
         {
             background-image: url(/App_Themes/GattacaAdmin/Images/Template/V9/bg.jpg);
-            background-repeat: repeat-x;    
+            background-repeat: repeat-x;
             color: #3D3D3D;
             font-family: Tahoma, Geneva, sans-serif;
-            overflow: scroll;
-            /*background-position-y:-84px;*/
+            overflow: scroll; /*background-position-y:-84px;*/
         }
-        
         .menuprincipal
         {
             width: 90%;
@@ -116,12 +114,9 @@
             padding-bottom: 1em;
             font-size: 1em;
         }
-        /* iPads (portrait) ----------- */
-        @media only screen 
-        and (min-device-width : 768px) 
-        and (max-device-width : 1024px){
-        /* Styles */
-            .submenu ol li
+        /* iPads (portrait) ----------- */@media only screen and (min-device-width : 768px) and (max-device-width : 1024px)
+        {
+            /* Styles */    .submenu ol li
             {
                 display: inline-block;
                 font-weight: bold;
@@ -157,29 +152,28 @@
             -webkit-box-shadow: 2px 2px 5px #999;
             -moz-box-shadow: 2px 2px 5px #999;
         }
-        
         #jFlowSlider
         {
-        	margin-top: 7em !important;
+            margin-top: 7em !important;
         }
         #nav-menu
         {
-        	width: 100%;
+            width: 100%;
         }
         #nav-menu li
         {
-        	display: inline;
-        	float: right !important;
-        	color: rgb(0, 128, 128);
-        	height: 75px !important;
-        	line-height: 75px !important;
-        	text-align: center;
+            display: inline;
+            float: right !important;
+            color: rgb(0, 128, 128);
+            height: 75px !important;
+            line-height: 75px !important;
+            text-align: center;
         }
     </style>
 
     <script type="text/javascript">
         var host = "<%= Request.Url.Authority %>";
-        $(function () {
+        $(function() {
 
             $("#myController").jFlow({
 
@@ -208,7 +202,7 @@
                 auto: true
 
             });
-            
+
             $(".cssBgBPO").css("padding", "0px 0px 0px 0px");
 
         });
@@ -232,7 +226,7 @@
                 "Componente": [["Nuevo Componente", "/FormulationAndAdoption/addComponent.aspx?op=add"], ["Buscar Componente", "/FormulationAndAdoption/searchcomponent.aspx"]],
                 "Menus": [["Buscar Item", "/Administrator/AdminMenu.aspx"]],
                 "Destinatario": [["Nuevo Destinatario", "/Execution/addAddressee.aspx?op=add"], ["Buscar Destinatario", "/Execution/searchAddressee.aspx"]],
-                "Planeación_General_": [["Perspectiva", ""], ["Objetivo Estrategico", ""], ["Gerencia", ""], ["Estrategia", ""], ["Linea estrategica o Linea de Acción", ""], ["Programa", ""], ["Componentes de programa", ""], ["Actividad de la estrategia", ""], ["Actor", ""], ["Componente",""]],
+                "Planeación_General_": [["Perspectiva", ""], ["Objetivo Estrategico", ""], ["Gerencia", ""], ["Estrategia", ""], ["Linea estrategica o Linea de Acción", ""], ["Programa", ""], ["Componentes de programa", ""], ["Actividad de la estrategia", ""], ["Actor", ""], ["Componente", ""]],
                 "Reportes": [["Planeación General", ""], ["Investigación y Desarrollo", ""], ["Convocatorias", ""], ["Consulta general de proyectos", "/Report/generalConsultingProjects.aspx"]],
                 "Perspectiva": [["Nueva Perspectiva", ""], ["Buscar Perspectiva", ""]],
                 /*"Objeto": [["Nueva Perspectiva", ""], ["Buscar Perspectiva", ""]],*/
@@ -252,7 +246,7 @@
             "formulacion": {
                 "items": ["Idea", "Proyecto", "Contratación"],
                 "Idea": [["Nueva Idea", "/ResearchAndDevelopment/addIdea.aspx?op=add"], ["Buscar Idea", "/ResearchAndDevelopment/searchIdea.aspx"], ["Aprobar Idea", "/FormulationAndAdoption/addProjectApprovalRecord.aspx?op=add"], ["Buscar aprobación de ideas", "/FormulationAndAdoption/searchProjectApprovalRecord.aspx"]],
-//              "Aprobación": [, ["Consulta el registro de aprobación de una Idea", "/FormulationAndAdoption/searchProjectApprovalRecord.aspx"]]
+                //              "Aprobación": [, ["Consulta el registro de aprobación de una Idea", "/FormulationAndAdoption/searchProjectApprovalRecord.aspx"]]
                 "Proyecto": [["Crear Proyecto", "/FormulationAndAdoption/addProject.aspx?op=add"], ["Buscar Proyecto", "/FormulationAndAdoption/searchProject.aspx"], ["Aprobar Proyecto", "/FormulationAndAdoption/addProjectApproval.aspx"], ["Plan de ejecución Contractual", ""]],
                 "Contratación": [["Generar Contrato", "/Engagement/addContractRequest.aspx?op=add"], ["Buscar Contrato", "/Engagement/searchContractRequest.aspx"]],
                 "Plan_de_ejecución_Contractual": [["Nuevo Registrar plan de ejecucion Contractual", "/OperationalPlanning/addExecutionContractualPlanRegistry.aspx?op=add"], ["Buscar Registrar plan de ejecucion Contractual", "/OperationalPlanning/addExecutionContractualPlanRegistry.aspx?op=add"]]
@@ -274,7 +268,7 @@
                 "Gestion_del_Riesgo": [["Nuevo Riesgo (Incluye toda la clasificación y la acción de mitigación)", "/FormulationAndAdoption/addRisk.aspx?op=add"], ["Busqueda (incluye busqueda por toda la clasificacion)", "/FormulationAndAdoption/searchRisk.aspx"], ["Mitigación", ""]],
                 "Mitigación": [["Nueva Mitigación", "/FormulationAndAdoption/addMitigation.aspx?op=add"], ["Buscar Mitigación", "/FormulationAndAdoption/searchMitigation.aspx"]],
                 "Ejecución_Operadores": [["Registrar Testimonios y Aprendizajes", "/Execution/addExecution.aspx?op=add"], ["Listado de subactividades pendientes", "/Execution/subActivityMainPanelTODO-LIST.aspx"], ["Listado de actividades pendientes", "/Execution/addSubActivityInformationRegistry.aspx?op=add&idsubactivity=2593"], ["Listado de ajustes pendientes", "/V9/BPM/InternalParticipant/TaskList.aspx"]],
-                "Cierre_del_Proyecto": [["Generar Acta de Cierre", "/FomsProceedings/Proceeding_main.aspx?tp=cls"], ["Lecciones Aprendidas", ""],["Evaluación Proveedor", ""]],
+                "Cierre_del_Proyecto": [["Generar Acta de Cierre", "/FomsProceedings/Proceeding_main.aspx?tp=cls"], ["Lecciones Aprendidas", ""], ["Evaluación Proveedor", ""]],
                 "Registro_de_Cierre": [["Nuevo Registro de Acta de cierre", ""], ["Buscar Registro de Acta de cierre", ""]],
                 "Lecciones_Aprendidas": [["Registrar testimonios ajustes y aprendizajes", "/Execution/addExecution.aspx?op=add"], ["Busqueda (incluida busqueda por toda la clasificacion)", "/Execution/searchExecution.aspx"]],
 
@@ -284,8 +278,8 @@
                 "Reportes": [["Formulacion y Planeación", ""], ["Ejecución", ""], ["Reportes de Contratación", ""], ["Reporte de Actas", "/Report/Engagement/ReportContractRequestactas.aspx"], ["Reporte de Compromisos", "/Report/proceedings/ReportCompromise.aspx"]],
                 "Reportes_de_Contratación": [["Estado de la solicitud de contratos", "/Report/Engagement/reportContractsRequest.aspx"], ["Listado general de contratos", "/Report/Engagement/generalListContracts.aspx"], ["Plan de contratacion", "/Report/OperationalPlanning/reportRecruitmentPlan.aspx"]],
                 "Formulacion_y_Planeación": [["Datos basicos de Proyecto", "/Report/FormulationAndAdoption/reportBasicProjectData.aspx"], ["Matriz de Indicadores", "/Report/FormulationAndAdoption/reporMatrixIndicator.aspx"], ["Plan de Ejecución", "/Report/reportExecutionPlan.aspx"], ["Cronograma del proyecto", "/Report/FormulationAndAdoption/reportProjectChronogram.aspx"], ["Matriz de Riesgos", "/Report/FormulationAndAdoption/reportRiskMatrix.aspx"], ["Plan de contratación", "/Report/OperationalPlanning/reportRecruitmentPlan.aspx"]],
-                "Ejecución": [["Lista de Subactividades", "/Report/Execution/reportActivities.aspx"], ["Banco de documentos", "/Report/ResearchAndDevelopment/ReportDocuments.aspx"], ["Productos de Proyecto", "/Report/ResearchAndDevelopment/ReportProducts.aspx"], ["Listado de buenas practicas", "/Report/ResearchAndDevelopment/ReportGoodPractice.aspx"], ["Actividades Vs Ejecución", "/Report/FormulationAndAdoption/ReportSubactivitiesVsExecution.aspx"], ["Estadisticas", "/Report/ResearchAndDevelopment/ReportStatistics.aspx"], ["Aprendizaje Logros y Ajustes", "/Report/FormulationAndAdoption/reportlearning.aspx"], ["Lista de testimonios", "/Report/FormulationAndAdoption/ReporTestimonyList.aspx"], ["Grafica de Encuestas", "/Report/ResearchAndDevelopment/ResultInquest.aspx"], ["Lista de Operadores", "/Report/FormulationAndAdoption/ReportOperatorList.aspx"], ["Lista de proyectos cerrados", "/Report/FormulationAndAdoption/reportClosedProjectsList.aspx"]] 
-                
+                "Ejecución": [["Lista de Subactividades", "/Report/Execution/reportActivities.aspx"], ["Banco de documentos", "/Report/ResearchAndDevelopment/ReportDocuments.aspx"], ["Productos de Proyecto", "/Report/ResearchAndDevelopment/ReportProducts.aspx"], ["Listado de buenas practicas", "/Report/ResearchAndDevelopment/ReportGoodPractice.aspx"], ["Actividades Vs Ejecución", "/Report/FormulationAndAdoption/ReportSubactivitiesVsExecution.aspx"], ["Estadisticas", "/Report/ResearchAndDevelopment/ReportStatistics.aspx"], ["Aprendizaje Logros y Ajustes", "/Report/FormulationAndAdoption/reportlearning.aspx"], ["Lista de testimonios", "/Report/FormulationAndAdoption/ReporTestimonyList.aspx"], ["Grafica de Encuestas", "/Report/ResearchAndDevelopment/ResultInquest.aspx"], ["Lista de Operadores", "/Report/FormulationAndAdoption/ReportOperatorList.aspx"], ["Lista de proyectos cerrados", "/Report/FormulationAndAdoption/reportClosedProjectsList.aspx"]]
+
             },
             "herramientas": {
                 "items": ["Encuesta", "Documentos", "Foro"],
@@ -297,7 +291,7 @@
         };
 
         $(document).ready(function() {
-        
+
             $(".tarjeta").hover(function() {
                 var menuText = $(this).attr("menu");
                 $(".titlemenu").html(menuText);
@@ -319,22 +313,22 @@
                 $(".titlemenu").html("");
             });
             $.ajax({
-                url: "/NewMenu/ajaxMenu.aspx",
+                url: "http://" + host + "/NewMenu/ajaxMenu.aspx",
                 type: "GET",
-                data: { "action": "loadmenu", "level": "1"},
-                success: function(result){
+                data: { "action": "loadmenu", "level": "1" },
+                success: function(result) {
                     arrayLevel1 = result.split(",");
-                    for(var item in arrayLevel1){
+                    for (var item in arrayLevel1) {
                         var itemArray = $.trim(arrayLevel1[item]).toString();
                         console.log(arrayLevel1[item]);
-                        if(itemArray != ""){
+                        if (itemArray != "") {
                             console.log($("#" + itemArray));
                             $("#" + itemArray).removeClass('visible');
                         }
                     }
                 }
             });
-            
+
         });
         function Minimizar_MenuPrincipal(objDOM) {
             $(".menuprincipal").css("margin", "1em auto");
@@ -350,7 +344,7 @@
             $("#listsubmenu").html("");
             for (var itemMenu in jsonMenu[nombremenu].items) {
                 console.log(jsonMenu[nombremenu][itemMenu]);
-                if (arrayLevel2.indexOf(jsonMenu[nombremenu].items[itemMenu])!=-1){
+                if (arrayLevel2.indexOf(jsonMenu[nombremenu].items[itemMenu]) != -1) {
                     $("#listsubmenu").append("<li onclick='mostrarTercerNivelMenu(this);' item='" + jsonMenu[nombremenu].items[itemMenu] + "'>" + jsonMenu[nombremenu].items[itemMenu] + "</li>");
                 }
             }
@@ -366,12 +360,12 @@
             child = nombremenu;
             for (var itemMenu in jsonMenu[parent][nombremenu]) {
                 console.log(jsonMenu[parent][nombremenu][itemMenu][0, 0]);
-                if (arrayLevel3.indexOf(jsonMenu[parent][nombremenu][itemMenu][0, 0])!=-1){
+                if (arrayLevel3.indexOf(jsonMenu[parent][nombremenu][itemMenu][0, 0]) != -1) {
                     if (jsonMenu[parent][nombremenu][itemMenu][0, 1] == "") {
                         $("#listsubmenu_dos").append("<li><a title='Opciones de Menu' data-toggle='modal' href='#menuModal' onclick='mostrarCuartoNivelMenu(this);' item='" + jsonMenu[parent][nombremenu][itemMenu][0, 0].replace(/ /g, "_") + "'>" + jsonMenu[parent][nombremenu][itemMenu][0, 0] + "</a><a onclick='mostrarCuartoNivelMenu(this);' item='" + jsonMenu[parent][nombremenu][itemMenu][0, 0].replace(/ /g, "_") + "' title='Mas Opciones ...' data-toggle='modal' href='#menuModal' > <img src='../images/Folder.png' style='width: 32px; float: right; margin-top: 15px;' /></a></li>");
                     }
                     else {
-                        $("#listsubmenu_dos").append("<li><a href='" + jsonMenu[parent][nombremenu][itemMenu][0, 1].replace(/ /g, "_") + "'>" + jsonMenu[parent][nombremenu][itemMenu][0, 0] + "</a></li>");
+                        $("#listsubmenu_dos").append("<li><a href='" + "http://" + host + jsonMenu[parent][nombremenu][itemMenu][0, 1].replace(/ /g, "_") + "'>" + jsonMenu[parent][nombremenu][itemMenu][0, 0] + "</a></li>");
                     }
                 }
             }
@@ -380,7 +374,7 @@
             var nombremenu = $(objDOM).attr("item");
             $("#listModalMenu").html("");
             for (itemMenu in jsonMenu[parent][nombremenu]) {
-                if (arrayLevel4.indexOf(jsonMenu[parent][nombremenu][itemMenu][0, 0])!=-1){
+                if (arrayLevel4.indexOf(jsonMenu[parent][nombremenu][itemMenu][0, 0]) != -1) {
                     $("#listModalMenu").append("<li><a href='" + jsonMenu[parent][nombremenu][itemMenu][0, 1] + "'>" + jsonMenu[parent][nombremenu][itemMenu][0, 0] + "</a></li>");
                 }
             }
@@ -446,7 +440,7 @@
                             Bienvenidos al Sistema de Gestión de Proyectos</p>
                         <p style="text-align: center; font-size: 30px; color: #499591;">
                             ELVIRA</p>
-                        <p style="text-align: center; color: #499591;  margin-top: 1em;">
+                        <p style="text-align: center; color: #499591; margin-top: 1em;">
                             <em><strong>E</strong>va<strong>L</strong>uaci&oacute;n y <strong>V</strong>aloraci&oacute;n
                                 de la <strong>I</strong>nve<strong>R</strong>si&oacute;n <strong>A</strong>rticulada</em></p>
                         <div class="menuprincipal">
@@ -504,10 +498,10 @@
             </tbody>
         </table>
     </div>
-    <div style="float: right; z-index: 9; width:60%; height: 75px; text-align:right; margin-right: 1em; position: absolute; right: 0;
-        top: 0; margin-top: 20px;">
+    <div style="float: right; z-index: 9; width: 60%; height: 75px; text-align: right;
+        margin-right: 1em; position: absolute; right: 0; top: 0; margin-top: 20px;">
         <uc1:User ID="ucUserData" runat="server" />
-    </div> 
+    </div>
     <form id="HFFrm" runat="server">
     <asp:HiddenField ID="hfUGr" runat="server" />
     </form>
