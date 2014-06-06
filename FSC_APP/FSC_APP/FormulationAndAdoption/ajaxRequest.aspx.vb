@@ -126,6 +126,7 @@ Partial Public Class ajaxRequest
         Dim IdRequest As Integer = saveProjectInformation(JSONProjectInformation)
         saveThirdsInformation(JSONThirdsInformation, IdRequest)
         saveFlowsInformation(JSONFlowsInformation, IdRequest)
+        saveDetailsCashFlows(JSONDetailsInformation, IdRequest)
 
         Response.Write("ok")
 
@@ -156,7 +157,15 @@ Partial Public Class ajaxRequest
             objCPaymentFlow_Request.setPropertiesFromProject(item)
             objCPaymentFlow_Request.executeInsert()
         Next
+    End Sub
 
+    Protected Sub saveDetailsCashFlows(ByVal JSONFlowsInformation As List(Of FSC_DAO.model.Detailedcashflows), ByVal IdRequest As Integer)
+        For Each item In JSONFlowsInformation
+            Dim objCDetailsCashFlow As FSC_DAO.model.CDetailsCashFlow = New FSC_DAO.model.CDetailsCashFlow()
+            objCDetailsCashFlow.IdRequest = IdRequest
+            objCDetailsCashFlow.setPropertiesFromDetailedcashflows(item)
+            objCDetailsCashFlow.executeInsert()
+        Next
     End Sub
 
 End Class

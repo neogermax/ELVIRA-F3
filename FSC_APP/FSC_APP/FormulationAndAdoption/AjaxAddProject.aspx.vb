@@ -22,7 +22,7 @@ Partial Public Class AjaxAddProject
         Dim id_b As Integer
         Dim fecha As Date
         Dim duracion, dia As String
-        Dim s_id, S_estado, type_i_p, idprogram_list, S_ididea, S_strCode, S_code, S_linea_estrategica, S_programa, S_nombre, S_justificacion, S_objetivo, S_objetivo_esp, S_Resultados_Benef, S_Resultados_Ges_c, S_Resultados_Cap_i, S_Resultados_otros_resul, S_Fecha_inicio, S_mes, S_dia, S_Fecha_fin, S_Población, S_contratacion, S_A_Mfsc, S_A_Efsc, S_A_Mcounter, S_A_Ecounter, S_cost, S_obligaciones, S_iva, S_listubicaciones, S_listactors, S_mitigacion, S_riesgos, S_presupuestal, S_listcomponentes, S_listflujos, S_listdetallesflujos, S_listfiles As String
+        Dim c_estado_proceso, s_id, S_estado, type_i_p, idprogram_list, S_ididea, S_strCode, S_code, S_linea_estrategica, S_programa, S_nombre, S_justificacion, S_objetivo, S_objetivo_esp, S_Resultados_Benef, S_Resultados_Ges_c, S_Resultados_Cap_i, S_Resultados_otros_resul, S_Fecha_inicio, S_mes, S_dia, S_Fecha_fin, S_Población, S_contratacion, S_A_Mfsc, S_A_Efsc, S_A_Mcounter, S_A_Ecounter, S_cost, S_obligaciones, S_iva, S_listubicaciones, S_listactors, S_mitigacion, S_riesgos, S_presupuestal, S_listcomponentes, S_listflujos, S_listdetallesflujos, S_listfiles As String
         Dim estado_proceso, ideditar, id_lineStrategic, id_depto, idprogram, idpopulation, Countarchivo As Integer
 
         Dim strFileName() As String
@@ -341,7 +341,8 @@ Partial Public Class AjaxAddProject
 
                 Case "traer_valores_madre"
                     ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
-                    SearchProject_values_mother(ideditar)
+                    c_estado_proceso = Request.QueryString("estado").ToString
+                    SearchProject_values_mother(ideditar, c_estado_proceso)
 
                 Case Else
 
@@ -352,7 +353,7 @@ Partial Public Class AjaxAddProject
 
     End Sub
 
-    Protected Function SearchProject_values_mother(ByVal ididea As String)
+    Protected Function SearchProject_values_mother(ByVal ididea As String, ByVal estado As String)
 
         Dim sql As New StringBuilder
         Dim objSqlCommand As New SqlCommand
@@ -360,8 +361,14 @@ Partial Public Class AjaxAddProject
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
         Dim objResult, completiondate, BeginDate As String
 
-        'consulta para saber el proyecto madre del derivado seleccionado
-        sql.Append(" select distinct p.Project_derivados from  Project p where p.ididea = " & ididea)
+        If estado = "crear" Then
+            'consulta para saber el proyecto madre del derivado seleccionado
+            sql.Append(" select distinct p.Project_derivados from  Project p where p.ididea = " & ididea)
+        Else
+            'consulta para saber el proyecto madre del derivado seleccionado
+            sql.Append(" select distinct p.Project_derivados from  Project p where p.id = " & ididea)
+        End If
+
         Dim id_proyect_mother = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
 
         sql = New StringBuilder
@@ -372,8 +379,15 @@ Partial Public Class AjaxAddProject
 
         sql = New StringBuilder
 
-        'consulta para saber la suma del proyectos derivados
-        sql.Append("select sum (convert(int, valortotal)) as total_derivados from Paymentflow where idproject in (select p.id  from Project p where  p.Mother=0 and p.Project_derivados = " & id_proyect_mother & ")")
+        'validamos si viene de edicion o creacion de proyecto
+        If estado = "crear" Then
+            'consulta para saber la suma del proyectos derivados
+            sql.Append("select sum (convert(int, valortotal)) as total_derivados from Paymentflow where idproject in (select p.id  from Project p where  p.Mother=0 and p.Project_derivados = " & id_proyect_mother & ")")
+        Else
+            'consulta para saber la suma del proyectos derivados
+            sql.Append("select sum (convert(int, valortotal)) as total_derivados from Paymentflow where idproject in (select p.id  from Project p where  p.Mother=0 and p.Project_derivados = " & id_proyect_mother & " and p.id <> " & ididea & ")")
+        End If
+
         Dim ressiduo_valor_mother = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
 
         Dim disponible As String

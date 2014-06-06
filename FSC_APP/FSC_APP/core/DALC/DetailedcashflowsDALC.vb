@@ -71,13 +71,18 @@ Public Class DetailedcashflowsDALC
     End Function
 
     Public Function delete(ByVal objApplicationCredentials As Gattaca.Application.Credentials.ApplicationCredentials, _
-      ByVal IdIdea As Integer) As Long
+      ByVal IdIdea As Integer, ByRef type As String) As Long
 
         ' definiendo los objtos
         Dim SQL As New StringBuilder
 
         SQL.AppendLine(" Delete from Detailedcashflows ")
-        SQL.AppendLine(" where IdIdea = '" & IdIdea & "' ")
+
+        If Type = "Idea" Then
+            SQL.AppendLine(" where ididea = '" & IdIdea & "' ")
+        Else
+            SQL.AppendLine(" where idproject = '" & IdIdea & "' ")
+        End If
         'Ejecutar la Instruccion
         GattacaApplication.RunSQL(objApplicationCredentials, SQL.ToString)
 

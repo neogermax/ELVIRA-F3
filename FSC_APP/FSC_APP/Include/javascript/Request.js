@@ -66,6 +66,7 @@ $(document).ready(function() {
             var EndDate = new Date(parseFloat(result.completiondate.replace(/Date/g, "").replace(/\//g, "").replace(/["'()]/g, "").toString()));
             $("#startDate").html(BeginDate.localeFormat("dd/MM/yyyy"));
             $("#closeDate").html(EndDate.localeFormat("dd/MM/yyyy"));
+
             //
             $("#txtarObjective").val(projectObject.Objective);
             $("#txtarSpecificObjectives").val(projectObject.ZoneDescription);
@@ -83,7 +84,10 @@ $(document).ready(function() {
     });
     //End ---- Ajax transaction for get project information
 
-    $("#buttonSaveRequest").click(function() {
+    
+    $("#buttonSaveRequest").click(function(){
+        projectObject.Justification = $("#txtJustification").val();
+
         $.ajax({
             url: "../FormulationAndAdoption/ajaxRequest.aspx",
             type: "POST",

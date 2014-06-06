@@ -25,12 +25,12 @@
     </tr>
 </table>--%>
 <ul id="nav-menu">
-    <li><a href="/security/login.aspx">
+    <li><a href="../security/login.aspx">
         <asp:Image ID="imgLogout" runat="server" Height="36px" ImageUrl="~/images/img_logout.png"
             ToolTip="Cerrar Sesión" Style="text-align: center; margin-top: 1em;" AlternateText="Cerrar Sesión" />
         <%--Cerrar Sesión--%>
     </a></li>
-    <li><a href="/NewMenu/Menu.aspx">
+    <li><a href="../NewMenu/Menu.aspx">
         <asp:Image ID="imgMenu" runat="server" Height="36px" ImageUrl="~/images/img_menus.png"
             ToolTip="Inicio" Style="text-align: center; margin-top: 1em;" AlternateText="Inicio" />
         <%--Regresar al Menú--%>

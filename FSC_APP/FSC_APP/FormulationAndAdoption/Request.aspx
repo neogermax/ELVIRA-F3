@@ -186,6 +186,10 @@
                 }
                 /*Cesion*/
                 if($(this).val() == "4"){
+                    $("#tabsRequest").css("display", "block");
+                    tabs.tabs("disable",1);
+                    tabs.tabs("enable",0);
+                    tabs.tabs({ active: 0 });
                 }else{
                 }
                 /*Otros*/
@@ -208,64 +212,52 @@
             });
         });
     </script>
-        <!-- End Script -->
-        <div class="container-request">
-            <h1 id="project-title">
-            </h1>
-            <div class="comun-controls">
-                <h2 id="information-contract">
-                </h2>
-                <label>
-                    Tipo de solicitud</label>
-                <select id="typeRequest">
-                    <option value="0">Seleccione...</option>
-                    <option value="1">1. Adición, Prórroga, Entregables</option>
-                    <option value="2">2. Suspensión</option>
-                    <option value="3">3. Alcance</option>
-                    <option value="4">4. Cesión</option>
-                    <option value="5">5. Otros</option>
-                </select>
-            </div>
-            <div class="comun-controls">
-                <h2>
-                    <strong>No. de la Solicitud:</strong> <span id="numberRequest"></span>
-                </h2>
-                <h2 id="dateRequest">
-                </h2>
-                <label>
-                    Justificación de la solicitud</label>
-                <textarea></textarea>
-            </div>
-            <div id="group-radios-type" class="container-subcategories" style="display: none;">
-                <label>
-                    Especifique la modificación:</label>
-                <div class="btn-group" data-toggle="buttons">
-                    <label class="btn btn-success">
-                        <input type="radio" name="subgroup" value="Adición" />
-                        Adición</label>
-                    <label class="btn btn-success">
-                        <input type="radio" name="subgroup" value="Prorroga" />
-                        Prorroga</label>
-                    <label class="btn btn-success">
-                        <input type="radio" name="subgroup" value="Entregables" />
-                        Entregables</label>
-                    <label class="btn btn-success">
-                        <input type="radio" name="subgroup" value="Fecha de los desembolsos" />
-                        Fecha de los desembolsos</label>
-                </div>
-            </div>
-            <div class="project-information">
-                <label>
-                    Información actual del proyecto (No Editable)</label>
-                <label>
-                    Fecha de Incio: <span id="startDate"></span>
-                </label>
-                <label>
-                    Fecha de Cierre: <span id="closeDate"></span>
-                </label>
-                <label>
-                    Fecha de Cierre Proyecto Madre: <span id="closeDateMotherDate"></span>
-                </label>
+
+    <!-- End Script -->
+    <div class="container-request">
+        <h1 id="project-title">
+        </h1>
+        <div class="comun-controls">
+            <h2 id="information-contract">
+            </h2>
+            <label>
+                Tipo de solicitud</label>
+            <select id="typeRequest">
+                <option value="0">Seleccione...</option>
+                <option value="1">1. Adición, Prórroga, Entregables</option>
+                <option value="2">2. Suspensión</option>
+                <option value="3">3. Alcance</option>
+                <option value="4">4. Cesión</option>
+                <option value="5">5. Otros</option>
+            </select>
+        </div>
+        <div class="comun-controls">
+            <h2>
+                <strong>No. de la Solicitud:</strong> <span id="numberRequest"></span>
+            </h2>
+            <h2 id="dateRequest">
+            </h2>
+            <label>
+                Justificación de la solicitud</label>
+            <textarea id="txtJustification"></textarea>
+        </div>
+        <div id="group-radios-type" class="container-subcategories" style="display: none;">
+            <label>
+                Especifique la modificación:</label>
+            <div class="btn-group" data-toggle="buttons">
+                <label class="btn btn-success">
+                    <input type="radio" name="subgroup" value="Adición" />
+                    Adición</label>
+                <label class="btn btn-success">
+                    <input type="radio" name="subgroup" value="Prorroga" />
+                    Prorroga</label>
+                <label class="btn btn-success">
+                    <input type="radio" name="subgroup" value="Entregables" />
+                    Entregables</label>
+                <label class="btn btn-success">
+                    <input type="radio" name="subgroup" value="Fecha de los desembolsos" />
+                    Fecha de los desembolsos</label>
+
             </div>
         </div>
         <br />
