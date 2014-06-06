@@ -184,6 +184,10 @@
                 }
                 /*Cesion*/
                 if($(this).val() == "4"){
+                    $("#tabsRequest").css("display", "block");
+                    tabs.tabs("disable",1);
+                    tabs.tabs("enable",0);
+                    tabs.tabs({ active: 0 });
                 }else{
                 }
                 /*Otros*/
@@ -233,7 +237,7 @@
             </h2>
             <label>
                 Justificación de la solicitud</label>
-            <textarea></textarea>
+            <textarea id="txtJustification"></textarea>
         </div>
         <div id="group-radios-type" class="container-subcategories" style="display: none;">
             <label>
