@@ -167,6 +167,8 @@
                 if($(this).val() == "1"){
                     $("#group-radios-type").css("display", "block");
                     $("#divsuspension").css("display", "none");
+                    tabs.tabs("enable",0);
+                    tabs.tabs({ active: 0 });
                 }
                 else{
                     $("#group-radios-type").css("display", "none");
@@ -191,6 +193,8 @@
                     tabs.tabs("enable",0);
                     tabs.tabs({ active: 0 });
                 }else{
+                    tabs.tabs("enable",0);
+                    tabs.tabs({ active: 0 });
                 }
                 /*Otros*/
                 if($(this).val() == "5"){
@@ -202,7 +206,7 @@
             
             $("input[name='subgroup']").change(function(){
                 $("#tabsRequest").css("display", "block");
-                if($(this).val() != "Adición"){
+                if($(this).val() != "1"){
                     tabs.tabs("disable",0);
                     tabs.tabs({ active: 1 });
                 }else{
@@ -246,18 +250,17 @@
                 Especifique la modificación:</label>
             <div class="btn-group" data-toggle="buttons">
                 <label class="btn btn-success">
-                    <input type="radio" name="subgroup" value="Adición" />
+                    <input type="radio" name="subgroup" value="1" />
                     Adición</label>
                 <label class="btn btn-success">
-                    <input type="radio" name="subgroup" value="Prorroga" />
+                    <input type="radio" name="subgroup" value="2" />
                     Prorroga</label>
                 <label class="btn btn-success">
-                    <input type="radio" name="subgroup" value="Entregables" />
+                    <input type="radio" name="subgroup" value="3" />
                     Entregables</label>
                 <label class="btn btn-success">
-                    <input type="radio" name="subgroup" value="Fecha de los desembolsos" />
+                    <input type="radio" name="subgroup" value="4" />
                     Fecha de los desembolsos</label>
-
             </div>
         </div>
         <br />
@@ -823,8 +826,10 @@
                 Solicitud</h2>
             <textarea id="txtarRequest"></textarea>
         </div>
-        <div style="clear:both; width:100%; display:block;">
+        <div style="clear: both; width: 100%; display: block;">
         </div>
-            <input type='button' id="buttonSaveRequest" value="Guardar Solicitud" class="btn btn-success"
-                style="background-image: none; clear:both;" />
+        <input type='button' id="buttonSavePartial" value="Guardar Parcial" class="btn btn-success"
+            style="background-image: none; clear: both;" />
+        <input type='button' id="buttonSaveRequest" value="Guardar Solicitud" class="btn btn-success"
+            style="background-image: none; clear: both;" />
 </asp:Content>

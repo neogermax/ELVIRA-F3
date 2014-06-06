@@ -122,11 +122,13 @@ Partial Public Class ajaxRequest
         Dim JSONThirdsInformation = JsonConvert.DeserializeObject(Of List(Of FSC_DAO.model.ThirdByProject))(Request.Form("thirdsInformation"))
         Dim JSONFlowsInformation = JsonConvert.DeserializeObject(Of List(Of FSC_DAO.model.Paymentflow))(Request.Form("flowsInformation"))
         Dim JSONDetailsInformation = JsonConvert.DeserializeObject(Of List(Of FSC_DAO.model.Detailedcashflows))(Request.Form("detailsInformation"))
+        Dim JSONTypeRequest = JsonConvert.DeserializeObject(Of List(Of FSC_DAO.model.Request_RequestType))(Request.Form("InformationTypeRequest"))
 
         Dim IdRequest As Integer = saveProjectInformation(JSONProjectInformation)
         saveThirdsInformation(JSONThirdsInformation, IdRequest)
         saveFlowsInformation(JSONFlowsInformation, IdRequest)
         saveDetailsCashFlows(JSONDetailsInformation, IdRequest)
+        saveTypeRequest(JSONTypeRequest, IdRequest)
 
         Response.Write("ok")
 
@@ -135,7 +137,7 @@ Partial Public Class ajaxRequest
     Protected Function saveProjectInformation(ByVal JSONProjectInformation As FSC_DAO.model.Project) As Integer
         Dim objCRequest As FSC_DAO.model.CRequest = New FSC_DAO.model.CRequest()
 
-        objCRequest.setPropertiesFromProject(JSONProjectInformation)
+        objCRequest.setPropertiesFromProject(JSONProjectInformation, Request.Form("other_request"))
         objCRequest.executeInsert()
 
         Return objCRequest.Id
@@ -165,6 +167,15 @@ Partial Public Class ajaxRequest
             objCDetailsCashFlow.IdRequest = IdRequest
             objCDetailsCashFlow.setPropertiesFromDetailedcashflows(item)
             objCDetailsCashFlow.executeInsert()
+        Next
+    End Sub
+
+    Protected Sub saveTypeRequest(ByVal JSONTypeRequestInformation As List(Of FSC_DAO.model.Request_RequestType), ByVal IdRequest As Integer)
+        For Each item In JSONTypeRequestInformation
+            Dim objCRequest_RequestType As FSC_DAO.model.CRequest_RequestType = New FSC_DAO.model.CRequest_RequestType()
+            objCRequest_RequestType.setPropertiesFromJSON(item)
+            objCRequest_RequestType.IdRequest = IdRequest
+            objCRequest_RequestType.executeInsert()
         Next
     End Sub
 

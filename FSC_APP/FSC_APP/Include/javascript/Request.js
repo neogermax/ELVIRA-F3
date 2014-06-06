@@ -2,9 +2,12 @@
 // Date: 16/05/2014
 // File: Rquest.js
 
+var arrayTypeRequest=[];
+
 $(document).ready(function() {
     HideAreas();
     Fechas();
+    partialSave();
 
     $(".txtarAlcance").change(function() {
         var idControl = $(this).attr("id");
@@ -91,7 +94,7 @@ $(document).ready(function() {
         $.ajax({
             url: "../FormulationAndAdoption/ajaxRequest.aspx",
             type: "POST",
-            data: { "idProject": idproject, "action": "saveInformationRerquest", "projectInformation": JSON.stringify(projectObject), "thirdsInformation": JSON.stringify(arrayActor), "flowsInformation": JSON.stringify(arrayflujosdepago), "detailsInformation": JSON.stringify(matriz_flujos) },
+            data: { "idProject": idproject, "action": "saveInformationRerquest", "projectInformation": JSON.stringify(projectObject), "thirdsInformation": JSON.stringify(arrayActor), "flowsInformation": JSON.stringify(arrayflujosdepago), "detailsInformation": JSON.stringify(matriz_flujos), "other_request": $("#txtarRequest").val(), "InformationTypeRequest": JSON.stringify(arrayTypeRequest) },
             success: function(result) {
                 console.log(result);
             },
@@ -101,6 +104,16 @@ $(document).ready(function() {
         });
     });
 });
+
+//Partial Sve
+function partialSave() {
+    $("#buttonSavePartial").click(function() {
+        var JSONTypeRequest = { "IdRequest": 0, "IdRequestSubType": $("input[name='subgroup']:checked").val(), "IdRequestType": $("#typeRequest").val() };
+
+        arrayTypeRequest.push(JSONTypeRequest);
+
+    });
+}
 
 //Function for get now date
 function Now() {
