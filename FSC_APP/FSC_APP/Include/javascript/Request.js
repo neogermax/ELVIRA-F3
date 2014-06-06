@@ -5,6 +5,39 @@
 $(document).ready(function() {
     HideAreas();
     Fechas();
+
+    $(".txtarAlcance").change(function() {
+        var idControl = $(this).attr("id");
+        switch (idControl) {
+            case "txtarObjective2":
+                projectObject.Objective = $(this).val();
+                break;
+
+            case "txtarSpecificObjectives2":
+                projectObject.ZoneDescription = $(this).val();
+                break;
+
+            case "txtarInstalledCapacityResults2":
+                projectObject.ResultsInstalledCapacity = $(this).val();
+                break;
+
+            case "txtarBenefitiaryResults2":
+                projectObject.Results = $(this).val();
+                break;
+
+            case "txtarKnowledgeResults2":
+                projectObject.ResultsKnowledgeManagement = $(this).val();
+                break;
+
+            case "txtarOtherResults2":
+                projectObject.OtherResults = $(this).val();
+                break;
+
+            case "txtarPartObligations2":
+                projectObject.obligationsoftheparties = $(this).val();
+                break;
+        }
+    });
 })
 
 // idproject depend from page father and save into variable named idproject
@@ -24,8 +57,8 @@ $(document).ready(function() {
             result = JSON.parse(result);
 
             projectObject = result;
-            
-            $("#project-title").html("SOLICITUD DE PROYECTO: " +  result.Name.toUpperCase());
+
+            $("#project-title").html("SOLICITUD DE PROYECTO: " + result.Name.toUpperCase());
             $("#information-contract").html(result.Code.toUpperCase());
             $("#numberRequest").html(numberRequest);
             $("#dateRequest").html("<strong>Fecha de solicitud: </strong>" + Now());
@@ -33,22 +66,32 @@ $(document).ready(function() {
             var EndDate = new Date(parseFloat(result.completiondate.replace(/Date/g, "").replace(/\//g, "").replace(/["'()]/g, "").toString()));
             $("#startDate").html(BeginDate.localeFormat("dd/MM/yyyy"));
             $("#closeDate").html(EndDate.localeFormat("dd/MM/yyyy"));
+            //
+            $("#txtarObjective").val(projectObject.Objective);
+            $("#txtarSpecificObjectives").val(projectObject.ZoneDescription);
+            $("#txtarInstalledCapacityResults").val(projectObject.ResultsInstalledCapacity);
+            $("#txtarBenefitiaryResults").val(projectObject.Results);
+            $("#txtarKnowledgeResults").val(projectObject.ResultsKnowledgeManagement);
+            $("#txtarOtherResults").val(projectObject.OtherResults);
+            $("#txtarPartObligations").val(projectObject.obligationsoftheparties);
+            //
+            
         },
         error: function() {
             alert("Opsss! Algo salio mal, por favor intentelo mas tarde.")
         }
     });
     //End ---- Ajax transaction for get project information
-    
-    $("#buttonSaveRequest").click(function(){
+
+    $("#buttonSaveRequest").click(function() {
         $.ajax({
             url: "../FormulationAndAdoption/ajaxRequest.aspx",
             type: "POST",
-            data: {"idProject": idproject, "action": "saveInformationRerquest", "projectInformation": JSON.stringify(projectObject), "thirdsInformation": JSON.stringify(arrayActor), "flowsInformation": JSON.stringify(arrayflujosdepago), "detailsInformation": JSON.stringify(matriz_flujos)},
-            success: function(result){
+            data: { "idProject": idproject, "action": "saveInformationRerquest", "projectInformation": JSON.stringify(projectObject), "thirdsInformation": JSON.stringify(arrayActor), "flowsInformation": JSON.stringify(arrayflujosdepago), "detailsInformation": JSON.stringify(matriz_flujos) },
+            success: function(result) {
                 console.log(result);
             },
-            error: function(){
+            error: function() {
                 alert("Opsss! Algo salio mal, por favor intentelo mas tarde.")
             }
         });
@@ -89,10 +132,12 @@ function Fechas() {
 
 }
 
+var controles = ["Objective", "SpecificObjectives", "InstalledCapacityResults", "BenefitiaryResults", "KnowledgeResults", "OtherResults", "PartObligations"];
+
 function HideAreas() {
     var elem;
     var controltmp;
-    var controles = ["Objective", "SpecificObjectives", "InstalledCapacityResults", "BenefitiaryResults", "KnowledgeResults", "OtherResults", "PartObligations"];
+    
 
     for (elem in controles) {
         //Label
