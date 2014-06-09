@@ -94,9 +94,23 @@ $(document).ready(function() {
         $.ajax({
             url: "../FormulationAndAdoption/ajaxRequest.aspx",
             type: "POST",
-            data: { "idProject": idproject, "action": "saveInformationRerquest", "projectInformation": JSON.stringify(projectObject), "thirdsInformation": JSON.stringify(arrayActor), "flowsInformation": JSON.stringify(arrayflujosdepago), "detailsInformation": JSON.stringify(matriz_flujos), "other_request": $("#txtarRequest").val(), "InformationTypeRequest": JSON.stringify(arrayTypeRequest) },
+            data: { 
+                "idProject": idproject, 
+                "action": "saveInformationRerquest", 
+                "projectInformation": JSON.stringify(projectObject), 
+                "thirdsInformation": JSON.stringify(arrayActor), 
+                "flowsInformation": JSON.stringify(arrayflujosdepago), 
+                "detailsInformation": JSON.stringify(matriz_flujos), 
+                "other_request": $("#txtarRequest").val(), 
+                "InformationTypeRequest": JSON.stringify(arrayTypeRequest), 
+                "StartSuspensionDate": $("#ctl00_cphPrincipal_txtStartSuspend").val(), 
+                "EndSuspensionDate": $("#ctl00_cphPrincipal_txtEndSuspend").val() , 
+                "RestartType": $("#ctl00_cphPrincipal_ddlRestartType").val(), 
+                "OldThird": $("#listThirdsByProject").val(), 
+                "NewThird": $("#listThirds").val()
+            },
             success: function(result) {
-                console.log(result);
+                alert("La solicitud se almaceno correctamente!");
             },
             error: function() {
                 alert("Opsss! Algo salio mal, por favor intentelo mas tarde.")
@@ -109,9 +123,10 @@ $(document).ready(function() {
 function partialSave() {
     $("#buttonSavePartial").click(function() {
         var JSONTypeRequest = { "IdRequest": 0, "IdRequestSubType": $("input[name='subgroup']:checked").val(), "IdRequestType": $("#typeRequest").val() };
-
+        //Se agrega categoria de solicitud como objeto en el arreglo
         arrayTypeRequest.push(JSONTypeRequest);
-
+        
+        alert("Se almacenó la información de la solicitud en estado parcial, no olvide guardar antes de salir o cerrar esta ventana.");
     });
 }
 

@@ -14,6 +14,7 @@ function loadThird() {
         },
         success: function (result) {
             $("#ddlactors").html(result);
+            $("#listThirds").html(result);
             $("#ddlactors").trigger("liszt:updated");
         },
         error: function (msg) {
@@ -323,6 +324,14 @@ function refreshTableThird() {
     });
 }
 
+function loadThirdsList(){
+    var htmlSelect = "<option>Seleccione...</option>";
+    for(var item in arrayActor){
+        htmlSelect += "<option value='" + arrayActor[item].IdThird + "'>" + arrayActor[item].Name + "</option>";
+    }
+    $("#listThirdsByProject").html(htmlSelect);
+}
+
 //load data thirs by project
 function loadDataThirsProject() {
 
@@ -334,10 +343,13 @@ function loadDataThirsProject() {
             "idProject": idproject
         },
         success: function (result) {
+            result = result.replace(/\//g, "").replace(/\\/g, "")
+            console.log(result);
             var resultJson = JSON.parse(result.toString());
             arrayActor = JSON.parse(resultJson.toString());
             refreshTableThird();
             refreshTableFlow();
+            loadThirdsList();
         },
         error: function (msg) {
             alert("No se pueden cargar los actores en general de la idea = " + ideditar);
