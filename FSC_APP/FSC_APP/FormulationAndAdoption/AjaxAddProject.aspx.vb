@@ -344,6 +344,16 @@ Partial Public Class AjaxAddProject
                     c_estado_proceso = Request.QueryString("estado").ToString
                     SearchProject_values_mother(ideditar, c_estado_proceso)
 
+                Case "borrar_archivos"
+                    borrar_archivos()
+
+                Case "copiar_archivos"
+                    copiar_archivos()
+
+                Case "aprobacion_proyecto"
+                    ideditar = Convert.ToInt32(Request.QueryString("idproject").ToString)
+                    validar_aprobacion_proyecto(ideditar)
+
                 Case Else
 
 
@@ -352,6 +362,29 @@ Partial Public Class AjaxAddProject
         End If
 
     End Sub
+
+    Protected Function validar_aprobacion_proyecto(ByVal id_project As Integer)
+
+        Dim sql As New StringBuilder
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+
+        Dim result As Integer
+
+        sql.Append("SELECT Idproject FROM  ProjectApprovalRecord WHERE Idproject=" & id_project)
+        Dim idproyectoprovado = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
+
+        If idproyectoprovado <> 0 Then
+
+            result = 1
+
+        Else
+
+            result = 0
+
+        End If
+
+        Response.Write(result)
+    End Function
 
     Protected Function SearchProject_values_mother(ByVal ididea As String, ByVal estado As String)
 
@@ -1472,7 +1505,7 @@ Partial Public Class AjaxAddProject
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
 
         sql.Append("select  Idea.Id, Idea.Code,Idea.Name,par.codeapprovedidea,  Idea.Code+'_'+Idea.Name as 'name_code' ")
-        sql.Append("FROM Idea INNER JOIN ProjectApprovalRecord par ON idea.Id = par.Ididea ORDER BY par.CreateDate DESC ")
+        sql.Append("FROM Idea INNER JOIN IdeaApprovalRecord par ON idea.Id = par.Ididea ORDER BY par.CreateDate DESC ")
 
         ' ejecutar la intruccion
         data = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
@@ -2636,6 +2669,9 @@ Partial Public Class AjaxAddProject
 
             facade.updateProject(applicationCredentials, objProject, sOldFile)
 
+            delete_documents(objProject.id)
+            save_document_PROYECTO(list_files, objProject.id)
+
             Dim Result As String
 
             If objProject.id <> 0 Then
@@ -2658,6 +2694,22 @@ Partial Public Class AjaxAddProject
 
     End Function
 
+    Protected Function delete_documents(ByVal id_project As String)
+
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+
+        Dim sql As New StringBuilder
+        Dim dtData, dtDatadoc As DataTable
+
+        sql.Append(" delete Documents where id in (select iddocuments from DocumentsByEntity where EntityName = 'ProjectEntity' and  IdnEntity = " & id_project & ")")
+        GattacaApplication.RunSQL(applicationCredentials, sql.ToString)
+
+        sql = New StringBuilder
+
+        sql.Append(" delete DocumentsByEntity where EntityName = 'ProjectEntity' and IdnEntity = " & id_project)
+        GattacaApplication.RunSQL(applicationCredentials, sql.ToString)
+
+    End Function
 
     Protected Function save_PROYECTO(ByVal ididea As String, ByVal str_code As String, ByVal code As String, ByVal line_strategic As String, ByVal program As String, ByVal name As String, ByVal justify As String, ByVal objetive As String, ByVal obj_esp As String, ByVal resul_bef As String, ByVal resul_ges_c As String, ByVal resul_cap_i As String, ByVal otros_resul As String, ByVal fecha_i As String, ByVal mes As String, ByVal dia As String, ByVal fecha_f As String, ByVal poblacion As String, ByVal contratacion As String, ByVal riesgos As String, ByVal mitigacion As String, ByVal presupuestal As String, ByVal cost As String, ByVal obligaciones As String, ByVal iva As String, ByVal list_ubicacion As String, ByVal list_actor As String, ByVal list_componentes As String, ByVal list_flujos As String, ByVal list_detalles_flujos As String, ByVal list_files As String, ByVal estado As String) '
 
@@ -2941,7 +2993,6 @@ Partial Public Class AjaxAddProject
             'Se almacena en el objeto idea la lista de Componentes del Programa obtenida
             objProject.ProgramComponentbyprojectlist = ProgramComponentByProjectList
 
-
             'buscamos el id del proyecto madre
             Dim idproyect_mother = search_id_project_mother(ididea)
             'lo asignamos al proyecto derivado
@@ -3190,6 +3241,21 @@ Partial Public Class AjaxAddProject
 
     End Function
 
+    Protected Function borrar_archivos()
+        Dim startinfo As New ProcessStartInfo("C:\Gattaca_pruebas\WebSiteFSC\ELVIRA-F3\FSC_APP\FSC_APP\bats\BORRAR_ARC.bat")
+        ' Dim startinfo As New ProcessStartInfo(Server.MapPath("\bats\BORRAR_ARC.bat"))
+        'startinfo.UseShellExecute = False
+        startinfo.WindowStyle = ProcessWindowStyle.Hidden
+        Process.Start(startinfo)
+    End Function
+
+    Protected Function copiar_archivos()
+        Dim startinfo As New ProcessStartInfo("C:\Gattaca_pruebas\WebSiteFSC\ELVIRA-F3\FSC_APP\FSC_APP\bats\COPIAR_ARC.bat")
+        'Dim startinfo As New ProcessStartInfo(Server.MapPath("\bats\COPIAR_ARC.bat"))
+        'startinfo.UseShellExecute = False
+        startinfo.WindowStyle = ProcessWindowStyle.Hidden
+        Process.Start(startinfo)
+    End Function
 
 
 End Class

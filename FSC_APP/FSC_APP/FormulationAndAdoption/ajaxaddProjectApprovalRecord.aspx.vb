@@ -30,6 +30,12 @@ Partial Class FormulationAndAdoption_ajaxaddProjectApprovalRecord
 
         Select Case action
 
+
+            Case "charge_idea_approval"
+                charge_idea_approval()
+
+
+
             Case "validarideas"
                 'convierte la variable y llama funcion para la validacion de la idea
                 code = Convert.ToInt64(Request.QueryString("code").ToString())
@@ -86,6 +92,43 @@ Partial Class FormulationAndAdoption_ajaxaddProjectApprovalRecord
 
     End Sub
 
+    Protected Function charge_idea_approval()
+
+        Dim sql As New StringBuilder
+        Dim objSqlCommand As New SqlCommand
+        Dim data As DataTable
+
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+
+        ' construir la sentencia
+
+
+        sql.Append(" select distinct I.Code,I.Name,I.createDate, I.Code+'_'+I.Name as 'name_code' from Idea i ")
+        sql.Append(" left JOIN ProjectApprovalRecord par on par.Ididea = i.Id ")
+        sql.Append(" where PAR.Ididea is null and i.Typeapproval = 3 ")
+
+        sql.Append(" ORDER BY I.createDate  DESC")
+
+        ' ejecutar la intruccion
+        data = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+        Dim htmlresults As String = "<option>Seleccione...</option>"
+
+        For Each row As DataRow In data.Rows
+
+            htmlresults &= String.Format("<option value='{0}'>{1}</option>", row(0).ToString(), row(3).ToString())
+
+        Next
+
+        ' retornar el objeto
+        Response.Write(htmlresults)
+
+    End Function
+
+
+
+
+
     Public Function validar_campos_new(ByVal codigo As Integer) As Integer
 
         Dim sql As New StringBuilder
@@ -111,7 +154,7 @@ Partial Class FormulationAndAdoption_ajaxaddProjectApprovalRecord
 
         If Data_campos.Rows.Count > 0 Then
 
-         
+
             If IsDBNull(Data_campos.Rows(0)("obligationsoftheparties")) = False Then
             Else
                 result_str &= " obligaciones de las partes"
@@ -168,8 +211,6 @@ Partial Class FormulationAndAdoption_ajaxaddProjectApprovalRecord
         Response.Write(result_str)
 
     End Function
-
-
 
     'funcion que valua las ciudades y trae los parametros
     Public Function ValideLocationIdea(ByVal codigo As Integer) As Integer

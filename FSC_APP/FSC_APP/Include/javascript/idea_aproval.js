@@ -5,18 +5,64 @@
 
 //validacion para combo box
 $(document).ready(function() {
+
+    //traer_ideas_aprobadas();
+    //buscar_datos();
+
     validar_new_campos();
     validaraprobacion();
-    operacionesaprobacion();
+   
     $("#ctl00_cphPrincipal_containerSuccess2").css("display", "none");
     $("#tabsaproval").tabs();
 
     carga_eventos("ctl00_cphPrincipal_container_wait");
     validar_campofecha('ctl00_cphPrincipal_txtapprovaldate', 'ctl00_cphPrincipal_lblHelpapprovaldate');
+    //$("#SaveApproval").button();
+
 
 });
 
+
+function traer_ideas_aprobadas() {
+
+    $.ajax({
+        url: "ajaxaddProjectApprovalRecord.aspx",
+        type: "GET",
+        data: { "action": "charge_idea_approval" },
+
+        success: function(result) {
+
+            alert(result);
+            $("#ddlidproject").html(result);
+            $("#ddlidproject").trigger("liszt:updated");
+
+        },
+        error: function()
+        { alert("No se pueden cargar el combo de proyecto para aprobar."); }
+    });
+
+}
+
+
+//traer datos segun la seleccion de la idea aprovada
+function buscar_datos() {
+
+    $("#ddlidproject").change(function() {
+
+        var Id_idea = $(this).val();
+
+//        validar_datos_idea(Id_idea);
+//        traer_datos_idea(Id_idea);
+//        traer_actores_idea(Id_idea);
+
+    });
+}
+
+
+
+
 function validar_new_campos() {
+
     $("#ctl00_cphPrincipal_ddlidproject").change(function() {
         $.ajax({
             url: "ajaxaddProjectApprovalRecord.aspx",
@@ -44,89 +90,89 @@ function validar_new_campos() {
 }
 
 
-function operacionesaprobacion() {
+//function operacionesaprobacion() {
 
-    $("#ctl00_cphPrincipal_btnAddData").click(function() {
+//    $("#ctl00_cphPrincipal_btnAddData").click(function() {
 
-        var rev = $("#ctl00_cphPrincipal_TxtaportFSC").val();
-        rev = rev.replace(/\./gi, '');
-        var vd = parseInt(rev);
+//        var rev = $("#ctl00_cphPrincipal_TxtaportFSC").val();
+//        rev = rev.replace(/\./gi, '');
+//        var vd = parseInt(rev);
 
-        var rev2 = $("#ctl00_cphPrincipal_Txtaportcontra").val()
-        rev2 = rev2.replace(/\./gi, '');
-        var ve = parseInt(rev2);
+//        var rev2 = $("#ctl00_cphPrincipal_Txtaportcontra").val()
+//        rev2 = rev2.replace(/\./gi, '');
+//        var ve = parseInt(rev2);
 
-        if (isNaN(vd)) { vd = 0; }
-        else {
-            if (isNaN(ve)) { ve = 0; }
-            else {
-                var suma = 0;
-                suma = vd + ve;
-                addCommas(suma);
-            }
-        }
-        suma = vd + ve;
-        addCommas(suma);
-    });
+//        if (isNaN(vd)) { vd = 0; }
+//        else {
+//            if (isNaN(ve)) { ve = 0; }
+//            else {
+//                var suma = 0;
+//                suma = vd + ve;
+//                addCommas(suma);
+//            }
+//        }
+//        suma = vd + ve;
+//        addCommas(suma);
+//    });
 
 
-    $("#ctl00_cphPrincipal_TxtaportFSC").blur(function() {
-        var rev = $(this).val();
-        rev = rev.replace(/\./gi, '');
-        var val = parseInt(rev);
+//    $("#ctl00_cphPrincipal_TxtaportFSC").blur(function() {
+//        var rev = $(this).val();
+//        rev = rev.replace(/\./gi, '');
+//        var val = parseInt(rev);
 
-        if (isNaN(val)) {
-            val = 0;
-            $("#ctl00_cphPrincipal_TxtaportFSC").val(val);
-        }
-        else {
-            var rev2 = $("#ctl00_cphPrincipal_Txtaportcontra").val();
+//        if (isNaN(val)) {
+//            val = 0;
+//            $("#ctl00_cphPrincipal_TxtaportFSC").val(val);
+//        }
+//        else {
+//            var rev2 = $("#ctl00_cphPrincipal_Txtaportcontra").val();
 
-            rev2 = rev2.replace(/\./gi, '');
-            var val2 = parseInt(rev2);
-            if (isNaN(val2)) { val2 = 0; }
-            else {
-                var suma = 0;
-                suma = val + val2;
-                addCommas(suma);
-            }
-        }
-    });
+//            rev2 = rev2.replace(/\./gi, '');
+//            var val2 = parseInt(rev2);
+//            if (isNaN(val2)) { val2 = 0; }
+//            else {
+//                var suma = 0;
+//                suma = val + val2;
+//                addCommas(suma);
+//            }
+//        }
+//    });
 
-    $("#ctl00_cphPrincipal_Txtaportcontra").blur(function() {
-        var rev = $(this).val();
-        rev = rev.replace(/\./gi, '');
-        var val = parseInt(rev);
-        if (isNaN(val)) {
-            val = 0;
-            $("#ctl00_cphPrincipal_Txtaportcontra").val(val);
-        }
-        else {
-            var rev2 = $("#ctl00_cphPrincipal_TxtaportFSC").val();
-            rev2 = rev2.replace(/\./gi, '');
-            var val2 = parseInt(rev2);
-            if (isNaN(val2)) { val2 = 0; }
-            else {
-                var suma = 0;
-                suma = val + val2;
-                addCommas(suma);
-            }
-        }
-    });
-}
+//    $("#ctl00_cphPrincipal_Txtaportcontra").blur(function() {
+//        var rev = $(this).val();
+//        rev = rev.replace(/\./gi, '');
+//        var val = parseInt(rev);
+//        if (isNaN(val)) {
+//            val = 0;
+//            $("#ctl00_cphPrincipal_Txtaportcontra").val(val);
+//        }
+//        else {
+//            var rev2 = $("#ctl00_cphPrincipal_TxtaportFSC").val();
+//            rev2 = rev2.replace(/\./gi, '');
+//            var val2 = parseInt(rev2);
+//            if (isNaN(val2)) { val2 = 0; }
+//            else {
+//                var suma = 0;
+//                suma = val + val2;
+//                addCommas(suma);
+//            }
+//        }
+//    });
+//}
 
-function addCommas(str) {
-    var amount = new String(str);
-    amount = amount.split("").reverse();
+//function addCommas(str) {
+//    var amount = new String(str);
+//    amount = amount.split("").reverse();
 
-    var output = "";
-    for (var i = 0; i <= amount.length - 1; i++) {
-        output = amount[i] + output;
-        if ((i + 1) % 3 == 0 && (amount.length - 1) !== i) output = '.' + output;
-    }
-    $("#ctl00_cphPrincipal_txtapprovedvalue").val(output);
-    $("#ctl00_cphPrincipal_HDvalue").val(output);
-}
+//    var output = "";
+//    for (var i = 0; i <= amount.length - 1; i++) {
+//        output = amount[i] + output;
+//        if ((i + 1) % 3 == 0 && (amount.length - 1) !== i) output = '.' + output;
+//    }
+//    $("#ctl00_cphPrincipal_txtapprovedvalue").val(output);
+//    $("#ctl00_cphPrincipal_HDvalue").val(output);
+//}
 
 function validaraprobacion() {
     //validar campos llenos

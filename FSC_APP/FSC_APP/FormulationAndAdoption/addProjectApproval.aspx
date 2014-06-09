@@ -31,19 +31,20 @@
                 input.value = input.value.replace(/[^\d\.]*/g, "");
             }
         }
+     
     </script>
 
     <br />
-    <div id="containerSuccess" runat="server" visible="false" style="width: 100%; text-align: center;
+    <div id="containerSuccess" runat="server" style="width: 100%; text-align: center;
         border: 2px solid #cecece; background: #E8E8DC; height: 80px; line-height: 40px;
         vertical-align: middle; border-radius: 15px;">
-        <img style="margin-top: 5px;" src="/images/save_icon.png" width="24px" alt="Save" />
+        <img style="margin-top: 5px;" src="../images/save_icon.png" width="24px" alt="Save" />
         <asp:Label ID="lblsaveinformation" runat="server" Style="font-size: 14pt; color: #9bbb58;"></asp:Label>
     </div>
     <div id="containerSuccess2" runat="server" style="width: 100%; text-align: center;
         border: 2px solid #cecece; background: #E8E8DC; height: 80px; line-height: 40px;
         vertical-align: middle; border-radius: 15px;">
-        <img style="margin-top: 5px;" src="/images/alert_icon.png" width="24px" alt="Save" />
+        <img style="margin-top: 5px;" src="../images/alert_icon.png" width="24px" alt="Save" />
         <asp:Label ID="Lblnewcampos" runat="server" Style="font-size: 14pt; color: #8A0808;"></asp:Label>
     </div>
     <div id="container_wait" runat="server" visible="true" style="width: 50%; text-align: center;
@@ -115,14 +116,14 @@
             <li>
                 <asp:Label ID="Label2" runat="server" Text="Aporte FSC"></asp:Label>
                 <asp:TextBox ID="TxtaportFSC" runat="server" Width="400px" MaxLength="30" onkeyup="format(this)"
-                    onchange="format(this)"></asp:TextBox>
+                    onchange="format(this)" Enabled="False"></asp:TextBox>
                 <%#DataBinder.Eval(Container, "DataItem.Depto.name")%>
                 <asp:Label ID="Label7" runat="server" ForeColor="#990000"></asp:Label>
             </li>
             <li>
                 <asp:Label ID="Label8" runat="server" Text="Aporte Contrapartida"></asp:Label>
                 <asp:TextBox ID="Txtaportcontra" runat="server" Width="400px" MaxLength="30" onkeyup="format(this)"
-                    onchange="format(this)"></asp:TextBox>
+                    onchange="format(this)" Enabled="False"></asp:TextBox>
                 <%#DataBinder.Eval(Container, "DataItem.Depto.name")%>
                 <asp:Label ID="Label9" runat="server" ForeColor="#990000"></asp:Label>
             </li>
@@ -158,12 +159,21 @@
                 <asp:Label ID="lblHelpcreatedate" runat="server" Text=""></asp:Label>
             </li>
             <li>
+                <input id="SaveApproval" type="button" value="Aprobar Proyecto" name="Save_Approval"
+                    onclick="return SaveApproval_onclick()" />
                 <%--      <asp:Button ID="btnAddData" runat="server" Text="Aprobar Idea" />
                 <asp:Button ID="btnSave" runat="server" Text="Guardar" />
                 <asp:Button ID="btnDelete" runat="server" Text="Eliminar" CausesValidation="False" />
                 <asp:Button ID="btnCancel" runat="server" Text="Cancelar" CausesValidation="False" />--%>
             </li>
         </ul>
+    </div>
+    <br />
+    <div id="containerSuccess_down" runat="server" style="width: 100%; text-align: center;
+        border: 2px solid #cecece; background: #E8E8DC; height: 80px; line-height: 40px;
+        vertical-align: middle; border-radius: 15px;">
+        <img style="margin-top: 5px;" src="../images/save_icon.png" width="24px" alt="Save" />
+        <asp:Label ID="lblsaveinformation_down" runat="server" Style="font-size: 14pt; color: #9bbb58;"></asp:Label>
     </div>
     <%-- <h1>
         <span style="font-family: arial,helvetica,sans-serif;">Aprobación Proyecto</span></h1>
