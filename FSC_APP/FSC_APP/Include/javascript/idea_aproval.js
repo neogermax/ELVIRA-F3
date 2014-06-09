@@ -18,7 +18,8 @@ $(document).ready(function() {
     carga_eventos("ctl00_cphPrincipal_container_wait");
     validar_campofecha('ctl00_cphPrincipal_txtapprovaldate', 'ctl00_cphPrincipal_lblHelpapprovaldate');
     //$("#SaveApproval").button();
-
+    $("#ctl00_cphPrincipal_linkcancelar").button();
+   
 
 });
 

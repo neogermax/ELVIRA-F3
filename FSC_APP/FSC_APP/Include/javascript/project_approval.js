@@ -21,6 +21,9 @@ $(document).ready(function() {
     buscar_datos();
     //operacionesaprobacion();
     $("#SaveApproval").button();
+    $("#ctl00_cphPrincipal_linkcancelar").button();
+   
+    
 
 });
 
