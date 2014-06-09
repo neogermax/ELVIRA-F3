@@ -126,11 +126,11 @@ Partial Class addProjectApprovalRecord
                     Me.txtcode.Enabled = False
                     ' definir los objetos
                     Dim facade As New Facade
-                    Dim objProjectApprovalRecord As New ProjectApprovalRecordEntity
+                    Dim objProjectApprovalRecord As New IdeaApprovalRecordEntity
 
                     Try
                         ' cargar el registro referenciado
-                        objProjectApprovalRecord = facade.loadProjectApprovalRecord(applicationCredentials, Request.QueryString("id"))
+                        objProjectApprovalRecord = facade.loadIdeaApprovalRecord(applicationCredentials, Request.QueryString("id"))
 
                         ' mostrar los valores
                         Me.txtid.Text = objProjectApprovalRecord.id
@@ -179,7 +179,7 @@ Partial Class addProjectApprovalRecord
 
     Protected Sub btnAddData_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnAddData.Click
         Dim salvar As Integer = 0
-        Dim objProjectApprovalRecord As New ProjectApprovalRecordEntity
+        Dim objProjectApprovalRecord As New IdeaApprovalRecordEntity
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
         Dim idProcessInstance As String = String.Empty
         Dim idActivityInstance As String = String.Empty
@@ -299,7 +299,7 @@ Partial Class addProjectApprovalRecord
                 End If
 
                 ' almacenar la entidad
-                objProjectApprovalRecord.id = facade.addProjectApprovalRecord(applicationCredentials, objProjectApprovalRecord)
+                objProjectApprovalRecord.id = facade.addIdeaApprovalRecord(applicationCredentials, objProjectApprovalRecord)
                 'actualizamos la idea
                 update_idea_approval(objProjectApprovalRecord.Ididea)
 
@@ -374,7 +374,7 @@ Partial Class addProjectApprovalRecord
 
         ' definir los objetos
         Dim facade As New Facade
-        Dim objProjectApprovalRecord As New ProjectApprovalRecordEntity
+        Dim objProjectApprovalRecord As New IdeaApprovalRecordEntity
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
 
         'Post-verificación de código
@@ -383,7 +383,7 @@ Partial Class addProjectApprovalRecord
         End If
 
         ' cargar el registro referenciado
-        objProjectApprovalRecord = facade.loadProjectApprovalRecord(applicationCredentials, Request.QueryString("Id"))
+        objProjectApprovalRecord = facade.loadIdeaApprovalRecord(applicationCredentials, Request.QueryString("Id"))
 
         Try
             ' cargar los datos           
@@ -403,7 +403,7 @@ Partial Class addProjectApprovalRecord
             objProjectApprovalRecord.enabled = Me.ddlenabled.SelectedValue
 
             ' modificar el registro
-            facade.updateProjectApprovalRecord(applicationCredentials, objProjectApprovalRecord)
+            facade.updateIdeaApprovalRecord(applicationCredentials, objProjectApprovalRecord)
 
             ' ir al administrador
             Response.Redirect("searchProjectApprovalRecord.aspx")
@@ -437,7 +437,7 @@ Partial Class addProjectApprovalRecord
 
         Try
             ' eliminar el registro
-            facade.deleteProjectApprovalRecord(applicationCredentials, Request.QueryString("Id"))
+            facade.deleteIdeaApprovalRecord(applicationCredentials, Request.QueryString("Id"))
 
             ' ir al administrador
             Response.Redirect("searchProjectApprovalRecord.aspx")
