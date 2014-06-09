@@ -188,13 +188,9 @@
                 }
                 /*Cesion*/
                 if($(this).val() == "4"){
-                    $("#tabsRequest").css("display", "block");
-                    tabs.tabs("disable",1);
-                    tabs.tabs("enable",0);
-                    tabs.tabs({ active: 0 });
+                    $("#divcesion").css("display", "block");
                 }else{
-                    tabs.tabs("enable",0);
-                    tabs.tabs({ active: 0 });
+                    $("#divcesion").css("display", "none");
                 }
                 /*Otros*/
                 if($(this).val() == "5"){
@@ -724,8 +720,8 @@
                             </td>
                             <td>
                                 <asp:DropDownList ID="ddlRestartType" runat="server" CssClass="Ccombo">
-                                    <asp:ListItem Value="1">Reinicio automático</asp:ListItem>
-                                    <asp:ListItem Value="2">Reinicio condicionado</asp:ListItem>
+                                    <asp:ListItem Value="0">Reinicio automático</asp:ListItem>
+                                    <asp:ListItem Value="1">Reinicio condicionado</asp:ListItem>
                                 </asp:DropDownList>
                             </td>
                             <td>
@@ -734,6 +730,15 @@
                     </tbody>
                 </table>
             </div>
+        </div>
+        <div id="divcesion" style="display: none;">
+        <br/>
+            <label>Actores Existentes</label>
+            <select id="listThirds"></select>
+            <label>Actores Asignados a Proyecto</label>
+            <select id="listThirdsByProject">
+            </select>
+            <br/>
         </div>
         <div id="divalcance" style="display: none;">
             <div style="width: 45%; float: left;">
