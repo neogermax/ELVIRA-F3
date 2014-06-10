@@ -69,14 +69,19 @@ function Cprogram(idLineStrategic) {
 
                 var textoLista = $("#componentesseleccionados").html();
 
+                view_Cprogram();
+                
                 if (textoLista == "") {
 
                     if (contar_program == 0) {
                         arraycompo[0] = $("#ddlStrategicLines").val();
                     }
 
+                    console.log(result);
                     $("#ddlPrograms").html(result);
                     $("#ddlPrograms").trigger("liszt:updated");
+
+                    
                 }
                 else {
 
@@ -137,6 +142,7 @@ function validar_cambio_linea(str_result) {
         $("#ddlPrograms").val(edit_program);
         $("#ddlPrograms").trigger("liszt:updated");
 
+        console.log(edit_program);
         contar_program = 0;
         arraycompo = [];
 
@@ -183,7 +189,7 @@ function view_Cprogram() {
             $("#ddlPrograms").val(result);
             $("#ddlPrograms").trigger("liszt:updated");
 
-            //edit_program = result;
+            edit_program = result;
         },
         error: function(msg) {
             alert("No se pueden cargar la linea estrategica deseada.");

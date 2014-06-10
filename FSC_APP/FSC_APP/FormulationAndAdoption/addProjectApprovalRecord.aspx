@@ -35,7 +35,7 @@
     </script>
 
     <br />
-    <div id="containerSuccess" runat="server" visible="false" style="width: 100%; text-align: center;
+    <div id="containerSuccess" runat="server" style="width: 100%; text-align: center;
         border: 2px solid #cecece; background: #E8E8DC; height: 80px; line-height: 40px;
         vertical-align: middle; border-radius: 15px;">
         <img style="margin-top: 5px;" src="/images/save_icon.png" width="24px" alt="Save" />
@@ -71,10 +71,10 @@
             </li>
             <li>
                 <asp:Label ID="lblidproject" runat="server" Text="Idea en Proceso"></asp:Label>
-                <%--<select id="ddlidproject" class="Ccombo">--%>
+                <select id="ddlidproject" class="Ccombo">
                     <asp:DropDownList ID="ddlidproject" runat="server" CssClass="Ccombo">
                     </asp:DropDownList>
-                <%--</select>--%>
+                </select>
                 <asp:Label ID="lblHelpidproject" runat="server" ForeColor="#990000"></asp:Label>
             </li>
             <li>
@@ -207,14 +207,23 @@
                 <asp:Label ID="lblHelpcreatedate" runat="server" Text=""></asp:Label>
             </li>
             <li>
-                <%--<input id="SaveApproval" type="button" value="Aprobar Idea" name="Save_Approval"
-                    onclick="return SaveApproval_onclick()" />--%>
-                <asp:Button ID="btnAddData" runat="server" Text="Aprobar Idea" />
+                <input id="SaveApproval" type="button" value="Aprobar Idea" name="Save_Approval"
+                    onclick="return SaveApproval_onclick()" />
+                <a id="linkcancelar" runat="server" href="~/ResearchAndDevelopment/searchIdea.aspx"
+                    title="cancelar" style="height: 2em;">Cancelar</a>
+                <asp:Button ID="btnAddData" runat="server" Text="Aprobar Idea" Visible="false" />
                 <asp:Button ID="btnSave" runat="server" Text="Guardar" />
                 <asp:Button ID="btnDelete" runat="server" Text="Eliminar" CausesValidation="False" />
-                <asp:Button ID="btnCancel" runat="server" Text="Cancelar" CausesValidation="False" />
+                <%--  <asp:Button ID="btnCancel" runat="server" Text="Cancelar" CausesValidation="False" />--%>
             </li>
         </ul>
+    </div>
+    <br />
+    <div id="containerSuccess_down" runat="server" style="width: 100%; text-align: center;
+        border: 2px solid #cecece; background: #E8E8DC; height: 80px; line-height: 40px;
+        vertical-align: middle; border-radius: 15px;">
+        <img style="margin-top: 5px;" src="../images/save_icon.png" width="24px" alt="Save" />
+        <asp:Label ID="lblsaveinformation_down" runat="server" Style="font-size: 14pt; color: #9bbb58;"></asp:Label>
     </div>
     <table id="derrr" style="width: 100%">
         <tr>

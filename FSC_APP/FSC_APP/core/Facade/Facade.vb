@@ -5712,7 +5712,7 @@ Public Class Facade
 
             End If
 
-            loadProject.thirdbyprojectlist = getThirdByProjectList(objApplicationCredentials, , idProject, , , , , )
+            ' loadProject.thirdbyprojectlist = getThirdByProjectList(objApplicationCredentials, , idProject, , , , , )
             ' finalizar la transaccion
             CtxSetComplete()
 

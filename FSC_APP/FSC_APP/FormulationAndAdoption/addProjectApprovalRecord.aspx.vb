@@ -50,7 +50,7 @@ Partial Class addProjectApprovalRecord
                     Session("lblTitle") = "APROBACIÓN DE UNA IDEA."
 
                     ' ocultar algunos botones
-                    Me.btnAddData.Visible = True
+                    Me.btnAddData.Visible = False
                     Me.btnSave.Visible = False
                     Me.btnDelete.Visible = False
                     Me.btnCancelDelete.Visible = False
@@ -80,7 +80,7 @@ Partial Class addProjectApprovalRecord
 
                         Me.lblBPMMessage.Visible = True
                         Me.rblCondition.Visible = True
-                        Me.btnCancel.Visible = False
+                        ' Me.btnCancel.Visible = False
 
                         ' cargar la lista de condiciones de la actividad
                         Dim conditions As Array = GattacaApplication.getConditions(applicationCredentials, idActivityInstance)
@@ -321,7 +321,7 @@ Partial Class addProjectApprovalRecord
                     Me.containerSuccess.Visible = "True"
                     ' Me.lblsaveinformation.ForeColor = Drawing.Color.Green
                     Me.btnAddData.Visible = False
-                    Me.btnCancel.Visible = False
+                    'Me.btnCancel.Visible = False
 
 
                 End If
@@ -362,13 +362,13 @@ Partial Class addProjectApprovalRecord
 
     End Function
 
-    Protected Sub btnCancel_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnCancel.Click
+    'Protected Sub btnCancel_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnCancel.Click
 
-        ' ir al administrador
-        Response.Redirect("/ResearchAndDevelopment/searchIdea.aspx")
-        'Response.Redirect("/FSC_APP/ResearchAndDevelopment/searchIdea.aspx")
+    '    ' ir al administrador
+    '    Response.Redirect("/ResearchAndDevelopment/searchIdea.aspx")
+    '    'Response.Redirect("/FSC_APP/ResearchAndDevelopment/searchIdea.aspx")
 
-    End Sub
+    'End Sub
 
     Protected Sub btnSave_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnSave.Click
 
@@ -471,7 +471,7 @@ Partial Class addProjectApprovalRecord
         Me.btnCancelDelete.Visible = False
         Me.btnConfirmDelete.Visible = False
         Me.lblDelete.Visible = False
-        Me.btnCancel.Visible = True
+        ' Me.btnCancel.Visible = True
 
     End Sub
 
@@ -481,7 +481,7 @@ Partial Class addProjectApprovalRecord
         Me.btnSave.Visible = False
         Me.btnDelete.Visible = False
         Me.btnConfirmDelete.Visible = True
-        Me.btnCancel.Visible = False
+        ' Me.btnCancel.Visible = False
         Me.btnCancelDelete.Visible = True
         Me.lblDelete.Visible = True
 

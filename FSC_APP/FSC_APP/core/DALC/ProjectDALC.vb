@@ -437,8 +437,8 @@ Public Class ProjectDALC
                 objProject.riesgos = IIf(Not IsDBNull(data.Rows(0)("RisksIdentified")), data.Rows(0)("RisksIdentified"), "")
                 objProject.mitigacion = IIf(Not IsDBNull(data.Rows(0)("RiskMitigation")), data.Rows(0)("RiskMitigation"), "")
                 objProject.dia = IIf(Not IsDBNull(data.Rows(0)("days")), data.Rows(0)("days"), "")
-                objProject.iva = IIf(Not IsDBNull(data.Rows(0)("ideaappliesIVA")), data.Rows(0)("ideaappliesIVA"), "")
-                objProject.idtypecontract = IIf(Not IsDBNull(data.Rows(0)("Idtypecontract")), data.Rows(0)("Idtypecontract"), "")
+                objProject.iva = IIf(Not IsDBNull(data.Rows(0)("ideaappliesIVA")), data.Rows(0)("ideaappliesIVA"), 0)
+                objProject.idtypecontract = IIf(Not IsDBNull(data.Rows(0)("Idtypecontract")), data.Rows(0)("Idtypecontract"), 0)
 
                 objProject.editablemoney = IIf(Not IsDBNull(data.Rows(0)("editablemoney")), data.Rows(0)("editablemoney"), "")
                 objProject.editabletime = IIf(Not IsDBNull(data.Rows(0)("editabletime")), data.Rows(0)("editabletime"), "")

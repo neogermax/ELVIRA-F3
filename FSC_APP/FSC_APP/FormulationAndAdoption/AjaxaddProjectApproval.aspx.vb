@@ -1,5 +1,5 @@
-﻿'TODO:15 SE CREA FORMULARIO DE TRANSACCION CON EL SERVIDOR PARA APROBACION IDEA
-'5/06/13 GERMAN RODRIGUEZ
+﻿'TODO:15 SE CREA FORMULARIO DE TRANSACCION CON EL SERVIDOR PARA APROBACION  DE PROYECTOS
+'4/06/14 GERMAN RODRIGUEZ
 
 Imports System.Xml
 Imports System.Collections.Generic
@@ -10,8 +10,7 @@ Imports Gattaca.Application.ExceptionManager
 Imports System.Data
 Imports System.Data.SqlClient
 
-
-Partial Class FormulationAndAdoption_ajaxaddProjectApprovalRecord
+Partial Public Class AjaxaddProjectApproval
     Inherits System.Web.UI.Page
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
@@ -25,7 +24,7 @@ Partial Class FormulationAndAdoption_ajaxaddProjectApprovalRecord
 
             Dim option_proyecto = Request.Form("action")
 
-            Select Case option_proyecto
+            Select option_proyecto
 
                 Case "save"
 
@@ -42,29 +41,31 @@ Partial Class FormulationAndAdoption_ajaxaddProjectApprovalRecord
             End Select
 
         Else
-        
+
             'trae el jquery para hacer todo por debajo del servidor
             action = Request.QueryString("action").ToString()
 
             Select Case action
 
-                Case "charge_idea_approval"
-                    charge_idea_approval()
+                Case "charge_proyect_approval"
+                    charge_project_approval()
 
                 Case "buscar"
                     'convierte la variable y llama funcion para la validacion de la idea
                     id_b = Convert.ToInt64(Request.QueryString("code").ToString())
-                    buscardateidea(id_b)
+                    buscar_date_project(id_b)
 
-                Case "buscaractores"
+                Case "buscar_actores"
+
                     id_b = Convert.ToInt64(Request.QueryString("code").ToString())
-                    buscardatethird(id_b, applicationCredentials, Request.QueryString("id"))
+                    buscar_date_third_project(id_b)
 
                 Case "validar_modulo_completo"
                     id_b = Convert.ToInt64(Request.QueryString("code").ToString())
                     validar_date_project(id_b)
 
                 Case Else
+
 
             End Select
 
@@ -75,48 +76,48 @@ Partial Class FormulationAndAdoption_ajaxaddProjectApprovalRecord
     Protected Function CREATE_Approval_Project(ByVal id_project As String, ByVal id_idea As String, ByVal date_approval As String, ByVal N_acta As String, ByVal aport_others As String, ByVal aport_fsc As String, ByVal aport_total As String, ByVal approval As String)
 
         Dim facade As New Facade
-        Dim objIdeaApproval As New IdeaApprovalRecordEntity
+        Dim objProjectApproval As New ProjectApprovalRecordEntity
 
         Dim ApplicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
 
         Dim Id_idea_v = id_idea.Split(New [Char]() {"_"c})
 
         'id del proyecto
-        objIdeaApproval.idproject = id_project
+        objProjectApproval.idproject = id_project
         'fecha de aprobacion
-        objIdeaApproval.approvaldate = date_approval
+        objProjectApproval.approvaldate = date_approval
         'numero del acto
-        objIdeaApproval.actnumber = N_acta
+        objProjectApproval.actnumber = N_acta
         'aportes de otros
-        objIdeaApproval.aportOtros = aport_others
+        objProjectApproval.aportOtros = aport_others
         'aportes de la FSC
-        objIdeaApproval.aportFSC = aport_fsc
+        objProjectApproval.aportFSC = aport_fsc
         'total aporte
-        objIdeaApproval.approvedvalue = aport_total
+        objProjectApproval.approvedvalue = aport_total
         'comite de aprobacion
-        objIdeaApproval.approved = approval
+        objProjectApproval.approved = approval
         'usuario registrado
-        objIdeaApproval.iduser = ApplicationCredentials.UserID
+        objProjectApproval.iduser = ApplicationCredentials.UserID
         'fecha del sistema
-        objIdeaApproval.createdate = Now
+        objProjectApproval.createdate = Now
 
         'datos quemados
-        objIdeaApproval.code = ""
-        objIdeaApproval.codeapprovedidea = ""
-        objIdeaApproval.Ididea = Id_idea_v(0)
-        objIdeaApproval.comments = ""
-        objIdeaApproval.enabled = 1
-        objIdeaApproval.attachment = ""
+        objProjectApproval.code = ""
+        objProjectApproval.codeapprovedidea = ""
+        objProjectApproval.Ididea = Id_idea_v(0)
+        objProjectApproval.comments = ""
+        objProjectApproval.enabled = 1
+        objProjectApproval.attachment = ""
 
-        facade.addIdeaApprovalRecord(ApplicationCredentials, objIdeaApproval)
+        facade.addProjectApprovalRecord(ApplicationCredentials, objProjectApproval)
 
         update_project_approval(id_project)
 
         Dim Result As String
 
-        If objIdeaApproval.idproject <> 0 Then
+        If objProjectApproval.idproject <> 0 Then
 
-            Result = "La Idea se aprobó exitosamente!"
+            Result = "El Proyecto se aprobó exitosamente!"
             Response.Write(Result)
 
         Else
@@ -134,8 +135,8 @@ Partial Class FormulationAndAdoption_ajaxaddProjectApprovalRecord
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
 
         Dim sql As New StringBuilder
-
-        sql.Append(" update idea set Typeapproval = 1 where id = " & idproject)
+     
+        sql.Append(" update project set Typeapproval = 1 where id = " & idproject)
         GattacaApplication.RunSQL(applicationCredentials, sql.ToString)
 
     End Function
@@ -157,36 +158,36 @@ Partial Class FormulationAndAdoption_ajaxaddProjectApprovalRecord
 
         '---------------------------------------- consulta linea estrategica
 
-        sql.Append(" select l.Code from ProgramComponentByidea pi ")
-        sql.Append(" inner join ProgramComponent pc on (pi.IdProgramComponent = pc.Id) ")
+        sql.Append(" select l.Code from ProgramComponentByProject pp ")
+        sql.Append(" inner join ProgramComponent pc on (pp.IdProgramComponent = pc.Id) ")
         sql.Append(" inner join Program pr on (pc.IdProgram = pr.Id) ")
         sql.Append(" inner join StrategicLine l on (pr.IdStrategicLine = l.Id) ")
-        sql.Append(" where pi.IdIdea = " & id_project)
+        sql.Append(" where pp.IdProject = " & id_project)
         Data_linea = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
 
         '---------------------------------------- consulta campos nuevos
         sql = New StringBuilder
 
-        sql.Append(" SELECT i.obligationsoftheparties,i.BudgetRoute,i.RiskMitigation,i.RisksIdentified FROM Idea AS i ")
-        sql.Append(" where i.id = " & id_project)
+        sql.Append(" SELECT p.obligationsoftheparties,p.BudgetRoute,p.RiskMitigation,p.RisksIdentified FROM Project AS p ")
+        sql.Append(" where p.id = " & id_project)
         Data_campos = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
 
         '---------------------------------------- consulta campos ubicaciones
         sql = New StringBuilder
 
-        sql.Append("select iddepto from LocationByIdea where IdIdea = " & id_project)
+        sql.Append("select iddepto from ProjectLocation where IdProject = " & id_project)
         Data_ubicacion = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
 
         '---------------------------------------- consulta campos actores
         sql = New StringBuilder
 
-        sql.Append("select IdThird from ThirdByIdea where IdIdea  = " & id_project)
+        sql.Append("select IdThird from ThirdByProject where IdProject  = " & id_project)
         Data_actores = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
 
         '---------------------------------------- consulta campos flujos
         sql = New StringBuilder
 
-        sql.Append("select N_pagos from Paymentflow where IdIdea = " & id_project)
+        sql.Append("select N_pagos from Paymentflow where IdProject = " & id_project)
         Data_flujos = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
 
 
@@ -332,40 +333,34 @@ Partial Class FormulationAndAdoption_ajaxaddProjectApprovalRecord
 
     End Function
 
-    Protected Function charge_idea_approval()
+    Protected Function buscar_date_third_project(ByVal id_project As String)
+
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
 
         Dim sql As New StringBuilder
         Dim objSqlCommand As New SqlCommand
         Dim data As DataTable
 
-        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+        sql.Append(" select  tp.Name ,tp.contact,tp.Type,tp.VrSpecies,tp.Vrmoney ,tp.FSCorCounterpartContribution  from Third t ")
+        sql.Append(" inner join ThirdByProject tp on tp.IdThird= t.Id ")
+        sql.Append(" inner join Project p on p.Id = tp.IdProject ")
+        sql.Append(" where p.Id = " & id_project)
 
-        ' construir la sentencia
-
-
-        sql.Append(" select distinct I.Code,I.Name,I.createDate, I.Code+'_'+I.Name as 'name_code' from Idea i ")
-        sql.Append(" left JOIN ProjectApprovalRecord par on par.Ididea = i.Id ")
-        sql.Append(" where PAR.Ididea is null and i.Typeapproval = 3 ")
-
-        sql.Append(" ORDER BY I.createDate  DESC")
-
-        ' ejecutar la intruccion
         data = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
 
-        Dim htmlresults As String = "<option>Seleccione...</option>"
-
-        For Each row As DataRow In data.Rows
-
-            htmlresults &= String.Format("<option value='{0}'>{1}</option>", row(0).ToString(), row(3).ToString())
-
+        Dim html As String
+        html = "<table id=""T_Actors"" style=""width: 100%;"" border=""1"" cellspacing=""1"" cellpadding=""1""><thead><tr align=""center""><th style=""width: 200px"">Actor</th><th style=""width: 200px"">Contacto</th><th style=""width: 131px"">Tipo</th><th style=""width: 131px"">Vr Especie</th><th style=""width: 131px"">Vr Dinero</th><th style=""width: 131px"">Valor Total</th></tr></thead><tbody>"
+        For Each itemDataTable As DataRow In data.Rows
+            html &= String.Format(" <tr align=""center""><td style=""width: 200px"">{0}</td><td style=""width: 200px"">{1}</td><td style=""width: 131px"">{2}</td><td style=""width: 131px"">{3}</td><td style=""width: 131px"">{4}</td><td style=""width: 131px"">{5}</td></tr>", itemDataTable(0), itemDataTable(1), itemDataTable(2), itemDataTable(3), itemDataTable(4), itemDataTable(5))
         Next
+        html &= "</tbody></table>"
 
-        ' retornar el objeto
-        Response.Write(htmlresults)
+        Response.Write(html)
+
 
     End Function
 
-    Public Function buscardateidea(ByVal ididea As Integer)
+    Protected Function buscar_date_project(ByVal id_project As String)
 
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
 
@@ -385,10 +380,11 @@ Partial Class FormulationAndAdoption_ajaxaddProjectApprovalRecord
 
         Dim html As String = ""
 
-        sql.Append("select convert(bigint,REPLACE(ti.FSCorCounterpartContribution,'.','')) from Idea i  ")
-        sql.Append("inner join ThirdByIdea ti on i.Id = ti.IdIdea  ")
-        sql.Append(" inner join Third t on t.Id= ti.IdThird ")
-        sql.Append("where (t.code = '8600383389' And ti.IdIdea = " & ididea & ")")
+        'consulta para seber el valor de la fsc
+        sql.Append(" select convert(bigint,REPLACE(tp.FSCorCounterpartContribution,'.','')) from Project p ")
+        sql.Append(" inner join ThirdByProject tp on p.Id = tp.IdProject ")
+        sql.Append(" inner join Third t on t.Id= tp.IdThird ")
+        sql.Append(" where (t.code = '8600383389' And tp.IdProject = " & id_project & " )")
 
         Dim FSCval = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
 
@@ -399,13 +395,14 @@ Partial Class FormulationAndAdoption_ajaxaddProjectApprovalRecord
         End If
 
         sql = New StringBuilder
-        sql.Append("select sum(convert(bigint,REPLACE(ti.FSCorCounterpartContribution,'.',''))) from Idea i   ")
-        sql.Append("inner join ThirdByIdea ti on i.Id=ti.IdIdea  ")
-        sql.Append(" inner join Third t on t.Id= ti.IdThird ")
-        sql.Append("where(t.code <> '8600383389' And ti.IdIdea = " & ididea & ")")
+
+        'consulta para seber el valor de los otros actores en total
+        sql.Append(" select sum(convert(bigint,REPLACE(tp.FSCorCounterpartContribution,'.',''))) from Project p ")
+        sql.Append(" inner join ThirdByProject tp on p.Id = tp.IdProject ")
+        sql.Append(" inner join Third t on t.Id= tp.IdThird ")
+        sql.Append(" where (t.code <> '8600383389' And tp.IdProject = " & id_project & " )")
 
         Dim otrosval = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
-
 
         If otrosval = 0 Then
             otrosformat = "0"
@@ -414,16 +411,16 @@ Partial Class FormulationAndAdoption_ajaxaddProjectApprovalRecord
         End If
 
         sql = New StringBuilder
-        'consulta de los datos de actores por id
-        sql.Append(" select distinct i.Id, i.Name, l.Code, p.Code as programa, i.Cost, p.CreateDate, au.Name as user_fsc  from idea i  ")
-        sql.Append(" inner join ProgramComponentByIdea pi on (i.Id = pi.IdIdea)         ")
-        sql.Append(" inner join ProgramComponent pc on (pi.IdProgramComponent = pc.Id)  ")
-        sql.Append(" inner join Program p on (pc.IdProgram = p.Id)                      ")
-        sql.Append(" inner join StrategicLine l on (p.IdStrategicLine = l.Id)           ")
-        sql.Append(" inner join FSC_eSecurity.dbo.ApplicationUser au on i.IdUser= au.ID ")
 
-        sql.Append("where i.Id = " & ididea)
-        ' ejecutar la intruccion
+        sql.Append(" select distinct p.Id,p.Name,l.Code,pm.Code as programa, p.TotalCost, p.CreateDate, au.Name as user_fsc from project p ")
+        sql.Append(" inner join ProgramComponentByProject pp on (p.Id = pp.IdProject) ")
+        sql.Append(" inner join ProgramComponent pc on (pp.IdProgramComponent = pc.Id) ")
+        sql.Append(" inner join Program pm on (pc.IdProgram = pm.Id) ")
+        sql.Append(" inner join StrategicLine l on (pm.IdStrategicLine = l.Id) ")
+        sql.Append(" inner join FSC_eSecurity.dbo.ApplicationUser au on p.IdUser= au.ID ")
+
+        sql.Append("  where p.Id = " & id_project)
+
         data = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
 
         Dim objResult As String
@@ -454,8 +451,8 @@ Partial Class FormulationAndAdoption_ajaxaddProjectApprovalRecord
 
             objResult &= " "", ""value"": """
 
-            If IsDBNull(data.Rows(0)("cost")) = False Then
-                value = data.Rows(0)("cost")
+            If IsDBNull(data.Rows(0)("TotalCost")) = False Then
+                value = data.Rows(0)("TotalCost")
                 value2 = Format(Convert.ToInt64(value), "#,###.##")
             Else
                 value2 = ""
@@ -505,37 +502,32 @@ Partial Class FormulationAndAdoption_ajaxaddProjectApprovalRecord
 
     End Function
 
-    Public Function buscardatethird(ByVal ididea As Integer, ByVal objApplicationCredentials As Gattaca.Application.Credentials.ApplicationCredentials, _
-           ByVal idThird As Integer) As String
+    Protected Function charge_project_approval()
 
         Dim sql As New StringBuilder
         Dim objSqlCommand As New SqlCommand
         Dim data As DataTable
 
-        'consulta de los datos de actores por id
-        sql.Append("select t.Name,t.contact,ti.Type,ti.VrSpecies,ti.Vrmoney ,ti.FSCorCounterpartContribution  from Third t       ")
-        sql.Append("inner join ThirdByIdea ti on ti.IdThird= t.Id             ")
-        sql.Append("inner join Idea i on i.Id = ti.IdIdea                     ")
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
 
-        sql.Append("where i.Id = " & ididea)
+        ' construir la sentencia
+        sql.Append(" select  id, convert(varchar,IdIdea) + '_' + Name + '_' + convert(varchar,Id) as code, CreateDate from Project where Typeapproval = 3  ")
+        sql.Append(" order by (CreateDate) DESC  ")
 
         ' ejecutar la intruccion
-        data = GattacaApplication.RunSQLRDT(objApplicationCredentials, sql.ToString)
+        data = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
 
-        Dim html As String
-        html = "<table id=""T_Actors"" style=""width: 100%;"" border=""1"" cellspacing=""1"" cellpadding=""1""><thead><tr align=""center""><th style=""width: 200px"">Actor</th><th style=""width: 200px"">Contacto</th><th style=""width: 131px"">Tipo</th><th style=""width: 131px"">Vr Especie</th><th style=""width: 131px"">Vr Dinero</th><th style=""width: 131px"">Valor Total</th></tr></thead><tbody>"
-        For Each itemDataTable As DataRow In data.Rows
-            html &= String.Format(" <tr align=""center""><td style=""width: 200px"">{0}</td><td style=""width: 200px"">{1}</td><td style=""width: 131px"">{2}</td><td style=""width: 131px"">{3}</td><td style=""width: 131px"">{4}</td><td style=""width: 131px"">{5}</td></tr>", itemDataTable(0), itemDataTable(1), itemDataTable(2), itemDataTable(3), itemDataTable(4), itemDataTable(5))
+        Dim htmlresults As String = "<option>Seleccione...</option>"
+
+        For Each row As DataRow In data.Rows
+
+            htmlresults &= String.Format("<option value='{0}'>{1}</option>", row(0).ToString(), row(1).ToString())
+
         Next
-        html &= "</tbody></table>"
 
-        Response.Write(html)
+        ' retornar el objeto
+        Response.Write(htmlresults)
 
     End Function
 
-
-
 End Class
-
-
-

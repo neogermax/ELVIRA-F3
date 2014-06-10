@@ -5,6 +5,17 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <%@ Register Assembly="DoubleListBox" Namespace="DoubleListBox" TagPrefix="cc2" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="cphPrincipal" runat="Server">
+
+    <script type="text/javascript">
+
+        var operacion = '<%= Request.QueryString("op") %>';
+
+        if (operacion != "add") {
+            ideditar = '<%= Request.QueryString("id") %>';
+        }
+   
+    </script>
+
     <link href="../Pretty/css/prettyPhoto.css" rel="stylesheet" type="text/css" />
 
     <script src="../Pretty/js/jquery.prettyPhoto.js" type="text/javascript"></script>
@@ -45,9 +56,10 @@
 
     <%-- <script src="../Include/javascript/charge_textfield_project.js" type="text/javascript"></script>--%>
 
-    <script src="../Include/javascript/numeral.min.js"></script>
+    <script type="text/javascript" src="../Include/javascript/numeral.min.js"></script>
 
     <script type="text/javascript">
+
 
         function textboxMultilineMaxNumber(txt, maxLen) {
             try {
@@ -82,19 +94,20 @@
     <div id="containerSuccess" runat="server" visible="true" style="width: 100%; text-align: center;
         border: 2px solid #cecece; background: #E8E8DC; height: 80px; line-height: 40px;
         vertical-align: middle; border-radius: 15px;">
-        <img style="margin-top: 5px;" src= "../images/save_icon.png" width="24px" alt="Save" /><asp:Label
+        <img style="margin-top: 5px;" src="../images/save_icon.png" width="24px" alt="Save" /><asp:Label
             ID="lblsaveinformation" runat="server" Style="font-size: 14pt; color: #9bbb58;"></asp:Label></div>
     <div id="containererrors" runat="server" visible="true" style="width: 100%; text-align: center;
         border: 2px solid #cecece; background: #E8E8DC; height: 120px; line-height: 40px;
         vertical-align: middle; border-radius: 15px;">
         <img style="margin-top: 5px;" src="../images/save_icon.png" width="24px" alt="Save" /><asp:Label
             ID="Lblerrors_save_idea" runat="server" Style="font-size: 14pt; color: #990000;"></asp:Label></div>
-      <div id="container_wait" runat="server" visible="true" style="width: 50%; text-align: center;
+    <div id="container_wait" runat="server" visible="true" style="width: 50%; text-align: center;
         border: 15px solid #cecece; background: #E8E8DC; height: 200px; line-height: 50px;
-        vertical-align: middle;  z-index: 1000; position: absolute; left: 25%; border-radius: 40px;">
-        <img style="margin-top: 15px;" src="../images/charge_emerging.gif" width="120px" alt="images" />
-        <asp:Label ID="Label1" runat="server" Text="Cargando información espere un momento..." Style="font-size: 14pt;
-            color: #9bbb58;"></asp:Label>
+        vertical-align: middle; z-index: 1000; position: absolute; left: 25%; border-radius: 40px;">
+        <img style="margin-top: 15px;" src="../images/charge_emerging.gif" width="120px"
+            alt="images" />
+        <asp:Label ID="Label1" runat="server" Text="Cargando información espere un momento..."
+            Style="font-size: 14pt; color: #9bbb58;"></asp:Label>
     </div>
     <br />
     <div id="tabsproyecto">
@@ -464,7 +477,8 @@
                 <tr>
                     <td>
                         <asp:Label ID="Lbltitlecomponet" runat="server" Text="Componentes"></asp:Label>
-                        <ul id="seleccionarcomponente"></ul>
+                        <ul id="seleccionarcomponente">
+                        </ul>
                     </td>
                     <td style="width: 100px; vertical-align: middle;">
                         <input id="Btnaddcomponent" type="button" value=">>" name="Add_Componente" onclick="return Btnaddcomponent_onclick()" /><input
@@ -472,7 +486,8 @@
                     </td>
                     <td>
                         <asp:Label ID="Label20" runat="server" Text="Componentes seleccionados"></asp:Label>
-                        <ul id="componentesseleccionados"></ul>
+                        <ul id="componentesseleccionados">
+                        </ul>
                     </td>
                     <td id="viejocomp" runat="server" visible="false">
                         <cc2:DoubleListBox ID="dlbActivity" runat="server" Width="100%" />
@@ -661,9 +676,9 @@
                 </ul>
             </div>
             <br />
-            <div id="sucess_mother_help" runat="server" visible="true" style="width: 100%;
-                text-align: center; border: 2px solid #9bbb58; background: #E8E8DC; height: 40px;
-                line-height: 40px; vertical-align: middle; border-radius: 15px;">
+            <div id="sucess_mother_help" runat="server" visible="true" style="width: 100%; text-align: center;
+                border: 2px solid #9bbb58; background: #E8E8DC; height: 40px; line-height: 40px;
+                vertical-align: middle; border-radius: 15px;">
                 <asp:Label ID="Lblmesanje_mother" runat="server" Style="font-size: 14pt; color: #990000;"></asp:Label></div>
             <br />
             <br />

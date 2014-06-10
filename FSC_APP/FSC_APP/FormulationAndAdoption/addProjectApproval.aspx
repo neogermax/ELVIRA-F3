@@ -161,10 +161,8 @@
             <li>
                 <input id="SaveApproval" type="button" value="Aprobar Proyecto" name="Save_Approval"
                     onclick="return SaveApproval_onclick()" />
-                <%--      <asp:Button ID="btnAddData" runat="server" Text="Aprobar Idea" />
-                <asp:Button ID="btnSave" runat="server" Text="Guardar" />
-                <asp:Button ID="btnDelete" runat="server" Text="Eliminar" CausesValidation="False" />
-                <asp:Button ID="btnCancel" runat="server" Text="Cancelar" CausesValidation="False" />--%>
+                 <a id="linkcancelar" runat="server" href="~/FormulationAndAdoption/searchProject.aspx"
+                        title="cancelar"  style="height: 2em;">Cancelar</a>
             </li>
         </ul>
     </div>

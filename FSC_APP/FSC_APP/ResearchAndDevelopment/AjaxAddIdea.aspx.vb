@@ -1674,17 +1674,17 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
     End Function
 
     Protected Function borrar_archivos()
-        Dim startinfo As New ProcessStartInfo("C:\Gattaca_pruebas\WebSiteFSC\ELVIRA-F3\FSC_APP\FSC_APP\bats\BORRAR_ARC.bat")
-        ' Dim startinfo As New ProcessStartInfo(Server.MapPath("\bats\BORRAR_ARC.bat"))
-        'startinfo.UseShellExecute = False
+        'Dim startinfo As New ProcessStartInfo("C:\Gattaca_pruebas\WebSiteFSC\ELVIRA-F3\FSC_APP\FSC_APP\bats\BORRAR_ARC.bat")
+        Dim startinfo As New ProcessStartInfo(Server.MapPath("\bats\BORRAR_ARC.bat"))
+        startinfo.UseShellExecute = False
         startinfo.WindowStyle = ProcessWindowStyle.Hidden
         Process.Start(startinfo)
     End Function
 
     Protected Function copiar_archivos()
-        Dim startinfo As New ProcessStartInfo("C:\Gattaca_pruebas\WebSiteFSC\ELVIRA-F3\FSC_APP\FSC_APP\bats\COPIAR_ARC.bat")
-        'Dim startinfo As New ProcessStartInfo(Server.MapPath("\bats\COPIAR_ARC.bat"))
-        'startinfo.UseShellExecute = False
+        'Dim startinfo As New ProcessStartInfo("C:\Gattaca_pruebas\WebSiteFSC\ELVIRA-F3\FSC_APP\FSC_APP\bats\COPIAR_ARC.bat")
+        Dim startinfo As New ProcessStartInfo(Server.MapPath("\bats\COPIAR_ARC.bat"))
+        startinfo.UseShellExecute = False
         startinfo.WindowStyle = ProcessWindowStyle.Hidden
         Process.Start(startinfo)
     End Function
@@ -1832,6 +1832,10 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                 index_ubi = index_ubi + 4
                 contador = contador + 4
 
+                If contador <> index_ubi Then
+                    index_ubi = contador
+                End If
+
             Next
 
             '----------------------------------------------------actores------------------------------------------------------------------------
@@ -1898,6 +1902,11 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
                 contadoractor = contadoractor + 11
                 index_act = index_act + 11
+
+                If contadoractor <> index_act Then
+                    index_act = contadoractor
+                End If
+
             Next
 
             '----------------------------------------------------flujos------------------------------------------------------------------------
@@ -1951,6 +1960,10 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
                     contadorflu = contadorflu + 5
                     index_flu = index_flu + 5
+
+                    If contadorflu <> index_flu Then
+                        index_flu = contadorflu
+                    End If
 
                 Next
             End If
@@ -2212,6 +2225,10 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                 index_ubi = index_ubi + 4
                 contador = contador + 4
 
+                If contador <> index_ubi Then
+                    index_ubi = contador
+                End If
+
             Next
 
 
@@ -2280,6 +2297,11 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
                 contadoractor = contadoractor + 11
                 index_act = index_act + 11
+
+                If contadoractor <> index_act Then
+                    index_act = contadoractor
+                End If
+
             Next
 
             '----------------------------------------------------flujos------------------------------------------------------------------------
@@ -2334,6 +2356,10 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                     contadorflu = contadorflu + 5
                     index_flu = index_flu + 5
 
+                    If contadorflu <> index_flu Then
+                        index_flu = contadorflu
+                    End If
+
                 Next
             End If
 
@@ -2382,6 +2408,11 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
                     contadordetflu = contadordetflu + 4
                     index_fludet = index_fludet + 4
+
+                    If contadordetflu <> index_fludet Then
+                        index_fludet = contadordetflu
+                    End If
+
                 Next
 
             End If

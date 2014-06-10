@@ -2431,6 +2431,10 @@ Partial Public Class AjaxAddProject
                 index_ubi = index_ubi + 4
                 contador = contador + 4
 
+                If contador <> index_ubi Then
+                    index_ubi = contador
+                End If
+
             Next
 
             '----------------------------------------------------actores------------------------------------------------------------------------
@@ -2497,6 +2501,11 @@ Partial Public Class AjaxAddProject
 
                 contadoractor = contadoractor + 11
                 index_act = index_act + 11
+
+                If contadoractor <> index_act Then
+                    index_act = contadoractor
+                End If
+
             Next
 
             '----------------------------------------------------flujos------------------------------------------------------------------------
@@ -2548,6 +2557,10 @@ Partial Public Class AjaxAddProject
 
                     contadorflu = contadorflu + 5
                     index_flu = index_flu + 5
+
+                    If contadorflu <> index_flu Then
+                        index_flu = contadorflu
+                    End If
 
                 Next
             End If
@@ -2815,6 +2828,10 @@ Partial Public Class AjaxAddProject
                 index_ubi = index_ubi + 4
                 contador = contador + 4
 
+                If contador <> index_ubi Then
+                    index_ubi = contador
+                End If
+
             Next
 
             '----------------------------------------------------actores------------------------------------------------------------------------
@@ -2881,6 +2898,11 @@ Partial Public Class AjaxAddProject
 
                 contadoractor = contadoractor + 11
                 index_act = index_act + 11
+
+                If contadoractor <> index_act Then
+                    index_act = contadoractor
+                End If
+
             Next
 
             '----------------------------------------------------flujos------------------------------------------------------------------------
@@ -2932,6 +2954,10 @@ Partial Public Class AjaxAddProject
 
                     contadorflu = contadorflu + 5
                     index_flu = index_flu + 5
+
+                    If contadorflu <> index_flu Then
+                        index_flu = contadorflu
+                    End If
 
                 Next
             End If

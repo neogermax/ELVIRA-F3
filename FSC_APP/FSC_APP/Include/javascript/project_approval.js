@@ -19,11 +19,12 @@ $(document).ready(function() {
 
     traer_proyectos_aprobados();
     buscar_datos();
-    //operacionesaprobacion();
+    Valida_fecha_acta();
+    
     $("#SaveApproval").button();
     $("#ctl00_cphPrincipal_linkcancelar").button();
-   
-    
+
+
 
 });
 
@@ -48,7 +49,7 @@ function traer_proyectos_aprobados() {
 
 }
 
-//traer datos segun la seleccion delproyecto aprovado
+//traer datos segun la seleccion del proyecto aprovado
 function buscar_datos() {
 
     $("#ddlproyect").change(function() {
@@ -63,7 +64,7 @@ function buscar_datos() {
     });
 }
 
-
+// funcion q valida que cumpla con los requisitos para aprobar el proyecto
 function validar_datos_proyecto(STR_Id_Project) {
 
     $.ajax({
@@ -83,9 +84,6 @@ function validar_datos_proyecto(STR_Id_Project) {
                 $("#ctl00_cphPrincipal_Txtline").val("");
                 $("#ctl00_cphPrincipal_Txtprogram").val("");
                 $("#ctl00_cphPrincipal_txtapprovedvalue").val("");
-                $("#ctl00_cphPrincipal_HDline").val("");
-                $("#ctl00_cphPrincipal_HDprogram").val("");
-                $("#ctl00_cphPrincipal_HDidea").val("");
                 $("#ctl00_cphPrincipal_TxtaportFSC").val("");
                 $("#ctl00_cphPrincipal_Txtaportcontra").val("");
                 $("#ctl00_cphPrincipal_txtcreatedate").val("");
@@ -130,10 +128,9 @@ function traer_actores_proyecto(STR_Id_Project) {
 }
 
 
-
+//traer datos del proyecto        
 function traer_datos_proyecto(STR_Id_Project) {
 
-    //traer datos de la idea        
     $.ajax({
         url: "AjaxaddProjectApproval.aspx",
         type: "GET",
@@ -148,9 +145,6 @@ function traer_datos_proyecto(STR_Id_Project) {
                 $("#ctl00_cphPrincipal_Txtline").val(result.line);
                 $("#ctl00_cphPrincipal_Txtprogram").val(result.program);
                 $("#ctl00_cphPrincipal_txtapprovedvalue").val(result.value);
-                $("#ctl00_cphPrincipal_HDline").val(result.line);
-                $("#ctl00_cphPrincipal_HDprogram").val(result.program);
-                $("#ctl00_cphPrincipal_HDidea").val(result.name);
                 $("#ctl00_cphPrincipal_TxtaportFSC").val(result.FSC);
                 $("#ctl00_cphPrincipal_Txtaportcontra").val(result.otro);
                 $("#ctl00_cphPrincipal_txtcreatedate").val(result.CreateDate);
@@ -162,11 +156,13 @@ function traer_datos_proyecto(STR_Id_Project) {
     });
 }
 
-
+//funcion q habilita el guardado de la  aprobacion proyecto
 function SaveApproval_onclick() {
 
+    //revisamos q los campos esten diligenciados
     var value_campos = Validar_campos_dilingenciados();
 
+    //habilitamos confirmacion
     if (confirmacion == 0) {
         if (value_campos == 1) {
 
@@ -187,13 +183,13 @@ function SaveApproval_onclick() {
         }
     }
     else {
-
+        //llamamos funcion que guarda
         guardar_aprobacion_proyecto();
 
     }
 }
 
-
+//funcion que valida campos diligenciados
 function Validar_campos_dilingenciados() {
 
     var valida_campos;
@@ -226,12 +222,11 @@ function Validar_campos_dilingenciados() {
     return valida_campos;
 }
 
-
+//funcion guardar aprobacion del proyecto
 function guardar_aprobacion_proyecto() {
 
     var id_idea = $("#ddlproyect option:selected").html();
-    alert(id_idea);
-
+ 
     $.ajax({
         url: "AjaxaddProjectApproval.aspx",
         type: "POST",
@@ -259,86 +254,28 @@ function guardar_aprobacion_proyecto() {
             $("#SaveApproval").css("display", "block");
             $("#ctl00_cphPrincipal_lblsaveinformation").text("Se genero error al entrar a la operacion Ajax :");
             $("#ctl00_cphPrincipal_containerSuccess_down").css("display", "none");
-           
+
         }
     });
 
 }
 
-////function operacionesaprobacion() {
+//validacion para la fecha que no sea mayor de la fecha actual
+function Valida_fecha_acta() {
 
-//    $("#ctl00_cphPrincipal_btnAddData").click(function() {
+    $("#ctl00_cphPrincipal_txtapprovaldate").blur(function() {
+        var fecha = new Date();
+        var fechacampo = new Date($("#ctl00_cphPrincipal_txtapprovaldate").val());
 
-//        var rev = $("#ctl00_cphPrincipal_TxtaportFSC").val();
-//        rev = rev.replace(/\./gi, '');
-//        var vd = parseInt(rev);
-
-//        var rev2 = $("#ctl00_cphPrincipal_Txtaportcontra").val()
-//        rev2 = rev2.replace(/\./gi, '');
-//        var ve = parseInt(rev2);
-
-//        if (isNaN(vd)) { vd = 0; }
-//        else {
-//            if (isNaN(ve)) { ve = 0; }
-//            else {
-//                var suma = 0;
-//                suma = vd + ve;
-//                addCommas(suma);
-//            }
-//        }
-//        suma = vd + ve;
-//        addCommas(suma);
-//    });
+        if (fechacampo < fecha) {
+            alert("la fecha debe ser menor al dia de hoy.");
+            $("#ctl00_cphPrincipal_txtapprovaldate").val("");
+            $("#ctl00_cphPrincipal_txtapprovaldate").focus();
+        }
+    });
+}
 
 
-////    $("#ctl00_cphPrincipal_TxtaportFSC").blur(function() {
-////        var rev = $(this).val();
-////        rev = rev.replace(/\./gi, '');
-////        var val = parseInt(rev);
-
-////        if (isNaN(val)) {
-////            val = 0;
-////            $("#ctl00_cphPrincipal_TxtaportFSC").val(val);
-////        }
-////        else {
-////            var rev2 = $("#ctl00_cphPrincipal_Txtaportcontra").val();
-
-////            rev2 = rev2.replace(/\./gi, '');
-////            var val2 = parseInt(rev2);
-////            if (isNaN(val2)) { val2 = 0; }
-////            else {
-////                var suma = 0;
-////                suma = val + val2;
-
-////                $("#ctl00_cphPrincipal_txtapprovedvalue").val(addCommasrefactor(suma));
-////                $("#ctl00_cphPrincipal_HDvalue").val(addCommasrefactor(suma));
-////            }
-////        }
-////    });
-
-//    $("#ctl00_cphPrincipal_Txtaportcontra").blur(function() {
-//        var rev = $(this).val();
-//        rev = rev.replace(/\./gi, '');
-//        var val = parseInt(rev);
-//        if (isNaN(val)) {
-//            val = 0;
-//            $("#ctl00_cphPrincipal_Txtaportcontra").val(val);
-//        }
-//        else {
-//            var rev2 = $("#ctl00_cphPrincipal_TxtaportFSC").val();
-//            rev2 = rev2.replace(/\./gi, '');
-//            var val2 = parseInt(rev2);
-//            if (isNaN(val2)) { val2 = 0; }
-//            else {
-//                var suma = 0;
-//                suma = val + val2;
-
-//                $("#ctl00_cphPrincipal_txtapprovedvalue").val(addCommasrefactor(suma));
-//                $("#ctl00_cphPrincipal_HDvalue").val(addCommasrefactor(suma));
-//            }
-//        }
-//    });
-//}
 
 
 
