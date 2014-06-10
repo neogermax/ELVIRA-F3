@@ -13,6 +13,7 @@ Partial Public Class ajaxRequest
 
 #Region "Properties public and private"
     Dim _existRequest As Boolean = False
+    Dim _idProject As Integer = 0
 #End Region
 
     ''' <summary>
@@ -27,14 +28,14 @@ Partial Public Class ajaxRequest
             Dim countKeys As Integer = Request.Form.AllKeys.Length
 
             If countKeys > 0 Then
-                Dim idProject As Integer = Convert.ToInt32(Request.Form("idProject"))
+                _idProject = Convert.ToInt32(Request.Form("idProject"))
 
                 Dim objCRequest As FSC_DAO.model.CRequest = New FSC_DAO.model.CRequest()
-                _existRequest = objCRequest.existRequestForProject(idProject)
+                _existRequest = objCRequest.existRequestForProject(_idProject)
 
 
                 If _existRequest Then
-                    idProject = objCRequest.getExistRequestIdForProject(idProject)
+                    _idProject = objCRequest.getExistRequestIdForProject(_idProject)
                 End If
 
 
@@ -43,23 +44,26 @@ Partial Public Class ajaxRequest
                 Select Case actionToResponse
                     Case "getInformationProject"
                         'Get the  project information relevant 
-                        getInformationProject(idProject)
+                        getInformationProject(_idProject)
                         Exit Select
                     Case "loadThirdProject"
                         'Get thirs by project
-                        getThirdsByProject(idProject)
+                        getThirdsByProject(_idProject)
                         Exit Select
                     Case "loadFlowProject"
                         'Get flows by project
-                        getFlowsByProject(idProject)
+                        getFlowsByProject(_idProject)
                         Exit Select
                     Case "loadDetailsFlowsProject"
                         'Get flows by project
-                        getDetailsFlowsByProject(idProject)
+                        getDetailsFlowsByProject(_idProject)
                         Exit Select
                     Case "saveInformationRerquest"
                         'Get flows by project
                         saveInformationRerquest()
+                        Exit Select
+                    Case "getRequestTypeForProject"
+                        getRequestTypeForProject(_idProject)
                         Exit Select
                 End Select
             End If
@@ -86,7 +90,7 @@ Partial Public Class ajaxRequest
             'Response data for file javascript
             Response.Write(JsonConvert.SerializeObject(objRequestObjCRequest))
         End If
-        
+
     End Sub
 
     Protected Sub getThirdsByProject(ByVal idProject As Integer)
@@ -95,9 +99,9 @@ Partial Public Class ajaxRequest
         Dim objThirds = Nothing
 
         If Not _existRequest Then
-            objThirds = (From objThirdByProject In objFscDaoDataContext.ThirdByProject Where objThirdByProject.IdProject = idProject Select objThirdByProject.Contact, objThirdByProject.CreateDate, objThirdByProject.Documents, objThirdByProject.Email, objThirdByProject.FSCorCounterpartContribution, objThirdByProject.Id, objThirdByProject.IdThird, objThirdByProject.Name, objThirdByProject.Phone, objThirdByProject.Type, objThirdByProject.VrSpecies, objThirdByProject.Vrmoney, objThirdByProject.generatesflow).ToArray()
+            objThirds = (From objThirdByProject In objFscDaoDataContext.ThirdByProject Where objThirdByProject.IdProject = idProject Select objThirdByProject.Contact, objThirdByProject.Documents, objThirdByProject.Email, objThirdByProject.FSCorCounterpartContribution, objThirdByProject.Id, objThirdByProject.IdThird, objThirdByProject.Name, objThirdByProject.Phone, objThirdByProject.Type, objThirdByProject.VrSpecies, objThirdByProject.Vrmoney, objThirdByProject.generatesflow).ToArray()
         Else
-            objThirds = (From objThirdByProject In objFscDaoDataContext.ThirdByRequest Where objThirdByProject.IdRequest = idProject Select objThirdByProject.Contact, objThirdByProject.CreateDate, objThirdByProject.Documents, objThirdByProject.Email, objThirdByProject.FSCorCounterpartContribution, objThirdByProject.Id, objThirdByProject.IdThird, objThirdByProject.Name, objThirdByProject.Phone, objThirdByProject.Type, objThirdByProject.VrSpecies, objThirdByProject.Vrmoney, objThirdByProject.generatesflow).ToArray()
+            objThirds = (From objThirdByProject In objFscDaoDataContext.ThirdByRequest Where objThirdByProject.IdRequest = idProject Select objThirdByProject.Contact, objThirdByProject.Documents, objThirdByProject.Email, objThirdByProject.FSCorCounterpartContribution, objThirdByProject.Id, objThirdByProject.IdThird, objThirdByProject.Name, objThirdByProject.Phone, objThirdByProject.Type, objThirdByProject.VrSpecies, objThirdByProject.Vrmoney, objThirdByProject.generatesflow).ToArray()
         End If
 
         Dim objSerializedObject = JsonConvert.SerializeObject(objThirds)
@@ -124,13 +128,37 @@ Partial Public Class ajaxRequest
 
         Dim objSerializedObject = JsonConvert.SerializeObject(objFlows)
 
-        objSerializedObject = objSerializedObject.Replace("""", "\""")
-        objSerializedObject = objSerializedObject.Replace("\n", "\\n")
-        objSerializedObject = objSerializedObject.Replace("\r", "\\r")
+        'objSerializedObject = objSerializedObject.Replace("""", "\""")
+        'objSerializedObject = objSerializedObject.Replace("\n", "\\n")
+        'objSerializedObject = objSerializedObject.Replace("\r", "\\r")
 
-        objSerializedObject = String.Format("{0}{1}{2}", """", objSerializedObject, """")
+        'objSerializedObject = String.Format("{0}{1}{2}", """", objSerializedObject, """")
 
         Response.Write(objSerializedObject)
+
+    End Sub
+
+    Protected Sub getRequestTypeForProject(ByVal idRequest As Integer)
+        If _existRequest Then
+            Dim objFscDaoDataContext As FSC_DAO.model.fscdaoDataContext = New FSC_DAO.model.fscdaoDataContext()
+
+            Dim objRerquestTypes = (From objRequest_RequestType In objFscDaoDataContext.Request_RequestType Where objRequest_RequestType.IdRequest = idRequest Select objRequest_RequestType.IdRequestType, objRequest_RequestType.IdRequestSubtype).ToArray()
+
+            Dim objSerializedObject = JsonConvert.SerializeObject(objRerquestTypes)
+
+            Response.Write(objSerializedObject)
+        Else
+            Response.Write("[]")
+        End If
+        
+
+        'objSerializedObject = objSerializedObject.Replace("""", "\""")
+        'objSerializedObject = objSerializedObject.Replace("\n", "\\n")
+        'objSerializedObject = objSerializedObject.Replace("\r", "\\r")
+
+        'objSerializedObject = String.Format("{0}{1}{2}", """", objSerializedObject, """")
+
+
 
     End Sub
 
@@ -146,11 +174,11 @@ Partial Public Class ajaxRequest
 
         Dim objSerializedObject = JsonConvert.SerializeObject(objDetailsFlows)
 
-        objSerializedObject = objSerializedObject.Replace("""", "\""")
-        objSerializedObject = objSerializedObject.Replace("\n", "\\n")
-        objSerializedObject = objSerializedObject.Replace("\r", "\\r")
+        'objSerializedObject = objSerializedObject.Replace("""", "\""")
+        'objSerializedObject = objSerializedObject.Replace("\n", "\\n")
+        'objSerializedObject = objSerializedObject.Replace("\r", "\\r")
 
-        objSerializedObject = String.Format("{0}{1}{2}", """", objSerializedObject, """")
+        'objSerializedObject = String.Format("{0}{1}{2}", """", objSerializedObject, """")
 
         Response.Write(objSerializedObject)
 
@@ -164,6 +192,9 @@ Partial Public Class ajaxRequest
         Dim JSONTypeRequest = JsonConvert.DeserializeObject(Of List(Of FSC_DAO.model.Request_RequestType))(Request.Form("InformationTypeRequest"))
 
         Dim IdRequest As Integer = saveProjectInformation(JSONProjectInformation)
+        If IdRequest = 0 And _existRequest Then
+            IdRequest = _idProject
+        End If
         saveThirdsInformation(JSONThirdsInformation, IdRequest)
         saveFlowsInformation(JSONFlowsInformation, IdRequest)
         saveDetailsCashFlows(JSONDetailsInformation, IdRequest)
@@ -189,6 +220,7 @@ Partial Public Class ajaxRequest
         If Not _existRequest Then
             objCRequest.executeInsert()
         Else
+            objCRequest.Id = _idProject
             objCRequest.executeUpdate()
         End If
 
@@ -201,9 +233,10 @@ Partial Public Class ajaxRequest
             objCThirdByRequest.IdRequest = IdRequest
             objCThirdByRequest.setPropertiesFromThirdByProject(item)
 
-            If Not _existRequest Then
+            If Not _existRequest Or item.Id = 0 Then
                 objCThirdByRequest.executeInsert()
             Else
+                objCThirdByRequest.Id = item.Id
                 objCThirdByRequest.executeUpdate()
             End If
         Next
@@ -215,9 +248,10 @@ Partial Public Class ajaxRequest
             objCPaymentFlow_Request.IdRequest = IdRequest
             objCPaymentFlow_Request.setPropertiesFromProject(item)
 
-            If Not _existRequest Then
+            If Not _existRequest Or item.id = 0 Then
                 objCPaymentFlow_Request.executeInsert()
             Else
+                objCPaymentFlow_Request.Id = item.id
                 objCPaymentFlow_Request.executeUpdate()
             End If
         Next
@@ -229,25 +263,26 @@ Partial Public Class ajaxRequest
             objCDetailsCashFlow.IdRequest = IdRequest
             objCDetailsCashFlow.setPropertiesFromDetailedcashflows(item)
 
-            If Not _existRequest Then
+            If Not _existRequest Or item.Id = 0 Then
                 objCDetailsCashFlow.executeInsert()
             Else
+                objCDetailsCashFlow.Id = item.Id
                 objCDetailsCashFlow.executeUpdate()
             End If
         Next
     End Sub
 
     Protected Sub saveTypeRequest(ByVal JSONTypeRequestInformation As List(Of FSC_DAO.model.Request_RequestType), ByVal IdRequest As Integer)
+
+        Dim objCRequest_RequestTypeDelete As FSC_DAO.model.CRequest_RequestType = New FSC_DAO.model.CRequest_RequestType()
+        objCRequest_RequestTypeDelete.IdRequest = _idProject
+        objCRequest_RequestTypeDelete.executeDeleteAll()
+
         For Each item In JSONTypeRequestInformation
             Dim objCRequest_RequestType As FSC_DAO.model.CRequest_RequestType = New FSC_DAO.model.CRequest_RequestType()
             objCRequest_RequestType.setPropertiesFromJSON(item)
             objCRequest_RequestType.IdRequest = IdRequest
-
-            If Not _existRequest Then
-                objCRequest_RequestType.executeInsert()
-            Else
-                objCRequest_RequestType.executeUpdate()
-            End If
+            objCRequest_RequestType.executeInsert()
         Next
     End Sub
     Protected Sub updateCessionToThird(ByVal IdRequest As Integer, ByVal OldThird As Integer, ByVal NewThird As Integer)

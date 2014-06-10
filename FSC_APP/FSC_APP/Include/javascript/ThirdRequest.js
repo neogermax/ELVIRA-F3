@@ -3,7 +3,6 @@
 //Document: ThirdRequest.js
 //Load data select thirds 
 var arrayActor = [];
-var arrayActor = [];
 
 function loadThird() {
     $.ajax({
@@ -344,9 +343,10 @@ function loadDataThirsProject() {
         },
         success: function (result) {
             result = result.replace(/\//g, "").replace(/\\/g, "")
-            console.log(result);
+            
             var resultJson = JSON.parse(result.toString());
-            arrayActor = JSON.parse(resultJson.toString());
+            //arrayActor = JSON.parse(resultJson.toString());
+            arrayActor = resultJson;
             refreshTableThird();
             refreshTableFlow();
             loadThirdsList();

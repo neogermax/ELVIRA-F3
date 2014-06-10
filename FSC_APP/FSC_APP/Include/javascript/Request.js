@@ -80,6 +80,29 @@ $(document).ready(function() {
             $("#txtarPartObligations").val(projectObject.obligationsoftheparties);
             //
             
+            if(projectObject.Justification != undefined){
+                $("#txtJustification").val(projectObject.Justification);
+            }
+            
+            if(projectObject.Other_Request != undefined){
+                $("#txtarRequest").val(projectObject.Other_Request);
+            }
+            
+            if(projectObject.StartSuspension_Date != undefined)  
+            {
+                var StartSuspension_Date = new Date(parseFloat(projectObject.StartSuspension_Date.replace(/Date/g, "").replace(/\//g, "").replace(/["'()]/g, "").toString()));
+                $("#ctl00_cphPrincipal_txtStartSuspend").val(StartSuspension_Date.localeFormat("dd/MM/yyyy"));
+            }
+            
+            if(projectObject.EndSuspension_Date != undefined){    
+                var EndSuspension_Date = new Date(parseFloat(projectObject.EndSuspension_Date.replace(/Date/g, "").replace(/\//g, "").replace(/["'()]/g, "").toString()));
+                $("#ctl00_cphPrincipal_txtEndSuspend").val(EndSuspension_Date.localeFormat("dd/MM/yyyy"));
+            }
+            
+            if(projectObject.RestartType != undefined){    
+                $("#ctl00_cphPrincipal_ddlRestartType").val(projectObject.RestartType);
+            }
+            
         },
         error: function() {
             alert("Opsss! Algo salio mal, por favor intentelo mas tarde.")
@@ -89,6 +112,7 @@ $(document).ready(function() {
 
     
     $("#buttonSaveRequest").click(function(){
+        
         projectObject.Justification = $("#txtJustification").val();
 
         $.ajax({
@@ -117,14 +141,50 @@ $(document).ready(function() {
             }
         });
     });
+    
+    getRequestTypeForProject();
+    
 });
+
+//Get Request Type For Project
+function getRequestTypeForProject() {
+    $.ajax({
+        url: "AjaxRequest.aspx",
+        type: "POST",
+        data: {
+            "action": "getRequestTypeForProject",
+            "idProject": idproject
+        },
+        success: function (result) {
+            result = result.replace(/\//g, "").replace(/\\/g, "");
+            var resultJson = JSON.parse(result);
+            //arrayflujosdepago = JSON.parse(resultJson.toString());
+            arrayTypeRequest = resultJson;
+            
+        },
+        error: function (msg) {
+            //
+        }
+    });
+}
 
 //Partial Sve
 function partialSave() {
     $("#buttonSavePartial").click(function() {
         var JSONTypeRequest = { "IdRequest": 0, "IdRequestSubType": $("input[name='subgroup']:checked").val(), "IdRequestType": $("#typeRequest").val() };
         //Se agrega categoria de solicitud como objeto en el arreglo
-        arrayTypeRequest.push(JSONTypeRequest);
+        
+        var existCategory = false;
+        for(var item in arrayTypeRequest){
+            if(arrayTypeRequest[item].IdRequestType == $("#typeRequest").val())
+            {
+                existCategory = true;
+            }
+        }
+        
+        if(!existCategory){
+            arrayTypeRequest.push(JSONTypeRequest);
+        }
         
         alert("Se almacenó la información de la solicitud en estado parcial, no olvide guardar antes de salir o cerrar esta ventana.");
     });
