@@ -36,42 +36,56 @@ function BtnaddActors_onclick() {
     $("#ctl00_cphPrincipal_txtentregable").val("");
 
 
-    if (swhich_flujos_exist == 1) {
-        alert("Se ha detectado información el la pestaña de flujos de pagos, al eliminar el actor toda la información se perdera!");
+    //capturamos si se va agregar a fuljos de pagos o no
+    var flujo_in = $("#ctl00_cphPrincipal_RBListflujo :checked").val();
 
-        var htmlTableflujos = "<table id='T_flujos' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr><th style='text-align: center;'>No pago</th><th style='text-align: center;'>Fecha</th><th style='text-align: center;'>Porcentaje</th><th style='text-align: center;'>Entregable</th><th style='text-align: center;'>Valor parcial</th><th style='text-align: center;'>Editar/Eliminar</th><th style='text-align: center;' >Detalle</th></tr></thead><tbody>";
-        htmlTableflujos += "<tr><td width='1' style='color: #D3D6FF; font-size: 0.1em;'>1000</td><td>Porcentaje acumulado</td><td id='porcentaje'>0 %</td><td>Total</td><td id='totalflujospagos'>0</td><td></td><td></td></tr></tbody></table>";
+    //validamos si va recibir aporte en efectivo 
+    if (flujo_in == 1) {
 
-        //cargamos el div donde se generara la tabla actores
-        $("#T_flujosContainer").html("");
-        $("#T_flujosContainer").html(htmlTableflujos);
+        //validamos si el array de flujo actores ya tiene flujos generados
+        if (swhich_flujos_exist == 1) {
 
-        arrayValorflujoTotal[0] = 0;
+            alert("Se ha detectado información el la pestaña de flujos de pagos, al eliminar el actor toda la información se perdera!");
 
-        arrayflujosdepago = [];
-        arrayinputflujos = [];
-        matriz_flujos = [];
-        reversedesembolsos = [];
+            var htmlTableflujos = "<table id='T_flujos' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr><th style='text-align: center;'>No pago</th><th style='text-align: center;'>Fecha</th><th style='text-align: center;'>Porcentaje</th><th style='text-align: center;'>Entregable</th><th style='text-align: center;'>Valor parcial</th><th style='text-align: center;'>Editar/Eliminar</th><th style='text-align: center;' >Detalle</th></tr></thead><tbody>";
+            htmlTableflujos += "<tr><td width='1' style='color: #D3D6FF; font-size: 0.1em;'>1000</td><td>Porcentaje acumulado</td><td id='porcentaje'>0 %</td><td>Total</td><td id='totalflujospagos'>0</td><td></td><td></td></tr></tbody></table>";
 
-        swhich_flujos_exist = 0;
+            //cargamos el div donde se generara la tabla actores
+            $("#T_flujosContainer").html("");
+            $("#T_flujosContainer").html(htmlTableflujos);
 
-        //reconstruimos la tabla con los datos
-        $("#T_flujos").dataTable({
-            "bJQueryUI": true,
-            "bDestroy": true
-        });
+            arrayValorflujoTotal[0] = 0;
 
-        add_actor_grid();
+            arrayflujosdepago = [];
+            arrayinputflujos = [];
+            matriz_flujos = [];
+            reversedesembolsos = [];
 
+            swhich_flujos_exist = 0;
+
+            //reconstruimos la tabla con los datos
+            $("#T_flujos").dataTable({
+                "bJQueryUI": true,
+                "bDestroy": true
+            });
+            //funcion para agregar actor 
+            add_actor_grid();
+
+        }
+        else {
+            //funcion para agregar actor
+            add_actor_grid();
+        }
     }
-
     else {
+        //funcion para agregar actor
         add_actor_grid();
     }
+
 
 }
 
-//funtion para agreagar al grid despues de validar si hay flujos de datos
+//funtion para agragar al grid despues de validar si hay flujos de datos
 function add_actor_grid() {
 
     if ($("#ctl00_cphPrincipal_RBListflujo :checked").val() == null) {

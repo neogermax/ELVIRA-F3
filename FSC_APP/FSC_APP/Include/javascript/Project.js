@@ -82,6 +82,7 @@ $(document).ready(function() {
     //validamos si creamos la idea o editamos
     if (sURLVariables[0] == "op=edit") {
         ideditar = sURLVariables[1].replace("id=", "");
+        //if (operacion == "edit") {
 
         operacionesIdea();
         actors_transanccion();
@@ -119,13 +120,12 @@ $(document).ready(function() {
 
         cargar_ideas_aprobadas();
 
-        //aprobacion_idea();
 
+
+        validar_ini_ed = 1;
         $("#ddlStrategicLines").ready(function() {
             ClineEstrategic_edit_proyect();
         });
-
-
 
         traer_valores_madre("editar", ideditar);
 
@@ -139,8 +139,9 @@ $(document).ready(function() {
         $("#SaveProject").attr("value", "Guardar cambios");
         $("#Export").css("display", "compact");
         $("#li_C_idea").css("display", "none");
+        borrar_carpeta();
 
-        
+        aprobacion_proyecto();
     }
     else {
 
@@ -173,6 +174,8 @@ $(document).ready(function() {
 
         $("#SaveProject").css("display", "none");
         $("#Export").css("display", "none");
+        borrar_carpeta();
+
     }
 
     //validar campos fechas
@@ -186,11 +189,11 @@ $(document).ready(function() {
 
     $("#ctl00_cphPrincipal_container_wait").css("display", "none");
 
-//    $(document).ajaxStart(function() {
-//        $(this).show($("#ctl00_cphPrincipal_container_wait").css("display", "block"));
-//    }).ajaxStop(function() {
-//        $(this).hide($("#ctl00_cphPrincipal_container_wait").css("display", "none"));
-//    });
+    //    $(document).ajaxStart(function() {
+    //        $(this).show($("#ctl00_cphPrincipal_container_wait").css("display", "block"));
+    //    }).ajaxStop(function() {
+    //        $(this).hide($("#ctl00_cphPrincipal_container_wait").css("display", "none"));
+    //    });
 
 
     $("#ctl00_cphPrincipal_container_date_mother_actores").css("display", "none");
@@ -556,11 +559,11 @@ function SaveProject_onclick() {
 
         if (sURLVariables[0] == "op=edit") {
             editar_proyecto();
-            //copiar_archivos();
+            copiar_archivos();
         }
         else {
             Crear_proyecto();
-            //            copiar_archivos();
+            copiar_archivos();
         }
     }
     else {
@@ -1016,7 +1019,7 @@ function traer_valores_madre(Str_estado_creacion, Str_id_project) {
     if (Str_id_project == 0) {
         Str_id_project = idea_buscar;
     }
-    
+
     $.ajax({
         url: "AjaxAddProject.aspx",
         type: "GET",
@@ -1127,4 +1130,72 @@ function formatvercionsuma(input) {
         alert('Solo se permiten numeros');
         input.value = input.value.replace(/[^\d\.]*/g, "");
     }
+}
+
+//funtion para borrar carpeta temp
+function borrar_carpeta() {
+
+    $.ajax({
+        url: "AjaxAddProject.aspx",
+        type: "GET",
+        data: { "action": "borrar_archivos" },
+        success: function(result) {
+            //   alert("borrado");
+        },
+        error: function(msg) {
+            alert("No ELIMINO LOS ARCHIVOS = " + ideditar);
+        }
+    });
+}
+
+//FUNCION COPIAR ARCHIVOS DE LA CARPETA
+function copiar_archivos() {
+
+    $.ajax({
+        url: "AjaxAddProject.aspx",
+        type: "GET",
+        data: { "action": "copiar_archivos" },
+        success: function(result) {
+            //  alert("copiado");
+        },
+        error: function(msg) {
+            alert("No COPIO LOS ARCHIVOS= " + ideditar);
+        }
+    });
+
+}
+
+//funcion para validar si el proyecto esta aprobado
+function aprobacion_proyecto() {
+
+    $.ajax({
+        url: "AjaxAddProject.aspx",
+        type: "GET",
+        data: { "action": "aprobacion_proyecto", "idproject": ideditar },
+        success: function(result) {
+
+            if (result == 1) {
+                $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
+                $("#ctl00_cphPrincipal_lblsaveinformation").text("Este Proyecto ya se encuentra aprobado y NO puede ser modificado!");
+                $("#SaveProject").css("display", "none");
+                $("#dll_estado").attr("disabled", "disabled");
+                $("#dll_estado").val(1);
+
+            }
+            else {
+                $("#ctl00_cphPrincipal_containerSuccess").css("display", "none");
+                $("#SaveIdea").css("display", "compact");
+                //   $("#dll_estado").val(3);
+
+            }
+
+
+        },
+        error: function(msg) {
+            alert("No se pueden cargar los documentos anexos de la idea = " + ideditar);
+        }
+    });
+
+
+
 }

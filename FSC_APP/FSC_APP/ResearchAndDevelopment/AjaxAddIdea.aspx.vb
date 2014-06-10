@@ -367,7 +367,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
     End Function
 
-    Public Function searh_component_array(ByVal ididea As Integer)
+    Protected Function searh_component_array(ByVal ididea As Integer)
 
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
 
@@ -415,7 +415,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
     End Function
 
-    Public Function load_id_archive(ByVal ididea As Integer)
+    Protected Function load_id_archive(ByVal ididea As Integer)
 
         Dim sql As New StringBuilder
         Dim objSqlCommand As New SqlCommand
@@ -448,7 +448,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
     End Function
 
-    Public Function searh_c_typecontract(ByVal ididea As Integer)
+    Protected Function searh_c_typecontract(ByVal ididea As Integer)
 
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
 
@@ -471,7 +471,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
     End Function
 
-    Public Function searh_c_population(ByVal ididea As Integer)
+    Protected Function searh_c_population(ByVal ididea As Integer)
 
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
         Dim ProgramComponentByIdea As New ProgramComponentByIdeaDALC
@@ -495,14 +495,14 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
     End Function
 
-    Public Function validar_aprobacion_idea(ByVal ididea As Integer)
+    Protected Function validar_aprobacion_idea(ByVal ididea As Integer)
 
         Dim sql As New StringBuilder
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
 
         Dim result As Integer
 
-        sql.Append("SELECT Ididea FROM  ProjectApprovalRecord WHERE Ididea=" & ididea)
+        sql.Append("SELECT Ididea FROM  IdeaApprovalRecord WHERE Ididea=" & ididea)
         Dim idideaaprovada = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
 
         If idideaaprovada <> 0 Then
@@ -518,7 +518,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         Response.Write(result)
     End Function
 
-    Public Function searh_document_anexos_array(ByVal ididea As Integer)
+    Protected Function searh_document_anexos_array(ByVal ididea As Integer)
 
         Dim sql As New StringBuilder
         Dim objSqlCommand As New SqlCommand
@@ -589,7 +589,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
     End Function
 
-    Public Function charge_list_program(ByVal idLinestrategic As Integer)
+    Protected Function charge_list_program(ByVal idLinestrategic As Integer)
         Dim facade As New Facade
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
         Dim program_data As List(Of ProgramEntity)
@@ -609,7 +609,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
     End Function
 
-    Public Function searh_component(ByVal ididea As Integer)
+    Protected Function searh_component(ByVal ididea As Integer)
 
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
         Dim ProgramComponentByIdea As New ProgramComponentByIdeaDALC
@@ -640,7 +640,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
     End Function
 
-    Public Function searh_Program(ByVal ididea As Integer)
+    Protected Function searh_Program(ByVal ididea As Integer)
 
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
         Dim ProgramComponentByIdea As New ProgramComponentByIdeaDALC
@@ -667,7 +667,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
     End Function
 
-    Public Function searh_line_Strategic(ByVal ididea As Integer)
+    Protected Function searh_line_Strategic(ByVal ididea As Integer)
 
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
         Dim ProgramComponentByIdea As New ProgramComponentByIdeaDALC
@@ -694,7 +694,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
     End Function
 
-    Public Function searh_detalles_array(ByVal ididea As Integer)
+    Protected Function searh_detalles_array(ByVal ididea As Integer)
 
         Dim sql As New StringBuilder
         Dim objSqlCommand As New SqlCommand
@@ -759,7 +759,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
     End Function
 
-    Public Function searh_actors_flujos_array(ByVal ididea As Integer)
+    Protected Function searh_actors_flujos_array(ByVal ididea As Integer)
 
         Dim sql As New StringBuilder
         Dim objSqlCommand As New SqlCommand
@@ -869,7 +869,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
     End Function
 
-    Public Function searh_flujos_array(ByVal ididea As Integer)
+    Protected Function searh_flujos_array(ByVal ididea As Integer)
 
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
 
@@ -940,7 +940,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         Response.Write(objResult)
     End Function
 
-    Public Function searh_actores_array(ByVal ididea As Integer)
+    Protected Function searh_actores_array(ByVal ididea As Integer)
 
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
 
@@ -1036,7 +1036,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
     End Function
 
-    Public Function searh_location_array(ByVal ididea As Integer)
+    Protected Function searh_location_array(ByVal ididea As Integer)
 
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
 
@@ -1106,7 +1106,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
     ''' <param name="id_population"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Function Charge_population(ByVal id_population As Integer)
+    Protected Function Charge_population(ByVal id_population As Integer)
 
         Dim sql As New StringBuilder
         Dim objSqlCommand As New SqlCommand
@@ -1136,7 +1136,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
     ''' </summary>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Function Charge_project_type()
+    Protected Function Charge_project_type()
 
         Dim sql As New StringBuilder
         Dim objSqlCommand As New SqlCommand
@@ -1168,7 +1168,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
     ''' <param name="idprogram"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Function charge_component(ByVal idprogram As String, ByVal estado_proceso As Integer, ByVal ididea As Integer)
+    Protected Function charge_component(ByVal idprogram As String, ByVal estado_proceso As Integer, ByVal ididea As Integer)
 
         Dim facade As New Facade
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
@@ -1231,7 +1231,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
     ''' </summary>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Function Charge_typeContract()
+    Protected Function Charge_typeContract()
 
         Dim facade As New Facade
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
@@ -1261,7 +1261,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
     ''' </summary>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Function Charge_actors()
+    Protected Function Charge_actors()
 
         Dim facade As New Facade
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
@@ -1291,7 +1291,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
     ''' <param name="iddepto"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Function Charge_munip(ByVal iddepto As Integer)
+    Protected Function Charge_munip(ByVal iddepto As Integer)
         Dim facade As New Facade
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
         Dim data_munip As List(Of CityEntity)
@@ -1319,7 +1319,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
     ''' </summary>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Function Charge_deptos()
+    Protected Function Charge_deptos()
         Dim facade As New Facade
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
         Dim depto_data As List(Of DeptoEntity)
@@ -1348,7 +1348,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
     ''' <param name="idLinestrategic"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Function charge_program(ByVal idLinestrategic As Integer)
+    Protected Function charge_program(ByVal idLinestrategic As Integer)
         Dim facade As New Facade
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
         Dim program_data As List(Of ProgramEntity)
@@ -1376,7 +1376,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
     ''' </summary>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Function Charge_Lstrategic()
+    Protected Function Charge_Lstrategic()
         Dim facade As New Facade
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
         Dim line_data As List(Of StrategicLineEntity)
@@ -1397,7 +1397,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
     End Function
 
-    Public Function save_document_IDEA(ByVal list_file As String, ByVal ididea As Integer)
+    Protected Function save_document_IDEA(ByVal list_file As String, ByVal ididea As Integer)
 
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
         Dim ArrayFile As String()
@@ -1517,7 +1517,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
     End Function
 
-    Public Function calculafechas(ByVal fecha As DateTime, ByVal duracion As String, ByVal dias_ope As String) As String
+    Protected Function calculafechas(ByVal fecha As DateTime, ByVal duracion As String, ByVal dias_ope As String) As String
 
         Dim objResult As String
 
@@ -1578,7 +1578,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
     End Function
 
-    Public Function buscardatethird(ByVal bybal As Integer, ByVal objApplicationCredentials As Gattaca.Application.Credentials.ApplicationCredentials, _
+    Protected Function buscardatethird(ByVal bybal As Integer, ByVal objApplicationCredentials As Gattaca.Application.Credentials.ApplicationCredentials, _
        ByVal idThird As Integer) As String
 
         Dim sql As New StringBuilder
@@ -1673,15 +1673,15 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
     End Function
 
-    Public Function borrar_archivos()
+    Protected Function borrar_archivos()
         Dim startinfo As New ProcessStartInfo("C:\Gattaca_pruebas\WebSiteFSC\ELVIRA-F3\FSC_APP\FSC_APP\bats\BORRAR_ARC.bat")
-        ' Dim startinfo As New ProcessStartInfo(Server.MapPath("\bats\BORRAR_ARC.bat"))
+        'Dim startinfo As New ProcessStartInfo(Server.MapPath("\bats\BORRAR_ARC.bat"))
         'startinfo.UseShellExecute = False
         startinfo.WindowStyle = ProcessWindowStyle.Hidden
         Process.Start(startinfo)
     End Function
 
-    Public Function copiar_archivos()
+    Protected Function copiar_archivos()
         Dim startinfo As New ProcessStartInfo("C:\Gattaca_pruebas\WebSiteFSC\ELVIRA-F3\FSC_APP\FSC_APP\bats\COPIAR_ARC.bat")
         'Dim startinfo As New ProcessStartInfo(Server.MapPath("\bats\COPIAR_ARC.bat"))
         'startinfo.UseShellExecute = False
@@ -1717,7 +1717,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
     ''' <param name="cost"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Function save_IDEA(ByVal code As String, ByVal line_strategic As String, ByVal program As String, ByVal name As String, ByVal justify As String, ByVal objetive As String, ByVal obj_esp As String, ByVal resul_bef As String, ByVal resul_ges_c As String, ByVal resul_cap_i As String, ByVal otros_resul As String, ByVal fecha_i As String, ByVal mes As String, ByVal dia As String, ByVal fecha_f As String, ByVal poblacion As String, ByVal contratacion As String, ByVal riesgos As String, ByVal mitigacion As String, ByVal presupuestal As String, ByVal cost As String, ByVal obligaciones As String, ByVal iva As String, ByVal list_ubicacion As String, ByVal list_actor As String, ByVal list_componentes As String, ByVal list_flujos As String, ByVal list_detalles_flujos As String, ByVal list_files As String, ByVal type_aproval As String) '
+    Protected Function save_IDEA(ByVal code As String, ByVal line_strategic As String, ByVal program As String, ByVal name As String, ByVal justify As String, ByVal objetive As String, ByVal obj_esp As String, ByVal resul_bef As String, ByVal resul_ges_c As String, ByVal resul_cap_i As String, ByVal otros_resul As String, ByVal fecha_i As String, ByVal mes As String, ByVal dia As String, ByVal fecha_f As String, ByVal poblacion As String, ByVal contratacion As String, ByVal riesgos As String, ByVal mitigacion As String, ByVal presupuestal As String, ByVal cost As String, ByVal obligaciones As String, ByVal iva As String, ByVal list_ubicacion As String, ByVal list_actor As String, ByVal list_componentes As String, ByVal list_flujos As String, ByVal list_detalles_flujos As String, ByVal list_files As String, ByVal type_aproval As String) '
 
         Dim facade As New Facade
         Dim objIdea As New IdeaEntity
@@ -1832,6 +1832,10 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                 index_ubi = index_ubi + 4
                 contador = contador + 4
 
+                If contador <> index_ubi Then
+                    index_ubi = contador
+                End If
+
             Next
 
             '----------------------------------------------------actores------------------------------------------------------------------------
@@ -1898,6 +1902,11 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
                 contadoractor = contadoractor + 11
                 index_act = index_act + 11
+
+                If contadoractor <> index_act Then
+                    index_act = contadoractor
+                End If
+
             Next
 
             '----------------------------------------------------flujos------------------------------------------------------------------------
@@ -1951,6 +1960,10 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
                     contadorflu = contadorflu + 5
                     index_flu = index_flu + 5
+
+                    If contadorflu <> index_flu Then
+                        index_flu = contadorflu
+                    End If
 
                 Next
             End If
@@ -2100,7 +2113,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
     End Function
 
-    Public Function edit_IDEA(ByVal code As String, ByVal line_strategic As String, ByVal program As String, ByVal name As String, ByVal justify As String, ByVal objetive As String, ByVal obj_esp As String, ByVal resul_bef As String, ByVal resul_ges_c As String, ByVal resul_cap_i As String, ByVal otros_resul As String, ByVal fecha_i As String, ByVal mes As String, ByVal dia As String, ByVal fecha_f As String, ByVal poblacion As String, ByVal contratacion As String, ByVal riesgos As String, ByVal mitigacion As String, ByVal presupuestal As String, ByVal cost As String, ByVal obligaciones As String, ByVal iva As String, ByVal list_ubicacion As String, ByVal list_actor As String, ByVal list_componentes As String, ByVal list_flujos As String, ByVal list_detalles_flujos As String, ByVal list_files As String, ByVal type_aproval As String)
+    Protected Function edit_IDEA(ByVal code As String, ByVal line_strategic As String, ByVal program As String, ByVal name As String, ByVal justify As String, ByVal objetive As String, ByVal obj_esp As String, ByVal resul_bef As String, ByVal resul_ges_c As String, ByVal resul_cap_i As String, ByVal otros_resul As String, ByVal fecha_i As String, ByVal mes As String, ByVal dia As String, ByVal fecha_f As String, ByVal poblacion As String, ByVal contratacion As String, ByVal riesgos As String, ByVal mitigacion As String, ByVal presupuestal As String, ByVal cost As String, ByVal obligaciones As String, ByVal iva As String, ByVal list_ubicacion As String, ByVal list_actor As String, ByVal list_componentes As String, ByVal list_flujos As String, ByVal list_detalles_flujos As String, ByVal list_files As String, ByVal type_aproval As String)
 
         Dim facade As New Facade
         Dim objIdea As New IdeaEntity
@@ -2212,6 +2225,10 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                 index_ubi = index_ubi + 4
                 contador = contador + 4
 
+                If contador <> index_ubi Then
+                    index_ubi = contador
+                End If
+
             Next
 
 
@@ -2280,6 +2297,11 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
                 contadoractor = contadoractor + 11
                 index_act = index_act + 11
+
+                If contadoractor <> index_act Then
+                    index_act = contadoractor
+                End If
+
             Next
 
             '----------------------------------------------------flujos------------------------------------------------------------------------
@@ -2334,6 +2356,10 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                     contadorflu = contadorflu + 5
                     index_flu = index_flu + 5
 
+                    If contadorflu <> index_flu Then
+                        index_flu = contadorflu
+                    End If
+
                 Next
             End If
 
@@ -2382,6 +2408,11 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
                     contadordetflu = contadordetflu + 4
                     index_fludet = index_fludet + 4
+
+                    If contadordetflu <> index_fludet Then
+                        index_fludet = contadordetflu
+                    End If
+
                 Next
 
             End If

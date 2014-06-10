@@ -5712,7 +5712,7 @@ Public Class Facade
 
             End If
 
-            loadProject.thirdbyprojectlist = getThirdByProjectList(objApplicationCredentials, , idProject, , , , , )
+            ' loadProject.thirdbyprojectlist = getThirdByProjectList(objApplicationCredentials, , idProject, , , , , )
             ' finalizar la transaccion
             CtxSetComplete()
 
@@ -6167,6 +6167,248 @@ Public Class Facade
 
 #End Region
 
+#Region "IdeaApprovalRecord"
+
+    ''' <summary>
+    ''' Obtener la lista de IdeaApprovalRecord registradas en el sistema
+    ''' </summary>
+    ''' <param name="objApplicationCredentials"></param>
+    ''' <param name="order"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Public Function getIdeaApprovalRecordList(ByVal objApplicationCredentials As Gattaca.Application.Credentials.ApplicationCredentials, _
+        Optional ByVal id As String = "", _
+        Optional ByVal idlike As String = "", _
+        Optional ByVal idproject As String = "", _
+        Optional ByVal projectname As String = "", _
+        Optional ByVal code As String = "", _
+        Optional ByVal comments As String = "", _
+        Optional ByVal attachment As String = "", _
+        Optional ByVal approvaldate As String = "", _
+        Optional ByVal actnumber As String = "", _
+        Optional ByVal approvedvalue As String = "", _
+        Optional ByVal approved As String = "", _
+        Optional ByVal approvedtext As String = "", _
+        Optional ByVal codeapprovedidea As String = "", _
+        Optional ByVal enabled As String = "", _
+        Optional ByVal enabledtext As String = "", _
+        Optional ByVal iduser As String = "", _
+        Optional ByVal username As String = "", _
+        Optional ByVal createdate As String = "", _
+        Optional ByVal order As String = "") As List(Of IdeaApprovalRecordEntity)
+
+
+        ' definir los objetos
+        Dim IdeaApprovalRecord As New IdeaApprovalRecordDALC
+
+        Try
+
+            ' retornar el objeto
+            getIdeaApprovalRecordList = IdeaApprovalRecord.getList(objApplicationCredentials, _
+             id, _
+             idlike, _
+             idproject, _
+             projectname, _
+             code, _
+             comments, _
+             attachment, _
+             approvaldate, _
+             actnumber, _
+             approvedvalue, _
+             approved, _
+             approvedtext, _
+             codeapprovedidea, _
+             enabled, _
+             enabledtext, _
+             iduser, _
+             username, _
+             createdate, _
+   order)
+
+
+            ' finalizar la transaccion
+            CtxSetComplete()
+
+        Catch ex As Exception
+
+            ' cancelar la transaccion
+            CtxSetAbort()
+
+            ' publicar el error
+            GattacaApplication.Publish(ex, objApplicationCredentials.ClientName, MODULENAME, "getIdeaApprovalRecordList")
+            ExceptionPolicy.HandleException(ex, "GattacaStandardExceptionPolicy")
+
+            ' subir el error de nivel
+            Throw New Exception("Error al cargar la lista de IdeaApprovalRecord. ")
+
+        Finally
+            ' liberando recursos
+            IdeaApprovalRecord = Nothing
+
+        End Try
+
+    End Function
+
+    ''' <summary> 
+    ''' Registar un nuevo IdeaApprovalRecord
+    ''' </summary>
+    ''' <param name="IdeaApprovalRecord"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Public Function addIdeaApprovalRecord(ByVal objApplicationCredentials As Gattaca.Application.Credentials.ApplicationCredentials, _
+      ByVal IdeaApprovalRecord As IdeaApprovalRecordEntity) As Long
+
+        ' definir los objetos
+        Dim IdeaApprovalRecordDALC As New IdeaApprovalRecordDALC
+
+        Try
+
+            ' retornar el objeto
+            addIdeaApprovalRecord = IdeaApprovalRecordDALC.add(objApplicationCredentials, IdeaApprovalRecord)
+
+            ' finalizar la transaccion
+            CtxSetComplete()
+
+        Catch ex As Exception
+
+            ' cancelar la transaccion
+            CtxSetAbort()
+
+            ' publicar el error
+            GattacaApplication.Publish(ex, objApplicationCredentials.ClientName, MODULENAME, "addIdeaApprovalRecord")
+            ExceptionPolicy.HandleException(ex, "GattacaStandardExceptionPolicy")
+
+            ' subir el error de nivel
+            Throw New Exception("Error al agregar un IdeaApprovalRecord. ")
+
+        Finally
+            ' liberando recursos
+            IdeaApprovalRecordDALC = Nothing
+
+        End Try
+
+    End Function
+
+    ''' <summary>
+    ''' Cargar un IdeaApprovalRecord por el Id
+    ''' </summary>
+    ''' <param name="idIdeaApprovalRecord"></param>
+    ''' <remarks></remarks>
+    Public Function loadIdeaApprovalRecord(ByVal objApplicationCredentials As Gattaca.Application.Credentials.ApplicationCredentials, _
+       ByVal idIdeaApprovalRecord As Integer) As IdeaApprovalRecordEntity
+
+        ' definir los objetos
+        Dim IdeaApprovalRecordDALC As New IdeaApprovalRecordDALC
+
+        Try
+
+            ' retornar el objeto
+            loadIdeaApprovalRecord = IdeaApprovalRecordDALC.load(objApplicationCredentials, idIdeaApprovalRecord)
+
+            ' finalizar la transaccion
+            CtxSetComplete()
+
+        Catch ex As Exception
+
+            ' cancelar la transaccion
+            CtxSetAbort()
+
+            ' publicar el error
+            GattacaApplication.Publish(ex, objApplicationCredentials.ClientName, MODULENAME, "loadIdeaApprovalRecord")
+            ExceptionPolicy.HandleException(ex, "GattacaStandardExceptionPolicy")
+
+            ' subir el error de nivel
+            Throw New Exception("Error al cargar un IdeaApprovalRecord. ")
+
+        Finally
+            ' liberando recursos
+            IdeaApprovalRecordDALC = Nothing
+
+        End Try
+
+    End Function
+
+    ''' <summary>
+    ''' Modificar un objeto de tipo IdeaApprovalRecord
+    ''' </summary>
+    ''' <param name="IdeaApprovalRecord"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Public Function updateIdeaApprovalRecord(ByVal objApplicationCredentials As Gattaca.Application.Credentials.ApplicationCredentials, _
+       ByVal IdeaApprovalRecord As IdeaApprovalRecordEntity) As Long
+
+        ' definir los objetos
+        Dim IdeaApprovalRecordDALC As New IdeaApprovalRecordDALC
+
+        Try
+
+            ' retornar el objeto
+            updateIdeaApprovalRecord = IdeaApprovalRecordDALC.update(objApplicationCredentials, IdeaApprovalRecord)
+
+            ' finalizar la transaccion
+            CtxSetComplete()
+
+        Catch ex As Exception
+
+            ' cancelar la transaccion
+            CtxSetAbort()
+
+            ' publicar el error
+            GattacaApplication.Publish(ex, objApplicationCredentials.ClientName, MODULENAME, "updateIdeaApprovalRecord")
+            ExceptionPolicy.HandleException(ex, "GattacaStandardExceptionPolicy")
+
+            ' subir el error de nivel
+            Throw New Exception("Error al modificar un IdeaApprovalRecord. ")
+
+        Finally
+            ' liberando recursos
+            IdeaApprovalRecordDALC = Nothing
+
+        End Try
+
+    End Function
+
+    ''' <summary>
+    ''' Borra el IdeaApprovalRecord de una forma
+    ''' </summary>
+    ''' <param name="idIdeaApprovalRecord"></param>
+    ''' <remarks></remarks>
+    Public Sub deleteIdeaApprovalRecord(ByVal objApplicationCredentials As Gattaca.Application.Credentials.ApplicationCredentials, _
+       ByVal idIdeaApprovalRecord As Integer)
+
+        ' definir los objetos
+        Dim IdeaApprovalRecordDALC As New IdeaApprovalRecordDALC
+
+        Try
+
+            ' retornar el objeto
+            IdeaApprovalRecordDALC.delete(objApplicationCredentials, idIdeaApprovalRecord)
+
+            ' finalizar la transaccion
+            CtxSetComplete()
+
+        Catch ex As Exception
+
+            ' cancelar la transaccion
+            CtxSetAbort()
+
+            ' publicar el error
+            GattacaApplication.Publish(ex, objApplicationCredentials.ClientName, MODULENAME, "deleteIdeaApprovalRecord")
+            ExceptionPolicy.HandleException(ex, "GattacaStandardExceptionPolicy")
+
+            ' subir el error de nivel
+            Throw New Exception("Error al eliminar un IdeaApprovalRecord. ")
+
+        Finally
+            ' liberando recursos
+            IdeaApprovalRecordDALC = Nothing
+
+        End Try
+
+    End Sub
+
+#End Region
+
 #Region "ProjectApprovalRecord"
 
     ''' <summary> 
@@ -6238,7 +6480,7 @@ Public Class Facade
         Optional ByVal username As String = "", _
         Optional ByVal createdate As String = "", _
         Optional ByVal order As String = "") As List(Of ProjectApprovalRecordEntity)
-        
+
 
         ' definir los objetos
         Dim ProjectApprovalRecord As New ProjectApprovalRecordDALC

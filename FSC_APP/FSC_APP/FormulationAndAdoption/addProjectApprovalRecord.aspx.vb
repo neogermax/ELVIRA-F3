@@ -50,7 +50,7 @@ Partial Class addProjectApprovalRecord
                     Session("lblTitle") = "APROBACIÓN DE UNA IDEA."
 
                     ' ocultar algunos botones
-                    Me.btnAddData.Visible = True
+                    Me.btnAddData.Visible = False
                     Me.btnSave.Visible = False
                     Me.btnDelete.Visible = False
                     Me.btnCancelDelete.Visible = False
@@ -80,7 +80,7 @@ Partial Class addProjectApprovalRecord
 
                         Me.lblBPMMessage.Visible = True
                         Me.rblCondition.Visible = True
-                        Me.btnCancel.Visible = False
+                        ' Me.btnCancel.Visible = False
 
                         ' cargar la lista de condiciones de la actividad
                         Dim conditions As Array = GattacaApplication.getConditions(applicationCredentials, idActivityInstance)
@@ -126,11 +126,11 @@ Partial Class addProjectApprovalRecord
                     Me.txtcode.Enabled = False
                     ' definir los objetos
                     Dim facade As New Facade
-                    Dim objProjectApprovalRecord As New ProjectApprovalRecordEntity
+                    Dim objProjectApprovalRecord As New IdeaApprovalRecordEntity
 
                     Try
                         ' cargar el registro referenciado
-                        objProjectApprovalRecord = facade.loadProjectApprovalRecord(applicationCredentials, Request.QueryString("id"))
+                        objProjectApprovalRecord = facade.loadIdeaApprovalRecord(applicationCredentials, Request.QueryString("id"))
 
                         ' mostrar los valores
                         Me.txtid.Text = objProjectApprovalRecord.id
@@ -179,7 +179,7 @@ Partial Class addProjectApprovalRecord
 
     Protected Sub btnAddData_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnAddData.Click
         Dim salvar As Integer = 0
-        Dim objProjectApprovalRecord As New ProjectApprovalRecordEntity
+        Dim objProjectApprovalRecord As New IdeaApprovalRecordEntity
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
         Dim idProcessInstance As String = String.Empty
         Dim idActivityInstance As String = String.Empty
@@ -299,7 +299,7 @@ Partial Class addProjectApprovalRecord
                 End If
 
                 ' almacenar la entidad
-                objProjectApprovalRecord.id = facade.addProjectApprovalRecord(applicationCredentials, objProjectApprovalRecord)
+                objProjectApprovalRecord.id = facade.addIdeaApprovalRecord(applicationCredentials, objProjectApprovalRecord)
                 'actualizamos la idea
                 update_idea_approval(objProjectApprovalRecord.Ididea)
 
@@ -321,7 +321,7 @@ Partial Class addProjectApprovalRecord
                     Me.containerSuccess.Visible = "True"
                     ' Me.lblsaveinformation.ForeColor = Drawing.Color.Green
                     Me.btnAddData.Visible = False
-                    Me.btnCancel.Visible = False
+                    'Me.btnCancel.Visible = False
 
 
                 End If
@@ -362,19 +362,19 @@ Partial Class addProjectApprovalRecord
 
     End Function
 
-    Protected Sub btnCancel_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnCancel.Click
+    'Protected Sub btnCancel_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnCancel.Click
 
-        ' ir al administrador
-        Response.Redirect("/ResearchAndDevelopment/searchIdea.aspx")
-        'Response.Redirect("/FSC_APP/ResearchAndDevelopment/searchIdea.aspx")
+    '    ' ir al administrador
+    '    Response.Redirect("/ResearchAndDevelopment/searchIdea.aspx")
+    '    'Response.Redirect("/FSC_APP/ResearchAndDevelopment/searchIdea.aspx")
 
-    End Sub
+    'End Sub
 
     Protected Sub btnSave_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnSave.Click
 
         ' definir los objetos
         Dim facade As New Facade
-        Dim objProjectApprovalRecord As New ProjectApprovalRecordEntity
+        Dim objProjectApprovalRecord As New IdeaApprovalRecordEntity
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
 
         'Post-verificación de código
@@ -383,7 +383,7 @@ Partial Class addProjectApprovalRecord
         End If
 
         ' cargar el registro referenciado
-        objProjectApprovalRecord = facade.loadProjectApprovalRecord(applicationCredentials, Request.QueryString("Id"))
+        objProjectApprovalRecord = facade.loadIdeaApprovalRecord(applicationCredentials, Request.QueryString("Id"))
 
         Try
             ' cargar los datos           
@@ -403,7 +403,7 @@ Partial Class addProjectApprovalRecord
             objProjectApprovalRecord.enabled = Me.ddlenabled.SelectedValue
 
             ' modificar el registro
-            facade.updateProjectApprovalRecord(applicationCredentials, objProjectApprovalRecord)
+            facade.updateIdeaApprovalRecord(applicationCredentials, objProjectApprovalRecord)
 
             ' ir al administrador
             Response.Redirect("searchProjectApprovalRecord.aspx")
@@ -437,7 +437,7 @@ Partial Class addProjectApprovalRecord
 
         Try
             ' eliminar el registro
-            facade.deleteProjectApprovalRecord(applicationCredentials, Request.QueryString("Id"))
+            facade.deleteIdeaApprovalRecord(applicationCredentials, Request.QueryString("Id"))
 
             ' ir al administrador
             Response.Redirect("searchProjectApprovalRecord.aspx")
@@ -471,7 +471,7 @@ Partial Class addProjectApprovalRecord
         Me.btnCancelDelete.Visible = False
         Me.btnConfirmDelete.Visible = False
         Me.lblDelete.Visible = False
-        Me.btnCancel.Visible = True
+        ' Me.btnCancel.Visible = True
 
     End Sub
 
@@ -481,7 +481,7 @@ Partial Class addProjectApprovalRecord
         Me.btnSave.Visible = False
         Me.btnDelete.Visible = False
         Me.btnConfirmDelete.Visible = True
-        Me.btnCancel.Visible = False
+        ' Me.btnCancel.Visible = False
         Me.btnCancelDelete.Visible = True
         Me.lblDelete.Visible = True
 

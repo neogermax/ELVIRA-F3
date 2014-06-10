@@ -90,9 +90,9 @@ german rodriguez y pedro cruz-->
                 }
                 //sentencias para ejecutar jquery por modulo aprobacion idea - German Rodriguez
                 if ($("#ctl00_cphPrincipal_HDaaprovalr").length > 0) {
-                    validar_new_campos();
-                    validaraprobacion();
-                    operacionesaprobacion();
+//                    validar_new_campos();
+//                    validaraprobacion();
+//                    operacionesaprobacion();
                 }
                 if ($("#ctl00_cphPrincipal_Hdvtotalvalue").length > 0) {
                  //   projectoperate();
