@@ -82,6 +82,7 @@ $(document).ready(function() {
     //validamos si creamos la idea o editamos
     if (sURLVariables[0] == "op=edit") {
         ideditar = sURLVariables[1].replace("id=", "");
+        //if (operacion == "edit") {
 
         operacionesIdea();
         actors_transanccion();
@@ -119,7 +120,7 @@ $(document).ready(function() {
 
         cargar_ideas_aprobadas();
 
-        aprobacion_proyecto();
+
 
         validar_ini_ed = 1;
         $("#ddlStrategicLines").ready(function() {
@@ -140,6 +141,7 @@ $(document).ready(function() {
         $("#li_C_idea").css("display", "none");
         borrar_carpeta();
 
+        aprobacion_proyecto();
     }
     else {
 
@@ -1167,7 +1169,7 @@ function copiar_archivos() {
 function aprobacion_proyecto() {
 
     $.ajax({
-    url: "AjaxAddProject.aspx",
+        url: "AjaxAddProject.aspx",
         type: "GET",
         data: { "action": "aprobacion_proyecto", "idproject": ideditar },
         success: function(result) {
