@@ -222,7 +222,8 @@ function Validar_campos_dilingenciados() {
 function guardar_aprobacion_proyecto() {
 
     var id_idea = $("#ddlidproject option:selected").html();
-
+    var idea_mother = id_idea.split("_");
+    
     $.ajax({
         url: "ajaxaddProjectApprovalRecord.aspx",
         type: "POST",
@@ -244,6 +245,8 @@ function guardar_aprobacion_proyecto() {
             $("#ctl00_cphPrincipal_containerSuccess_down").css("display", "block");
             $("#ctl00_cphPrincipal_lblsaveinformation_down").text(result);
             $("#SaveApproval").css("display", "none");
+            //llamamos funcion que crea el proyecto madre
+            crear_proyecto_madre(idea_mother[0]);
         },
         error: function() {
             $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
@@ -252,6 +255,27 @@ function guardar_aprobacion_proyecto() {
             $("#ctl00_cphPrincipal_containerSuccess_down").css("display", "none");
 
         }
+    });
+
+}
+
+//llamamos funcion que crea el proyecto madre
+function crear_proyecto_madre(STR_Id_Idea) {
+
+    $.ajax({
+        url: "ajaxaddProjectApprovalRecord.aspx",
+        type: "GET",
+        data: { "action": "project_mother", "code": STR_Id_Idea },
+        success: function(result) {
+            $("#gridthird").html(result);
+
+            $("#T_Actors").dataTable({
+                "bJQueryUI": true,
+                "bDestroy": true
+            });
+        },
+        error: function()
+        { alert("No se pueden cargar los actores de la idea solicitada."); }
     });
 
 }

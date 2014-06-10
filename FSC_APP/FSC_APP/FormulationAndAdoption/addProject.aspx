@@ -8,12 +8,12 @@
 
     <script type="text/javascript">
 
-        var operacion = '<%= Request.QueryString("op") %>';
+//        var operacion = '<%= Request.QueryString("op") %>';
 
-        if (operacion != "add") {
-            ideditar = '<%= Request.QueryString("id") %>';
-        }
-   
+//        if (operacion != "add") {
+//            ideditar = '<%= Request.QueryString("id") %>';
+//        }
+//   
     </script>
 
     <link href="../Pretty/css/prettyPhoto.css" rel="stylesheet" type="text/css" />

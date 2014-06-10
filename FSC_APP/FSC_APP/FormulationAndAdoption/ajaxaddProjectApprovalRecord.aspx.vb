@@ -58,11 +58,15 @@ Partial Class FormulationAndAdoption_ajaxaddProjectApprovalRecord
 
                 Case "buscaractores"
                     id_b = Convert.ToInt64(Request.QueryString("code").ToString())
-                    buscardatethird(id_b, applicationCredentials, Request.QueryString("id"))
+                    buscardatethird(id_b)
 
                 Case "validar_modulo_completo"
                     id_b = Convert.ToInt64(Request.QueryString("code").ToString())
                     validar_date_project(id_b)
+
+                Case "project_mother"
+                    id_b = Convert.ToInt64(Request.QueryString("code").ToString())
+                    Save_project_mother(id_b)
 
                 Case Else
 
@@ -505,12 +509,13 @@ Partial Class FormulationAndAdoption_ajaxaddProjectApprovalRecord
 
     End Function
 
-    Public Function buscardatethird(ByVal ididea As Integer, ByVal objApplicationCredentials As Gattaca.Application.Credentials.ApplicationCredentials, _
-           ByVal idThird As Integer) As String
+    Public Function buscardatethird(ByVal ididea As Integer)
 
         Dim sql As New StringBuilder
         Dim objSqlCommand As New SqlCommand
         Dim data As DataTable
+
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
 
         'consulta de los datos de actores por id
         sql.Append("select t.Name,t.contact,ti.Type,ti.VrSpecies,ti.Vrmoney ,ti.FSCorCounterpartContribution  from Third t       ")
@@ -520,7 +525,7 @@ Partial Class FormulationAndAdoption_ajaxaddProjectApprovalRecord
         sql.Append("where i.Id = " & ididea)
 
         ' ejecutar la intruccion
-        data = GattacaApplication.RunSQLRDT(objApplicationCredentials, sql.ToString)
+        data = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
 
         Dim html As String
         html = "<table id=""T_Actors"" style=""width: 100%;"" border=""1"" cellspacing=""1"" cellpadding=""1""><thead><tr align=""center""><th style=""width: 200px"">Actor</th><th style=""width: 200px"">Contacto</th><th style=""width: 131px"">Tipo</th><th style=""width: 131px"">Vr Especie</th><th style=""width: 131px"">Vr Dinero</th><th style=""width: 131px"">Valor Total</th></tr></thead><tbody>"
@@ -533,6 +538,138 @@ Partial Class FormulationAndAdoption_ajaxaddProjectApprovalRecord
 
     End Function
 
+    ''' <summary>
+    ''' funcion crear proyecto madre
+    ''' </summary>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Public Function Save_project_mother(ByVal ididea As String)
+
+
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+
+        'capturamos el usuario q aprueba la idea
+        Dim user As String = applicationCredentials.UserID
+
+        'capturar el id de la idea para consultas
+        'Dim ididea As String = Me.ddlidproject.SelectedValue
+
+        Dim dtData, Data_component, Data_ubicacion, Data_actor As DataTable
+        Dim sql As New StringBuilder
+        Dim objSqlCommand As New SqlCommand
+
+        'consultamos el futuro id del proyecto
+        sql.Append(" select MAX(id)+ 1 from Project ")
+        Dim idproject = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
+
+        sql = New StringBuilder
+
+        'insertamos los datos del proyecto madre
+        sql.Append("insert into Project (IdIdea, code, Name, Objective, ZoneDescription, Justification, Results,  ResultsInstalledCapacity, ResultsKnowledgeManagement, OtherResults, obligationsoftheparties,  BudgetRoute, RisksIdentified, RiskMitigation, BeginDate,  Duration,  days, completiondate, Population, Mother, ideaappliesIVA, EffectiveBudget, IdPhase,  Enabled, IdUser, isLastVersion, IdProcessInstance, IdActivityInstance, Typeapproval, idkey, Project_derivados, CreateDate) ")
+        sql.Append(" select i.ID, convert(varchar,i.ID)+'_'+i.name+'_','Proyecto_M_'+ i.name,i.Objective, i.AreaDescription, i.Justification, i.Results, i.ResultsInstalledCapacity, i.ResultsKnowledgeManagement, i.OtherResults, i.obligationsoftheparties, i.BudgetRoute, i.RisksIdentified, i.RiskMitigation, i.StartDate, i.Duration, i.days, i.Enddate, i.Population, 1, i.ideaappliesIVA,'2014', 1, 1,'" & user & "',0,0,0,1," & Convert.ToString(idproject) & "," & Convert.ToString(idproject) & ", GETDATE() from Idea i ")
+        sql.Append(" where i.id = " & ididea)
+
+        sql.AppendLine(" SELECT SCOPE_IDENTITY() AS Id")
+
+        'obtener el id
+        dtData = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+        ' id creado
+        Dim idEntity As Long = CLng(dtData.Rows(0)("Id"))
+
+        ' finalizar la transaccion
+        CtxSetComplete()
+
+        sql = New StringBuilder
+
+        'actualzamos los id de proyecto
+        sql.Append("update Project set code = code +'" & Convert.ToString(idEntity) & "', idKey = '" & Convert.ToString(idEntity) & "', Project_derivados= '" & Convert.ToString(idEntity) & "' , source = '', purpose = '', TotalCost=0, FSCContribution=0, CounterpartValue=0, Attachment='',Antecedent='', StrategicDescription=''  where id = " & idEntity)
+        GattacaApplication.RunSQL(applicationCredentials, sql.ToString)
+
+        sql = New StringBuilder
+
+        'consultamos los id de la tabla componentes de la idea seleccionada
+        sql.Append("select id, IdProgramComponent from ProgramComponentByIdea where IdIdea = " & ididea)
+        Data_component = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+        'validamos si hay componentes
+        If Data_component.Rows.Count > 0 Then
+
+            'rrecorremos la consulta de componentes en idea
+            For Each row As DataRow In Data_component.Rows
+                Dim id_component = row(0).ToString()
+
+                sql = New StringBuilder
+                'hacemos el insert en la tabla componentbyproyect de los datos estraidos de la idea
+                sql.Append(" insert into ProgramComponentByProject (IdProject,IdProgramComponent) ")
+                sql.Append("select '" & idEntity & "', IdProgramComponent from  ProgramComponentByIdea where id=" & id_component)
+                GattacaApplication.RunSQL(applicationCredentials, sql.ToString)
+
+            Next
+
+        End If
+
+        sql = New StringBuilder
+
+        'consultamos los id de la tabla ubicaciones de la idea seleccionada
+        sql.Append("select id from LocationByIdea where IdIdea = " & ididea)
+        Data_ubicacion = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+        If Data_ubicacion.Rows.Count > 0 Then
+
+            For Each row As DataRow In Data_ubicacion.Rows
+
+                Dim id_ubicacion = row(0).ToString()
+
+                sql = New StringBuilder
+                'hacemos el insert en la tabla proyeclocation de los datos estraidos de la idea
+                sql.Append(" insert into ProjectLocation (IdProject,IdCity,iddepto) ")
+                sql.Append("select '" & idEntity & "',IdCity,IdDepto from LocationByIdea where id = " & id_ubicacion)
+                GattacaApplication.RunSQL(applicationCredentials, sql.ToString)
+
+
+            Next
+
+        End If
+
+        sql = New StringBuilder
+
+        'consultamos los id de la tabla ubicaciones de la idea seleccionada
+        sql.Append("select id from thirdbyidea where ididea =" & ididea)
+        Data_actor = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+        If Data_actor.Rows.Count > 0 Then
+
+            For Each row As DataRow In Data_actor.Rows
+
+                Dim id_actor = row(0).ToString()
+
+                sql = New StringBuilder
+                'hacemos el insert en la tabla proyeclocation de los datos estraidos de la idea
+                sql.Append(" insert into ThirdByProject(IdProject,IdThird,Type,Vrmoney,VrSpecies,FSCorCounterpartContribution,Name,Contact,Documents,Phone,Email,CreateDate,generatesflow) ")
+                sql.Append("select '" & idEntity & "',ti.IdThird,ti.Type,ti.Vrmoney,ti.VrSpecies,ti.FSCorCounterpartContribution,ti.Name,ti.Contact,ti.Documents,ti.Phone,ti.Email,GETDATE(),ti.generatesflow from ThirdByIdea ti where id = " & id_actor)
+                GattacaApplication.RunSQL(applicationCredentials, sql.ToString)
+
+            Next
+
+        End If
+
+        sql = New StringBuilder
+
+        'actualizamos el campo proyecto de la tabla paymentflow y le damos el atributo madre a los flujos de pago
+        sql.Append("update Paymentflow set idproject = '" & idEntity & "',mother = 1 where ididea =" & ididea)
+        GattacaApplication.RunSQL(applicationCredentials, sql.ToString)
+
+
+        sql = New StringBuilder
+
+        'actualizamos el campo proyecto de la tabla paymentflow y le damos el atributo madre a los flujos de pago
+        sql.Append("update Detailedcashflows set idproject = '" & idEntity & "',mother = 1 where ididea =" & ididea)
+        GattacaApplication.RunSQL(applicationCredentials, sql.ToString)
+
+
+
+    End Function
 
 
 End Class
