@@ -177,13 +177,26 @@ function Cprogram_edit() {
 
 }
 
-//funcion que posiciona el combo del programa de la idea seleccionada 
+//funcion que posiciona el combo del programa de la idea seleccionada
 function view_Cprogram() {
+
+    var editable;
+    var sPageURL = window.location.search.substring(1);
+    var sURLVariables = sPageURL.split('&');
+
+    if (sURLVariables[0] == "op=edit") {
+        idea_buscar = ideditar;
+        editable = 1;
+    }
+    else {
+        editable = 0;
+     }
+
     //ajax que posiciona el programa de la idea conasultada
     $.ajax({
         url: "AjaxAddProject.aspx",
         type: "GET",
-        data: { "action": "View_program", "ididea": idea_buscar },
+        data: { "action": "View_program", "ididea": idea_buscar,"estado_proceso": editable },
         success: function(result) {
 
             $("#ddlPrograms").val(result);

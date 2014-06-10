@@ -205,7 +205,8 @@ Partial Public Class AjaxAddProject
                 Case "View_program"
 
                     ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
-                    searh_Program(ideditar)
+                    estado_proceso = Request.QueryString("estado_proceso").ToString
+                    searh_Program(ideditar, estado_proceso)
 
                 Case "View_component"
 
@@ -354,6 +355,10 @@ Partial Public Class AjaxAddProject
                     ideditar = Convert.ToInt32(Request.QueryString("idproject").ToString)
                     validar_aprobacion_proyecto(ideditar)
 
+                Case "proyecto_madre"
+                    ideditar = Convert.ToInt32(Request.QueryString("idproject").ToString)
+                    validar_proyecto_madre(ideditar)
+
                 Case Else
 
 
@@ -363,12 +368,38 @@ Partial Public Class AjaxAddProject
 
     End Sub
 
+
+    Protected Function validar_proyecto_madre(ByVal id_project As Integer)
+
+        Dim sql As New StringBuilder
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+
+        Dim result As Integer
+
+
+        sql.Append("select Mother from Project  where id =" & id_project)
+        Dim idproyectoprovado = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
+
+        If idproyectoprovado <> 0 Then
+
+            result = 1
+
+        Else
+
+            result = 0
+
+        End If
+
+        Response.Write(result)
+    End Function
+
     Protected Function validar_aprobacion_proyecto(ByVal id_project As Integer)
 
         Dim sql As New StringBuilder
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
 
         Dim result As Integer
+
 
         sql.Append("SELECT Idproject FROM  ProjectApprovalRecord WHERE Idproject=" & id_project)
         Dim idproyectoprovado = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
@@ -2014,7 +2045,7 @@ Partial Public Class AjaxAddProject
 
     End Function
 
-    Protected Function searh_Program(ByVal ididea As Integer)
+    Protected Function searh_Program(ByVal ididea As Integer, ByVal estado_proceso As String)
 
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
         Dim ProgramComponentByIdea As New ProgramComponentByIdeaDALC
@@ -2024,9 +2055,19 @@ Partial Public Class AjaxAddProject
 
         Dim program_value As String = ""
 
-        sql.Append(" select top 1(pc.IdProgram) from ProgramComponentByIdea pci ")
-        sql.Append(" INNER JOIN ProgramComponent pc ON pci.idProgramComponent = pc.Id ")
-        sql.Append(" where pci.IdIdea = " & ididea)
+        If estado_proceso = 0 Then
+
+            sql.Append(" select top 1(pc.IdProgram) from ProgramComponentByIdea pci ")
+            sql.Append(" INNER JOIN ProgramComponent pc ON pci.idProgramComponent = pc.Id ")
+            sql.Append(" where pci.IdIdea = " & ididea)
+
+        Else
+
+            sql.Append(" select top 1(pc.IdProgram) from ProgramComponentByProject pcp ")
+            sql.Append(" INNER JOIN ProgramComponent pc ON pcp.idProgramComponent = pc.Id ")
+            sql.Append(" where pcp.IdProject = " & ididea)
+
+        End If
 
         Dim data_program = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
 
