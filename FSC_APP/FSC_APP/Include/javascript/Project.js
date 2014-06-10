@@ -142,6 +142,7 @@ $(document).ready(function() {
         borrar_carpeta();
 
         aprobacion_proyecto();
+        validar_proyecto_madre();
     }
     else {
 
@@ -1160,6 +1161,33 @@ function copiar_archivos() {
         },
         error: function(msg) {
             alert("No COPIO LOS ARCHIVOS= " + ideditar);
+        }
+    });
+
+}
+
+
+function validar_proyecto_madre() {
+
+    $.ajax({
+        url: "AjaxAddProject.aspx",
+        type: "GET",
+        data: { "action": "proyecto_madre", "idproject": ideditar },
+        success: function(result) {
+
+            if (result == 1) {
+                $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
+                $("#ctl00_cphPrincipal_lblsaveinformation").text("Proyecto madre, NO puede ser modificado!");
+                $("#SaveProject").css("display", "none");
+                $("#dll_estado").attr("disabled", "disabled");
+                $("#dll_estado").val(1);
+
+            }
+           
+
+        },
+        error: function(msg) {
+            alert("No se pueden cargar los documentos anexos de la idea = " + ideditar);
         }
     });
 
