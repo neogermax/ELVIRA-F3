@@ -60,110 +60,115 @@
         <ul>
             <li><a href="#informacion">Información</a></li>
         </ul>
-    </div>
-    <div id="informacion">
         <br />
-        <ul>
-            <%--<li>
+        <div id="informacion">
+            <br />
+            <ul>
+                <%--<li>
                 <asp:Label ID="lblid" runat="server" Text="Id"></asp:Label>
                 <asp:TextBox ID="txtid" runat="server" Width="400px" MaxLength="50"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="rfvid" runat="server" ControlToValidate="txtid" ErrorMessage="*"></asp:RequiredFieldValidator>
                 <asp:Label ID="lblHelpid" runat="server" ForeColor="#990000"></asp:Label>
             </li>--%>
-            <li>
-                <asp:Label ID="lblidproject" runat="server" Text="Proyecto en Proceso"></asp:Label>
-                <select id="ddlproyect" class="Ccombo">
-                    <asp:DropDownList ID="ddlproyect" runat="server" CssClass="Ccombo">
-                    </asp:DropDownList>
-                </select>
-                <asp:Label ID="lblHelpidproject" runat="server" ForeColor="#990000"></asp:Label>
-            </li>
-            <li>
-                <asp:Label ID="Lblnameidea" runat="server" Text="Proyecto"></asp:Label>
-                <asp:TextBox ID="Txtnameidea" runat="server" Width="70%" MaxLength="50" Height="25px"
-                    Enabled="False"></asp:TextBox>
-                <asp:Label ID="Label4" runat="server" Font-Bold="True" ForeColor="#990000"></asp:Label>
-            </li>
-        </ul>
-        <ul class="left">
-            <li>
-                <asp:Label ID="Lbllinees" runat="server" Text="Línea Estratégica"></asp:Label>
-                <asp:TextBox ID="Txtline" runat="server" Width="400px" MaxLength="50" Height="25px"
-                    Enabled="False"></asp:TextBox>
-                <asp:Label ID="Label5" runat="server" Font-Bold="True" ForeColor="#990000"></asp:Label>
-            </li>
-            <li>
-                <asp:Label ID="Lblprogram" runat="server" Text="Objetivos Estratégicos"></asp:Label>
-                <asp:TextBox ID="Txtprogram" runat="server" Width="400px" MaxLength="50" Height="25px"
-                    Enabled="False"></asp:TextBox>
-                <asp:Label ID="Label6" runat="server" ForeColor="#990000"></asp:Label>
-            </li>
-            <li>
-                <asp:Label ID="lblapprovaldate" runat="server" Text="Fecha de aprobación"></asp:Label>
-                <asp:TextBox ID="txtapprovaldate" runat="server" Width="400px" MaxLength="50"></asp:TextBox>
-                <%-- <cc1:CalendarExtender ID="cesapprovaldate" runat="server" TargetControlID="txtapprovaldate"
+                <li>
+                    <asp:Label ID="lblidproject" runat="server" Text="Proyecto en Proceso"></asp:Label>
+                    <select id="ddlproyect" class="Ccombo">
+                        <asp:DropDownList ID="ddlproyect" runat="server" CssClass="Ccombo">
+                        </asp:DropDownList>
+                    </select>
+                    <asp:Label ID="lblHelpidproject" runat="server" ForeColor="#990000"></asp:Label>
+                </li>
+                <li>
+                    <asp:Label ID="Lblnameidea" runat="server" Text="Proyecto"></asp:Label>
+                    <asp:TextBox ID="Txtnameidea" runat="server" Width="70%" MaxLength="50" Height="25px"
+                        Enabled="False"></asp:TextBox>
+                    <asp:Label ID="Label4" runat="server" Font-Bold="True" ForeColor="#990000"></asp:Label>
+                </li>
+            </ul>
+            <ul class="left" style="border-top: solid; border-left: solid; border-right: solid;
+                border-bottom: solid; border: 3px solid #9bbb58; background: #E8E8DC; border-radius: 15px;
+                margin-left: 15px;" align="left ">
+                <li style="margin-left: 20px; margin-top: 10px;">
+                    <asp:Label ID="Lbllinees" runat="server" Text="Línea Estratégica"></asp:Label>
+                    <asp:TextBox ID="Txtline" runat="server" Width="400px" MaxLength="50" Height="25px"
+                        Enabled="False"></asp:TextBox>
+                    <asp:Label ID="Label5" runat="server" Font-Bold="True" ForeColor="#990000"></asp:Label>
+                </li>
+                <li style="margin-left: 20px;">
+                    <asp:Label ID="Lblprogram" runat="server" Text="Objetivos Estratégicos"></asp:Label>
+                    <asp:TextBox ID="Txtprogram" runat="server" Width="400px" MaxLength="50" Height="25px"
+                        Enabled="False"></asp:TextBox>
+                    <asp:Label ID="Label6" runat="server" ForeColor="#990000"></asp:Label>
+                </li>
+                <li style="margin-left: 20px;">
+                    <asp:Label ID="lblapprovaldate" runat="server" Text="Fecha de aprobación"></asp:Label>
+                    <asp:TextBox ID="txtapprovaldate" runat="server" Width="400px" MaxLength="50"></asp:TextBox>
+                    <%-- <cc1:CalendarExtender ID="cesapprovaldate" runat="server" TargetControlID="txtapprovaldate"
                     Format="yyyy/MM/dd" Enabled="True">
                 </cc1:CalendarExtender>--%>
-                <asp:Label ID="lblHelpapprovaldate" runat="server" ForeColor="#990000"></asp:Label>
-            </li>
-            <li>
-                <asp:Label ID="lblactnumber" runat="server" Text="Número de acta"></asp:Label>
-                <asp:TextBox ID="txtactnumber" runat="server" Width="400px" MaxLength="50"></asp:TextBox>
-                <asp:Label ID="lblHelpactnumber" runat="server" ForeColor="#990000"></asp:Label>
-            </li>
-        </ul>
-        <ul class="right">
-            <li>
-                <asp:Label ID="Label2" runat="server" Text="Aporte FSC"></asp:Label>
-                <asp:TextBox ID="TxtaportFSC" runat="server" Width="400px" MaxLength="30" onkeyup="format(this)"
-                    onchange="format(this)" Enabled="False"></asp:TextBox>
-                <%#DataBinder.Eval(Container, "DataItem.Depto.name")%>
-                <asp:Label ID="Label7" runat="server" ForeColor="#990000"></asp:Label>
-            </li>
-            <li>
-                <asp:Label ID="Label8" runat="server" Text="Aporte Contrapartida"></asp:Label>
-                <asp:TextBox ID="Txtaportcontra" runat="server" Width="400px" MaxLength="30" onkeyup="format(this)"
-                    onchange="format(this)" Enabled="False"></asp:TextBox>
-                <%#DataBinder.Eval(Container, "DataItem.Depto.name")%>
-                <asp:Label ID="Label9" runat="server" ForeColor="#990000"></asp:Label>
-            </li>
-            <li>
-                <asp:Label ID="lblapprovedvalue" runat="server" Text="Valor aprobado"></asp:Label>
-                <asp:TextBox ID="txtapprovedvalue" runat="server" Width="400px" MaxLength="30" Enabled="False"></asp:TextBox>
-                <%#DataBinder.Eval(Container, "DataItem.Depto.name")%>
-                <asp:Label ID="lblHelpapprovedvalue" runat="server" ForeColor="#990000"></asp:Label>
-            </li>
-            <li>
-                <asp:Label ID="lblapproved" runat="server" Text="Aprobado por"></asp:Label>
-                <asp:DropDownList ID="ddlapproved" runat="server" CssClass="Ccombo">
-                    <asp:ListItem Value="1">Comité de Contratación</asp:ListItem>
-                    <asp:ListItem Value="0">Junta Directiva</asp:ListItem>
-                    <asp:ListItem Value="2">Pre Comité de Contratación</asp:ListItem>
-                </asp:DropDownList>
-                <asp:Label ID="lblHelpapproved" runat="server" ForeColor="#990000"></asp:Label>
-            </li>
-        </ul>
-        <br />
-        <div id="gridthird">
+                    <asp:Label ID="lblHelpapprovaldate" runat="server" ForeColor="#990000"></asp:Label>
+                </li>
+                <li style="margin-left: 20px;">
+                    <asp:Label ID="lblactnumber" runat="server" Text="Número de acta"></asp:Label>
+                    <asp:TextBox ID="txtactnumber" runat="server" Width="400px" MaxLength="50"></asp:TextBox>
+                    <asp:Label ID="lblHelpactnumber" runat="server" ForeColor="#990000"></asp:Label>
+                </li>
+            </ul>
+            <ul class="right" style="border-top: solid; border-left: solid; border-right: solid;
+                border-bottom: solid; border: 3px solid #9bbb58; background: #E8E8DC; border-radius: 15px;
+                margin-left: 15px;" align="left ">
+                <li style="margin-left: 20px; margin-top: 10px;">
+                    <asp:Label ID="Label2" runat="server" Text="Aporte FSC"></asp:Label>
+                    <asp:TextBox ID="TxtaportFSC" runat="server" Width="400px" MaxLength="30" onkeyup="format(this)"
+                        onchange="format(this)" Enabled="False"></asp:TextBox>
+                    <%#DataBinder.Eval(Container, "DataItem.Depto.name")%>
+                    <asp:Label ID="Label7" runat="server" ForeColor="#990000"></asp:Label>
+                </li>
+                <li style="margin-left: 20px;">
+                    <asp:Label ID="Label8" runat="server" Text="Aporte Contrapartida"></asp:Label>
+                    <asp:TextBox ID="Txtaportcontra" runat="server" Width="400px" MaxLength="30" onkeyup="format(this)"
+                        onchange="format(this)" Enabled="False"></asp:TextBox>
+                    <%#DataBinder.Eval(Container, "DataItem.Depto.name")%>
+                    <asp:Label ID="Label9" runat="server" ForeColor="#990000"></asp:Label>
+                </li>
+                <li style="margin-left: 20px;">
+                    <asp:Label ID="lblapprovedvalue" runat="server" Text="Valor aprobado"></asp:Label>
+                    <asp:TextBox ID="txtapprovedvalue" runat="server" Width="400px" MaxLength="30" Enabled="False"></asp:TextBox>
+                    <%#DataBinder.Eval(Container, "DataItem.Depto.name")%>
+                    <asp:Label ID="lblHelpapprovedvalue" runat="server" ForeColor="#990000"></asp:Label>
+                </li>
+                <li style="margin-left: 20px;">
+                    <asp:Label ID="lblapproved" runat="server" Text="Aprobado por"></asp:Label>
+                    <asp:DropDownList ID="ddlapproved" runat="server" CssClass="Ccombo">
+                        <asp:ListItem Value="1">Comité de Contratación</asp:ListItem>
+                        <asp:ListItem Value="0">Junta Directiva</asp:ListItem>
+                        <asp:ListItem Value="2">Pre Comité de Contratación</asp:ListItem>
+                    </asp:DropDownList>
+                    <asp:Label ID="lblHelpapproved" runat="server" ForeColor="#990000"></asp:Label>
+                </li>
+            </ul>
+            <br />
+            <div id="gridthird">
+            </div>
+            <br />
+            <ul>
+                <li>
+                    <asp:Label ID="lbliduser" runat="server" Text="Usuario"></asp:Label>
+                    <asp:TextBox ID="txtiduser" runat="server" Width="400px" MaxLength="50" Enabled="False"></asp:TextBox>
+                    <asp:Label ID="lblHelpiduser" runat="server" Text=""></asp:Label>
+                </li>
+                <li>
+                    <asp:Label ID="lblcreatedate" runat="server" Text="Fecha de creación"></asp:Label>
+                    <asp:TextBox ID="txtcreatedate" runat="server" Width="400px" MaxLength="50" Enabled="False"></asp:TextBox>
+                    <asp:Label ID="lblHelpcreatedate" runat="server" Text=""></asp:Label>
+                </li>
+                <li>
+                    <input id="SaveApproval" type="button" value="Aprobar Proyecto" name="Save_Approval"
+                        onclick="return SaveApproval_onclick()" />
+                    <a id="linkcancelar" runat="server" href="~/FormulationAndAdoption/searchProject.aspx"
+                        title="cancelar" style="height: 2em;">Cancelar</a> </li>
+            </ul>
         </div>
-        <br />
-        <ul>
-            <li>
-                <asp:Label ID="lbliduser" runat="server" Text="Usuario"></asp:Label>
-                <asp:TextBox ID="txtiduser" runat="server" Width="400px" MaxLength="50" Enabled="False"></asp:TextBox>
-                <asp:Label ID="lblHelpiduser" runat="server" Text=""></asp:Label>
-            </li>
-            <li>
-                <asp:Label ID="lblcreatedate" runat="server" Text="Fecha de creación"></asp:Label>
-                <asp:TextBox ID="txtcreatedate" runat="server" Width="400px" MaxLength="50" Enabled="False"></asp:TextBox>
-                <asp:Label ID="lblHelpcreatedate" runat="server" Text=""></asp:Label>
-            </li>
-            <li>
-                <input id="SaveApproval" type="button" value="Aprobar Proyecto" name="Save_Approval"
-                    onclick="return SaveApproval_onclick()" />
-                <a id="linkcancelar" runat="server" href="~/FormulationAndAdoption/searchProject.aspx"
-                    title="cancelar" style="height: 2em;">Cancelar</a> </li>
-        </ul>
     </div>
     <br />
     <div id="containerSuccess_down" runat="server" style="width: 100%; text-align: center;
