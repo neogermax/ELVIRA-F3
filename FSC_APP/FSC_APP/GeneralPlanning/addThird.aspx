@@ -44,7 +44,7 @@
                     <li style="margin-left: 15px;">
                         <asp:Label ID="Label9" runat="server" Text="Tipo de Persona"></asp:Label>
                         <select id="DDLtypepeople" class="Ccombo">
-                            <asp:DropDownList ID="DDLtypepeople" runat="server" CssClass="Ccombo">
+                            <asp:DropDownList ID="DDLtypepeople" runat="server">
                             </asp:DropDownList>
                         </select>
                         <asp:Label ID="Label10" runat="server" Text=""></asp:Label>
