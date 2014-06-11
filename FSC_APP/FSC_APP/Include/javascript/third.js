@@ -24,8 +24,7 @@ $(document).ready(function() {
     $("#tabsthird").tabs();
     $("#SaveActors").button();
     $("#ctl00_cphPrincipal_linkcancelar").button();
-    
-    
+        
     Charge_Type_people();
 
     validartipo();
@@ -53,28 +52,28 @@ function Charge_Type_people() {
 
 }
 
-//cargar tipo de documetas del actor
-function Charge_Type_Document() {
+////cargar tipo de documetas del actor
+//function Charge_Type_Document() {
 
-    $.ajax({
-        url: "AjaxAddThird.aspx",
-        type: "GET",
-        data: { "action": "Charge_Type_Document" },
-        success: function(result) {
+//    $.ajax({
+//        url: "AjaxAddThird.aspx",
+//        type: "GET",
+//        data: { "action": "Charge_Type_Document" },
+//        success: function(result) {
 
-            $("#DDL_tipo_doc").html(result);
-            $("#DDL_tipo_doc").trigger("liszt:updated");
+//            $("#DDL_tipo_doc").html(result);
+//            $("#DDL_tipo_doc").trigger("liszt:updated");
 
-            $("#DDL_tipo_doc1").html(result);
-            $("#DDL_tipo_doc1").trigger("liszt:updated");
+//            $("#DDL_tipo_doc1").html(result);
+//            $("#DDL_tipo_doc1").trigger("liszt:updated");
 
-        },
-        error: function(msg) {
-            alert("No se pueden cargar los tipos de documentos del actor.");
-        }
-    });
+//        },
+//        error: function(msg) {
+//            alert("No se pueden cargar los tipos de documentos del actor.");
+//        }
+//    });
 
-}
+//}
 
 
 function validartipo() {
