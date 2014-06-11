@@ -62,6 +62,7 @@
         </ul>
     </div>
     <div id="informacion">
+        <br />
         <ul>
             <%--<li>
                 <asp:Label ID="lblid" runat="server" Text="Id"></asp:Label>
@@ -69,7 +70,6 @@
                 <asp:RequiredFieldValidator ID="rfvid" runat="server" ControlToValidate="txtid" ErrorMessage="*"></asp:RequiredFieldValidator>
                 <asp:Label ID="lblHelpid" runat="server" ForeColor="#990000"></asp:Label>
             </li>--%>
-            <br />
             <li>
                 <asp:Label ID="lblidproject" runat="server" Text="Proyecto en Proceso"></asp:Label>
                 <select id="ddlproyect" class="Ccombo">
@@ -161,9 +161,8 @@
             <li>
                 <input id="SaveApproval" type="button" value="Aprobar Proyecto" name="Save_Approval"
                     onclick="return SaveApproval_onclick()" />
-                 <a id="linkcancelar" runat="server" href="~/FormulationAndAdoption/searchProject.aspx"
-                        title="cancelar"  style="height: 2em;">Cancelar</a>
-            </li>
+                <a id="linkcancelar" runat="server" href="~/FormulationAndAdoption/searchProject.aspx"
+                    title="cancelar" style="height: 2em;">Cancelar</a> </li>
         </ul>
     </div>
     <br />

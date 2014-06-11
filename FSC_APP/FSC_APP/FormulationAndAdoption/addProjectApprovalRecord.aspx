@@ -61,9 +61,10 @@
             <li><a href="#informacion">Información</a></li>
         </ul>
     </div>
+    <br />
     <div id="informacion">
         <ul>
-            <li>
+            <li id="li_id" runat="server" visible="false">
                 <asp:Label ID="lblid" runat="server" Text="Id"></asp:Label>
                 <asp:TextBox ID="txtid" runat="server" Width="400px" MaxLength="50"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="rfvid" runat="server" ControlToValidate="txtid" ErrorMessage="*"></asp:RequiredFieldValidator>
@@ -212,8 +213,8 @@
                 <a id="linkcancelar" runat="server" href="~/ResearchAndDevelopment/searchIdea.aspx"
                     title="cancelar" style="height: 2em;">Cancelar</a>
                 <asp:Button ID="btnAddData" runat="server" Text="Aprobar Idea" Visible="false" />
-                <asp:Button ID="btnSave" runat="server" Text="Guardar" />
-                <asp:Button ID="btnDelete" runat="server" Text="Eliminar" CausesValidation="False" />
+                <asp:Button ID="btnSave" runat="server" Text="Guardar" Visible="false" />
+                <asp:Button ID="btnDelete" runat="server" Text="Eliminar" CausesValidation="False" Visible="false"/>
                 <%--  <asp:Button ID="btnCancel" runat="server" Text="Cancelar" CausesValidation="False" />--%>
             </li>
         </ul>
@@ -225,7 +226,7 @@
         <img style="margin-top: 5px;" src="../images/save_icon.png" width="24px" alt="Save" />
         <asp:Label ID="lblsaveinformation_down" runat="server" Style="font-size: 14pt; color: #9bbb58;"></asp:Label>
     </div>
-    <table id="derrr" style="width: 100%">
+    <table id="derrr" style="width: 100%" runat="server" Visible="false">
         <tr>
             <td colspan="4">
             </td>
