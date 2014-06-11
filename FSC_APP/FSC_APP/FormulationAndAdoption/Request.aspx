@@ -829,7 +829,7 @@
         <div id="divotros" style="display: none;">
             <h2>
                 Solicitud</h2>
-            <textarea id="txtarRequest"></textarea>
+            <textarea id="txtarRequest"  maxlength="1000"></textarea>
         </div>
         <div style="clear: both; width: 100%; display: block;">
         </div>
