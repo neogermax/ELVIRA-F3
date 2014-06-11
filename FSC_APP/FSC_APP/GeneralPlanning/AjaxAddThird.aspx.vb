@@ -32,6 +32,7 @@ Partial Public Class GeneralPlanning_AjaxAddThird
                 verificarnit(code)
             Case Else
         End Select
+
     End Sub
 
     Protected Function Charge_Type_people()
