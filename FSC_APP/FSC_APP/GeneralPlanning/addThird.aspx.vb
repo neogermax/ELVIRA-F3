@@ -37,7 +37,7 @@ Partial Class addThird
                 Me.btnCancel.Visible = False
                 Session("pretty") = 1
             Else
-                Me.btnCancel.Visible = True
+                Me.btnCancel.Visible = False
             End If
 
             ' obtener los parametos

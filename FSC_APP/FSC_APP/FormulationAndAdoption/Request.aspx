@@ -746,49 +746,49 @@
                     Información actual del proyecto:</h2>
                 <label>
                     Objetivo:</label>
-                <textarea id="txtarObjective"></textarea>
+                <textarea id="txtarObjective" disabled="disabled"></textarea>
                 <label>
                     <input type="checkbox" id="chkObjective" onclick="mostrar('chkObjective');">
                     Modificar</label>
                 <br />
                 <label>
                     Objetivos Especificos:</label>
-                <textarea id="txtarSpecificObjectives"></textarea>
+                <textarea id="txtarSpecificObjectives" disabled="disabled"></textarea>
                 <label>
                     <input type="checkbox" id="chkSpecificObjectives" onclick="mostrar('chkSpecificObjectives');">
                     Modificar</label>
                 <br />
                 <label>
                     Resultados capacidad instalada:</label>
-                <textarea id="txtarInstalledCapacityResults"></textarea>
+                <textarea id="txtarInstalledCapacityResults" disabled="disabled" ></textarea>
                 <label>
                     <input type="checkbox" id="chkInstalledCapacityResults" onclick="mostrar('chkInstalledCapacityResults');">
                     Modificar</label>
                 <br />
                 <label>
                     Resultados beneficiarios:</label>
-                <textarea id="txtarBenefitiaryResults"></textarea>
+                <textarea id="txtarBenefitiaryResults" disabled="disabled"></textarea>
                 <label>
                     <input type="checkbox" id="chkBenefitiaryResults" onclick="mostrar('chkBenefitiaryResults');">
                     Modificar</label>
                 <br />
                 <label>
                     Resultados gestión del conocimiento:</label>
-                <textarea id="txtarKnowledgeResults"></textarea>
+                <textarea id="txtarKnowledgeResults" disabled="disabled"></textarea>
                 <label>
                     <input type="checkbox" id="chkKnowledgeResults" onclick="mostrar('chkKnowledgeResults');">
                     Modificar</label>
                 <br />
                 <label>
                     Otros resultados:</label>
-                <textarea id="txtarOtherResults"></textarea>
+                <textarea id="txtarOtherResults" disabled="disabled"></textarea>
                 <label>
                     <input type="checkbox" id="chkOtherResults" onclick="mostrar('chkOtherResults');">
                     Modificar</label>
                 <br />
                 <label>
                     Obligaciones de las partes:</label>
-                <textarea id="txtarPartObligations"></textarea>
+                <textarea id="txtarPartObligations" disabled="disabled"></textarea>
                 <label>
                     <input type="checkbox" id="chkPartObligations" onclick="mostrar('chkPartObligations');">
                     Modificar</label>
@@ -829,7 +829,7 @@
         <div id="divotros" style="display: none;">
             <h2>
                 Solicitud</h2>
-            <textarea id="txtarRequest"></textarea>
+            <textarea id="txtarRequest"  maxlength="1000"></textarea>
         </div>
         <div style="clear: both; width: 100%; display: block;">
         </div>

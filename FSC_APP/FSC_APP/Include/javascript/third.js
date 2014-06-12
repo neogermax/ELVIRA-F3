@@ -5,141 +5,133 @@
 //validacion para la fecha que no sea mayor de la fecha actual
 $(document).ready(function() {
 
-    $("#ctl00_cphPrincipal_Lblcontact").css("display", "none");
-    $("#ctl00_cphPrincipal_Txtcontact").css("display", "none");
+    $("#marco_datos_juridica").css("display", "none");
+    $("#marco_datos_contact").css("display", "none");
 
-    $("#ctl00_cphPrincipal_Lblactions").css("display", "none");
-    $("#ctl00_cphPrincipal_Txtactions").css("display", "none");
+    $("#ctl00_cphPrincipal_Lbltitle2").css("display", "none");
 
-    $("#ctl00_cphPrincipal_Lblphone").css("display", "none");
-    $("#ctl00_cphPrincipal_Txtphone").css("display", "none");
+    $("#li_document_principal").css("display", "none");
+    $("#li_sex").css("display", "none");
 
-    $("#ctl00_cphPrincipal_Lblmail").css("display", "none");
-    $("#ctl00_cphPrincipal_Txtemail").css("display", "none");
-
-    $("#ctl00_cphPrincipal_lblreplegal").css("display", "none");
-    $("#ctl00_cphPrincipal_Txtreplegal").css("display", "none");
-
-    $("#ctl00_cphPrincipal_Lbltipodocument").css("display", "none");
-    $("#ctl00_cphPrincipal_DDL_tipo_doc").css("display", "none");
-
-    $("#ctl00_cphPrincipal_Lbltipodocument1").css("display", "none");
-    $("#ctl00_cphPrincipal_DDL_tipo_doc1").css("display", "none");
-
-    $("#ctl00_cphPrincipal_Lbldocrep").css("display", "none");
-    $("#ctl00_cphPrincipal_Txtdocrep").css("display", "none");
+    $("#li_contact").css("display", "none");
+    $("#li_actions").css("display", "none");
+    $("#li_phone").css("display", "none");
+    $("#li_direccion").css("display", "none");
+    $("#li_mail").css("display", "none");
 
     $("#ctl00_cphPrincipal_containerSuccess").css("display", "none");
 
-    $("#ctl00_cphPrincipal_Lbltitle1").css("display", "none");
-    $("#ctl00_cphPrincipal_Lbltitle2").css("display", "none");
-
-    $("#ctl00_cphPrincipal_Lbldireccion").css("display", "none");
-    $("#ctl00_cphPrincipal_Txtdireccion").css("display", "none");
-
-    $("#ctl00_cphPrincipal_Lblsex").css("display", "none");
-    $("#ctl00_cphPrincipal_DDL_sex").css("display", "none");
-
     $("#tabsthird").tabs();
+    $("#SaveActors").button();
+    $("#ctl00_cphPrincipal_linkcancelar").button();
+        
+    Charge_Type_people();
 
     validartipo();
     verificode();
     guardar();
 });
 
+//cargar el tipo de personas
+function Charge_Type_people() {
+
+    $.ajax({
+        url: "AjaxAddThird.aspx",
+        type: "GET",
+        data: { "action": "Charge_Type_people" },
+        success: function(result) {
+
+            $("#DDLtypepeople").html(result);
+            $("#DDLtypepeople").trigger("liszt:updated");
+
+        },
+        error: function(msg) {
+            alert("No se pueden cargar los tipos de personas del actor.");
+        }
+    });
+
+}
+
+////cargar tipo de documetas del actor
+//function Charge_Type_Document() {
+
+//    $.ajax({
+//        url: "AjaxAddThird.aspx",
+//        type: "GET",
+//        data: { "action": "Charge_Type_Document" },
+//        success: function(result) {
+
+//            $("#DDL_tipo_doc").html(result);
+//            $("#DDL_tipo_doc").trigger("liszt:updated");
+
+//            $("#DDL_tipo_doc1").html(result);
+//            $("#DDL_tipo_doc1").trigger("liszt:updated");
+
+//        },
+//        error: function(msg) {
+//            alert("No se pueden cargar los tipos de documentos del actor.");
+//        }
+//    });
+
+//}
+
+
 function validartipo() {
 
-    $("#ctl00_cphPrincipal_DDLtypepeople").change(function() {
+    $("#DDLtypepeople").change(function() {
 
 
-    if ($("#ctl00_cphPrincipal_DDLtypepeople").val() == 'True') {
-        
-        $("#ctl00_cphPrincipal_HFperson").val(0);
-        
+        if ($("#DDLtypepeople").val() == 1) {
+
+            $("#ctl00_cphPrincipal_HFperson").val(0);
+
             //persona natural
-            $("#ctl00_cphPrincipal_Lbltitle1").css("display", "none");
             $("#ctl00_cphPrincipal_Lbltitle2").css("display", "block");
 
             $("#ctl00_cphPrincipal_lblcode").text("No. de Documento (Ingresar sin guiones, puntos o espacios).");
             $("#ctl00_cphPrincipal_lblname").text("Nombre del actor");
 
-            $("#ctl00_cphPrincipal_Lblcontact").css("display", "none");
-            $("#ctl00_cphPrincipal_Txtcontact").css("display", "none");
+            $("#marco_datos_juridica").css("display", "none");
+            $("#marco_datos_contact").css("display", "block");
 
-            $("#ctl00_cphPrincipal_Lblactions").css("display", "none");
-            $("#ctl00_cphPrincipal_Txtactions").css("display", "none");
+            $("#li_document_principal").css("display", "block");
+            $("#li_sex").css("display", "block");
 
-            $("#ctl00_cphPrincipal_Lblphone").css("display", "block");
-            $("#ctl00_cphPrincipal_Txtphone").css("display", "block");
-
-            $("#ctl00_cphPrincipal_Lblmail").css("display", "block");
-            $("#ctl00_cphPrincipal_Txtemail").css("display", "block");
-
-            $("#ctl00_cphPrincipal_lblreplegal").css("display", "none");
-            $("#ctl00_cphPrincipal_Txtreplegal").css("display", "none");
-
-            $("#ctl00_cphPrincipal_Lbltipodocument").css("display", "none");
-            $("#ctl00_cphPrincipal_DDL_tipo_doc").css("display", "none");
-            
-            $("#ctl00_cphPrincipal_Lbltipodocument1").css("display", "block");
-            $("#ctl00_cphPrincipal_DDL_tipo_doc1").css("display", "block");
-
-            $("#ctl00_cphPrincipal_Lbldocrep").css("display", "none");
-            $("#ctl00_cphPrincipal_Txtdocrep").css("display", "none");
-
-            $("#ctl00_cphPrincipal_Lbldireccion").css("display", "block");
-            $("#ctl00_cphPrincipal_Txtdireccion").css("display", "block");
-
-            $("#ctl00_cphPrincipal_Lblsex").css("display", "block");
-            $("#ctl00_cphPrincipal_DDL_sex").css("display", "block");
-
+            $("#li_contact").css("display", "none");
+            $("#li_actions").css("display", "none");
+            $("#li_phone").css("display", "block");
+            $("#li_direccion").css("display", "block");
+            $("#li_mail").css("display", "block");
 
         }
         else {
             // persona juridica
             $("#ctl00_cphPrincipal_HFperson").val(1);
 
-            $("#ctl00_cphPrincipal_Lbltitle1").css("display", "block");
             $("#ctl00_cphPrincipal_Lbltitle2").css("display", "block");
 
             $("#ctl00_cphPrincipal_lblcode").text("NIT (Ingresar sin guiones, puntos o espacios. Incluir dígito de verificación)");
             $("#ctl00_cphPrincipal_lblname").text("Nombre de la Organización");
 
-            $("#ctl00_cphPrincipal_Lblcontact").css("display", "block");
-            $("#ctl00_cphPrincipal_Txtcontact").css("display", "block");
+            $("#li_document_principal").css("display", "none");
+            $("#li_sex").css("display", "none");
 
-            $("#ctl00_cphPrincipal_Lblactions").css("display", "none");
-            $("#ctl00_cphPrincipal_Txtactions").css("display", "none");
+            $("#marco_datos_juridica").css("display", "block");
+            $("#marco_datos_contact").css("display", "block");
 
-            $("#ctl00_cphPrincipal_Lblphone").css("display", "block");
-            $("#ctl00_cphPrincipal_Txtphone").css("display", "block");
+            $("#li_contact").css("display", "block");
+            $("#li_actions").css("display", "none");
+            $("#li_phone").css("display", "block");
+            $("#li_direccion").css("display", "none");
+            $("#li_mail").css("display", "block");
 
-            $("#ctl00_cphPrincipal_Lblmail").css("display", "block");
-            $("#ctl00_cphPrincipal_Txtemail").css("display", "block");
-
-            $("#ctl00_cphPrincipal_lblreplegal").css("display", "block");
-            $("#ctl00_cphPrincipal_Txtreplegal").css("display", "block");
-
-            $("#ctl00_cphPrincipal_Lbltipodocument").css("display", "block");
-            $("#ctl00_cphPrincipal_DDL_tipo_doc").css("display", "block");
-
-            $("#ctl00_cphPrincipal_Lbldocrep").css("display", "block");
-            $("#ctl00_cphPrincipal_Txtdocrep").css("display", "block");
-
-            $("#ctl00_cphPrincipal_Lbltipodocument1").css("display", "none");
-            $("#ctl00_cphPrincipal_DDL_tipo_doc1").css("display", "none");
-
-            $("#ctl00_cphPrincipal_Lbldireccion").css("display", "none");
-            $("#ctl00_cphPrincipal_Txtdireccion").css("display", "none");
-
-            $("#ctl00_cphPrincipal_Lblsex").css("display", "none");
-            $("#ctl00_cphPrincipal_DDL_sex").css("display", "none");
         }
     });
 }
 
 function verificode() {
-    $("#ctl00_cphPrincipal_txtcode").blur(function() {
+
+    $("#ctl00_cphPrincipal_txtcode").change(function() {
         $.ajax({
             url: "AjaxAddThird.aspx",
             type: "GET",

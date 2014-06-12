@@ -287,7 +287,7 @@ function Valida_fecha_acta() {
         var fecha = new Date();
         var fechacampo = new Date($("#ctl00_cphPrincipal_txtapprovaldate").val());
 
-        if (fechacampo < fecha) {
+        if (fechacampo > fecha) {
             alert("la fecha debe ser menor al dia de hoy.");
             $("#ctl00_cphPrincipal_txtapprovaldate").val("");
             $("#ctl00_cphPrincipal_txtapprovaldate").focus();

@@ -207,25 +207,57 @@ Partial Class FormulationAndAdoption_ajaxaddProjectApprovalRecord
         If Data_campos.Rows.Count > 0 Then
 
             If IsDBNull(Data_campos.Rows(0)("obligationsoftheparties")) = False Then
-                V_obliga = 0
+
+                Dim v_str_obligacion = Data_campos.Rows(0)("obligationsoftheparties")
+
+                If v_str_obligacion = "" Then
+                    V_obliga = 1
+                Else
+                    V_obliga = 0
+                End If
+
             Else
                 V_obliga = 1
             End If
 
             If IsDBNull(Data_campos.Rows(0)("BudgetRoute")) = False Then
-                V_ruta = 0
+
+                Dim v_str_ruta = Data_campos.Rows(0)("BudgetRoute")
+
+                If v_str_ruta = "" Then
+                    V_ruta = 1
+                Else
+                    V_ruta = 0
+                End If
+
             Else
                 V_ruta = 1
             End If
 
             If IsDBNull(Data_campos.Rows(0)("RiskMitigation")) = False Then
-                V_mitig = 0
+
+                Dim v_str_mitig = Data_campos.Rows(0)("RiskMitigation")
+
+                If v_str_mitig = "" Then
+                    V_mitig = 1
+                Else
+                    V_mitig = 0
+                End If
+
             Else
                 V_mitig = 1
             End If
 
             If IsDBNull(Data_campos.Rows(0)("RisksIdentified")) = False Then
-                V_riesgos = 0
+
+                Dim v_str_riesgos = Data_campos.Rows(0)("RisksIdentified")
+
+                If v_str_riesgos = "" Then
+                    V_riesgos = 1
+                Else
+                    V_riesgos = 0
+                End If
+
             Else
                 V_riesgos = 1
             End If
