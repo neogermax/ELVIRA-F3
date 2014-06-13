@@ -53,7 +53,7 @@ Partial Class addThird
                     Session("lblTitle") = "AGREGAR UN NUEVO ACTOR."
 
                     ' ocultar algunos botones
-                    Me.btnAddData.Visible = True
+                    Me.btnAddData.Visible = False
                     Me.btnSave.Visible = False
                     Me.btnDelete.Visible = False
                     Me.btnCancelDelete.Visible = False
@@ -79,8 +79,8 @@ Partial Class addThird
 
                     ' ocultar algunos botones
                     Me.btnAddData.Visible = False
-                    Me.btnSave.Visible = True
-                    Me.btnDelete.Visible = True
+                    Me.btnSave.Visible = False
+                    Me.btnDelete.Visible = False
                     Me.btnCancelDelete.Visible = False
                     Me.btnConfirmDelete.Visible = False
                     Me.lblDelete.Visible = False
