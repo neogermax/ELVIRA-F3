@@ -14,6 +14,7 @@ Partial Public Class ajaxRequest
 #Region "Properties public and private"
     Dim _existRequest As Boolean = False
     Dim _idProject As Integer = 0
+    Dim _ContractNumber As String = "N/A"
 #End Region
 
     ''' <summary>
@@ -32,7 +33,7 @@ Partial Public Class ajaxRequest
 
                 Dim objCRequest As FSC_DAO.model.CRequest = New FSC_DAO.model.CRequest()
                 _existRequest = objCRequest.existRequestForProject(_idProject)
-
+                _ContractNumber = objCRequest.getNumberContractFromProject(_idProject)
 
                 If _existRequest Then
                     _idProject = objCRequest.getExistRequestIdForProject(_idProject)
@@ -79,16 +80,21 @@ Partial Public Class ajaxRequest
             Dim objCProject As FSC_DAO.model.CProject = New FSC_DAO.model.CProject()
             objCProject.Id = idProject
             Dim objRequestObjCProject As Project = objCProject._selectProjectById()
+            objRequestObjCProject.Id = 0
+            'Response data for file javascript
+            Dim JSONDone As String = String.Format("[{0},""{1}""]", JsonConvert.SerializeObject(objRequestObjCProject).ToString(), _ContractNumber)
 
             'Response data for file javascript
-            Response.Write(JsonConvert.SerializeObject(objRequestObjCProject))
+            Response.Write(JSONDone)
         Else
             Dim objCRequest As FSC_DAO.model.CRequest = New FSC_DAO.model.CRequest()
             objCRequest.IdProject = idProject
             Dim objRequestObjCRequest As FSC_DAO.model.Request = objCRequest.selectRequestByProject()
 
+            Dim JSONDone As String = String.Format("[{0},""{1}""]", JsonConvert.SerializeObject(objRequestObjCRequest).ToString(), _ContractNumber)
+
             'Response data for file javascript
-            Response.Write(JsonConvert.SerializeObject(objRequestObjCRequest))
+            Response.Write(JSONDone)
         End If
 
     End Sub
@@ -216,8 +222,8 @@ Partial Public Class ajaxRequest
 
         objCRequest.setPropertiesFromProject(JSONProjectInformation, Request.Form("other_request").ToString(), Request.Form("StartSuspensionDate").ToString(), Request.Form("EndSuspensionDate").ToString(), Convert.ToInt16(Request.Form("RestartType")))
 
-
         If Not _existRequest Then
+            objCRequest.IdProject = _idProject
             objCRequest.executeInsert()
         Else
             objCRequest.Id = _idProject
@@ -286,21 +292,19 @@ Partial Public Class ajaxRequest
         Next
     End Sub
     Protected Sub updateCessionToThird(ByVal IdRequest As Integer, ByVal OldThird As Integer, ByVal NewThird As Integer)
+        Dim JSONThirdCession As FSC_DAO.model.ThirdByRequest = JsonConvert.DeserializeObject(Of FSC_DAO.model.ThirdByRequest)(Request.Form("JSONThirdCession"))
 
         Dim objDataContext As FSC_DAO.model.fscdaoDataContext = New FSC_DAO.model.fscdaoDataContext()
-
-        'Get information for new third
-        Dim objThirdNew = (From TableThird In objDataContext.Third Where TableThird.Id = NewThird Select TableThird).Single()
 
         Dim objThirdByRequest = From TableThirdByRequest In objDataContext.ThirdByRequest Where TableThirdByRequest.IdThird = OldThird And TableThirdByRequest.IdRequest = IdRequest Select TableThirdByRequest
 
         For Each Item As FSC_DAO.model.ThirdByRequest In objThirdByRequest
-            Item.IdThird = objThirdNew.Id
-            Item.Name = objThirdNew.Name
-            Item.Contact = objThirdNew.contact
-            Item.Documents = objThirdNew.documents
-            Item.Phone = objThirdNew.phone
-            Item.Email = objThirdNew.email
+            Item.IdThird = NewThird
+            Item.Name = JSONThirdCession.Name
+            Item.Contact = JSONThirdCession.contact
+            Item.Documents = JSONThirdCession.documents
+            Item.Phone = JSONThirdCession.phone
+            Item.Email = JSONThirdCession.email
 
             objDataContext.SubmitChanges()
 
@@ -310,8 +314,8 @@ Partial Public Class ajaxRequest
 
         For Each ItemCashFlows As FSC_DAO.model.DetailedCashFlowsRequest In objDetailedCashFlowsRequest
 
-            ItemCashFlows.IdAportante = objThirdNew.Id
-            ItemCashFlows.Aportante = objThirdNew.Name
+            ItemCashFlows.IdAportante = NewThird
+            ItemCashFlows.Aportante = JSONThirdCession.Name
 
             objDataContext.SubmitChanges()
         Next

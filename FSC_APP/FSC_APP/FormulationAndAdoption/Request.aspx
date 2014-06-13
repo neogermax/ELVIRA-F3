@@ -72,7 +72,6 @@
         }
         .txtarAlcance
         {
-        	
         }
     </style>
     <!-- End Style -->
@@ -139,17 +138,7 @@
             //New instance pretty photo
             $("a.pretty").prettyPhoto({
                 callback: function() {
-                    $.ajax({
-                        url: "ajaxaddidea_drop_list_third.aspx",
-                        type: "GET",
-                        data: { "action": "cargarthird" },
-                        success: function(result) {
-                            $("#ddlactors").html(result);
-                            $("#ddlactors").trigger("liszt:updated");
-                        },
-                        error: function()
-                        { alert("los datos de terceros no pudieron ser cargados."); }
-                    });
+                    loadThird();
                 }, /* Called when prettyPhoto is closed */
                 ie6_fallback: true,
                 modal: true,
@@ -259,6 +248,16 @@
                     Fecha de los desembolsos</label>
             </div>
         </div>
+        <div class="project-information">
+            <label>
+                Información actual del proyecto (No Editable)</label>
+            <label id="startDate">
+                Fecha de Incio: 2014/01/01</label>
+            <label id="closeDate">
+                Fecha de Liquidación: 2014/01/01</label>
+            <label style="display: none;">
+                Fecha de Incio: 2014/01/01</label>
+        </div>
         <br />
         <br />
         <div id="tabsRequest" style="display: none;">
@@ -275,8 +274,10 @@
                     <li>
                         <select id="ddlactors" class="">
                         </select>
-                        <a id="linkactors" runat="server" href="~/GeneralPlanning/addThird.aspx?prety=1&op=add&iframe=true&width=100%&height=100%"
-                            title="Nuevo actor" class="pretty">CREAR NUEVO ACTOR</a> </li>
+                        <br />
+                        <a style="color: #fff;" href="../GeneralPlanning/addThird.aspx?prety=1&op=add&iframe=true&width=100%&height=100%"
+                            title="Nuevo actor" class="pretty btn btn-success">Crear Nuevo Actor</a>
+                            <br /> </li>
                     <li>
                         <asp:Label ID="Label6" runat="server" Text="Tipo"></asp:Label>
                         <asp:DropDownList ID="ddlType" runat="server" CssClass="">
@@ -732,13 +733,52 @@
             </div>
         </div>
         <div id="divcesion" style="display: none;">
-        <br/>
-            <label>Actores Existentes</label>
-            <select id="listThirds"></select>
-            <label>Actores Asignados a Proyecto</label>
+            <br />
+            <label>
+                Actores Existentes</label>
+            <select id="listThirds">
+            </select>
+            <label>
+                Actores Asignados a Proyecto</label>
             <select id="listThirdsByProject">
             </select>
-            <br/>
+            <br />
+            <ul>
+                <li>
+                    <a href="../GeneralPlanning/addThird.aspx?prety=1&op=add&iframe=true&width=100%&height=100%"
+                        title="Nuevo actor" class="pretty btn btn-success">Crear Nuevo Actor</a> </li>
+                <li>
+                    <label>
+                        Tipo de Actor</label>
+                    <select id="listTypeThird">
+                        <option value="Operador">Operador</option>
+                        <option value="Socio Operador">Socio Operador</option>
+                        <option value="Socio">Socio</option>
+                        <option value="Cliente">Cliente</option>
+                        <option value="Contratante">Contratante</option>
+                    </select>
+                </li>
+                <li>
+                    <label>
+                        Nombre de Contacto</label>
+                    <input type="text" id="txtNameContact" />
+                </li>
+                <li>
+                    <label>
+                        Número de Identificación</label>
+                    <input type="text" id="txtCCThird" />
+                </li>
+                <li>
+                    <label>
+                        Teléfono</label>
+                    <input type="text" id="txtPhoneThird" />
+                </li>
+                <li>
+                    <label>
+                        Correo Electronico</label>
+                    <input type="text" id="txtEmailThird" />
+                </li>
+            </ul>
         </div>
         <div id="divalcance" style="display: none;">
             <div style="width: 45%; float: left;">
@@ -760,7 +800,7 @@
                 <br />
                 <label>
                     Resultados capacidad instalada:</label>
-                <textarea id="txtarInstalledCapacityResults" disabled="disabled" ></textarea>
+                <textarea id="txtarInstalledCapacityResults" disabled="disabled"></textarea>
                 <label>
                     <input type="checkbox" id="chkInstalledCapacityResults" onclick="mostrar('chkInstalledCapacityResults');">
                     Modificar</label>
@@ -829,12 +869,12 @@
         <div id="divotros" style="display: none;">
             <h2>
                 Solicitud</h2>
-            <textarea id="txtarRequest"  maxlength="1000"></textarea>
+            <textarea id="txtarRequest" maxlength="1000"></textarea>
         </div>
         <div style="clear: both; width: 100%; display: block;">
         </div>
-        <input type='button' id="buttonSavePartial" value="Guardar Parcial" class="btn btn-success"
+        <input type='button' id="buttonSavePartial" value="Guardar" class="btn btn-success"
             style="background-image: none; clear: both;" />
-        <input type='button' id="buttonSaveRequest" value="Guardar Solicitud" class="btn btn-success"
+        <input type='button' id="buttonSaveRequest" value="Finalizar Solicitud" class="btn btn-success"
             style="background-image: none; clear: both;" />
 </asp:Content>

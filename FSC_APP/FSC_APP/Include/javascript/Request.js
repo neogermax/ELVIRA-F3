@@ -3,6 +3,7 @@
 // File: Rquest.js
 
 var arrayTypeRequest=[];
+var JSONThirdCesion;
 
 $(document).ready(function() {
     HideAreas();
@@ -50,7 +51,6 @@ var swhich_flujos_exist;
 var projectObject = {};
 //ready event for elements DOM into page
 $(document).ready(function() {
-    numberRequest = (((idproject * 365) + 638) * 715953);
     //Ajax transaction for get project information
     $.ajax({
         url: "../FormulationAndAdoption/ajaxRequest.aspx",
@@ -58,17 +58,24 @@ $(document).ready(function() {
         data: { "idProject": idproject, "action": "getInformationProject" },
         success: function(result) {
             result = JSON.parse(result);
+    
+            projectObject = result[0];
 
-            projectObject = result;
-
-            $("#project-title").html("SOLICITUD DE PROYECTO: " + result.Name.toUpperCase());
-            $("#information-contract").html(result.Code.toUpperCase());
+            $("#project-title").html("SOLICITUD DE PROYECTO: " + projectObject.Name.toUpperCase() + " - " + projectObject.idKey );
+            $("#information-contract").html("<strong>No. CONTRATO: </strong>" + result[1]);
+            
+            if(projectObject.Id == 0){
+                numberRequest = "N/A";
+            }else{
+                numberRequest = projectObject.Id;
+            }
+            
             $("#numberRequest").html(numberRequest);
             $("#dateRequest").html("<strong>Fecha de solicitud: </strong>" + Now());
-            var BeginDate = new Date(parseFloat(result.BeginDate.replace(/Date/g, "").replace(/\//g, "").replace(/["'()]/g, "").toString()));
-            var EndDate = new Date(parseFloat(result.completiondate.replace(/Date/g, "").replace(/\//g, "").replace(/["'()]/g, "").toString()));
-            $("#startDate").html(BeginDate.localeFormat("dd/MM/yyyy"));
-            $("#closeDate").html(EndDate.localeFormat("dd/MM/yyyy"));
+            var BeginDate = new Date(parseFloat(projectObject.BeginDate.replace(/Date/g, "").replace(/\//g, "").replace(/["'()]/g, "").toString()));
+            var EndDate = new Date(parseFloat(projectObject.completiondate.replace(/Date/g, "").replace(/\//g, "").replace(/["'()]/g, "").toString()));
+            $("#startDate").html("Fecha de Inicio " + BeginDate.localeFormat("dd/MM/yyyy") + " - ");
+            $("#closeDate").html("Fecha de Cierre " + EndDate.localeFormat("dd/MM/yyyy"));
 
             //
             $("#txtarObjective").val(projectObject.Objective);
@@ -131,10 +138,12 @@ $(document).ready(function() {
                 "EndSuspensionDate": $("#ctl00_cphPrincipal_txtEndSuspend").val() , 
                 "RestartType": $("#ctl00_cphPrincipal_ddlRestartType").val(), 
                 "OldThird": $("#listThirdsByProject").val(), 
-                "NewThird": $("#listThirds").val()
+                "NewThird": $("#listThirds").val(),
+                "JSONThirdCession": JSON.stringify(JSONThirdCesion)
             },
             success: function(result) {
                 alert("La solicitud se almaceno correctamente!");
+                window.location.reload();
             },
             error: function() {
                 alert("Opsss! Algo salio mal, por favor intentelo mas tarde.")
@@ -160,7 +169,7 @@ function getRequestTypeForProject() {
             var resultJson = JSON.parse(result);
             //arrayflujosdepago = JSON.parse(resultJson.toString());
             arrayTypeRequest = resultJson;
-            
+            showOptionsSelect();
         },
         error: function (msg) {
             //
@@ -168,11 +177,41 @@ function getRequestTypeForProject() {
     });
 }
 
+function showOptionsSelect(){
+    
+    for(var item in arrayTypeRequest){
+        switch (arrayTypeRequest[item].IdRequestType){
+            case 1:
+            case 3:
+            case 5:
+            default:
+                $("#typeRequest").html("<option value='1'>1. Adición, Prórroga, Entregables</option><option value='3'>3. Alcance</option><option value='5'>5. Otros</option>");
+                $("#typeRequest").trigger("change");
+            break;
+            case 2:
+                $("#typeRequest").html("<option value='2'>2. Suspensión</option>");
+                $("#typeRequest").trigger("change");
+            break;
+            case 4:
+                $("#typeRequest").html("<option value='4'>4. Cesión</option>");
+                $("#typeRequest").trigger("change");
+            break;
+            
+        }
+        break;
+        
+    }
+}
+
 //Partial Sve
 function partialSave() {
     $("#buttonSavePartial").click(function() {
         var JSONTypeRequest = { "IdRequest": 0, "IdRequestSubType": $("input[name='subgroup']:checked").val(), "IdRequestType": $("#typeRequest").val() };
         //Se agrega categoria de solicitud como objeto en el arreglo
+        
+        if($("#typeRequest").val() == 4){
+            JSONThirdCesion = { "Type": $("#listTypeThird").val() , "Name": $("#listThirds :selected").text(), "Contact": $("#txtNameContact").val() , "Documents": $("#txtCCThird").val() ,"Phone": $("#txtPhoneThird").val() ,"Email": $("#txtEmailThird").val() }
+        }
         
         var existCategory = false;
         for(var item in arrayTypeRequest){
@@ -187,6 +226,7 @@ function partialSave() {
         }
         
         alert("Se almacenó la información de la solicitud en estado parcial, no olvide guardar antes de salir o cerrar esta ventana.");
+        showOptionsSelect();
     });
 }
 
