@@ -314,19 +314,15 @@ function fecha() {
     });
 
     $("#ctl00_cphPrincipal_txtSubscriptionDate").change(function() {
-        //console.log("Aqui valida fecha madre");
 
-        if($("#ctl00_cphPrincipal_ddlProject").val() == '-1') {
-            //console.log("el valor es -1");
+        if ($("#ctl00_cphPrincipal_ddlProject").val() == '-1') {
             $("#ctl00_cphPrincipal_lblInfoSubscriptionDate").css("color", "red");
             $("#ctl00_cphPrincipal_lblInfoSubscriptionDate").css("display", "block");
             $("#ctl00_cphPrincipal_lblInfoSubscriptionDate").text("No se ha seleccionado un proyecto.");
-        return;
-        }else{
-            //console.log("el valor no es -1");
+            return;
+        } else {
             $("#ctl00_cphPrincipal_lblInfoSubscriptionDate").val("");
         }
-
 
 
         //Ejecutar validacion de la fecha
@@ -336,8 +332,14 @@ function fecha() {
             data: { "action": "validacreacion", "fechacrea": $("#ctl00_cphPrincipal_txtSubscriptionDate").val(), "proyecto": $("#ctl00_cphPrincipal_ddlProject").val() },
             success: function(result) {
                 //Si la fecha no es valida notificar
-                $("#ctl00_cphPrincipal_lblInfoSubscriptionDate").val("La fecha de suscripción no puede ser inferior a la fecha de creación del proyecto madre.");
-                $("#ctl00_cphPrincipal_txtSubscriptionDate").val("");
+                if (result == 'False') {
+                    $("#ctl00_cphPrincipal_lblInfoSubscriptionDate").css("color", "red");
+                    $("#ctl00_cphPrincipal_lblInfoSubscriptionDate").text("La fecha de suscripción no puede ser inferior a la fecha de creación del proyecto madre.");
+                    $("#ctl00_cphPrincipal_txtSubscriptionDate").val("");
+                } else {
+                    $("#ctl00_cphPrincipal_lblInfoSubscriptionDate").text("");
+                }
+
             },
             error: function() {
                 alert("Hay un error con el calculo de las fechas");

@@ -30,148 +30,148 @@ Partial Class addProjectApprovalRecord
         If Not Page.IsPostBack Then
 
             ' obtener los parametos
-            Dim op As String = Request.QueryString("op")
-            Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
-            Dim defaultDate As New DateTime
+            'Dim op As String = Request.QueryString("op")
+            'Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+            'Dim defaultDate As New DateTime
 
             ' cargar los combos
-            loadCombos()
+            '  loadCombos()
 
-            Me.ddlidproject.Items.Insert(0, New ListItem("Seleccione...", "-1"))
-            Me.ddlidproject.SelectedValue = "-1"
+            'Me.ddlidproject.Items.Insert(0, New ListItem("Seleccione...", "-1"))
+            'Me.ddlidproject.SelectedValue = "-1"
 
 
             ' de acuerdo a la opcion
-            Select Case op
+            'Select Case op
 
-                Case "add"
+            '    Case "add"
 
-                    ' cargar el titulo
-                    Session("lblTitle") = "APROBACIÓN DE UNA IDEA."
+            ' cargar el titulo
+            Session("lblTitle") = "APROBACIÓN DE UNA IDEA."
 
-                    ' ocultar algunos botones
-                    Me.btnAddData.Visible = False
-                    Me.btnSave.Visible = False
-                    Me.btnDelete.Visible = False
-                    Me.btnCancelDelete.Visible = False
-                    Me.btnConfirmDelete.Visible = False
-                    Me.lblDelete.Visible = False
-                    Me.lblid.Visible = False
-                    Me.txtid.Visible = False
-                    Me.lblcreatedate.Visible = False
-                    Me.txtcreatedate.Visible = False
-                    Me.lbliduser.Visible = False
-                    Me.txtiduser.Visible = False
-                    Me.rfvid.Visible = False
-                    Me.lblcode.Visible = False
-                    Me.txtcode.Visible = False
-                    Dim idProcessInstance As String = String.Empty
-                    Dim idActivityInstance As String = String.Empty
-                    Dim IdEntryData As String = String.Empty
-                    Me.ddlapproved.SelectedValue = 1
+            ' ocultar algunos botones
+            '    Me.btnAddData.Visible = False
+            '    Me.btnSave.Visible = False
+            '    Me.btnDelete.Visible = False
+            '    Me.btnCancelDelete.Visible = False
+            '    Me.btnConfirmDelete.Visible = False
+            '    Me.lblDelete.Visible = False
+            '    Me.lblid.Visible = False
+            '    Me.txtid.Visible = False
+            '    Me.lblcreatedate.Visible = False
+            '    Me.txtcreatedate.Visible = False
+            '    Me.lbliduser.Visible = False
+            '    Me.txtiduser.Visible = False
+            '    Me.rfvid.Visible = False
+            '    Me.lblcode.Visible = False
+            '    Me.txtcode.Visible = False
+            '    Dim idProcessInstance As String = String.Empty
+            '    Dim idActivityInstance As String = String.Empty
+            '    Dim IdEntryData As String = String.Empty
+            '    Me.ddlapproved.SelectedValue = 1
 
-                    ' cargar los valores del BPM
-                    idProcessInstance = Request.QueryString("idProcessInstance")
-                    idActivityInstance = Request.QueryString("idActivityInstance")
-                    IdEntryData = Request.QueryString("IdEntryData")
+            '    ' cargar los valores del BPM
+            '    idProcessInstance = Request.QueryString("idProcessInstance")
+            '    idActivityInstance = Request.QueryString("idActivityInstance")
+            '    IdEntryData = Request.QueryString("IdEntryData")
 
-                    ' verificar si viene desde el BPM
-                    If idProcessInstance IsNot Nothing Then
+            '    ' verificar si viene desde el BPM
+            '    If idProcessInstance IsNot Nothing Then
 
-                        Me.lblBPMMessage.Visible = True
-                        Me.rblCondition.Visible = True
-                        ' Me.btnCancel.Visible = False
+            '        Me.lblBPMMessage.Visible = True
+            '        Me.rblCondition.Visible = True
+            '        ' Me.btnCancel.Visible = False
 
-                        ' cargar la lista de condiciones de la actividad
-                        Dim conditions As Array = GattacaApplication.getConditions(applicationCredentials, idActivityInstance)
+            '        ' cargar la lista de condiciones de la actividad
+            '        Dim conditions As Array = GattacaApplication.getConditions(applicationCredentials, idActivityInstance)
 
-                        For Each condition As ListItem In conditions
+            '        For Each condition As ListItem In conditions
 
-                            ' cargar la lista de condiciones para la actividad
-                            Me.rblCondition.Items.Add(New ListItem(condition.Text, condition.Value))
+            '            ' cargar la lista de condiciones para la actividad
+            '            Me.rblCondition.Items.Add(New ListItem(condition.Text, condition.Value))
 
-                        Next
+            '        Next
 
-                        ' seleccionar el primero
-                        Me.rblCondition.SelectedIndex = 0
+            '        ' seleccionar el primero
+            '        Me.rblCondition.SelectedIndex = 0
 
-                        ' cargar el proyecto
-                        Me.ddlidproject.SelectedValue = IdEntryData
-                        Me.ddlidproject.Enabled = False
+            '        ' cargar el proyecto
+            '        Me.ddlidproject.SelectedValue = IdEntryData
+            '        Me.ddlidproject.Enabled = False
 
-                        ' cargar el mensaje
-                        Me.lblBPMMessage.Text = PublicFunction.getSettingValue("BPM.Condition.Message")
+            '        ' cargar el mensaje
+            '        Me.lblBPMMessage.Text = PublicFunction.getSettingValue("BPM.Condition.Message")
 
-                    End If
+            '    End If
 
-                Case "edit"
+            'Case "edit"
 
-                    ' cargar el titulo
-                    Session("lblTitle") = "EDITAR EL REGISTRO DE APROBACIÓN DE UN PROYECTO."
+            '    ' cargar el titulo
+            '    Session("lblTitle") = "EDITAR EL REGISTRO DE APROBACIÓN DE UN PROYECTO."
 
-                    ' ocultar algunos botones
-                    Me.btnAddData.Visible = False
-                    Me.btnSave.Visible = True
-                    Me.btnDelete.Visible = True
-                    Me.btnCancelDelete.Visible = False
-                    Me.btnConfirmDelete.Visible = False
-                    Me.lblDelete.Visible = False
-                    Me.lblid.Enabled = False
-                    Me.txtid.Enabled = False
-                    Me.lblcreatedate.Enabled = False
-                    Me.txtcreatedate.Enabled = False
-                    Me.lbliduser.Enabled = False
-                    Me.txtiduser.Enabled = False
-                    Me.lblcode.Enabled = False
-                    Me.txtcode.Enabled = False
-                    ' definir los objetos
-                    Dim facade As New Facade
-                    Dim objProjectApprovalRecord As New IdeaApprovalRecordEntity
+            '    ' ocultar algunos botones
+            '    Me.btnAddData.Visible = False
+            '    Me.btnSave.Visible = True
+            '    Me.btnDelete.Visible = True
+            '    Me.btnCancelDelete.Visible = False
+            '    Me.btnConfirmDelete.Visible = False
+            '    Me.lblDelete.Visible = False
+            '    Me.lblid.Enabled = False
+            '    Me.txtid.Enabled = False
+            '    Me.lblcreatedate.Enabled = False
+            '    Me.txtcreatedate.Enabled = False
+            '    Me.lbliduser.Enabled = False
+            '    Me.txtiduser.Enabled = False
+            '    Me.lblcode.Enabled = False
+            '    Me.txtcode.Enabled = False
+            '    ' definir los objetos
+            '    Dim facade As New Facade
+            '    Dim objProjectApprovalRecord As New IdeaApprovalRecordEntity
 
-                    Try
-                        ' cargar el registro referenciado
-                        objProjectApprovalRecord = facade.loadIdeaApprovalRecord(applicationCredentials, Request.QueryString("id"))
+            '    Try
+            '        ' cargar el registro referenciado
+            '        objProjectApprovalRecord = facade.loadIdeaApprovalRecord(applicationCredentials, Request.QueryString("id"))
 
-                        ' mostrar los valores
-                        Me.txtid.Text = objProjectApprovalRecord.id
-                        Me.ddlidproject.SelectedValue = objProjectApprovalRecord.idproject
-                        Me.txtcode.Text = objProjectApprovalRecord.code
-                        Me.txtcomments.Text = objProjectApprovalRecord.comments
-                        If objProjectApprovalRecord.approvaldate <> defaultDate Then
-                            Me.txtapprovaldate.Text = objProjectApprovalRecord.approvaldate
-                        Else
-                            Me.txtapprovaldate.Text = ""
-                        End If
-                        Me.txtactnumber.Text = objProjectApprovalRecord.actnumber
-                        Me.txtapprovedvalue.Text = objProjectApprovalRecord.approvedvalue.ToString("#,###")
-                        Me.ddlapproved.SelectedValue = objProjectApprovalRecord.approved
-                        Me.ddlenabled.SelectedValue = objProjectApprovalRecord.enabled
-                        Me.txtiduser.Text = objProjectApprovalRecord.USERNAME
-                        Me.txtcreatedate.Text = objProjectApprovalRecord.createdate
+            '        ' mostrar los valores
+            '        Me.txtid.Text = objProjectApprovalRecord.id
+            '        Me.ddlidproject.SelectedValue = objProjectApprovalRecord.idproject
+            '        Me.txtcode.Text = objProjectApprovalRecord.code
+            '        Me.txtcomments.Text = objProjectApprovalRecord.comments
+            '        If objProjectApprovalRecord.approvaldate <> defaultDate Then
+            '            Me.txtapprovaldate.Text = objProjectApprovalRecord.approvaldate
+            '        Else
+            '            Me.txtapprovaldate.Text = ""
+            '        End If
+            '        Me.txtactnumber.Text = objProjectApprovalRecord.actnumber
+            '        Me.txtapprovedvalue.Text = objProjectApprovalRecord.approvedvalue.ToString("#,###")
+            '        Me.ddlapproved.SelectedValue = objProjectApprovalRecord.approved
+            '        Me.ddlenabled.SelectedValue = objProjectApprovalRecord.enabled
+            '        Me.txtiduser.Text = objProjectApprovalRecord.USERNAME
+            '        Me.txtcreatedate.Text = objProjectApprovalRecord.createdate
 
-                        ' cargar y habilitar el archivo anexo
-                        Me.hlattachment.NavigateUrl = PublicFunction.getSettingValue("documentPath") _
-                                                        & "\" & objProjectApprovalRecord.attachment
-                        Me.hlattachment.Text = objProjectApprovalRecord.attachment
-                        Me.hlattachment.Visible = True
+            '        ' cargar y habilitar el archivo anexo
+            '        Me.hlattachment.NavigateUrl = PublicFunction.getSettingValue("documentPath") _
+            '                                        & "\" & objProjectApprovalRecord.attachment
+            '        Me.hlattachment.Text = objProjectApprovalRecord.attachment
+            '        Me.hlattachment.Visible = True
 
-                    Catch ex As Exception
+            'Catch ex As Exception
 
-                        ' ir a error
-                        Session("sError") = ex.Message
-                        Session("sUrl") = Request.UrlReferrer.PathAndQuery
-                        Response.Redirect("~/errors/error.aspx")
-                        Response.End()
+            '    ' ir a error
+            '    Session("sError") = ex.Message
+            '    Session("sUrl") = Request.UrlReferrer.PathAndQuery
+            '    Response.Redirect("~/errors/error.aspx")
+            '    Response.End()
 
-                    Finally
+            'Finally
 
-                        ' liberar recursos
-                        facade = Nothing
-                        objProjectApprovalRecord = Nothing
+            '    ' liberar recursos
+            '    Facade = Nothing
+            '    objProjectApprovalRecord = Nothing
 
-                    End Try
+            'End Try
 
-            End Select
+            'End Select
 
         End If
 

@@ -100,12 +100,22 @@ Partial Class Engagement_ajaxcontracrequest
 
         'verificar si hay datos
         If data.Rows.Count > 0 Then
-            madre = data.Rows(0)("mother")
+
+            If IsDBNull(data.Rows(0)("mother")) = False Then
+                madre = data.Rows(0)("mother")
+            Else
+                madre = 0
+            End If
 
             'verificar si el proyecto es madre
             If madre = 0 Then
                 'si el proyecto no es madre, buscar el proyecto madre
-                proyecto = data.Rows(0)("Project_derivados")
+                If IsDBNull(data.Rows(0)("Project_derivados")) = False Then
+                    proyecto = data.Rows(0)("Project_derivados")
+                Else
+                    proyecto = idproyect
+                End If
+
             Else
                 'si es madre capturar el id
                 proyecto = idproyect

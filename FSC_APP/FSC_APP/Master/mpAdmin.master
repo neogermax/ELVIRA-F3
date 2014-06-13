@@ -60,6 +60,7 @@ german rodriguez y pedro cruz-->
     <script type="text/javascript">
         Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(function(evt, args) {
             $(document).ready(function() {
+                
                 $(".Ccombo").chosen({ width: "80%", search_contains: true });
 
                 //sentencias para ejecutar jquery por modulo actores - German Rodriguez
