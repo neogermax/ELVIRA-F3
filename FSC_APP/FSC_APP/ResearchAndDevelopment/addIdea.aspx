@@ -25,10 +25,11 @@
 
     <script src="../Include/javascript/Idea_file.js" type="text/javascript"></script>
 
+    <script src="../Include/javascript/Idea_Save.js" type="text/javascript"></script>
+    
     <script src="../Include/javascript/F_globales_MGroup.js" type="text/javascript"></script>
 
     <link href="../css/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" type="text/css" />
-    
     <link href="../css/elvira_F3.css" rel="stylesheet" type="text/css" />
 
     <script src="../js/jquery-ui-1.10.3.custom.min.js" type="text/javascript"></script>
@@ -64,30 +65,33 @@
             if ((event.keyCode < 48) || (event.keyCode > 57))
                 event.returnValue = false;
         }
+
        
+
     </script>
 
     <br />
     <div id="containerSuccess" runat="server" visible="true" style="width: 100%; text-align: center;
         border: 2px solid #cecece; background: #E8E8DC; height: 80px; line-height: 40px;
-        vertical-align: middle; border-radius: 15px;" >
+        vertical-align: middle; border-radius: 15px;">
         <img style="margin-top: 5px;" src="../images/save_icon.png" width="24px" alt="Save" />
         <%--<img style="margin-top: 5px;" src="/images/save_icon.png" width="24px" alt="Save" />--%>
         <asp:Label ID="lblsaveinformation" runat="server" Style="font-size: 14pt; color: #9bbb58;"></asp:Label>
     </div>
     <div id="containererrors" runat="server" visible="true" style="width: 100%; text-align: center;
         border: 2px solid #cecece; background: #E8E8DC; height: 120px; line-height: 40px;
-        vertical-align: middle;border-radius: 15px;">
+        vertical-align: middle; border-radius: 15px;">
         <img style="margin-top: 5px;" src="../images/alert_icon.png" width="24px" alt="Save" />
         <%-- <img style="margin-top: 5px;" src="/images/alert_icon.png" width="24px" alt="Save" />--%>
         <asp:Label ID="Lblerrors_save_idea" runat="server" Style="font-size: 14pt; color: #990000;"></asp:Label>
     </div>
     <div id="container_wait" runat="server" visible="true" style="width: 50%; text-align: center;
         border: 15px solid #cecece; background: #E8E8DC; height: 200px; line-height: 50px;
-        vertical-align: middle;  z-index: 1000; position: absolute; left: 25%; border-radius: 40px;">
-        <img style="margin-top: 15px;" src="../images/charge_emerging.gif" width="120px" alt="images" />
-        <asp:Label ID="Label22" runat="server" Text="Cargando información espere un momento..." Style="font-size: 14pt;
-            color: #9bbb58;"></asp:Label>
+        vertical-align: middle; z-index: 1000; position: absolute; left: 25%; border-radius: 40px;">
+        <img style="margin-top: 15px;" src="../images/charge_emerging.gif" width="120px"
+            alt="images" />
+        <asp:Label ID="Label22" runat="server" Text="Cargando información espere un momento..."
+            Style="font-size: 14pt; color: #9bbb58;"></asp:Label>
     </div>
     <br />
     <table style="width: 100%">
@@ -131,7 +135,7 @@
                 </li>
                 <li>
                     <asp:Label ID="lblJustificacion" runat="server" Text="Justificación"></asp:Label>
-                    <asp:TextBox ID="txtjustification" runat="server" MaxLength="2500" Width="400px"
+                    <asp:TextBox ID="txtjustification" runat="server" MaxLength="1000" Width="400px"
                         Rows="2" TextMode="MultiLine"></asp:TextBox>
                     <asp:Label ID="lblHelpjustification" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
@@ -230,16 +234,12 @@
                 <li id="liproyecttype" runat="server" visible="false">
                     <asp:Label ID="Lbltype_project" runat="server" Text="Tipo de proyecto"> </asp:Label>
                     <select id="ddltype_proyect" class="Ccombo">
-                        <asp:DropDownList ID="ddltype_proyect" runat="server">
-                        </asp:DropDownList>
-                        <asp:Label ID="Lblhelptproyect" runat="server" ForeColor="#990000"></asp:Label>
                     </select>
+                    <asp:Label ID="Lblhelptproyect" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
                 <li>
                     <asp:Label ID="lblpopulation" runat="server" Text="Población"></asp:Label>
                     <select id="ddlPupulation" class="Ccombo">
-                        <asp:DropDownList ID="ddlPupulation" runat="server">
-                        </asp:DropDownList>
                     </select>
                     <asp:Label ID="lblHelppopulation" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
@@ -259,16 +259,12 @@
                 <li>
                     <asp:Label ID="Label19" runat="server" Text="Modalidad de Contratación"></asp:Label>
                     <select id="ddlmodcontract" class="Ccombo">
-                        <asp:DropDownList ID="ddlmodcontract" runat="server">
-                        </asp:DropDownList>
                     </select>
                     <asp:Label ID="Lblmodcontract" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
-                <li id="li_estado" >
+                <li id="li_estado">
                     <asp:Label ID="Lblestado" runat="server" Text="Estado de la idea"></asp:Label>
                     <select id="dll_estado" class="Ccombo">
-                        <asp:DropDownList ID="dll_estado" runat="server">
-                        </asp:DropDownList>
                     </select>
                     <asp:Label ID="Lblhelp_estado" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
@@ -382,13 +378,15 @@
                     <asp:Button ID="btnexportword" runat="server" Text="Exportar términos de referencia"
                         ValidationGroup="infoGenral" Visible="false" />
                     <input id="SaveIdea" type="button" value="Crear Idea" name="Save_Idea" onclick="SaveIdea_onclick()" />
+                    <input id="PartialSaved" type="button" value="Guardado Parcial" name="partial" onclick="return PartialSaved_onclick()" />
+                    
                     <%--<input id="EditIdea" type="button" value="Editar Idea" name="Edit_Idea" />--%>
                     <%--<input id="Export" type="button" value="Exportar términos de referencia" name="Export_Idea" onclick="return Export_onclick()" />--%>
-                    <asp:HiddenField ID="HDaddidea" runat="server" />
-                    <a id="Export" href="#" onclick="Export_onclick();" target="_blank" style= "height: 2em;">Exportar términos
-                        de referencia</a>
-                </li>
-                <asp:Label ID="Lbladvertencia" runat="server" ForeColor="#990000"></asp:Label>
+                    <a id="Export" href="#" onclick="Export_onclick();" target="_blank" style="height: 2em;">
+                        Exportar términos de referencia</a> </li>
+                
+                <asp:HiddenField ID="HDaddidea" runat="server" />
+                    <asp:Label ID="Lbladvertencia" runat="server" ForeColor="#990000"></asp:Label>
                 <li>
                     <asp:Button ID="btnConfirmDelete" runat="server" Text="Eliminar" CausesValidation="False" />
                     <asp:Button ID="btnCancelDelete" runat="server" Text="Cancelar" CausesValidation="False" />
@@ -402,8 +400,6 @@
                 <li>
                     <asp:Label ID="Label7" runat="server" Text="Línea Estratégica "></asp:Label>
                     <select id="ddlStrategicLines" class="Ccombo">
-                        <asp:DropDownList ID="ddlStrategicLines" runat="server">
-                        </asp:DropDownList>
                     </select>
                     <asp:Label ID="lblinfls" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
@@ -412,8 +408,7 @@
                 <li>
                     <asp:Label ID="Label8" runat="server" Text="Objetivo estratégico"></asp:Label>
                     <select id="ddlPrograms" class="Ccombo">
-                        <asp:DropDownList ID="ddlPrograms" runat="server">
-                        </asp:DropDownList>
+                        <option value="">Seleccione...</option>
                     </select>
                     <asp:Label ID="lblinpro" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
@@ -456,16 +451,13 @@
                 <li>
                     <asp:Label ID="Label1" runat="server" Text="Departamento"></asp:Label>
                     <select id="ddlDepto" class="Ccombo">
-                        <asp:DropDownList ID="ddlDepto" runat="server">
-                        </asp:DropDownList>
                     </select>
                 </li>
                 <br />
                 <li>
                     <asp:Label ID="Label3" runat="server" Text="Municipio"></asp:Label>
                     <select id="ddlCity" class="Ccombo">
-                        <asp:DropDownList ID="ddlCity" runat="server">
-                        </asp:DropDownList>
+                        <option value="">Seleccione...</option>
                     </select>
                 </li>
             </ul>
@@ -539,11 +531,9 @@
                 </li>
                 <li>
                     <select id="ddlactors" class="Ccombo">
-                        <asp:DropDownList ID="ddlactors" runat="server">
-                        </asp:DropDownList>
                     </select>
                     <a id="linkactors" runat="server" href="~/GeneralPlanning/addThird.aspx?prety=1&op=add&iframe=true&width=100%&height=100%"
-                        title="Nuevo actor" class="pretty" style= "height: 2em;">CREAR NUEVO ACTOR</a> 
+                        title="Nuevo actor" class="pretty" style="height: 2em;">CREAR NUEVO ACTOR</a>
                 </li>
                 <li>
                     <asp:Label ID="Label6" runat="server" Text="Tipo"></asp:Label>
@@ -555,6 +545,9 @@
                         <asp:ListItem>Contratante</asp:ListItem>
                     </asp:DropDownList>
                 </li>
+            </ul>
+            <br />
+            <ul>
                 <li id="li111" runat="server" visible="False">
                     <asp:Label ID="Label4" runat="server" Text="Aporte o rol"></asp:Label>
                     <asp:TextBox ID="txtActions" runat="server" Width="500px" MaxLength="1500" Rows="3"
@@ -755,7 +748,8 @@
         </div>
         <div id="flujos">
             <div id="marco_1" style="border-top: solid; border-left: solid; border-right: solid;
-                border-bottom: solid; border: 3px solid #9bbb58; background: #E8E8DC; border-radius: 15px;" align="left">
+                border-bottom: solid; border: 3px solid #9bbb58; background: #E8E8DC; border-radius: 15px;"
+                align="left">
                 <br />
                 <ul>
                     <li style="margin-left: 3em;">
@@ -800,7 +794,8 @@
             </div>
             <br />
             <div id="marco_2" style="border-top: solid; border-left: solid; border-right: solid;
-                border-bottom: solid; border: 3px solid #9bbb58; background: #E8E8DC; border-radius: 15px;" align="left">
+                border-bottom: solid; border: 3px solid #9bbb58; background: #E8E8DC; border-radius: 15px;"
+                align="left">
                 <br />
                 <ul>
                     <li style="margin-left: 3em;">
@@ -856,7 +851,8 @@
             </div>
             <br />
             <div id="marco_3" style="border-top: solid; border-left: solid; border-right: solid;
-                border-bottom: solid;  border: 3px solid #9bbb58; background: #E8E8DC; border-radius: 15px;" align="left">
+                border-bottom: solid; border: 3px solid #9bbb58; background: #E8E8DC; border-radius: 15px;"
+                align="left">
                 <br />
                 <ul>
                     <li style="margin-left: 3em;">

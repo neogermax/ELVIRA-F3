@@ -75,7 +75,7 @@ table.dataTable tr.even td.sorting_3 { background-color: #F9F9FF; }
  * Table information
  */
 .dataTables_info {
-	display:none;
+	/*display:none;*/
 	clear: both;
 	float: left;
 }

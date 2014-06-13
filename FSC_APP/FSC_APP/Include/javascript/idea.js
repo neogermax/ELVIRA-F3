@@ -109,7 +109,7 @@ $(document).ready(function() {
         view_ubicacion_array();
 
         View_actores_array();
-        
+
         View_flujos_p_array();
 
         View_flujos_actors_array();
@@ -119,8 +119,8 @@ $(document).ready(function() {
         aprobacion_idea();
 
         View_anexos_array();
-       
-       
+
+
         var timer_cline_edit = setTimeout("Cpopulation_view();", 2000);
         var timer_cline_edit = setTimeout("Ctypcontract_view();", 2000);
         var timer_cline_edit = setTimeout("Ctypaproval_view();", 2000);
@@ -168,7 +168,7 @@ $(document).ready(function() {
     validar_campofecha('ctl00_cphPrincipal_txtfechapago', 'ctl00_cphPrincipal_helpfechapago');
     carga_eventos("ctl00_cphPrincipal_container_wait");
 
-   
+
 
     $("#ctl00_cphPrincipal_containerSuccess").css("display", "none");
     $("#ctl00_cphPrincipal_containererrors").css("display", "none");
@@ -212,6 +212,7 @@ $(document).ready(function() {
     });
 
     $("#SaveIdea").button();
+    $("#PartialSaved").button();
     $("#Export").button();
     $("#EditIdea").button();
     $("#B_add_location").button();
@@ -640,6 +641,44 @@ function SaveIdea_onclick() {
         $("#ctl00_cphPrincipal_Lblerrors_save_idea").text(mensaje_info_idea);
     }
 
+}
+
+
+function PartialSaved_onclick() {
+
+    var validate_data= validate_partial();
+
+    if (validate_data == 0) {
+        $("#ctl00_cphPrincipal_containererrors").css("display", "none");
+        PartialSaved();
+    }
+    else {
+
+        $("#ctl00_cphPrincipal_containererrors").css("display", "block");
+        $("#ctl00_cphPrincipal_Lblerrors_save_idea").text("no puede guardar parcialmente minimo debe tener un nombre la idea!");
+    }
+}
+
+
+function validate_partial() {
+
+    var F_nombre = 1;
+    var validate_dato;
+
+    if ($("#ctl00_cphPrincipal_txtname").val() == '') {
+        F_nombre = 0;
+    }
+
+    if (F_nombre == 0) {
+        $("#ctl00_cphPrincipal_lblHelpname").text("Campo Requerido");
+        validate_dato = 1;
+    }
+    else {
+        $("#ctl00_cphPrincipal_lblHelpname").text("");
+        validate_dato = 0;
+    }
+
+    return validate_dato;
 }
 
 //crear idea 

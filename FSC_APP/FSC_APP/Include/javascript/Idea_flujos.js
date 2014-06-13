@@ -84,7 +84,7 @@ function Btn_add_flujo_onclick() {
                 }
 
                 var contadormatriz = 0;
-                
+
                 //recorremos la tabla de flujo de pagos para guardar los detalles
                 $("#T_Actorsflujos tr").slice(0, $("#T_Actorsflujos tr").length - 1).each(function() {
 
@@ -274,7 +274,7 @@ function View_flujos_p_array() {
             }
             //llamamos funcion que crea la tabla  de flujos de pago
             crear_tabla_flujos_pagos();
-        
+
         },
         error: function(msg) {
             alert("No se pueden cargar los flujos de pago de la idea = " + ideditar);
@@ -361,9 +361,9 @@ function View_flujos_actors_array() {
                     arrayActorFlujo.push(recibeact);
                 }
             }
-            
+
             //llama la funcion crear la tabla de flujo_actor
-            crear_tabla_flujo_actor();  
+            crear_tabla_flujo_actor();
 
         },
         error: function(msg) {
@@ -728,31 +728,33 @@ function sumar_flujos(str) {
     else {
 
         if (arrayValorflujoTotal[0] < 0) {
-            // arrayValorflujoTotal[0] = 0;
-
+           
             valtotaldiner = arrayValorflujoTotal[0];
 
             if (edit_flujo_inicializa == 1) {
                 valtotaldiner = valtotaldiner + opeValuesActorsflujos;
                 edit_flujo_inicializa = 0;
-                //          alert("ojo sumar 2 " + valtotaldiner);   
             }
             else {
                 valtotaldiner = valtotaldiner + opeValuesActorsflujos;
-                //         alert("ojo sumar 2 1/2 " + valtotaldiner); 
-
+           
             }
 
 
             arrayValorflujoTotal[0] = valtotaldiner;
-            //  alert(valtotaldiner);
             $("#totalflujos").text(addCommasrefactor(valtotaldiner));
 
         }
         else {
+        
             valtotaldiner = arrayValorflujoTotal[0];
+            
+            if (valtotaldiner == opeValuesActorsflujos) {
+                opeValuesActorsflujos = 0;
+            }
             valtotaldiner = valtotaldiner + opeValuesActorsflujos;
-            //      alert("ojo sumar 3 " + valtotaldiner);
+           
+            alert(valtotaldiner + "_ >" + arrayValorflujoTotal[0]);
 
             arrayValorflujoTotal[0] = valtotaldiner;
             $("#totalflujos").text(addCommasrefactor(valtotaldiner));
@@ -893,8 +895,8 @@ function validarporcentaje() {
         //realiza la operacion del porcentaje seleccionado
         var parcial = (parseFloat(porc) * parseFloat(valortotalflow)) / 100;
         parcial = Math.round(parcial);
-       
-        
+
+
         //parcial = numeral(parcial).format('0,0');
         var valcomas = addCommasrefactor(parcial);
 

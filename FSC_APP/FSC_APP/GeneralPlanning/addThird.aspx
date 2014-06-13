@@ -19,17 +19,19 @@
             if ((event.keyCode < 48) || (event.keyCode > 57))
                 event.returnValue = false;
         }
-        
-        
+
+
+      
     </script>
 
     <div id="containerSuccess" runat="server" visible="true" style="width: 100%; text-align: center;
-        border: 2px solid #cecece; background: #E8E8DC; height: 40px; line-height: 40px;
-        vertical-align: middle;">
+        border: 2px solid #cecece; background: #E8E8DC; height: 80px; line-height: 40px;
+        vertical-align: middle; border-radius: 15px;">
         <img style="margin-top: 5px;" src="../images/save_icon.png" width="24px" alt="Save" />
         <asp:Label ID="lblexit" runat="server" Style="font-size: 14pt; color: #9bbb58;"></asp:Label>
-        <asp:Label ID="lblexit2" runat="server" Style="font-size: 14pt; color: #FF0040;"></asp:Label>
+        <asp:Label ID="lblexit2" runat="server" Style="font-size: 14pt; color: #990000;"></asp:Label>
     </div>
+    <br />
     <div id="tabsthird">
         <ul>
             <li style="margin-left: 15px;"><a href="#informacion">Información</a></li>
@@ -47,7 +49,7 @@
                             <asp:DropDownList ID="DDLtypepeople" runat="server">
                             </asp:DropDownList>
                         </select>
-                        <asp:Label ID="Label10" runat="server" Text=""></asp:Label>
+                        <asp:Label ID="LblDDLtypepeople" runat="server" Text="" Font-Bold="True" ForeColor="Maroon"></asp:Label>
                     </li>
                 </ul>
                 <div id="marco_datos_pricipal" style="border-top: solid; border-left: solid; border-right: solid;
@@ -57,13 +59,11 @@
                     <ul>
                         <li id="li_document_principal" style="margin-left: 15px;">
                             <asp:Label ID="Lbltipodocument1" runat="server" Text="Tipo de documento" CssClass="Ccombo"></asp:Label>
-                            <asp:DropDownList ID="DDL_tipo_doc1" runat="server">
-                                <asp:ListItem Text="Seleccione..." Value="-1"></asp:ListItem>
-                                <asp:ListItem Text="Cedula de ciudadania" Value="0"></asp:ListItem>
-                                <asp:ListItem Text="Cedula extranjera" Value="1"></asp:ListItem>
-                                <asp:ListItem Text="Pasaporte" Value="2"></asp:ListItem>
-                            </asp:DropDownList>
-                            <asp:Label ID="Label11" runat="server" Text=""></asp:Label>
+                            <select id="DDL_tipo_doc1" class="Ccombo">
+                                <asp:DropDownList ID="DDL_tipo_doc1" runat="server">
+                                </asp:DropDownList>
+                            </select>
+                            <asp:Label ID="LblhelpDDL_tipo_doc1" runat="server" Text="" Font-Bold="True" ForeColor="Maroon"></asp:Label>
                         </li>
                         <li style="margin-left: 15px;">
                             <asp:Label ID="lblid" runat="server" Text="Id"></asp:Label>
@@ -87,11 +87,10 @@
                         </li>
                         <li id="li_sex" style="margin-left: 15px;">
                             <asp:Label ID="Lblsex" runat="server" Text="Sexo"></asp:Label>
-                            <asp:DropDownList ID="DDL_sex" runat="server">
-                                <asp:ListItem Text="Seleccione..." Value="-1"></asp:ListItem>
-                                <asp:ListItem Text="Femenino" Value="0"></asp:ListItem>
-                                <asp:ListItem Text="Masculino" Value="1"></asp:ListItem>
-                            </asp:DropDownList>
+                            <select id="DDL_sex" class="Ccombo">
+                                <asp:DropDownList ID="DDL_sex" runat="server">
+                                </asp:DropDownList>
+                            </select>
                             <asp:Label ID="LblHELPSEX" runat="server" Font-Bold="True" ForeColor="Maroon"></asp:Label>
                         </li>
                     </ul>
@@ -108,13 +107,11 @@
                         </li>
                         <li style="margin-left: 15px;">
                             <asp:Label ID="Lbltipodocument" runat="server" Text="Tipo de documento" CssClass="Ccombo"></asp:Label>
-                            <asp:DropDownList ID="DDL_tipo_doc" runat="server">
-                                <asp:ListItem Text="Seleccione..." Value="-1"></asp:ListItem>
-                                <asp:ListItem Text="Cedula de ciudadania" Value="0"></asp:ListItem>
-                                <asp:ListItem Text="Cedula extranjera" Value="1"></asp:ListItem>
-                                <asp:ListItem Text="Pasaporte" Value="2"></asp:ListItem>
-                            </asp:DropDownList>
-                            <asp:Label ID="Label7" runat="server" Text=""></asp:Label>
+                            <select id="DDL_tipo_doc" class="Ccombo">
+                                <asp:DropDownList ID="DDL_tipo_doc" runat="server">
+                                </asp:DropDownList>
+                            </select>
+                            <asp:Label ID="LblhelpDDL_tipo_doc" runat="server" Text="" Font-Bold="True" ForeColor="Maroon"></asp:Label>
                         </li>
                         <li style="margin-left: 15px;">
                             <asp:Label ID="Lbldocrep" runat="server" Text="N° documento"></asp:Label>
@@ -168,10 +165,11 @@
                 <br />
                 <ul>
                     <li style="margin-left: 15px;">
-                        <%--<input id="SaveActors" type="button" value="Crear Actor" name="Save_Actors" />--%>
+                        <input id="SaveActors" type="button" value="Crear Actor" name="Save_Actors" onclick="return SaveActors_onclick()" />
                         <a id="linkcancelar" runat="server" href="~/GeneralPlanning/searchThird.aspx" title="cancelar"
                             style="height: 2em;">Cancelar</a>
-                        <asp:Button ID="btnAddData" runat="server" Text="Agregar Datos" OnClick="btnAddData_Click" />
+                        <asp:Button ID="btnAddData" runat="server" Text="Agregar Datos" OnClick="btnAddData_Click"
+                            Visible="false" />
                         <asp:Button ID="btnSave" runat="server" Text="Guardar" />
                         <asp:Button ID="btnDelete" runat="server" Text="Eliminar" CausesValidation="False" />
                         <asp:Button ID="btnCancel" runat="server" Text="Cancelar" CausesValidation="False"
@@ -210,5 +208,13 @@
                 </ul>
             </div>
         </div>
+    </div>
+    <br />
+    <div id="containerSuccess_down" runat="server" visible="true" style="width: 100%;
+        text-align: center; border: 2px solid #cecece; background: #E8E8DC; height: 80px;
+        line-height: 40px; vertical-align: middle; border-radius: 15px;">
+        <img style="margin-top: 5px;" src="../images/save_icon.png" width="24px" alt="Save" />
+        <asp:Label ID="lblexit_down" runat="server" Style="font-size: 14pt; color: #9bbb58;"></asp:Label>
+        <asp:Label ID="lblexit2_down" runat="server" Style="font-size: 14pt; color: #990000;"></asp:Label>
     </div>
 </asp:Content>

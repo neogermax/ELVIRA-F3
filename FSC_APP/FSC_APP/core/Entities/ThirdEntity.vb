@@ -35,7 +35,7 @@ Public Class ThirdEntity
     'AUTOR:Autor: Pedro Cruz MGgroup
     'descripcion: POR FSC FASE II 1/2
 
-    Private _personanatural As Boolean
+    Private _personanatural As Integer
     Private _representantelegal As String
 
     'TODO:34 CAMBIOS DE TABLA TERCEROS
@@ -158,11 +158,11 @@ Public Class ThirdEntity
         End Set
     End Property
 
-    Public Property PersonaNatural() As Boolean
+    Public Property PersonaNatural() As Integer
         Get
             Return Me._personanatural
         End Get
-        Set(ByVal value As Boolean)
+        Set(ByVal value As Integer)
             Me._personanatural = value
         End Set
     End Property
