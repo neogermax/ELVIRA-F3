@@ -8,20 +8,25 @@ var listfiles = [];
 
 function PartialSaved() {
 
-    ChargeOfArrangements();
+    ChargeOfArrangements(arrayUbicacion, listubicaciones);
+    ChargeOfArrangements(arrayActor, listactores);
+    ChargeOfArrangements(arrayflujosdepago, listflujos);
+    ChargeOfArrangements(matriz_flujos, listdetallesflujos);
+    ChargeOfArrangements(arrayFiles, listfiles);
 
 }
 
-function ChargeOfArrangements() {
+
+function ChargeOfArrangements(ObjArray,Objlist) {
 
     //recorer array para el ingreso de ubicaciones
-    for (item in arrayUbicacion) {
-        listubicaciones.push(JSON.stringify(arrayUbicacion[item]));
+    for (item in ObjArray) {
+        Objlist.push(JSON.stringify(ObjArray[item]));
     }
 
     //validar si el array tiene datos
-    if (listubicaciones.length == 0) {
-        listubicaciones[0] = "vacio_ojo";
+    if (Objlist.length == 0) {
+        Objlist[0] = "vacio_ojo";
     }
 
    
