@@ -74,8 +74,8 @@ $(document).ready(function() {
             $("#dateRequest").html("<strong>Fecha de solicitud: </strong>" + Now());
             var BeginDate = new Date(parseFloat(projectObject.BeginDate.replace(/Date/g, "").replace(/\//g, "").replace(/["'()]/g, "").toString()));
             var EndDate = new Date(parseFloat(projectObject.completiondate.replace(/Date/g, "").replace(/\//g, "").replace(/["'()]/g, "").toString()));
-            $("#startDate").html("Fecha de Inicio " + BeginDate.localeFormat("dd/MM/yyyy") + " - ");
-            $("#closeDate").html("Fecha de Cierre " + EndDate.localeFormat("dd/MM/yyyy"));
+            $("#startDate").html("Fecha de Inicio: " + BeginDate.localeFormat("dd/MM/yyyy") + " - ");
+            $("#closeDate").html("Fecha de Liquidación: " + EndDate.localeFormat("dd/MM/yyyy"));
 
             //
             $("#txtarObjective").val(projectObject.Objective);
