@@ -162,7 +162,7 @@ function SaveApproval_onclick() {
     if (confirmacion == 0) {
         if (value_campos == 1) {
 
-            $("#SaveApproval").attr("value", "Aprobar Proyecto");
+            $("#SaveApproval").attr("value", "Aprobar Idea");
             $("#ctl00_cphPrincipal_containerSuccess").css("display", "none");
             $("#ctl00_cphPrincipal_containerSuccess_down").css("display", "none");
 
@@ -170,10 +170,10 @@ function SaveApproval_onclick() {
         else {
 
             $("#SaveApproval").attr("value", "Confirmar aprobación");
-            $("#ctl00_cphPrincipal_lblsaveinformation").text("Está seguro que desea aprobar el proyecto?, tenga en cuenta que una vez aprobado NO podrá ser modificado.");
+            $("#ctl00_cphPrincipal_lblsaveinformation").text("Está seguro que desea aprobar la Idea?, tenga en cuenta que una vez aprobada NO podrá ser modificada.");
             $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
             $("#ctl00_cphPrincipal_containerSuccess_down").css("display", "block");
-            $("#ctl00_cphPrincipal_lblsaveinformation_down").text("Está seguro que desea aprobar el proyecto?, tenga en cuenta que una vez aprobado NO podrá ser modificado.");
+            $("#ctl00_cphPrincipal_lblsaveinformation_down").text("Está seguro que desea aprobar la Idea?, tenga en cuenta que una vez aprobada NO podrá ser modificada.");
 
             confirmacion = 1;
         }

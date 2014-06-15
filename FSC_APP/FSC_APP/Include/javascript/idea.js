@@ -474,8 +474,19 @@ function SaveIdea_onclick() {
         }
     }
     else {
-        //CREAR MENSAJE
-        mensaje_info_idea = "La idea no ha sido creada. Existe información sin diligenciar, verifique la(s) pestaña(s): ";
+
+        var sPageURL = window.location.search.substring(1);
+        var sURLVariables = sPageURL.split('&');
+        //validamos si creamos la idea o editamos
+        if (sURLVariables[0] == "op=edit") {
+            //CREAR MENSAJE
+            mensaje_info_idea = "No se han realizados los cambios en la Idea. Existe información sin diligenciar, verifique la(s) pestaña(s): ";
+        }
+        else {
+
+            //CREAR MENSAJE
+            mensaje_info_idea = "La idea no ha sido creada. Existe información sin diligenciar, verifique la(s) pestaña(s): ";
+        }
         //informacion
         if (verificar_informacion_p == 0) {
             //cuerpo del mensaje
@@ -646,7 +657,7 @@ function SaveIdea_onclick() {
 
 function PartialSaved_onclick() {
 
-    var validate_data= validate_partial();
+    var validate_data = validate_partial();
 
     if (validate_data == 0) {
         $("#ctl00_cphPrincipal_containererrors").css("display", "none");
