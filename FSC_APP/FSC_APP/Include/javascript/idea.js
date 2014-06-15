@@ -685,11 +685,11 @@ function validate_partial() {
 function Crear_idea() {
 
     //crear arrays para el ingreso de las listas de json
-//    var listubicaciones = [];
-//    var listactores = [];
-//    var listflujos = [];
-//    var listdetallesflujos = [];
-//    var listfiles = [];
+    var listubicaciones = [];
+    var listactores = [];
+    var listflujos = [];
+    var listdetallesflujos = [];
+    var listfiles = [];
 
     var Str_listcomponentes = $("#componentesseleccionados").html();
     Str_listcomponentes = Str_listcomponentes.replace(/"/g, "_");
@@ -806,11 +806,11 @@ function Crear_idea() {
 function editar_idea() {
 
     //crear arrays para el ingreso de las listas de json
-//    var listubicaciones = [];
-//    var listactores = [];
-//    var listflujos = [];
-//    var listdetallesflujos = [];
-//    var listfiles = [];
+    var listubicaciones = [];
+    var listactores = [];
+    var listflujos = [];
+    var listdetallesflujos = [];
+    var listfiles = [];
 
     valor_iva = $("#ctl00_cphPrincipal_HDiva").val();
 
