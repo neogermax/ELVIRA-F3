@@ -766,8 +766,6 @@ function sumar_flujos(str) {
             }
             valtotaldiner = valtotaldiner + opeValuesActorsflujos;
 
-            // alert(valtotaldiner + "_ >" + arrayValorflujoTotal[0]);
-
             arrayValorflujoTotal[0] = valtotaldiner;
             $("#totalflujos").text(addCommasrefactor(valtotaldiner));
         }

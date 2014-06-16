@@ -69,8 +69,13 @@ function Cprogram(idLineStrategic) {
 
                 var textoLista = $("#componentesseleccionados").html();
 
-                view_Cprogram();
-                
+                var sPageURL = window.location.search.substring(1);
+                var sURLVariables = sPageURL.split('&');
+                //validamos si creamos la idea o editamos
+                if (sURLVariables[0] == "op=edit" || idLine != null) {
+                    view_Cprogram();
+                }
+
                 if (textoLista == "") {
 
                     if (contar_program == 0) {
@@ -81,7 +86,7 @@ function Cprogram(idLineStrategic) {
                     $("#ddlPrograms").html(result);
                     $("#ddlPrograms").trigger("liszt:updated");
 
-                    
+
                 }
                 else {
 
@@ -190,13 +195,13 @@ function view_Cprogram() {
     }
     else {
         editable = 0;
-     }
+    }
 
     //ajax que posiciona el programa de la idea conasultada
     $.ajax({
         url: "AjaxAddProject.aspx",
         type: "GET",
-        data: { "action": "View_program", "ididea": idea_buscar,"estado_proceso": editable },
+        data: { "action": "View_program", "ididea": idea_buscar, "estado_proceso": editable },
         success: function(result) {
 
             $("#ddlPrograms").val(result);

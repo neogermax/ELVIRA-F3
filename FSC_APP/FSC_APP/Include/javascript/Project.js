@@ -299,9 +299,7 @@ $(document).ready(function() {
                     var Aflujos = arrayActorFlujo[0].actorsVal;
                     //   alert(Aflujos);
                     $("#txtinput" + Aflujos).attr("disabled", "disabled");
-                    $("#desenbolso" + Aflujos).text("");
-
-
+                    // $("#desenbolso" + Aflujos).text("");
                     entradaflujos = 1;
                     s_revisarflujos = 1;
                 }
@@ -360,11 +358,11 @@ function verificar_dat_idea() {
             //pestaña ubicacion del proyecto
             view_ubicacion_array();
             //pestaña actores del proyecto
-            View_actores_array();
+            //View_actores_array();
             //pestaña flujos del proyecto
-            View_flujos_p_array();
-            View_flujos_actors_array();
-            View_detalle_flujo_array();
+            // View_flujos_p_array();
+            // View_flujos_actors_array();
+            // View_detalle_flujo_array();
 
             //pestaña anexos del proyecto
             View_anexos_array();
@@ -945,7 +943,8 @@ function editar_proyecto() {
         url: "AjaxAddProject.aspx",
         type: "POST",
         //crear json
-        data: { "action": "edit", "code": $("#ctl00_cphPrincipal_txtid").val(),
+        data: { "action": "edit",
+            "code": $("#ctl00_cphPrincipal_txtid").val(),
             "linea_estrategica": $("#ddlStrategicLines").val(),
             "programa": $("#ddlPrograms").val(),
             "nombre": cambio_text($("#ctl00_cphPrincipal_txtname").val()),
@@ -1176,20 +1175,85 @@ function validar_proyecto_madre() {
         success: function(result) {
 
             if (result == 1) {
+                desabled_mother();
+
                 $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
-                $("#ctl00_cphPrincipal_lblsaveinformation").text("Proyecto madre, NO puede ser modificado!");
-                $("#SaveProject").css("display", "none");
-                $("#dll_estado").attr("disabled", "disabled");
-                $("#dll_estado").val(1);
+                $("#ctl00_cphPrincipal_lblsaveinformation").text("Este es un proyecto Madre, No puede ser modificado.");
 
             }
-           
+
 
         },
         error: function(msg) {
             alert("No se pueden cargar los documentos anexos de la idea = " + ideditar);
         }
     });
+
+}
+
+
+function desabled_mother() {
+
+    //componentes
+    $("#ddlStrategicLines").attr("disabled", "disabled");
+    $("#ddlPrograms").attr("disabled", "disabled");
+    $("#Btnaddcomponent").attr("disabled", "disabled");
+    $("#Btndeletecomponent").attr("disabled", "disabled");
+
+    //informacion
+    $("#ctl00_cphPrincipal_txtid").attr("disabled", "disabled");
+    $("#ctl00_cphPrincipal_txtname").attr("disabled", "disabled");
+    $("#ctl00_cphPrincipal_txtjustification").attr("disabled", "disabled");
+    $("#ctl00_cphPrincipal_txtobjective").attr("disabled", "disabled");
+    $("#ctl00_cphPrincipal_txtareadescription").attr("disabled", "disabled");
+    $("#ctl00_cphPrincipal_txtresults").attr("disabled", "disabled");
+    $("#ctl00_cphPrincipal_txtresulgc").attr("disabled", "disabled");
+    $("#ctl00_cphPrincipal_txtresulci").attr("disabled", "disabled");
+    $("#ctl00_cphPrincipal_Txtothersresults").attr("disabled", "disabled");
+    $("#ctl00_cphPrincipal_txtstartdate").attr("disabled", "disabled");
+    $("#ctl00_cphPrincipal_txtduration").attr("disabled", "disabled");
+    $("#ctl00_cphPrincipal_Txtday").attr("disabled", "disabled");
+    $("#ctl00_cphPrincipal_Txtdatecierre").attr("disabled", "disabled");
+    $("#ddlPupulation").attr("disabled", "disabled");
+    $("#ddlmodcontract").attr("disabled", "disabled");
+    $("#dll_estado").attr("disabled", "disabled");
+    $("#ValueMoneyFSC").attr("disabled", "disabled");
+    $("#ValueEspeciesFSC").attr("disabled", "disabled");
+    $("#ValueMoneyCounter").attr("disabled", "disabled");
+    $("#ValueEspeciesCounter").attr("disabled", "disabled");
+    $("#ctl00_cphPrincipal_Txtobligationsoftheparties").attr("disabled", "disabled");
+    $("#ctl00_cphPrincipal_Txtriesgos").attr("disabled", "disabled");
+    $("#ctl00_cphPrincipal_Txtaccionmitig").attr("disabled", "disabled");
+    $("#ctl00_cphPrincipal_Txtroutepresupuestal").attr("disabled", "disabled");
+    $("#ctl00_cphPrincipal_txtcode").attr("disabled", "disabled");
+
+    //ubicacion
+    $("#ddlDepto").attr("disabled", "disabled");
+    $("#ddlCity").attr("disabled", "disabled");
+    $("#B_add_location").attr("disabled", "disabled");
+
+    $("#ddlactors").attr("disabled", "disabled");
+    $("#ctl00_cphPrincipal_linkactors").attr("disabled", "disabled");
+    $("#ctl00_cphPrincipal_ddlType").attr("disabled", "disabled");
+    $("#ctl00_cphPrincipal_Txtcontact").attr("disabled", "disabled");
+    $("#ctl00_cphPrincipal_Txtcedulacont").attr("disabled", "disabled");
+    $("#ctl00_cphPrincipal_Txttelcont").attr("disabled", "disabled");
+    $("#ctl00_cphPrincipal_Txtemail").attr("disabled", "disabled");
+    $("#ctl00_cphPrincipal_Txtvrdiner").attr("disabled", "disabled");
+    $("#ctl00_cphPrincipal_Txtvresp").attr("disabled", "disabled");
+    $("#BtnaddActors").attr("disabled", "disabled");
+
+    $("#ctl00_cphPrincipal_container_date_mother_actores").css("display", "none");
+    $("#ctl00_cphPrincipal_container_date_mother_flujos").css("display", "none");
+    $("#ctl00_cphPrincipal_container_date_mother").css("display", "none");
+
+
+
+    $("#SaveProject").css("display", "none");
+
+    $("#dll_estado").val(1);
+
+
 
 }
 

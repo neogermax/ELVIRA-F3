@@ -48,7 +48,7 @@ function subirArchivos() {
                 arrayFiles.push(jsonFiles);
 
                 //llamamos funcion para crear tabla anexos
-                crear_tabla_anexos();
+                crear_tabla_anexos("/FSC_APP/document/temp/");
 
                 $("#fileupload").val("");
 
@@ -71,7 +71,7 @@ function subirArchivos() {
 }
 
 //creamos tabla de anexos
-function crear_tabla_anexos() {
+function crear_tabla_anexos(link_route) {
 
     var htmlTablefiles = "<table id='T_files' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr><th style='text-align: center;'>Archivo</th><th style='text-align: center;'>Observaciones</th><th style='text-align: center;'>Eliminar</th></tr></thead><tbody>";
     //recorremos el array para generar datos del la tabla anexos
@@ -83,7 +83,7 @@ function crear_tabla_anexos() {
         var namefile = arrayFiles[itemArray].filename;
         namefile = namefile.replace(/_/g, ' ');
 
-        htmlTablefiles += "<tr id='archivo" + arrayFiles[itemArray].idfile + "'><td><a id='linkarchives" + arrayFiles[itemArray].idfile + "' runat='server' href='/FSC_APP/document/temp/" + namefile + "' target= '_blank' title='link'>" + arrayFiles[itemArray].filename + "</a></td><td style='text-align: left;'>" + entregacomas + "</td><td style='text-align: center;'><input type ='button' value= 'Eliminar' onclick=\"deletefile('" + arrayFiles[itemArray].idfile + "')\"></input></td></tr>";
+        htmlTablefiles += "<tr id='archivo" + arrayFiles[itemArray].idfile + "'><td><a id='linkarchives" + arrayFiles[itemArray].idfile + "' runat='server' href='" + link_route + namefile + "' target= '_blank' title='link'>" + arrayFiles[itemArray].filename + "</a></td><td style='text-align: left;'>" + entregacomas + "</td><td style='text-align: center;'><input type ='button' value= 'Eliminar' onclick=\"deletefile('" + arrayFiles[itemArray].idfile + "')\"></input></td></tr>";
     }
     htmlTablefiles += "</tbody></table>";
 
@@ -143,7 +143,7 @@ function View_anexos_array() {
             }
 
             //llamamos funcion para crear tabla anexos
-            crear_tabla_anexos();
+            crear_tabla_anexos("/FSC_APP/document/");
 
         },
         error: function(msg) {
