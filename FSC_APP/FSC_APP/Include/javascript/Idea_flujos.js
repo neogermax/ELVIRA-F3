@@ -367,10 +367,11 @@ function View_flujos_actors_array() {
 
                 // alert(arrayactorflujo_ed);
                 for (itemArray in arrayactorflujo_ed) {
-
-                    var recibeact = JSON.parse(arrayactorflujo_ed[itemArray]);
+                    if (arrayactorflujo_ed[itemArray] != "") {
+                        var recibeact = JSON.parse(arrayactorflujo_ed[itemArray]);
+                        arrayActorFlujo.push(recibeact);
+                    }
                     // alert(recibeact);
-                    arrayActorFlujo.push(recibeact);
                 }
             }
 
