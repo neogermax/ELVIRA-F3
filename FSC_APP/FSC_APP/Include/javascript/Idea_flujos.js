@@ -302,7 +302,7 @@ function crear_tabla_flujo_actor() {
         }
 
 
-        htmltableAflujos += "<tr id='flujo" + arrayActorFlujo[itemarrayflujos].actorsVal + "'><td width='1' style='color: #D3D6FF;font-size: 0.1em;'>" + arrayActorFlujo[itemarrayflujos].actorsVal + "</td><td>" + arrayActorFlujo[itemarrayflujos].actorsName + "</td><td id= 'value" + arrayActorFlujo[itemarrayflujos].actorsVal + "' >" + arrayActorFlujo[itemarrayflujos].diner + "</td><td><input id='" + "txtinput" + arrayActorFlujo[itemarrayflujos].actorsVal + "' onkeyup='formatvercionsuma(this)' onchange='formatvercionsuma(this)'  onblur=\"sumar_flujos('" + arrayActorFlujo[itemarrayflujos].actorsVal + "')\" onfocus=\"restar_flujos('" + arrayActorFlujo[itemarrayflujos].actorsVal + "')\"></input></td><td id='desenbolso" + arrayActorFlujo[itemarrayflujos].actorsVal + "'>" + disponible + "</td></tr>";
+        htmltableAflujos += "<tr id='flujo" + arrayActorFlujo[itemarrayflujos].actorsVal + "'><td width='1' style='color: #D3D6FF;font-size: 0.1em;'>" + arrayActorFlujo[itemarrayflujos].actorsVal + "</td><td>" + arrayActorFlujo[itemarrayflujos].actorsName + "</td><td id= 'value" + arrayActorFlujo[itemarrayflujos].actorsVal + "' >" + arrayActorFlujo[itemarrayflujos].diner + "</td><td><input class='money' id='" + "txtinput" + arrayActorFlujo[itemarrayflujos].actorsVal + "' onkeyup='formatvercionsuma(this)' onchange='formatvercionsuma(this)'  onblur=\"sumar_flujos('" + arrayActorFlujo[itemarrayflujos].actorsVal + "')\" onfocus=\"restar_flujos('" + arrayActorFlujo[itemarrayflujos].actorsVal + "')\"></input></td><td id='desenbolso" + arrayActorFlujo[itemarrayflujos].actorsVal + "'>" + disponible + "</td></tr>";
     }
 
     htmltableAflujos += "<tr><td width='1' style='color: #D3D6FF; font-size: 0.1em;'>1000</td><td>Total</td><td id='tflujosing'></td><td id='totalflujos'>0</td></td id='tflujosdesen'><td></tr></tbody></table>";
@@ -568,6 +568,7 @@ function editar_flujos() {
                     //capturamos el valor del array y lo llevamos al campo de texto deseado
                     var demvolsobsumar = reversedesembolsos[itemdesembolsos].desembolsorev;
                     $(input).val(demvolsobsumar);
+                    $(input).trigger("focus");
 
                     //totalizamos valores y asctualizamos el campo de total
                     totalreverdesenbolso = totalreverdesenbolso + parseInt(reversedesembolsos[itemdesembolsos].desembolsorev.replace(/\./gi, ''));
@@ -730,48 +731,10 @@ function sumar_flujos(str) {
     var resultado_val = validar_limite_actores(opeValuesActorsflujos, opevaluesActorsdesembolso, opevaluesActorslimit, totaldesembolso, tr_Iddes);
 
     //validamos si es el primer registro del array
-    if (arrayValorflujoTotal.length == 0) {
-        valtotaldiner = valtotaldiner + opeValuesActorsflujos;
-        //ingresamos el valor en un array estatico
-        arrayValorflujoTotal[0] = valtotaldiner;
-        //     alert("ojo sumar 1 " + valtotaldiner);
-        $("#totalflujos").text(addCommasrefactor(valtotaldiner));
-    }
-    else {
+    
+    arrayValorflujoTotal[0] = returnValueTotalFlow();
 
-        if (arrayValorflujoTotal[0] < 0) {
-
-            valtotaldiner = arrayValorflujoTotal[0];
-
-            if (edit_flujo_inicializa == 1) {
-                valtotaldiner = valtotaldiner + opeValuesActorsflujos;
-                edit_flujo_inicializa = 0;
-            }
-            else {
-                valtotaldiner = valtotaldiner + opeValuesActorsflujos;
-
-            }
-
-
-            arrayValorflujoTotal[0] = valtotaldiner;
-            $("#totalflujos").text(addCommasrefactor(valtotaldiner));
-
-        }
-        else {
-
-            valtotaldiner = arrayValorflujoTotal[0];
-
-            if (valtotaldiner == opeValuesActorsflujos) {
-                opeValuesActorsflujos = 0;
-            }
-            valtotaldiner = valtotaldiner + opeValuesActorsflujos;
-
-            arrayValorflujoTotal[0] = valtotaldiner;
-            $("#totalflujos").text(addCommasrefactor(valtotaldiner));
-        }
-        //ingresamos el valor en un array estatico
-
-    }
+    $("#totalflujos").text(addCommasrefactor(arrayValorflujoTotal[0]));
 
     if (resultado_val == 1) {
         $("#totalflujos").text("");
@@ -780,6 +743,13 @@ function sumar_flujos(str) {
 
 }
 
+function returnValueTotalFlow() {
+    var totalValueToProgram = 0;
+    $(".money").each(function() {
+        totalValueToProgram = totalValueToProgram + parseInt($(this).val().replace(/\./g, ""));
+    })
+    return totalValueToProgram;
+}
 
 function validar_limite_actores(opeValuesActorsflujos, opevaluesActorsdesembolso, opevaluesActorslimit, totaldesembolso, tr_Iddes) {
     var error_actor = 0;
