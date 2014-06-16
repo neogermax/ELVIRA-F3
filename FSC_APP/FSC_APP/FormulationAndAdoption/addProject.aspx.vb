@@ -176,7 +176,7 @@ Partial Class addProject
                     Next
                     ' ocultar algunos botones
                     'Me.btnDelete.Visible = False
-                    Me.ddlididea.Visible = False
+                    'Me.ddlididea.Visible = False
                     Me.lblididea.Visible = False
                     Me.btnAddData.Visible = False
                     Me.btnSave.Visible = False
@@ -232,36 +232,36 @@ Partial Class addProject
                         If codigogrupo = "Lider" Then
 
                             If ((objProject.Typeapproval <> 1) And (objProject.Typeapproval <> 2)) Then
-                                ddltipoaprobacion.Items.Add(New ListItem("No aprobado", "4"))
+                                '      ddltipoaprobacion.Items.Add(New ListItem("No aprobado", "4"))
                             End If
                             'SI TIPO APROBACION ES CONTRATO O ACLARATORIO U OTRO SI
                             If (objProject.Typeapproval = 1) Or (objProject.Typeapproval = 2) Or (objProject.Typeapproval = 3) Then
 
-                                ddltipoaprobacion.Items.Add(New ListItem("Contrato", "1"))
-                                ddltipoaprobacion.Items.Add(New ListItem("Otro si", "2"))
-                                ddltipoaprobacion.Items.Add(New ListItem("Aclaratorio", "3"))
-                                Me.ddltipoaprobacion.SelectedValue = objProject.Typeapproval
+                                'ddltipoaprobacion.Items.Add(New ListItem("Contrato", "1"))
+                                'ddltipoaprobacion.Items.Add(New ListItem("Otro si", "2"))
+                                'ddltipoaprobacion.Items.Add(New ListItem("Aclaratorio", "3"))
+                                'Me.ddltipoaprobacion.SelectedValue = objProject.Typeapproval
                             End If
 
                         End If
                         'si el grupo es lider:
                         If codigogrupo = "Seg y Eval" Then
 
-                            If objProject.Typeapproval = 1 Then
-                                ddltipoaprobacion.Items.Add(New ListItem("Contrato", "1"))
-                                Me.ddltipoaprobacion.SelectedValue = objProject.Typeapproval
-                            End If
-                            If objProject.Typeapproval = 2 Then
-                                ddltipoaprobacion.Items.Add(New ListItem("Otro si", "2"))
-                                Me.ddltipoaprobacion.SelectedValue = objProject.Typeapproval
-                            End If
-                            If objProject.Typeapproval = 3 Then
-                                ddltipoaprobacion.Items.Add(New ListItem("Aclaratorio", "3"))
-                                Me.ddltipoaprobacion.SelectedValue = objProject.Typeapproval
-                            End If
-                            If objProject.Typeapproval = 4 Then
-                                ddltipoaprobacion.Items.Add(New ListItem("Contrato", "1"))
-                            End If
+                            'If objProject.Typeapproval = 1 Then
+                            '    '      ddltipoaprobacion.Items.Add(New ListItem("Contrato", "1"))
+                            '    Me.ddltipoaprobacion.SelectedValue = objProject.Typeapproval
+                            'End If
+                            'If objProject.Typeapproval = 2 Then
+                            '    ddltipoaprobacion.Items.Add(New ListItem("Otro si", "2"))
+                            '    Me.ddltipoaprobacion.SelectedValue = objProject.Typeapproval
+                            'End If
+                            'If objProject.Typeapproval = 3 Then
+                            '    ddltipoaprobacion.Items.Add(New ListItem("Aclaratorio", "3"))
+                            '    Me.ddltipoaprobacion.SelectedValue = objProject.Typeapproval
+                            'End If
+                            'If objProject.Typeapproval = 4 Then
+                            '    ddltipoaprobacion.Items.Add(New ListItem("Contrato", "1"))
+                            'End If
                             '      Me.txtaclaratorio.ReadOnly = True
                         End If
 
@@ -277,8 +277,8 @@ Partial Class addProject
 
 
                         Me.txtid.Text = objProject.id
-                        Me.ddlididea.SelectedValue = objProject.ididea
-                        Me.ddlididea.Enabled = False
+                        'Me.ddlididea.SelectedValue = objProject.ididea
+                        'Me.ddlididea.Enabled = False
                         Me.txtcode.Text = objProject.code
                         Session("idproject") = objProject.id
                         Me.txtname.Text = objProject.name
@@ -673,7 +673,7 @@ Partial Class addProject
                         Else
 
                             'Cargar las versiones anteriores
-                            loadVersions(objProject.idKey)
+                            '   loadVersions(objProject.idKey)
 
                         End If
 

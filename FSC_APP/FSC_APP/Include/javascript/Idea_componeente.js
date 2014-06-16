@@ -57,7 +57,6 @@ function Cprogram(idLineStrategic) {
 
                 }
                 else {
-
                     if (contar_program == 0) {
                         arraycompo[1] = $("#ddlPrograms").val();
                         contar_program = 1;
@@ -108,10 +107,25 @@ function validar_cambio_linea(str_result) {
 
     else {
 
-        $("#ddlStrategicLines").val(arraycompo[0]);
+
+        var sPageURL = window.location.search.substring(1);
+        var sURLVariables = sPageURL.split('&');
+        //validamos si creamos la idea o editamos
+        if (sURLVariables[0] == "op=edit") {
+            var line = edit_line_strategic;
+            var program = edit_program;
+        }
+        else {
+            var line = arraycompo[0];
+            var program = arraycompo[1];
+        }
+
+        //
+
+        $("#ddlStrategicLines").val(line);
         $("#ddlStrategicLines").trigger("liszt:updated");
 
-        $("#ddlPrograms").val(arraycompo[1]);
+        $("#ddlPrograms").val(program);
         $("#ddlPrograms").trigger("liszt:updated");
 
         contar_program = 0;
@@ -162,7 +176,7 @@ function view_Cprogram() {
             $("#ddlPrograms").val(result);
             $("#ddlPrograms").trigger("liszt:updated");
 
-            // edit_program = result;
+             edit_program = result;
 
         },
         error: function(msg) {
@@ -436,7 +450,7 @@ function Btndeletecomponent_onclick() {
         var id_componente = arraycomponentedesechado[itemArray];
 
         id_componente = id_componente.replace("selectadd", "");
-     
+
         for (itemArray_bor in arraycomponente_archivar) {
             if (id_componente == arraycomponente_archivar[itemArray_bor]) {
                 delete arraycomponente_archivar[itemArray_bor];

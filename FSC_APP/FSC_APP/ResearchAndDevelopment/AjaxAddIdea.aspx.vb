@@ -914,7 +914,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                 objResult &= """, ""tflujos"": """
                 tflujos = row.valorparcial
                 tflujos = tflujos.Replace(" ", "")
-                tflujos = Format(Convert.ToInt64(tflujos), "#,###.##")
+                'tflujos = Format(Convert.ToInt64(tflujos), "#,###.##")
                 objResult &= tflujos
 
                 If valuar_flujo = data_listpagos.Count Then

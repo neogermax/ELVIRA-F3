@@ -598,7 +598,7 @@ Partial Class FormulationAndAdoption_ajaxaddProjectApprovalRecord
 
         'insertamos los datos del proyecto madre
         sql.Append("insert into Project (IdIdea, code, Name, Objective, ZoneDescription, Justification, Results,  ResultsInstalledCapacity, ResultsKnowledgeManagement, OtherResults, obligationsoftheparties,  BudgetRoute, RisksIdentified, RiskMitigation, BeginDate,  Duration,  days, completiondate, Population, Mother, ideaappliesIVA, EffectiveBudget, IdPhase,  Enabled, IdUser, isLastVersion, IdProcessInstance, IdActivityInstance, Typeapproval, idkey, Project_derivados, CreateDate) ")
-        sql.Append(" select i.ID, convert(varchar,i.ID)+'_'+i.name+'_','Proyecto_M_'+ i.name,i.Objective, i.AreaDescription, i.Justification, i.Results, i.ResultsInstalledCapacity, i.ResultsKnowledgeManagement, i.OtherResults, i.obligationsoftheparties, i.BudgetRoute, i.RisksIdentified, i.RiskMitigation, i.StartDate, i.Duration, i.days, i.Enddate, i.Population, 1, i.ideaappliesIVA,'2014', 1, 1,'" & user & "',0,0,0,1," & Convert.ToString(idproject) & "," & Convert.ToString(idproject) & ", GETDATE() from Idea i ")
+        sql.Append(" select i.ID, convert(varchar,i.ID)+'_'+i.name+'_', i.name + ' (P)',i.Objective, i.AreaDescription, i.Justification, i.Results, i.ResultsInstalledCapacity, i.ResultsKnowledgeManagement, i.OtherResults, i.obligationsoftheparties, i.BudgetRoute, i.RisksIdentified, i.RiskMitigation, i.StartDate, i.Duration, i.days, i.Enddate, i.Population, 1, i.ideaappliesIVA,'2014', 1, 1,'" & user & "',0,0,0,1," & Convert.ToString(idproject) & "," & Convert.ToString(idproject) & ", GETDATE() from Idea i ")
         sql.Append(" where i.id = " & ididea)
 
         sql.AppendLine(" SELECT SCOPE_IDENTITY() AS Id")

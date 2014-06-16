@@ -154,9 +154,8 @@
                 <li id="li_C_idea">
                     <asp:Label ID="lblididea" runat="server" Text="Idea"></asp:Label>
                     <select id="ddlididea" class="Ccombo">
-                        <asp:DropDownList ID="ddlididea" runat="server">
-                        </asp:DropDownList>
-                    </select><asp:Label ID="lblHelpididea" runat="server"></asp:Label></li>
+                    </select>
+                    <asp:Label ID="lblHelpididea" runat="server"></asp:Label></li>
             </ul>
             <ul class="left">
                 <li visible="false">
@@ -273,26 +272,18 @@
                 <li id="liproyecttype" runat="server" visible="false">
                     <asp:Label ID="Lbltype_project" runat="server" Text="Tipo de proyecto"></asp:Label>
                     <select id="ddltype_proyect" class="Ccombo">
-                        <asp:DropDownList ID="ddltype_proyect" runat="server">
-                        </asp:DropDownList>
                     </select><asp:Label ID="Lblhelptproyect" runat="server" ForeColor="#990000"></asp:Label></li>
                 <li>
                     <asp:Label ID="lblpopulation" runat="server" Text="Población"></asp:Label>
                     <select id="ddlPupulation" class="Ccombo">
-                        <asp:DropDownList ID="ddlPupulation" runat="server">
-                        </asp:DropDownList>
                     </select><asp:Label ID="lblHelppopulation" runat="server" ForeColor="#990000"></asp:Label></li>
                 <li>
                     <asp:Label ID="Label13" runat="server" Text="Modalidad de Contratación"></asp:Label>
                     <select id="ddlmodcontract" class="Ccombo">
-                        <asp:DropDownList ID="ddlmodcontract" runat="server">
-                        </asp:DropDownList>
                     </select><asp:Label ID="Lblmodcontract" runat="server" ForeColor="#990000"></asp:Label></li>
                 <li>
                     <asp:Label ID="Lblestado" runat="server" Text="Estado del proyecto"></asp:Label>
                     <select id="dll_estado" class="Ccombo">
-                        <asp:DropDownList ID="dll_estado" runat="server">
-                        </asp:DropDownList>
                     </select>
                     <asp:Label ID="Lblhelp_estado" runat="server" ForeColor="#990000"></asp:Label>
                 </li>
@@ -421,15 +412,6 @@
                     <asp:CheckBox ID="checktiempo" runat="server" Text="tiempo" />
                     <asp:CheckBox ID="checkalcance" runat="server" Text="alcance" />
                     <asp:Label Visible="False" ID="lblVersion" runat="server" Text="Versiones Anteriores"></asp:Label>
-                    <asp:GridView Visible="False" ID="gvVersion" runat="server" AutoGenerateColumns="False">
-                        <Columns>
-                            <asp:BoundField DataField="createdate" HeaderText="Fecha" />
-                            <asp:BoundField DataField="USERNAME" HeaderText="Usuario" />
-                            <asp:BoundField DataField="code" HeaderText="Codigo" />
-                            <asp:HyperLinkField DataNavigateUrlFields="id" DataNavigateUrlFormatString="addProject.aspx?op=show&amp;id={0}&consultLastVersion=false"
-                                DataTextField="Name" HeaderText="Nombre" Target="_blank" />
-                        </Columns>
-                    </asp:GridView>
                 </li>
                 <li></li>
                 <li>
@@ -461,16 +443,12 @@
                 <li>
                     <asp:Label ID="Label18" runat="server" Text="Línea Estratégica "></asp:Label>
                     <select id="ddlStrategicLines" class="Ccombo">
-                        <asp:DropDownList ID="ddlStrategicLines" runat="server">
-                        </asp:DropDownList>
                     </select><asp:Label ID="lblinfls" runat="server" ForeColor="#990000"></asp:Label></li>
             </ul>
             <ul class="right">
                 <li>
                     <asp:Label ID="Label19" runat="server" Text="Objetivo estratégico"></asp:Label>
                     <select id="ddlPrograms" class="Ccombo">
-                        <asp:DropDownList ID="ddlPrograms" runat="server">
-                        </asp:DropDownList>
                     </select><asp:Label ID="lblinpro" runat="server" ForeColor="#990000"></asp:Label></li>
             </ul>
             <table style="margin: 0 auto;">
@@ -571,8 +549,6 @@
                 </li>
                 <li>
                     <select id="ddlactors" class="Ccombo">
-                        <asp:DropDownList ID="ddlactors" runat="server">
-                        </asp:DropDownList>
                     </select>
                     <a id="linkactors" runat="server" href="~/GeneralPlanning/addThird.aspx?prety=1&op=add&iframe=true&width=100%&height=100%"
                         title="Nuevo actor" class="pretty" style="height: 2em;">CREAR NUEVO ACTOR</a>

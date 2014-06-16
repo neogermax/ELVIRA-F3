@@ -150,7 +150,7 @@
                     <asp:DropDownList ID="ddlapproved" runat="server" CssClass="Ccombo">
                         <asp:ListItem Value="1">Comité de Contratación</asp:ListItem>
                         <asp:ListItem Value="0">Junta Directiva</asp:ListItem>
-                        <asp:ListItem Value="2">Pre Comité de Contratación</asp:ListItem>
+                        <%--<asp:ListItem Value="2">Pre Comité de Contratación</asp:ListItem>--%>
                     </asp:DropDownList>
                     <%--    <asp:RequiredFieldValidator ID="rfvapproved" runat="server" ControlToValidate="ddlapproved"
                     ErrorMessage="*"></asp:RequiredFieldValidator>
