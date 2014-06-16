@@ -123,11 +123,13 @@ function Btn_add_flujo_onclick() {
                 //limpiamos campos
                 arrayValorflujoTotal[0] = 0;
                 $("#totalflujos").text(0);
-                $("#ctl00_cphPrincipal_txtvalortotalflow").val("");
-                $("#ctl00_cphPrincipal_txtfechapago").val("");
-                $("#ctl00_cphPrincipal_txtporcentaje").val("");
-                $("#ctl00_cphPrincipal_Lbltotalvalor").text("");
-                $("#ctl00_cphPrincipal_txtentregable").val("");
+                if (validaporcentaje < 100) {
+                    $("#ctl00_cphPrincipal_txtvalortotalflow").val("");
+                    $("#ctl00_cphPrincipal_txtfechapago").val("");
+                    $("#ctl00_cphPrincipal_txtporcentaje").val("");
+                    $("#ctl00_cphPrincipal_Lbltotalvalor").text("");
+                    $("#ctl00_cphPrincipal_txtentregable").val("");
+                }
 
                 //lamar funcion para la suma de los subtotales de flujos de pagos
                 sumarflujospagos();
