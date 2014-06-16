@@ -131,7 +131,7 @@
             //End Process German
             
             //mask controls money
-            $('#ctl00_cphPrincipal_Txtvrdiner, #ctl00_cphPrincipal_Txtvresp, #txtTotalThird, .money').maskMoney({thousands: '.', decimal:',', precision: 0});
+            $('#ctl00_cphPrincipal_Txtvrdiner, #ctl00_cphPrincipal_Txtvresp, #txtTotalThird, .money').maskMoney({thousands: '.', decimal:',', precision: 0, allowZero: true });
             //set datepicker control
             $("#ctl00_cphPrincipal_txtfechapago").datepicker();
             
@@ -232,7 +232,7 @@
         </div>
         <div id="group-radios-type" class="container-subcategories" style="display: none;">
             <label>
-                Especifique la modificación:</label>
+                Especifique el tipo de modificación:</label>
             <div class="btn-group" data-toggle="buttons">
                 <label class="btn btn-success">
                     <input type="radio" name="subgroup" value="1" />
@@ -303,7 +303,7 @@
                         <asp:TextBox ID="Txtcontact" runat="server" Width="500px" MaxLength="1500" Rows="3"></asp:TextBox>
                     </li>
                     <li>
-                        <asp:Label ID="Label15" runat="server" Text="C.C"></asp:Label>
+                        <asp:Label ID="Label15" runat="server" Text="Número de Identificación"></asp:Label>
                         <asp:TextBox ID="Txtcedulacont" runat="server" Width="500px" MaxLength="1500" Rows="3"></asp:TextBox>
                     </li>
                     <li>
@@ -735,12 +735,13 @@
         <div id="divcesion" style="display: none;">
             <br />
             <label>
-                Actores Existentes</label>
-            <select id="listThirds">
-            </select>
-            <label>
-                Actores Asignados a Proyecto</label>
+                Actores Iniciales</label>
             <select id="listThirdsByProject">
+            </select>
+            <br />
+            <label>
+                Actores a Modificar</label>
+            <select id="listThirds">
             </select>
             <br />
             <ul>

@@ -66,6 +66,9 @@ Partial Public Class ajaxRequest
                     Case "getRequestTypeForProject"
                         getRequestTypeForProject(_idProject)
                         Exit Select
+                    Case "getLastContactForProjectByThird"
+                        getLastContactForProjectByThird()
+                        Exit Select
                 End Select
             End If
 
@@ -320,6 +323,20 @@ Partial Public Class ajaxRequest
             objDataContext.SubmitChanges()
         Next
 
+
+    End Sub
+
+    Protected Sub getLastContactForProjectByThird()
+        Dim objFscDaoDataContext As FSC_DAO.model.fscdaoDataContext = New FSC_DAO.model.fscdaoDataContext()
+        Dim idThirdRequest As Integer = Convert.ToInt32(Request.Form("idThird"))
+
+        Dim objThirdByProjectJSON = From objThirdByProject In objFscDaoDataContext.ThirdByProject Where objThirdByProject.IdThird = idThirdRequest Order By objThirdByProject.Id Descending Select objThirdByProject.Contact, objThirdByProject.Documents, objThirdByProject.Email, objThirdByProject.FSCorCounterpartContribution, objThirdByProject.Id, objThirdByProject.IdThird, objThirdByProject.Name, objThirdByProject.Phone, objThirdByProject.Type
+
+        If objThirdByProjectJSON.Count() > 0 Then
+            Response.Write(JsonConvert.SerializeObject(objThirdByProjectJSON.First()))
+        Else
+            Response.Write("")
+        End If
 
     End Sub
 End Class
