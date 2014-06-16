@@ -290,7 +290,19 @@ function crear_tabla_flujo_actor() {
     var htmltableAflujos = "<table id='T_Actorsflujos' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr><th width='1'></th><th>Aportante</th><th>Valor total aporte</th><th>Valor por programar</th><th>Saldo por programar</th></tr></thead><tbody>";
 
     for (itemarrayflujos in arrayActorFlujo) {
-        htmltableAflujos += "<tr id='flujo" + arrayActorFlujo[itemarrayflujos].actorsVal + "'><td width='1' style='color: #D3D6FF;font-size: 0.1em;'>" + arrayActorFlujo[itemarrayflujos].actorsVal + "</td><td>" + arrayActorFlujo[itemarrayflujos].actorsName + "</td><td id= 'value" + arrayActorFlujo[itemarrayflujos].actorsVal + "' >" + arrayActorFlujo[itemarrayflujos].diner + "</td><td><input id='" + "txtinput" + arrayActorFlujo[itemarrayflujos].actorsVal + "' onkeyup='formatvercionsuma(this)' onchange='formatvercionsuma(this)'  onblur=\"sumar_flujos('" + arrayActorFlujo[itemarrayflujos].actorsVal + "')\" onfocus=\"restar_flujos('" + arrayActorFlujo[itemarrayflujos].actorsVal + "')\"></input></td><td id='desenbolso" + arrayActorFlujo[itemarrayflujos].actorsVal + "'>" + arrayActorFlujo[itemarrayflujos].diner + "</td></tr>";
+        
+        var sPageURL = window.location.search.substring(1);
+        var sURLVariables = sPageURL.split('&');
+        //validamos si creamos la idea o editamos
+        if (sURLVariables[0] == "op=edit") {
+            var disponible = 0;
+        }
+        else {
+            var disponible = arrayActorFlujo[itemarrayflujos].diner;
+        }
+
+
+        htmltableAflujos += "<tr id='flujo" + arrayActorFlujo[itemarrayflujos].actorsVal + "'><td width='1' style='color: #D3D6FF;font-size: 0.1em;'>" + arrayActorFlujo[itemarrayflujos].actorsVal + "</td><td>" + arrayActorFlujo[itemarrayflujos].actorsName + "</td><td id= 'value" + arrayActorFlujo[itemarrayflujos].actorsVal + "' >" + arrayActorFlujo[itemarrayflujos].diner + "</td><td><input id='" + "txtinput" + arrayActorFlujo[itemarrayflujos].actorsVal + "' onkeyup='formatvercionsuma(this)' onchange='formatvercionsuma(this)'  onblur=\"sumar_flujos('" + arrayActorFlujo[itemarrayflujos].actorsVal + "')\" onfocus=\"restar_flujos('" + arrayActorFlujo[itemarrayflujos].actorsVal + "')\"></input></td><td id='desenbolso" + arrayActorFlujo[itemarrayflujos].actorsVal + "'>" + disponible + "</td></tr>";
     }
 
     htmltableAflujos += "<tr><td width='1' style='color: #D3D6FF; font-size: 0.1em;'>1000</td><td>Total</td><td id='tflujosing'></td><td id='totalflujos'>0</td></td id='tflujosdesen'><td></tr></tbody></table>";
@@ -754,7 +766,7 @@ function sumar_flujos(str) {
             }
             valtotaldiner = valtotaldiner + opeValuesActorsflujos;
 
-            alert(valtotaldiner + "_ >" + arrayValorflujoTotal[0]);
+            // alert(valtotaldiner + "_ >" + arrayValorflujoTotal[0]);
 
             arrayValorflujoTotal[0] = valtotaldiner;
             $("#totalflujos").text(addCommasrefactor(valtotaldiner));
@@ -915,7 +927,6 @@ function validarporcentaje() {
             value_disponible(idflujos);
         }
 
-
     });
 
     //Validar que el porcentaje no supere el 100 por ciento, no tenga comas ni tenga mas de 2 decimas
@@ -962,8 +973,8 @@ function value_disponible(id_actor) {
     var tr_Iddes = "#desenbolso" + id_actor;
     var valuesActorsdesembolso = $(tr_Iddes).html();
     valuesActorsdesembolso = valuesActorsdesembolso.replace(/\./gi, '');
-  
-   
+
+
     if (variable_control_actor == 0) {
         var totaldesenbolso = opevaluesActorslimit - opeValuesActorsflujos;
         variable_control_actor = 1;
