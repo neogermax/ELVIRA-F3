@@ -1216,22 +1216,20 @@ function desabled_mother() {
     $("#ctl00_cphPrincipal_Txtdatecierre").attr("disabled", "disabled");
     $("#ddlPupulation").attr("disabled", "disabled");
     $("#ddlmodcontract").attr("disabled", "disabled");
-    $("#dll_estado").attr("disabled", "disabled");
-    $("#ValueMoneyFSC").attr("disabled", "disabled");
-    $("#ValueEspeciesFSC").attr("disabled", "disabled");
-    $("#ValueMoneyCounter").attr("disabled", "disabled");
-    $("#ValueEspeciesCounter").attr("disabled", "disabled");
     $("#ctl00_cphPrincipal_Txtobligationsoftheparties").attr("disabled", "disabled");
     $("#ctl00_cphPrincipal_Txtriesgos").attr("disabled", "disabled");
     $("#ctl00_cphPrincipal_Txtaccionmitig").attr("disabled", "disabled");
     $("#ctl00_cphPrincipal_Txtroutepresupuestal").attr("disabled", "disabled");
     $("#ctl00_cphPrincipal_txtcode").attr("disabled", "disabled");
+    $("#dll_estado").attr("disabled", "disabled");
+
 
     //ubicacion
     $("#ddlDepto").attr("disabled", "disabled");
     $("#ddlCity").attr("disabled", "disabled");
     $("#B_add_location").attr("disabled", "disabled");
 
+    //actores
     $("#ddlactors").attr("disabled", "disabled");
     $("#ctl00_cphPrincipal_linkactors").attr("disabled", "disabled");
     $("#ctl00_cphPrincipal_ddlType").attr("disabled", "disabled");
@@ -1243,14 +1241,25 @@ function desabled_mother() {
     $("#ctl00_cphPrincipal_Txtvresp").attr("disabled", "disabled");
     $("#BtnaddActors").attr("disabled", "disabled");
 
+    //flujos
+    $("#ctl00_cphPrincipal_txtvalortotalflow").attr("disabled", "disabled");
+    $("#ctl00_cphPrincipal_txtfechapago").attr("disabled", "disabled");
+    $("#ctl00_cphPrincipal_txtporcentaje").attr("disabled", "disabled");
+    $("#ctl00_cphPrincipal_txtentregable").attr("disabled", "disabled");
+    $("#Btn_add_flujo").attr("disabled", "disabled");
+
+
+    //anexos
+    $("#fileupload").attr("disabled", "disabled");
+    $("#ctl00_cphPrincipal_Txtdecription").attr("disabled", "disabled");
+    $("#Btncharge_file").attr("disabled", "disabled");
+
+    //escondemos los div de proyecto madre
     $("#ctl00_cphPrincipal_container_date_mother_actores").css("display", "none");
     $("#ctl00_cphPrincipal_container_date_mother_flujos").css("display", "none");
     $("#ctl00_cphPrincipal_container_date_mother").css("display", "none");
 
-
-
     $("#SaveProject").css("display", "none");
-
     $("#dll_estado").val(1);
 
 
