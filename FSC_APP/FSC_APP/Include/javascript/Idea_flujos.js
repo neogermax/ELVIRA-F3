@@ -728,7 +728,7 @@ function sumar_flujos(str) {
     else {
 
         if (arrayValorflujoTotal[0] < 0) {
-           
+
             valtotaldiner = arrayValorflujoTotal[0];
 
             if (edit_flujo_inicializa == 1) {
@@ -737,7 +737,7 @@ function sumar_flujos(str) {
             }
             else {
                 valtotaldiner = valtotaldiner + opeValuesActorsflujos;
-           
+
             }
 
 
@@ -746,14 +746,14 @@ function sumar_flujos(str) {
 
         }
         else {
-        
+
             valtotaldiner = arrayValorflujoTotal[0];
-            
+
             if (valtotaldiner == opeValuesActorsflujos) {
                 opeValuesActorsflujos = 0;
             }
             valtotaldiner = valtotaldiner + opeValuesActorsflujos;
-           
+
             alert(valtotaldiner + "_ >" + arrayValorflujoTotal[0]);
 
             arrayValorflujoTotal[0] = valtotaldiner;
@@ -912,6 +912,7 @@ function validarporcentaje() {
 
             $("#txtinput" + idflujos).val(valuecomparative);
             $("#totalflujos").text(valuecomparative);
+            value_disponible(idflujos);
         }
 
 
@@ -940,4 +941,37 @@ function validarporcentaje() {
         }
 
     });
+}
+
+var variable_control_actor = 0;
+
+
+function value_disponible(id_actor) {
+
+
+    var tr_Id = "#value" + id_actor;
+    var valuesActorslimit = $(tr_Id).html();
+    valuesActorslimit = valuesActorslimit.replace(/\./gi, '');
+    var opevaluesActorslimit = parseInt(valuesActorslimit);
+
+    var id = "#txtinput" + id_actor;
+    var ValuesActorsflujos = $(id).val();
+    ValuesActorsflujos = ValuesActorsflujos.replace(/\./gi, '');
+    var opeValuesActorsflujos = parseInt(ValuesActorsflujos);
+
+    var tr_Iddes = "#desenbolso" + id_actor;
+    var valuesActorsdesembolso = $(tr_Iddes).html();
+    valuesActorsdesembolso = valuesActorsdesembolso.replace(/\./gi, '');
+  
+   
+    if (variable_control_actor == 0) {
+        var totaldesenbolso = opevaluesActorslimit - opeValuesActorsflujos;
+        variable_control_actor = 1;
+    }
+    else {
+        var totaldesenbolso = valuesActorsdesembolso - opeValuesActorsflujos;
+    }
+
+    $(tr_Iddes).text(addCommasrefactor(totaldesenbolso));
+
 }

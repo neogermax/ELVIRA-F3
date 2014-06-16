@@ -272,9 +272,7 @@ $(document).ready(function() {
                     var Aflujos = arrayActorFlujo[0].actorsVal;
                     //   alert(Aflujos);
                     $("#txtinput" + Aflujos).attr("disabled", "disabled");
-                    $("#desenbolso" + Aflujos).text("");
-
-
+                    //$("#desenbolso" + Aflujos).text("");
                     entradaflujos = 1;
                     s_revisarflujos = 1;
                 }
