@@ -67,20 +67,10 @@ function BtnaddActors_onclick() {
                 "bJQueryUI": true,
                 "bDestroy": true
             });
-            //funcion para agregar actor
-            add_actor_grid();
-
-        }
-        else {
-            //funcion para agregar actor
-            add_actor_grid();
         }
     }
-    else {
-        //funcion para agregar actor
-        add_actor_grid();
-    }
-
+    //funcion para agregar actor
+    add_actor_grid();
 }
 
 //funtion para agreagar al grid despues de validar si hay flujos de datos

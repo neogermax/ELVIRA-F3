@@ -269,9 +269,11 @@ $(document).ready(function() {
                 //alert(tamaño_flujos);
                 //validar la cantidad de actores
                 if (tamaño_flujos == 1) {
-                    var Aflujos = arrayActorFlujo[0].actorsVal;
-                    //   alert(Aflujos);
-                    $("#txtinput" + Aflujos).attr("disabled", "disabled");
+                    if (arrayActorFlujo[0] != undefined) {
+                        var Aflujos = arrayActorFlujo[0].actorsVal;
+                        //   alert(Aflujos);
+                        $("#txtinput" + Aflujos).attr("disabled", "disabled");
+                    }
                     //$("#desenbolso" + Aflujos).text("");
                     entradaflujos = 1;
                     s_revisarflujos = 1;

@@ -296,11 +296,10 @@ function crear_tabla_flujo_actor() {
         var sPageURL = window.location.search.substring(1);
         var sURLVariables = sPageURL.split('&');
         //validamos si creamos la idea o editamos
+        var disponible = arrayActorFlujo[itemarrayflujos].diner;
+        
         if (sURLVariables[0] == "op=edit") {
-            var disponible = 0;
-        }
-        else {
-            var disponible = arrayActorFlujo[itemarrayflujos].diner;
+            //disponible = 0;
         }
 
 
@@ -889,13 +888,15 @@ function validarporcentaje() {
         if (s_revisarflujos == 1) {
 
             var itemarrayflujos = 0;
-            var idflujos = arrayActorFlujo[0].actorsVal;
+            if (arrayActorFlujo[0] != undefined) {
+                var idflujos = arrayActorFlujo[0].actorsVal;
 
-            valuecomparative = valcomas;
+                valuecomparative = valcomas;
 
-            $("#txtinput" + idflujos).val(valuecomparative);
-            $("#totalflujos").text(valuecomparative);
-            value_disponible(idflujos);
+                $("#txtinput" + idflujos).val(valuecomparative);
+                $("#totalflujos").text(valuecomparative);
+                value_disponible(idflujos);
+            }
         }
 
     });
