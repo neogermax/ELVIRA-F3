@@ -146,7 +146,7 @@ german rodriguez y pedro cruz-->
 
         var host = "<%= Request.Url.Authority %>";
 
-        if (host = "198.38.93.51") {
+        if (host == "198.38.93.51") {
             host = "198.38.93.51/FSC_APP";
         }
         

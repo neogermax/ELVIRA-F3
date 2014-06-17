@@ -516,8 +516,8 @@ Partial Class addContractRequest
                 objProject.begindate = Me.txtInitialDate.Text
             End If
 
-            If Me.txtEndingDate.Text <> "" Then
-                objProject.Enddate = Me.txtEndingDate.Text
+            If Me.HFEndDate.Value <> "" Then
+                objProject.Enddate = Me.HFEndDate.Value
             End If
 
             'actualizar proyecto

@@ -489,7 +489,7 @@ function buscaractores() {
                 $("#ctl00_cphPrincipal_GVTHIRD").html(result);
             },
             error: function() {
-                $("#ctl00_cphPrincipal_lblNfoContractDuration").text("No se pueden cargar los actores de la idea solicitada.");
+            $("#ctl00_cphPrincipal_lblActoresnfo").text("No se pueden cargar los actores de la idea solicitada.");
             }
         });
     });
@@ -500,6 +500,8 @@ function guardarproyecto() {
         loadproject($("#ctl00_cphPrincipal_ddlProject").val());
         var idproject = $("#ctl00_cphPrincipal_ddlProject").val();
         $("#ctl00_cphPrincipal_HF_ID_Project").val(idproject);
+        //Obtener datos fecha finalizacion
+        $("#ctl00_cphPrincipal_HFEndDate").val($("#ctl00_cphPrincipal_txtEndingDate").val());
     });
 }
 

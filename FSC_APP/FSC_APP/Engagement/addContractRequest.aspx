@@ -400,6 +400,7 @@
                     </td>
                 </tr>
             </table>
+            <asp:Label ID="lblActoresnfo" runat="server" Text=""></asp:Label>
         </div>
         <div id="tabs-4">
             <asp:CheckBox ID="PolizaRequired" runat="server" /><asp:Label ID="lblPolizaRequired"
