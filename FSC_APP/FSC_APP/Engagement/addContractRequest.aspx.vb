@@ -608,7 +608,7 @@ Partial Class addContractRequest
     End Sub
 
     Protected Sub redirectToEdit(ByVal data As String)
-        Response.Redirect("/Engagement/addContractRequest.aspx?successSave=1&op=edit&id=" & data)
+        Response.Redirect("~/Engagement/addContractRequest.aspx?successSave=1&op=edit&id=" & data)
     End Sub
 
     Protected Sub btnCancel_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnCancel.Click
