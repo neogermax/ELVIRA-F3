@@ -1,0 +1,1 @@
+﻿<%@ Page Language="vb" AutoEventWireup="false" CodeBehind="AjaxReportContractual.aspx.vb" Inherits="FSC_APP.AjaxReportContractual" %>
