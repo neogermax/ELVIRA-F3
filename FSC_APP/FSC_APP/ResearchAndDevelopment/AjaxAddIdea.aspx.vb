@@ -1723,23 +1723,21 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         Dim objIdea As New IdeaEntity
         Dim myProgramComponentByIdeaList As List(Of ProgramComponentByIdeaEntity) = New List(Of ProgramComponentByIdeaEntity)
 
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+
         Dim locationByIdeaList As List(Of LocationByIdeaEntity)
 
-
+        Dim sql As New StringBuilder
+        Dim objSqlCommand As New SqlCommand
+        Dim data As DataTable
 
         Dim arrayubicacion, arrayactor, arraycomponente, arrayflujos, arraydetallesflujos As String()
         Dim deptovalexist, Cityvalexist As Integer
         Dim desembolsoexist, Aportanteexist, idaportanteexist, N_pagodetexist, estados_flujosexist, N_pagoexist, fecha_pagoexist, porcentajeexist, entregaexist, tflujosexist, existidprogram, existactorsVal, existactorsName, existtipoactors, existcontact, existcedula, existtelefono, existemail, existdiner, existespecie, existtotal As String
 
-        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
-
         Try
 
-
-
             locationByIdeaList = DirectCast(Session("locationByIdeaList"), List(Of LocationByIdeaEntity))
-
-
 
             list_ubicacion = Replace(list_ubicacion, "{", " ", 1)
             list_ubicacion = Replace(list_ubicacion, "}", " ", 1)
@@ -1765,7 +1763,6 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
             list_detalles_flujos = Replace(list_detalles_flujos, """", " ", 1)
             'convertimos el string en un array de datos
             arraydetallesflujos = list_detalles_flujos.Split(New [Char]() {","c})
-
 
             list_componentes = Replace(list_componentes, "/", "*", 1)
             list_componentes = Replace(list_componentes, "_ *", "*", 1)
@@ -1883,13 +1880,9 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                 thirdByIdea.THIRD.name = existactorsName
                 thirdByIdea.Name = existactorsName
                 thirdByIdea.type = existtipoactors
-                thirdByIdea.THIRD.contact = existcontact
                 thirdByIdea.contact = existcontact
-                thirdByIdea.THIRD.documents = existcedula
                 thirdByIdea.Documents = existcedula
-                thirdByIdea.THIRD.phone = existtelefono
                 thirdByIdea.Phone = existtelefono
-                thirdByIdea.THIRD.email = existemail
                 thirdByIdea.Email = existemail
                 thirdByIdea.Vrmoney = existdiner
                 thirdByIdea.VrSpecies = existespecie
@@ -1897,6 +1890,17 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                 thirdByIdea.EstadoFlujos = estados_flujosexist
                 thirdByIdea.CreateDate = Now
 
+                sql = New StringBuilder
+                'guardar los datos del actor
+                sql.Append(" update third set ")
+                sql.Append(" contact='" & thirdByIdea.contact & "',")
+                sql.Append(" documents='" & thirdByIdea.Documents & "',")
+                sql.Append(" phone='" & thirdByIdea.Phone & "',")
+                sql.Append(" email='" & thirdByIdea.Email & "'")
+                sql.Append(" where ID = " & thirdByIdea.idthird)
+                ' ejecutar la intruccion
+                GattacaApplication.RunSQL(applicationCredentials, sql.ToString)
+                
                 'cargamos al list
                 thirdByIdeaList.Add(thirdByIdea)
 
@@ -2084,8 +2088,8 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
             objIdea.id = facade.addIdea(applicationCredentials, objIdea)
 
 
-
             save_document_IDEA(list_files, objIdea.id)
+
 
 
             Dim Result As String

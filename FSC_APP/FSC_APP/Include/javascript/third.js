@@ -372,14 +372,13 @@ function Crear_Actor() {
             "Legal_representative": $("#ctl00_cphPrincipal_Txtreplegal").val(),
             "L_rep_doc": $("#ctl00_cphPrincipal_Txtdocrep").val(),
             "Sex": $("#DDL_sex").val(),
+            "Contact": $("#ctl00_cphPrincipal_Txtcontact").val(),
             "Phone": $("#ctl00_cphPrincipal_Txtphone").val(),
             "Address": $("#ctl00_cphPrincipal_Txtdireccion").val(),
             "Email": $("#ctl00_cphPrincipal_Txtemail").val()
         },
         //mostrar resultados de la creacion de la idea
         success: function(result) {
-
-            alert(result);
 
             if (result == "1") {
 
