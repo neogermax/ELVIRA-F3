@@ -1539,6 +1539,12 @@ Partial Class addContractRequest
         Dim pagos As DataTable
         Dim V_id_proyecto As String
 
+        If Me.ddlProject.SelectedValue = -1 Then
+            Me.lblExportTerms.ForeColor = Drawing.Color.Red
+            Me.lblExportTerms.Text = "Debe elegir un proyecto primero!"
+            Exit Sub
+        End If
+
 
 
         Me.lblExportTerms.ForeColor = Drawing.Color.Green
