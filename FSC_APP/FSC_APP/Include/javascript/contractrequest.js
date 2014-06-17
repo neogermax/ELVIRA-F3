@@ -482,7 +482,7 @@ function buscaractores() {
         var selproyecto = proyecto.options[proyecto.selectedIndex].text;
         $("#ctl00_cphPrincipal_lblProjectNumber").text(selproyecto);
         $.ajax({
-            url: "/FormulationAndAdoption/ajaxaddProjectApprovalRecordshearch.aspx",
+            url: 'http://' + host + "/FormulationAndAdoption/ajaxaddProjectApprovalRecordshearch.aspx",
             type: "GET",
             data: { "action": "buscaractorescontrato", "code": $(this).val() },
             success: function(result) {
