@@ -237,7 +237,7 @@ function foto() {
     $("a.pretty").prettyPhoto({
         callback: function() {
             $.ajax({
-                url: "/ResearchAndDevelopment/ajaxaddidea_drop_list_third.aspx",
+                url: 'http://' + host + "/ResearchAndDevelopment/ajaxaddidea_drop_list_third.aspx",
                 type: "GET",
                 data: { "action": "loadthirdcontract" },
                 success: function(result) {
