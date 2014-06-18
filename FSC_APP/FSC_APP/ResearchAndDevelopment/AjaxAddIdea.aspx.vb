@@ -323,7 +323,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
         Dim Data_line, Data_typecontrato, Data_typo_project, Data_depto, Data_Actor As DataTable
 
-        sql.Append(" SELECT ID, Code as descripcion FROM StrategicLine AS pro where id <> 32 order by (ID)")
+        sql.Append(" SELECT ID, Code as descripcion FROM StrategicLine AS pro where id <> 32 order by descripcion")
         Data_line = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
 
         sql = New StringBuilder
@@ -338,12 +338,12 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
         sql = New StringBuilder
 
-        sql.Append(" SELECT ID, Name as descripcion FROM FSC_eSecurity.dbo.Depto  order by (ID) ")
+        sql.Append(" SELECT ID, Name as descripcion FROM FSC_eSecurity.dbo.Depto  order by descripcion ")
         Data_depto = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
 
         sql = New StringBuilder
 
-        sql.Append(" select ID, Name as descripcion from Third order by (ID) ")
+        sql.Append(" select ID, Name as descripcion from Third order by descripcion ")
         Data_Actor = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
 
         Dim Json_line = JsonConvert.SerializeObject(Data_line)

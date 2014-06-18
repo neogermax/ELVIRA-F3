@@ -6,8 +6,8 @@
 <head>
     <title>Menu FSC</title>
     <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css" />
-
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    
+    <script src="../js/jquery.1.10.2.min.js" type="text/javascript"></script>
 
     <link href="../Include/javascript/jfm/styles/style.css" rel="stylesheet" type="text/css" />
     <link href="../Include/javascript/jfm/styles/jflow.style.css" rel="stylesheet" type="text/css" />
@@ -173,6 +173,11 @@
 
     <script type="text/javascript">
         var host = "<%= Request.Url.Authority %>";
+        
+        if (host == "198.38.93.51") {
+            host = "198.38.93.51/FSC_APP";
+        }
+        
         $(function() {
 
             $("#myController").jFlow({
