@@ -49,7 +49,7 @@ function subirArchivos() {
                 arrayFiles.push(jsonFiles);
 
                 //llamamos funcion para crear tabla anexos
-                crear_tabla_anexos(host + "/document/temp/"); //----/FSC_APP/document/temp/
+                crear_tabla_anexos("http://" + host + "/document/temp/"); //----/FSC_APP/document/temp/
 
                 $("#fileupload").val("");
 
@@ -142,7 +142,7 @@ function View_anexos_array() {
             }
 
             //llamamos funcion para crear tabla anexos
-            crear_tabla_anexos(host + "/document/"); //----------/FSC_APP/document/
+            crear_tabla_anexos("http://" + host + "/document/"); //----------/FSC_APP/document/
 
         },
         error: function(msg) {
