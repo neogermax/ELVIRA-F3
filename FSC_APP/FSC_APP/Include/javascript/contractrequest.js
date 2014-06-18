@@ -15,6 +15,7 @@
     setTimeout("tabs();", 1000);
     supervisor_array();
     //Controles
+    $("#ctl00_cphPrincipal_HFHost").val(host);
     $("#ctl00_cphPrincipal_linkactors").button();
     $('#T_supervisor').dataTable();
 

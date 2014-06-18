@@ -524,4 +524,5 @@
         <asp:HiddenField ID="HFActivetab" runat="server" />
         <asp:HiddenField ID="HFPolRequired" runat="server" />
         <asp:HiddenField ID="HFSupervisor" runat="server" />
+        <asp:HiddenField ID="HFHost" runat="server" />
 </asp:Content>
