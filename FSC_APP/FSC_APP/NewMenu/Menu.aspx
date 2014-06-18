@@ -173,6 +173,11 @@
 
     <script type="text/javascript">
         var host = "<%= Request.Url.Authority %>";
+        
+        if (host == "198.38.93.51") {
+            host = "198.38.93.51/FSC_APP";
+        }
+        
         $(function() {
 
             $("#myController").jFlow({
