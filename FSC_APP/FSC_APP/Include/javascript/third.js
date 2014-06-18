@@ -53,7 +53,7 @@ $(document).ready(function() {
 
 });
 
-//funcion que carga combos de actores
+//funcion que carga combos del modulo actores
 function load_combos() {
 
     $.ajax({
@@ -64,10 +64,10 @@ function load_combos() {
 
             result = JSON.parse(result);
 
-            charge_CatalogList(result[0], "DDLtypepeople");
-            charge_CatalogList(result[1], "DDL_tipo_doc");
-            charge_CatalogList(result[1], "DDL_tipo_doc1");
-            charge_CatalogList(result[2], "DDL_sex");
+            charge_CatalogList(result[0], "DDLtypepeople",0);
+            charge_CatalogList(result[1], "DDL_tipo_doc"),0;
+            charge_CatalogList(result[1], "DDL_tipo_doc1",0);
+            charge_CatalogList(result[2], "DDL_sex",0);
       
         },
         error: function(msg) {
@@ -76,17 +76,6 @@ function load_combos() {
     });
 }
 
-//cargar combos
-function charge_CatalogList(objCatalog, nameList) {
-
-    var objList = $('[id$='+ nameList +']');
-
-    //recorremos para llenar el combo de 
-    for (var n = 0; n < objCatalog.length; n++) {
-        objList[0].options[n] = new Option(objCatalog[n].descripcion, objCatalog[n].ID);
-    };
-            
- }
 
 //funcion que carga combos de actores con los datos guardados previamente
 function Charge_combos() {
@@ -372,14 +361,13 @@ function Crear_Actor() {
             "Legal_representative": $("#ctl00_cphPrincipal_Txtreplegal").val(),
             "L_rep_doc": $("#ctl00_cphPrincipal_Txtdocrep").val(),
             "Sex": $("#DDL_sex").val(),
+            "Contact": $("#ctl00_cphPrincipal_Txtcontact").val(),
             "Phone": $("#ctl00_cphPrincipal_Txtphone").val(),
             "Address": $("#ctl00_cphPrincipal_Txtdireccion").val(),
             "Email": $("#ctl00_cphPrincipal_Txtemail").val()
         },
         //mostrar resultados de la creacion de la idea
         success: function(result) {
-
-            alert(result);
 
             if (result == "1") {
 

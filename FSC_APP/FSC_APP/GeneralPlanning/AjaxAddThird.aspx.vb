@@ -16,7 +16,7 @@ Partial Public Class GeneralPlanning_AjaxAddThird
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
         Dim action As String
-        Dim id_third, code, S_Type_people, S_Type_document, S_Document, S_Name, S_Legal_representative, S_L_rep_doc, S_Sex, S_Phone, S_Address, S_Email As String
+        Dim id_third, code, S_Type_people, S_Type_document, S_Document, S_Name, S_Legal_representative, S_L_rep_doc, S_Sex, S_Phone, S_Address, S_Email, S_Contact As String
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
 
         If Request.Form("action") <> Nothing Then
@@ -37,8 +37,8 @@ Partial Public Class GeneralPlanning_AjaxAddThird
                     S_Phone = Request.Form("Phone").ToString()
                     S_Address = Request.Form("Address").ToString()
                     S_Email = Request.Form("Email").ToString()
-
-                    CREATE_actors(S_Type_people, S_Type_document, S_Document, S_Name, S_Legal_representative, S_L_rep_doc, S_Sex, S_Phone, S_Address, S_Email)
+                    S_Contact = Request.Form("Contact").ToString()
+                    CREATE_actors(S_Type_people, S_Type_document, S_Document, S_Name, S_Legal_representative, S_L_rep_doc, S_Sex, S_Phone, S_Address, S_Email, S_Contact)
 
             End Select
 
@@ -140,7 +140,7 @@ Partial Public Class GeneralPlanning_AjaxAddThird
 
     End Function
 
-    Protected Function CREATE_actors(ByVal Type_people As String, ByVal Type_document As String, ByVal Document As String, ByVal Name As String, ByVal Legal_representative As String, ByVal L_rep_doc As String, ByVal Sex As String, ByVal Phone As String, ByVal Address As String, ByVal Email As String)
+    Protected Function CREATE_actors(ByVal Type_people As String, ByVal Type_document As String, ByVal Document As String, ByVal Name As String, ByVal Legal_representative As String, ByVal L_rep_doc As String, ByVal Sex As String, ByVal Phone As String, ByVal Address As String, ByVal Email As String, ByVal Contact As String)
 
         Dim facade As New Facade
         Dim objThird As New ThirdEntity
@@ -157,6 +157,8 @@ Partial Public Class GeneralPlanning_AjaxAddThird
             Else
                 objThird.code = V_NIT
             End If
+        Else
+            objThird.code = Document
         End If
 
         objThird.name = clean_vbCrLf(Name)
@@ -170,7 +172,16 @@ Partial Public Class GeneralPlanning_AjaxAddThird
         objThird.tipodocumento = Type_document
         objThird.docrepresentante = clean_vbCrLf(L_rep_doc)
         objThird.direccion = clean_vbCrLf(Address)
+        objThird.documents = Document
 
+
+        If Type_people = 2 Then
+            objThird.contact = clean_vbCrLf(Contact)
+        Else
+            objThird.contact = clean_vbCrLf(Name)
+        End If
+
+       
         If Sex = "No Aplica" Then
             objThird.sex = 0
         Else
@@ -217,12 +228,12 @@ Partial Public Class GeneralPlanning_AjaxAddThird
 
 
         'consulta y validacion NIT por default
-        sql.Append("select substring(max(code),6,15) + 1 from Third where Code like  '%NIT_D%' ")
-        Dim data = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
+        sql.Append("select max(CAST(substring(code,6,15) as int)) + 1  as numeros from Third where Code like  '%NIT_D%' ")
+        Dim data_nit = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
 
         Dim NIT_Default As String
 
-        NIT_Default = "NIT_D" + Convert.ToString(data)
+        NIT_Default = "NIT_D" + Convert.ToString(data_nit)
 
         Return NIT_Default
     End Function

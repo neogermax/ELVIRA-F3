@@ -1,5 +1,4 @@
-﻿
-Imports System.Xml
+﻿Imports System.Xml
 Imports System.Collections.Generic
 Imports Gattaca.Application.Credentials
 Imports Gattaca.Entity.eSecurity
@@ -10,6 +9,8 @@ Imports System.Data.SqlClient
 Imports System.Web.Script.Serialization
 Imports System.IO
 Imports System.Runtime.Serialization.Json
+Imports Newtonsoft.Json
+
 
 Partial Class ResearchAndDevelopment_AjaxAddIdea
     Inherits System.Web.UI.Page
@@ -287,8 +288,10 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                     searh_document_anexos_array(ideditar)
 
                     '----------------- tareas generales-------------------------------------------------------
-                Case "aprobacion_idea"
+                Case "load_combos"
+                    load_combos()
 
+                Case "aprobacion_idea"
                     ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
                     validar_aprobacion_idea(ideditar)
 
@@ -309,6 +312,53 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         End If
 
     End Sub
+
+
+    Protected Function load_combos()
+
+        Dim facade As New Facade
+
+        Dim sql As New StringBuilder
+        Dim objSqlCommand As New SqlCommand
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+        Dim Data_line, Data_typecontrato, Data_typo_project, Data_depto, Data_Actor As DataTable
+
+        sql.Append(" SELECT ID, Code as descripcion FROM StrategicLine AS pro where id <> 32 order by (ID)")
+        Data_line = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+        sql = New StringBuilder
+
+        sql.Append(" SELECT TYPECONTRACT.ID, TYPECONTRACT.CONTRACT as descripcion  FROM TYPECONTRACT  order by (ID)")
+        Data_typecontrato = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+        sql = New StringBuilder
+
+        sql.Append(" select pt.ID, pt.Project_Type as descripcion  from  ProjectType pt  order by pt.Project_Type asc")
+        Data_typo_project = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+        sql = New StringBuilder
+
+        sql.Append(" SELECT ID, Name as descripcion FROM FSC_eSecurity.dbo.Depto  order by (ID) ")
+        Data_depto = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+        sql = New StringBuilder
+
+        sql.Append(" select ID, Name as descripcion from Third order by (ID) ")
+        Data_Actor = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+        Dim Json_line = JsonConvert.SerializeObject(Data_line)
+        Dim Json_typecontrato = JsonConvert.SerializeObject(Data_typecontrato)
+        Dim Json_typo_project = JsonConvert.SerializeObject(Data_typo_project)
+        Dim Json_depto = JsonConvert.SerializeObject(Data_depto)
+        Dim Json_Actor = JsonConvert.SerializeObject(Data_Actor)
+
+        Dim objCatalogSerialize = String.Format("[{0},{1},{2},{3},{4}]", Json_line, Json_typecontrato, Json_typo_project, Json_depto, Json_Actor)
+
+        Response.Write(objCatalogSerialize)
+
+    End Function
+
+
 
     Protected Function searh_c_typeaproval(ByVal ididea As Integer)
 
@@ -1433,8 +1483,11 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
                 'separamos el valor de campo
                 idfileexist = Replace(ArrayFile(contador), " idfile :", " ", 1)
+                idfileexist = idfileexist.Trim
                 filenameexist = Replace(ArrayFile(contador + 1), "filename : ", "", 1)
+                filenameexist = filenameexist.Trim
                 Descriptionexist = Replace(ArrayFile(contador + 2), "Description : ", " ", 1)
+                Descriptionexist = Descriptionexist.Trim
                 Descriptionexist = Descriptionexist.Replace("¬", ",")
 
                 'asignamos al objeto
@@ -1674,17 +1727,16 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
     End Function
 
     Protected Function borrar_archivos()
-        Dim startinfo As New ProcessStartInfo("C:\Gattaca_pruebas\WebSiteFSC\ELVIRA-F3\FSC_APP\FSC_APP\bats\BORRAR_ARC.bat")
-        'Dim startinfo As New ProcessStartInfo(Server.MapPath("\bats\BORRAR_ARC.bat"))
-        'startinfo.UseShellExecute = False
-        'startinfo.WindowStyle = ProcessWindowStyle.Hidden
-        'Process.Start(startinfo)
+        Dim startinfo As New ProcessStartInfo(Server.MapPath("\bats\BORRAR_ARC.bat"))
+        startinfo.UseShellExecute = False
+        startinfo.WindowStyle = ProcessWindowStyle.Hidden
+        Process.Start(startinfo)
     End Function
 
     Protected Function copiar_archivos()
-        Dim startinfo As New ProcessStartInfo("C:\Gattaca_pruebas\WebSiteFSC\ELVIRA-F3\FSC_APP\FSC_APP\bats\COPIAR_ARC.bat")
-        'Dim startinfo As New ProcessStartInfo(Server.MapPath("\bats\COPIAR_ARC.bat"))
-        'startinfo.UseShellExecute = False
+        'Dim startinfo As New ProcessStartInfo("C:\Gattaca_pruebas\WebSiteFSC\ELVIRA-F3\FSC_APP\FSC_APP\bats\COPIAR_ARC.bat")
+        Dim startinfo As New ProcessStartInfo(Server.MapPath("\bats\COPIAR_ARC.bat"))
+        startinfo.UseShellExecute = False
         startinfo.WindowStyle = ProcessWindowStyle.Hidden
         Process.Start(startinfo)
     End Function
@@ -1723,6 +1775,8 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         Dim objIdea As New IdeaEntity
         Dim myProgramComponentByIdeaList As List(Of ProgramComponentByIdeaEntity) = New List(Of ProgramComponentByIdeaEntity)
 
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+
         Dim locationByIdeaList As List(Of LocationByIdeaEntity)
 
 
@@ -1731,15 +1785,9 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         Dim deptovalexist, Cityvalexist As Integer
         Dim desembolsoexist, Aportanteexist, idaportanteexist, N_pagodetexist, estados_flujosexist, N_pagoexist, fecha_pagoexist, porcentajeexist, entregaexist, tflujosexist, existidprogram, existactorsVal, existactorsName, existtipoactors, existcontact, existcedula, existtelefono, existemail, existdiner, existespecie, existtotal As String
 
-        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
-
         Try
 
-
-
             locationByIdeaList = DirectCast(Session("locationByIdeaList"), List(Of LocationByIdeaEntity))
-
-
 
             list_ubicacion = Replace(list_ubicacion, "{", " ", 1)
             list_ubicacion = Replace(list_ubicacion, "}", " ", 1)
@@ -1765,7 +1813,6 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
             list_detalles_flujos = Replace(list_detalles_flujos, """", " ", 1)
             'convertimos el string en un array de datos
             arraydetallesflujos = list_detalles_flujos.Split(New [Char]() {","c})
-
 
             list_componentes = Replace(list_componentes, "/", "*", 1)
             list_componentes = Replace(list_componentes, "_ *", "*", 1)
@@ -1867,35 +1914,44 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
                 'separamos el valor de campo
                 existactorsVal = Replace(arrayactor(contadoractor), " actorsVal : ", " ", 1)
+                existactorsVal = existactorsVal.Trim
                 existactorsName = Replace(arrayactor(contadoractor + 1), "actorsName : ", " ", 1)
+                existactorsName = existactorsName.Trim
                 existtipoactors = Replace(arrayactor(contadoractor + 2), "tipoactors : ", " ", 1)
+                existtipoactors = existtipoactors.Trim
                 existcontact = Replace(arrayactor(contadoractor + 3), "contact : ", " ", 1)
+                existcontact = existcontact.Trim
                 existcedula = Replace(arrayactor(contadoractor + 4), "cedula : ", " ", 1)
+                existcedula = existcedula.Trim
                 existtelefono = Replace(arrayactor(contadoractor + 5), "telefono : ", " ", 1)
+                existtelefono = existtelefono.Trim
                 existemail = Replace(arrayactor(contadoractor + 6), "email : ", " ", 1)
+                existemail = existemail.Trim
                 existdiner = Replace(arrayactor(contadoractor + 7), "diner : ", " ", 1)
+                existdiner = existdiner.Trim
                 existespecie = Replace(arrayactor(contadoractor + 8), "especie : ", " ", 1)
+                existespecie = existespecie.Trim
                 existtotal = Replace(arrayactor(contadoractor + 9), "total : ", " ", 1)
+                existtotal = existtotal.Trim
                 estados_flujosexist = Replace(arrayactor(contadoractor + 10), "estado_flujo : ", " ", 1)
-                estados_flujosexist = estados_flujosexist.Replace(" ", "")
+                estados_flujosexist = estados_flujosexist.Trim
+                ' estados_flujosexist = estados_flujosexist.Replace(" ", "")
                 'asignamos al objeto
                 thirdByIdea.idthird = existactorsVal
                 thirdByIdea.THIRD.name = existactorsName
                 thirdByIdea.Name = existactorsName
                 thirdByIdea.type = existtipoactors
-                thirdByIdea.THIRD.contact = existcontact
                 thirdByIdea.contact = existcontact
-                thirdByIdea.THIRD.documents = existcedula
                 thirdByIdea.Documents = existcedula
-                thirdByIdea.THIRD.phone = existtelefono
                 thirdByIdea.Phone = existtelefono
-                thirdByIdea.THIRD.email = existemail
                 thirdByIdea.Email = existemail
                 thirdByIdea.Vrmoney = existdiner
                 thirdByIdea.VrSpecies = existespecie
                 thirdByIdea.FSCorCounterpartContribution = existtotal
                 thirdByIdea.EstadoFlujos = estados_flujosexist
                 thirdByIdea.CreateDate = Now
+
+                Update_Third_Date(thirdByIdea.idthird, thirdByIdea.contact, thirdByIdea.Documents, thirdByIdea.Phone, thirdByIdea.Email)
 
                 'cargamos al list
                 thirdByIdeaList.Add(thirdByIdea)
@@ -2084,8 +2140,8 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
             objIdea.id = facade.addIdea(applicationCredentials, objIdea)
 
 
-
             save_document_IDEA(list_files, objIdea.id)
+
 
 
             Dim Result As String
@@ -2506,6 +2562,27 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
     End Function
 
+    Protected Function Update_Third_Date(ByVal idthird As String, ByVal contact As String, ByVal Documents As String, ByVal Phone As String, ByVal Email As String)
+
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+        Dim sql As New StringBuilder
+        Dim objSqlCommand As New SqlCommand
+
+
+        sql = New StringBuilder
+        'guardar los datos del actor
+        sql.Append(" update third set ")
+        sql.Append(" contact='" & contact & "',")
+        sql.Append(" documents='" & Documents & "',")
+        sql.Append(" phone='" & Phone & "',")
+        sql.Append(" email='" & Email & "'")
+        sql.Append(" where ID = " & idthird)
+        ' ejecutar la intruccion
+        GattacaApplication.RunSQL(applicationCredentials, sql.ToString)
+
+
+    End Function
+
     Protected Function delete_documents(ByVal id_idea As String)
 
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
@@ -2522,6 +2599,8 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         GattacaApplication.RunSQL(applicationCredentials, sql.ToString)
 
     End Function
+
+
 
 End Class
 

@@ -132,7 +132,7 @@ $(document).ready(function() {
         $("#Export").css("display", "compact");
         borrar_carpeta();
     }
-    else {
+    else { 
 
         $("#li_estado").css("display", "none");
 

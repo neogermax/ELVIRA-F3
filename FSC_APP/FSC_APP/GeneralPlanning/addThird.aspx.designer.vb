@@ -88,13 +88,13 @@ Partial Public Class addThird
     Protected WithEvents DDL_tipo_doc1 As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''Control Label11.
+    '''Control LblhelpDDL_tipo_doc1.
     '''</summary>
     '''<remarks>
     '''Campo generado automáticamente.
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
-    Protected WithEvents Label11 As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents LblhelpDDL_tipo_doc1 As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''Control lblid.
@@ -259,13 +259,13 @@ Partial Public Class addThird
     Protected WithEvents DDL_tipo_doc As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''Control Label7.
+    '''Control LblhelpDDL_tipo_doc.
     '''</summary>
     '''<remarks>
     '''Campo generado automáticamente.
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
-    Protected WithEvents Label7 As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents LblhelpDDL_tipo_doc As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''Control Lbldocrep.
@@ -671,4 +671,31 @@ Partial Public Class addThird
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
     Protected WithEvents HFperson As Global.System.Web.UI.WebControls.HiddenField
+
+    '''<summary>
+    '''Control containerSuccess_down.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents containerSuccess_down As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+    '''<summary>
+    '''Control lblexit_down.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents lblexit_down As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''Control lblexit2_down.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents lblexit2_down As Global.System.Web.UI.WebControls.Label
 End Class

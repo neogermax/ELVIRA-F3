@@ -13,6 +13,8 @@
 
     <link href="../css/elvira_F3.css" rel="stylesheet" type="text/css" />
 
+    <script src="../Include/javascript/F_globales_MGroup.js" type="text/javascript"></script>
+
     <script type="text/javascript">
         //Función que permite solo Números
         function ValidaSoloNumeros() {
