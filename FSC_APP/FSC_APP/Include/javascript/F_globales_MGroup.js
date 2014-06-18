@@ -58,4 +58,20 @@ function carga_eventos(str_objeto) {
     }).ajaxStop(function() {
         $(this).hide($("#" + str_objeto).css("display", "none"));
     });
- }
+}
+
+//cargar combos
+function charge_CatalogList(objCatalog, nameList, selector) {
+
+    var objList = $('[id$=' + nameList + ']');
+
+    //recorremos para llenar el combo de 
+    for (var n = 0; n < objCatalog.length; n++) {
+        objList[0].options[n] = new Option(objCatalog[n].descripcion, objCatalog[n].ID);
+    };
+
+    if (selector == 1) {
+        $("#" + nameList).append("<option value='-1'>Seleccione...</option>");
+    }
+
+}

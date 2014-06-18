@@ -29,9 +29,9 @@ function subirArchivos() {
 
                 //creamos variables
                 var filename = result;
-                filename=$.trim(filename)
+                filename = $.trim(filename)
                 filename = filename.replace(/\s/g, '_');
-                 //alert(filename);
+                //alert(filename);
                 var objectfile = data;
                 var description = cambio_text_flujos($("#ctl00_cphPrincipal_Txtdecription").val());
 
@@ -49,7 +49,7 @@ function subirArchivos() {
                 arrayFiles.push(jsonFiles);
 
                 //llamamos funcion para crear tabla anexos
-                crear_tabla_anexos("/FSC_APP/document/temp/");
+                crear_tabla_anexos(host + "/document/temp/"); //----/FSC_APP/document/temp/
 
                 $("#fileupload").val("");
 
@@ -142,7 +142,7 @@ function View_anexos_array() {
             }
 
             //llamamos funcion para crear tabla anexos
-            crear_tabla_anexos("/FSC_APP/document/");
+            crear_tabla_anexos(host + "/document/"); //----------/FSC_APP/document/
 
         },
         error: function(msg) {

@@ -1,5 +1,4 @@
-﻿
-Imports System.Xml
+﻿Imports System.Xml
 Imports System.Collections.Generic
 Imports Gattaca.Application.Credentials
 Imports Gattaca.Entity.eSecurity
@@ -10,6 +9,8 @@ Imports System.Data.SqlClient
 Imports System.Web.Script.Serialization
 Imports System.IO
 Imports System.Runtime.Serialization.Json
+Imports Newtonsoft.Json
+
 
 Partial Class ResearchAndDevelopment_AjaxAddIdea
     Inherits System.Web.UI.Page
@@ -287,8 +288,10 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                     searh_document_anexos_array(ideditar)
 
                     '----------------- tareas generales-------------------------------------------------------
-                Case "aprobacion_idea"
+                Case "load_combos"
+                    load_combos()
 
+                Case "aprobacion_idea"
                     ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
                     validar_aprobacion_idea(ideditar)
 
@@ -309,6 +312,53 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         End If
 
     End Sub
+
+
+    Protected Function load_combos()
+
+        Dim facade As New Facade
+
+        Dim sql As New StringBuilder
+        Dim objSqlCommand As New SqlCommand
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+        Dim Data_line, Data_typecontrato, Data_typo_project, Data_depto, Data_Actor As DataTable
+
+        sql.Append(" SELECT ID, Code as descripcion FROM StrategicLine AS pro where id <> 32 order by (ID)")
+        Data_line = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+        sql = New StringBuilder
+
+        sql.Append(" SELECT TYPECONTRACT.ID, TYPECONTRACT.CONTRACT as descripcion  FROM TYPECONTRACT  order by (ID)")
+        Data_typecontrato = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+        sql = New StringBuilder
+
+        sql.Append(" select pt.ID, pt.Project_Type as descripcion  from  ProjectType pt  order by pt.Project_Type asc")
+        Data_typo_project = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+        sql = New StringBuilder
+
+        sql.Append(" SELECT ID, Name as descripcion FROM FSC_eSecurity.dbo.Depto  order by (ID) ")
+        Data_depto = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+        sql = New StringBuilder
+
+        sql.Append(" select ID, Name as descripcion from Third order by (ID) ")
+        Data_Actor = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+        Dim Json_line = JsonConvert.SerializeObject(Data_line)
+        Dim Json_typecontrato = JsonConvert.SerializeObject(Data_typecontrato)
+        Dim Json_typo_project = JsonConvert.SerializeObject(Data_typo_project)
+        Dim Json_depto = JsonConvert.SerializeObject(Data_depto)
+        Dim Json_Actor = JsonConvert.SerializeObject(Data_Actor)
+
+        Dim objCatalogSerialize = String.Format("[{0},{1},{2},{3},{4}]", Json_line, Json_typecontrato, Json_typo_project, Json_depto, Json_Actor)
+
+        Response.Write(objCatalogSerialize)
+
+    End Function
+
+
 
     Protected Function searh_c_typeaproval(ByVal ididea As Integer)
 
@@ -1433,8 +1483,11 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
                 'separamos el valor de campo
                 idfileexist = Replace(ArrayFile(contador), " idfile :", " ", 1)
+                idfileexist = idfileexist.Trim
                 filenameexist = Replace(ArrayFile(contador + 1), "filename : ", "", 1)
+                filenameexist = filenameexist.Trim
                 Descriptionexist = Replace(ArrayFile(contador + 2), "Description : ", " ", 1)
+                Descriptionexist = Descriptionexist.Trim
                 Descriptionexist = Descriptionexist.Replace("¬", ",")
 
                 'asignamos al objeto
@@ -1674,17 +1727,17 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
     End Function
 
     Protected Function borrar_archivos()
-        Dim startinfo As New ProcessStartInfo("C:\Gattaca_pruebas\WebSiteFSC\ELVIRA-F3\FSC_APP\FSC_APP\bats\BORRAR_ARC.bat")
-        'Dim startinfo As New ProcessStartInfo(Server.MapPath("\bats\BORRAR_ARC.bat"))
-        'startinfo.UseShellExecute = False
+        'Dim startinfo As New ProcessStartInfo("C:\Gattaca_pruebas\WebSiteFSC\ELVIRA-F3\FSC_APP\FSC_APP\bats\BORRAR_ARC.bat")
+        Dim startinfo As New ProcessStartInfo(Server.MapPath("\bats\BORRAR_ARC.bat"))
+        startinfo.UseShellExecute = False
         startinfo.WindowStyle = ProcessWindowStyle.Hidden
         Process.Start(startinfo)
     End Function
 
     Protected Function copiar_archivos()
-        Dim startinfo As New ProcessStartInfo("C:\Gattaca_pruebas\WebSiteFSC\ELVIRA-F3\FSC_APP\FSC_APP\bats\COPIAR_ARC.bat")
-        'Dim startinfo As New ProcessStartInfo(Server.MapPath("\bats\COPIAR_ARC.bat"))
-        'startinfo.UseShellExecute = False
+        'Dim startinfo As New ProcessStartInfo("C:\Gattaca_pruebas\WebSiteFSC\ELVIRA-F3\FSC_APP\FSC_APP\bats\COPIAR_ARC.bat")
+        Dim startinfo As New ProcessStartInfo(Server.MapPath("\bats\COPIAR_ARC.bat"))
+        startinfo.UseShellExecute = False
         startinfo.WindowStyle = ProcessWindowStyle.Hidden
         Process.Start(startinfo)
     End Function
@@ -1724,10 +1777,10 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         Dim myProgramComponentByIdeaList As List(Of ProgramComponentByIdeaEntity) = New List(Of ProgramComponentByIdeaEntity)
 
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
-        
+
         Dim locationByIdeaList As List(Of LocationByIdeaEntity)
 
-       
+
 
         Dim arrayubicacion, arrayactor, arraycomponente, arrayflujos, arraydetallesflujos As String()
         Dim deptovalexist, Cityvalexist As Integer
