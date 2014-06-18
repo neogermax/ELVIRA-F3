@@ -292,8 +292,6 @@ function clearFieldsFlows() {
 //creamos la tabla de flujo de pagos
 function crear_tabla_flujos_pagos(notClear) {
 
-    recalcValues();
-
     if (!notClear) {
         setTimeout("clearFieldsFlows();", 500);
     }
@@ -331,6 +329,8 @@ function crear_tabla_flujos_pagos(notClear) {
         $(this).parent().parent().remove();
         sumarflujospagos();
     });
+    
+    recalcValues();
 }
 
 
