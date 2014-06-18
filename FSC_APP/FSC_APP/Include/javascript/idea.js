@@ -224,6 +224,7 @@ $(document).ready(function() {
     $("#close_dialog").button();
     $("#Btncharge_file").button();
     $("#fileupload").button();
+    $("#cancelEdition").button();
 
     //generar el la ventana emergente
     $("#dialog").dialog({

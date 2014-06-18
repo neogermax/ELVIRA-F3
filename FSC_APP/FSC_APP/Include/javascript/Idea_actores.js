@@ -1,4 +1,4 @@
-﻿
+
 //cargar combo actores
 function Cactors() {
     $.ajax({
@@ -45,7 +45,9 @@ function BtnaddActors_onclick() {
         if (swhich_flujos_exist == 1) {
 
             alert("Se ha detectado información el la pestaña de flujos de pagos, al eliminar el actor toda la información se perdera!");
-
+            
+            $("#Btn_add_flujo").removeAttr("disabled");
+            
             var htmlTableflujos = "<table id='T_flujos' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr><th style='text-align: center;'>No pago</th><th style='text-align: center;'>Fecha</th><th style='text-align: center;'>Porcentaje</th><th style='text-align: center;'>Entregable</th><th style='text-align: center;'>Valor parcial</th><th style='text-align: center;'>Editar/Eliminar</th><th style='text-align: center;' >Detalle</th></tr></thead><tbody>";
             htmlTableflujos += "<tr><td width='1' style='color: #D3D6FF; font-size: 0.1em;'>1000</td><td>Porcentaje acumulado</td><td id='porcentaje'>0 %</td><td>Total</td><td id='totalflujospagos'>0</td><td></td><td></td></tr></tbody></table>";
 
@@ -61,16 +63,19 @@ function BtnaddActors_onclick() {
             reversedesembolsos = [];
 
             swhich_flujos_exist = 0;
+            
 
             //reconstruimos la tabla con los datos
             $("#T_flujos").dataTable({
                 "bJQueryUI": true,
                 "bDestroy": true
             });
+            
         }
     }
     //funcion para agregar actor
     add_actor_grid();
+    
 }
 
 //funtion para agreagar al grid despues de validar si hay flujos de datos
@@ -281,7 +286,8 @@ function deleteActor(str) {
 
         if (str == id) {
             //borramos el actor deseado
-            delete arrayActor[itemArray];
+            //delete arrayActor[itemArray];
+            arrayActor.splice(itemArray, 1);
             //arrayActor.splice(arrayActor[itemArray].actorsName, 1);
         }
     }
@@ -293,7 +299,8 @@ function deleteActor(str) {
 
         if (str == idflujo) {
             //borramos el actor deseado
-            delete arrayActorFlujo[itemArrayflujo];
+            //delete arrayActorFlujo[itemArrayflujo];
+            arrayActorFlujo.splice(itemArrayflujo, 1);
         }
     }
 
@@ -303,6 +310,9 @@ function deleteActor(str) {
     sumavalores_gridprincipal();
     //llamar la funcion sumar flujos actores
     sumar_flujos_actores();
+    
+    recalcValues();
+    $("#Btn_add_flujo").removeAttr("disabled");
 
 }
 

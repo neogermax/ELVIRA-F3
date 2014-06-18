@@ -1,11 +1,27 @@
-﻿//agregar pagos al grid general de flujos
+$(document).ready(function() {
+    $("#cancelEdition").click(function() {
+        crear_tabla_flujos_pagos();
+    });
+    
+    $("#ctl00_cphPrincipal_txtporcentaje").change(function(){
+        var porcentajeGlobal = removeCommasAndConvert($.trim($("#porcentaje").html().replace('%', '')));
+        var porcentajeLocal = removeCommasAndConvert($(this).val());
+        
+        if((porcentajeGlobal + porcentajeLocal) > 100){
+            alert("El porcentaje ingresado es invalido, verifique el porcentaje disponible para flujos de pago.");
+            $(this).val("0");
+            recalcValues();
+        }
+    });
+});
+
+//agregar pagos al grid general de flujos
 function Btn_add_flujo_onclick() {
 
     if ($("#ctl00_cphPrincipal_txtporcentaje").val() == "" || $("#ctl00_cphPrincipal_txtvalortotalflow").val() == "" || $("#ctl00_cphPrincipal_txtfechapago").val() == "" || $("#ctl00_cphPrincipal_txtentregable").val() == "") {
         $("#ctl00_cphPrincipal_Lblinformationexist").text("Estos campos deben ser diligenciados antes de ingresar algún valor en la grilla de flujos!");
 
-    }
-    else {
+    } else {
 
 
         //inicializamos variables
@@ -25,7 +41,7 @@ function Btn_add_flujo_onclick() {
             tflujos = tflujos.replace(/\./gi, '');
             var N_pago = $("#ctl00_cphPrincipal_txtvalortotalflow").val();
             var fecha_pago = $("#ctl00_cphPrincipal_txtfechapago").val();
-            var porcentaje = $("#ctl00_cphPrincipal_txtporcentaje").val() + " %";
+            var porcentaje = $("#ctl00_cphPrincipal_txtporcentaje").val();
             //            var valor_pago = valuecomparative;
 
             var entrega = cambio_text_flujos($("#ctl00_cphPrincipal_txtentregable").val());
@@ -37,7 +53,13 @@ function Btn_add_flujo_onclick() {
             var idaportante;
 
             //creamos json para guardarlos en un array
-            var jsonflujo = { "N_pago": N_pago, "fecha_pago": fecha_pago, "porcentaje": porcentaje, "entrega": entrega, "tflujos": tflujos };
+            var jsonflujo = {
+                "N_pago": N_pago,
+                "fecha_pago": fecha_pago,
+                "porcentaje": porcentaje,
+                "entrega": entrega,
+                "tflujos": tflujos
+            };
 
 
             //recorremos el array para revisar repetidos        
@@ -47,13 +69,49 @@ function Btn_add_flujo_onclick() {
                     validerepetido = 1;
                 }
             }
-
-
-            //validamos si hay repetidos
             if (validerepetido == 1) {
-                $("#ctl00_cphPrincipal_Lblinformation_flujos").text("El pago No " + N_pago + " ya fue registrado");
-            }
-            else {
+                var isUpdate = confirm("El pago No " + N_pago + " ya fue registrado, desea actualizarlo?");
+
+                if (isUpdate) {
+                    updateFlow(N_pago, tflujos, $("#totalflujos").text());
+                } else {
+                    $("#ctl00_cphPrincipal_Lblinformation_flujos").text("El pago No " + N_pago + " ya fue registrado");
+                }
+
+                //recorremos la tabla de flujo de pagos para guardar los detalles
+                $("#T_Actorsflujos tr").slice(0, $("#T_Actorsflujos tr").length - 1).each(function() {
+
+                    arrayinputflujos = $(this).find("td").slice(0, 3);
+
+                    if ($(arrayinputflujos[0]).html() != null) {
+
+
+                        idpago = $("#ctl00_cphPrincipal_txtvalortotalflow").val();
+                        idaportante = $(arrayinputflujos[0]).html();
+                        Aportante = $(arrayinputflujos[1]).html();
+                        var idflujo = "#txtinput" + $(arrayinputflujos[0]).html();
+
+                        desembolso = $(idflujo).val();
+
+                        if (isUpdate) {
+                            updateDetailsFlow(idpago, desembolso, idaportante);
+
+
+                        } else {
+
+                            var jsonflujodetalle = {
+                                "idpago": idpago,
+                                "idaportante": idaportante,
+                                "Aportante": Aportante,
+                                "desembolso": desembolso
+                            };
+                            matriz_flujos.push(jsonflujodetalle);
+
+                        }
+
+                    }
+                });
+            } else {
                 $("#ctl00_cphPrincipal_Lblinformation_flujos").text("");
 
                 //inicializamos las variables
@@ -72,8 +130,7 @@ function Btn_add_flujo_onclick() {
                 //validamos que no ingresen mas del 100% del valor ingresado
                 if (validaporcentaje > 100) {
                     $("#ctl00_cphPrincipal_Lblinformation_flujos").text("Los desembolsos no deben superar el 100%");
-                }
-                else {
+                } else {
                     $("#ctl00_cphPrincipal_Lblinformationexist").text("");
                     edit_swhich_fx = 0;
                     //cargamos el array con el json
@@ -99,10 +156,20 @@ function Btn_add_flujo_onclick() {
                         var idflujo = "#txtinput" + $(arrayinputflujos[0]).html();
 
                         desembolso = $(idflujo).val();
-                        var jsonflujodetalle = { "idpago": idpago, "idaportante": idaportante, "Aportante": Aportante, "desembolso": desembolso };
 
-                        //cargamos el array con el json
-                        matriz_flujos.push(jsonflujodetalle);
+                        if (isUpdate) {
+                            updateDetailsFlow(idpago, desembolso, idaportante);
+
+                        } else {
+
+                            var jsonflujodetalle = {
+                                "idpago": idpago,
+                                "idaportante": idaportante,
+                                "Aportante": Aportante,
+                                "desembolso": desembolso
+                            };
+                            matriz_flujos.push(jsonflujodetalle);
+                        }
 
                     }
                 });
@@ -139,8 +206,7 @@ function Btn_add_flujo_onclick() {
                 }
             }
 
-        }
-        else {
+        } else {
 
             // $(idflujo).val("");
 
@@ -153,8 +219,7 @@ function Btn_add_flujo_onclick() {
 
                 sumarvaloresflujosprincipal();
 
-            }
-            else {
+            } else {
                 alert("el valor total de los actores debe ser igual al porcentaje calculado");
 
                 //inicializamos el array
@@ -166,22 +231,82 @@ function Btn_add_flujo_onclick() {
 
         }
     }
+
+    crear_tabla_flujos_pagos();
+}
+
+function updateFlow(N_pago, tflujos) {
+    for (var item in arrayflujosdepago) {
+
+        if (arrayflujosdepago[item].N_pago == $.trim(N_pago)) {
+            arrayflujosdepago[item].fecha_pago = $("#ctl00_cphPrincipal_txtfechapago").val();
+            arrayflujosdepago[item].porcentaje = $("#ctl00_cphPrincipal_txtporcentaje").val();
+            arrayflujosdepago[item].entrega = $("#ctl00_cphPrincipal_txtentregable").val();
+            arrayflujosdepago[item].tflujos = tflujos;
+            break;
+        }
+    }
+}
+
+function updateDetailsFlow(idpago, desembolso, idaportante) {
+    for (var item in matriz_flujos) {
+        if (matriz_flujos[item].idpago == $.trim(idpago) && matriz_flujos[item].idaportante == idaportante) {
+            matriz_flujos[item].desembolso = desembolso;
+        }
+    }
+
+    setTimeout("crear_tabla_flujos_pagos();", 1000);
+}
+
+function recalcValues() {
+
+    for (var item in arrayActorFlujo) {
+        $("#desenbolso" + arrayActorFlujo[item].actorsVal).html($.trim($("#value" + arrayActorFlujo[item].actorsVal).html()));
+    }
+
+    for (var item in matriz_flujos) {
+        var valuePartial = $("#desenbolso" + matriz_flujos[item].idaportante).html();
+        valuePartial = valuePartial.replace(/\./gi, '');
+
+        var detailFlow = matriz_flujos[item].desembolso;
+        detailFlow = detailFlow.replace(/\./gi, '');
+
+        var totalOperation = parseInt(valuePartial) - parseInt(detailFlow);
+
+        $("#desenbolso" + matriz_flujos[item].idaportante).html(addCommasrefactor(totalOperation));
+    }
+}
+
+function clearFieldsFlows() {
+    $("#ctl00_cphPrincipal_txtvalortotalflow").val("");
+    $("#ctl00_cphPrincipal_txtfechapago").val("");
+    $("#ctl00_cphPrincipal_txtporcentaje").val("");
+    $("#ctl00_cphPrincipal_txtentregable").val("");
+    $("#ctl00_cphPrincipal_Lbltotalvalor").html("");
+    //$(".money").trigger("blur");
+    $(".money").val("");
 }
 
 //creamos la tabla de flujo de pagos
-function crear_tabla_flujos_pagos() {
+function crear_tabla_flujos_pagos(notClear) {
+
+    recalcValues();
+
+    if (!notClear) {
+        setTimeout("clearFieldsFlows();", 500);
+    }
 
     var htmlTableflujos = "<table id='T_flujos' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr><th style='text-align: center;'>No pago</th><th style='text-align: center;'>Fecha</th><th style='text-align: center;'>Porcentaje</th><th style='text-align: center;'>Entregable</th><th style='text-align: center;'>Valor parcial</th><th style='text-align: center;'>Editar/Eliminar</th><th style='text-align: center;' >Detalle</th></tr></thead><tbody>";
 
     for (itemArray in arrayflujosdepago) {
-
         var entregacomas = arrayflujosdepago[itemArray].entrega;
         entregacomas = entregacomas.replace(/¬/g, ',');
 
         var pagoadd = arrayflujosdepago[itemArray].tflujos;
         pagoadd = addCommasrefactor(pagoadd);
 
-        htmlTableflujos += "<tr id='flow" + arrayflujosdepago[itemArray].N_pago + "' ><td>" + arrayflujosdepago[itemArray].N_pago + "</td><td>" + arrayflujosdepago[itemArray].fecha_pago + "</td><td>" + arrayflujosdepago[itemArray].porcentaje + "</td><td>" + entregacomas + "</td><td>" + pagoadd + "</td><td><input type ='button' value= 'Editar' onclick=\"editflujo('" + arrayflujosdepago[itemArray].N_pago + "','" + arrayflujosdepago[itemArray].fecha_pago + "',' " + arrayflujosdepago[itemArray].porcentaje + "','" + arrayflujosdepago[itemArray].entrega + "','" + pagoadd + "')\" ></input><input type ='button' value= 'Eliminar' onclick=\" eliminarflujo('" + arrayflujosdepago[itemArray].N_pago + "')\"></input></td><td><input type ='button' value= 'Detalle' onclick=\"traerdetalles('" + arrayflujosdepago[itemArray].N_pago + "',this)\"></input></td></tr>";
+        htmlTableflujos += "<tr id='flow" + arrayflujosdepago[itemArray].N_pago + "' ><td>" + arrayflujosdepago[itemArray].N_pago + "</td><td>" + arrayflujosdepago[itemArray].fecha_pago + "</td><td>" + arrayflujosdepago[itemArray].porcentaje + " %</td><td>" + entregacomas + "</td><td>" + pagoadd + "</td><td><input class='editFlow' type ='button' value= 'Editar' onclick=\"editflujo('" + arrayflujosdepago[itemArray].N_pago + "','" + arrayflujosdepago[itemArray].fecha_pago + "',' " + arrayflujosdepago[itemArray].porcentaje + "','" + arrayflujosdepago[itemArray].entrega + "','" + pagoadd + "')\" ></input><input type ='button' value= 'Eliminar' onclick=\" eliminarflujo('" + arrayflujosdepago[itemArray].N_pago + "')\"></input></td><td><input type ='button' value= 'Detalle' onclick=\"traerdetalles('" + arrayflujosdepago[itemArray].N_pago + "',this)\"></input></td></tr>";
+
     }
     htmlTableflujos += "<tr><td width='1' style='color: #D3D6FF; font-size: 0.1em;'>1000</td><td>Porcentaje acumulado</td><td id='porcentaje'>0 %</td><td>Total</td><td id='totalflujospagos'>0</td><td></td><td></td></tr></tbody></table>";
 
@@ -200,6 +325,10 @@ function crear_tabla_flujos_pagos() {
         "bDestroy": true
     });
 
+    $(".editFlow").click(function() {
+        $(this).parent().parent().remove();
+        sumarflujospagos();
+    });
 }
 
 
@@ -222,7 +351,10 @@ function View_detalle_flujo_array() {
     $.ajax({
         url: "AjaxAddIdea.aspx",
         type: "GET",
-        data: { "action": "View_detalle_flujo_array", "ididea": ideditar },
+        data: {
+            "action": "View_detalle_flujo_array",
+            "ididea": ideditar
+        },
         success: function(result) {
 
             if (result == "vacio") {
@@ -230,8 +362,7 @@ function View_detalle_flujo_array() {
                 // alert(result + " detalles");
                 matriz_flujos = [];
 
-            }
-            else {
+            } else {
 
                 matriz_flujos_ed = result.split("|");
 
@@ -255,7 +386,10 @@ function View_flujos_p_array() {
     $.ajax({
         url: "AjaxAddIdea.aspx",
         type: "GET",
-        data: { "action": "View_flujos_p_array", "ididea": ideditar },
+        data: {
+            "action": "View_flujos_p_array",
+            "ididea": ideditar
+        },
         success: function(result) {
 
             if (result == "vacio") {
@@ -263,8 +397,7 @@ function View_flujos_p_array() {
                 arrayflujosdepago = [];
                 swhich_flujos_exist = 0;
 
-            }
-            else {
+            } else {
                 arrayflujosdepago_ed = result.split("|");
 
                 for (itemArray in arrayflujosdepago_ed) {
@@ -287,19 +420,19 @@ function View_flujos_p_array() {
 
 
 //creamos la tabla de flujo actores
-function crear_tabla_flujo_actor() {
+function crear_tabla_flujo_actor(isEditLoad) {
 
     var htmltableAflujos = "<table id='T_Actorsflujos' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr><th width='1'></th><th>Aportante</th><th>Valor total aporte</th><th>Valor por programar</th><th>Saldo por programar</th></tr></thead><tbody>";
 
     for (itemarrayflujos in arrayActorFlujo) {
-        
+
         var sPageURL = window.location.search.substring(1);
         var sURLVariables = sPageURL.split('&');
         //validamos si creamos la idea o editamos
         var disponible = arrayActorFlujo[itemarrayflujos].diner;
-        
-        if (sURLVariables[0] == "op=edit") {
-            //disponible = 0;
+
+        if (isEditLoad) {
+            disponible = 0;
         }
 
 
@@ -341,8 +474,7 @@ function sumar_flujos_actores() {
             }
             //cargamos los campos con la operacion realizada
             $("#tflujosing").text(addCommasrefactor(valdinerflujos));
-        }
-        else {
+        } else {
             $("#tflujosing").text(0);
         }
     });
@@ -355,15 +487,17 @@ function View_flujos_actors_array() {
     $.ajax({
         url: "AjaxAddIdea.aspx",
         type: "GET",
-        data: { "action": "View_flujos_actors_array", "ididea": ideditar },
+        data: {
+            "action": "View_flujos_actors_array",
+            "ididea": ideditar
+        },
         success: function(result) {
 
             if (result == "vacio") {
                 //    alert(result);
                 arrayActorFlujo = [];
 
-            }
-            else {
+            } else {
                 arrayactorflujo_ed = result.split("|");
 
                 // alert(arrayactorflujo_ed);
@@ -377,7 +511,7 @@ function View_flujos_actors_array() {
             }
 
             //llama la funcion crear la tabla de flujo_actor
-            crear_tabla_flujo_actor();
+            crear_tabla_flujo_actor(true);
 
         },
         error: function(msg) {
@@ -405,8 +539,7 @@ function sumarvaloresflujosprincipal() {
             if (desembolso == "") {
                 desembolso = 0;
 
-            }
-            else {
+            } else {
                 desembolso = desembolso.replace(/\./gi, '');
             }
 
@@ -460,7 +593,7 @@ function x() {
 
 //funcion para editar
 function editflujo(strN_pago, fecha_pago, porcentaje, entrega, tflujos) {
-
+    crear_tabla_flujo_actor();
     //capturamos los datos otraves para la edicion
     $("#ctl00_cphPrincipal_txtvalortotalflow").val(strN_pago);
     $("#ctl00_cphPrincipal_txtfechapago").val(fecha_pago);
@@ -472,13 +605,19 @@ function editflujo(strN_pago, fecha_pago, porcentaje, entrega, tflujos) {
     $("#ctl00_cphPrincipal_txtentregable").val(entrega);
 
     switch_editar = 1;
+
     //lamar funcion borrar flujos de pagos
 
-    eliminarflujo(strN_pago);
+    //eliminarflujo(strN_pago);
+
     //llamar suma de pagos
+
+    $("#Btn_add_flujo").removeAttr("disabled");
+
+    getDetailsForNpago(strN_pago);
+
     sumarflujospagos();
 }
-
 
 //funcion para eliminar los flujos de pagos en el grid
 function eliminarflujo(strN_pago) {
@@ -492,7 +631,9 @@ function eliminarflujo(strN_pago) {
 
         if (strN_pago == id) {
             //borramos el actor deseado
-            delete arrayflujosdepago[itemArray];
+            if (switch_editar == 0) {
+                delete arrayflujosdepago[itemArray];
+            }
         }
     }
 
@@ -512,25 +653,29 @@ function eliminarflujo(strN_pago) {
 
             desembolsorev = matriz_flujos[itemArraymatriz].desembolso;
 
-            var jsonreverdesembolsos = { "actorsreverse": actorsreverse, "desembolsorev": desembolsorev };
+            var jsonreverdesembolsos = {
+                "actorsreverse": actorsreverse,
+                "desembolsorev": desembolsorev
+            };
 
             //cargamos el array con el json
             reversedesembolsos.push(jsonreverdesembolsos);
-
-            delete matriz_flujos[itemArraymatriz];
+            if (switch_editar == 0) {
+                delete matriz_flujos[itemArraymatriz];
+            }
         }
     }
 
 
     if (switch_editar == 0) {
         //boton eliminar
-        eliminar_flujos();
-    }
-    else {
+        //eliminar_flujos();
+    } else {
         switch_editar = 0;
         //boton editar
         editar_flujos();
     }
+    recalcValues();
     reversedesembolsos = [];
 
     var idflow = "#flow" + strN_pago;
@@ -570,6 +715,7 @@ function editar_flujos() {
                     //capturamos el valor del array y lo llevamos al campo de texto deseado
                     var demvolsobsumar = reversedesembolsos[itemdesembolsos].desembolsorev;
                     $(input).val(demvolsobsumar);
+
                     $(input).trigger("focus");
 
                     //totalizamos valores y asctualizamos el campo de total
@@ -623,182 +769,221 @@ function eliminar_flujos() {
 var arrayeditarflujos = [];
 //funcion para restar los valores ingresados erronamente en los input de grilla de actores
 function restar_flujos(str) {
+    /*
+     $("#totalflujos").text("");
+     //construimos el input a validar
+     var idflujo = "#txtinput" + str;
+     var iddesenbolso = "#desenbolso" + str;
+     var idinicial = "#value" + str;
+     
+     //validamos si el input esta vacio
+     if ($(idflujo).val() != "") {
+     
+     //capturamos valores
+     var restaoperador = $(idflujo).val();
+     
+     if (restaoperador == "") {
+     restaoperador = 0;
+     }
+     
+     restaoperador = restaoperador.replace(/\./gi, '');
+     
+     var valorarraytotal = arrayValorflujoTotal[0];
+     // alert("valor capturado para restar ->" + valorarraytotal);
+     
+     var desenbolso = $(iddesenbolso).html();
+     desenbolso = desenbolso.replace(/\./gi, '');
+     
+     var inicial = $(idinicial).html();
+     inicial = inicial.replace(/\./gi, '');
+     
+     
+     //restamos del array de operacion
+     
+     if (edit_swhich_fx == 1) {
+     restaoperador = $(idflujo).val();
+     restaoperador = restaoperador.replace(/\./gi, '');
+     valorarraytotal = parseInt(valorarraytotal) - 0;
+     arrayeditarflujos[0] = valorarraytotal;
+     
+     //        alert("ojo restar 3 " + arrayeditarflujos[0]);
+     } else {
+     valorarraytotal = parseInt(valorarraytotal) - parseInt(restaoperador);
+     }
+     
+     if (edit_flujo_inicializa == 1) {
+     restaoperador = $(idflujo).val();
+     restaoperador = restaoperador.replace(/\./gi, '');
+     arrayValorflujoTotal[0] = 0;
+     //    alert("ojo restar 1 " + arrayValorflujoTotal[0]);
+     edit_flujo_inicializa = 0;
+     edit_swhich_fx = 1;
+     
+     } else {
+     //        alert("ojo restar 2 " + arrayValorflujoTotal[0]);
+     arrayValorflujoTotal[0] = valorarraytotal;
+     
+     }
+     
+     if (swhich_validar_estado_1 != 1) {
+     if (inicial != desenbolso) {
+     var desembolsototal = parseInt(desenbolso) + parseInt(restaoperador);
+     
+     // $("#ctl00_cphPrincipal_Txtpruebas").val(desembolsototal);
+     $(iddesenbolso).text(addCommasrefactor(desembolsototal));
+     swhich_validar_estado_1 = 0;
+     }
+     }
+     //$(idflujo).focus();
+     }
+     */
 
-    $("#totalflujos").text("");
-    //construimos el input a validar
-    var idflujo = "#txtinput" + str;
-    var iddesenbolso = "#desenbolso" + str;
-    var idinicial = "#value" + str;
+    var valueToSum = removeCommasAndConvert($("#txtinput" + str).val());
+    var valueDynamic = removeCommasAndConvert($("#desenbolso" + str).html());
+    var totalValue = valueToSum + valueDynamic;
 
-    //validamos si el input esta vacio
-    if ($(idflujo).val() != "") {
+    if (totalValue > removeCommasAndConvert($("#value" + str).html()))
+    {
+        //alert("El valor proporcionado no puede ser mayor que el saldo por programar.");
+        //$("#txtinput" + str).val("0");
 
-        //capturamos valores
-        var restaoperador = $(idflujo).val();
-
-        if (restaoperador == "") {
-            restaoperador = 0;
-        }
-
-        restaoperador = restaoperador.replace(/\./gi, '');
-
-        var valorarraytotal = arrayValorflujoTotal[0];
-        // alert("valor capturado para restar ->" + valorarraytotal);
-
-        var desenbolso = $(iddesenbolso).html();
-        desenbolso = desenbolso.replace(/\./gi, '');
-
-        var inicial = $(idinicial).html();
-        inicial = inicial.replace(/\./gi, '');
-
-
-        //restamos del array de operacion
-
-        if (edit_swhich_fx == 1) {
-            restaoperador = $(idflujo).val();
-            restaoperador = restaoperador.replace(/\./gi, '');
-            valorarraytotal = parseInt(valorarraytotal) - 0;
-            arrayeditarflujos[0] = valorarraytotal;
-
-            //        alert("ojo restar 3 " + arrayeditarflujos[0]);
-        }
-        else {
-            valorarraytotal = parseInt(valorarraytotal) - parseInt(restaoperador);
-        }
-
-        if (edit_flujo_inicializa == 1) {
-            restaoperador = $(idflujo).val();
-            restaoperador = restaoperador.replace(/\./gi, '');
-            arrayValorflujoTotal[0] = 0;
-            //    alert("ojo restar 1 " + arrayValorflujoTotal[0]);
-            edit_flujo_inicializa = 0;
-            edit_swhich_fx = 1;
-
-        }
-        else {
-            //        alert("ojo restar 2 " + arrayValorflujoTotal[0]);
-            arrayValorflujoTotal[0] = valorarraytotal;
-
-        }
-
-        if (swhich_validar_estado_1 != 1) {
-            if (inicial != desenbolso) {
-                var desembolsototal = parseInt(desenbolso) + parseInt(restaoperador);
-
-                // $("#ctl00_cphPrincipal_Txtpruebas").val(desembolsototal);
-                $(iddesenbolso).text(addCommasrefactor(desembolsototal));
-                swhich_validar_estado_1 = 0;
-            }
-        }
-        //$(idflujo).focus();
+    } else {
+        $("#desenbolso" + str).html(addCommasrefactor(totalValue));
     }
+
+    $("#totalflujos").text(addCommasrefactor(returnValueTotalFlow()));
 
 }
 
+function removeCommasAndConvert(valueToConvert) {
+    if (valueToConvert == "" || valueToConvert == null) {
+        return 0;
+    } else {
+        valueToConvert = valueToConvert.replace(/\./gi, '');
+        valueToConvert = parseInt(valueToConvert);
+        return valueToConvert;
+    }
+}
 
 //sumar flujos de pagos
 function sumar_flujos(str) {
+    /*
+     //    //inicializamos las variables
+     var valdinerflujo = 0;
+     var valorlimite = 0;
+     var valtotaldiner = 0;
+     var totaldesembolso = 0;
+     
+     var tr_Id = "#value" + str;
+     var valuesActorslimit = $(tr_Id).html();
+     valuesActorslimit = valuesActorslimit.replace(/\./gi, '');
+     var opevaluesActorslimit = parseInt(valuesActorslimit);
+     
+     var tr_Iddes = "#desenbolso" + str;
+     var valuesActorsdesembolso = $(tr_Iddes).html();
+     valuesActorsdesembolso = valuesActorsdesembolso.replace(/\./gi, '');
+     var opevaluesActorsdesembolso = parseInt(valuesActorsdesembolso);
+     
+     //capturamos el valor deseado
+     var id = "#txtinput" + str;
+     var ValuesActorsflujos = $(id).val();
+     
+     if (ValuesActorsflujos == "") {
+     ValuesActorsflujos = 0;
+     } else {
+     ValuesActorsflujos = ValuesActorsflujos.replace(/\./gi, '');
+     }
+     
+     
+     var opeValuesActorsflujos = parseInt(ValuesActorsflujos);
+     
+     //funtion validar limite de actores
+     //console.log("Pendiente validar limite!");
+     var resultado_val = validar_limite_actores(opeValuesActorsflujos, opevaluesActorsdesembolso, opevaluesActorslimit, totaldesembolso, tr_Iddes, id);
+     
+     //validamos si es el primer registro del array
+     
+     arrayValorflujoTotal[0] = returnValueTotalFlow();
+     
+     $("#totalflujos").text(addCommasrefactor(arrayValorflujoTotal[0]));
+     
+     if (resultado_val == 1) {
+     $("#totalflujos").text("");
+     }*/
 
-    //inicializamos las variables
-    var valdinerflujo = 0;
-    var valorlimite = 0;
-    var valtotaldiner = 0;
-    var totaldesembolso = 0;
+    var valueToSum = removeCommasAndConvert($("#txtinput" + str).val());
+    var valueDynamic = removeCommasAndConvert($("#desenbolso" + str).html());
+    var totalValue = valueDynamic - valueToSum;
 
-    var tr_Id = "#value" + str;
-    var valuesActorslimit = $(tr_Id).html();
-    valuesActorslimit = valuesActorslimit.replace(/\./gi, '');
-    var opevaluesActorslimit = parseInt(valuesActorslimit);
+    if (totalValue < 0)
+    {
+        alert("El valor proporcionado no puede ser mayor que el saldo por programar.");
+        $("#txtinput" + str).trigger("focus");
+        $("#txtinput" + str).val("0");
 
-    var tr_Iddes = "#desenbolso" + str;
-    var valuesActorsdesembolso = $(tr_Iddes).html();
-    valuesActorsdesembolso = valuesActorsdesembolso.replace(/\./gi, '');
-    var opevaluesActorsdesembolso = parseInt(valuesActorsdesembolso);
-
-    //capturamos el valor deseado
-    var id = "#txtinput" + str;
-    var ValuesActorsflujos = $(id).val();
-
-    if (ValuesActorsflujos == "") {
-        ValuesActorsflujos = 0;
+    } else {
+        $("#desenbolso" + str).html(addCommasrefactor(totalValue));
     }
-    else {
-        ValuesActorsflujos = ValuesActorsflujos.replace(/\./gi, '');
-    }
-
-
-    var opeValuesActorsflujos = parseInt(ValuesActorsflujos);
-
-    //funtion validar limite de actores
-    var resultado_val = validar_limite_actores(opeValuesActorsflujos, opevaluesActorsdesembolso, opevaluesActorslimit, totaldesembolso, tr_Iddes);
-
-    //validamos si es el primer registro del array
-    
-    arrayValorflujoTotal[0] = returnValueTotalFlow();
-
-    $("#totalflujos").text(addCommasrefactor(arrayValorflujoTotal[0]));
-
-    if (resultado_val == 1) {
-        $("#totalflujos").text("");
-    }
-
-
+    $("#totalflujos").text(addCommasrefactor(returnValueTotalFlow()));
 }
 
 function returnValueTotalFlow() {
     var totalValueToProgram = 0;
     $(".money").each(function() {
-        totalValueToProgram = totalValueToProgram + parseInt($(this).val().replace(/\./g, ""));
+        if ($.trim($(this).val()) != "") {
+            totalValueToProgram = totalValueToProgram + parseInt($(this).val().replace(/\./g, ""));
+        }
     })
     return totalValueToProgram;
 }
 
-function validar_limite_actores(opeValuesActorsflujos, opevaluesActorsdesembolso, opevaluesActorslimit, totaldesembolso, tr_Iddes) {
+function validar_limite_actores(opeValuesActorsflujos, opevaluesActorsdesembolso, opevaluesActorslimit, totaldesembolso, tr_Iddes, idThird) {
     var error_actor = 0;
 
     //capturamos el valor limite del actor
-    $("#T_Actorsflujos tr").slice(0, $("#T_Actorsflujos tr").length - 1).each(function() {
+    //$("#T_Actorsflujos tr").slice(0, $("#T_Actorsflujos tr").length - 1).each(function () {
 
-        //validamos que el valor deseado no supere al limite
-        if (opevaluesActorslimit < opeValuesActorsflujos) {
-            alert("el valor ingresado no debe superar al ingresado en los actores");
-            error_actor = 1;
-            if (opevaluesActorsdesembolso != opevaluesActorslimit) {
-                var desembolsototal2 = parseInt(opevaluesActorsdesembolso) + parseInt(opeValuesActorsflujos);
-                $(tr_Iddes).text(addCommasrefactor(desembolsototal2));
-                // $(id).focus();
+    //validamos que el valor deseado no supere al limite
+    if (opevaluesActorslimit < opeValuesActorsflujos) {
+        alert("el valor ingresado no debe superar al ingresado en los actores");
+        $(idThird).trigger("focus");
+        /*
+         error_actor = 1;
+         if (opevaluesActorsdesembolso != opevaluesActorslimit) {
+         var desembolsototal2 = parseInt(opevaluesActorsdesembolso) + parseInt(opeValuesActorsflujos);
+         $(tr_Iddes).text(addCommasrefactor(desembolsototal2));
+         
+         }
+         
+         swhich_validar_estado_1 = 1;
+         
+         opeValuesActorsflujos = 0;*/
+    } else {
+
+        if (opevaluesActorsdesembolso < opeValuesActorsflujos) {
+            alert("el valor ingresado no debe superar el desembolso disponible");
+            /*error_actor = 1;
+             swhich_validar_estado_1 = 1;
+             opeValuesActorsflujos = 0;*/
+
+            $(idThird).trigger("focus");
+
+        } else {
+            if (opevaluesActorslimit == opevaluesActorsdesembolso) {
+                totaldesembolso = opevaluesActorsdesembolso - opeValuesActorsflujos;
+                $(tr_Iddes).text(addCommasrefactor(totaldesembolso));
+
             }
+//                else {
+//                    totaldesembolso = opevaluesActorsdesembolso - opeValuesActorsflujos;
+//                    $(tr_Iddes).text(addCommasrefactor(totaldesembolso));
 
-            swhich_validar_estado_1 = 1;
-
-            opeValuesActorsflujos = 0;
+//                }
         }
-        else {
-            if (opevaluesActorsdesembolso < opeValuesActorsflujos) {
-                alert("el valor ingresado no debe superar al desembolso disponible");
-                error_actor = 1;
-                swhich_validar_estado_1 = 1;
-                opeValuesActorsflujos = 0;
-
-            }
-            else {
-                if (opevaluesActorslimit == opevaluesActorsdesembolso) {
-                    totaldesembolso = opevaluesActorsdesembolso - opeValuesActorsflujos;
-                    $(tr_Iddes).text(addCommasrefactor(totaldesembolso));
-
-                }
-                else {
-                    totaldesembolso = opevaluesActorsdesembolso - opeValuesActorsflujos;
-                    $(tr_Iddes).text(addCommasrefactor(totaldesembolso));
-
-                }
-            }
-        }
-    });
+    }
+    //});
     return error_actor;
 }
-
-
 
 var swhich_flujos_exist;
 
@@ -830,8 +1015,7 @@ function sumarflujospagos() {
             //cargamos los campos con la operacion realizada
             $("#porcentaje").text(valporcentaje + " %");
             $("#totalflujospagos").text(addCommasrefactor(valtotalflujo));
-        }
-        else {
+        } else {
 
             $("#porcentaje").text("0 %");
             $("#totalflujospagos").text("0");
@@ -852,8 +1036,7 @@ function validarporcentaje() {
             $("#ctl00_cphPrincipal_Lblinformationexist").text("No se han agregado actores! debe ingresarlos");
             $("#ctl00_cphPrincipal_txtporcentaje").attr("disabled", "disabled");
             $("#ctl00_cphPrincipal_txtfechapago").attr("disabled", "disabled");
-        }
-        else {
+        } else {
             $("#ctl00_cphPrincipal_Lblinformationexist").text("");
             $("#ctl00_cphPrincipal_txtporcentaje").removeAttr("disabled");
             $("#ctl00_cphPrincipal_txtfechapago").removeAttr("disabled");
@@ -865,25 +1048,16 @@ function validarporcentaje() {
     $("#ctl00_cphPrincipal_txtporcentaje").focusout(function() {
 
         var porc = $("#ctl00_cphPrincipal_txtporcentaje").val();
-        //calcula el porcentaje
-        porc = Math.round(porc * 10) / 10;
-        $("#ctl00_cphPrincipal_txtporcentaje").val(porc);
 
-        var txtvalortotalflow = $("#tflujosing").text();
+        var valortotalflow = $("#tflujosing").text();
+        valortotalflow = valortotalflow.replace(/\./gi, '');
 
-        valortotalflow = txtvalortotalflow.replace(/\./gi, '');
-        var valortotalflow = parseInt(valortotalflow);
+        valortotalflow = parseInt(valortotalflow);
 
         //realiza la operacion del porcentaje seleccionado
         var parcial = (parseFloat(porc) * parseFloat(valortotalflow)) / 100;
-        parcial = Math.round(parcial);
 
-
-        //parcial = numeral(parcial).format('0,0');
-        var valcomas = addCommasrefactor(parcial);
-
-
-        $("#ctl00_cphPrincipal_Lbltotalvalor").text(valcomas);
+        $("#ctl00_cphPrincipal_Lbltotalvalor").text(addCommasrefactor(Math.floor(parcial)));
 
         if (s_revisarflujos == 1) {
 
@@ -891,10 +1065,10 @@ function validarporcentaje() {
             if (arrayActorFlujo[0] != undefined) {
                 var idflujos = arrayActorFlujo[0].actorsVal;
 
-                valuecomparative = valcomas;
+                valuecomparative = Math.floor(parcial);
 
-                $("#txtinput" + idflujos).val(valuecomparative);
-                $("#totalflujos").text(valuecomparative);
+                $("#txtinput" + idflujos).val(addCommasrefactor(valuecomparative));
+                $("#totalflujos").text(addCommasrefactor(valuecomparative));
                 value_disponible(idflujos);
             }
         }
@@ -909,8 +1083,7 @@ function validarporcentaje() {
             $("#ctl00_cphPrincipal_Lblhelpporcentaje").text("El porcentaje debe ser menor o igual a 100");
             $("#ctl00_cphPrincipal_txtporcentaje").val("");
             $("#ctl00_cphPrincipal_txtporcentaje").focus();
-        }
-        else {
+        } else {
             $("#ctl00_cphPrincipal_Lblhelpporcentaje").text("");
 
         }
@@ -918,16 +1091,12 @@ function validarporcentaje() {
             $("#ctl00_cphPrincipal_Lblhelpporcentaje").text("El porcentaje debe ser mayor a 0");
             $("#ctl00_cphPrincipal_txtporcentaje").val("");
             $("#ctl00_cphPrincipal_txtporcentaje").focus();
-        }
-        else {
+        } else {
             $("#ctl00_cphPrincipal_Lblhelpporcentaje").text("");
         }
 
     });
 }
-
-var variable_control_actor = 0;
-
 
 function value_disponible(id_actor) {
 
@@ -946,15 +1115,76 @@ function value_disponible(id_actor) {
     var valuesActorsdesembolso = $(tr_Iddes).html();
     valuesActorsdesembolso = valuesActorsdesembolso.replace(/\./gi, '');
 
-
-    if (variable_control_actor == 0) {
-        var totaldesenbolso = opevaluesActorslimit - opeValuesActorsflujos;
-        variable_control_actor = 1;
-    }
-    else {
-        var totaldesenbolso = valuesActorsdesembolso - opeValuesActorsflujos;
+    var totaldesembolso = 0;
+    if (matriz_flujos.length == 0) {
+        totaldesembolso = valuesActorslimit - opeValuesActorsflujos;
+    } else {
+        totaldesembolso = valuesActorsdesembolso - opeValuesActorsflujos;
     }
 
-    $(tr_Iddes).text(addCommasrefactor(totaldesenbolso));
+    $(tr_Iddes).text(addCommasrefactor(totaldesembolso));
 
 }
+
+function getDetailsForNpago(N_pago) {
+    for (var item in matriz_flujos) {
+        if (matriz_flujos[item].idpago == N_pago) {
+            console.log(matriz_flujos[item].desembolso);
+            $("#txtinput" + matriz_flujos[item].idaportante).val(matriz_flujos[item].desembolso);
+            $("#txtinput" + matriz_flujos[item].idaportante).trigger("focus");
+            $("#txtinput" + matriz_flujos[item].idaportante).trigger("blur");
+        }
+    }
+}
+//    /*var porcentaje = $("#porcentaje").html();
+//    porcentaje = parseInt($.trim(porcentaje.replace("%","")));
+//    
+//    
+//    for (var item in matriz_flujos) {
+//        if (matriz_flujos[item].idpago == N_pago) {
+//            $("#txtinput" + matriz_flujos[item].idaportante).val(matriz_flujos[item].desembolso);
+//            $("#txtinput" + matriz_flujos[item].idaportante).trigger("focus");
+//            $("#txtinput" + matriz_flujos[item].idaportante).trigger("blur");
+//        }
+//    }*/
+//    
+//    //recorremos el array de flujos de pagos
+//    for (itemArray in arrayflujosdepago) {
+//        //construimos la llave de validacion
+//        var id = arrayflujosdepago[itemArray].N_pago;
+//        //validamos el dato q nos trae la funcion
+
+//        if (strN_pago == id) {
+//            //borramos el actor deseado
+//            delete arrayflujosdepago[itemArray];
+//        }
+//    }
+
+//    //recorremos el array detalles de pagos
+//    for (itemArraymatriz in matriz_flujos) {
+//        //construimos la llave de validacion
+//        var idmatriz = matriz_flujos[itemArraymatriz].idpago;
+//        //validamos el dato q nos trae la funcion
+
+//        if (strN_pago == idmatriz) {
+//            //borramos el actor deseado
+
+//            var actorsreverse;
+//            var desembolsorev;
+
+//            actorsreverse = matriz_flujos[itemArraymatriz].idaportante;
+
+//            desembolsorev = matriz_flujos[itemArraymatriz].desembolso;
+
+//            var jsonreverdesembolsos = {
+//                "actorsreverse": actorsreverse,
+//                "desembolsorev": desembolsorev
+//            };
+
+//            //cargamos el array con el json
+//            reversedesembolsos.push(jsonreverdesembolsos);
+
+//            delete matriz_flujos[itemArraymatriz];
+//        }
+//    }
+//}
