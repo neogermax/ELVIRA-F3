@@ -291,7 +291,9 @@ function clearFieldsFlows() {
 
 //creamos la tabla de flujo de pagos
 function crear_tabla_flujos_pagos(notClear) {
-
+    
+    recalcValues();
+    
     if (!notClear) {
         setTimeout("clearFieldsFlows();", 500);
     }
@@ -619,6 +621,8 @@ function editflujo(strN_pago, fecha_pago, porcentaje, entrega, tflujos) {
     getDetailsForNpago(strN_pago);
 
     sumarflujospagos();
+    
+    recalcValues();
 }
 
 //funcion para eliminar los flujos de pagos en el grid
