@@ -1677,8 +1677,8 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         Dim startinfo As New ProcessStartInfo("C:\Gattaca_pruebas\WebSiteFSC\ELVIRA-F3\FSC_APP\FSC_APP\bats\BORRAR_ARC.bat")
         'Dim startinfo As New ProcessStartInfo(Server.MapPath("\bats\BORRAR_ARC.bat"))
         'startinfo.UseShellExecute = False
-        startinfo.WindowStyle = ProcessWindowStyle.Hidden
-        Process.Start(startinfo)
+        'startinfo.WindowStyle = ProcessWindowStyle.Hidden
+        'Process.Start(startinfo)
     End Function
 
     Protected Function copiar_archivos()
