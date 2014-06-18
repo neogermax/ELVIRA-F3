@@ -65,15 +65,15 @@ var control_edit_compo;
 
 $(document).ready(function() {
 
-    //load_combos();
+   load_combos();
 
-    ClineEstrategic();
-    Cdeptos();
-    Cactors();
-    CtypeContract();
-    Ctype_project();
-    comboactor();
-    Ctypeaproval();
+//    ClineEstrategic();
+//    Cdeptos();
+//    Cactors();
+//    CtypeContract();
+//    Ctype_project();
+//    comboactor();
+//    Ctypeaproval();
 
     Cmunip();
     Cpopulation();
