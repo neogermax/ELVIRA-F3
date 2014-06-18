@@ -1023,7 +1023,7 @@ function borrar_carpeta() {
         type: "GET",
         data: { "action": "borrar_archivos" },
         success: function(result) {
-            //   alert("borrado");
+            console.log(result);
         },
         error: function(msg) {
             alert("No ELIMINO LOS ARCHIVOS = " + ideditar);
