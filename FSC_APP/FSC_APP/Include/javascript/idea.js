@@ -65,15 +65,15 @@ var control_edit_compo;
 
 $(document).ready(function() {
 
-   load_combos();
+    load_combos();
 
-//    ClineEstrategic();
-//    Cdeptos();
-//    Cactors();
-//    CtypeContract();
-//    Ctype_project();
-//    comboactor();
-//    Ctypeaproval();
+    //    ClineEstrategic();
+    //    Cdeptos();
+    //    Cactors();
+    //    CtypeContract();
+    //    Ctype_project();
+    //    comboactor();
+    //    Ctypeaproval();
 
     Cmunip();
     Cpopulation();
@@ -145,7 +145,7 @@ $(document).ready(function() {
         $("#Export").css("display", "compact");
         borrar_carpeta();
     }
-    else { 
+    else {
 
         $("#li_estado").css("display", "none");
 
@@ -1048,3 +1048,26 @@ function copiar_archivos() {
 
 }
 
+//fumcion de carga de listas
+function load_combos() {
+
+    $.ajax({
+        url: "AjaxAddIdea.aspx",
+        type: "GET",
+        data: { "action": "load_combos" },
+        success: function(result) {
+
+            result = JSON.parse(result);
+
+            charge_CatalogList(result[0], "ddlStrategicLines", 1);
+            charge_CatalogList(result[1], "ddlmodcontract", 1);
+            charge_CatalogList(result[2], "dll_estado", 1);
+            charge_CatalogList(result[3], "ddlDepto", 1);
+            charge_CatalogList(result[4], "ddlactors", 1);
+
+        },
+        error: function(msg) {
+            alert("No se pueden cargar los combos de idea.");
+        }
+    });
+}
