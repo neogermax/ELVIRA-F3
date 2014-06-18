@@ -1026,7 +1026,7 @@ function borrar_carpeta() {
             console.log(result);
         },
         error: function(msg) {
-            alert("No ELIMINO LOS ARCHIVOS = " + ideditar);
+            alert("Ocurrio un problema al intentar eliminar los archivos temporales. " );
         }
     });
 }
@@ -1042,7 +1042,7 @@ function copiar_archivos() {
             //  alert("copiado");
         },
         error: function(msg) {
-            alert("No COPIO LOS ARCHIVOS= " + ideditar);
+        alert("Ocurrio un problema al intentar modificar los archivos temporales.");
         }
     });
 

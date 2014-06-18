@@ -1727,7 +1727,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
     End Function
 
     Protected Function borrar_archivos()
-        Response.Write(Server.MapPath("\bats\BORRAR_ARC.bat"))
+        'Response.Write(Server.MapPath("\bats\BORRAR_ARC.bat"))
         Dim startinfo As New ProcessStartInfo(Server.MapPath("\bats\BORRAR_ARC.bat"))
         startinfo.UseShellExecute = False
         startinfo.WindowStyle = ProcessWindowStyle.Hidden
