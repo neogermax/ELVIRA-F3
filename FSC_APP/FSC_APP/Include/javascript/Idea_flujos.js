@@ -4,13 +4,15 @@ $(document).ready(function() {
     });
     
     $("#ctl00_cphPrincipal_txtporcentaje").change(function(){
-        var porcentajeGlobal = removeCommasAndConvert($.trim($("#porcentaje").html().replace('%', '')));
-        var porcentajeLocal = removeCommasAndConvert($(this).val());
-        
-        if((porcentajeGlobal + porcentajeLocal) > 100){
-            alert("El porcentaje ingresado es invalido, verifique el porcentaje disponible para flujos de pago.");
-            $(this).val("0");
-            recalcValues();
+        if($("#porcentaje").html() != null){
+            var porcentajeGlobal = removeCommasAndConvert($.trim($("#porcentaje").html().replace('%', '')));
+            var porcentajeLocal = removeCommasAndConvert($(this).val());
+
+            if((porcentajeGlobal + porcentajeLocal) > 100){
+                alert("El porcentaje ingresado es invalido, verifique el porcentaje disponible para flujos de pago.");
+                $(this).val("0");
+                recalcValues();
+            }
         }
     });
 });
@@ -289,9 +291,9 @@ function clearFieldsFlows() {
 
 //creamos la tabla de flujo de pagos
 function crear_tabla_flujos_pagos(notClear) {
-
+    
     recalcValues();
-
+    
     if (!notClear) {
         setTimeout("clearFieldsFlows();", 500);
     }
@@ -329,6 +331,8 @@ function crear_tabla_flujos_pagos(notClear) {
         $(this).parent().parent().remove();
         sumarflujospagos();
     });
+    
+    recalcValues();
 }
 
 
@@ -617,6 +621,8 @@ function editflujo(strN_pago, fecha_pago, porcentaje, entrega, tflujos) {
     getDetailsForNpago(strN_pago);
 
     sumarflujospagos();
+    
+    recalcValues();
 }
 
 //funcion para eliminar los flujos de pagos en el grid
