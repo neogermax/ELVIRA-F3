@@ -167,6 +167,8 @@ Partial Class addContractRequest
                             Me.LoadDropDownListProjectByManagement()
                         End If
                         Me.ddlProject.SelectedValue = objContractRequest.idproject
+                        'se coloca el id de proyecto en un Hidden Field
+                        Me.HF_ID_Project.Value = objContractRequest.idproject
                         Me.ddlContractNature.SelectedValue = objContractRequest.idcontractnature
                         Me.txtcontractnumberadjusted.Text = objContractRequest.contractnumberadjusted
                         Me.ddlEnabled.SelectedValue = objContractRequest.enabled
