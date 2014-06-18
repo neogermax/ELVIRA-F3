@@ -5,6 +5,13 @@
 var arrayTypeRequest=[];
 var JSONThirdCesion;
 
+
+// idproject depend from page father and save into variable named idproject
+
+var numberRequest;
+var swhich_flujos_exist;
+var projectObject = {};
+//ready event for elements DOM into page
 $(document).ready(function() {
     HideAreas();
     Fechas();
@@ -42,15 +49,41 @@ $(document).ready(function() {
                 break;
         }
     });
-})
+    
+    $("#listThirds").change(function(){
+        $.ajax({
+            url: "../FormulationAndAdoption/ajaxRequest.aspx",
+            type: "POST",
+            data: {
+                "action": "getLastContactForProjectByThird",
+                "idProject": idproject,
+                "idThird": $(this).val()
+            },
+            success: function (result) {
+                if(result != ""){
+                    result = JSON.parse(result);
+                    
+                    $("#listTypeThird").val($.trim(result.Type));
+                    $("#txtNameContact").val($.trim(result.Name));
+                    $("#txtCCThird").val($.trim(result.Documents));
+                    $("#txtPhoneThird").val($.trim(result.Phone));
+                    $("#txtEmailThird").val($.trim(result.Email));
+                }else{
+                    $("#listTypeThird").val("");
+                    $("#txtNameContact").val("");
+                    $("#txtCCThird").val("");
+                    $("#txtPhoneThird").val("");
+                    $("#txtEmailThird").val("");
+                }
+                
+                
+            },
+            error: function (msg) {
+                alert("No se pueden cargar los actores.");
+            }        
+        });
+    });
 
-// idproject depend from page father and save into variable named idproject
-
-var numberRequest;
-var swhich_flujos_exist;
-var projectObject = {};
-//ready event for elements DOM into page
-$(document).ready(function() {
     //Ajax transaction for get project information
     $.ajax({
         url: "../FormulationAndAdoption/ajaxRequest.aspx",
@@ -78,17 +111,17 @@ $(document).ready(function() {
             $("#closeDate").html("Fecha de Liquidación: " + EndDate.localeFormat("dd/MM/yyyy"));
 
             //
-            $("#txtarObjective").val(projectObject.Objective);
-            $("#txtarSpecificObjectives").val(projectObject.ZoneDescription);
-            $("#txtarInstalledCapacityResults").val(projectObject.ResultsInstalledCapacity);
-            $("#txtarBenefitiaryResults").val(projectObject.Results);
-            $("#txtarKnowledgeResults").val(projectObject.ResultsKnowledgeManagement);
-            $("#txtarOtherResults").val(projectObject.OtherResults);
-            $("#txtarPartObligations").val(projectObject.obligationsoftheparties);
+            $("#txtarObjective").val($.trim(projectObject.Objective) == ""? "N/A": projectObject.Objective);
+            $("#txtarSpecificObjectives").val($.trim(projectObject.ZoneDescription)  == ""? "N/A": projectObject.ZoneDescription);
+            $("#txtarInstalledCapacityResults").val($.trim(projectObject.ResultsInstalledCapacity)  == ""? "N/A": projectObject.ResultsInstalledCapacity);
+            $("#txtarBenefitiaryResults").val($.trim(projectObject.Results)   == ""? "N/A": projectObject.Results);
+            $("#txtarKnowledgeResults").val($.trim(projectObject.ResultsKnowledgeManagement)  == ""? "N/A": projectObject.ResultsKnowledgeManagement);
+            $("#txtarOtherResults").val($.trim(projectObject.OtherResults)  == ""? "N/A": projectObject.OtherResults);
+            $("#txtarPartObligations").val($.trim(projectObject.obligationsoftheparties) == ""? "N/A": projectObject.obligationsoftheparties);
             //
             
-            if(projectObject.Justification != undefined){
-                $("#txtJustification").val(projectObject.Justification);
+            if(projectObject.Justification_Request != undefined){
+                $("#txtJustification").val(projectObject.Justification_Request);
             }
             
             if(projectObject.Other_Request != undefined){
@@ -143,7 +176,8 @@ $(document).ready(function() {
             },
             success: function(result) {
                 alert("La solicitud se almaceno correctamente!");
-                window.location.reload();
+                console.log(host + '/FormulationAndAdoption/CPMain.aspx?id=' + idproject);
+                window.location = 'http://' + host + '/FormulationAndAdoption/CPMain.aspx?id=' + idproject;
             },
             error: function() {
                 alert("Opsss! Algo salio mal, por favor intentelo mas tarde.")

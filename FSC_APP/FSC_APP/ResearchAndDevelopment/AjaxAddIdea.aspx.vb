@@ -1727,12 +1727,6 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
     End Function
 
     Protected Function borrar_archivos()
-        'Dim startinfo As New ProcessStartInfo("C:\Gattaca_pruebas\WebSiteFSC\ELVIRA-F3\FSC_APP\FSC_APP\bats\BORRAR_ARC.bat")
-
-        Dim objfiles As File
-
-
-
         Dim startinfo As New ProcessStartInfo(Server.MapPath("\bats\BORRAR_ARC.bat"))
         startinfo.UseShellExecute = False
         startinfo.WindowStyle = ProcessWindowStyle.Hidden

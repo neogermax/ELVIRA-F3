@@ -24,8 +24,19 @@ Public Class DetailedcashflowsDALC
             ' construir la sentencia
             sql.AppendLine(" insert into Detailedcashflows(IdIdea,IdProject,N_pago,IdAportante,Aportante,mother,Desembolso) ")
             sql.AppendLine("VALUES ( ")
-            sql.AppendLine(detailedcashflow.IdIdea & ", ")
-            sql.AppendLine(detailedcashflow.IdProject & ", ")
+
+            If detailedcashflow.IdIdea = 0 Then
+                sql.AppendLine("NULL , ")
+            Else
+                sql.AppendLine(detailedcashflow.IdIdea & ", ")
+            End If
+
+            If detailedcashflow.IdProject = 0 Then
+                sql.AppendLine("NULL , ")
+            Else
+                sql.AppendLine(detailedcashflow.IdProject & ", ")
+            End If
+
             sql.AppendLine(detailedcashflow.N_pago & ", ")
             sql.AppendLine(detailedcashflow.IdAportante & ", ")
             sql.AppendLine("'" & detailedcashflow.Aportante & "', ")

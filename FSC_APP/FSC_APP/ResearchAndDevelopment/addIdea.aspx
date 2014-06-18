@@ -906,9 +906,12 @@
                             </tr>
                         </tbody>
                     </table>
+                    
                 </div>
                 <br />
+                <input style="margin-left: 3em;" type='text' id="cancelEdition" value="Cancelar Edición" />
             </div>
+            
         </div>
         <div id="anexos">
             <ul>

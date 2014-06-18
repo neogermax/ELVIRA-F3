@@ -78,7 +78,6 @@ $(document).ready(function() {
     Cmunip();
     Cpopulation();
 
-
     //capturamos la url
     var sPageURL = window.location.search.substring(1);
     var sURLVariables = sPageURL.split('&');
@@ -88,6 +87,7 @@ $(document).ready(function() {
 
         operacionesIdea();
         actors_transanccion();
+        comboactor();
 
         var timer = setTimeout("fix();", 2000);
         validafecha();
@@ -95,14 +95,24 @@ $(document).ready(function() {
 
         componentes_editados = 1;
 
-
+        Cdeptos();
+        Cmunip();
+        Cactors();
+        CtypeContract();
         startdate();
+        Ctype_project();
+        Cpopulation();
         validarporcentaje();
+
+        Ctypeaproval();
+
+        ClineEstrategic();
 
         $("#ddlStrategicLines").ready(function() {
             ClineEstrategic_edit();
         });
 
+        //Cprogram();
         View_componentes_array();
         cargarcomponente();
         edit_component_view();
@@ -110,11 +120,17 @@ $(document).ready(function() {
         load_idarchive();
 
         view_ubicacion_array();
+
         View_actores_array();
+
         View_flujos_p_array();
+
         View_flujos_actors_array();
+
         View_detalle_flujo_array();
+
         aprobacion_idea();
+
         View_anexos_array();
 
 
@@ -129,21 +145,28 @@ $(document).ready(function() {
         $("#Export").css("display", "compact");
         borrar_carpeta();
     }
-    else {
+    else { 
 
         $("#li_estado").css("display", "none");
 
         operacionesIdea();
         actors_transanccion();
+        comboactor();
 
         var timer = setTimeout("fix();", 2000);
         validafecha();
         validafecha2();
 
+        ClineEstrategic();
         Cprogram(0);
-
+        Cdeptos();
+        Cmunip();
+        Cactors();
+        CtypeContract();
         cargarcomponente();
         startdate();
+        Ctype_project();
+        Cpopulation();
         validarporcentaje();
 
 
@@ -152,7 +175,6 @@ $(document).ready(function() {
         borrar_carpeta();
 
     }
-
 
     //validar campos fechas
     validar_campofecha('ctl00_cphPrincipal_txtstartdate', 'ctl00_cphPrincipal_lblHelpstartdate');
@@ -215,6 +237,7 @@ $(document).ready(function() {
     $("#close_dialog").button();
     $("#Btncharge_file").button();
     $("#fileupload").button();
+    $("#cancelEdition").button();
 
     //generar el la ventana emergente
     $("#dialog").dialog({
@@ -1023,29 +1046,5 @@ function copiar_archivos() {
         }
     });
 
-}
-
-//funcion que carga combos del modulo idea
-function load_combos() {
-
-    $.ajax({
-        url: "AjaxAddIdea.aspx",
-        type: "GET",
-        data: { "action": "load_combos" },
-        success: function(result) {
-
-            result = JSON.parse(result);
-
-            charge_CatalogList(result[0], "ddlStrategicLines", 1);
-            charge_CatalogList(result[1], "ddlmodcontract", 1);
-            charge_CatalogList(result[2], "dll_estado", 1);
-            charge_CatalogList(result[3], "ddlDepto", 1);
-            charge_CatalogList(result[4], "ddlactors", 1);
-
-        },
-        error: function(msg) {
-            alert("No se pueden cargar los combos de idea.");
-        }
-    });
 }
 
