@@ -4,13 +4,15 @@ $(document).ready(function() {
     });
     
     $("#ctl00_cphPrincipal_txtporcentaje").change(function(){
-        var porcentajeGlobal = removeCommasAndConvert($.trim($("#porcentaje").html().replace('%', '')));
-        var porcentajeLocal = removeCommasAndConvert($(this).val());
-        
-        if((porcentajeGlobal + porcentajeLocal) > 100){
-            alert("El porcentaje ingresado es invalido, verifique el porcentaje disponible para flujos de pago.");
-            $(this).val("0");
-            recalcValues();
+        if($("#porcentaje").html() != null){
+            var porcentajeGlobal = removeCommasAndConvert($.trim($("#porcentaje").html().replace('%', '')));
+            var porcentajeLocal = removeCommasAndConvert($(this).val());
+
+            if((porcentajeGlobal + porcentajeLocal) > 100){
+                alert("El porcentaje ingresado es invalido, verifique el porcentaje disponible para flujos de pago.");
+                $(this).val("0");
+                recalcValues();
+            }
         }
     });
 });
