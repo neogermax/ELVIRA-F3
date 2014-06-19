@@ -195,6 +195,27 @@ function desbloqueo() {
 
 }
 
+//cargar combo de lineas estrategicas
+function ClineEstrategic() {
+
+    $.ajax({
+        url: "AjaxAddIdea.aspx",
+        type: "GET",
+        data: { "action": "C_linestrategic" },
+        success: function(result) {
+
+            $("#ddlStrategicLines").html(result);
+            $("#ddlStrategicLines").trigger("liszt:updated");
+
+        },
+        error: function(msg) {
+            alert("No se pueden cargar las lineas stratégicas.");
+        }
+    });
+}
+
+
+
 
 //cargar double lisbox componentes de programa
 function cargarcomponente() {

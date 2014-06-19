@@ -1,6 +1,4 @@
-﻿
-//cargar combo de municipios
-function Cmunip() {
+﻿function Cmunip() {
 
     $("#ddlDepto").change(function() {
         $.ajax({
