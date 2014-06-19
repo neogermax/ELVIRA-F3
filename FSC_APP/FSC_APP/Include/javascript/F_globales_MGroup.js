@@ -69,7 +69,7 @@ function charge_CatalogList(objCatalog, nameList, selector) {
     for (var n = 0; n < objCatalog.length; n++) {
         objList[0].options[n] = new Option(objCatalog[n].descripcion, objCatalog[n].ID);
     };
-
+    //validamos si el combo lleva seleccione y posicionamos en el
     if (selector == 1) {
 
         $("#" + nameList).append("<option value='-1'>Seleccione...</option>");

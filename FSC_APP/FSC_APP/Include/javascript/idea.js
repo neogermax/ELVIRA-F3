@@ -71,6 +71,8 @@ $(document).ready(function() {
     Cpopulation();
     comboactor();
 
+    valide_date_depto();
+    
     //capturamos la url
     var sPageURL = window.location.search.substring(1);
     var sURLVariables = sPageURL.split('&');

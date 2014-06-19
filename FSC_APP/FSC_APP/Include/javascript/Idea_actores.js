@@ -144,7 +144,6 @@ function add_actor_grid() {
                 }
                 //cargamos el array con el json
                 arrayActor.push(jsonActor);
-
                 //llama la funcion crear la tabla de grid principal
                 crear_tabla_inf_prin();
                 //llama la funcion crear la tabla de actores
@@ -160,7 +159,7 @@ function add_actor_grid() {
                 $("#ctl00_cphPrincipal_Txtvrdiner").val("");
                 $("#ctl00_cphPrincipal_Txtvresp").val("");
                 $("#ctl00_cphPrincipal_Txtaportfscocomp").val("");
-                $("#ddlactors").val("Seleccione...");
+                $("#ddlactors").val("-1");
                 $("#ddlactors").trigger("liszt:updated");
             }
         }
