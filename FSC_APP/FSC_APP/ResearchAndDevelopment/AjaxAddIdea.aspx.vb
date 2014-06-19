@@ -352,6 +352,22 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
     End Function
 
+
+    Function validate_date_consult(ByVal date_consult As String)
+
+        Dim value_string As String
+
+        If date_consult = 0 Then
+            value_string = "0"
+        Else
+            value_string = date_consult
+        End If
+
+        Return value_string
+    End Function
+
+
+
     Protected Function load_combos(ByVal type As String)
 
         Dim facade As New Facade

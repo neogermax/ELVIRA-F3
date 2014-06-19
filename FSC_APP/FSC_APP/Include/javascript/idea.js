@@ -69,7 +69,20 @@ $(document).ready(function() {
 
     Cmunip();
     Cpopulation();
+    cargarcomponente();
+
     comboactor();
+
+    valide_date_depto();
+
+    operacionesIdea();
+    actors_transanccion();
+    validarporcentaje();
+    startdate();
+    validafecha();
+    validafecha2();
+
+    borrar_carpeta();
 
     //capturamos la url
     var sPageURL = window.location.search.substring(1);
@@ -78,36 +91,28 @@ $(document).ready(function() {
     if (sURLVariables[0] == "op=edit") {
         ideditar = sURLVariables[1].replace("id=", "");
 
-        operacionesIdea();
-        actors_transanccion();
-
         var timer = setTimeout("fix();", 2000);
-        validafecha();
-        validafecha2();
 
         componentes_editados = 1;
-
-        startdate();
-        validarporcentaje();
 
         $("#ddlStrategicLines").ready(function() {
             ClineEstrategic_edit();
         });
 
+        //Cprogram();
         View_componentes_array();
-        cargarcomponente();
-        edit_component_view();
-
-        load_idarchive();
-
         view_ubicacion_array();
-        View_anexos_array();
         View_actores_array();
         View_flujos_p_array();
         View_flujos_actors_array();
         View_detalle_flujo_array();
+        View_anexos_array();
+
+        edit_component_view();
+        load_idarchive();
 
         aprobacion_idea();
+
 
         var timer_cline_edit = setTimeout("Cpopulation_view();", 2000);
         var timer_cline_edit = setTimeout("Ctypcontract_view();", 2000);
@@ -118,28 +123,16 @@ $(document).ready(function() {
         $("#li_estado").css("display", "compact");
         $("#SaveIdea").attr("value", "Guardar cambios");
         $("#Export").css("display", "compact");
-        borrar_carpeta();
     }
     else {
 
         $("#li_estado").css("display", "none");
-
-        operacionesIdea();
-        actors_transanccion();
-
         var timer = setTimeout("fix();", 2000);
-        validafecha();
-        validafecha2();
 
         Cprogram(0);
 
-        cargarcomponente();
-        startdate();
-        validarporcentaje();
-
         $("#SaveIdea").attr("value", "Crear Idea");
         $("#Export").css("display", "none");
-        borrar_carpeta();
 
     }
 
@@ -148,10 +141,13 @@ $(document).ready(function() {
     validar_campofecha('ctl00_cphPrincipal_txtfechapago', 'ctl00_cphPrincipal_helpfechapago');
     carga_eventos("ctl00_cphPrincipal_container_wait");
 
+
+
     $("#ctl00_cphPrincipal_containerSuccess").css("display", "none");
     $("#ctl00_cphPrincipal_containererrors").css("display", "none");
     $('#ctl00_cphPrincipal_gif_charge_Container').css("display", "none");
     $('#ctl00_cphPrincipal_container_wait').css("display", "none");
+
 
     $("#matriz").dataTable({
         "bJQueryUI": true,
@@ -244,13 +240,15 @@ $(document).ready(function() {
             if (entradaflujos == 0) {
                 var tamaño_flujos = $("#T_Actorsflujos tr").length - 2;
 
+                //alert(tamaño_flujos);
                 //validar la cantidad de actores
                 if (tamaño_flujos == 1) {
                     if (arrayActorFlujo[0] != undefined) {
                         var Aflujos = arrayActorFlujo[0].actorsVal;
-
+                        //   alert(Aflujos);
                         $("#txtinput" + Aflujos).attr("disabled", "disabled");
                     }
+                    //$("#desenbolso" + Aflujos).text("");
                     entradaflujos = 1;
                     s_revisarflujos = 1;
                 }
@@ -267,6 +265,7 @@ $(document).ready(function() {
 
 
 });
+
 
 
 //funcion para dispara en el autoload fuciones de fechas
@@ -984,7 +983,7 @@ function borrar_carpeta() {
         type: "GET",
         data: { "action": "borrar_archivos" },
         success: function(result) {
-            console.log(result);
+            //   alert("borrado");
         },
         error: function(msg) {
             alert("Ocurrio un problema al intentar eliminar los archivos temporales. ");
