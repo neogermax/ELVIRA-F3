@@ -1,4 +1,21 @@
-﻿//cargar combo tipos de  poblacion segun el proyecto seleccionado
+﻿
+//cargar combo tipos de  proyecto
+function Ctype_project() {
+    $.ajax({
+        url: "AjaxAddIdea.aspx",
+        type: "GET",
+        data: { "action": "C_type_project" },
+        success: function(result) {
+            $("#ddltype_proyect").html(result);
+            $("#ddltype_proyect").trigger("liszt:updated");
+        },
+        error: function(msg) {
+            alert("No se pueden cargar los tipos de proyecto.");
+        }
+    });
+}
+
+//cargar combo tipos de  poblacion segun el proyecto seleccionado
 function Cpopulation() {
     // $("#ddltype_proyect").change(function() {
     $.ajax({
@@ -36,6 +53,23 @@ function Cpopulation_view() {
 
 }
 
+
+
+//cargar combo tipos de contratos
+function CtypeContract() {
+    $.ajax({
+        url: "AjaxAddIdea.aspx",
+        type: "GET",
+        data: { "action": "C_typecontract" },
+        success: function(result) {
+            $("#ddlmodcontract").html(result);
+            $("#ddlmodcontract").trigger("liszt:updated");
+        },
+        error: function(msg) {
+            alert("No se pueden cargar los tipos de contrato.");
+        }
+    });
+}
 
 function Ctypcontract_view() {
 
@@ -281,6 +315,7 @@ function operacionesIdea() {
 
 }
 
+
 //funcion para exportar los terminos de referencia
 function Export_onclick() {
 
@@ -315,3 +350,19 @@ function Export_onclick() {
     $("#Export").attr("href", str_url);
 }
 
+function Ctypeaproval() {
+
+    $.ajax({
+        url: "AjaxAddIdea.aspx",
+        type: "GET",
+        data: { "action": "C_type_aproval", "type": "I" },
+        success: function(result) {
+            $("#dll_estado").html(result);
+            $("#dll_estado").trigger("liszt:updated");
+        },
+        error: function(msg) {
+            alert("No se pueden cargar los estados de la idea.");
+        }
+    });
+
+}

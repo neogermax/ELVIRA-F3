@@ -1,4 +1,19 @@
-﻿
+﻿//cargar combo de departamentos
+function Cdeptos() {
+    $.ajax({
+        url: "AjaxAddIdea.aspx",
+        type: "GET",
+        data: { "action": "C_deptos" },
+        success: function(result) {
+            $("#ddlDepto").html(result);
+            $("#ddlDepto").trigger("liszt:updated");
+        },
+        error: function(msg) {
+            alert("No se pueden cargar los departamentos.");
+        }
+    });
+}
+
 //cargar combo de municipios 
 function Cmunip() {
     $("#ddlDepto").change(function() {
