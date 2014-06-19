@@ -69,14 +69,14 @@ function charge_CatalogList(objCatalog, nameList, selector) {
     for (var n = 0; n < objCatalog.length; n++) {
         objList[0].options[n] = new Option(objCatalog[n].descripcion, objCatalog[n].ID);
     };
-    //actualizamos el combo
-    $("#" + nameList).trigger("liszt:updated");
-    //validamos si el combo lleva seleccione y posicionamos en el
+     //validamos si el combo lleva seleccione y posicionamos en el
     if (selector == 1) {
 
         $("#" + nameList).append("<option value='-1'>Seleccione...</option>");
         $("#" + nameList + " option[value= '-1'] ").attr("selected", true);
     }
 
-  
+    //actualizamos el combo
+    $("#" + nameList).trigger("liszt:updated");
+   
 }
