@@ -208,6 +208,8 @@ Partial Class addContractRequest
                             Me.txtProject.Text = Me.txtProject.Text & " (Otro si)"
                         End If
 
+                        Me.HF_ID_Project.Value = objProject.id
+
                         Me.lblProjectNumber.Text = objContractRequest.idproject & "_" & objContractRequest.PROJECTNAME
                         Me.HFProject.Value = objContractRequest.idproject
                         If (objContractRequest.suscriptdate <> "12:00:00 AM") Then Me.txtSubscriptionDate.Text = objContractRequest.suscriptdate.ToString("yyyy/MM/dd")
