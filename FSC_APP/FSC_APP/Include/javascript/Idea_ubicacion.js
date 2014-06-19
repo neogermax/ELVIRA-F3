@@ -34,6 +34,7 @@ function valide_date_depto() {
 
 }
 
+
 //agregar ubicaciones por el metodo de tablas html
 function Add_location_onclick() {
 
