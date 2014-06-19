@@ -67,16 +67,9 @@ $(document).ready(function() {
 
     load_combos();
 
-    //    ClineEstrategic();
-    //    Cdeptos();
-    //    Cactors();
-    //    CtypeContract();
-    //    Ctype_project();
-    //    comboactor();
-    //    Ctypeaproval();
-
     Cmunip();
     Cpopulation();
+    comboactor();
 
     //capturamos la url
     var sPageURL = window.location.search.substring(1);
@@ -87,7 +80,6 @@ $(document).ready(function() {
 
         operacionesIdea();
         actors_transanccion();
-        comboactor();
 
         var timer = setTimeout("fix();", 2000);
         validafecha();
@@ -95,24 +87,13 @@ $(document).ready(function() {
 
         componentes_editados = 1;
 
-        Cdeptos();
-        Cmunip();
-        Cactors();
-        CtypeContract();
         startdate();
-        Ctype_project();
-        Cpopulation();
         validarporcentaje();
-
-        Ctypeaproval();
-
-        ClineEstrategic();
 
         $("#ddlStrategicLines").ready(function() {
             ClineEstrategic_edit();
         });
 
-        //Cprogram();
         View_componentes_array();
         cargarcomponente();
         edit_component_view();
@@ -120,19 +101,13 @@ $(document).ready(function() {
         load_idarchive();
 
         view_ubicacion_array();
-
+        View_anexos_array();
         View_actores_array();
-
         View_flujos_p_array();
-
         View_flujos_actors_array();
-
         View_detalle_flujo_array();
 
         aprobacion_idea();
-
-        View_anexos_array();
-
 
         var timer_cline_edit = setTimeout("Cpopulation_view();", 2000);
         var timer_cline_edit = setTimeout("Ctypcontract_view();", 2000);
@@ -151,24 +126,16 @@ $(document).ready(function() {
 
         operacionesIdea();
         actors_transanccion();
-        comboactor();
 
         var timer = setTimeout("fix();", 2000);
         validafecha();
         validafecha2();
 
-        ClineEstrategic();
         Cprogram(0);
-        Cdeptos();
-        Cmunip();
-        Cactors();
-        CtypeContract();
+
         cargarcomponente();
         startdate();
-        Ctype_project();
-        Cpopulation();
         validarporcentaje();
-
 
         $("#SaveIdea").attr("value", "Crear Idea");
         $("#Export").css("display", "none");
@@ -181,13 +148,10 @@ $(document).ready(function() {
     validar_campofecha('ctl00_cphPrincipal_txtfechapago', 'ctl00_cphPrincipal_helpfechapago');
     carga_eventos("ctl00_cphPrincipal_container_wait");
 
-
-
     $("#ctl00_cphPrincipal_containerSuccess").css("display", "none");
     $("#ctl00_cphPrincipal_containererrors").css("display", "none");
     $('#ctl00_cphPrincipal_gif_charge_Container').css("display", "none");
     $('#ctl00_cphPrincipal_container_wait').css("display", "none");
-
 
     $("#matriz").dataTable({
         "bJQueryUI": true,
@@ -280,15 +244,13 @@ $(document).ready(function() {
             if (entradaflujos == 0) {
                 var tamaño_flujos = $("#T_Actorsflujos tr").length - 2;
 
-                //alert(tamaño_flujos);
                 //validar la cantidad de actores
                 if (tamaño_flujos == 1) {
                     if (arrayActorFlujo[0] != undefined) {
                         var Aflujos = arrayActorFlujo[0].actorsVal;
-                        //   alert(Aflujos);
+
                         $("#txtinput" + Aflujos).attr("disabled", "disabled");
                     }
-                    //$("#desenbolso" + Aflujos).text("");
                     entradaflujos = 1;
                     s_revisarflujos = 1;
                 }
@@ -305,7 +267,6 @@ $(document).ready(function() {
 
 
 });
-
 
 
 //funcion para dispara en el autoload fuciones de fechas
@@ -1026,7 +987,7 @@ function borrar_carpeta() {
             console.log(result);
         },
         error: function(msg) {
-            alert("Ocurrio un problema al intentar eliminar los archivos temporales. " );
+            alert("Ocurrio un problema al intentar eliminar los archivos temporales. ");
         }
     });
 }
@@ -1042,7 +1003,7 @@ function copiar_archivos() {
             //  alert("copiado");
         },
         error: function(msg) {
-        alert("Ocurrio un problema al intentar modificar los archivos temporales.");
+            alert("Ocurrio un problema al intentar modificar los archivos temporales.");
         }
     });
 
@@ -1054,14 +1015,14 @@ function load_combos() {
     $.ajax({
         url: "AjaxAddIdea.aspx",
         type: "GET",
-        data: { "action": "load_combos" },
+        data: { "action": "load_combos", "type": "I" },
         success: function(result) {
 
             result = JSON.parse(result);
 
             charge_CatalogList(result[0], "ddlStrategicLines", 1);
             charge_CatalogList(result[1], "ddlmodcontract", 1);
-            charge_CatalogList(result[2], "dll_estado", 1);
+            charge_CatalogList(result[5], "dll_estado", 1);
             charge_CatalogList(result[3], "ddlDepto", 1);
             charge_CatalogList(result[4], "ddlactors", 1);
 

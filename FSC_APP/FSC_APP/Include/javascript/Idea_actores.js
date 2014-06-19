@@ -1,20 +1,4 @@
 
-//cargar combo actores
-function Cactors() {
-    $.ajax({
-        url: "AjaxAddIdea.aspx",
-        type: "GET",
-        data: { "action": "C_Actors" },
-        success: function(result) {
-            $("#ddlactors").html(result);
-            $("#ddlactors").trigger("liszt:updated");
-        },
-        error: function(msg) {
-            alert("No se pueden cargar los actores.");
-        }
-    });
-}
-
 //agregar ubicaciones por el metodo de tablas html
 function BtnaddActors_onclick() {
 

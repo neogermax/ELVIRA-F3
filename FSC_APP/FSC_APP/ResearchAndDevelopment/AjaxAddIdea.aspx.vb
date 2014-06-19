@@ -158,10 +158,6 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
             Select Case action
 
                 '----------------- modulo componentes------------------------------------------------------------
-                Case "C_linestrategic"
-
-                    Charge_Lstrategic()
-
                 Case "C_program"
 
                     id_lineStrategic = Convert.ToInt32(Request.QueryString("idlinestrategic").ToString)
@@ -207,14 +203,6 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                     dia = Request.QueryString("dias").ToString()
                     calculafechas(fecha, duracion, dia)
 
-                Case "C_typecontract"
-
-                    Charge_typeContract()
-
-                Case "C_type_project"
-
-                    Charge_project_type()
-
                 Case "C_population"
 
                     idpopulation = Convert.ToInt32(Request.QueryString("idpopulation").ToString)
@@ -228,20 +216,12 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                     ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
                     searh_c_typecontract(ideditar)
 
-                Case "C_type_aproval"
-                    type_i_p = Request.QueryString("type").ToString
-                    charge_typeAproval(type_i_p)
-
                 Case "Ctypaproval_view"
 
                     ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
                     searh_c_typeaproval(ideditar)
 
                     '----------------- modulo ubicacion-------------------------------------------------------
-                Case "C_deptos"
-
-                    Charge_deptos()
-
                 Case "C_munip"
 
                     id_depto = Convert.ToInt32(Request.QueryString("iddepto").ToString)
@@ -257,10 +237,6 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                     'convierte la variable y llama funcion para la validacion de la idea
                     id_b = Convert.ToInt32(Request.QueryString("id").ToString())
                     buscardatethird(id_b, applicationCredentials, Request.QueryString("id"))
-
-                Case "C_Actors"
-
-                    Charge_actors()
 
                 Case "View_actores_array"
                     ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
@@ -289,7 +265,8 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
                     '----------------- tareas generales-------------------------------------------------------
                 Case "load_combos"
-                    load_combos()
+                    type_i_p = Request.QueryString("type").ToString
+                    load_combos(type_i_p)
 
                 Case "aprobacion_idea"
                     ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
@@ -313,15 +290,76 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
     End Sub
 
+    Protected Function charge_combos_edit(ByVal ididea As Integer)
 
-    Protected Function load_combos()
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+
+        Dim sql As New StringBuilder
+        Dim objSqlCommand As New SqlCommand
+        Dim type_aproval_value As String = ""
+        Dim populationvalue As String = ""
+        Dim program_value As String = ""
+        Dim linevalue As String = ""
+
+        sql.Append(" select i.typeapproval from idea i where i.id =" & ididea)
+        Dim data_c_typeaproval = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
+
+        sql = New StringBuilder
+        sql.Append(" select i.Idtypecontract from  Idea i where i.id =" & ididea)
+        Dim data_c_population = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
+
+        sql = New StringBuilder
+        sql.Append(" select top 1(pc.IdProgram) from ProgramComponentByIdea pci ")
+        sql.Append(" INNER JOIN ProgramComponent pc ON pci.idProgramComponent = pc.Id ")
+        sql.Append(" where pci.IdIdea = " & ididea)
+        Dim data_program = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
+
+        sql = New StringBuilder
+        sql.Append(" select TOP 1(SL.Id) from ProgramComponentByIdea pci ")
+        sql.Append(" INNER JOIN ProgramComponent pc ON pci.idProgramComponent = pc.Id ")
+        sql.Append(" INNER JOIN Program p ON Pc.IdProgram = P.Id ")
+        sql.Append(" INNER JOIN StrategicLine SL ON SL.Id = P.IdStrategicLine ")
+        sql.Append(" where pci.IdIdea = " & ididea)
+        Dim data_lineStrategig = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
+
+        If data_c_typeaproval = 0 Then
+            type_aproval_value = "0"
+        Else
+            type_aproval_value = data_c_typeaproval
+        End If
+
+        If data_c_population = 0 Then
+            populationvalue = "0"
+        Else
+            populationvalue = data_c_population
+        End If
+
+        If data_program = 0 Then
+            program_value = "0"
+        Else
+            program_value = data_program
+        End If
+
+        If data_lineStrategig = 0 Then
+            linevalue = "0"
+        Else
+            linevalue = data_lineStrategig
+        End If
+
+        Dim objCatalogSerialize = String.Format("[{0},{1},{2},{3}]", linevalue, program_value, populationvalue, type_aproval_value)
+
+        Response.Write(objCatalogSerialize)
+
+    End Function
+
+    Protected Function load_combos(ByVal type As String)
 
         Dim facade As New Facade
 
         Dim sql As New StringBuilder
         Dim objSqlCommand As New SqlCommand
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
-        Dim Data_line, Data_typecontrato, Data_typo_project, Data_depto, Data_Actor As DataTable
+        Dim Data_line, Data_typecontrato, Data_typo_project, Data_depto, Data_Actor, Data_Approval As DataTable
 
         sql.Append(" SELECT ID, Code as descripcion FROM StrategicLine AS pro where id <> 32 order by descripcion")
         Data_line = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
@@ -346,19 +384,35 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         sql.Append(" select ID, Name as descripcion from Third order by descripcion ")
         Data_Actor = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
 
+        sql = New StringBuilder
+
+        If type = "I" Then
+
+            sql.Append(" select ID, estados as descripcion from Type_aproval_project ")
+            sql.Append(" where aplica_idea ='s' ")
+            sql.Append(" order by estados asc")
+
+        Else
+
+            sql.Append(" select ID,estados as descripcion from Type_aproval_project ")
+            sql.Append(" order by estados asc")
+
+        End If
+
+        Data_Approval = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
         Dim Json_line = JsonConvert.SerializeObject(Data_line)
         Dim Json_typecontrato = JsonConvert.SerializeObject(Data_typecontrato)
         Dim Json_typo_project = JsonConvert.SerializeObject(Data_typo_project)
         Dim Json_depto = JsonConvert.SerializeObject(Data_depto)
         Dim Json_Actor = JsonConvert.SerializeObject(Data_Actor)
+        Dim Json_Approval = JsonConvert.SerializeObject(Data_Approval)
 
-        Dim objCatalogSerialize = String.Format("[{0},{1},{2},{3},{4}]", Json_line, Json_typecontrato, Json_typo_project, Json_depto, Json_Actor)
+        Dim objCatalogSerialize = String.Format("[{0},{1},{2},{3},{4},{5}]", Json_line, Json_typecontrato, Json_typo_project, Json_depto, Json_Actor, Json_Approval)
 
         Response.Write(objCatalogSerialize)
 
     End Function
-
-
 
     Protected Function searh_c_typeaproval(ByVal ididea As Integer)
 
@@ -379,41 +433,6 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         End If
 
         Response.Write(type_aproval_value)
-
-    End Function
-
-    Protected Function charge_typeAproval(ByVal type As String)
-
-
-        Dim sql As New StringBuilder
-        Dim objSqlCommand As New SqlCommand
-        Dim data As DataTable
-        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
-
-        If type = "I" Then
-
-            sql.Append(" select id,estados from Type_aproval_project ")
-            sql.Append(" where aplica_idea ='s' ")
-            sql.Append(" order by estados asc")
-
-        Else
-
-            sql.Append(" select id,estados from Type_aproval_project ")
-            sql.Append(" order by estados asc")
-
-        End If
-
-
-        ' ejecutar la intruccion
-        data = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
-
-        Dim html As String = "<option>Seleccione...</opption>"
-        For Each row As DataRow In data.Rows
-            html &= String.Format("<option value = ""{0}"">{1}</option>", row(0).ToString(), row(1).ToString())
-        Next
-
-        ' retornar el objeto
-        Response.Write(html)
 
     End Function
 
@@ -1180,37 +1199,6 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
     End Function
 
     ''' <summary>
-    ''' funcion que carga el combo de tipo de proyectos
-    ''' Autor: German Rodriguez MGgroup
-    ''' 28-01-2014
-    ''' </summary>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
-    Protected Function Charge_project_type()
-
-        Dim sql As New StringBuilder
-        Dim objSqlCommand As New SqlCommand
-        Dim data As DataTable
-        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
-
-
-        sql.Append(" select pt.ID,pt.Project_Type  from  ProjectType pt ")
-        sql.Append(" order by pt.Project_Type asc")
-
-        ' ejecutar la intruccion
-        data = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
-
-        Dim html As String = "<option>Seleccione...</opption>"
-        For Each row As DataRow In data.Rows
-            html &= String.Format("<option value = ""{0}"">{1}</option>", row(0).ToString(), row(1).ToString())
-        Next
-
-        ' retornar el objeto
-        Response.Write(html)
-
-    End Function
-
-    ''' <summary>
     ''' funcion que carga el combo de tipo de componente de programa
     ''' Autor: German Rodriguez MGgroup
     ''' 12-01-2014
@@ -1275,65 +1263,6 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
     End Function
 
     ''' <summary>
-    ''' funcion que carga el combo de tipo de contrato
-    ''' Autor: German Rodriguez MGgroup
-    ''' 09-01-2014
-    ''' </summary>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
-    Protected Function Charge_typeContract()
-
-        Dim facade As New Facade
-        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
-        Dim data_typecontect As List(Of typecontractEntity)
-
-        Dim htmlresults As String = ""
-        Dim id, contract As String
-
-        data_typecontect = facade.gettypecontract(applicationCredentials, order:="id")
-
-        For Each row In data_typecontect
-            ' cargar el valor del campo
-            id = row.id
-            contract = row.contract
-            htmlresults &= String.Format("<option value='{0}'>{1}</option>", id, contract)
-
-        Next
-        Response.Write(htmlresults)
-
-
-    End Function
-
-    ''' <summary>
-    ''' funcion que carga el combo de actores
-    ''' Autor: German Rodriguez MGgroup
-    ''' 09-01-2014
-    ''' </summary>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
-    Protected Function Charge_actors()
-
-        Dim facade As New Facade
-        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
-        Dim data_actors As List(Of ThirdEntity)
-
-        Dim htmlresults As String = "<option>Seleccione...</opption>"
-        Dim id, name As String
-
-        data_actors = facade.getThirdList(applicationCredentials, enabled:="1", order:="Code")
-
-
-        For Each row In data_actors
-            ' cargar el valor del campo
-            id = row.id
-            name = row.name
-            htmlresults &= String.Format("<option value='{0}'>{1}</option>", id, name)
-
-        Next
-        Response.Write(htmlresults)
-    End Function
-
-    ''' <summary>
     ''' funcion que carga el combo de municipios precedido por el departamento seleccionada
     ''' Autor: German Rodriguez MGgroup
     ''' 09-01-2014
@@ -1363,34 +1292,6 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
     End Function
 
     ''' <summary>
-    ''' funcion que carga el combo de departamentos
-    ''' Autor: German Rodriguez MGgroup
-    ''' 09-01-2014
-    ''' </summary>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
-    Protected Function Charge_deptos()
-        Dim facade As New Facade
-        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
-        Dim depto_data As List(Of DeptoEntity)
-
-        Dim htmlresults As String = "<option>Seleccione...</opption>"
-        Dim id, name As String
-
-        depto_data = facade.getDeptoList(applicationCredentials, enabled:="T", order:="Depto.Code")
-
-        For Each row In depto_data
-            ' cargar el valor del campo
-            id = row.id
-            name = row.name
-            htmlresults &= String.Format("<option value='{0}'>{1}</option>", id, name)
-
-        Next
-        Response.Write(htmlresults)
-
-    End Function
-
-    ''' <summary>
     ''' funcion que carga el combo de programa precedido por la linea estrategicas seleccionada
     ''' Autor: German Rodriguez MGgroup
     ''' 09-01-2014
@@ -1409,34 +1310,6 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         program_data = facade.getProgramList(applicationCredentials, idStrategicLine:=idLinestrategic, enabled:="1", order:="Code")
 
         For Each row In program_data
-            ' cargar el valor del campo
-            id = row.id
-            code = row.code
-            htmlresults &= String.Format("<option value='{0}'>{1}</option>", id, code)
-
-        Next
-        Response.Write(htmlresults)
-
-    End Function
-
-    ''' <summary>
-    ''' funcion que carga el combo de linea estrategica
-    ''' Autor: German Rodriguez MGgroup
-    ''' 09-01-2014
-    ''' </summary>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
-    Protected Function Charge_Lstrategic()
-        Dim facade As New Facade
-        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
-        Dim line_data As List(Of StrategicLineEntity)
-
-        Dim htmlresults As String = "<option>Seleccione...</opption>"
-        Dim id, code As String
-
-        line_data = facade.getStrategicLineList(applicationCredentials, enabled:="1", order:="Code")
-
-        For Each row In line_data
             ' cargar el valor del campo
             id = row.id
             code = row.code
