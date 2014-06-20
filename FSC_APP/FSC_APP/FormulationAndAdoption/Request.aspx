@@ -80,7 +80,10 @@
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
     <script src="../js/jquery-ui-1.10.3.custom.min.js" type="text/javascript"></script>
+    
 
+    <script src="../Include/javascript/F_globales_MGroup.js" type="text/javascript"></script>
+    
     <script src="../Pretty/js/jquery.prettyPhoto.js" type="text/javascript"></script>
 
     <script type="text/javascript" src="../js/bootstrap.min.js"></script>
@@ -133,7 +136,8 @@
             //mask controls money
             $('#ctl00_cphPrincipal_Txtvrdiner, #ctl00_cphPrincipal_Txtvresp, #txtTotalThird, .money').maskMoney({thousands: '.', decimal:',', precision: 0, allowZero: true });
             //set datepicker control
-            $("#ctl00_cphPrincipal_txtfechapago").datepicker();
+            $("#ctl00_cphPrincipal_txtfechapago, .date").datepicker({ dateFormat: "dd/mm/yy" });
+            
             
             //New instance pretty photo
             $("a.pretty").prettyPhoto({
@@ -192,17 +196,40 @@
             $("input[name='subgroup']").change(function(){
                 $("#tabsRequest").css("display", "block");
                 if($(this).val() != "1"){
+                    if($(this).val() == "2"){
+                        disabledPayFlowControls(true, false, true, true);
+                        $("#dateSection").css("display", "block");
+                    }
+                    else if($(this).val() == "3"){
+                        disabledPayFlowControls(true, true, true, false);
+                        $("#dateSection").css("display", "none");
+                        $("#txtNewDateClose").val("");
+                        $("#txtNewDateSettlement").val("");
+                    }
+                    else if($(this).val() == "4"){
+                        disabledPayFlowControls(true, false, true, true);
+                        $("#dateSection").css("display", "none");
+                        $("#txtNewDateClose").val("");
+                        $("#txtNewDateSettlement").val("");
+                    } 
+                    
                     tabs.tabs("disable",0);
                     tabs.tabs({ active: 1 });
                 }else{
+                    disabledPayFlowControls(false, false, false, false);
                     tabs.tabs("enable",0);
                     tabs.tabs({ active: 0 });
+                    $("#dateSection").css("display", "none");
+                    $("#txtNewDateClose").val("");
+                    $("#txtNewDateSettlement").val("");
                 }
             });
         });
     </script>
 
+    
     <!-- End Script -->
+    
     <div class="container-request">
         <h1 id="project-title">
         </h1>
@@ -258,6 +285,16 @@
             <label style="display: none;">
                 Fecha de Incio: 2014/01/01</label>
         </div>
+        <br />
+        <br />
+        
+        <div id="dateSection" style="display: none; width: 100%;">
+            <label>Nueva fecha de cierre</label>
+            <input id="txtNewDateClose" type="text" value="" class="date" style="width: 8%;" />
+            <label>Nueva fecha de liquidación</label>
+            <input id="txtNewDateSettlement" type="text" value="" class="date" style="width: 8%;"  />
+        </div>
+    
         <br />
         <br />
         <div id="tabsRequest" style="display: none;">
