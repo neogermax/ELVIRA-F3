@@ -237,7 +237,7 @@ function foto() {
     $("a.pretty").prettyPhoto({
         callback: function() {
             $.ajax({
-                url: "/ResearchAndDevelopment/ajaxaddidea_drop_list_third.aspx",
+                url: "http://" + host + "/ResearchAndDevelopment/ajaxaddidea_drop_list_third.aspx",
                 type: "GET",
                 data: { "action": "loadthirdcontract" },
                 success: function(result) {
@@ -473,27 +473,38 @@ function fecha() {
 function buscaractores() {
 
     //Fix
-
-
-    $("#ctl00_cphPrincipal_ddlProject").trigger("change");
+    ajaxactores();
 
     $("#ctl00_cphPrincipal_ddlProject").change(function() {
+
         var proyecto = document.getElementById("ctl00_cphPrincipal_ddlProject");
         var selproyecto = proyecto.options[proyecto.selectedIndex].text;
         $("#ctl00_cphPrincipal_lblProjectNumber").text(selproyecto);
-        $.ajax({
-            url: "/FormulationAndAdoption/ajaxaddProjectApprovalRecordshearch.aspx",
-            type: "GET",
-            data: { "action": "buscaractorescontrato", "code": $(this).val() },
-            success: function(result) {
-                $("#ctl00_cphPrincipal_GVTHIRD").html(result);
-            },
-            error: function() {
-                $("#ctl00_cphPrincipal_lblNfoContractDuration").text("No se pueden cargar los actores de la idea solicitada.");
-            }
-        });
+        ajaxactores();
     });
 }
+
+function ajaxactores(){
+
+        if( $("#ctl00_cphPrincipal_HF_ID_Project").val() == "" ){
+            $("#ctl00_cphPrincipal_HF_ID_Project").val("0");
+        }
+        $.ajax({
+            url: 'http://' + host + "/FormulationAndAdoption/ajaxaddProjectApprovalRecordshearch.aspx",
+            type: "GET",
+            data: { "action": "buscaractorescontrato", "code": $("#ctl00_cphPrincipal_HF_ID_Project").val() },
+            success: function(result) {
+                $("#ctl00_cphPrincipal_GVTHIRD").html(result);
+                $("#ctl00_cphPrincipal_lblActoresnfo").text("");
+            },
+            error: function() {
+                $("#ctl00_cphPrincipal_lblActoresnfo").text("No se pueden cargar los actores de la idea solicitada.");
+            }
+        });
+        //Obtener datos fecha finalizacion
+        $("#ctl00_cphPrincipal_HFEndDate").val($("#ctl00_cphPrincipal_txtEndingDate").val());
+}
+
 
 function guardarproyecto() {
     $("#ctl00_cphPrincipal_ddlProject").change(function() {

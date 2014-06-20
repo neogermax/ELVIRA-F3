@@ -67,16 +67,22 @@ $(document).ready(function() {
 
     load_combos();
 
-    //    ClineEstrategic();
-    //    Cdeptos();
-    //    Cactors();
-    //    CtypeContract();
-    //    Ctype_project();
-    //    comboactor();
-    //    Ctypeaproval();
-
     Cmunip();
     Cpopulation();
+    cargarcomponente();
+
+    comboactor();
+
+    valide_date_depto();
+
+    operacionesIdea();
+    actors_transanccion();
+    validarporcentaje();
+    startdate();
+    validafecha();
+    validafecha2();
+
+    borrar_carpeta();
 
     //capturamos la url
     var sPageURL = window.location.search.substring(1);
@@ -85,28 +91,9 @@ $(document).ready(function() {
     if (sURLVariables[0] == "op=edit") {
         ideditar = sURLVariables[1].replace("id=", "");
 
-        operacionesIdea();
-        actors_transanccion();
-        comboactor();
-
         var timer = setTimeout("fix();", 2000);
-        validafecha();
-        validafecha2();
 
         componentes_editados = 1;
-
-        Cdeptos();
-        Cmunip();
-        Cactors();
-        CtypeContract();
-        startdate();
-        Ctype_project();
-        Cpopulation();
-        validarporcentaje();
-
-        Ctypeaproval();
-
-        ClineEstrategic();
 
         $("#ddlStrategicLines").ready(function() {
             ClineEstrategic_edit();
@@ -114,24 +101,17 @@ $(document).ready(function() {
 
         //Cprogram();
         View_componentes_array();
-        cargarcomponente();
-        edit_component_view();
+        view_ubicacion_array();
+        View_actores_array();
+        View_flujos_p_array();
+        View_flujos_actors_array();
+        View_detalle_flujo_array();
+        View_anexos_array();
 
+        edit_component_view();
         load_idarchive();
 
-        view_ubicacion_array();
-
-        View_actores_array();
-
-        View_flujos_p_array();
-
-        View_flujos_actors_array();
-
-        View_detalle_flujo_array();
-
         aprobacion_idea();
-
-        View_anexos_array();
 
 
         var timer_cline_edit = setTimeout("Cpopulation_view();", 2000);
@@ -143,36 +123,16 @@ $(document).ready(function() {
         $("#li_estado").css("display", "compact");
         $("#SaveIdea").attr("value", "Guardar cambios");
         $("#Export").css("display", "compact");
-        borrar_carpeta();
     }
     else {
 
         $("#li_estado").css("display", "none");
-
-        operacionesIdea();
-        actors_transanccion();
-        comboactor();
-
         var timer = setTimeout("fix();", 2000);
-        validafecha();
-        validafecha2();
 
-        ClineEstrategic();
         Cprogram(0);
-        Cdeptos();
-        Cmunip();
-        Cactors();
-        CtypeContract();
-        cargarcomponente();
-        startdate();
-        Ctype_project();
-        Cpopulation();
-        validarporcentaje();
-
 
         $("#SaveIdea").attr("value", "Crear Idea");
         $("#Export").css("display", "none");
-        borrar_carpeta();
 
     }
 
@@ -1026,7 +986,7 @@ function borrar_carpeta() {
             //   alert("borrado");
         },
         error: function(msg) {
-            alert("No ELIMINO LOS ARCHIVOS = " + ideditar);
+            alert("Ocurrio un problema al intentar eliminar los archivos temporales. ");
         }
     });
 }
@@ -1042,7 +1002,7 @@ function copiar_archivos() {
             //  alert("copiado");
         },
         error: function(msg) {
-            alert("No COPIO LOS ARCHIVOS= " + ideditar);
+            alert("Ocurrio un problema al intentar modificar los archivos temporales.");
         }
     });
 
@@ -1054,14 +1014,14 @@ function load_combos() {
     $.ajax({
         url: "AjaxAddIdea.aspx",
         type: "GET",
-        data: { "action": "load_combos" },
+        data: { "action": "load_combos", "type": "I" },
         success: function(result) {
 
             result = JSON.parse(result);
 
             charge_CatalogList(result[0], "ddlStrategicLines", 1);
             charge_CatalogList(result[1], "ddlmodcontract", 1);
-            charge_CatalogList(result[2], "dll_estado", 1);
+            charge_CatalogList(result[5], "dll_estado", 1);
             charge_CatalogList(result[3], "ddlDepto", 1);
             charge_CatalogList(result[4], "ddlactors", 1);
 

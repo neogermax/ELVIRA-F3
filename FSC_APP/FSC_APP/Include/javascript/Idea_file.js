@@ -1,5 +1,4 @@
-﻿//funcion q sube el archivo al servidor
-function subirArchivos() {
+﻿function subirArchivos() {
 
     //validamos si seleccionaron un archivo
     if ($("#fileupload").val() != "") {
@@ -30,7 +29,7 @@ function subirArchivos() {
                 //creamos variables
                 var filename = result;
                 filename = $.trim(filename)
-                filename = filename.replace(/\s/g, '_');
+                //filename = filename.replace(/\s/g, '_');
                 //alert(filename);
                 var objectfile = data;
                 var description = cambio_text_flujos($("#ctl00_cphPrincipal_Txtdecription").val());
@@ -49,7 +48,7 @@ function subirArchivos() {
                 arrayFiles.push(jsonFiles);
 
                 //llamamos funcion para crear tabla anexos
-                crear_tabla_anexos(host + "/document/temp/"); //----/FSC_APP/document/temp/
+                crear_tabla_anexos("http://" + host + "/document/temp/"); //----/FSC_APP/document/temp/
 
                 $("#fileupload").val("");
 
@@ -83,12 +82,12 @@ function crear_tabla_anexos(link_route) {
 
         var namefile = arrayFiles[itemArray].filename;
         namefile = $.trim(namefile);
-        
+
         var pathFile = namefile;
-        
+
         namefile = namefile.replace(/_/g, ' ');
-        
-        
+
+
 
         htmlTablefiles += "<tr id='archivo" + arrayFiles[itemArray].idfile + "'><td><a id='linkarchives" + arrayFiles[itemArray].idfile + "' runat='server' href='" + link_route + pathFile + "' target= '_blank' title='link'>" + arrayFiles[itemArray].filename + "</a></td><td style='text-align: left;'>" + entregacomas + "</td><td style='text-align: center;'><input type ='button' value= 'Eliminar' onclick=\"deletefile('" + arrayFiles[itemArray].idfile + "')\"></input></td></tr>";
     }
@@ -147,7 +146,7 @@ function View_anexos_array() {
             }
 
             //llamamos funcion para crear tabla anexos
-            crear_tabla_anexos(host + "/document/"); //----------/FSC_APP/document/
+            crear_tabla_anexos("http://" + host + "/document/"); //----------/FSC_APP/document/
 
         },
         error: function(msg) {

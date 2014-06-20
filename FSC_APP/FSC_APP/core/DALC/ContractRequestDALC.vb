@@ -49,7 +49,8 @@ Public Class ContractRequestDALC
             sql.AppendLine("supervisor," & _
             "confidential," & _
             "signedcontract," & _
-            "notes" & _
+            "notes," & _
+            "contractdays" & _
            ")")
             sql.AppendLine("VALUES (")
             If (ContractRequest.idmanagement > 0) Then sql.AppendLine("'" & ContractRequest.idmanagement & "',")
@@ -71,7 +72,8 @@ Public Class ContractRequestDALC
             sql.AppendLine("'" & ContractRequest.supervisor & "',")
             sql.AppendLine("'" & ContractRequest.confidential & "',")
             sql.AppendLine("'" & ContractRequest.signedcontract & "',")
-            sql.AppendLine("'" & ContractRequest.notes & "' ")
+            sql.AppendLine("'" & ContractRequest.notes & "', ")
+            sql.AppendLine("'" & ContractRequest.ContractDays & "' ")
             sql.AppendLine(")")
 
             ' intruccion para obtener el registro insertado
@@ -161,6 +163,7 @@ Public Class ContractRequestDALC
                 objContractRequest.confidential = IIf(Not IsDBNull(data.Rows(0)("confidential")), data.Rows(0)("confidential"), "0")
                 objContractRequest.signedcontract = IIf(Not IsDBNull(data.Rows(0)("signedcontract")), data.Rows(0)("signedcontract"), False)
                 objContractRequest.notes = IIf(Not IsDBNull(data.Rows(0)("notes")), data.Rows(0)("notes"), "")
+                objContractRequest.ContractDays = IIf(Not IsDBNull(data.Rows(0)("contractdays")), data.Rows(0)("contractdays"), "0")
 
             End If
 
@@ -502,6 +505,7 @@ Public Class ContractRequestDALC
             sql.AppendLine(" notes = '" & ContractRequest.notes & "',")
             sql.AppendLine(" supervisor = '" & ContractRequest.supervisor & "',")
             sql.AppendLine(" confidential = '" & ContractRequest.confidential & "',")
+            sql.AppendLine(" contractdays = '" & ContractRequest.ContractDays & "',")
             sql.AppendLine(" signedcontract = '" & ContractRequest.signedcontract & "'")
 
             sql.AppendLine("WHERE requestnumber = " & ContractRequest.requestnumber)

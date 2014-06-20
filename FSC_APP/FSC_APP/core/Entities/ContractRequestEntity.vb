@@ -37,6 +37,7 @@ Public Class ContractRequestEntity
     Private _contractDataByContractRequest As ContractDataByContractRequestEntity
     Private _commentsByContractRequest As CommentsByContractRequestEntity
     Private _externalcontract As Boolean
+    Private _contractdays As Integer
    
 #End Region
 
@@ -295,6 +296,15 @@ Public Class ContractRequestEntity
         End Get
         Set(ByVal value As Boolean)
             Me._externalcontract = value
+        End Set
+    End Property
+
+    Public Property ContractDays() As Integer
+        Get
+            Return Me._contractdays
+        End Get
+        Set(ByVal value As Integer)
+            Me._contractdays = value
         End Set
     End Property
 

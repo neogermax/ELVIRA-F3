@@ -151,7 +151,7 @@ Partial Class addContractRequest
                     Dim objContractRequest As New ContractRequestEntity
                     Dim objPoliza As New PolizaEntity
                     Dim objPolizaDetails As List(Of PolizaDetailsEntity) = New List(Of PolizaDetailsEntity)()
-                    Dim objproject As New ProjectEntity
+                    Dim objProject As New ProjectEntity
 
 
                     Try
@@ -208,10 +208,12 @@ Partial Class addContractRequest
                             Me.txtProject.Text = Me.txtProject.Text & " (Otro si)"
                         End If
 
+                        Me.HF_ID_Project.Value = objProject.id
+
                         Me.lblProjectNumber.Text = objContractRequest.idproject & "_" & objContractRequest.PROJECTNAME
                         Me.HFProject.Value = objContractRequest.idproject
                         If (objContractRequest.suscriptdate <> "12:00:00 AM") Then Me.txtSubscriptionDate.Text = objContractRequest.suscriptdate.ToString("yyyy/MM/dd")
-                        If (objContractRequest.startdate <> "12:00:00 AM") Then Me.txtInitialDate.Text = objContractRequest.startdate.ToString("yyyy/MM/dd")
+                        'If (objContractRequest.startdate <> "12:00:00 AM") Then Me.txtInitialDate.Text = objContractRequest.startdate.ToString("yyyy/MM/dd")
                         If (objContractRequest.LiquidationDate <> "12:00:00 AM") Then Me.txtLiquidationDate.Text = objContractRequest.LiquidationDate.ToString("yyyy/MM/dd")
                         Me.txtContractDuration.Text = objContractRequest.monthduration
                         'Me.txtSupervisor.Text = objContractRequest.supervisor
@@ -243,6 +245,11 @@ Partial Class addContractRequest
                         Session("contractorLegalEntityByContractRequestList") = objPolizaDetails
                         Me.gvPolizaConcept.DataSource = objPolizaDetails
                         Me.gvPolizaConcept.DataBind()
+
+                        'cargar las fechas de proyecto
+                        Me.txtInitialDate.Text = objProject.begindate.ToString("yyyy/MM/dd")
+                        Me.txtEndingDate.Text = objProject.Enddate.ToString("yyyy/MM/dd")
+                        Me.txtContractDays.Text = objContractRequest.ContractDays
 
                         'Se carga la lista de contratistas personas jurídicas
 
@@ -433,6 +440,12 @@ Partial Class addContractRequest
 
             If Me.txtLiquidationDate.Text <> "" Then
                 objContractRequest.LiquidationDate = Convert.ToDateTime(Me.txtLiquidationDate.Text)
+            Else
+                objContractRequest.LiquidationDate = Nothing
+            End If
+
+            If Me.txtContractDays.Text <> "" Then
+                objContractRequest.ContractDays = Me.txtContractDays.Text
             Else
                 objContractRequest.LiquidationDate = Nothing
             End If
@@ -664,13 +677,19 @@ Partial Class addContractRequest
             If Me.txtLiquidationDate.Text <> "" Then
                 objContractRequest.LiquidationDate = Convert.ToDateTime(Me.txtLiquidationDate.Text)
             Else
-                objContractRequest.suscriptdate = Convert.ToDateTime("2000-01-01")
+                objContractRequest.LiquidationDate = Convert.ToDateTime("2000-01-01")
             End If
 
             objContractRequest.confidential = IIf(Me.ddlConfidential.SelectedValue.Length > 0, Me.ddlConfidential.SelectedValue, 0)
 
             If Me.txtContractDuration.Text <> "" Then
                 objContractRequest.monthduration = Convert.ToDecimal(Me.txtContractDuration.Text)
+            End If
+
+            If Me.txtContractDays.Text <> "" Then
+                objContractRequest.ContractDays = Me.txtContractDays.Text
+            Else
+                objContractRequest.ContractDays = 0
             End If
 
             'Verificar el formato de tipo de contrato

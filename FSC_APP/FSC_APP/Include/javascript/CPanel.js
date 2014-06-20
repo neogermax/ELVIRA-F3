@@ -8,12 +8,12 @@ $(document).ready(function() {
 
 //-Deshabilitar todo-//
 function inicial() {
-//    var botones = ["#btnlearnedlessons", "btnproceedclose", "btneditcont", "btnapproval", "btnmodification", "btntracing", "btnindicators", "btnreports", "btnriskmanagement", "btncrono", "btncontratacion", "btnproceed"];
-//    //-Deshabilitar-//
-//    for (var i = 0; i < botones.length; i++) {
-//        //Recorre el array de controles
-//        pendiente(botones[i]);
-//    }
+    //    var botones = ["#btnlearnedlessons", "btnproceedclose", "btneditcont", "btnapproval", "btnmodification", "btntracing", "btnindicators", "btnreports", "btnriskmanagement", "btncrono", "btncontratacion", "btnproceed"];
+    //    //-Deshabilitar-//
+    //    for (var i = 0; i < botones.length; i++) {
+    //        //Recorre el array de controles
+    //        pendiente(botones[i]);
+    //    }
 
     pendiente("#btnlearnedlessons");
     //pendiente("#btnproceedclose");
@@ -26,7 +26,7 @@ function inicial() {
     pendiente("#btncrono");
     pendiente("#btncontratacion");
     //pendiente("#btnproceed");
-    
+
 };
 
 //-Verificacion inicial-//
@@ -121,7 +121,7 @@ function verifica() {
             alert("Hubo un error al consultar los datos del acta de cierre.");
         }
     });
-    
+
 };
 
 
@@ -151,17 +151,17 @@ function desactivar(control) {
 function deshabilitar(control) {
     $(control).css("opacity", "0.5");
     $(control).css("cursor", "not-allowed");
-    $(control).attr('onclick','').unbind('click');
+    $(control).attr('onclick', '').unbind('click');
 };
 
 //-Funciones del panel de control-//
 function ViewProject_onclick() {
-    window.location.href = '/FormulationAndAdoption/addProject.aspx?op=edit&id=' + getParameterByName('id');
+    window.location.href = 'http://' + host + '/FormulationAndAdoption/addProject.aspx?op=edit&id=' + getParameterByName('id');
 };
 
 
 function ProjectApproval_onclick() {
-    window.location.href = '/FormulationAndAdoption/addProject.aspx?op=edit&id=' + getParameterByName('id') + '&apr=1';
+    window.location.href = 'http://' + host + '/FormulationAndAdoption/addProject.aspx?op=edit&id=' + getParameterByName('id') + '&apr=1';
 };
 
 function Contract_onclick() {
@@ -174,9 +174,9 @@ function Contract_onclick() {
         success: function(result) {
             //Busca registros de contratación
             if (result != "") {
-                window.location.href = '/Engagement/addContractRequest.aspx?op=edit&ID=' + result;
+                window.location.href = 'http://' + host + '/Engagement/addContractRequest.aspx?op=edit&ID=' + result;
             } else {
-            window.location.href = '/Engagement/addContractRequest.aspx?op=add';
+            window.location.href = 'http://' + host + '/Engagement/addContractRequest.aspx?op=add';
             }
         },
         error: function()
@@ -188,7 +188,7 @@ function Contract_onclick() {
 };
 
 function Proceed_onclick() {
-    window.location.href = '/FomsProceedings/Proceedings_stars.aspx?cid=' + getParameterByName('id');
+    window.location.href = 'http://' + host + '/FomsProceedings/Proceedings_stars.aspx?cid=' + getParameterByName('id');
 };
 
 //-Extraer parametros QueryString-//
@@ -199,7 +199,6 @@ function getParameterByName(name) {
     return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
 
-function Modification_onclick()
-{
-    window.location = 'http://' + host + '/FSC_APP/FormulationAndAdoption/request.aspx?idproject=' + getParameterByName('id');
+function Modification_onclick() {
+    window.location = 'http://' + host + '/FormulationAndAdoption/request.aspx?idproject=' + getParameterByName('id');
 }

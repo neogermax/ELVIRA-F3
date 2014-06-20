@@ -1,37 +1,37 @@
-﻿//cargar combo de departamentos
-function Cdeptos() {
-    $.ajax({
-        url: "AjaxAddIdea.aspx",
-        type: "GET",
-        data: { "action": "C_deptos" },
-        success: function(result) {
-            $("#ddlDepto").html(result);
-            $("#ddlDepto").trigger("liszt:updated");
-        },
-        error: function(msg) {
-            alert("No se pueden cargar los departamentos.");
-        }
-    });
-}
+﻿function Cmunip() {
 
-//cargar combo de municipios 
-function Cmunip() {
     $("#ddlDepto").change(function() {
         $.ajax({
             url: "AjaxAddIdea.aspx",
             type: "GET",
             data: { "action": "C_munip", "iddepto": $(this).val() },
             success: function(result) {
+
+
                 $("#ddlCity").html(result);
                 $("#ddlCity").trigger("liszt:updated");
             },
             error: function(msg) {
                 alert("No ha seleccionado el departamento.");
-                $("#ddlCity").html("<option>Seleccione...</opption>");
+                $("#ddlCity").html("<option>Seleccione...</option>");
                 $("#ddlCity").trigger("liszt:updated");
             }
         });
     });
+}
+
+function valide_date_depto() {
+
+    $("#ddlCity").change(function() {
+        var id_depto = $("#ddlDepto").val();
+    
+        if (id_depto == -1) {
+            $("#ddlCity").html("<option>Seleccione...</option>");
+            $("#ddlCity").trigger("liszt:updated");
+        }
+
+    });
+
 }
 
 
@@ -83,11 +83,12 @@ function Add_location_onclick() {
 
                 Crear_tabla_ubicacion();
 
-                $("#ddlDepto").val("Seleccione...");
+                $("#ddlDepto").val("-1");
                 $("#ddlDepto").trigger("liszt:updated");
-                $("#ddlCity").val("Seleccione...");
+           
+                $("#ddlCity").html("<option>Seleccione...</option>");
                 $("#ddlCity").trigger("liszt:updated");
-        
+
             }
         }
     }
@@ -153,7 +154,7 @@ function deleteUbicacion(str) {
     //recorremos el array
     for (itemArray in arrayUbicacion) {
         //construimos la llave de validacion
-        var id =  arrayUbicacion[itemArray].DeptoName + "_" + arrayUbicacion[itemArray].CityName;
+        var id = arrayUbicacion[itemArray].DeptoName + "_" + arrayUbicacion[itemArray].CityName;
         //validamos el dato q nos trae la funcion
         if (str == id) {
             //borramos la ubicacion deseada

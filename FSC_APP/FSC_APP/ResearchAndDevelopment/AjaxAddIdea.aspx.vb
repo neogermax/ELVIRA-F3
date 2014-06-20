@@ -268,6 +268,10 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                     type_i_p = Request.QueryString("type").ToString
                     load_combos(type_i_p)
 
+                Case "Charge_combos_edit"
+                    ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
+                    charge_combos_edit(ideditar)
+
                 Case "aprobacion_idea"
                     ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
                     validar_aprobacion_idea(ideditar)
@@ -322,33 +326,28 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         sql.Append(" where pci.IdIdea = " & ididea)
         Dim data_lineStrategig = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
 
-        If data_c_typeaproval = 0 Then
-            type_aproval_value = "0"
-        Else
-            type_aproval_value = data_c_typeaproval
-        End If
-
-        If data_c_population = 0 Then
-            populationvalue = "0"
-        Else
-            populationvalue = data_c_population
-        End If
-
-        If data_program = 0 Then
-            program_value = "0"
-        Else
-            program_value = data_program
-        End If
-
-        If data_lineStrategig = 0 Then
-            linevalue = "0"
-        Else
-            linevalue = data_lineStrategig
-        End If
-
+        type_aproval_value = validate_date_consult(data_c_typeaproval)
+        populationvalue = validate_date_consult(data_c_population)
+        program_value = validate_date_consult(data_program)
+        linevalue = validate_date_consult(data_lineStrategig)
+       
         Dim objCatalogSerialize = String.Format("[{0},{1},{2},{3}]", linevalue, program_value, populationvalue, type_aproval_value)
 
         Response.Write(objCatalogSerialize)
+
+    End Function
+
+    Function validate_date_consult(ByVal date_consult As String)
+
+        Dim value_string As String
+
+        If date_consult = 0 Then
+            value_string = "0"
+        Else
+            value_string = date_consult
+        End If
+
+        Return value_string
 
     End Function
 
