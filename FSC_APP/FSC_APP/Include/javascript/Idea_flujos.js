@@ -53,6 +53,7 @@ function Btn_add_flujo_onclick() {
             var Aportante;
             var desembolso;
             var idaportante;
+            var isUpdate = false;
 
             //creamos json para guardarlos en un array
             var jsonflujo = {
@@ -72,8 +73,9 @@ function Btn_add_flujo_onclick() {
                 }
             }
             if (validerepetido == 1) {
-                var isUpdate = confirm("El pago No " + N_pago + " ya fue registrado, desea actualizarlo?");
-
+                isUpdate = confirm("El pago No " + N_pago + " ya fue registrado, desea actualizarlo?");
+                
+                console.log(isUpdate);
                 if (isUpdate) {
                     updateFlow(N_pago, tflujos, $("#totalflujos").text());
                 } else {
@@ -94,23 +96,10 @@ function Btn_add_flujo_onclick() {
                         var idflujo = "#txtinput" + $(arrayinputflujos[0]).html();
 
                         desembolso = $(idflujo).val();
-
+                        
                         if (isUpdate) {
                             updateDetailsFlow(idpago, desembolso, idaportante);
-
-
-                        } else {
-
-                            var jsonflujodetalle = {
-                                "idpago": idpago,
-                                "idaportante": idaportante,
-                                "Aportante": Aportante,
-                                "desembolso": desembolso
-                            };
-                            matriz_flujos.push(jsonflujodetalle);
-
                         }
-
                     }
                 });
             } else {
@@ -158,7 +147,7 @@ function Btn_add_flujo_onclick() {
                         var idflujo = "#txtinput" + $(arrayinputflujos[0]).html();
 
                         desembolso = $(idflujo).val();
-
+                        
                         if (isUpdate) {
                             updateDetailsFlow(idpago, desembolso, idaportante);
 

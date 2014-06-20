@@ -43,7 +43,12 @@
     <script src="../js/jquery.fileupload.js" type="text/javascript"></script>
 
     <script src="../js/jquery.iframe-transport.js" type="text/javascript"></script>
-
+    <style>
+        .require
+        {
+        	color: #BA1621;
+        }
+    </style>
     <script type="text/javascript">
 
         function format(input) {
@@ -758,12 +763,12 @@
                 </ul>
                 <ul id="listFlujosPagos">
                     <li width="25%">
-                        <asp:Label ID="lblvalortotal" runat="server" Text="Pago No"></asp:Label>
+                        <asp:Label ID="lblvalortotal" runat="server" Text="Pago No. <span class='require'>*</span>"></asp:Label>
                         <asp:TextBox ID="txtvalortotalflow" runat="server" Width="100px" MaxLength="50" onkeychange="ValidaSoloNumeros()"
                             onkeyup="ValidaSoloNumeros()" onkeypress="ValidaSoloNumeros()"></asp:TextBox>
                     </li>
                     <li width="25%">
-                        <asp:Label ID="lblfechapago" runat="server" Text="Fecha de pago"></asp:Label>
+                        <asp:Label ID="lblfechapago" runat="server" Text="Fecha de pago <span class='require'>*</span>"></asp:Label>
                         <asp:TextBox ID="txtfechapago" runat="server" Width="100px" MaxLength="50"></asp:TextBox>
                         <cc1:CalendarExtender ID="cesfechapago" runat="server" TargetControlID="txtfechapago"
                             Format="yyyy/MM/dd" Enabled="True">
@@ -771,12 +776,12 @@
                         <asp:Label ID="helpfechapago" runat="server" ForeColor="#990000"></asp:Label>
                     </li>
                     <li width="25%">
-                        <asp:Label ID="lblporcentaje" runat="server" Text="Porcentaje"></asp:Label>
+                        <asp:Label ID="lblporcentaje" runat="server" Text="Porcentaje <span class='require'>*</span>"></asp:Label>
                         <asp:TextBox ID="txtporcentaje" runat="server" MaxLength="50" Width="100px"></asp:TextBox>
                         <asp:Label ID="Lblhelpporcentaje" runat="server" ForeColor="#990000" Font-Bold="True"></asp:Label>
                     </li>
                     <li width="25%">
-                        <asp:Label ID="lblvalor" runat="server" Text="Valor"></asp:Label>
+                        <asp:Label ID="lblvalor" runat="server" Text="Valor <span class='require'>*</span>"></asp:Label>
                         <asp:Label ID="Lbltotalvalor" runat="server"></asp:Label>
                         <asp:TextBox ID="txtvalorpartial" runat="server" MaxLength="50" ReadOnly="true" Width="182px"
                             Visible="false"></asp:TextBox>
@@ -784,7 +789,7 @@
                 </ul>
                 <br />
                 <asp:Label Style="clear: both; margin-left: 3em;" ID="lblentregable" runat="server"
-                    Text="Entregable"></asp:Label>
+                    Text="Entregable <span class='require'>*</span>"></asp:Label>
                 <asp:TextBox ID="txtentregable" runat="server" Height="100px" MaxLength="8000" TextMode="MultiLine"
                     Width="90%" Style="margin-left: 3em; margin-right: 7em;"></asp:TextBox>
                 <asp:HiddenField ID="HDvalorpagoflujo" runat="server" />
@@ -908,7 +913,7 @@
                     
                 </div>
                 <br />
-                <input style="margin-left: 3em;" type='text' id="cancelEdition" value="Cancelar Edición" />
+                <input style="margin-left: 3em;" type='button' id="cancelEdition" value="Cancelar Edición" />
             </div>
             
         </div>
