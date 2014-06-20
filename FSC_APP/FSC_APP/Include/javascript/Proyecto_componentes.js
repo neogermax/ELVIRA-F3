@@ -73,7 +73,7 @@ function Cprogram(idLineStrategic) {
                 var sURLVariables = sPageURL.split('&');
                 //validamos si creamos la idea o editamos
                 if (sURLVariables[0] == "op=edit" || idLine != null) {
-                    view_Cprogram();
+              //      view_Cprogram();
                 }
 
                 if (textoLista == "") {
@@ -123,36 +123,50 @@ function Cprogram(idLineStrategic) {
     });
 }
 
-//funcion para validar los cambios de lineas 
+//funcion para validar los cambios de lineas
 function validar_cambio_linea(str_result) {
 
-    confirmar = confirm("Usted acaba de cambiar de linea estratégica la información diligenciada se perdera! desea cambiarla?", "SI", "NO");
-    if (confirmar) {
+    var sPageURL = window.location.search.substring(1);
+    var sURLVariables = sPageURL.split('&');
 
-        $("#componentesseleccionados").html("");
-        $("#seleccionarcomponente").html("");
+    console.log(sURLVariables[0]);
 
-        arraycomponente = [];
+    if (sURLVariables[0] == "op=edit") {
+        if (load_inicial == 0) {
+            load_inicial = 1;
+            $("#ddlPrograms").html(str_result);
+            $("#ddlPrograms").trigger("liszt:updated");
 
-        $("#ddlPrograms").html(str_result);
-        $("#ddlPrograms").trigger("liszt:updated");
+        }
+        else {
+            confirmar = confirm("Usted acaba de cambiar de linea estratégica la información diligenciada se perdera! desea cambiarla?", "SI", "NO");
+            if (confirmar) {
 
+                $("#componentesseleccionados").html("");
+                $("#seleccionarcomponente").html("");
+
+                arraycomponente = [];
+
+                $("#ddlPrograms").html(str_result);
+                $("#ddlPrograms").trigger("liszt:updated");
+
+            }
+
+            else {
+
+                $("#ddlStrategicLines").val(edit_line_strategic);
+                $("#ddlStrategicLines").trigger("liszt:updated");
+
+                $("#ddlPrograms").val(edit_program);
+                $("#ddlPrograms").trigger("liszt:updated");
+
+                console.log(edit_program);
+                contar_program = 0;
+                arraycompo = [];
+
+            }
+        }
     }
-
-    else {
-
-        $("#ddlStrategicLines").val(edit_line_strategic);
-        $("#ddlStrategicLines").trigger("liszt:updated");
-
-        $("#ddlPrograms").val(edit_program);
-        $("#ddlPrograms").trigger("liszt:updated");
-
-        console.log(edit_program);
-        contar_program = 0;
-        arraycompo = [];
-
-    }
-
 }
 
 //cargar los programas seleccionados de la linea seleccionada anteriormente "ClineEstrategic_edit()"

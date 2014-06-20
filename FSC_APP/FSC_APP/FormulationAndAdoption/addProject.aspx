@@ -286,7 +286,7 @@
                     <select id="ddlmodcontract" class="Ccombo">
                     </select>
                     <asp:Label ID="Lblmodcontract" runat="server" ForeColor="#990000"></asp:Label></li>
-                <li>
+                <li id="li_estado">
                     <asp:Label ID="Lblestado" runat="server" Text="Estado del proyecto"></asp:Label>
                     <select id="dll_estado" class="Ccombo">
                     </select>
@@ -931,7 +931,7 @@
                     </table>
                 </div>
                 <br />
-                <input style="margin-left: 3em;" type='text' id="cancelEdition" value="Cancelar Edición" />
+                <input style="margin-left: 3em;" type="button" id="cancelEdition" value="Cancelar Edición" />
             </div>
         </div>
         <div id="anexos">

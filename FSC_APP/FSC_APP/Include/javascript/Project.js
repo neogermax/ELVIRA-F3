@@ -72,7 +72,7 @@ var fecha_limite_madre;
 var fecha_inicial_madre;
 var validar_valor_ingresado;
 var S_validar_valores_madre;
-
+var load_inicial = 0;
 
 $(document).ready(function() {
 
@@ -110,6 +110,7 @@ $(document).ready(function() {
         var timer = setTimeout("fix();", 2000);
 
         Cprogram(0);
+      
 
         validarcampos_fecha_madre();
 
@@ -120,7 +121,7 @@ $(document).ready(function() {
         View_detalle_flujo_project();
         View_anexos_project();
 
-        charge_others_droplist();
+       // charge_others_droplist();
         edit_component_view_project();
 
 
@@ -130,27 +131,34 @@ $(document).ready(function() {
         });
 
         traer_valores_madre("editar", ideditar);
+       
 
         //var timer_cline_edit = setTimeout("ClineEstrategic_edit();", 2000);
 
-        var timer_cline_edit = setTimeout("Cpopulation_view();", 2000);
-        var timer_cline_edit = setTimeout("Ctypcontract_view();", 2000);
-        var itemarrayflujos = 0;
+        //var timer_cline_edit = setTimeout("Cpopulation_view();", 2000);
+        //var timer_cline_edit = setTimeout("Ctypcontract_view();", 2000);
+        //var itemarrayflujos = 0;
 
         // $("#SaveProject").css("display", "block");
+        $("#li_estado").css("display", "compact");
         $("#SaveProject").attr("value", "Guardar cambios");
         $("#Export").css("display", "compact");
         $("#li_C_idea").css("display", "none");
+
+        $("#ddlStrategicLines").attr("disabled", "disabled");
         borrar_carpeta();
 
         aprobacion_proyecto();
         validar_proyecto_madre();
+        charge_date_list_project(ideditar);
+
     }
     else {
-
+       
         //traer datos de la idea
         verificar_dat_idea();
 
+        $("#li_estado").css("display", "none");
         var timer = setTimeout("fix();", 2000);
         Cprogram(0);
 
@@ -1001,7 +1009,7 @@ function load_combos() {
             result = JSON.parse(result);
 
             charge_CatalogList(result[0], "ddlStrategicLines", 1);
-            charge_CatalogList(result[1], "ddlmodcontract", 1);
+            charge_CatalogList(result[1], "ddlmodcontract", 0);
             charge_CatalogList(result[5], "dll_estado", 1);
             charge_CatalogList(result[3], "ddlDepto", 1);
             charge_CatalogList(result[4], "ddlactors", 1);
@@ -1013,3 +1021,65 @@ function load_combos() {
     });
 }
 
+function charge_date_list_idea(id_idea) {
+
+    $.ajax({
+        url: "AjaxAddProject.aspx",
+        type: "GET",
+        data: { "action": "charge_combos_idea_master", "ididea": id_idea },
+        success: function(result) {
+
+            result = JSON.parse(result);
+            console.log(result);
+            $("#ddlStrategicLines").val(result[0]);
+            $("#ddlStrategicLines").trigger("liszt:updated");
+
+            $("#ddlPrograms").val(result[1]);
+            $("#ddlPrograms").trigger("liszt:updated");
+
+            $("#ddlPupulation").val(result[2]);
+            $("#ddlPupulation").trigger("liszt:updated");
+
+            $("#ddlmodcontract").val(result[3]);
+            $("#ddlmodcontract").trigger("liszt:updated");
+
+
+        },
+        error: function(msg) {
+            alert("No se pueden cargar los combos de proyecto.");
+        }
+    });
+}
+
+function charge_date_list_project(id_proyect) {
+
+    $.ajax({
+        url: "AjaxAddProject.aspx",
+        type: "GET",
+        data: { "action": "charge_combos_project", "idproject": id_proyect },
+        success: function(result) {
+
+            result = JSON.parse(result);
+
+            console.log(result);
+            $("#ddlStrategicLines").val(result[0]);
+            $("#ddlStrategicLines").trigger("liszt:updated");
+
+            $("#ddlPrograms").val(result[1]);
+            $("#ddlPrograms").trigger("liszt:updated");
+
+            $("#ddlPupulation").val(result[2]);
+            $("#ddlPupulation").trigger("liszt:updated");
+
+            $("#ddlmodcontract").val(result[3]);
+            $("#ddlmodcontract").trigger("liszt:updated");
+
+            $("#dll_estado").val(result[4]);
+            $("#dll_estado").trigger("liszt:updated");
+
+        },
+        error: function(msg) {
+            alert("No se pueden cargar los combos de proyecto.");
+        }
+    });
+}

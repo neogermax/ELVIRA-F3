@@ -231,13 +231,9 @@ Partial Public Class AjaxAddProject
                 Case "C_ideas_aprobada"
                     charge_idea_aproval()
 
-                Case "C_type_aproval"
-                    type_i_p = Request.QueryString("type").ToString
-                    charge_typeAproval(type_i_p)
-
-                Case "C_charge_others"
-                    ideditar = Convert.ToInt32(Request.QueryString("idproject").ToString)
-                    charge_others_droplist(ideditar)
+                    'Case "C_charge_others"
+                    '    ideditar = Convert.ToInt32(Request.QueryString("idproject").ToString)
+                    '    charge_others_droplist(ideditar)
                     '----------------- modulo ubicacion-------------------------------------------------------
                 Case "C_munip"
                     id_depto = Convert.ToInt32(Request.QueryString("iddepto").ToString)
@@ -326,6 +322,14 @@ Partial Public Class AjaxAddProject
                     ideditar = Convert.ToInt32(Request.QueryString("idproject").ToString)
                     validar_proyecto_madre(ideditar)
 
+                Case "charge_combos_idea_master"
+                    ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
+                    charge_combos_idea_master(ideditar)
+
+                Case "charge_combos_project"
+                    ideditar = Convert.ToInt32(Request.QueryString("idproject").ToString)
+                    charge_combos_project(ideditar)
+
                 Case Else
 
 
@@ -334,6 +338,116 @@ Partial Public Class AjaxAddProject
         End If
 
     End Sub
+
+    Protected Function charge_combos_project(ByVal idproject As Integer)
+
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+
+        Dim sql As New StringBuilder
+        Dim objSqlCommand As New SqlCommand
+        Dim type_aproval_value As String = ""
+        Dim populationvalue As String = ""
+        Dim program_value As String = ""
+        Dim linevalue As String = ""
+        Dim project_type_value As String = ""
+
+        sql.Append(" select i.typeapproval from project i where i.id =" & idproject)
+        Dim data_c_typeaproval = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
+
+        sql = New StringBuilder
+        sql.Append(" select i.Idtypecontract from project i where i.id =" & idproject)
+        Dim data_c_typeproject = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
+
+        sql = New StringBuilder
+        sql.Append(" select i.population from project i where i.id =" & idproject)
+        Dim data_c_population = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
+
+        sql = New StringBuilder
+        sql.Append(" select top 1(pc.IdProgram) from ProgramComponentByProject pcp ")
+        sql.Append(" INNER JOIN ProgramComponent pc ON pcp.idProgramComponent = pc.Id ")
+        sql.Append(" where pcp.IdProject = " & idproject)
+        Dim data_program = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
+
+        sql = New StringBuilder
+        sql.Append(" select top 1(sl.Id) from ProgramComponentByProject pcp ")
+        sql.Append(" INNER JOIN ProgramComponent pc ON pcp.idProgramComponent = pc.Id ")
+        sql.Append(" INNER JOIN Program p ON Pc.IdProgram = P.Id ")
+        sql.Append(" INNER JOIN StrategicLine SL ON SL.Id = P.IdStrategicLine  ")
+        sql.Append(" where pcp.IdProject = " & idproject)
+        Dim data_lineStrategig = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
+
+        type_aproval_value = validate_date_consult(data_c_typeaproval)
+        project_type_value = validate_date_consult(data_c_typeproject)
+        populationvalue = validate_date_consult(data_c_population)
+        program_value = validate_date_consult(data_program)
+        linevalue = validate_date_consult(data_lineStrategig)
+
+        Dim objCatalogSerialize = String.Format("[{0},{1},{2},{3},{4}]", linevalue, program_value, populationvalue, project_type_value, type_aproval_value)
+
+        Response.Write(objCatalogSerialize)
+
+    End Function
+
+
+
+    Protected Function charge_combos_idea_master(ByVal ididea As Integer)
+
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+
+        Dim sql As New StringBuilder
+        Dim objSqlCommand As New SqlCommand
+        Dim type_aproval_value As String = ""
+        Dim populationvalue As String = ""
+        Dim program_value As String = ""
+        Dim linevalue As String = ""
+
+        sql.Append(" select i.typeapproval from idea i where i.id =" & ididea)
+        Dim data_c_typeaproval = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
+
+        sql = New StringBuilder
+        sql.Append(" select i.Idtypecontract from  Idea i where i.id =" & ididea)
+        Dim data_c_population = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
+
+        sql = New StringBuilder
+        sql.Append(" select top 1(pc.IdProgram) from ProgramComponentByIdea pci ")
+        sql.Append(" INNER JOIN ProgramComponent pc ON pci.idProgramComponent = pc.Id ")
+        sql.Append(" where pci.IdIdea = " & ididea)
+        Dim data_program = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
+
+        sql = New StringBuilder
+        sql.Append(" select TOP 1(SL.Id) from ProgramComponentByIdea pci ")
+        sql.Append(" INNER JOIN ProgramComponent pc ON pci.idProgramComponent = pc.Id ")
+        sql.Append(" INNER JOIN Program p ON Pc.IdProgram = P.Id ")
+        sql.Append(" INNER JOIN StrategicLine SL ON SL.Id = P.IdStrategicLine ")
+        sql.Append(" where pci.IdIdea = " & ididea)
+        Dim data_lineStrategig = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
+
+        type_aproval_value = validate_date_consult(data_c_typeaproval)
+        populationvalue = validate_date_consult(data_c_population)
+        program_value = validate_date_consult(data_program)
+        linevalue = validate_date_consult(data_lineStrategig)
+
+        Dim objCatalogSerialize = String.Format("[{0},{1},{2},{3}]", linevalue, program_value, populationvalue, type_aproval_value)
+
+        Response.Write(objCatalogSerialize)
+
+    End Function
+
+    Function validate_date_consult(ByVal date_consult As String)
+
+        Dim value_string As String
+
+        If date_consult = 0 Then
+            value_string = "0"
+        Else
+            value_string = date_consult
+        End If
+
+        Return value_string
+
+    End Function
+
+
 
     Protected Function load_combos(ByVal type As String)
 
@@ -369,7 +483,7 @@ Partial Public Class AjaxAddProject
 
         sql = New StringBuilder
 
-        If type = "P" Then
+        If type = "I" Then
 
             sql.Append(" select ID, estados as descripcion from Type_aproval_project ")
             sql.Append(" where aplica_idea ='s' ")
@@ -578,39 +692,6 @@ Partial Public Class AjaxAddProject
             Response.Write(objResult)
 
         End If
-
-    End Function
-
-    Protected Function charge_typeAproval(ByVal type As String)
-
-        Dim sql As New StringBuilder
-        Dim objSqlCommand As New SqlCommand
-        Dim data As DataTable
-        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
-
-        If type = "I" Then
-
-            sql.Append(" select id,estados from Type_aproval_project ")
-            sql.Append(" where aplica_idea ='s' ")
-            sql.Append(" order by estados asc")
-
-        Else
-
-            sql.Append(" select id,estados from Type_aproval_project ")
-            sql.Append(" order by estados asc")
-
-        End If
-
-        ' ejecutar la intruccion
-        data = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
-
-        Dim html As String = "<option>Seleccione...</option>"
-        For Each row As DataRow In data.Rows
-            html &= String.Format("<option value = ""{0}"">{1}</option>", row(0).ToString(), row(1).ToString())
-        Next
-
-        ' retornar el objeto
-        Response.Write(html)
 
     End Function
 
