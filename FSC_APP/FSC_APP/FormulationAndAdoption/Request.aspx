@@ -290,9 +290,9 @@
         
         <div id="dateSection" style="display: none; width: 100%;">
             <label>Nueva fecha de cierre</label>
-            <input id="txtNewDateClose" type="text" value="" class="date" style="width: 20%;" />
+            <input id="txtNewDateClose" type="text" value="" class="date" style="width: 8%;" />
             <label>Nueva fecha de liquidación</label>
-            <input id="txtNewDateSettlement" type="text" value="" class="date" style="width: 20%;"  />
+            <input id="txtNewDateSettlement" type="text" value="" class="date" style="width: 8%;"  />
         </div>
     
         <br />
