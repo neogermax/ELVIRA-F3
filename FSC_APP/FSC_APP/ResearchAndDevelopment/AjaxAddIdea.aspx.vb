@@ -172,9 +172,11 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
                     idprogram_list = Request.QueryString("idprogram").ToString
                     estado_proceso = Request.QueryString("estado_proceso").ToString
-                    ideditar = Convert.ToInt32(Request.QueryString("id").ToString)
 
-                    charge_component(idprogram_list, estado_proceso, ideditar)
+                    If Request.QueryString("id") <> Nothing Then
+                        ideditar = Convert.ToInt32(Request.QueryString("id").ToString)
+                        charge_component(idprogram_list, estado_proceso, ideditar)
+                    End If
 
                 Case "View_line_strategic"
 
