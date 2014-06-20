@@ -9,12 +9,19 @@ function loadThird() {
         url: "../ResearchAndDevelopment/AjaxAddIdea.aspx",
         type: "GET",
         data: {
-            "action": "C_Actors"
+            "action": "load_combos",
+            type: 'I'
         },
         success: function (result) {
-            $("#ddlactors").html(result);
-            $("#listThirds").html(result);
-            $("#ddlactors").trigger("liszt:updated");
+            result = JSON.parse(result);
+            
+            charge_CatalogList(result[4], "ddlactors", 1);
+            charge_CatalogList(result[4], "listThirds", 1);
+            //$("#ddlactors").html(result);
+            //$("#listThirds").html(result);
+            //$("#ddlactors").trigger("liszt:updated");
+            charge_CatalogList()
+            
         },
         error: function (msg) {
             alert("No se pueden cargar los actores.");
