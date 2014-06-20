@@ -1428,9 +1428,17 @@ Partial Class addContractRequest
         If Me.chkSignedContract.Checked = False Then
 
             'controlar que este digitado un numero de contrato
-            If Not IsNumeric(Me.txtcontractnumberadjusted.Text) Then
+            'If Not IsNumeric(Me.txtcontractnumberadjusted.Text) Then
+            '    Me.lblAddPolizaNfo.ForeColor = Drawing.Color.Red
+            '    Me.lblAddPolizaNfo.Text = "El numero del contrato no es un número. O no se ha diligenciado."
+            '    Exit Sub
+            'Else
+            '    Me.lblAddPolizaNfo.Text = ""
+            'End If
+
+            If Me.txtcontractnumberadjusted.Text = "" Then
                 Me.lblAddPolizaNfo.ForeColor = Drawing.Color.Red
-                Me.lblAddPolizaNfo.Text = "El numero del contrato no es un número. O no se ha diligenciado."
+                Me.lblAddPolizaNfo.Text = "El numero del contrato no se ha diligenciado."
                 Exit Sub
             Else
                 Me.lblAddPolizaNfo.Text = ""
@@ -1477,7 +1485,7 @@ Partial Class addContractRequest
         'verificar que la finalización sea mayor o igual que el inicio
         If Me.txtInitDatePoliza.Text > Me.txtFinishDatePoliza.Text Then
             Me.lblAddPolizaNfo.ForeColor = Drawing.Color.Red
-            Me.lblAddPolizaNfo.Text = "La fecha de fin de vigencia no debe se inferior a la fecha de inicio de la vigencia."
+            Me.lblAddPolizaNfo.Text = "La fecha de fin de vigencia no debe ser inferior a la fecha de inicio de la vigencia."
             Exit Sub
         Else
             Me.lblAddPolizaNfo.Text = ""
