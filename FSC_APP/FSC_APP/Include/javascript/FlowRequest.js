@@ -964,3 +964,10 @@ function sumAllColumnsTableFlow() {
         }
     });
 }
+
+function disabledPayFlowControls(objtxtvalortotalflow, objtxtfechapago, objtxtporcentaje, objtxtentregable){
+    $("#ctl00_cphPrincipal_txtvalortotalflow").attr("disabled", objtxtvalortotalflow);
+    $("#ctl00_cphPrincipal_txtfechapago").attr("disabled", objtxtfechapago);
+    $("#ctl00_cphPrincipal_txtporcentaje").attr("disabled", objtxtporcentaje);
+    $("#ctl00_cphPrincipal_txtentregable").attr("disabled", objtxtentregable);
+}
