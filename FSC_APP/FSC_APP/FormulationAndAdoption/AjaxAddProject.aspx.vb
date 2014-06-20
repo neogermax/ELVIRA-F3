@@ -9,6 +9,7 @@ Imports System.Data.SqlClient
 Imports System.Web.Script.Serialization
 Imports System.IO
 Imports System.Runtime.Serialization.Json
+Imports Newtonsoft.Json
 
 
 
@@ -170,22 +171,15 @@ Partial Public Class AjaxAddProject
             Select Case action
 
                 '----------------- modulo componentes------------------------------------------------------------
-                Case "C_linestrategic"
-
-                    Charge_Lstrategic()
-
                 Case "C_program"
-
                     id_lineStrategic = Convert.ToInt32(Request.QueryString("idlinestrategic").ToString)
                     charge_program(id_lineStrategic)
 
                 Case "list_program"
-
                     id_lineStrategic = Convert.ToInt32(Request.QueryString("idlinestrategic").ToString)
                     charge_list_program(id_lineStrategic)
 
                 Case "C_component"
-
                     idprogram_list = Request.QueryString("idprogram").ToString
                     estado_proceso = Request.QueryString("estado_proceso").ToString
                     ideditar = Convert.ToInt32(Request.QueryString("id").ToString)
@@ -193,7 +187,6 @@ Partial Public Class AjaxAddProject
                     charge_component(idprogram_list, estado_proceso, ideditar)
 
                 Case "View_line_strategic"
-
                     ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
                     searh_line_Strategic(ideditar)
 
@@ -203,36 +196,24 @@ Partial Public Class AjaxAddProject
                     searh_line_Strategic_project(ideditar)
 
                 Case "View_program"
-
                     ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
                     estado_proceso = Request.QueryString("estado_proceso").ToString
                     searh_Program(ideditar, estado_proceso)
 
                 Case "View_component"
-
                     ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
                     searh_component(ideditar)
 
                 Case "View_component_project"
-
                     ideditar = Convert.ToInt32(Request.QueryString("idproject").ToString)
                     searh_component_project(ideditar)
                     '----------------- modulo descripcion-------------------------------------------------------
 
                 Case "calculafechas"
-
                     fecha = Convert.ToDateTime(Request.QueryString("fecha").ToString())
                     duracion = Request.QueryString("duracion").ToString()
                     dia = Request.QueryString("dias").ToString()
                     calculafechas(fecha, duracion, dia)
-
-                Case "C_typecontract"
-
-                    Charge_typeContract()
-
-                Case "C_type_project"
-
-                    Charge_project_type()
 
                 Case "C_population"
 
@@ -258,22 +239,15 @@ Partial Public Class AjaxAddProject
                     ideditar = Convert.ToInt32(Request.QueryString("idproject").ToString)
                     charge_others_droplist(ideditar)
                     '----------------- modulo ubicacion-------------------------------------------------------
-                Case "C_deptos"
-
-                    Charge_deptos()
-
                 Case "C_munip"
-
                     id_depto = Convert.ToInt32(Request.QueryString("iddepto").ToString)
                     Charge_munip(id_depto)
 
                 Case "View_ubicacion_array"
-
                     ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
                     searh_location_array(ideditar)
 
                 Case "view_ubicacion_proyect"
-
                     ideditar = Convert.ToInt32(Request.QueryString("idproject").ToString)
                     searh_location_project(ideditar)
 
@@ -282,10 +256,6 @@ Partial Public Class AjaxAddProject
                     'convierte la variable y llama funcion para la validacion de la idea
                     id_b = Convert.ToInt32(Request.QueryString("id").ToString())
                     buscardatethird(id_b, applicationCredentials, Request.QueryString("id"))
-
-                Case "C_Actors"
-
-                    Charge_actors()
 
                 Case "View_actores_array"
                     ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
@@ -297,32 +267,26 @@ Partial Public Class AjaxAddProject
 
                     '----------------- modulo flujos-------------------------------------------------------
                 Case "View_flujos_p_array"
-
                     ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
                     searh_flujos_array(ideditar)
 
                 Case "View_flujos_p_project"
-
                     ideditar = Convert.ToInt32(Request.QueryString("idproject").ToString)
                     searh_flujos_project(ideditar)
 
                 Case "View_flujos_actors_array"
-
                     ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
                     searh_actors_flujos_array(ideditar)
 
                 Case "View_flujos_actors_project"
-
                     ideditar = Convert.ToInt32(Request.QueryString("idproject").ToString)
                     searh_actors_flujos_project(ideditar)
 
                 Case "View_detalle_flujo_array"
-
                     ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
                     searh_detalles_array(ideditar)
 
                 Case "View_detalle_flujo_project"
-
                     ideditar = Convert.ToInt32(Request.QueryString("idproject").ToString)
                     searh_detalles_project(ideditar)
                     '----------------- modulo anexos-------------------------------------------------------
@@ -335,6 +299,9 @@ Partial Public Class AjaxAddProject
                     ideditar = Convert.ToInt32(Request.QueryString("idproject").ToString)
                     searh_document_anexos_project(ideditar)
                     '----------------- tareas generales-------------------------------------------------------
+                Case "load_combos"
+                    type_i_p = Request.QueryString("type").ToString
+                    load_combos(type_i_p)
 
                 Case "getIdeaProject_inf_p"
                     ideditar = Convert.ToInt32(Request.QueryString("id").ToString)
@@ -368,6 +335,67 @@ Partial Public Class AjaxAddProject
 
     End Sub
 
+    Protected Function load_combos(ByVal type As String)
+
+        Dim facade As New Facade
+
+        Dim sql As New StringBuilder
+        Dim objSqlCommand As New SqlCommand
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+        Dim Data_line, Data_typecontrato, Data_typo_project, Data_depto, Data_Actor, Data_Approval As DataTable
+
+        sql.Append(" SELECT ID, Code as descripcion FROM StrategicLine AS pro where id <> 32 order by descripcion")
+        Data_line = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+        sql = New StringBuilder
+
+        sql.Append(" SELECT TYPECONTRACT.ID, TYPECONTRACT.CONTRACT as descripcion  FROM TYPECONTRACT  order by (ID)")
+        Data_typecontrato = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+        sql = New StringBuilder
+
+        sql.Append(" select pt.ID, pt.Project_Type as descripcion  from  ProjectType pt  order by pt.Project_Type asc")
+        Data_typo_project = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+        sql = New StringBuilder
+
+        sql.Append(" SELECT ID, Name as descripcion FROM FSC_eSecurity.dbo.Depto  order by descripcion ")
+        Data_depto = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+        sql = New StringBuilder
+
+        sql.Append(" select ID, Name as descripcion from Third order by descripcion ")
+        Data_Actor = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+        sql = New StringBuilder
+
+        If type = "P" Then
+
+            sql.Append(" select ID, estados as descripcion from Type_aproval_project ")
+            sql.Append(" where aplica_idea ='s' ")
+            sql.Append(" order by estados asc")
+
+        Else
+
+            sql.Append(" select ID,estados as descripcion from Type_aproval_project ")
+            sql.Append(" order by estados asc")
+
+        End If
+
+        Data_Approval = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+        Dim Json_line = JsonConvert.SerializeObject(Data_line)
+        Dim Json_typecontrato = JsonConvert.SerializeObject(Data_typecontrato)
+        Dim Json_typo_project = JsonConvert.SerializeObject(Data_typo_project)
+        Dim Json_depto = JsonConvert.SerializeObject(Data_depto)
+        Dim Json_Actor = JsonConvert.SerializeObject(Data_Actor)
+        Dim Json_Approval = JsonConvert.SerializeObject(Data_Approval)
+
+        Dim objCatalogSerialize = String.Format("[{0},{1},{2},{3},{4},{5}]", Json_line, Json_typecontrato, Json_typo_project, Json_depto, Json_Actor, Json_Approval)
+
+        Response.Write(objCatalogSerialize)
+
+    End Function
 
     Protected Function validar_proyecto_madre(ByVal id_project As Integer)
 
@@ -1467,67 +1495,6 @@ Partial Public Class AjaxAddProject
 
     End Function
 
-    ''' <summary>
-    ''' funcion que carga el combo de tipo de proyectos
-    ''' Autor: German Rodriguez MGgroup
-    ''' 28-01-2014
-    ''' </summary>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
-    Protected Function Charge_project_type()
-
-        Dim sql As New StringBuilder
-        Dim objSqlCommand As New SqlCommand
-        Dim data As DataTable
-        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
-
-
-        sql.Append(" select pt.ID,pt.Project_Type  from  ProjectType pt ")
-        sql.Append(" order by pt.Project_Type asc")
-
-        ' ejecutar la intruccion
-        data = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
-
-        Dim html As String = "<option>Seleccione...</option>"
-        For Each row As DataRow In data.Rows
-            html &= String.Format("<option value = ""{0}"">{1}</option>", row(0).ToString(), row(1).ToString())
-        Next
-
-        ' retornar el objeto
-        Response.Write(html)
-
-    End Function
-
-    ''' <summary>
-    ''' funcion que carga el combo de tipo de contrato
-    ''' Autor: German Rodriguez MGgroup
-    ''' 09-01-2014
-    ''' </summary>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
-    Protected Function Charge_typeContract()
-
-        Dim facade As New Facade
-        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
-        Dim data_typecontect As List(Of typecontractEntity)
-
-        Dim htmlresults As String = ""
-        Dim id, contract As String
-
-        data_typecontect = facade.gettypecontract(applicationCredentials, order:="id")
-
-        For Each row In data_typecontect
-            ' cargar el valor del campo
-            id = row.id
-            contract = row.contract
-            htmlresults &= String.Format("<option value='{0}'>{1}</option>", id, contract)
-
-        Next
-        Response.Write(htmlresults)
-
-
-    End Function
-
     Protected Function charge_idea_aproval()
 
         Dim sql As New StringBuilder
@@ -1802,35 +1769,6 @@ Partial Public Class AjaxAddProject
 
         Response.Write(objResult)
 
-    End Function
-
-    ''' <summary>
-    ''' funcion que carga el combo de actores
-    ''' Autor: German Rodriguez MGgroup
-    ''' 09-01-2014
-    ''' </summary>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
-    Protected Function Charge_actors()
-
-        Dim facade As New Facade
-        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
-        Dim data_actors As List(Of ThirdEntity)
-
-        Dim htmlresults As String = "<option>Seleccione...</option>"
-        Dim id, name As String
-
-        data_actors = facade.getThirdList(applicationCredentials, enabled:="1", order:="Code")
-
-
-        For Each row In data_actors
-            ' cargar el valor del campo
-            id = row.id
-            name = row.name
-            htmlresults &= String.Format("<option value='{0}'>{1}</option>", id, name)
-
-        Next
-        Response.Write(htmlresults)
     End Function
 
     Protected Function buscardatethird(ByVal bybal As Integer, ByVal objApplicationCredentials As Gattaca.Application.Credentials.ApplicationCredentials, _
@@ -2163,34 +2101,6 @@ Partial Public Class AjaxAddProject
     End Function
 
     ''' <summary>
-    ''' funcion que carga el combo de linea estrategica
-    ''' Autor: German Rodriguez MGgroup
-    ''' 09-01-2014
-    ''' </summary>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
-    Protected Function Charge_Lstrategic()
-        Dim facade As New Facade
-        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
-        Dim line_data As List(Of StrategicLineEntity)
-
-        Dim htmlresults As String = "<option>Seleccione...</option>"
-        Dim id, code As String
-
-        line_data = facade.getStrategicLineList(applicationCredentials, enabled:="1", order:="Code")
-
-        For Each row In line_data
-            ' cargar el valor del campo
-            id = row.id
-            code = row.code
-            htmlresults &= String.Format("<option value='{0}'>{1}</option>", id, code)
-
-        Next
-        Response.Write(htmlresults)
-
-    End Function
-
-    ''' <summary>
     ''' funcion que carga el combo de municipios precedido por el departamento seleccionada
     ''' Autor: German Rodriguez MGgroup
     ''' 09-01-2014
@@ -2209,34 +2119,6 @@ Partial Public Class AjaxAddProject
         data_munip = facade.getCityList(applicationCredentials, iddepto:=iddepto, enabled:="T", order:="City.Code")
 
         For Each row In data_munip
-            ' cargar el valor del campo
-            id = row.id
-            name = row.name
-            htmlresults &= String.Format("<option value='{0}'>{1}</option>", id, name)
-
-        Next
-        Response.Write(htmlresults)
-
-    End Function
-
-    ''' <summary>
-    ''' funcion que carga el combo de departamentos
-    ''' Autor: German Rodriguez MGgroup
-    ''' 09-01-2014
-    ''' </summary>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
-    Protected Function Charge_deptos()
-        Dim facade As New Facade
-        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
-        Dim depto_data As List(Of DeptoEntity)
-
-        Dim htmlresults As String = "<option>Seleccione...</option>"
-        Dim id, name As String
-
-        depto_data = facade.getDeptoList(applicationCredentials, enabled:="T", order:="Depto.Code")
-
-        For Each row In depto_data
             ' cargar el valor del campo
             id = row.id
             name = row.name
@@ -3309,17 +3191,17 @@ Partial Public Class AjaxAddProject
     End Function
 
     Protected Function borrar_archivos()
-        Dim startinfo As New ProcessStartInfo("C:\Gattaca_pruebas\WebSiteFSC\ELVIRA-F3\FSC_APP\FSC_APP\bats\BORRAR_ARC.bat")
-        ' Dim startinfo As New ProcessStartInfo(Server.MapPath("\bats\BORRAR_ARC.bat"))
-        'startinfo.UseShellExecute = False
+        'Dim startinfo As New ProcessStartInfo("C:\Gattaca_pruebas\WebSiteFSC\ELVIRA-F3\FSC_APP\FSC_APP\bats\BORRAR_ARC.bat")
+        Dim startinfo As New ProcessStartInfo(Server.MapPath("\bats\BORRAR_ARC.bat"))
+        startinfo.UseShellExecute = False
         startinfo.WindowStyle = ProcessWindowStyle.Hidden
         Process.Start(startinfo)
     End Function
 
     Protected Function copiar_archivos()
-        Dim startinfo As New ProcessStartInfo("C:\Gattaca_pruebas\WebSiteFSC\ELVIRA-F3\FSC_APP\FSC_APP\bats\COPIAR_ARC.bat")
-        'Dim startinfo As New ProcessStartInfo(Server.MapPath("\bats\COPIAR_ARC.bat"))
-        'startinfo.UseShellExecute = False
+        ' Dim startinfo As New ProcessStartInfo("C:\Gattaca_pruebas\WebSiteFSC\ELVIRA-F3\FSC_APP\FSC_APP\bats\COPIAR_ARC.bat")
+        Dim startinfo As New ProcessStartInfo(Server.MapPath("\bats\COPIAR_ARC.bat"))
+        startinfo.UseShellExecute = False
         startinfo.WindowStyle = ProcessWindowStyle.Hidden
         Process.Start(startinfo)
     End Function

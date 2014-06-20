@@ -160,15 +160,6 @@ Partial Public Class addProject
     Protected WithEvents lblididea As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''Control ddlididea.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents ddlididea As Global.System.Web.UI.WebControls.DropDownList
-
-    '''<summary>
     '''Control lblHelpididea.
     '''</summary>
     '''<remarks>
@@ -700,15 +691,6 @@ Partial Public Class addProject
     Protected WithEvents Lbltype_project As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''Control ddltype_proyect.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents ddltype_proyect As Global.System.Web.UI.WebControls.DropDownList
-
-    '''<summary>
     '''Control Lblhelptproyect.
     '''</summary>
     '''<remarks>
@@ -725,15 +707,6 @@ Partial Public Class addProject
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
     Protected WithEvents lblpopulation As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''Control ddlPupulation.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents ddlPupulation As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
     '''Control lblHelppopulation.
@@ -754,15 +727,6 @@ Partial Public Class addProject
     Protected WithEvents Label13 As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''Control ddlmodcontract.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents ddlmodcontract As Global.System.Web.UI.WebControls.DropDownList
-
-    '''<summary>
     '''Control Lblmodcontract.
     '''</summary>
     '''<remarks>
@@ -779,15 +743,6 @@ Partial Public Class addProject
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
     Protected WithEvents Lblestado As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''Control dll_estado.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents dll_estado As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
     '''Control Lblhelp_estado.
@@ -1294,15 +1249,6 @@ Partial Public Class addProject
     Protected WithEvents lblVersion As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''Control gvVersion.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents gvVersion As Global.System.Web.UI.WebControls.GridView
-
-    '''<summary>
     '''Control lbliduser.
     '''</summary>
     '''<remarks>
@@ -1393,15 +1339,6 @@ Partial Public Class addProject
     Protected WithEvents Label18 As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''Control ddlStrategicLines.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents ddlStrategicLines As Global.System.Web.UI.WebControls.DropDownList
-
-    '''<summary>
     '''Control lblinfls.
     '''</summary>
     '''<remarks>
@@ -1418,15 +1355,6 @@ Partial Public Class addProject
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
     Protected WithEvents Label19 As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''Control ddlPrograms.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents ddlPrograms As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
     '''Control lblinpro.
@@ -1553,15 +1481,6 @@ Partial Public Class addProject
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
     Protected WithEvents Label22 As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''Control ddlactors.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents ddlactors As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
     '''Control linkactors.

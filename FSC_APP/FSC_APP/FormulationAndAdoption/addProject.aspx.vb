@@ -189,13 +189,13 @@ Partial Class addProject
                     Me.txtcode.Visible = True
                     Me.lblcode.Visible = True
                     Me.txtenabled.Visible = False
-                    
+
                     Me.lblenabled.Visible = False
 
                     Me.txtcode.ReadOnly = True
                     Me.btntermsreference.Visible = False
 
-                    
+
                     'deshabilitar campos de valores por defecto en la edicion
                     Me.txtfsccontribution.ReadOnly = True
                     Me.txtcounterpartvalue.ReadOnly = True
@@ -808,7 +808,7 @@ Partial Class addProject
                 '   Me.lblHelpcounterpartvalue.Text = ""
             End If
 
-            objProject.ididea = Me.ddlididea.SelectedValue
+            '     objProject.ididea = Me.ddlididea.SelectedValue
             objProject.code = Me.txtcode.Text
             objProject.name = Me.txtname.Text
             objProject.objective = Me.txtobjective.Text
@@ -2138,8 +2138,8 @@ Partial Class addProject
             ' cargar la lista de versiones anteriores
             list = facade.getProjectList(applicationCredentials, idKey:=idKey, isLastVersion:=0)
 
-            Me.gvVersion.DataSource = list
-            Me.gvVersion.DataBind()
+            'Me.gvVersion.DataSource = list
+            'Me.gvVersion.DataBind()
 
             If list.Count > 0 Then
 

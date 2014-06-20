@@ -8,12 +8,12 @@
 
     <script type="text/javascript">
 
-//        var operacion = '<%= Request.QueryString("op") %>';
+        //        var operacion = '<%= Request.QueryString("op") %>';
 
-//        if (operacion != "add") {
-//            ideditar = '<%= Request.QueryString("id") %>';
-//        }
-//   
+        //        if (operacion != "add") {
+        //            ideditar = '<%= Request.QueryString("id") %>';
+        //        }
+        //   
     </script>
 
     <link href="../Pretty/css/prettyPhoto.css" rel="stylesheet" type="text/css" />
@@ -44,6 +44,8 @@
 
     <script src="../Include/javascript/Proyecto_componentes.js" type="text/javascript"></script>
 
+    <script src="../Include/javascript/Proyecto_validaciones.js" type="text/javascript"></script>
+    
     <script src="../Include/javascript/numeral.min.js"></script>
 
     <link href="../css/elvira_F3.css" rel="stylesheet" type="text/css" />
@@ -272,15 +274,18 @@
                 <li id="liproyecttype" runat="server" visible="false">
                     <asp:Label ID="Lbltype_project" runat="server" Text="Tipo de proyecto"></asp:Label>
                     <select id="ddltype_proyect" class="Ccombo">
-                    </select><asp:Label ID="Lblhelptproyect" runat="server" ForeColor="#990000"></asp:Label></li>
+                    </select>
+                    <asp:Label ID="Lblhelptproyect" runat="server" ForeColor="#990000"></asp:Label></li>
                 <li>
                     <asp:Label ID="lblpopulation" runat="server" Text="Población"></asp:Label>
                     <select id="ddlPupulation" class="Ccombo">
-                    </select><asp:Label ID="lblHelppopulation" runat="server" ForeColor="#990000"></asp:Label></li>
+                    </select>
+                    <asp:Label ID="lblHelppopulation" runat="server" ForeColor="#990000"></asp:Label></li>
                 <li>
                     <asp:Label ID="Label13" runat="server" Text="Modalidad de Contratación"></asp:Label>
                     <select id="ddlmodcontract" class="Ccombo">
-                    </select><asp:Label ID="Lblmodcontract" runat="server" ForeColor="#990000"></asp:Label></li>
+                    </select>
+                    <asp:Label ID="Lblmodcontract" runat="server" ForeColor="#990000"></asp:Label></li>
                 <li>
                     <asp:Label ID="Lblestado" runat="server" Text="Estado del proyecto"></asp:Label>
                     <select id="dll_estado" class="Ccombo">
@@ -455,8 +460,7 @@
                 <tr>
                     <td>
                         <asp:Label ID="Lbltitlecomponet" runat="server" Text="Componentes"></asp:Label>
-                        <ul id="seleccionarcomponente">
-                        </ul>
+                        <ul id="seleccionarcomponente"></ul>
                     </td>
                     <td style="width: 100px; vertical-align: middle;">
                         <input id="Btnaddcomponent" type="button" value=">>" name="Add_Componente" onclick="return Btnaddcomponent_onclick()" /><input
@@ -464,8 +468,7 @@
                     </td>
                     <td>
                         <asp:Label ID="Label20" runat="server" Text="Componentes seleccionados"></asp:Label>
-                        <ul id="componentesseleccionados">
-                        </ul>
+                        <ul id="componentesseleccionados"></ul>
                     </td>
                     <td id="viejocomp" runat="server" visible="false">
                         <cc2:DoubleListBox ID="dlbActivity" runat="server" Width="100%" />
@@ -928,6 +931,7 @@
                     </table>
                 </div>
                 <br />
+                <input style="margin-left: 3em;" type='text' id="cancelEdition" value="Cancelar Edición" />
             </div>
         </div>
         <div id="anexos">

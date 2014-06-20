@@ -225,7 +225,6 @@ $(document).ready(function() {
 
     $("#tabsIdea").tabs();
 
-
     //validar que pestaña esta ingresando
     $("#tabsIdea").click(function() {
 
@@ -263,10 +262,7 @@ $(document).ready(function() {
 
     });
 
-
 });
-
-
 
 //funcion para dispara en el autoload fuciones de fechas
 function fix() {
@@ -1008,7 +1004,7 @@ function copiar_archivos() {
 
 }
 
-//fumcion de carga de listas
+//funcion de carga de listas
 function load_combos() {
 
     $.ajax({
