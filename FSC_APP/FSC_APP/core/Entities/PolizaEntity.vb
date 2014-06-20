@@ -7,7 +7,7 @@ Public Class PolizaEntity
     Private _id As Integer
     Private _numero_poliza As String
     Private _aseguradora As String
-    Private _contrato_id As Integer
+    Private _contrato_id As String
     Private _fecha_exp As DateTime
     Private _fecha_ven As DateTime
 
@@ -42,11 +42,11 @@ Public Class PolizaEntity
         End Set
     End Property
 
-    Public Property contrato_id() As Integer
+    Public Property contrato_id() As String
         Get
             Return Me._contrato_id
         End Get
-        Set(ByVal value As Integer)
+        Set(ByVal value As String)
             Me._contrato_id = value
         End Set
     End Property
