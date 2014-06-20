@@ -19,7 +19,7 @@ $(document).ready(function() {
     buscar_datos();
     Valida_fecha_acta();
     
-    $("#SaveApproval").button();
+    $("#SaveApproval, #SaveNotApproval").button();
     $("#ctl00_cphPrincipal_linkcancelar").button();
 
 
@@ -153,7 +153,7 @@ function traer_datos_idea(STR_Id_Idea) {
 
 
 //funcion q habilita el guardado de la  aprobacion proyecto
-function SaveApproval_onclick() {
+function SaveApproval_onclick(notApproval) {
 
     //revisamos q los campos esten diligenciados
     var value_campos = Validar_campos_dilingenciados();
@@ -161,15 +161,21 @@ function SaveApproval_onclick() {
     //habilitamos confirmacion
     if (confirmacion == 0) {
         if (value_campos == 1) {
-
-            $("#SaveApproval").attr("value", "Aprobar Idea");
+            if(notApproval == 1){
+                $("#SaveApproval").attr("value", "Aprobar Idea");
+            }else if(notApproval == 2){
+                $("#SaveNotApproval").attr("value", "NO! Aprobar Idea");
+            }
             $("#ctl00_cphPrincipal_containerSuccess").css("display", "none");
             $("#ctl00_cphPrincipal_containerSuccess_down").css("display", "none");
 
         }
         else {
-
-            $("#SaveApproval").attr("value", "Confirmar aprobación");
+            if(notApproval == 1){
+                $("#SaveApproval").attr("value", "Confirmar aprobación");
+            }else if(notApproval == 2){
+                $("#SaveNotApproval").attr("value", "Confirmar la NO! aprobación");
+            }
             $("#ctl00_cphPrincipal_lblsaveinformation").text("Está seguro que desea aprobar la Idea?, tenga en cuenta que una vez aprobada NO podrá ser modificada.");
             $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
             $("#ctl00_cphPrincipal_containerSuccess_down").css("display", "block");
@@ -180,7 +186,7 @@ function SaveApproval_onclick() {
     }
     else {
         //llamamos funcion que guarda
-        guardar_aprobacion_proyecto();
+        guardar_aprobacion_proyecto(notApproval);
 
     }
 }
@@ -219,10 +225,14 @@ function Validar_campos_dilingenciados() {
 }
 
 //funcion guardar aprobacion del proyecto
-function guardar_aprobacion_proyecto() {
+function guardar_aprobacion_proyecto(notApproval) {
 
     var id_idea = $("#ddlidproject option:selected").html();
     var idea_mother = id_idea.split("_");
+    
+    if(notApproval == undefined && notApproval == null){
+        notApproval = 1;
+    }
     
     $.ajax({
         url: "ajaxaddProjectApprovalRecord.aspx",
@@ -236,7 +246,8 @@ function guardar_aprobacion_proyecto() {
             "aport_others": $("#ctl00_cphPrincipal_Txtaportcontra").val(),
             "aport_fsc": $("#ctl00_cphPrincipal_TxtaportFSC").val(),
             "aport_total": $("#ctl00_cphPrincipal_txtapprovedvalue").val(),
-            "approval": $("#ctl00_cphPrincipal_ddlapproved").val()
+            "approval": $("#ctl00_cphPrincipal_ddlapproved").val(),
+            "notApproval": notApproval
         },
         //mostrar resultados de la creacion de la idea
         success: function(result) {
@@ -245,6 +256,7 @@ function guardar_aprobacion_proyecto() {
             $("#ctl00_cphPrincipal_containerSuccess_down").css("display", "block");
             $("#ctl00_cphPrincipal_lblsaveinformation_down").text(result);
             $("#SaveApproval").css("display", "none");
+            $("#SaveNotApproval").css("display", "none");
             //llamamos funcion que crea el proyecto madre
             crear_proyecto_madre(idea_mother[0]);
         },
