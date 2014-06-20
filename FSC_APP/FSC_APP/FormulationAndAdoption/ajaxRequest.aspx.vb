@@ -15,6 +15,7 @@ Partial Public Class ajaxRequest
     Dim _existRequest As Boolean = False
     Dim _idProject As Integer = 0
     Dim _ContractNumber As String = "N/A"
+    Dim _Settlement_Date As String = "N/A"
 #End Region
 
     ''' <summary>
@@ -34,6 +35,7 @@ Partial Public Class ajaxRequest
                 Dim objCRequest As FSC_DAO.model.CRequest = New FSC_DAO.model.CRequest()
                 _existRequest = objCRequest.existRequestForProject(_idProject)
                 _ContractNumber = objCRequest.getNumberContractFromProject(_idProject)
+                _Settlement_Date = objCRequest.getSettlement_DateFromProject(_idProject)
 
                 If _existRequest Then
                     _idProject = objCRequest.getExistRequestIdForProject(_idProject)
@@ -85,7 +87,7 @@ Partial Public Class ajaxRequest
             Dim objRequestObjCProject As Project = objCProject._selectProjectById()
             objRequestObjCProject.Id = 0
             'Response data for file javascript
-            Dim JSONDone As String = String.Format("[{0},""{1}""]", JsonConvert.SerializeObject(objRequestObjCProject).ToString(), _ContractNumber)
+            Dim JSONDone As String = String.Format("[{0},""{1}"", ""{2}""]", JsonConvert.SerializeObject(objRequestObjCProject).ToString(), _ContractNumber, _Settlement_Date)
 
             'Response data for file javascript
             Response.Write(JSONDone)
@@ -94,7 +96,7 @@ Partial Public Class ajaxRequest
             objCRequest.IdProject = idProject
             Dim objRequestObjCRequest As FSC_DAO.model.Request = objCRequest.selectRequestByProject()
 
-            Dim JSONDone As String = String.Format("[{0},""{1}""]", JsonConvert.SerializeObject(objRequestObjCRequest).ToString(), _ContractNumber)
+            Dim JSONDone As String = String.Format("[{0},""{1}"", ""{2}""]", JsonConvert.SerializeObject(objRequestObjCRequest).ToString(), _ContractNumber, _Settlement_Date)
 
             'Response data for file javascript
             Response.Write(JSONDone)
@@ -223,7 +225,7 @@ Partial Public Class ajaxRequest
     Protected Function saveProjectInformation(ByVal JSONProjectInformation As FSC_DAO.model.Project) As Integer
         Dim objCRequest As FSC_DAO.model.CRequest = New FSC_DAO.model.CRequest()
 
-        objCRequest.setPropertiesFromProject(JSONProjectInformation, Request.Form("other_request").ToString(), Request.Form("StartSuspensionDate").ToString(), Request.Form("EndSuspensionDate").ToString(), Convert.ToInt16(Request.Form("RestartType")))
+        objCRequest.setPropertiesFromProject(JSONProjectInformation, Request.Form("other_request").ToString(), Request.Form("StartSuspensionDate").ToString(), Request.Form("EndSuspensionDate").ToString(), Convert.ToInt16(Request.Form("RestartType")), Request.Form("SettlementDate"), Request.Form("CompletitionDate"))
 
         If Not _existRequest Then
             objCRequest.IdProject = _idProject

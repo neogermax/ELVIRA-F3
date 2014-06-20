@@ -143,6 +143,18 @@ $(document).ready(function() {
                 $("#ctl00_cphPrincipal_ddlRestartType").val(projectObject.RestartType);
             }
             
+            if(projectObject.completiondate != undefined){
+                var completiondate = new Date(parseFloat(projectObject.completiondate.replace(/Date/g, "").replace(/\//g, "").replace(/["'()]/g, "").toString()));    
+                $("#txtNewDateClose").val(completiondate.localeFormat("dd/MM/yyyy"));
+            }
+            
+            if(projectObject.Settlement_Date != undefined){    
+                var Settlement_Date = new Date(parseFloat(projectObject.Settlement_Date.replace(/Date/g, "").replace(/\//g, "").replace(/["'()]/g, "").toString()));    
+                $("#txtNewDateSettlement").val(Settlement_Date.localeFormat("dd/MM/yyyy"));
+            }else{
+                $("#txtNewDateSettlement").val(result[2]);
+            }
+            
         },
         error: function() {
             alert("Opsss! Algo salio mal, por favor intentelo mas tarde.")
@@ -154,7 +166,7 @@ $(document).ready(function() {
     $("#buttonSaveRequest").click(function(){
         
         projectObject.Justification = $("#txtJustification").val();
-
+        
         $.ajax({
             url: "../FormulationAndAdoption/ajaxRequest.aspx",
             type: "POST",
@@ -172,7 +184,9 @@ $(document).ready(function() {
                 "RestartType": $("#ctl00_cphPrincipal_ddlRestartType").val(), 
                 "OldThird": $("#listThirdsByProject").val(), 
                 "NewThird": $("#listThirds").val(),
-                "JSONThirdCession": JSON.stringify(JSONThirdCesion)
+                "JSONThirdCession": JSON.stringify(JSONThirdCesion),
+                "SettlementDate": $("#txtNewDateSettlement").val(),
+                "CompletitionDate" : $("#txtNewDateClose").val()
             },
             success: function(result) {
                 alert("La solicitud se almaceno correctamente!");
