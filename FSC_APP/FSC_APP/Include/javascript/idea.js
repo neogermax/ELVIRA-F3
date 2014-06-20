@@ -1016,7 +1016,7 @@ function load_combos() {
             result = JSON.parse(result);
 
             charge_CatalogList(result[0], "ddlStrategicLines", 1);
-            charge_CatalogList(result[1], "ddlmodcontract", 1);
+            charge_CatalogList(result[1], "ddlmodcontract", 0);
             charge_CatalogList(result[5], "dll_estado", 1);
             charge_CatalogList(result[3], "ddlDepto", 1);
             charge_CatalogList(result[4], "ddlactors", 1);

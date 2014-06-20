@@ -42,7 +42,7 @@ Partial Class FormulationAndAdoption_ajaxaddProjectApprovalRecord
             End Select
 
         Else
-        
+
             'trae el jquery para hacer todo por debajo del servidor
             action = Request.QueryString("action").ToString()
 
@@ -139,7 +139,10 @@ Partial Class FormulationAndAdoption_ajaxaddProjectApprovalRecord
 
         Dim sql As New StringBuilder
 
-        sql.Append(" update idea set Typeapproval = 1 where id = " & idproject)
+        Dim Typeapproval As Integer = Convert.ToInt16(Request.Form("notApproval"))
+
+        sql.Append(String.Format(" update idea set Typeapproval = {1} where id = {0}", idproject, Typeapproval))
+
         GattacaApplication.RunSQL(applicationCredentials, sql.ToString)
 
     End Function
