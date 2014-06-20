@@ -54,6 +54,7 @@ function Cprogram(idLineStrategic) {
 
                     $("#ddlPrograms").html(result);
                     $("#ddlPrograms").trigger("liszt:updated");
+                    cargarcomponente();
 
                 }
                 else {
@@ -72,6 +73,8 @@ function Cprogram(idLineStrategic) {
 
                         $("#ddlPrograms").html(result);
                         $("#ddlPrograms").trigger("liszt:updated");
+
+                        cargarcomponente();
 
                         if (control_edit_compo == 0) {
                             validar_cambio_linea(result);
@@ -102,6 +105,7 @@ function validar_cambio_linea(str_result) {
 
         $("#ddlPrograms").html(str_result);
         $("#ddlPrograms").trigger("liszt:updated");
+        cargarcomponente();
 
     }
 
@@ -128,6 +132,8 @@ function validar_cambio_linea(str_result) {
         $("#ddlPrograms").val(program);
         $("#ddlPrograms").trigger("liszt:updated");
 
+        cargarcomponente();
+        
         contar_program = 0;
         arraycompo = [];
 
@@ -152,6 +158,7 @@ function Cprogram_edit() {
             success: function(result) {
                 $("#ddlPrograms").html(result);
                 $("#ddlPrograms").trigger("liszt:updated");
+                cargarcomponente();
             },
             error: function(msg) {
                 alert("No se pueden cargar los programas de la linea estrategica selecionada.");
@@ -175,8 +182,8 @@ function view_Cprogram() {
 
             $("#ddlPrograms").val(result);
             $("#ddlPrograms").trigger("liszt:updated");
-
-             edit_program = result;
+            cargarcomponente();
+            edit_program = result;
 
         },
         error: function(msg) {
@@ -221,13 +228,16 @@ function ClineEstrategic() {
 function cargarcomponente() {
 
     var editable;
-    var id_idea;
+    var id_idea = 0;
     var sPageURL = window.location.search.substring(1);
+    
     var sURLVariables = sPageURL.split('&');
-
+    
     if (sURLVariables[0] == "op=edit") {
         editable = 1;
+        
         id_idea = ideditar;
+        
     }
     else {
         editable = 0;
@@ -239,7 +249,7 @@ function cargarcomponente() {
         $.ajax({
             url: "AjaxAddIdea.aspx",
             type: "GET",
-            data: { "action": "C_component", "idprogram": $(this).val(), "estado_proceso": editable, "id": id_idea },
+            data: { "action": "C_component",  "id": id_idea, "idprogram": $(this).val(), "estado_proceso": editable },
             success: function(result) {
 
                 $("#seleccionarcomponente").html(result);
@@ -283,7 +293,7 @@ function cargarcomponente() {
 //cargar double lisbox componentes de programa de la idea seleccionada
 function edit_component() {
 
-
+    console.log("otro asdadasd");
     $.ajax({
         url: "AjaxAddIdea.aspx",
         type: "GET",
