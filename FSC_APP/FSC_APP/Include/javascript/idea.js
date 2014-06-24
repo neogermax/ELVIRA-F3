@@ -62,7 +62,9 @@ var componentes_editados;
 var contar_program = 0;
 var itemarrayflujos;
 var control_edit_compo;
+var load_edit;
 
+var line_strategic;
 $(document).ready(function() {
 
     load_combos();
@@ -88,6 +90,7 @@ $(document).ready(function() {
     var sPageURL = window.location.search.substring(1);
     var sURLVariables = sPageURL.split('&');
     //validamos si creamos la idea o editamos
+    //editar idea
     if (sURLVariables[0] == "op=edit") {
         ideditar = sURLVariables[1].replace("id=", "");
 
@@ -98,8 +101,7 @@ $(document).ready(function() {
         $("#ddlStrategicLines").ready(function() {
             ClineEstrategic_edit();
         });
-
-        //Cprogram();
+        
         View_componentes_array();
         view_ubicacion_array();
         View_actores_array();
@@ -109,10 +111,10 @@ $(document).ready(function() {
         View_anexos_array();
 
         edit_component_view();
+        
         load_idarchive();
 
         aprobacion_idea();
-
 
         var timer_cline_edit = setTimeout("Cpopulation_view();", 2000);
         var timer_cline_edit = setTimeout("Ctypcontract_view();", 2000);
@@ -123,13 +125,17 @@ $(document).ready(function() {
         $("#li_estado").css("display", "compact");
         $("#SaveIdea").attr("value", "Guardar cambios");
         $("#Export").css("display", "compact");
+        load_edit = 0;
     }
+    //crear idea
     else {
 
+        load_edit = 1;
+        
         $("#li_estado").css("display", "none");
         var timer = setTimeout("fix();", 2000);
 
-        Cprogram(0);
+        Cprogram();
 
         $("#SaveIdea").attr("value", "Crear Idea");
         $("#Export").css("display", "none");
@@ -225,7 +231,6 @@ $(document).ready(function() {
 
     $("#tabsIdea").tabs();
 
-
     //validar que pestaña esta ingresando
     $("#tabsIdea").click(function() {
 
@@ -263,10 +268,7 @@ $(document).ready(function() {
 
     });
 
-
 });
-
-
 
 //funcion para dispara en el autoload fuciones de fechas
 function fix() {
@@ -1008,7 +1010,7 @@ function copiar_archivos() {
 
 }
 
-//fumcion de carga de listas
+//funcion de carga de listas
 function load_combos() {
 
     $.ajax({

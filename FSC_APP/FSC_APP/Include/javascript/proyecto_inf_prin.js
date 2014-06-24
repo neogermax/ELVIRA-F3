@@ -356,15 +356,7 @@ function traer_datos_idea_inf_p() {
             $("#ctl00_cphPrincipal_txtduration").val(result.Duration);
             $("#ctl00_cphPrincipal_Txtday").val(result.days);
 
-            //carga de combos de pestaña descripcion proyecto
-
-            $("#ddlmodcontract").val(result.Idtypecontract);
-            $("#ddlmodcontract").trigger("liszt:updated");
-
-            $("#ddlPupulation").val(result.Population);
-            $("#ddlPupulation").trigger("liszt:updated");
-
-            //cargamos el control de aplica iva
+           //cargamos el control de aplica iva
             $("#ctl00_cphPrincipal_RBnList_iva :radio[value='" + result.ideaappliesIVA + "']").attr('checked', true);
             valor_iva = result.ideaappliesIVA;
             //calcula la fecha de finalizacion
@@ -480,36 +472,36 @@ function validarcampos_fecha_madre() {
     })
 }
 
-function charge_others_droplist() {
+//function charge_others_droplist() {
 
-    $.ajax({
-        url: "AjaxAddProject.aspx",
-        type: "GET",
-        data: { "action": "C_charge_others", "idproject": ideditar },
-        success: function(result) {
+//    $.ajax({
+//        url: "AjaxAddProject.aspx",
+//        type: "GET",
+//        data: { "action": "C_charge_others", "idproject": ideditar },
+//        success: function(result) {
 
-            result = JSON.parse(result);
+//            result = JSON.parse(result);
 
-            $("#ddlmodcontract").val(result.Idtypecontract);
-            $("#ddlmodcontract").trigger("liszt:updated");
+//            $("#ddlmodcontract").val(result.Idtypecontract);
+//            $("#ddlmodcontract").trigger("liszt:updated");
 
-            $("#ddlPupulation").val(result.Population);
-            $("#ddlPupulation").trigger("liszt:updated");
+//            $("#ddlPupulation").val(result.Population);
+//            $("#ddlPupulation").trigger("liszt:updated");
 
-            $("#dll_estado").val(result.Typeapproval);
-            $("#dll_estado").trigger("liszt:updated");
+//            $("#dll_estado").val(result.Typeapproval);
+//            $("#dll_estado").trigger("liszt:updated");
 
-            $("#ddlididea").html(result.ididea);
-            $("#ddlididea").trigger("liszt:updated");
+//            $("#ddlididea").html(result.ididea);
+//            $("#ddlididea").trigger("liszt:updated");
 
-            //cargamos el control de aplica iva
-            $("#ctl00_cphPrincipal_RBnList_iva :radio[value='" + result.ideaappliesIVA + "']").attr('checked', true);
-            valor_iva = result.ideaappliesIVA;
+//            //cargamos el control de aplica iva
+//            $("#ctl00_cphPrincipal_RBnList_iva :radio[value='" + result.ideaappliesIVA + "']").attr('checked', true);
+//            valor_iva = result.ideaappliesIVA;
 
-        },
-        error: function(msg) {
-            alert("No se pueden cargar los combos deseados.");
-        }
-    });
+//        },
+//        error: function(msg) {
+//            alert("No se pueden cargar los combos deseados.");
+//        }
+//    });
 
-}
+//}
