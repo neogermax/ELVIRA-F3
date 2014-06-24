@@ -1,206 +1,20 @@
-﻿
-//funcion que posiciona el combo en la linea estrategica de la idea seleccionada
-function ClineEstrategic_edit() {
+﻿//--------------------fuciones de crear combos -------------------------
 
-    if (componentes_editados == 1) {
-        //ajax que posiciona la linea estrategica de la idea conasultada
-        $.ajax({
-            url: "AjaxAddIdea.aspx",
-            type: "GET",
-            data: { "action": "View_line_strategic", "ididea": ideditar },
-            success: function(result) {
+//var sPageURL = window.location.search.substring(1);
+//var sURLVariables = sPageURL.split('&');
 
-                $("#ddlStrategicLines").val(result);
-                $("#ddlStrategicLines").trigger("liszt:updated");
+//preguntar si editar o crear
+//if (sURLVariables[0] == "op=edit") {
+//    //-------------editar idea
+//    ideditar = sURLVariables[1].replace("id=", "");
+//    //-----------------cargar combos----------------
+////    $("#ddlStrategicLines").ready(function() {
+//        ClineEstrategic_edit();
+//    });
 
-                edit_line_strategic = result;
+//    View_componentes_array();
 
-                Cprogram(edit_line_strategic);
-                $("#ddlStrategicLines").trigger("change");
-
-                view_Cprogram();
-            },
-            error: function(msg) {
-                alert("No se pueden cargar la linea estrategica deseada.");
-            }
-        });
-
-    }
-
-}
-
-//cargar combo de programas
-function Cprogram(idLineStrategic) {
-
-    $("#ddlStrategicLines").change(function() {
-        var idLine = idLineStrategic;
-        if (idLine == 0) {
-            idLine = $(this).val();
-        }
-
-        $.ajax({
-            url: "AjaxAddIdea.aspx",
-            type: "GET",
-            data: { "action": "C_program", "idlinestrategic": idLine },
-            success: function(result) {
-
-
-                var textoLista = $("#componentesseleccionados").html();
-
-                if (textoLista == "") {
-                    if (contar_program == 0) {
-                        arraycompo[0] = $("#ddlStrategicLines").val();
-                    }
-
-                    $("#ddlPrograms").html(result);
-                    $("#ddlPrograms").trigger("liszt:updated");
-                    cargarcomponente();
-
-                }
-                else {
-                    if (contar_program == 0) {
-                        arraycompo[1] = $("#ddlPrograms").val();
-                        contar_program = 1;
-                    }
-
-
-                    if (ideditar == null) {
-                        validar_cambio_linea(result);
-                    }
-                    else {
-
-                        arraycomponente = [];
-
-                        $("#ddlPrograms").html(result);
-                        $("#ddlPrograms").trigger("liszt:updated");
-
-                        cargarcomponente();
-
-                        if (control_edit_compo == 0) {
-                            validar_cambio_linea(result);
-                        }
-                        control_edit_compo = 0;
-                        idLineStrategic = 0;
-                    }
-
-                }
-            },
-            error: function(msg) {
-                alert("No se pueden cargar los programas de la linea estrategica selecionada.");
-            }
-        });
-    });
-}
-
-//funcion para validar los cambios de lineas 
-function validar_cambio_linea(str_result) {
-
-    confirmar = confirm("Usted acaba de cambiar de linea estratégica la información diligenciada se perdera! desea cambiarla?", "SI", "NO");
-    if (confirmar) {
-
-        $("#componentesseleccionados").html("");
-        $("#seleccionarcomponente").html("");
-
-        arraycomponente = [];
-
-        $("#ddlPrograms").html(str_result);
-        $("#ddlPrograms").trigger("liszt:updated");
-        cargarcomponente();
-
-    }
-
-    else {
-
-
-        var sPageURL = window.location.search.substring(1);
-        var sURLVariables = sPageURL.split('&');
-        //validamos si creamos la idea o editamos
-        if (sURLVariables[0] == "op=edit") {
-            var line = edit_line_strategic;
-            var program = edit_program;
-        }
-        else {
-            var line = arraycompo[0];
-            var program = arraycompo[1];
-        }
-
-        //
-
-        $("#ddlStrategicLines").val(line);
-        $("#ddlStrategicLines").trigger("liszt:updated");
-
-        $("#ddlPrograms").val(program);
-        $("#ddlPrograms").trigger("liszt:updated");
-
-        cargarcomponente();
-        
-        contar_program = 0;
-        arraycompo = [];
-
-
-    }
-
-}
-
-
-
-//cargar los programas seleccionados de la linea seleccionada anteriormente "ClineEstrategic_edit()"
-function Cprogram_edit() {
-
-    if (componentes_editados == 1) {
-
-        var str_edit_line_strategic = edit_line_strategic;
-
-        $.ajax({
-            url: "AjaxAddIdea.aspx",
-            type: "GET",
-            data: { "action": "C_program", "idlinestrategic": str_edit_line_strategic },
-            success: function(result) {
-                $("#ddlPrograms").html(result);
-                $("#ddlPrograms").trigger("liszt:updated");
-                cargarcomponente();
-            },
-            error: function(msg) {
-                alert("No se pueden cargar los programas de la linea estrategica selecionada.");
-            }
-        });
-        var timer_program_edit = setTimeout("view_Cprogram();", 4000);
-    }
-    else {
-        Cprogram(0);
-    }
-}
-
-//funcion que posiciona el combo del programa de la idea seleccionada 
-function view_Cprogram() {
-    //ajax que posiciona el programa de la idea conasultada
-    $.ajax({
-        url: "AjaxAddIdea.aspx",
-        type: "GET",
-        data: { "action": "View_program", "ididea": ideditar },
-        success: function(result) {
-
-            $("#ddlPrograms").val(result);
-            $("#ddlPrograms").trigger("liszt:updated");
-            cargarcomponente();
-            edit_program = result;
-
-        },
-        error: function(msg) {
-            alert("No se pueden cargar la linea estrategica deseada.");
-        }
-    });
-    componentes_editados = 0;
-    //desbloqueo();
-}
-
-function desbloqueo() {
-
-    $("#ctl00_cphPrincipal_container_wait").css("display", "none");
-    $("#ddlPrograms").removeAttr("disabled");
-    $("#ddlStrategicLines").removeAttr("disabled");
-
-}
+var usuario_cancela = 0;
 
 //cargar combo de lineas estrategicas
 function ClineEstrategic() {
@@ -222,22 +36,79 @@ function ClineEstrategic() {
 }
 
 
+//cargar combo de programas
+function Cprogram() {
+
+    $("#ddlStrategicLines").change(function() {
+        var confirmar = true;
+
+        if ($("#componentesseleccionados").html() != "") {
+
+            confirmar = confirm("Usted acaba de cambiar de linea estratégica la información diligenciada se perdera! desea cambiarla?", "SI", "NO");
+
+        }
+
+        if (confirmar) {
+            $("#seleccionarcomponente").html("");
+            $("#componentesseleccionados").html("");
+            
+            loadChildrenLineStrategic($(this));
+        }
+
+        else {
+            //dejamos los componentes como estaban
+
+            $(this).val(line_strategic);
+            $(this).trigger("liszt:updated");
+        }
+    });
+}
+
+function loadChildrenLineStrategic(obj) {
+    line_strategic = $(obj).val();
+    console.log(line_strategic);
+
+    $.ajax({
+        url: "AjaxAddIdea.aspx",
+        type: "GET",
+        data: { "action": "C_program", "idlinestrategic": line_strategic },
+        success: function(result) {
+
+            $("#ddlPrograms").html(result);
+            $("#ddlPrograms").trigger("liszt:updated");
+            cargarcomponente();
+
+        },
+        error: function(msg) {
+            alert("No se pueden cargar los programas de la linea estrategica selecionada.");
+        }
+    });
+}
+
+//funcion que recarga el combo de programa
+function cargar_programas(contenido) {
+
+    $("#ddlPrograms").html(contenido);
+    $("#ddlPrograms").trigger("liszt:updated");
+
+    cargarcomponente();
+
+}
 
 
-//cargar double lisbox componentes de programa
+////cargar double lisbox componentes de programa
 function cargarcomponente() {
 
     var editable;
     var id_idea = 0;
     var sPageURL = window.location.search.substring(1);
-    
+
     var sURLVariables = sPageURL.split('&');
-    
+
     if (sURLVariables[0] == "op=edit") {
         editable = 1;
-        
         id_idea = ideditar;
-        
+
     }
     else {
         editable = 0;
@@ -249,7 +120,7 @@ function cargarcomponente() {
         $.ajax({
             url: "AjaxAddIdea.aspx",
             type: "GET",
-            data: { "action": "C_component",  "id": id_idea, "idprogram": $(this).val(), "estado_proceso": editable },
+            data: { "action": "C_component", "id": id_idea, "idprogram": $(this).val(), "estado_proceso": editable },
             success: function(result) {
 
                 $("#seleccionarcomponente").html(result);
@@ -289,105 +160,6 @@ function cargarcomponente() {
         });
     });
 }
-
-//cargar double lisbox componentes de programa de la idea seleccionada
-function edit_component() {
-
-    console.log("otro asdadasd");
-    $.ajax({
-        url: "AjaxAddIdea.aspx",
-        type: "GET",
-        data: { "action": "C_component", "idprogram": edit_program },
-        success: function(result) {
-
-            $("#seleccionarcomponente").html(result);
-
-            //darle atributos de seleccione
-            $(".seleccione").click(function() {
-                var swhich_array_component_exist = 0;
-
-                var validaarray = $(this).attr("id");
-                //validamos si el array esta vacio
-                if (arraycomponente.length == 0) {
-                    arraycomponente.push($(this).attr("id"));
-                }
-                else {
-                    //recorremos elarray si ya habiamos ingresado el componente
-                    for (itemArray in arraycomponente) {
-                        if (validaarray == arraycomponente[itemArray]) {
-                            swhich_array_component_exist = 1;
-
-                        }
-                    }
-                    if (swhich_array_component_exist == 0) {
-                        arraycomponente.push($(this).attr("id"));
-                    }
-
-                }
-            });
-            //Compoentes Style
-            $("#seleccionarcomponente li, #componentesseleccionados li").click(function() {
-                $(this).css("background", "#9bbb58");
-                $(this).css("color", "#fff");
-            });
-        },
-        error: function(msg) {
-            alert("No se pueden cargar los componentes del programa selecionado.");
-        }
-    });
-
-}
-
-
-
-function edit_component_view() {
-
-    $.ajax({
-        url: "AjaxAddIdea.aspx",
-        type: "GET",
-        data: { "action": "View_component", "ididea": ideditar },
-        success: function(result) {
-
-            $("#componentesseleccionados").html(result);
-
-            //darle atributos de seleccione
-            $(".des_seleccionar").click(function() {
-
-                var swhich_array_componentdesechado_exist = 0;
-
-                var validaarray = $(this).attr("id");
-                //validamos si el array esta vacio
-                if (arraycomponentedesechado.length == 0) {
-                    arraycomponentedesechado.push($(this).attr("id"));
-                }
-                else {
-                    //recorremos elarray si ya habiamos ingresado el componente
-                    for (itemArray in arraycomponentedesechado) {
-                        if (validaarray == arraycomponentedesechado[itemArray]) {
-                            swhich_array_componentdesechado_exist = 1;
-
-                        }
-                    }
-                    if (swhich_array_componentdesechado_exist == 0) {
-                        arraycomponentedesechado.push($(this).attr("id"));
-                    }
-
-                }
-            });
-            //Compoentes Style
-            $("#seleccionarcomponente li, #componentesseleccionados li").click(function() {
-                $(this).css("background", "#9bbb58");
-                $(this).css("color", "#fff");
-            });
-        },
-        error: function(msg) {
-            alert("No se pueden cargar los componentes del programa selecionado.");
-        }
-    });
-
-
-}
-
 
 // agregar componentes al <ul componentesseleccionados>
 function Btnaddcomponent_onclick() {
@@ -442,7 +214,6 @@ function Btnaddcomponent_onclick() {
         $(this).css("background", "#9bbb58");
         $(this).css("color", "#fff");
     });
-
 
 }
 
@@ -511,6 +282,185 @@ function Btndeletecomponent_onclick() {
 
 }
 
+
+//-----------------traer los datos--------------
+//-----------------alcacenar combos-------------
+
+//funcion que posiciona el combo en la linea estrategica de la idea seleccionada
+function ClineEstrategic_edit() {
+
+    //ajax que posiciona la linea estrategica de la idea conasultada
+    $.ajax({
+        url: "AjaxAddIdea.aspx",
+        type: "GET",
+        data: { "action": "View_line_strategic", "ididea": ideditar },
+        success: function(result) {
+
+            $("#ddlStrategicLines").val(result);
+            $("#ddlStrategicLines").trigger("liszt:updated");
+
+            edit_line_strategic = result;
+
+            Cprogram();
+            loadChildrenLineStrategic($("#ddlStrategicLines")[0]);
+            view_Cprogram();
+            //  $("#ddlStrategicLines").trigger("change");
+            
+        },
+        error: function(msg) {
+            alert("No se pueden cargar la linea estrategica deseada.");
+        }
+    });
+
+}
+
+
+//cargar los programas seleccionados de la linea seleccionada anteriormente "ClineEstrategic_edit()"
+function Cprogram_edit() {
+
+    if (componentes_editados == 1) {
+
+        var str_edit_line_strategic = edit_line_strategic;
+
+        $.ajax({
+            url: "AjaxAddIdea.aspx",
+            type: "GET",
+            data: { "action": "C_program", "idlinestrategic": str_edit_line_strategic },
+            success: function(result) {
+                cargar_programas(result);
+            },
+            error: function(msg) {
+                alert("No se pueden cargar los programas de la linea estrategica selecionada.");
+            }
+        });
+        var timer_program_edit = setTimeout("view_Cprogram();", 4000);
+    }
+    else {
+        Cprogram(0);
+    }
+}
+
+
+//funcion que posiciona el combo del programa de la idea seleccionada 
+function view_Cprogram() {
+    //ajax que posiciona el programa de la idea conasultada
+    $.ajax({
+        url: "AjaxAddIdea.aspx",
+        type: "GET",
+        data: { "action": "View_program", "ididea": ideditar },
+        success: function(result) {
+
+            $("#ddlPrograms").val(result);
+            $("#ddlPrograms").trigger("liszt:updated");
+            
+            cargarcomponente();
+
+            edit_program = result;
+
+        },
+        error: function(msg) {
+            alert("No se pueden cargar la linea estrategica deseada.");
+        }
+    });
+    componentes_editados = 0;
+    //desbloqueo();
+}
+
+//cargar double lisbox componentes de programa de la idea seleccionada
+function edit_component() {
+
+    console.log("otro asdadasd");
+    $.ajax({
+        url: "AjaxAddIdea.aspx",
+        type: "GET",
+        data: { "action": "C_component", "idprogram": edit_program },
+        success: function(result) {
+
+            $("#seleccionarcomponente").html(result);
+
+            //darle atributos de seleccione
+            $(".seleccione").click(function() {
+                var swhich_array_component_exist = 0;
+
+                var validaarray = $(this).attr("id");
+                //validamos si el array esta vacio
+                if (arraycomponente.length == 0) {
+                    arraycomponente.push($(this).attr("id"));
+                }
+                else {
+                    //recorremos elarray si ya habiamos ingresado el componente
+                    for (itemArray in arraycomponente) {
+                        if (validaarray == arraycomponente[itemArray]) {
+                            swhich_array_component_exist = 1;
+
+                        }
+                    }
+                    if (swhich_array_component_exist == 0) {
+                        arraycomponente.push($(this).attr("id"));
+                    }
+
+                }
+            });
+            //Compoentes Style
+            $("#seleccionarcomponente li, #componentesseleccionados li").click(function() {
+                $(this).css("background", "#9bbb58");
+                $(this).css("color", "#fff");
+            });
+        },
+        error: function(msg) {
+            alert("No se pueden cargar los componentes del programa selecionado.");
+        }
+    });
+
+}
+
+//traer datos de los componentes de la idea seleccionada
+function edit_component_view() {
+
+    $.ajax({
+        url: "AjaxAddIdea.aspx",
+        type: "GET",
+        data: { "action": "View_component", "ididea": ideditar },
+        success: function(result) {
+
+            $("#componentesseleccionados").html(result);
+
+            //darle atributos de seleccione
+            $(".des_seleccionar").click(function() {
+
+                var swhich_array_componentdesechado_exist = 0;
+
+                var validaarray = $(this).attr("id");
+                //validamos si el array esta vacio
+                if (arraycomponentedesechado.length == 0) {
+                    arraycomponentedesechado.push($(this).attr("id"));
+                }
+                else {
+                    //recorremos elarray si ya habiamos ingresado el componente
+                    for (itemArray in arraycomponentedesechado) {
+                        if (validaarray == arraycomponentedesechado[itemArray]) {
+                            swhich_array_componentdesechado_exist = 1;
+
+                        }
+                    }
+                    if (swhich_array_componentdesechado_exist == 0) {
+                        arraycomponentedesechado.push($(this).attr("id"));
+                    }
+
+                }
+            });
+            //Compoentes Style
+            $("#seleccionarcomponente li, #componentesseleccionados li").click(function() {
+                $(this).css("background", "#9bbb58");
+                $(this).css("color", "#fff");
+            });
+        },
+        error: function(msg) {
+            alert("No se pueden cargar los componentes del programa selecionado.");
+        }
+    });
+}
+
 //trae los componentes de la idea para asignarlos al array de datos
 function View_componentes_array() {
     $.ajax({
@@ -533,3 +483,75 @@ function View_componentes_array() {
         }
     });
 }
+
+
+
+
+//-----------------verificar los datos de la lista--------------
+//-----------------modificar datos de los componentes ya existentes
+
+//funcion para validar los cambios de lineas 
+function validar_cambio_linea() {
+
+
+}
+
+//-----------------si desea modificar
+function si_modifica_componentes(str_result) {
+
+    //-----------------lmpiar los listbox de componentes
+    $("#componentesseleccionados").html("");
+    $("#seleccionarcomponente").html("");
+
+    //-----------------cargar combo nuevamente
+    $("#ddlPrograms").html(str_result);
+    $("#ddlPrograms").trigger("liszt:updated");
+    cargarcomponente();
+
+    //-----------------volver a generar
+    arraycomponente = [];
+}
+
+
+//-----------------no desea modificar
+function no_modifica_componentes() {
+
+    var sPageURL = window.location.search.substring(1);
+    var sURLVariables = sPageURL.split('&');
+
+    //-----------------captura los id del delos droplist
+    if (sURLVariables[0] == "op=edit") {
+        var line = edit_line_strategic;
+        var program = edit_program;
+
+    }
+    else {
+        var line = arraycompo[0];
+        var program = arraycompo[1];
+    }
+
+    //-----------------y vuelve asignarlos los id seleccionados anteriormente
+    $("#ddlStrategicLines").val(line);
+    $("#ddlStrategicLines").trigger("liszt:updated");
+
+    //Cprogram(line);
+
+    $("#ddlPrograms").val(program);
+    $("#ddlPrograms").trigger("liszt:updated");
+
+    cargarcomponente();
+
+    contar_program = 0;
+    arraycompo = [];
+    return;
+}
+
+
+//}
+//else {
+//    //-------------crear idea
+//}
+
+
+
+
