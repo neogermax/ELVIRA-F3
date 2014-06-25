@@ -246,23 +246,6 @@
                 <tr>
                     <td>
                         <br />
-                        <br />
-                        <asp:Label ID="lblConfidential" runat="server" Text="Acuerdo de confidencialidad"></asp:Label>
-                    </td>
-                    <td>
-                        <br />
-                        <br />
-                        <asp:DropDownList ID="ddlConfidential" runat="server" CssClass="Ccombo">
-                            <asp:ListItem Value="1">Si</asp:ListItem>
-                            <asp:ListItem Value="2">No</asp:ListItem>
-                            <asp:ListItem Value="3">No aplica</asp:ListItem>
-                        </asp:DropDownList>
-                        <asp:Label ID="lblNfoConfidential" runat="server"></asp:Label>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <br />
                         <asp:Label ID="lblSignedContract" runat="server" Text="Contrato firmado"></asp:Label>
                     </td>
                     <td>
@@ -332,6 +315,23 @@
                     </td>
                 </tr>
                 <%--Fin gvsuper--%>
+                 <tr>
+                    <td>
+                        <br />
+                        <br />
+                        <asp:Label ID="lblConfidential" runat="server" Text="Acuerdo de confidencialidad"></asp:Label>
+                    </td>
+                    <td>
+                        <br />
+                        <br />
+                        <asp:DropDownList ID="ddlConfidential" runat="server" CssClass="Ccombo">
+                            <asp:ListItem Value="1">Si</asp:ListItem>
+                            <asp:ListItem Value="2">No</asp:ListItem>
+                            <asp:ListItem Value="3">No aplica</asp:ListItem>
+                        </asp:DropDownList>
+                        <asp:Label ID="lblNfoConfidential" runat="server"></asp:Label>
+                    </td>
+                </tr>
                 <tr>
                     <td style="width: 183px">
                         <br />
