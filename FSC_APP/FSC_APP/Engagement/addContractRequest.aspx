@@ -268,6 +268,23 @@
                     </td>
                 </tr>
                 <tr>
+                    <td>
+                        <br />
+                        <br />
+                        <asp:Label ID="lblConfidential" runat="server" Text="Acuerdo de confidencialidad"></asp:Label>
+                    </td>
+                    <td>
+                        <br />
+                        <br />
+                        <asp:DropDownList ID="ddlConfidential" runat="server" CssClass="Ccombo">
+                            <asp:ListItem Value="1">Si</asp:ListItem>
+                            <asp:ListItem Value="2">No</asp:ListItem>
+                            <asp:ListItem Value="3">No aplica</asp:ListItem>
+                        </asp:DropDownList>
+                        <asp:Label ID="lblNfoConfidential" runat="server"></asp:Label>
+                    </td>
+                </tr>
+                <tr>
                     <td style="width: 187px">
                         <br />
                         <br />
@@ -315,23 +332,6 @@
                     </td>
                 </tr>
                 <%--Fin gvsuper--%>
-                 <tr>
-                    <td>
-                        <br />
-                        <br />
-                        <asp:Label ID="lblConfidential" runat="server" Text="Acuerdo de confidencialidad"></asp:Label>
-                    </td>
-                    <td>
-                        <br />
-                        <br />
-                        <asp:DropDownList ID="ddlConfidential" runat="server" CssClass="Ccombo">
-                            <asp:ListItem Value="1">Si</asp:ListItem>
-                            <asp:ListItem Value="2">No</asp:ListItem>
-                            <asp:ListItem Value="3">No aplica</asp:ListItem>
-                        </asp:DropDownList>
-                        <asp:Label ID="lblNfoConfidential" runat="server"></asp:Label>
-                    </td>
-                </tr>
                 <tr>
                     <td style="width: 183px">
                         <br />
