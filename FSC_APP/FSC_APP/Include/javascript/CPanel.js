@@ -16,7 +16,7 @@ function inicial() {
     //    }
 
     pendiente("#btnlearnedlessons");
-    //pendiente("#btnproceedclose");
+    pendiente("#btnproceedclose");
     pendiente("#btneditcont");
     pendiente("#btnapproval");
     pendiente("#btnmodification");
@@ -25,7 +25,10 @@ function inicial() {
     pendiente("#btnriskmanagement");
     pendiente("#btncrono");
     pendiente("#btncontratacion");
-    //pendiente("#btnproceed");
+    pendiente("#btnproceed");
+    pendiente("#ViewProject");
+    pendiente("#btnprojectapproval");
+    pendiente("#btntracing");
 
 };
 
@@ -40,7 +43,7 @@ function verifica() {
             //Busca registros de contratación
             if (result == "1") {
                 completo("#btnprojectapproval");
-                habilitar("#btncontratacion");
+                //habilitar("#btncontratacion");
             }
         },
         error: function()
