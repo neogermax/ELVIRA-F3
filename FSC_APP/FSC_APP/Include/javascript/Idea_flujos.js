@@ -46,7 +46,7 @@ function Btn_add_flujo_onclick() {
             var porcentaje = $("#ctl00_cphPrincipal_txtporcentaje").val();
             //            var valor_pago = valuecomparative;
 
-            var entrega = cambio_text_flujos($("#ctl00_cphPrincipal_txtentregable").val());
+            var entrega = $("#ctl00_cphPrincipal_txtentregable").val();
             var entregas_sin = $("#ctl00_cphPrincipal_txtentregable").val();
 
             var idpago;
@@ -291,12 +291,12 @@ function crear_tabla_flujos_pagos(notClear) {
 
     for (itemArray in arrayflujosdepago) {
         var entregacomas = arrayflujosdepago[itemArray].entrega;
-        entregacomas = entregacomas.replace(/¬/g, ',');
+        //entregacomas = entregacomas.replace(/¬/g, ',');
 
         var pagoadd = arrayflujosdepago[itemArray].tflujos;
         pagoadd = addCommasrefactor(pagoadd);
 
-        htmlTableflujos += "<tr id='flow" + arrayflujosdepago[itemArray].N_pago + "' ><td>" + arrayflujosdepago[itemArray].N_pago + "</td><td>" + arrayflujosdepago[itemArray].fecha_pago + "</td><td>" + arrayflujosdepago[itemArray].porcentaje + " %</td><td>" + entregacomas + "</td><td>" + pagoadd + "</td><td><input class='editFlow' type ='button' value= 'Editar' onclick=\"editflujo('" + arrayflujosdepago[itemArray].N_pago + "','" + arrayflujosdepago[itemArray].fecha_pago + "',' " + arrayflujosdepago[itemArray].porcentaje + "','" + arrayflujosdepago[itemArray].entrega + "','" + pagoadd + "')\" ></input><input type ='button' value= 'Eliminar' onclick=\" eliminarflujo('" + arrayflujosdepago[itemArray].N_pago + "')\"></input></td><td><input type ='button' value= 'Detalle' onclick=\"traerdetalles('" + arrayflujosdepago[itemArray].N_pago + "',this)\"></input></td></tr>";
+        htmlTableflujos += "<tr id='flow" + arrayflujosdepago[itemArray].N_pago + "' ><td>" + arrayflujosdepago[itemArray].N_pago + "</td><td>" + arrayflujosdepago[itemArray].fecha_pago + "</td><td>" + arrayflujosdepago[itemArray].porcentaje + " %</td><td>" + entregacomas + "</td><td>" + pagoadd + "</td><td><input class='editFlow' type ='button' value= 'Editar' onclick=\"editflujo(" + itemArray + ")\" ></input><input type ='button' value= 'Eliminar' onclick=\" eliminarflujo('" + arrayflujosdepago[itemArray].N_pago + "')\"></input></td><td><input type ='button' value= 'Detalle' onclick=\"traerdetalles('" + arrayflujosdepago[itemArray].N_pago + "',this)\"></input></td></tr>";
 
     }
     htmlTableflujos += "<tr><td width='1' style='color: #D3D6FF; font-size: 0.1em;'>1000</td><td>Porcentaje acumulado</td><td id='porcentaje'>0 %</td><td>Total</td><td id='totalflujospagos'>0</td><td></td><td></td></tr></tbody></table>";
@@ -385,19 +385,12 @@ function View_flujos_p_array() {
         },
         success: function(result) {
 
-            if (result == "vacio") {
-                //    alert(result + " flujo actores");
+            if (result == "") {
                 arrayflujosdepago = [];
                 swhich_flujos_exist = 0;
 
             } else {
-                arrayflujosdepago_ed = result.split("|");
-
-                for (itemArray in arrayflujosdepago_ed) {
-
-                    var recibeact = JSON.parse(arrayflujosdepago_ed[itemArray]);
-                    arrayflujosdepago.push(recibeact);
-                }
+                arrayflujosdepago = JSON.parse(result);
                 swhich_flujos_exist = 1;
             }
             //llamamos funcion que crea la tabla  de flujos de pago
@@ -585,17 +578,17 @@ function x() {
 
 
 //funcion para editar
-function editflujo(strN_pago, fecha_pago, porcentaje, entrega, tflujos) {
+function editflujo(index) {
     crear_tabla_flujo_actor();
     //capturamos los datos otraves para la edicion
-    $("#ctl00_cphPrincipal_txtvalortotalflow").val(strN_pago);
-    $("#ctl00_cphPrincipal_txtfechapago").val(fecha_pago);
-    porcentaje = porcentaje.replace(' %', '');
-    porcentaje = porcentaje.replace(' ', '');
-    $("#ctl00_cphPrincipal_txtporcentaje").val(porcentaje);
+    $("#ctl00_cphPrincipal_txtvalortotalflow").val(arrayflujosdepago[index].N_pago);
+    $("#ctl00_cphPrincipal_txtfechapago").val(arrayflujosdepago[index].fecha_pago);
+//    porcentaje = porcentaje.replace(' %', '');
+//    porcentaje = porcentaje.replace(' ', '');
+    $("#ctl00_cphPrincipal_txtporcentaje").val(arrayflujosdepago[index].porcentaje);
     // tflujos = tflujos.replace(/\./gi, ',');
-    $("#ctl00_cphPrincipal_Lbltotalvalor").text(tflujos);
-    $("#ctl00_cphPrincipal_txtentregable").val(entrega);
+    $("#ctl00_cphPrincipal_Lbltotalvalor").text(addCommasrefactor(arrayflujosdepago[index].tflujos));
+    $("#ctl00_cphPrincipal_txtentregable").val(arrayflujosdepago[index].entrega);
 
     switch_editar = 1;
 
@@ -627,7 +620,9 @@ function eliminarflujo(strN_pago) {
         if (strN_pago == id) {
             //borramos el actor deseado
             if (switch_editar == 0) {
-                delete arrayflujosdepago[itemArray];
+                //delete arrayflujosdepago[itemArray];
+                 arrayflujosdepago.splice(itemArray, 1);
+               
             }
         }
     }

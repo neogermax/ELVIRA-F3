@@ -699,16 +699,8 @@ function Crear_idea() {
     }
 
     //recorer array para el ingreso de flujos
-    for (item in arrayflujosdepago) {
-        listflujos.push(JSON.stringify(arrayflujosdepago[item]));
-        console.log(arrayflujosdepago[item]);
-
-    }
-    //validar si el array tiene datos   
-    if (listflujos.length == 0) {
-        listflujos[0] = "vacio_ojo";
-    }
-
+    listflujos = JSON.stringify(arrayflujosdepago);
+    
     for (item in matriz_flujos) {
         listdetallesflujos.push(JSON.stringify(matriz_flujos[item]));
     }
@@ -764,7 +756,7 @@ function Crear_idea() {
             "iva": valor_iva,
             "listcomponentes": Str_listcomponentes.toString(),
             "listubicaciones": listubicaciones.toString(),
-            "listflujos": cambio_text(listflujos.toString()),
+            "listflujos": listflujos,
             "listdetallesflujos": listdetallesflujos.toString(),
             "listfiles": listfiles.toString(),
             "tipo_estado": $("#dll_estado").val(),
@@ -823,15 +815,8 @@ function editar_idea() {
     }
 
     //recorer array para el ingreso de flujos
-    for (item in arrayflujosdepago) {
-        listflujos.push(JSON.stringify(arrayflujosdepago[item]));
-        console.log(arrayflujosdepago[item]);
+    listflujos = JSON.stringify(arrayflujosdepago);
 
-    }
-    //validar si el array tiene datos   
-    if (listflujos.length == 0) {
-        listflujos[0] = "vacio_ojo";
-    }
 
     for (item in matriz_flujos) {
         listdetallesflujos.push(JSON.stringify(matriz_flujos[item]));
@@ -888,7 +873,7 @@ function editar_idea() {
             "iva": valor_iva,
             "listcomponentes": Str_listcomponentes.toString(),
             "listubicaciones": listubicaciones.toString(),
-            "listflujos": cambio_text(listflujos.toString()),
+            "listflujos": listflujos,
             "listdetallesflujos": listdetallesflujos.toString(),
             "listfiles": listfiles.toString(),
             "tipo_estado": $("#dll_estado").val(),

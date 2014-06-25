@@ -1,41 +1,5 @@
 ﻿//--------------------fuciones de crear combos -------------------------
 
-//var sPageURL = window.location.search.substring(1);
-//var sURLVariables = sPageURL.split('&');
-
-//preguntar si editar o crear
-//if (sURLVariables[0] == "op=edit") {
-//    //-------------editar idea
-//    ideditar = sURLVariables[1].replace("id=", "");
-//    //-----------------cargar combos----------------
-////    $("#ddlStrategicLines").ready(function() {
-//        ClineEstrategic_edit();
-//    });
-
-//    View_componentes_array();
-
-var usuario_cancela = 0;
-
-//cargar combo de lineas estrategicas
-function ClineEstrategic() {
-
-    $.ajax({
-        url: "AjaxAddIdea.aspx",
-        type: "GET",
-        data: { "action": "C_linestrategic" },
-        success: function(result) {
-
-            $("#ddlStrategicLines").html(result);
-            $("#ddlStrategicLines").trigger("liszt:updated");
-
-        },
-        error: function(msg) {
-            alert("No se pueden cargar las lineas stratégicas.");
-        }
-    });
-}
-
-
 //cargar combo de programas
 function Cprogram() {
 
@@ -65,6 +29,7 @@ function Cprogram() {
 }
 
 function loadChildrenLineStrategic(obj) {
+
     line_strategic = $(obj).val();
     console.log(line_strategic);
 
@@ -483,75 +448,5 @@ function View_componentes_array() {
         }
     });
 }
-
-
-
-
-//-----------------verificar los datos de la lista--------------
-//-----------------modificar datos de los componentes ya existentes
-
-//funcion para validar los cambios de lineas 
-function validar_cambio_linea() {
-
-
-}
-
-//-----------------si desea modificar
-function si_modifica_componentes(str_result) {
-
-    //-----------------lmpiar los listbox de componentes
-    $("#componentesseleccionados").html("");
-    $("#seleccionarcomponente").html("");
-
-    //-----------------cargar combo nuevamente
-    $("#ddlPrograms").html(str_result);
-    $("#ddlPrograms").trigger("liszt:updated");
-    cargarcomponente();
-
-    //-----------------volver a generar
-    arraycomponente = [];
-}
-
-
-//-----------------no desea modificar
-function no_modifica_componentes() {
-
-    var sPageURL = window.location.search.substring(1);
-    var sURLVariables = sPageURL.split('&');
-
-    //-----------------captura los id del delos droplist
-    if (sURLVariables[0] == "op=edit") {
-        var line = edit_line_strategic;
-        var program = edit_program;
-
-    }
-    else {
-        var line = arraycompo[0];
-        var program = arraycompo[1];
-    }
-
-    //-----------------y vuelve asignarlos los id seleccionados anteriormente
-    $("#ddlStrategicLines").val(line);
-    $("#ddlStrategicLines").trigger("liszt:updated");
-
-    //Cprogram(line);
-
-    $("#ddlPrograms").val(program);
-    $("#ddlPrograms").trigger("liszt:updated");
-
-    cargarcomponente();
-
-    contar_program = 0;
-    arraycompo = [];
-    return;
-}
-
-
-//}
-//else {
-//    //-------------crear idea
-//}
-
-
 
 
