@@ -609,8 +609,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         If data_anexos.Rows.Count > 0 Then
 
             For Each row As DataRow In data_anexos.Rows
-                '{ "idfile": idfile, "filename": filename, "Description": description }
-
+     
                 objResult &= "{"
 
                 objResult &= """idfile"": """
@@ -631,6 +630,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
                 objResult &= """, ""Description"": """
                 Description = row(2).ToString
+                Description = Description.Replace(",", "¬")
 
                 objResult &= Description
 
@@ -946,6 +946,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         Dim flujopagos As New PaymentFlowDALC()
         Dim objflujos As PaymentFlowEntity
         Dim data_listpagos As New List(Of PaymentFlowEntity)
+        Dim objListCPaymentFlowView As New List(Of CPaymentFlowView)
 
         Dim N_pago, fecha_pago, porcentaje, entrega, tflujos As String
 
@@ -957,57 +958,19 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         If data_listpagos.Count > 0 Then
 
             For Each row In data_listpagos
+                Dim objCPaymentFlowView As CPaymentFlowView = New CPaymentFlowView()
 
-                objResult &= "{"
+                objCPaymentFlowView.N_pago = row.N_pagos
+                objCPaymentFlowView.fecha_pago = row.fecha
+                objCPaymentFlowView.porcentaje = row.porcentaje
+                objCPaymentFlowView.entrega = row.entregable
+                objCPaymentFlowView.tflujos = row.valortotal
 
-                objResult &= """N_pago"": """
-                N_pago = row.N_pagos
-
-                N_pago = Replace(N_pago, " ", "")
-                objResult &= N_pago
-
-                objResult &= """, ""fecha_pago"": """
-                fecha_pago = row.fecha
-
-                objResult &= fecha_pago
-
-                objResult &= """, ""porcentaje"": """
-                porcentaje = row.porcentaje
-
-                objResult &= porcentaje
-
-                objResult &= """, ""entrega"": """
-                entrega = row.entregable
-
-                objResult &= entrega
-
-                objResult &= """, ""tflujos"": """
-                tflujos = row.valorparcial
-                tflujos = tflujos.Replace(" ", "")
-                'tflujos = Format(Convert.ToInt64(tflujos), "#,###.##")
-                objResult &= tflujos
-
-                If valuar_flujo = data_listpagos.Count Then
-
-                    objResult &= """}"
-
-                Else
-                    objResult &= """}|"
-
-                End If
-
-                valuar_flujo = valuar_flujo + 1
-
+                objListCPaymentFlowView.Add(objCPaymentFlowView)
             Next
         End If
 
-        If objResult = "" Then
-
-            objResult = "vacio"
-
-        End If
-
-        Response.Write(objResult)
+        Response.Write(JsonConvert.SerializeObject(objListCPaymentFlowView.ToArray()))
     End Function
 
     Protected Function searh_actores_array(ByVal ididea As Integer)
@@ -1676,12 +1639,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
             'convertimos el string en un array de datos
             arrayactor = list_actor.Split(New [Char]() {","c})
 
-
-            list_flujos = Replace(list_flujos, "{", " ", 1)
-            list_flujos = Replace(list_flujos, "}", " ", 1)
-            list_flujos = Replace(list_flujos, """", " ", 1)
-            'convertimos el string en un array de datos
-            arrayflujos = list_flujos.Split(New [Char]() {","c})
+            Dim NewListFlujos = JsonConvert.DeserializeObject(Of List(Of CPaymentFlowView))(list_flujos)
 
             list_detalles_flujos = Replace(list_detalles_flujos, "{", " ", 1)
             list_detalles_flujos = Replace(list_detalles_flujos, "}", " ", 1)
@@ -1841,63 +1799,25 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
             Next
 
             '----------------------------------------------------flujos------------------------------------------------------------------------
-            'ISTANCIAMOS LA VARIABLE DEL TAMAÑO DEL ARRAY
-            Dim t_Aflujo As Integer
+             Dim PaymentFlowList As List(Of PaymentFlowEntity) = New List(Of PaymentFlowEntity)()
 
-            'ASIGNAMOS EL TAMAÑO 
-            t_Aflujo = arrayflujos.Length
+            For Each item_paymentflow As CPaymentFlowView In NewListFlujos
 
+                Dim objpaymentFlow As PaymentFlowEntity = New PaymentFlowEntity()
+                
+                objpaymentFlow.N_pagos = item_paymentflow.N_pago
+                objpaymentFlow.fecha = Convert.ToDateTime(item_paymentflow.fecha_pago)
+                objpaymentFlow.porcentaje = item_paymentflow.porcentaje
+                objpaymentFlow.entregable = item_paymentflow.entrega
+                objpaymentFlow.valortotal = Convert.ToInt32(item_paymentflow.tflujos)
+                objpaymentFlow.valorparcial = Convert.ToInt32(item_paymentflow.tflujos)
+                objpaymentFlow.idproject = 0
+                objpaymentFlow.mother = Nothing
 
-            If arrayflujos(0) = "vacio_ojo" Then
+                'cargamos al list
+                PaymentFlowList.Add(objpaymentFlow)
 
-            Else
-
-                'RECORREMOS LA CANTIDAD DE VECES ASIGNADAS
-                For index_flu As Integer = 0 To t_Aflujo
-
-                    Dim objpaymentFlow As PaymentFlowEntity = New PaymentFlowEntity()
-                    Dim PaymentFlowList As List(Of PaymentFlowEntity)
-                    PaymentFlowList = DirectCast(Session("paymentFlowList"), List(Of PaymentFlowEntity))
-
-                    'VERIDFICAMOS Q EXISTAN LOS CAMPOS SOLICITADOS
-                    N_pagoexist = InStr(arrayflujos(contadorflu), "N_pago")
-                    fecha_pagoexist = InStr(arrayflujos(contadorflu + 1), "fecha_pago")
-                    porcentajeexist = InStr(arrayflujos(contadorflu + 2), "porcentaje")
-                    entregaexist = InStr(arrayflujos(contadorflu + 3), "entrega")
-                    tflujosexist = InStr(arrayflujos(contadorflu + 4), "tflujos")
-
-                    'separamos el valor de campo
-                    N_pagoexist = Replace(arrayflujos(contadorflu), " N_pago : ", " ", 1)
-                    fecha_pagoexist = Replace(arrayflujos(contadorflu + 1), " fecha_pago : ", " ", 1)
-                    porcentajeexist = Replace(arrayflujos(contadorflu + 2), " porcentaje : ", " ", 1)
-                    porcentajeexist = porcentajeexist.Replace("%", "")
-                    entregaexist = Replace(arrayflujos(contadorflu + 3), " entrega : ", " ", 1)
-                    entregaexist = entregaexist.Replace("¬", ",")
-                    tflujosexist = Replace(arrayflujos(contadorflu + 4), " tflujos : ", " ", 1)
-
-                    'asignamos al objeto
-                    objpaymentFlow.N_pagos = N_pagoexist
-                    objpaymentFlow.fecha = Convert.ToDateTime(fecha_pagoexist)
-                    objpaymentFlow.porcentaje = porcentajeexist
-                    objpaymentFlow.entregable = entregaexist
-                    objpaymentFlow.valortotal = Convert.ToInt32(tflujosexist)
-                    objpaymentFlow.valorparcial = Convert.ToInt32(tflujosexist)
-                    objpaymentFlow.idproject = 0
-                    objpaymentFlow.mother = Nothing
-
-
-                    'cargamos al list
-                    PaymentFlowList.Add(objpaymentFlow)
-
-                    contadorflu = contadorflu + 5
-                    index_flu = index_flu + 5
-
-                    If contadorflu <> index_flu Then
-                        index_flu = contadorflu
-                    End If
-
-                Next
-            End If
+            Next
 
             '----------------------------------------------------detallesflujos------------------------------------------------------------------------
             'ISTANCIAMOS LA VARIABLE DEL TAMAÑO DEL ARRAY
@@ -2004,7 +1924,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
             objIdea.THIRDBYIDEALIST = DirectCast(Session("thirdByIdeaList"), List(Of ThirdByIdeaEntity))
 
             'Se agrega la lista de FLUJOS DE PAGOS
-            objIdea.paymentflowByProjectList = DirectCast(Session("paymentFlowList"), List(Of PaymentFlowEntity))
+            objIdea.paymentflowByProjectList = PaymentFlowList
 
             'Se agrega la lista de  detalles de FLUJOS DE PAGOS
             objIdea.DetailedcashflowsbyIdeaList = DirectCast(Session("DetailedcashflowsList"), List(Of DetailedcashflowsEntity))
@@ -2078,12 +1998,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
             'convertimos el string en un array de datos
             arrayactor = list_actor.Split(New [Char]() {","c})
 
-
-            list_flujos = Replace(list_flujos, "{", " ", 1)
-            list_flujos = Replace(list_flujos, "}", " ", 1)
-            list_flujos = Replace(list_flujos, """", " ", 1)
-            'convertimos el string en un array de datos
-            arrayflujos = list_flujos.Split(New [Char]() {","c})
+            Dim NewListFlujos = JsonConvert.DeserializeObject(Of List(Of CPaymentFlowView))(list_flujos)
 
             list_detalles_flujos = Replace(list_detalles_flujos, "{", " ", 1)
             list_detalles_flujos = Replace(list_detalles_flujos, "}", " ", 1)
@@ -2236,63 +2151,26 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
             Next
 
             '----------------------------------------------------flujos------------------------------------------------------------------------
-            'ISTANCIAMOS LA VARIABLE DEL TAMAÑO DEL ARRAY
-            Dim t_Aflujo As Integer
+            Dim PaymentFlowList As List(Of PaymentFlowEntity) = New List(Of PaymentFlowEntity)()
 
-            'ASIGNAMOS EL TAMAÑO 
-            t_Aflujo = arrayflujos.Length
+            For Each item_paymentflow As CPaymentFlowView In NewListFlujos
+
+                Dim objpaymentFlow As PaymentFlowEntity = New PaymentFlowEntity()
+
+                objpaymentFlow.N_pagos = item_paymentflow.N_pago
+                objpaymentFlow.fecha = Convert.ToDateTime(item_paymentflow.fecha_pago)
+                objpaymentFlow.porcentaje = item_paymentflow.porcentaje
+                objpaymentFlow.entregable = item_paymentflow.entrega
+                objpaymentFlow.valortotal = Convert.ToInt32(item_paymentflow.tflujos)
+                objpaymentFlow.valorparcial = Convert.ToInt32(item_paymentflow.tflujos)
+                objpaymentFlow.idproject = 0
+                objpaymentFlow.mother = Nothing
+
+                'cargamos al list
+                PaymentFlowList.Add(objpaymentFlow)
 
 
-            If arrayflujos(0) = "vacio_ojo" Then
-
-            Else
-
-                'RECORREMOS LA CANTIDAD DE VECES ASIGNADAS
-                For index_flu As Integer = 0 To t_Aflujo
-
-                    Dim objpaymentFlow As PaymentFlowEntity = New PaymentFlowEntity()
-                    Dim PaymentFlowList As List(Of PaymentFlowEntity)
-                    PaymentFlowList = DirectCast(Session("paymentFlowList"), List(Of PaymentFlowEntity))
-
-                    'VERIDFICAMOS Q EXISTAN LOS CAMPOS SOLICITADOS
-                    N_pagoexist = InStr(arrayflujos(contadorflu), "N_pago")
-                    fecha_pagoexist = InStr(arrayflujos(contadorflu + 1), "fecha_pago")
-                    porcentajeexist = InStr(arrayflujos(contadorflu + 2), "porcentaje")
-                    entregaexist = InStr(arrayflujos(contadorflu + 3), "entrega")
-                    tflujosexist = InStr(arrayflujos(contadorflu + 4), "tflujos")
-
-                    'separamos el valor de campo
-                    N_pagoexist = Replace(arrayflujos(contadorflu), " N_pago : ", " ", 1)
-                    fecha_pagoexist = Replace(arrayflujos(contadorflu + 1), " fecha_pago : ", " ", 1)
-                    porcentajeexist = Replace(arrayflujos(contadorflu + 2), " porcentaje : ", " ", 1)
-                    porcentajeexist = porcentajeexist.Replace("%", "")
-                    entregaexist = Replace(arrayflujos(contadorflu + 3), " entrega : ", " ", 1)
-                    entregaexist = entregaexist.Replace("¬", ",")
-                    tflujosexist = Replace(arrayflujos(contadorflu + 4), " tflujos : ", " ", 1)
-                    tflujosexist = tflujosexist.Replace(".", "")
-
-                    'asignamos al objeto
-                    objpaymentFlow.N_pagos = N_pagoexist
-                    objpaymentFlow.fecha = Convert.ToDateTime(fecha_pagoexist)
-                    objpaymentFlow.porcentaje = porcentajeexist
-                    objpaymentFlow.entregable = entregaexist
-                    objpaymentFlow.valortotal = Convert.ToInt32(tflujosexist)
-                    objpaymentFlow.valorparcial = Convert.ToInt32(tflujosexist)
-                    objpaymentFlow.idproject = 0
-                    objpaymentFlow.mother = Nothing
-
-                    'cargamos al list
-                    PaymentFlowList.Add(objpaymentFlow)
-
-                    contadorflu = contadorflu + 5
-                    index_flu = index_flu + 5
-
-                    If contadorflu <> index_flu Then
-                        index_flu = contadorflu
-                    End If
-
-                Next
-            End If
+            Next
 
             '----------------------------------------------------detallesflujos------------------------------------------------------------------------
             'ISTANCIAMOS LA VARIABLE DEL TAMAÑO DEL ARRAY
@@ -2402,7 +2280,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
             objIdea.THIRDBYIDEALIST = DirectCast(Session("thirdByIdeaList"), List(Of ThirdByIdeaEntity))
 
             'Se agrega la lista de FLUJOS DE PAGOS
-            objIdea.paymentflowByProjectList = DirectCast(Session("paymentFlowList"), List(Of PaymentFlowEntity))
+            objIdea.paymentflowByProjectList = PaymentFlowList
 
             'Se agrega la lista de  detalles de FLUJOS DE PAGOS
             objIdea.DetailedcashflowsbyIdeaList = DirectCast(Session("DetailedcashflowsList"), List(Of DetailedcashflowsEntity))
@@ -2479,4 +2357,57 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
 End Class
 
+Class CPaymentFlowView
+#Region "Properties public and private"
 
+    Private _N_pago As String
+    Public Property N_pago() As String
+        Get
+            Return _N_pago
+        End Get
+        Set(ByVal value As String)
+            _N_pago = value
+        End Set
+    End Property
+
+    Private _entrega As String
+    Public Property entrega() As String
+        Get
+            Return _entrega
+        End Get
+        Set(ByVal value As String)
+            _entrega = value
+        End Set
+    End Property
+
+    Private _fecha_pago As String
+    Public Property fecha_pago() As String
+        Get
+            Return _fecha_pago
+        End Get
+        Set(ByVal value As String)
+            _fecha_pago = value
+        End Set
+    End Property
+
+    Private _porcentaje As String
+    Public Property porcentaje() As String
+        Get
+            Return _porcentaje
+        End Get
+        Set(ByVal value As String)
+            _porcentaje = value
+        End Set
+    End Property
+
+    Private _tflujos As String
+    Public Property tflujos() As String
+        Get
+            Return _tflujos
+        End Get
+        Set(ByVal value As String)
+            _tflujos = value
+        End Set
+    End Property
+#End Region
+End Class

@@ -5,10 +5,10 @@ $(document).ready(function() {
 
     $("#ctl00_cphPrincipal_txtporcentaje").change(function() {
         if ($("#porcentaje").html() != null) {
-            var porcentajeGlobal = removeCommasAndConvert($.trim($("#porcentaje").html().replace('%', '')));
-            var porcentajeLocal = removeCommasAndConvert($(this).val());
-
-            if ((porcentajeGlobal + porcentajeLocal) > 100) {
+            var porcentajeGlobal = removeCommasAndConvertFloat($.trim($("#porcentaje").html().replace('%', '')), true);
+            var porcentajeLocal = removeCommasAndConvertFloat($(this).val(), true);
+            
+             if ((porcentajeGlobal + porcentajeLocal) > 100) {
                 alert("El porcentaje ingresado es invalido, verifique el porcentaje disponible para flujos de pago.");
                 $(this).val("0");
                 recalcValues();
@@ -46,7 +46,7 @@ function Btn_add_flujo_onclick() {
             var porcentaje = $("#ctl00_cphPrincipal_txtporcentaje").val();
             //            var valor_pago = valuecomparative;
 
-            var entrega = cambio_text_flujos($("#ctl00_cphPrincipal_txtentregable").val());
+            var entrega = $("#ctl00_cphPrincipal_txtentregable").val();
             var entregas_sin = $("#ctl00_cphPrincipal_txtentregable").val();
 
             var idpago;
@@ -291,12 +291,12 @@ function crear_tabla_flujos_pagos(notClear) {
 
     for (itemArray in arrayflujosdepago) {
         var entregacomas = arrayflujosdepago[itemArray].entrega;
-        entregacomas = entregacomas.replace(/¬/g, ',');
+        //entregacomas = entregacomas.replace(/¬/g, ',');
 
         var pagoadd = arrayflujosdepago[itemArray].tflujos;
         pagoadd = addCommasrefactor(pagoadd);
 
-        htmlTableflujos += "<tr id='flow" + arrayflujosdepago[itemArray].N_pago + "' ><td>" + arrayflujosdepago[itemArray].N_pago + "</td><td>" + arrayflujosdepago[itemArray].fecha_pago + "</td><td>" + arrayflujosdepago[itemArray].porcentaje + " %</td><td>" + entregacomas + "</td><td>" + pagoadd + "</td><td><input class='editFlow' type ='button' value= 'Editar' onclick=\"editflujo('" + arrayflujosdepago[itemArray].N_pago + "','" + arrayflujosdepago[itemArray].fecha_pago + "',' " + arrayflujosdepago[itemArray].porcentaje + "','" + arrayflujosdepago[itemArray].entrega + "','" + pagoadd + "')\" ></input><input type ='button' value= 'Eliminar' onclick=\" eliminarflujo('" + arrayflujosdepago[itemArray].N_pago + "')\"></input></td><td><input type ='button' value= 'Detalle' onclick=\"traerdetalles('" + arrayflujosdepago[itemArray].N_pago + "',this)\"></input></td></tr>";
+        htmlTableflujos += "<tr id='flow" + arrayflujosdepago[itemArray].N_pago + "' ><td>" + arrayflujosdepago[itemArray].N_pago + "</td><td>" + arrayflujosdepago[itemArray].fecha_pago + "</td><td>" + arrayflujosdepago[itemArray].porcentaje + " %</td><td>" + entregacomas + "</td><td>" + pagoadd + "</td><td><input class='editFlow' type ='button' value= 'Editar' onclick=\"editflujo(" + itemArray + ")\" ></input><input type ='button' value= 'Eliminar' onclick=\" eliminarflujo('" + arrayflujosdepago[itemArray].N_pago + "')\"></input></td><td><input type ='button' value= 'Detalle' onclick=\"traerdetalles('" + arrayflujosdepago[itemArray].N_pago + "',this)\"></input></td></tr>";
 
     }
     htmlTableflujos += "<tr><td width='1' style='color: #D3D6FF; font-size: 0.1em;'>1000</td><td>Porcentaje acumulado</td><td id='porcentaje'>0 %</td><td>Total</td><td id='totalflujospagos'>0</td><td></td><td></td></tr></tbody></table>";
@@ -385,19 +385,12 @@ function View_flujos_p_array() {
         },
         success: function(result) {
 
-            if (result == "vacio") {
-                //    alert(result + " flujo actores");
+            if (result == "") {
                 arrayflujosdepago = [];
                 swhich_flujos_exist = 0;
 
             } else {
-                arrayflujosdepago_ed = result.split("|");
-
-                for (itemArray in arrayflujosdepago_ed) {
-
-                    var recibeact = JSON.parse(arrayflujosdepago_ed[itemArray]);
-                    arrayflujosdepago.push(recibeact);
-                }
+                arrayflujosdepago = JSON.parse(result);
                 swhich_flujos_exist = 1;
             }
             //llamamos funcion que crea la tabla  de flujos de pago
@@ -585,17 +578,17 @@ function x() {
 
 
 //funcion para editar
-function editflujo(strN_pago, fecha_pago, porcentaje, entrega, tflujos) {
+function editflujo(index) {
     crear_tabla_flujo_actor();
     //capturamos los datos otraves para la edicion
-    $("#ctl00_cphPrincipal_txtvalortotalflow").val(strN_pago);
-    $("#ctl00_cphPrincipal_txtfechapago").val(fecha_pago);
-    porcentaje = porcentaje.replace(' %', '');
-    porcentaje = porcentaje.replace(' ', '');
-    $("#ctl00_cphPrincipal_txtporcentaje").val(porcentaje);
+    $("#ctl00_cphPrincipal_txtvalortotalflow").val(arrayflujosdepago[index].N_pago);
+    $("#ctl00_cphPrincipal_txtfechapago").val(arrayflujosdepago[index].fecha_pago);
+//    porcentaje = porcentaje.replace(' %', '');
+//    porcentaje = porcentaje.replace(' ', '');
+    $("#ctl00_cphPrincipal_txtporcentaje").val(arrayflujosdepago[index].porcentaje);
     // tflujos = tflujos.replace(/\./gi, ',');
-    $("#ctl00_cphPrincipal_Lbltotalvalor").text(tflujos);
-    $("#ctl00_cphPrincipal_txtentregable").val(entrega);
+    $("#ctl00_cphPrincipal_Lbltotalvalor").text(addCommasrefactor(arrayflujosdepago[index].tflujos));
+    $("#ctl00_cphPrincipal_txtentregable").val(arrayflujosdepago[index].entrega);
 
     switch_editar = 1;
 
@@ -627,7 +620,9 @@ function eliminarflujo(strN_pago) {
         if (strN_pago == id) {
             //borramos el actor deseado
             if (switch_editar == 0) {
-                delete arrayflujosdepago[itemArray];
+                //delete arrayflujosdepago[itemArray];
+                 arrayflujosdepago.splice(itemArray, 1);
+               
             }
         }
     }
@@ -855,6 +850,20 @@ function removeCommasAndConvert(valueToConvert) {
     } else {
         valueToConvert = valueToConvert.replace(/\./gi, '');
         valueToConvert = parseInt(valueToConvert);
+        return valueToConvert;
+    }
+}
+
+function removeCommasAndConvertFloat(valueToConvert, isDecimal) {
+    if (valueToConvert == "" || valueToConvert == null) {
+        return 0;
+    } else {
+        if (isDecimal)
+            valueToConvert = valueToConvert;
+        else
+            valueToConvert = valueToConvert.replace(/\./gi, '');
+            
+        valueToConvert = parseFloat(valueToConvert);
         return valueToConvert;
     }
 }
@@ -1129,55 +1138,3 @@ function getDetailsForNpago(N_pago) {
         }
     }
 }
-//    /*var porcentaje = $("#porcentaje").html();
-//    porcentaje = parseInt($.trim(porcentaje.replace("%","")));
-//    
-//    
-//    for (var item in matriz_flujos) {
-//        if (matriz_flujos[item].idpago == N_pago) {
-//            $("#txtinput" + matriz_flujos[item].idaportante).val(matriz_flujos[item].desembolso);
-//            $("#txtinput" + matriz_flujos[item].idaportante).trigger("focus");
-//            $("#txtinput" + matriz_flujos[item].idaportante).trigger("blur");
-//        }
-//    }*/
-//    
-//    //recorremos el array de flujos de pagos
-//    for (itemArray in arrayflujosdepago) {
-//        //construimos la llave de validacion
-//        var id = arrayflujosdepago[itemArray].N_pago;
-//        //validamos el dato q nos trae la funcion
-
-//        if (strN_pago == id) {
-//            //borramos el actor deseado
-//            delete arrayflujosdepago[itemArray];
-//        }
-//    }
-
-//    //recorremos el array detalles de pagos
-//    for (itemArraymatriz in matriz_flujos) {
-//        //construimos la llave de validacion
-//        var idmatriz = matriz_flujos[itemArraymatriz].idpago;
-//        //validamos el dato q nos trae la funcion
-
-//        if (strN_pago == idmatriz) {
-//            //borramos el actor deseado
-
-//            var actorsreverse;
-//            var desembolsorev;
-
-//            actorsreverse = matriz_flujos[itemArraymatriz].idaportante;
-
-//            desembolsorev = matriz_flujos[itemArraymatriz].desembolso;
-
-//            var jsonreverdesembolsos = {
-//                "actorsreverse": actorsreverse,
-//                "desembolsorev": desembolsorev
-//            };
-
-//            //cargamos el array con el json
-//            reversedesembolsos.push(jsonreverdesembolsos);
-
-//            delete matriz_flujos[itemArraymatriz];
-//        }
-//    }
-//}
