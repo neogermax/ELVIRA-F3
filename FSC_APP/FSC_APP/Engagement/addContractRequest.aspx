@@ -244,19 +244,6 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>
-                        <br />
-                        <asp:Label ID="lblSignedContract" runat="server" Text="Contrato firmado"></asp:Label>
-                    </td>
-                    <td>
-                        <br />
-                        <asp:CheckBox ID="chkSignedContract" runat="server" />
-                    </td>
-                    <td>
-                        <asp:Label ID="lblNfoSigned" runat="server"></asp:Label>
-                    </td>
-                </tr>
-                <tr>
                     <td style="width: 187px">
                         <br />
                         <asp:Label ID="lblObs" runat="server" Text="Observaciones"></asp:Label>
@@ -264,7 +251,7 @@
                     <td>
                         <br />
                         <asp:TextBox ID="txtObs" runat="server" MaxLength="255" onkeypress="return textboxAreaMaxNumber(this,255)"
-                            Rows="2" TextMode="MultiLine" Width="400px"></asp:TextBox>
+                            Rows="2" TextMode="MultiLine" Height="130px" Width="400px"></asp:TextBox>
                     </td>
                 </tr>
                 <tr>
@@ -282,6 +269,19 @@
                             <asp:ListItem Value="3">No aplica</asp:ListItem>
                         </asp:DropDownList>
                         <asp:Label ID="lblNfoConfidential" runat="server"></asp:Label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <br />
+                        <asp:Label ID="lblSignedContract" runat="server" Text="Contrato firmado"></asp:Label>
+                    </td>
+                    <td>
+                        <br />
+                        <asp:CheckBox ID="chkSignedContract" runat="server" />
+                    </td>
+                    <td>
+                        <asp:Label ID="lblNfoSigned" runat="server"></asp:Label>
                     </td>
                 </tr>
                 <tr>
