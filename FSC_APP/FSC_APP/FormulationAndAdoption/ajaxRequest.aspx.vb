@@ -1,6 +1,7 @@
 ﻿Imports System.Web.Script.Serialization
 Imports FSC_DAO.model
 Imports System.Linq
+Imports Gattaca.Application.Credentials
 Imports System.Data.Linq
 Imports Newtonsoft.Json
 ''' <summary>
@@ -43,6 +44,7 @@ Partial Public Class ajaxRequest
 
 
                 Dim actionToResponse As String = Request.Form("action")
+                Dim proyecto As String
                 'Method for action depend of the request transaction
                 Select Case actionToResponse
                     Case "getInformationProject"
@@ -70,6 +72,10 @@ Partial Public Class ajaxRequest
                         Exit Select
                     Case "getLastContactForProjectByThird"
                         getLastContactForProjectByThird()
+                        Exit Select
+                    Case "ExportTerms"
+                        proyecto = Request.Form("idProject")
+                        ExportTerms(proyecto)
                         Exit Select
                 End Select
             End If
@@ -341,4 +347,143 @@ Partial Public Class ajaxRequest
         End If
 
     End Sub
+
+    Protected Sub ExportTerms(ByVal proyecto As String)
+
+        Dim objRequest_ReferenceTerms As Proceeding_Request = New Proceeding_Request()
+        Dim sql As New StringBuilder
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+        Dim DataTerms As DataTable
+        Dim DataProject As DataTable
+        Dim DataReq As DataTable
+        Dim DataStrLin As DataTable
+        Dim primero As Boolean = False
+
+        Try
+            proyecto = 772
+            'Query inicial de otro si
+            sql.AppendLine("select * from request where idproject = " & proyecto)
+            DataTerms = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+            sql = New StringBuilder
+
+            'Query contrato, idea, proyecto
+            sql.AppendLine("select P.id, CN.nature_name, CR.contractnumberadjusted, CR.SuscriptDate from Project P")
+            sql.AppendLine("right join contractrequest CR on CR.idproject = P.id ")
+            sql.AppendLine("right join contractnature CN on CN.contractnature_id = CR.IdContractNature ")
+            sql.AppendLine("where P.id = " & proyecto)
+            DataProject = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+            sql = New StringBuilder
+
+            'Query tipos de otrosi
+            sql.AppendLine("select rt.type from request_requesttype r ")
+            sql.AppendLine("right join RequestType rt ")
+            sql.AppendLine("on r.idrequesttype = rt.id ")
+            sql.AppendLine("where idrequest = " & DataTerms.Rows(0)("Id"))
+            DataReq = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+            sql = New StringBuilder
+
+            'Query línea estrategica
+            sql.AppendLine("select PC.Name from ProgramComponentByProject PCP ")
+            sql.AppendLine("right join ProgramComponent PC on PCP.idprogramcomponent = PC.id ")
+            sql.AppendLine("where PCP.IdProject = " & proyecto)
+            DataStrLin = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+            If DataTerms.Rows.Count > 0 Then
+
+                'Diligenciar encabezado
+                'Diligenciar parte inicial
+
+                'Cargar lineas estrategicas
+                If DataStrLin.Rows.Count > 0 Then
+
+                    Dim lineas As New StringBuilder
+
+                    For Each item In DataStrLin.Rows
+
+                        If primero = False Then
+                            lineas.Append(item("name"))
+                            primero = True
+                        Else
+                            lineas.Append(" || " & item("name"))
+                        End If
+
+                    Next
+
+                    objRequest_ReferenceTerms.strategic_line = Convert.ToString(lineas)
+
+                End If
+
+                primero = False
+
+                'Cargar tipos de otro si
+                If DataReq.Rows.Count > 0 Then
+                    Dim tipos As New StringBuilder
+
+                    For Each item In DataReq.Rows
+
+                        If primero = False Then
+                            tipos.Append(item("type"))
+                            primero = True
+                        Else
+                            tipos.Append(", " & item("type"))
+                        End If
+
+                    Next
+
+                    objRequest_ReferenceTerms.type_request = tipos.ToString()
+
+                End If
+
+                objRequest_ReferenceTerms.date_request = DataTerms.Rows(0)("createdate")
+                objRequest_ReferenceTerms.number_request = DataTerms.Rows(0)("Id")
+
+                'Traer datos de contratacion y proyecto.
+                If DataProject.Rows.Count > 0 Then
+
+                    If IsDBNull(DataProject.Rows(0)("nature_name")) = False Then
+                        objRequest_ReferenceTerms.contract_nature = DataProject.Rows(0)("nature_name")
+                    End If
+
+                    If IsDBNull(DataProject.Rows(0)("contractnumberadjusted")) = False Then
+                        objRequest_ReferenceTerms.contract_number = DataProject.Rows(0)("contractnumberadjusted")
+                    End If
+
+                    If IsDBNull(DataProject.Rows(0)("suscriptdate")) = False Then
+                        objRequest_ReferenceTerms.subscription_year = DataProject.Rows(0)("suscriptdate")
+                    End If
+
+                End If
+                'Diligenciar justificación
+                If IsDBNull(DataTerms.Rows(0)("Justification")) = False Then
+                    objRequest_ReferenceTerms.Justification = DataTerms.Rows(0)("Justification")
+                End If
+
+                'Diligenciar detalles 2-1
+                'Diligenciar
+                'Diligenciar riesgos
+
+                objRequest_ReferenceTerms.idProject = proyecto
+                objRequest_ReferenceTerms.directorio_Actas = Server.MapPath("~")
+
+                Dim archivo As String = objRequest_ReferenceTerms.ExportProceedingsStart
+
+                Response.Write(archivo)
+
+            End If
+
+        Catch ex As Exception
+
+            'Mostrar el error
+            Session("serror") = ex.Message
+            Session("sUrl") = Request.UrlReferrer.PathAndQuery
+            Response.Redirect("~/errors/error.aspx")
+            Response.End()
+
+        End Try
+
+    End Sub
+
 End Class

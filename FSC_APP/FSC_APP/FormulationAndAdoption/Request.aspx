@@ -915,4 +915,6 @@
             style="background-image: none; clear: both;" />
         <input type='button' id="buttonSaveRequest" value="Finalizar Solicitud" class="btn btn-success"
             style="background-image: none; clear: both;" />
+        <input type='button' id="buttonExport" value="Exportar Términos de Referencia" class="btn btn-success"
+            style="background-image: none; clear: both;" onclick="Export_onclick()" />
 </asp:Content>
