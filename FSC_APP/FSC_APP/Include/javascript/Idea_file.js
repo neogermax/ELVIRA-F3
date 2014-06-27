@@ -78,7 +78,7 @@ function crear_tabla_anexos(link_route) {
     for (itemArray in arrayFiles) {
 
         var entregacomas = arrayFiles[itemArray].Description;
-        entregacomas = entregacomas.replace(/¬/g, ',');
+      //  entregacomas = entregacomas.replace(/¬/g, ',');
 
         var namefile = arrayFiles[itemArray].filename;
         namefile = $.trim(namefile);
@@ -117,7 +117,7 @@ function deletefile(stridfile) {
 
         if (stridfile == id) {
             //borramos el actor deseado
-            delete arrayFiles[itemArray];
+            arrayFiles.splice(itemArray, 1);
         }
     }
 }
@@ -131,18 +131,11 @@ function View_anexos_array() {
         data: { "action": "View_anexos_array", "ididea": ideditar },
         success: function(result) {
 
-            if (result == "vacio") {
+            if (result == "") {
                 arrayFiles = [];
-
             }
             else {
-                arrayFiles_ed = result.split("|");
-
-                for (itemArray in arrayFiles_ed) {
-
-                    var recibefiles = JSON.parse(arrayFiles_ed[itemArray]);
-                    arrayFiles.push(recibefiles);
-                }
+                arrayFiles = JSON.parse(result);
             }
 
             //llamamos funcion para crear tabla anexos

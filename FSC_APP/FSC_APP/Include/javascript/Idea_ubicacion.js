@@ -24,7 +24,7 @@ function valide_date_depto() {
 
     $("#ddlCity").change(function() {
         var id_depto = $("#ddlDepto").val();
-    
+
         if (id_depto == -1) {
             $("#ddlCity").html("<option>Seleccione...</option>");
             $("#ddlCity").trigger("liszt:updated");
@@ -85,7 +85,7 @@ function Add_location_onclick() {
 
                 $("#ddlDepto").val("-1");
                 $("#ddlDepto").trigger("liszt:updated");
-           
+
                 $("#ddlCity").html("<option>Seleccione...</option>");
                 $("#ddlCity").trigger("liszt:updated");
 
@@ -130,13 +130,10 @@ function view_ubicacion_array() {
         data: { "action": "View_ubicacion_array", "ididea": ideditar },
         success: function(result) {
 
-            array_ubicacion_ed = result.split("|");
-
-            for (itemArray in array_ubicacion_ed) {
-
-                var recibeubi = JSON.parse(array_ubicacion_ed[itemArray]);
-                arrayUbicacion.push(recibeubi);
-            }
+            if (result == "")
+                arrayUbicacion = [];
+            else
+                arrayUbicacion = JSON.parse(result);
 
             //llamamos la funcion q nos genera la tabla
             Crear_tabla_ubicacion();
@@ -158,8 +155,7 @@ function deleteUbicacion(str) {
         //validamos el dato q nos trae la funcion
         if (str == id) {
             //borramos la ubicacion deseada
-            delete arrayUbicacion[itemArray];
-            //arrayUbicacion.splice(arrayUbicacion[itemArray].CityName, 1);
+            arrayUbicacion.splice(itemArray, 1);
         }
     }
 }

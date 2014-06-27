@@ -332,7 +332,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         populationvalue = validate_date_consult(data_c_population)
         program_value = validate_date_consult(data_program)
         linevalue = validate_date_consult(data_lineStrategig)
-       
+
         Dim objCatalogSerialize = String.Format("[{0},{1},{2},{3}]", linevalue, program_value, populationvalue, type_aproval_value)
 
         Response.Write(objCatalogSerialize)
@@ -593,9 +593,11 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         Dim sql As New StringBuilder
         Dim objSqlCommand As New SqlCommand
         Dim data_anexos As DataTable
-        Dim idfile, filename, Description As String
 
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+
+        Dim objListCFileView As New List(Of CFilesView)
+
 
         sql.Append(" select d.id, d.AttachFile,d.Description, d.id_document from DocumentsByEntity de ")
         sql.Append(" inner join Documents d on d.Id =de.IdDocuments ")
@@ -603,59 +605,30 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
         data_anexos = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
 
-        Dim valuar_anexo As Integer = 1
-        Dim objResult As String = ""
-
         If data_anexos.Rows.Count > 0 Then
 
+
             For Each row As DataRow In data_anexos.Rows
-     
-                objResult &= "{"
 
-                objResult &= """idfile"": """
-                idfile = row(3).ToString
+                Dim objCFileView As CFilesView = New CFilesView()
 
-                If idfile = "" Then
-                    idfile = row(0).ToString
+                objCFileView.idfile = row(3).ToString
+
+                If objCFileView.idfile = "" Then
+                    objCFileView.idfile = row(0).ToString
                 End If
 
-                idfile = Replace(idfile, " ", "")
+                objCFileView.filename = row(1).ToString
+                objCFileView.Description = row(2).ToString
 
-                objResult &= idfile
-
-                objResult &= """, ""filename"": """
-                filename = row(1).ToString
-
-                objResult &= filename
-
-                objResult &= """, ""Description"": """
-                Description = row(2).ToString
-                Description = Description.Replace(",", "¬")
-
-                objResult &= Description
-
-                If valuar_anexo = data_anexos.Rows.Count Then
-
-                    objResult &= """}"
-
-                Else
-                    objResult &= """}|"
-
-                End If
-
-                valuar_anexo = valuar_anexo + 1
+                objListCFileView.Add(objCFileView)
 
             Next
 
         End If
 
-        If objResult = "" Then
 
-            objResult = "vacio"
-
-        End If
-
-        Response.Write(objResult)
+        Response.Write(JsonConvert.SerializeObject(objListCFileView.ToArray()))
 
     End Function
 
@@ -768,64 +741,30 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
         Dim sql As New StringBuilder
         Dim objSqlCommand As New SqlCommand
-        Dim data As DataTable
+        Dim data_detalles As DataTable
+
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
 
-        Dim idpago, idaportante, Aportante, desembolso As String
+        Dim objListCDetailsFileView As New List(Of CDetailsPaymentFlowView)
 
         sql.Append(" select dcf.N_pago, dcf.IdAportante, dcf.Aportante, dcf.Desembolso  from Detailedcashflows dcf where dcf.IdIdea = " & ididea)
 
-        data = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+        data_detalles = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
 
-        Dim valuar_detalle As Integer = 1
-        Dim objResult As String = ""
+        For Each row As DataRow In data_detalles.Rows
 
-        For Each row As DataRow In data.Rows
+            Dim Objdetails As CDetailsPaymentFlowView = New CDetailsPaymentFlowView()
 
-            objResult &= "{"
+            Objdetails.idpago = row(0).ToString()
+            Objdetails.idaportante = row(1).ToString()
+            Objdetails.Aportante = row(2).ToString()
+            Objdetails.desembolso = row(3).ToString()
 
-            objResult &= """idpago"": """
-            idpago = row(0).ToString()
-
-            objResult &= idpago
-
-            objResult &= """, ""idaportante"": """
-            idaportante = row(1).ToString()
-
-            objResult &= idaportante
-
-            objResult &= """, ""Aportante"": """
-            Aportante = row(2).ToString()
-
-            objResult &= Aportante
-
-            objResult &= """, ""desembolso"": """
-            desembolso = row(3).ToString()
-            desembolso = desembolso.Replace(" ", "")
-
-            objResult &= desembolso
-
-
-            If valuar_detalle = data.Rows.Count Then
-
-                objResult &= """}"
-
-            Else
-                objResult &= """}|"
-
-            End If
-
-            valuar_detalle = valuar_detalle + 1
+            objListCDetailsFileView.Add(Objdetails)
 
         Next
 
-        If objResult = "" Then
-
-            objResult = "vacio"
-
-        End If
-
-        Response.Write(objResult)
+        Response.Write(JsonConvert.SerializeObject(objListCDetailsFileView.ToArray()))
 
     End Function
 
@@ -837,105 +776,41 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
         Dim thirdbyidea As New ThirdByIdeaDALC
         Dim data_listactores As List(Of ThirdByIdeaEntity)
-
-        Dim actorsVal, actorsName, tipoactors, contact, cedula, telefono, email, diner, especie, total, estado_flujo As String
+        Dim objListCActorsView As New List(Of CActorsView)
 
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
 
-
         data_listactores = thirdbyidea.getList(applicationCredentials, , ididea, , , , , , )
-
-        Dim valuar_actor As Integer = 1
-        Dim objResult As String = ""
 
         If data_listactores.Count > 0 Then
 
             For Each row In data_listactores
 
-                estado_flujo = row.EstadoFlujos
-
+                Dim estado_flujo As String = row.EstadoFlujos
 
                 If estado_flujo = "s" Then
 
-                    objResult &= "{"
+                    Dim objCActorsView As CActorsView = New CActorsView()
 
-                    objResult &= """actorsVal"": """
-                    actorsVal = row.idthird
+                    objCActorsView.actorsVal = row.idthird
+                    objCActorsView.actorsName = row.Name
+                    objCActorsView.tipoactors = row.type
+                    objCActorsView.contact = row.contact
+                    objCActorsView.cedula = row.Documents
+                    objCActorsView.telefono = row.Phone
+                    objCActorsView.email = row.Email
+                    objCActorsView.diner = row.Vrmoney
+                    objCActorsView.especie = row.VrSpecies
+                    objCActorsView.total = row.FSCorCounterpartContribution
+                    objCActorsView.estado_flujo = row.EstadoFlujos
 
-                    objResult &= actorsVal
-
-                    objResult &= """, ""actorsName"": """
-                    actorsName = row.Name
-
-                    objResult &= actorsName
-
-                    objResult &= """, ""tipoactors"": """
-                    tipoactors = row.type
-
-                    objResult &= tipoactors
-
-                    objResult &= """, ""contact"": """
-                    contact = row.contact
-
-                    objResult &= contact
-
-                    objResult &= """, ""cedula"": """
-                    cedula = row.Documents
-
-                    objResult &= cedula
-
-                    objResult &= """, ""telefono"": """
-                    telefono = row.Phone
-
-                    objResult &= telefono
-
-                    objResult &= """, ""email"": """
-                    email = row.Email
-
-                    objResult &= email
-
-                    objResult &= """, ""diner"": """
-                    diner = row.Vrmoney
-
-                    objResult &= diner
-
-                    objResult &= """, ""especie"": """
-                    especie = row.VrSpecies
-
-                    objResult &= especie
-
-                    objResult &= """, ""total"": """
-                    total = row.FSCorCounterpartContribution
-
-                    objResult &= total
-
-                    objResult &= """, ""estado_flujo"": """
-
-                    objResult &= estado_flujo
-
-                    If valuar_actor = data_listactores.Count Then
-
-                        objResult &= """}"
-
-                    Else
-                        objResult &= """}|"
-
-                    End If
-
-                    valuar_actor = valuar_actor + 1
-
+                    objListCActorsView.Add(objCActorsView)
 
                 End If
             Next
         End If
 
-        If objResult = "" Then
-
-            objResult = "vacio"
-
-        End If
-
-        Response.Write(objResult)
+        Response.Write(JsonConvert.SerializeObject(objListCActorsView.ToArray()))
 
     End Function
 
@@ -947,11 +822,6 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         Dim objflujos As PaymentFlowEntity
         Dim data_listpagos As New List(Of PaymentFlowEntity)
         Dim objListCPaymentFlowView As New List(Of CPaymentFlowView)
-
-        Dim N_pago, fecha_pago, porcentaje, entrega, tflujos As String
-
-        Dim valuar_flujo As Integer = 1
-        Dim objResult As String
 
         data_listpagos = flujopagos.getFlowPayment("i", ididea, applicationCredentials)
 
@@ -980,92 +850,36 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         Dim thirdbyidea As New ThirdByIdeaDALC
         Dim objactores As ThirdByIdeaEntity
         Dim data_listactores As List(Of ThirdByIdeaEntity)
-        Dim actorsVal, actorsName, tipoactors, contact, cedula, telefono, email, diner, especie, total, estado_flujo As String
+        Dim objListCActorsView As New List(Of CActorsView)
 
         Dim htmlactores As String
 
         data_listactores = thirdbyidea.getList(applicationCredentials, , ididea, , , , , , )
 
-        Dim valuar_actor As Integer = 1
-        Dim objResult As String
-
-
         If data_listactores.Count > 0 Then
 
             For Each row In data_listactores
 
-                objResult &= "{"
+                Dim objCActorsView As CActorsView = New CActorsView()
 
-                objResult &= """actorsVal"": """
-                actorsVal = row.idthird
+                objCActorsView.actorsVal = row.idthird
+                objCActorsView.actorsName = row.Name
+                objCActorsView.tipoactors = row.type
+                objCActorsView.contact = row.contact
+                objCActorsView.cedula = row.Documents
+                objCActorsView.telefono = row.Phone
+                objCActorsView.email = row.Email
+                objCActorsView.diner = row.Vrmoney
+                objCActorsView.especie = row.VrSpecies
+                objCActorsView.total = row.FSCorCounterpartContribution
+                objCActorsView.estado_flujo = row.EstadoFlujos
 
-                objResult &= actorsVal
-
-                objResult &= """, ""actorsName"": """
-                actorsName = row.Name
-
-                objResult &= actorsName
-
-                objResult &= """, ""tipoactors"": """
-                tipoactors = row.type
-
-                objResult &= tipoactors
-
-                objResult &= """, ""contact"": """
-                contact = row.contact
-
-                objResult &= contact
-
-                objResult &= """, ""cedula"": """
-                cedula = row.Documents
-
-                objResult &= cedula
-
-                objResult &= """, ""telefono"": """
-                telefono = row.Phone
-
-                objResult &= telefono
-
-                objResult &= """, ""email"": """
-                email = row.Email
-
-                objResult &= email
-
-                objResult &= """, ""diner"": """
-                diner = row.Vrmoney
-
-                objResult &= diner
-
-                objResult &= """, ""especie"": """
-                especie = row.VrSpecies
-
-                objResult &= especie
-
-                objResult &= """, ""total"": """
-                total = row.FSCorCounterpartContribution
-
-                objResult &= total
-
-                objResult &= """, ""estado_flujo"": """
-                estado_flujo = row.EstadoFlujos
-
-                objResult &= estado_flujo
-
-                If valuar_actor = data_listactores.Count Then
-
-                    objResult &= """}"
-
-                Else
-                    objResult &= """}|"
-
-                End If
-
-                valuar_actor = valuar_actor + 1
+                objListCActorsView.Add(objCActorsView)
             Next
 
         End If
 
-        Response.Write(objResult)
+        Response.Write(JsonConvert.SerializeObject(objListCActorsView.ToArray()))
 
     End Function
 
@@ -1076,10 +890,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         Dim LocationByIdea As New LocationByIdeaDALC
         Dim objlocation As LocationByIdeaEntity
         Dim data_listlocation As List(Of LocationByIdeaEntity)
-        Dim DeptoVal, CityVal, CityName, DeptoName As String
-
-        Dim objResult As String
-
+        Dim objListCLocationView As New List(Of ClocationView)
 
         data_listlocation = LocationByIdea.getList(applicationCredentials, , ididea, , , )
 
@@ -1087,47 +898,22 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
         If data_listlocation.Count > 0 Then
 
-
             For Each row In data_listlocation
 
-                objResult &= "{"
+                Dim objCLocationView As ClocationView = New ClocationView()
 
-                objResult &= """DeptoVal"": """
-                DeptoVal = row.DEPTO.id
+                objCLocationView.DeptoVal = row.DEPTO.id
+                objCLocationView.CityVal = row.CITY.id
+                objCLocationView.CityName = row.CITY.name
+                objCLocationView.DeptoName = row.DEPTO.name
 
-                objResult &= DeptoVal
+                objListCLocationView.Add(objCLocationView)
 
-                objResult &= """, ""DeptoName"": """
-                DeptoName = row.DEPTO.name
-
-                objResult &= DeptoName
-
-                objResult &= """, ""CityVal"": """
-                CityVal = row.CITY.id
-
-                objResult &= CityVal
-
-                objResult &= """, ""CityName"": """
-                CityName = row.CITY.name
-
-                objResult &= CityName
-
-                If valuar_ubi = data_listlocation.Count Then
-
-                    objResult &= """}"
-
-                Else
-                    objResult &= """}|"
-
-                End If
-
-                valuar_ubi = valuar_ubi + 1
             Next
 
-
         End If
-        Response.Write(objResult)
 
+        Response.Write(JsonConvert.SerializeObject(objListCLocationView.ToArray()))
 
     End Function
 
@@ -1289,121 +1075,82 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
         Dim ArrayFile As String()
 
-        list_file = Replace(list_file, "{", " ", 1)
-        list_file = Replace(list_file, "}", " ", 1)
-        list_file = Replace(list_file, """", " ", 1)
-        'convertimos el string en un array de datos
-        ArrayFile = list_file.Split(New [Char]() {","c})
+        Dim NewListFiles = JsonConvert.DeserializeObject(Of List(Of CFilesView))(list_file)
 
-        If ArrayFile(0) <> "vacio_ojo" Then
+        For Each item_file As CFilesView In NewListFiles
 
-            'ISTANCIAMOS LA VARIABLE DEL TAMAÑO DEL ARRAY
-            Dim t_file As Integer
-            Dim contador As Integer = 0
+            Dim objDocument As DocumentsEntity = New DocumentsEntity()
+            Dim objDocumentbyEntity As DocumentsByEntityEntity = New DocumentsByEntityEntity()
 
-            Dim idfileexist, filenameexist, Descriptionexist As String
+            objDocument.title = item_file.filename
+            objDocument.description = item_file.Description
+            objDocument.ideditedfor = 0
+            objDocument.iddocumenttype = 0
+            objDocument.idvisibilitylevel = 0
+            objDocument.createdate = Now
+            objDocument.iduser = applicationCredentials.UserID
+            objDocument.attachfile = item_file.filename
+            objDocument.enabled = 1
+            objDocument.Id_Entity_Zone = "IdeaEntity_" & ididea
+            objDocument.Id_document = Convert.ToInt32(item_file.idfile)
 
-            'ASIGNAMOS EL TAMAÑO 
-            t_file = ArrayFile.Length
+            Dim sql As New StringBuilder
+            Dim dtData, dtDatadoc As DataTable
 
-            'RECORREMOS LA CANTIDAD DE VECES ASIGNADAS
-            For index_ubi As Integer = 0 To t_file
+            ' construir la sentencia
+            sql.AppendLine("INSERT INTO Documents(title,description,ideditedfor,idvisibilitylevel,iddocumenttype,createdate,iduser,attachfile,enabled,Id_Entity_Zone,Id_document ) ")
+            sql.AppendLine(" VALUES (")
+            sql.AppendLine("'" & objDocument.title & "',")
+            sql.AppendLine("'" & objDocument.description & "',")
+            sql.AppendLine("'" & objDocument.ideditedfor & "',")
+            sql.AppendLine("'" & objDocument.idvisibilitylevel & "',")
+            sql.AppendLine("'" & objDocument.iddocumenttype & "',")
+            sql.AppendLine("'" & objDocument.createdate.ToString("yyyyMMdd HH:mm:ss") & "',")
+            sql.AppendLine("'" & objDocument.iduser & "',")
+            sql.AppendLine("'" & objDocument.attachfile & "',")
+            sql.AppendLine("'" & objDocument.enabled & "',")
+            sql.AppendLine("'" & objDocument.Id_Entity_Zone & "',")
+            sql.AppendLine("'" & objDocument.Id_document & "')")
 
+            ' intruccion para obtener el registro insertado
+            sql.AppendLine(" SELECT SCOPE_IDENTITY() AS Id")
 
-                Dim objDocument As DocumentsEntity = New DocumentsEntity()
-                Dim objDocumentbyEntity As DocumentsByEntityEntity = New DocumentsByEntityEntity()
+            'obtener el id
+            dtData = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
 
-                'VERIDFICAMOS Q EXISTAN LOS CAMPOS SOLICITADOS
-                idfileexist = InStr(ArrayFile(contador), "idfile")
-                filenameexist = InStr(ArrayFile(contador + 1), "filename")
-                Descriptionexist = InStr(ArrayFile(contador + 2), "Description")
+            ' id creado
+            Dim idEntity As Long = CLng(dtData.Rows(0)("Id"))
 
-                'separamos el valor de campo
-                idfileexist = Replace(ArrayFile(contador), " idfile :", " ", 1)
-                idfileexist = idfileexist.Trim
-                filenameexist = Replace(ArrayFile(contador + 1), "filename : ", "", 1)
-                filenameexist = filenameexist.Trim
-                Descriptionexist = Replace(ArrayFile(contador + 2), "Description : ", " ", 1)
-                Descriptionexist = Descriptionexist.Trim
-                Descriptionexist = Descriptionexist.Replace("¬", ",")
+            ' finalizar la transaccion
+            CtxSetComplete()
 
-                'asignamos al objeto
-                objDocument.title = filenameexist
-                objDocument.description = Descriptionexist
-                objDocument.ideditedfor = 0
-                objDocument.iddocumenttype = 0
-                objDocument.idvisibilitylevel = 0
-                objDocument.createdate = Now
-                objDocument.iduser = applicationCredentials.UserID
-                objDocument.attachfile = filenameexist
-                objDocument.enabled = 1
-                objDocument.Id_Entity_Zone = "IdeaEntity_" & ididea
-                objDocument.Id_document = Convert.ToInt32(idfileexist)
-
-                'cargamos al list
-
-                Dim sql As New StringBuilder
-                Dim dtData, dtDatadoc As DataTable
-
-                ' construir la sentencia
-                sql.AppendLine("INSERT INTO Documents(title,description,ideditedfor,idvisibilitylevel,iddocumenttype,createdate,iduser,attachfile,enabled,Id_Entity_Zone,Id_document ) ")
-                sql.AppendLine(" VALUES (")
-                sql.AppendLine("'" & objDocument.title & "',")
-                sql.AppendLine("'" & objDocument.description & "',")
-                sql.AppendLine("'" & objDocument.ideditedfor & "',")
-                sql.AppendLine("'" & objDocument.idvisibilitylevel & "',")
-                sql.AppendLine("'" & objDocument.iddocumenttype & "',")
-                sql.AppendLine("'" & objDocument.createdate.ToString("yyyyMMdd HH:mm:ss") & "',")
-                sql.AppendLine("'" & objDocument.iduser & "',")
-                sql.AppendLine("'" & objDocument.attachfile & "',")
-                sql.AppendLine("'" & objDocument.enabled & "',")
-                sql.AppendLine("'" & objDocument.Id_Entity_Zone & "',")
-                sql.AppendLine("'" & objDocument.Id_document & "')")
-
-                ' intruccion para obtener el registro insertado
-                sql.AppendLine(" SELECT SCOPE_IDENTITY() AS Id")
-
-                'obtener el id
-                dtData = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
-
-                ' id creado
-                Dim idEntity As Long = CLng(dtData.Rows(0)("Id"))
-
-                ' finalizar la transaccion
-                CtxSetComplete()
-
-                'asignamos al objeto
-                objDocumentbyEntity.iddocuments = idEntity
-                objDocumentbyEntity.idnentity = ididea
-                objDocumentbyEntity.entityname = "IdeaEntity"
+            'asignamos al objeto
+            objDocumentbyEntity.iddocuments = idEntity
+            objDocumentbyEntity.idnentity = ididea
+            objDocumentbyEntity.entityname = "IdeaEntity"
 
 
-                sql = New StringBuilder
-                ' construir la sentencia
-                sql.AppendLine("INSERT INTO DocumentsByEntity( iddocuments,idnentity,entityName) ")
-                sql.AppendLine("VALUES (")
-                sql.AppendLine("'" & objDocumentbyEntity.iddocuments & "',")
-                sql.AppendLine("'" & objDocumentbyEntity.idnentity & "',")
-                sql.AppendLine("'" & objDocumentbyEntity.entityname & "')")
+            sql = New StringBuilder
+            ' construir la sentencia
+            sql.AppendLine("INSERT INTO DocumentsByEntity( iddocuments,idnentity,entityName) ")
+            sql.AppendLine("VALUES (")
+            sql.AppendLine("'" & objDocumentbyEntity.iddocuments & "',")
+            sql.AppendLine("'" & objDocumentbyEntity.idnentity & "',")
+            sql.AppendLine("'" & objDocumentbyEntity.entityname & "')")
 
-                ' intruccion para obtener el registro insertado
-                sql.AppendLine(" SELECT SCOPE_IDENTITY() AS Id")
+            ' intruccion para obtener el registro insertado
+            sql.AppendLine(" SELECT SCOPE_IDENTITY() AS Id")
 
-                'obtener el id
-                dtDatadoc = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+            'obtener el id
+            dtDatadoc = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
 
-                ' id creado
-                Dim num As Long = CLng(dtDatadoc.Rows(0)("Id"))
+            ' id creado
+            Dim num As Long = CLng(dtDatadoc.Rows(0)("Id"))
 
-                ' finalizar la transaccion
-                CtxSetComplete()
+            ' finalizar la transaccion
+            CtxSetComplete()
 
-                index_ubi = index_ubi + 3
-                contador = contador + 3
-
-            Next
-
-        End If
+        Next
 
     End Function
 
@@ -1615,50 +1362,21 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
 
-        Dim locationByIdeaList As List(Of LocationByIdeaEntity)
-
-
-
         Dim arrayubicacion, arrayactor, arraycomponente, arrayflujos, arraydetallesflujos As String()
-        Dim deptovalexist, Cityvalexist As Integer
-        Dim desembolsoexist, Aportanteexist, idaportanteexist, N_pagodetexist, estados_flujosexist, N_pagoexist, fecha_pagoexist, porcentajeexist, entregaexist, tflujosexist, existidprogram, existactorsVal, existactorsName, existtipoactors, existcontact, existcedula, existtelefono, existemail, existdiner, existespecie, existtotal As String
 
         Try
 
-            locationByIdeaList = DirectCast(Session("locationByIdeaList"), List(Of LocationByIdeaEntity))
-
-            list_ubicacion = Replace(list_ubicacion, "{", " ", 1)
-            list_ubicacion = Replace(list_ubicacion, "}", " ", 1)
-            list_ubicacion = Replace(list_ubicacion, """", " ", 1)
-            'convertimos el string en un array de datos
-            arrayubicacion = list_ubicacion.Split(New [Char]() {","c})
-
-            list_actor = Replace(list_actor, "{", " ", 1)
-            list_actor = Replace(list_actor, "}", " ", 1)
-            list_actor = Replace(list_actor, """", " ", 1)
-            'convertimos el string en un array de datos
-            arrayactor = list_actor.Split(New [Char]() {","c})
-
+            Dim NewListubicaciones = JsonConvert.DeserializeObject(Of List(Of ClocationView))(list_ubicacion)
+            Dim NewListActors = JsonConvert.DeserializeObject(Of List(Of CActorsView))(list_actor)
             Dim NewListFlujos = JsonConvert.DeserializeObject(Of List(Of CPaymentFlowView))(list_flujos)
-
-            list_detalles_flujos = Replace(list_detalles_flujos, "{", " ", 1)
-            list_detalles_flujos = Replace(list_detalles_flujos, "}", " ", 1)
-            list_detalles_flujos = Replace(list_detalles_flujos, """", " ", 1)
-            'convertimos el string en un array de datos
-            arraydetallesflujos = list_detalles_flujos.Split(New [Char]() {","c})
+            Dim NewListDetailsFlujos = JsonConvert.DeserializeObject(Of List(Of CDetailsPaymentFlowView))(list_detalles_flujos)
 
             list_componentes = Replace(list_componentes, "/", "*", 1)
             list_componentes = Replace(list_componentes, "_ *", "*", 1)
             ''convertimos el string en un array de datos
             arraycomponente = list_componentes.Split(New [Char]() {"*"c})
 
-            Dim contador As Integer = 0
-            Dim contadoractor As Integer = 0
             Dim contadorcomp As Integer = 0
-            Dim contadorflu As Integer = 0
-            Dim contadordetflu As Integer = 0
-
-
 
             'recorremos los componentes seleccionados
             For Each row In arraycomponente
@@ -1676,112 +1394,44 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                 contadorcomp = contadorcomp + 1
             Next
 
-
-
             '----------------------------------------------------ubicaciones------------------------------------------------------------------------
-            'ISTANCIAMOS LA VARIABLE DEL TAMAÑO DEL ARRAY
-            Dim t_Aubicacion As Integer
+            Dim LocationByIdeaList As List(Of LocationByIdeaEntity) = New List(Of LocationByIdeaEntity)()
 
-            'ASIGNAMOS EL TAMAÑO 
-            t_Aubicacion = arrayubicacion.Length
-
-            'RECORREMOS LA CANTIDAD DE VECES ASIGNADAS
-            For index_ubi As Integer = 0 To t_Aubicacion
+            For Each item_location As ClocationView In NewListubicaciones
 
                 Dim objlocationidea As New LocationByIdeaEntity
                 Dim objDeptoEntity As DeptoEntity = New DeptoEntity()
                 Dim objCityEntity As CityEntity = New CityEntity()
 
-                'VERIDFICAMOS Q EXISTAN LOS CAMPOS SOLICITADOS
-                deptovalexist = InStr(arrayubicacion(contador), "DeptoVal")
-                Cityvalexist = InStr(arrayubicacion(contador + 2), "CityVal")
-
-                'separamos el valor de campo
-                deptovalexist = Replace(arrayubicacion(contador), " DeptoVal : ", " ", 1)
-                Cityvalexist = Replace(arrayubicacion(contador + 2), "CityVal : ", " ", 1)
-
                 'asignamos al objeto
-                objDeptoEntity.id = deptovalexist
+                objDeptoEntity.id = item_location.DeptoVal
                 objlocationidea.DEPTO = objDeptoEntity
-                objCityEntity.id = Cityvalexist
+                objCityEntity.id = item_location.CityVal
                 objlocationidea.CITY = objCityEntity
 
                 'cargamos al list
-                locationByIdeaList.Add(objlocationidea)
-
-                index_ubi = index_ubi + 4
-                contador = contador + 4
-
-                If contador <> index_ubi Then
-                    index_ubi = contador
-                End If
+                LocationByIdeaList.Add(objlocationidea)
 
             Next
-
             '----------------------------------------------------actores------------------------------------------------------------------------
-            'ISTANCIAMOS LA VARIABLE DEL TAMAÑO DEL ARRAY
-            Dim t_Aactor As Integer
+            Dim thirdByIdeaList As List(Of ThirdByIdeaEntity) = New List(Of ThirdByIdeaEntity)()
 
-            'ASIGNAMOS EL TAMAÑO 
-            t_Aactor = arrayactor.Length
+            For Each item_third As CActorsView In NewListActors
 
-            'RECORREMOS LA CANTIDAD DE VECES ASIGNADAS
-            For index_act As Integer = 0 To t_Aactor
-
-                Dim thirdByIdeaList As List(Of ThirdByIdeaEntity)
                 Dim thirdByIdea As ThirdByIdeaEntity = New ThirdByIdeaEntity()
-                thirdByIdeaList = DirectCast(Session("thirdByIdeaList"), List(Of ThirdByIdeaEntity))
 
-                'VERIDFICAMOS Q EXISTAN LOS CAMPOS SOLICITADOS
-                existactorsVal = InStr(arrayactor(contadoractor), "actorsVal") 'y
-                existactorsName = InStr(arrayactor(contadoractor + 1), "actorsName") 'y
-                existtipoactors = InStr(arrayactor(contadoractor + 2), "tipoactors")
-                existcontact = InStr(arrayactor(contadoractor + 3), "contact") 'y
-                existcedula = InStr(arrayactor(contadoractor + 4), "cedula") 'y
-                existtelefono = InStr(arrayactor(contadoractor + 5), "telefono") 'y
-                existemail = InStr(arrayactor(contadoractor + 6), "email") 'y
-                existdiner = InStr(arrayactor(contadoractor + 7), "diner")
-                existespecie = InStr(arrayactor(contadoractor + 8), "especie")
-                existtotal = InStr(arrayactor(contadoractor + 9), "total")
-                estados_flujosexist = InStr(arrayactor(contadoractor + 10), "estado_flujo")
-
-                'separamos el valor de campo
-                existactorsVal = Replace(arrayactor(contadoractor), " actorsVal : ", " ", 1)
-                existactorsVal = existactorsVal.Trim
-                existactorsName = Replace(arrayactor(contadoractor + 1), "actorsName : ", " ", 1)
-                existactorsName = existactorsName.Trim
-                existtipoactors = Replace(arrayactor(contadoractor + 2), "tipoactors : ", " ", 1)
-                existtipoactors = existtipoactors.Trim
-                existcontact = Replace(arrayactor(contadoractor + 3), "contact : ", " ", 1)
-                existcontact = existcontact.Trim
-                existcedula = Replace(arrayactor(contadoractor + 4), "cedula : ", " ", 1)
-                existcedula = existcedula.Trim
-                existtelefono = Replace(arrayactor(contadoractor + 5), "telefono : ", " ", 1)
-                existtelefono = existtelefono.Trim
-                existemail = Replace(arrayactor(contadoractor + 6), "email : ", " ", 1)
-                existemail = existemail.Trim
-                existdiner = Replace(arrayactor(contadoractor + 7), "diner : ", " ", 1)
-                existdiner = existdiner.Trim
-                existespecie = Replace(arrayactor(contadoractor + 8), "especie : ", " ", 1)
-                existespecie = existespecie.Trim
-                existtotal = Replace(arrayactor(contadoractor + 9), "total : ", " ", 1)
-                existtotal = existtotal.Trim
-                estados_flujosexist = Replace(arrayactor(contadoractor + 10), "estado_flujo : ", " ", 1)
-                estados_flujosexist = estados_flujosexist.Trim
-                ' estados_flujosexist = estados_flujosexist.Replace(" ", "")
-                'asignamos al objeto
-                thirdByIdea.idthird = existactorsVal
-                thirdByIdea.THIRD.name = existactorsName
-                thirdByIdea.Name = existactorsName
-                thirdByIdea.type = existtipoactors
-                thirdByIdea.contact = existcontact
-                thirdByIdea.Documents = existcedula
-                thirdByIdea.Phone = existtelefono
-                thirdByIdea.Email = existemail
-                thirdByIdea.Vrmoney = existdiner
-                thirdByIdea.VrSpecies = existespecie
-                thirdByIdea.FSCorCounterpartContribution = existtotal
-                thirdByIdea.EstadoFlujos = estados_flujosexist
+                thirdByIdea.idthird = item_third.actorsVal
+                thirdByIdea.THIRD.name = item_third.actorsName
+                thirdByIdea.Name = item_third.actorsName
+                thirdByIdea.type = item_third.tipoactors
+                thirdByIdea.contact = item_third.contact
+                thirdByIdea.Documents = item_third.cedula
+                thirdByIdea.Phone = item_third.telefono
+                thirdByIdea.Email = item_third.email
+                thirdByIdea.Vrmoney = item_third.diner
+                thirdByIdea.VrSpecies = item_third.especie
+                thirdByIdea.FSCorCounterpartContribution = item_third.total
+                thirdByIdea.EstadoFlujos = item_third.estado_flujo
                 thirdByIdea.CreateDate = Now
 
                 Update_Third_Date(thirdByIdea.idthird, thirdByIdea.contact, thirdByIdea.Documents, thirdByIdea.Phone, thirdByIdea.Email)
@@ -1789,22 +1439,14 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                 'cargamos al list
                 thirdByIdeaList.Add(thirdByIdea)
 
-                contadoractor = contadoractor + 11
-                index_act = index_act + 11
-
-                If contadoractor <> index_act Then
-                    index_act = contadoractor
-                End If
-
             Next
-
             '----------------------------------------------------flujos------------------------------------------------------------------------
-             Dim PaymentFlowList As List(Of PaymentFlowEntity) = New List(Of PaymentFlowEntity)()
+            Dim PaymentFlowList As List(Of PaymentFlowEntity) = New List(Of PaymentFlowEntity)()
 
             For Each item_paymentflow As CPaymentFlowView In NewListFlujos
 
                 Dim objpaymentFlow As PaymentFlowEntity = New PaymentFlowEntity()
-                
+
                 objpaymentFlow.N_pagos = item_paymentflow.N_pago
                 objpaymentFlow.fecha = Convert.ToDateTime(item_paymentflow.fecha_pago)
                 objpaymentFlow.porcentaje = item_paymentflow.porcentaje
@@ -1818,59 +1460,25 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                 PaymentFlowList.Add(objpaymentFlow)
 
             Next
-
             '----------------------------------------------------detallesflujos------------------------------------------------------------------------
-            'ISTANCIAMOS LA VARIABLE DEL TAMAÑO DEL ARRAY
-            Dim t_Aflujodetalle As Integer
+            Dim DetailedcashflowsList As List(Of DetailedcashflowsEntity) = New List(Of DetailedcashflowsEntity)()
 
-            'ASIGNAMOS EL TAMAÑO 
-            t_Aflujodetalle = arraydetallesflujos.Length
+            For Each item_Detailedcashflow As CDetailsPaymentFlowView In NewListDetailsFlujos
 
-            If arraydetallesflujos(0) = "vacio_ojo" Then
+                Dim objDetalleflujo As DetailedcashflowsEntity = New DetailedcashflowsEntity()
 
-            Else
+                'asignamos al objeto
+                objDetalleflujo.N_pago = Convert.ToInt32(item_Detailedcashflow.idpago)
+                objDetalleflujo.IdAportante = Convert.ToInt32(item_Detailedcashflow.idaportante)
+                objDetalleflujo.Aportante = item_Detailedcashflow.Aportante
+                objDetalleflujo.Desembolso = item_Detailedcashflow.desembolso
+                objDetalleflujo.IdProject = 0
+                objDetalleflujo.mother = Nothing
 
-                'RECORREMOS LA CANTIDAD DE VECES ASIGNADAS
-                For index_fludet As Integer = 0 To t_Aflujodetalle
+                'cargamos al list
+                DetailedcashflowsList.Add(objDetalleflujo)
 
-                    Dim objDetalleflujo As DetailedcashflowsEntity = New DetailedcashflowsEntity()
-                    Dim listDetalleflujo As List(Of DetailedcashflowsEntity)
-                    listDetalleflujo = (DirectCast(Session("DetailedcashflowsList"), List(Of DetailedcashflowsEntity)))
-
-                    'VERIDFICAMOS Q EXISTAN LOS CAMPOS SOLICITADOS
-                    N_pagodetexist = InStr(arraydetallesflujos(contadordetflu), "idpago")
-                    idaportanteexist = InStr(arraydetallesflujos(contadordetflu + 1), "idaportante")
-                    Aportanteexist = InStr(arraydetallesflujos(contadordetflu + 2), "Aportante")
-                    desembolsoexist = InStr(arraydetallesflujos(contadordetflu + 3), "desembolso")
-
-                    'separamos el valor de campo
-                    N_pagodetexist = Replace(arraydetallesflujos(contadordetflu), " idpago : ", " ", 1)
-                    idaportanteexist = Replace(arraydetallesflujos(contadordetflu + 1), " idaportante : ", " ", 1)
-                    Aportanteexist = Replace(arraydetallesflujos(contadordetflu + 2), " Aportante : ", " ", 1)
-                    desembolsoexist = Replace(arraydetallesflujos(contadordetflu + 3), " desembolso : ", " ", 1)
-
-                    'asignamos al objeto
-                    objDetalleflujo.N_pago = Convert.ToInt32(N_pagodetexist)
-                    objDetalleflujo.IdAportante = Convert.ToInt32(idaportanteexist)
-                    objDetalleflujo.Aportante = Aportanteexist
-                    objDetalleflujo.Desembolso = desembolsoexist
-                    objDetalleflujo.IdProject = 0
-                    objDetalleflujo.mother = Nothing
-
-                    'cargamos al list
-                    listDetalleflujo.Add(objDetalleflujo)
-
-                    contadordetflu = contadordetflu + 4
-                    index_fludet = index_fludet + 4
-
-                    If contadordetflu <> index_fludet Then
-                        index_fludet = contadordetflu
-                    End If
-
-                Next
-
-            End If
-
+            Next
 
             'Se almacena en el objeto idea la lista de Componentes del Programa obtenida
             objIdea.ProgramComponentBYIDEALIST = myProgramComponentByIdeaList
@@ -1894,10 +1502,6 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
             objIdea.justification = clean_vbCrLf(justify)
             objIdea.Enddate = Convert.ToDateTime(fecha_f)
 
-            ' TODO: 4  addidea campos nuevos
-            ' Autor: German Rodriguez MGgroup
-            ' decripciòn: se crean nuevos campos solicitador por el cliente FSC fase II
-
             objIdea.ResultsKnowledgeManagement = clean_vbCrLf(resul_ges_c)
             objIdea.ResultsInstalledCapacity = clean_vbCrLf(resul_cap_i)
             objIdea.OthersResults = clean_vbCrLf(otros_resul)
@@ -1911,24 +1515,14 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
             objIdea.iva = iva
             objIdea.Typeapproval = 3
 
-            ''objIdea.Loadingobservations = clean_vbCrLf(Me.txtobser.Text)
-
-            ' TODO: 4  addidea campos nuevos
-            ' Autor: German Rodriguez MGgroup
-            ' cierre de cambio
-
             'Se garega la lista de ubicaciones agregada
-            objIdea.LOCATIONBYIDEALIST = DirectCast(Session("locationByIdeaList"), List(Of LocationByIdeaEntity))
-
+            objIdea.LOCATIONBYIDEALIST = LocationByIdeaList
             'Se agrega la lista de terceros agregada
-            objIdea.THIRDBYIDEALIST = DirectCast(Session("thirdByIdeaList"), List(Of ThirdByIdeaEntity))
-
+            objIdea.THIRDBYIDEALIST = thirdByIdeaList
             'Se agrega la lista de FLUJOS DE PAGOS
             objIdea.paymentflowByProjectList = PaymentFlowList
-
             'Se agrega la lista de  detalles de FLUJOS DE PAGOS
-            objIdea.DetailedcashflowsbyIdeaList = DirectCast(Session("DetailedcashflowsList"), List(Of DetailedcashflowsEntity))
-
+            objIdea.DetailedcashflowsbyIdeaList = DetailedcashflowsList
             'Se almacena en el objeto idea la lista de Componentes del Programa obtenida
             objIdea.ProgramComponentBYIDEALIST = myProgramComponentByIdeaList
 
@@ -1936,8 +1530,6 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
 
             save_document_IDEA(list_files, objIdea.id)
-
-
 
             Dim Result As String
 
@@ -1961,7 +1553,6 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
         End Try
 
-
     End Function
 
     Protected Function edit_IDEA(ByVal code As String, ByVal line_strategic As String, ByVal program As String, ByVal name As String, ByVal justify As String, ByVal objetive As String, ByVal obj_esp As String, ByVal resul_bef As String, ByVal resul_ges_c As String, ByVal resul_cap_i As String, ByVal otros_resul As String, ByVal fecha_i As String, ByVal mes As String, ByVal dia As String, ByVal fecha_f As String, ByVal poblacion As String, ByVal contratacion As String, ByVal riesgos As String, ByVal mitigacion As String, ByVal presupuestal As String, ByVal cost As String, ByVal obligaciones As String, ByVal iva As String, ByVal list_ubicacion As String, ByVal list_actor As String, ByVal list_componentes As String, ByVal list_flujos As String, ByVal list_detalles_flujos As String, ByVal list_files As String, ByVal type_aproval As String)
@@ -1970,55 +1561,22 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         Dim objIdea As New IdeaEntity
         Dim myProgramComponentByIdeaList As List(Of ProgramComponentByIdeaEntity) = New List(Of ProgramComponentByIdeaEntity)
 
-        Dim locationByIdeaList As List(Of LocationByIdeaEntity)
-
-
-
         Dim arrayubicacion, arrayactor, arraycomponente, arrayflujos, arraydetallesflujos As String()
-        Dim deptovalexist, Cityvalexist As Integer
-        Dim desembolsoexist, Aportanteexist, idaportanteexist, N_pagodetexist, estados_flujosexist, N_pagoexist, fecha_pagoexist, porcentajeexist, entregaexist, tflujosexist, existidprogram, existactorsVal, existactorsName, existtipoactors, existcontact, existcedula, existtelefono, existemail, existdiner, existespecie, existtotal As String
-
+        
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
 
         Try
-
-            locationByIdeaList = DirectCast(Session("locationByIdeaList"), List(Of LocationByIdeaEntity))
-
-
-
-            list_ubicacion = Replace(list_ubicacion, "{", " ", 1)
-            list_ubicacion = Replace(list_ubicacion, "}", " ", 1)
-            list_ubicacion = Replace(list_ubicacion, """", " ", 1)
-            'convertimos el string en un array de datos
-            arrayubicacion = list_ubicacion.Split(New [Char]() {","c})
-
-            list_actor = Replace(list_actor, "{", " ", 1)
-            list_actor = Replace(list_actor, "}", " ", 1)
-            list_actor = Replace(list_actor, """", " ", 1)
-            'convertimos el string en un array de datos
-            arrayactor = list_actor.Split(New [Char]() {","c})
-
+            Dim NewListubicaciones = JsonConvert.DeserializeObject(Of List(Of ClocationView))(list_ubicacion)
+            Dim NewListActors = JsonConvert.DeserializeObject(Of List(Of CActorsView))(list_actor)
             Dim NewListFlujos = JsonConvert.DeserializeObject(Of List(Of CPaymentFlowView))(list_flujos)
-
-            list_detalles_flujos = Replace(list_detalles_flujos, "{", " ", 1)
-            list_detalles_flujos = Replace(list_detalles_flujos, "}", " ", 1)
-            list_detalles_flujos = Replace(list_detalles_flujos, """", " ", 1)
-            'convertimos el string en un array de datos
-            arraydetallesflujos = list_detalles_flujos.Split(New [Char]() {","c})
-
+            Dim NewListDetailsFlujos = JsonConvert.DeserializeObject(Of List(Of CDetailsPaymentFlowView))(list_detalles_flujos)
 
             list_componentes = Replace(list_componentes, "/", "*", 1)
             list_componentes = Replace(list_componentes, "_ *", "*", 1)
             ''convertimos el string en un array de datos
             arraycomponente = list_componentes.Split(New [Char]() {"*"c})
 
-            Dim contador As Integer = 0
-            Dim contadoractor As Integer = 0
             Dim contadorcomp As Integer = 0
-            Dim contadorflu As Integer = 0
-            Dim contadordetflu As Integer = 0
-
-
 
             'recorremos los componentes seleccionados
             For Each row In arraycomponente
@@ -2035,121 +1593,52 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
                 contadorcomp = contadorcomp + 1
             Next
-
-
             '----------------------------------------------------ubicaciones------------------------------------------------------------------------
-            'ISTANCIAMOS LA VARIABLE DEL TAMAÑO DEL ARRAY
-            Dim t_Aubicacion As Integer
+            Dim LocationByIdeaList As List(Of LocationByIdeaEntity) = New List(Of LocationByIdeaEntity)()
 
-            'ASIGNAMOS EL TAMAÑO 
-            t_Aubicacion = arrayubicacion.Length
-
-            'RECORREMOS LA CANTIDAD DE VECES ASIGNADAS
-            For index_ubi As Integer = 0 To t_Aubicacion
+            For Each item_location As ClocationView In NewListubicaciones
 
                 Dim objlocationidea As New LocationByIdeaEntity
                 Dim objDeptoEntity As DeptoEntity = New DeptoEntity()
                 Dim objCityEntity As CityEntity = New CityEntity()
 
-                'VERIDFICAMOS Q EXISTAN LOS CAMPOS SOLICITADOS
-                deptovalexist = InStr(arrayubicacion(contador), "DeptoVal")
-                Cityvalexist = InStr(arrayubicacion(contador + 2), "CityVal")
-
-                'separamos el valor de campo
-                deptovalexist = Replace(arrayubicacion(contador), " DeptoVal : ", " ", 1)
-                Cityvalexist = Replace(arrayubicacion(contador + 2), "CityVal : ", " ", 1)
-
                 'asignamos al objeto
-                objDeptoEntity.id = deptovalexist
+                objDeptoEntity.id = item_location.DeptoVal
                 objlocationidea.DEPTO = objDeptoEntity
-                objCityEntity.id = Cityvalexist
+                objCityEntity.id = item_location.CityVal
                 objlocationidea.CITY = objCityEntity
 
                 'cargamos al list
-                locationByIdeaList.Add(objlocationidea)
-
-                index_ubi = index_ubi + 4
-                contador = contador + 4
-
-                If contador <> index_ubi Then
-                    index_ubi = contador
-                End If
+                LocationByIdeaList.Add(objlocationidea)
 
             Next
-
-
             '----------------------------------------------------actores------------------------------------------------------------------------
-            'ISTANCIAMOS LA VARIABLE DEL TAMAÑO DEL ARRAY
-            Dim t_Aactor As Integer
+            Dim thirdByIdeaList As List(Of ThirdByIdeaEntity) = New List(Of ThirdByIdeaEntity)()
 
-            'ASIGNAMOS EL TAMAÑO 
-            t_Aactor = arrayactor.Length
+            For Each item_third As CActorsView In NewListActors
 
-            'RECORREMOS LA CANTIDAD DE VECES ASIGNADAS
-            For index_act As Integer = 0 To t_Aactor
-
-                Dim thirdByIdeaList As List(Of ThirdByIdeaEntity)
                 Dim thirdByIdea As ThirdByIdeaEntity = New ThirdByIdeaEntity()
-                thirdByIdeaList = DirectCast(Session("thirdByIdeaList"), List(Of ThirdByIdeaEntity))
 
-                'VERIDFICAMOS Q EXISTAN LOS CAMPOS SOLICITADOS
-                existactorsVal = InStr(arrayactor(contadoractor), "actorsVal") 'y
-                existactorsName = InStr(arrayactor(contadoractor + 1), "actorsName") 'y
-                existtipoactors = InStr(arrayactor(contadoractor + 2), "tipoactors")
-                existcontact = InStr(arrayactor(contadoractor + 3), "contact") 'y
-                existcedula = InStr(arrayactor(contadoractor + 4), "cedula") 'y
-                existtelefono = InStr(arrayactor(contadoractor + 5), "telefono") 'y
-                existemail = InStr(arrayactor(contadoractor + 6), "email") 'y
-                existdiner = InStr(arrayactor(contadoractor + 7), "diner")
-                existespecie = InStr(arrayactor(contadoractor + 8), "especie")
-                existtotal = InStr(arrayactor(contadoractor + 9), "total")
-                estados_flujosexist = InStr(arrayactor(contadoractor + 10), "estado_flujo")
-
-                'separamos el valor de campo
-                existactorsVal = Replace(arrayactor(contadoractor), " actorsVal : ", " ", 1)
-                existactorsName = Replace(arrayactor(contadoractor + 1), "actorsName : ", " ", 1)
-                existtipoactors = Replace(arrayactor(contadoractor + 2), "tipoactors : ", " ", 1)
-                existcontact = Replace(arrayactor(contadoractor + 3), "contact : ", " ", 1)
-                existcedula = Replace(arrayactor(contadoractor + 4), "cedula : ", " ", 1)
-                existtelefono = Replace(arrayactor(contadoractor + 5), "telefono : ", " ", 1)
-                existemail = Replace(arrayactor(contadoractor + 6), "email : ", " ", 1)
-                existdiner = Replace(arrayactor(contadoractor + 7), "diner : ", " ", 1)
-                existespecie = Replace(arrayactor(contadoractor + 8), "especie : ", " ", 1)
-                existtotal = Replace(arrayactor(contadoractor + 9), "total : ", " ", 1)
-                estados_flujosexist = Replace(arrayactor(contadoractor + 10), "estado_flujo : ", " ", 1)
-                estados_flujosexist = estados_flujosexist.Replace(" ", "")
-
-                'asignamos al objeto
-                thirdByIdea.idthird = existactorsVal
-                thirdByIdea.THIRD.name = existactorsName
-                thirdByIdea.Name = existactorsName
-                thirdByIdea.type = existtipoactors
-                thirdByIdea.THIRD.contact = existcontact
-                thirdByIdea.contact = existcontact
-                thirdByIdea.THIRD.documents = existcedula
-                thirdByIdea.Documents = existcedula
-                thirdByIdea.THIRD.phone = existtelefono
-                thirdByIdea.Phone = existtelefono
-                thirdByIdea.THIRD.email = existemail
-                thirdByIdea.Email = existemail
-                thirdByIdea.Vrmoney = existdiner
-                thirdByIdea.VrSpecies = existespecie
-                thirdByIdea.FSCorCounterpartContribution = existtotal
-                thirdByIdea.EstadoFlujos = estados_flujosexist
+                thirdByIdea.idthird = item_third.actorsVal
+                thirdByIdea.THIRD.name = item_third.actorsName
+                thirdByIdea.Name = item_third.actorsName
+                thirdByIdea.type = item_third.tipoactors
+                thirdByIdea.contact = item_third.contact
+                thirdByIdea.Documents = item_third.cedula
+                thirdByIdea.Phone = item_third.telefono
+                thirdByIdea.Email = item_third.email
+                thirdByIdea.Vrmoney = item_third.diner
+                thirdByIdea.VrSpecies = item_third.especie
+                thirdByIdea.FSCorCounterpartContribution = item_third.total
+                thirdByIdea.EstadoFlujos = item_third.estado_flujo
                 thirdByIdea.CreateDate = Now
+
+                Update_Third_Date(thirdByIdea.idthird, thirdByIdea.contact, thirdByIdea.Documents, thirdByIdea.Phone, thirdByIdea.Email)
 
                 'cargamos al list
                 thirdByIdeaList.Add(thirdByIdea)
 
-                contadoractor = contadoractor + 11
-                index_act = index_act + 11
-
-                If contadoractor <> index_act Then
-                    index_act = contadoractor
-                End If
-
             Next
-
             '----------------------------------------------------flujos------------------------------------------------------------------------
             Dim PaymentFlowList As List(Of PaymentFlowEntity) = New List(Of PaymentFlowEntity)()
 
@@ -2169,73 +1658,33 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                 'cargamos al list
                 PaymentFlowList.Add(objpaymentFlow)
 
+            Next
+            '----------------------------------------------------detallesflujos------------------------------------------------------------------------
+            Dim DetailedcashflowsList As List(Of DetailedcashflowsEntity) = New List(Of DetailedcashflowsEntity)()
+
+            For Each item_Detailedcashflow As CDetailsPaymentFlowView In NewListDetailsFlujos
+
+                Dim objDetalleflujo As DetailedcashflowsEntity = New DetailedcashflowsEntity()
+
+                'asignamos al objeto
+                objDetalleflujo.N_pago = Convert.ToInt32(item_Detailedcashflow.idpago)
+                objDetalleflujo.IdAportante = Convert.ToInt32(item_Detailedcashflow.idaportante)
+                objDetalleflujo.Aportante = item_Detailedcashflow.Aportante
+                objDetalleflujo.Desembolso = item_Detailedcashflow.desembolso
+                objDetalleflujo.IdProject = 0
+                objDetalleflujo.mother = Nothing
+
+                'cargamos al list
+                DetailedcashflowsList.Add(objDetalleflujo)
 
             Next
-
-            '----------------------------------------------------detallesflujos------------------------------------------------------------------------
-            'ISTANCIAMOS LA VARIABLE DEL TAMAÑO DEL ARRAY
-            Dim t_Aflujodetalle As Integer
-
-            'ASIGNAMOS EL TAMAÑO 
-            t_Aflujodetalle = arraydetallesflujos.Length
-
-            If arraydetallesflujos(0) = "vacio_ojo" Then
-
-            Else
-
-                'RECORREMOS LA CANTIDAD DE VECES ASIGNADAS
-                For index_fludet As Integer = 0 To t_Aflujodetalle
-
-                    Dim objDetalleflujo As DetailedcashflowsEntity = New DetailedcashflowsEntity()
-                    Dim listDetalleflujo As List(Of DetailedcashflowsEntity)
-                    listDetalleflujo = (DirectCast(Session("DetailedcashflowsList"), List(Of DetailedcashflowsEntity)))
-
-                    'VERIDFICAMOS Q EXISTAN LOS CAMPOS SOLICITADOS
-                    N_pagodetexist = InStr(arraydetallesflujos(contadordetflu), "idpago")
-                    idaportanteexist = InStr(arraydetallesflujos(contadordetflu + 1), "idaportante")
-                    Aportanteexist = InStr(arraydetallesflujos(contadordetflu + 2), "Aportante")
-                    desembolsoexist = InStr(arraydetallesflujos(contadordetflu + 3), "desembolso")
-
-                    'separamos el valor de campo
-                    N_pagodetexist = Replace(arraydetallesflujos(contadordetflu), " idpago : ", " ", 1)
-                    idaportanteexist = Replace(arraydetallesflujos(contadordetflu + 1), " idaportante : ", " ", 1)
-                    Aportanteexist = Replace(arraydetallesflujos(contadordetflu + 2), " Aportante : ", " ", 1)
-                    desembolsoexist = Replace(arraydetallesflujos(contadordetflu + 3), " desembolso : ", " ", 1)
-                    desembolsoexist = desembolsoexist.Replace(".", "")
-
-                    'asignamos al objeto
-
-                    objDetalleflujo.N_pago = Convert.ToInt32(N_pagodetexist)
-                    objDetalleflujo.IdAportante = Convert.ToInt32(idaportanteexist)
-                    objDetalleflujo.Aportante = Aportanteexist
-                    objDetalleflujo.Desembolso = desembolsoexist
-                    objDetalleflujo.IdProject = 0
-                    objDetalleflujo.mother = Nothing
-
-                    'cargamos al list
-                    listDetalleflujo.Add(objDetalleflujo)
-
-                    contadordetflu = contadordetflu + 4
-                    index_fludet = index_fludet + 4
-
-                    If contadordetflu <> index_fludet Then
-                        index_fludet = contadordetflu
-                    End If
-
-                Next
-
-            End If
-
 
             'Se almacena en el objeto idea la lista de Componentes del Programa obtenida
             objIdea.ProgramComponentBYIDEALIST = myProgramComponentByIdeaList
 
-
-
             objIdea.id = code
 
             objIdea.name = clean_vbCrLf(name)
-
             objIdea.objective = clean_vbCrLf(objetive)
             objIdea.startdate = fecha_i
             objIdea.duration = mes
@@ -2248,10 +1697,6 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
             objIdea.justification = clean_vbCrLf(justify)
             objIdea.Enddate = Convert.ToDateTime(fecha_f)
-
-            ' TODO: 4  addidea campos nuevos
-            ' Autor: German Rodriguez MGgroup
-            ' decripciòn: se crean nuevos campos solicitador por el cliente FSC fase II
 
             objIdea.ResultsKnowledgeManagement = clean_vbCrLf(resul_ges_c)
             objIdea.ResultsInstalledCapacity = clean_vbCrLf(resul_cap_i)
@@ -2266,25 +1711,14 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
             objIdea.iva = iva
             objIdea.Typeapproval = type_aproval
 
-
-            ''objIdea.Loadingobservations = clean_vbCrLf(Me.txtobser.Text)
-
-            ' TODO: 4  addidea campos nuevos
-            ' Autor: German Rodriguez MGgroup
-            ' cierre de cambio
-
             'Se garega la lista de ubicaciones agregada
-            objIdea.LOCATIONBYIDEALIST = DirectCast(Session("locationByIdeaList"), List(Of LocationByIdeaEntity))
-
+            objIdea.LOCATIONBYIDEALIST = LocationByIdeaList
             'Se agrega la lista de terceros agregada
-            objIdea.THIRDBYIDEALIST = DirectCast(Session("thirdByIdeaList"), List(Of ThirdByIdeaEntity))
-
+            objIdea.THIRDBYIDEALIST = thirdByIdeaList
             'Se agrega la lista de FLUJOS DE PAGOS
             objIdea.paymentflowByProjectList = PaymentFlowList
-
             'Se agrega la lista de  detalles de FLUJOS DE PAGOS
-            objIdea.DetailedcashflowsbyIdeaList = DirectCast(Session("DetailedcashflowsList"), List(Of DetailedcashflowsEntity))
-
+            objIdea.DetailedcashflowsbyIdeaList = DetailedcashflowsList
             'Se almacena en el objeto idea la lista de Componentes del Programa obtenida
             objIdea.ProgramComponentBYIDEALIST = myProgramComponentByIdeaList
 
@@ -2307,7 +1741,6 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                 Response.Write(Result)
 
             End If
-
 
         Catch ex As Exception
 
@@ -2352,8 +1785,6 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         GattacaApplication.RunSQL(applicationCredentials, sql.ToString)
 
     End Function
-
-
 
 End Class
 
@@ -2410,4 +1841,225 @@ Class CPaymentFlowView
         End Set
     End Property
 #End Region
+End Class
+
+Class CFilesView
+#Region "Properties public and private"
+
+    Private _idfile As String
+    Public Property idfile() As String
+        Get
+            Return _idfile
+        End Get
+        Set(ByVal value As String)
+            _idfile = value
+        End Set
+    End Property
+    Private _filename As String
+    Public Property filename() As String
+        Get
+            Return _filename
+        End Get
+        Set(ByVal value As String)
+            _filename = value
+        End Set
+    End Property
+    Private _Description As String
+    Public Property Description() As String
+        Get
+            Return _Description
+        End Get
+        Set(ByVal value As String)
+            _Description = value
+        End Set
+    End Property
+
+#End Region
+End Class
+
+Class CDetailsPaymentFlowView
+#Region "Properties public and private"
+    Private _idpago As String
+    Public Property idpago() As String
+        Get
+            Return _idpago
+        End Get
+        Set(ByVal value As String)
+            _idpago = value
+        End Set
+    End Property
+    Private _idaportante As String
+    Public Property idaportante() As String
+        Get
+            Return _idaportante
+        End Get
+        Set(ByVal value As String)
+            _idaportante = value
+        End Set
+    End Property
+    Private _Aportante As String
+    Public Property Aportante() As String
+        Get
+            Return _Aportante
+        End Get
+        Set(ByVal value As String)
+            _Aportante = value
+        End Set
+    End Property
+    Private _desembolso As String
+    Public Property desembolso() As String
+        Get
+            Return _desembolso
+        End Get
+        Set(ByVal value As String)
+            _desembolso = value
+        End Set
+    End Property
+#End Region
+End Class
+ 
+Class ClocationView
+#Region "Properties public and private"
+    Private _DeptoVal As String
+    Public Property DeptoVal() As String
+        Get
+            Return _DeptoVal
+        End Get
+        Set(ByVal value As String)
+            _DeptoVal = value
+        End Set
+    End Property
+    Private _CityVal As String
+    Public Property CityVal() As String
+        Get
+            Return _CityVal
+        End Get
+        Set(ByVal value As String)
+            _CityVal = value
+        End Set
+    End Property
+    Private _DeptoName As String
+    Public Property DeptoName() As String
+        Get
+            Return _DeptoName
+        End Get
+        Set(ByVal value As String)
+            _DeptoName = value
+        End Set
+    End Property
+    Private _CityName As String
+    Public Property CityName() As String
+        Get
+            Return _CityName
+        End Get
+        Set(ByVal value As String)
+            _CityName = value
+        End Set
+    End Property
+#End Region
+End Class
+
+Class CActorsView
+#Region "Properties public and private"
+    Private _actorsVal As String
+    Public Property actorsVal() As String
+        Get
+            Return _actorsVal
+        End Get
+        Set(ByVal value As String)
+            _actorsVal = value
+        End Set
+    End Property
+    Private _actorsName As String
+    Public Property actorsName() As String
+        Get
+            Return _actorsName
+        End Get
+        Set(ByVal value As String)
+            _actorsName = value
+        End Set
+    End Property
+    Private _tipoactors As String
+    Public Property tipoactors() As String
+        Get
+            Return _tipoactors
+        End Get
+        Set(ByVal value As String)
+            _tipoactors = value
+        End Set
+    End Property
+    Private _contact As String
+    Public Property contact() As String
+        Get
+            Return _contact
+        End Get
+        Set(ByVal value As String)
+            _contact = value
+        End Set
+    End Property
+    Private _cedula As String
+    Public Property cedula() As String
+        Get
+            Return _cedula
+        End Get
+        Set(ByVal value As String)
+            _cedula = value
+        End Set
+    End Property
+    Private _telefono As String
+    Public Property telefono() As String
+        Get
+            Return _telefono
+        End Get
+        Set(ByVal value As String)
+            _telefono = value
+        End Set
+    End Property
+    Private _email As String
+    Public Property email() As String
+        Get
+            Return _email
+        End Get
+        Set(ByVal value As String)
+            _email = value
+        End Set
+    End Property
+    Private _diner As String
+    Public Property diner() As String
+        Get
+            Return _diner
+        End Get
+        Set(ByVal value As String)
+            _diner = value
+        End Set
+    End Property
+    Private _especie As String
+    Public Property especie() As String
+        Get
+            Return _especie
+        End Get
+        Set(ByVal value As String)
+            _especie = value
+        End Set
+    End Property
+    Private _total As String
+    Public Property total() As String
+        Get
+            Return _total
+        End Get
+        Set(ByVal value As String)
+            _total = value
+        End Set
+    End Property
+    Private _estado_flujo As String
+    Public Property estado_flujo() As String
+        Get
+            Return _estado_flujo
+        End Get
+        Set(ByVal value As String)
+            _estado_flujo = value
+        End Set
+    End Property
+#End Region
+
 End Class

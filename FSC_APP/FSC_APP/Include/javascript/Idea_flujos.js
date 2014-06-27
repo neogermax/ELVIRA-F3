@@ -7,8 +7,8 @@ $(document).ready(function() {
         if ($("#porcentaje").html() != null) {
             var porcentajeGlobal = removeCommasAndConvertFloat($.trim($("#porcentaje").html().replace('%', '')), true);
             var porcentajeLocal = removeCommasAndConvertFloat($(this).val(), true);
-            
-             if ((porcentajeGlobal + porcentajeLocal) > 100) {
+
+            if ((porcentajeGlobal + porcentajeLocal) > 100) {
                 alert("El porcentaje ingresado es invalido, verifique el porcentaje disponible para flujos de pago.");
                 $(this).val("0");
                 recalcValues();
@@ -74,7 +74,7 @@ function Btn_add_flujo_onclick() {
             }
             if (validerepetido == 1) {
                 isUpdate = confirm("El pago No " + N_pago + " ya fue registrado, desea actualizarlo?");
-                
+
                 console.log(isUpdate);
                 if (isUpdate) {
                     updateFlow(N_pago, tflujos, $("#totalflujos").text());
@@ -96,7 +96,7 @@ function Btn_add_flujo_onclick() {
                         var idflujo = "#txtinput" + $(arrayinputflujos[0]).html();
 
                         desembolso = $(idflujo).val();
-                        
+
                         if (isUpdate) {
                             updateDetailsFlow(idpago, desembolso, idaportante);
                         }
@@ -147,7 +147,7 @@ function Btn_add_flujo_onclick() {
                         var idflujo = "#txtinput" + $(arrayinputflujos[0]).html();
 
                         desembolso = $(idflujo).val();
-                        
+
                         if (isUpdate) {
                             updateDetailsFlow(idpago, desembolso, idaportante);
 
@@ -350,21 +350,12 @@ function View_detalle_flujo_array() {
         },
         success: function(result) {
 
-            if (result == "vacio") {
-
-                // alert(result + " detalles");
+            if (result == "")
                 matriz_flujos = [];
+            else
+                matriz_flujos = JSON.parse(result);
 
-            } else {
 
-                matriz_flujos_ed = result.split("|");
-
-                for (itemArray in matriz_flujos_ed) {
-
-                    var recibeact = JSON.parse(matriz_flujos_ed[itemArray]);
-                    matriz_flujos.push(recibeact);
-                }
-            }
         },
         error: function(msg) {
             alert("No se pueden cargar los flujos de pago de la idea = " + ideditar);
@@ -467,7 +458,6 @@ function sumar_flujos_actores() {
 
 }
 
-
 //funtion crear array de flujos de pagos
 function View_flujos_actors_array() {
     $.ajax({
@@ -479,21 +469,11 @@ function View_flujos_actors_array() {
         },
         success: function(result) {
 
-            if (result == "vacio") {
-                //    alert(result);
+            if (result == "") {
                 arrayActorFlujo = [];
-
-            } else {
-                arrayactorflujo_ed = result.split("|");
-
-                // alert(arrayactorflujo_ed);
-                for (itemArray in arrayactorflujo_ed) {
-                    if (arrayactorflujo_ed[itemArray] != "") {
-                        var recibeact = JSON.parse(arrayactorflujo_ed[itemArray]);
-                        arrayActorFlujo.push(recibeact);
-                    }
-                    // alert(recibeact);
-                }
+            }
+            else {
+                arrayActorFlujo = JSON.parse(result);
             }
 
             //llama la funcion crear la tabla de flujo_actor
@@ -583,8 +563,8 @@ function editflujo(index) {
     //capturamos los datos otraves para la edicion
     $("#ctl00_cphPrincipal_txtvalortotalflow").val(arrayflujosdepago[index].N_pago);
     $("#ctl00_cphPrincipal_txtfechapago").val(arrayflujosdepago[index].fecha_pago);
-//    porcentaje = porcentaje.replace(' %', '');
-//    porcentaje = porcentaje.replace(' ', '');
+    //    porcentaje = porcentaje.replace(' %', '');
+    //    porcentaje = porcentaje.replace(' ', '');
     $("#ctl00_cphPrincipal_txtporcentaje").val(arrayflujosdepago[index].porcentaje);
     // tflujos = tflujos.replace(/\./gi, ',');
     $("#ctl00_cphPrincipal_Lbltotalvalor").text(addCommasrefactor(arrayflujosdepago[index].tflujos));
@@ -621,8 +601,8 @@ function eliminarflujo(strN_pago) {
             //borramos el actor deseado
             if (switch_editar == 0) {
                 //delete arrayflujosdepago[itemArray];
-                 arrayflujosdepago.splice(itemArray, 1);
-               
+                arrayflujosdepago.splice(itemArray, 1);
+
             }
         }
     }
@@ -640,7 +620,6 @@ function eliminarflujo(strN_pago) {
             var desembolsorev;
 
             actorsreverse = matriz_flujos[itemArraymatriz].idaportante;
-
             desembolsorev = matriz_flujos[itemArraymatriz].desembolso;
 
             var jsonreverdesembolsos = {
@@ -651,7 +630,8 @@ function eliminarflujo(strN_pago) {
             //cargamos el array con el json
             reversedesembolsos.push(jsonreverdesembolsos);
             if (switch_editar == 0) {
-                delete matriz_flujos[itemArraymatriz];
+                matriz_flujos.splice(itemArraymatriz, 1);
+                //delete matriz_flujos[itemArraymatriz];
             }
         }
     }
@@ -862,7 +842,7 @@ function removeCommasAndConvertFloat(valueToConvert, isDecimal) {
             valueToConvert = valueToConvert;
         else
             valueToConvert = valueToConvert.replace(/\./gi, '');
-            
+
         valueToConvert = parseFloat(valueToConvert);
         return valueToConvert;
     }
