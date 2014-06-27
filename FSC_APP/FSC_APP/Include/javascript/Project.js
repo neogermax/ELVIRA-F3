@@ -85,7 +85,7 @@ $(document).ready(function() {
 
     comboactor();
 
-    // valide_date_depto();
+    valide_date_depto();
 
     operacionesIdea();
     actors_transanccion();
@@ -95,8 +95,7 @@ $(document).ready(function() {
     validafecha2();
 
     borrar_carpeta();
-
-
+    
 
     //capturamos la url
     var sPageURL = window.location.search.substring(1);
@@ -193,8 +192,6 @@ $(document).ready(function() {
 
     $('#ctl00_cphPrincipal_gif_charge_Container').css("display", "none");
 
-    $("#tabsIdea").tabs();
-
     $("#matriz").dataTable({
         "bJQueryUI": true,
         "bDestroy": true
@@ -267,7 +264,6 @@ $(document).ready(function() {
     });
 
     $("#tabsproyecto").tabs();
-
     $(function() {
         $("#datepicker").datepicker();
     });

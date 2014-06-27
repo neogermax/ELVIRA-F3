@@ -269,8 +269,7 @@ function ClineEstrategic_edit() {
             Cprogram();
             loadChildrenLineStrategic($("#ddlStrategicLines")[0]);
             view_Cprogram();
-            //  $("#ddlStrategicLines").trigger("change");
-            
+              
         },
         error: function(msg) {
             alert("No se pueden cargar la linea estrategica deseada.");
@@ -334,7 +333,6 @@ function view_Cprogram() {
 //cargar double lisbox componentes de programa de la idea seleccionada
 function edit_component() {
 
-    console.log("otro asdadasd");
     $.ajax({
         url: "AjaxAddIdea.aspx",
         type: "GET",
