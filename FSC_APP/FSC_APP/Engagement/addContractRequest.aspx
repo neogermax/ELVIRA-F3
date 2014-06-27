@@ -244,6 +244,17 @@
                     </td>
                 </tr>
                 <tr>
+                    <td style="width: 187px">
+                        <br />
+                        <asp:Label ID="lblObs" runat="server" Text="Observaciones"></asp:Label>
+                    </td>
+                    <td>
+                        <br />
+                        <asp:TextBox ID="txtObs" runat="server" MaxLength="255" onkeypress="return textboxAreaMaxNumber(this,255)"
+                            Rows="2" TextMode="MultiLine" Height="130px" Width="400px"></asp:TextBox>
+                    </td>
+                </tr>
+                <tr>
                     <td>
                         <br />
                         <br />
@@ -271,17 +282,6 @@
                     </td>
                     <td>
                         <asp:Label ID="lblNfoSigned" runat="server"></asp:Label>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="width: 187px">
-                        <br />
-                        <asp:Label ID="lblObs" runat="server" Text="Observaciones"></asp:Label>
-                    </td>
-                    <td>
-                        <br />
-                        <asp:TextBox ID="txtObs" runat="server" MaxLength="255" onkeypress="return textboxAreaMaxNumber(this,255)"
-                            Rows="2" TextMode="MultiLine" Width="400px"></asp:TextBox>
                     </td>
                 </tr>
                 <tr>

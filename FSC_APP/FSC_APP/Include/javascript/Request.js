@@ -16,6 +16,7 @@ $(document).ready(function() {
     HideAreas();
     Fechas();
     partialSave();
+    
 
     $(".txtarAlcance").change(function() {
         var idControl = $(this).attr("id");
@@ -354,6 +355,26 @@ function mostrar(control) {
     }
 
 }
+
+//Exportar términos
+function Export_onclick() {
+    alert("Export" + idproject);
+    $.ajax({
+        url: "AjaxRequest.aspx",
+        type: "POST",
+        data: {
+            "action": "ExportTerms",
+            "idProject": idproject
+        },
+        success: function(result) {
+            window.location.href = 'http://' + host + result;
+        },
+        error: function(msg) {
+            //
+        }
+    });
+    
+};
 
 function ocultar(control) {
     $(control).css("display", "none");
