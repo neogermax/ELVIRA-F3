@@ -152,6 +152,7 @@ Partial Class addContractRequest
                     Dim objPoliza As New PolizaEntity
                     Dim objPolizaDetails As List(Of PolizaDetailsEntity) = New List(Of PolizaDetailsEntity)()
                     Dim objProject As New ProjectEntity
+                    Dim objSupervisor As New SupervisorByContractRequestEntity
 
 
                     Try
@@ -251,7 +252,8 @@ Partial Class addContractRequest
                         Me.txtEndingDate.Text = objProject.Enddate.ToString("yyyy/MM/dd")
                         Me.txtContractDays.Text = objContractRequest.ContractDays
 
-                        'Se carga la lista de contratistas personas jurídicas
+                        'Se carga la lista de supervisores
+
 
                         ''Se carga la lista de contratistas personas naturales
                         'Session("contractorNaturalPersonByContractRequestList") = objContractRequest.CONTRACTORNATURALPERSONBYCONTRACTREQUESTLIST
@@ -563,6 +565,7 @@ Partial Class addContractRequest
                         objSupervisor.ContractRequest_Id = objContractRequest.requestnumber
 
                         'Se agrega el supervisor a la tabla
+                        facade.addSupervisorByContractRequest(objSupervisor, applicationCredentials)
                     End If
                 Next
 
@@ -621,7 +624,7 @@ Partial Class addContractRequest
     End Sub
 
     Protected Sub redirectToEdit(ByVal data As String)
-        Response.Redirect("/Engagement/addContractRequest.aspx?successSave=1&op=edit&id=" & data)
+        Response.Write("host + /Engagement/addContractRequest.aspx?successSave=1&op=edit&id=" & data)
     End Sub
 
     Protected Sub btnCancel_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnCancel.Click
