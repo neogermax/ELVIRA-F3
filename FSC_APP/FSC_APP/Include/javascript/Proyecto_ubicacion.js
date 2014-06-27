@@ -153,9 +153,7 @@ function deleteUbicacion(str) {
         if (str == id) {
             //borramos la ubicacion deseada
             arrayUbicacion.splice(itemArray, 1);
-            //delete arrayUbicacion[itemArray];
-            //arrayUbicacion.splice(arrayUbicacion[itemArray].CityName, 1);
-        }
+          }
     }
 }
 

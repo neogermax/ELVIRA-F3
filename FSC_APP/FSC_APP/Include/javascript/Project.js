@@ -259,6 +259,8 @@ $(document).ready(function() {
     });
 
     $("#tabsproyecto").tabs();
+    $("#tabsproyecto").tabs({ active: 1 });
+    
     $(function() {
         $("#datepicker").datepicker();
     });
