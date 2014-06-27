@@ -101,7 +101,7 @@ $(document).ready(function() {
         $("#ddlStrategicLines").ready(function() {
             ClineEstrategic_edit();
         });
-        
+
         View_componentes_array();
         view_ubicacion_array();
         View_actores_array();
@@ -111,7 +111,7 @@ $(document).ready(function() {
         View_anexos_array();
 
         edit_component_view();
-        
+
         load_idarchive();
 
         aprobacion_idea();
@@ -131,7 +131,7 @@ $(document).ready(function() {
     else {
 
         load_edit = 1;
-        
+
         $("#li_estado").css("display", "none");
         var timer = setTimeout("fix();", 2000);
 
@@ -688,37 +688,16 @@ function Crear_idea() {
     Str_listcomponentes = Str_listcomponentes.replace(/id=/g, "");
     Str_listcomponentes = Str_listcomponentes.replace(/_selectadd/g, "");
 
-
     //recorer array para el ingreso de ubicaciones
-    for (item in arrayUbicacion) {
-        listubicaciones.push(JSON.stringify(arrayUbicacion[item]));
-    }
+    listubicaciones = JSON.stringify(arrayUbicacion);
     //recorer array para el ingreso de actores
-    for (item in arrayActor) {
-        listactores.push(JSON.stringify(arrayActor[item]));
-    }
-
+    listactores = JSON.stringify(arrayActor);
     //recorer array para el ingreso de flujos
     listflujos = JSON.stringify(arrayflujosdepago);
-    
-    for (item in matriz_flujos) {
-        listdetallesflujos.push(JSON.stringify(matriz_flujos[item]));
-    }
-
-    //validar si el array tiene datos
-    if (listdetallesflujos.length == 0) {
-        listdetallesflujos[0] = "vacio_ojo";
-    }
-
-    //recorrer el array para el ingreso archivos 
-    for (item in arrayFiles) {
-        listfiles.push(JSON.stringify(arrayFiles[item]));
-    }
-
-    //validar si tiene datos
-    if (listfiles.length == 0) {
-        listfiles[0] = "vacio_ojo";
-    }
+    //recorer array para el ingreso de los detalles flujos
+    listdetallesflujos = JSON.stringify(matriz_flujos);
+    //recorer array para el ingreso de flujos
+    listfiles = JSON.stringify(arrayFiles);
 
     var tflujos = $("#ValueCostotal").text();
     tflujos = tflujos.replace(/\./gi, '');
@@ -755,12 +734,12 @@ function Crear_idea() {
             "presupuestal": cambio_text($("#ctl00_cphPrincipal_Txtroutepresupuestal").val()),
             "iva": valor_iva,
             "listcomponentes": Str_listcomponentes.toString(),
-            "listubicaciones": listubicaciones.toString(),
+            "listubicaciones": listubicaciones,
             "listflujos": listflujos,
-            "listdetallesflujos": listdetallesflujos.toString(),
-            "listfiles": listfiles.toString(),
+            "listdetallesflujos": listdetallesflujos,
+            "listfiles": listfiles,
             "tipo_estado": $("#dll_estado").val(),
-            "listactores": listactores.toString()
+            "listactores": listactores
 
         },
         //mostrar resultados de la creacion de la idea
@@ -804,38 +783,16 @@ function editar_idea() {
     Str_listcomponentes = Str_listcomponentes.replace(/_add/g, "");
     Str_listcomponentes = Str_listcomponentes.replace(/_selectadd/g, "");
 
-
     //recorer array para el ingreso de ubicaciones
-    for (item in arrayUbicacion) {
-        listubicaciones.push(JSON.stringify(arrayUbicacion[item]));
-    }
+    listubicaciones = JSON.stringify(arrayUbicacion);
     //recorer array para el ingreso de actores
-    for (item in arrayActor) {
-        listactores.push(JSON.stringify(arrayActor[item]));
-    }
-
+    listactores = JSON.stringify(arrayActor);
     //recorer array para el ingreso de flujos
     listflujos = JSON.stringify(arrayflujosdepago);
-
-
-    for (item in matriz_flujos) {
-        listdetallesflujos.push(JSON.stringify(matriz_flujos[item]));
-    }
-
-    //validar si el array tiene datos
-    if (listdetallesflujos.length == 0) {
-        listdetallesflujos[0] = "vacio_ojo";
-    }
-
-    //recorrer el array para el ingreso archivos 
-    for (item in arrayFiles) {
-        listfiles.push(JSON.stringify(arrayFiles[item]));
-    }
-
-    //validar si tiene datos
-    if (listfiles.length == 0) {
-        listfiles[0] = "vacio_ojo";
-    }
+    //recorer array para el ingreso de los detalles flujos
+    listdetallesflujos = JSON.stringify(matriz_flujos);
+    //recorer array para el ingreso de flujos
+    listfiles = JSON.stringify(arrayFiles);
 
     var tflujos = $("#ValueCostotal").text();
     tflujos = tflujos.replace(/\./gi, '');
@@ -872,12 +829,12 @@ function editar_idea() {
             "presupuestal": cambio_text($("#ctl00_cphPrincipal_Txtroutepresupuestal").val()),
             "iva": valor_iva,
             "listcomponentes": Str_listcomponentes.toString(),
-            "listubicaciones": listubicaciones.toString(),
+            "listubicaciones": listubicaciones,
             "listflujos": listflujos,
-            "listdetallesflujos": listdetallesflujos.toString(),
-            "listfiles": listfiles.toString(),
+            "listdetallesflujos": listdetallesflujos,
+            "listfiles": listfiles,
             "tipo_estado": $("#dll_estado").val(),
-            "listactores": listactores.toString()
+            "listactores": listactores
 
         },
         //mostrar resultados de la creacion de la idea
@@ -897,7 +854,6 @@ function editar_idea() {
     });
 
 }
-
 
 //funcion de cambio de comillas enters y tabulaciones
 function cambio_text(str_txt) {
@@ -949,17 +905,12 @@ function aprobacion_idea() {
                 $("#ctl00_cphPrincipal_containerSuccess").css("display", "none");
                 $("#SaveIdea").css("display", "compact");
                 //   $("#dll_estado").val(3);
-
             }
-
-
         },
         error: function(msg) {
             alert("No se pueden cargar los documentos anexos de la idea = " + ideditar);
         }
     });
-
-
 }
 
 //funtion para borrar carpeta temp
@@ -992,7 +943,6 @@ function copiar_archivos() {
             alert("Ocurrio un problema al intentar modificar los archivos temporales.");
         }
     });
-
 }
 
 //funcion de carga de listas
