@@ -118,8 +118,6 @@ function Crear_tabla_ubicacion() {
 
 }
 
-
-
 //funcion para cargar  array ubicaciones en traerdatos de la idea
 function view_ubicacion_array() {
     $.ajax({

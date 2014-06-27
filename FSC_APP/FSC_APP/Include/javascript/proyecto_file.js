@@ -112,7 +112,8 @@ function deletefile(stridfile) {
 
         if (stridfile == id) {
             //borramos el actor deseado
-            delete arrayFiles[itemArray];
+            arrayFiles.splice(itemArray, 1);
+            //delete arrayFiles[itemArray];
         }
     }
 

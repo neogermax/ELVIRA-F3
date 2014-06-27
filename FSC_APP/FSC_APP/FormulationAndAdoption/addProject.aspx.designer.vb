@@ -1420,15 +1420,6 @@ Partial Public Class addProject
     Protected WithEvents lbiddepto As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''Control ddlDepto.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents ddlDepto As Global.System.Web.UI.WebControls.DropDownList
-
-    '''<summary>
     '''Control lbidcity.
     '''</summary>
     '''<remarks>
@@ -1436,15 +1427,6 @@ Partial Public Class addProject
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
     Protected WithEvents lbidcity As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''Control ddlCity.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents ddlCity As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
     '''Control btnAgregarubicacion.

@@ -30,8 +30,7 @@ function Cprogram() {
 function loadChildrenLineStrategic(obj) {
 
     line_strategic = $(obj).val();
-    console.log(line_strategic);
-
+  
     $.ajax({
     url: "AjaxAddProject.aspx",
         type: "GET",
@@ -457,7 +456,7 @@ function ClineEstrategic_edit_proyect() {
 
             Cprogram();
             loadChildrenLineStrategic($("#ddlStrategicLines")[0]);
-           
+            view_Cprogram();
         },
         error: function(msg) {
             alert("No se pueden cargar la linea estrategica deseada.");
@@ -467,7 +466,7 @@ function ClineEstrategic_edit_proyect() {
 }
 
 
-
+//trae los componentes del proyecto generado
 function edit_component_view_project() {
 
     $.ajax({

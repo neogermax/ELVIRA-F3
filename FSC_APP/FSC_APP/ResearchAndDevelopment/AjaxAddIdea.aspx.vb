@@ -35,8 +35,8 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         Session("thirdByIdeaList") = New List(Of ThirdByIdeaEntity)
         Session("paymentFlowList") = New List(Of PaymentFlowEntity)
         Session("DetailedcashflowsList") = New List(Of DetailedcashflowsEntity)
-        If Request.Files.Count() > 0 Then
 
+        If Request.Files.Count() > 0 Then
 
             'Se recorre la lista de archivos cargados al servidor
             For i As Integer = 0 To files.Count - 1
@@ -1393,7 +1393,6 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
                 contadorcomp = contadorcomp + 1
             Next
-
             '----------------------------------------------------ubicaciones------------------------------------------------------------------------
             Dim LocationByIdeaList As List(Of LocationByIdeaEntity) = New List(Of LocationByIdeaEntity)()
 
@@ -2061,5 +2060,4 @@ Class CActorsView
         End Set
     End Property
 #End Region
-
 End Class
