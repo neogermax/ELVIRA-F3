@@ -72,17 +72,9 @@ function BtnaddActors_onclick() {
             add_actor_grid();
 
         }
-        else {
-            //funcion para agregar actor
-            add_actor_grid();
-        }
     }
-    else {
-        //funcion para agregar actor
-        add_actor_grid();
-    }
-
-
+    //funcion para agregar actor
+    add_actor_grid();
 }
 
 //funtion para agragar al grid despues de validar si hay flujos de datos
@@ -268,34 +260,6 @@ function View_actores_array() {
     });
 }
 
-//llama los datos de la proyecto para edicion
-function View_actores_project() {
-
-    $.ajax({
-        url: "AjaxAddProject.aspx",
-        type: "GET",
-        data: { "action": "View_actores_project", "idproject": ideditar },
-        success: function(result) {
-
-            array_actores_ed = result.split("|");
-
-            for (itemArray in array_actores_ed) {
-
-                var recibeact = JSON.parse(array_actores_ed[itemArray]);
-                arrayActor.push(recibeact);
-            }
-            //llamamos funcion crea la tabla del descripcion de proyecto
-            crear_tabla_inf_prin();
-            //llama la funcion crear la tabla de actores
-            crear_tabla_actores();
-
-        },
-        error: function(msg) {
-            alert("No se pueden cargar los actores en general de la idea = " + idea_buscar);
-        }
-    });
-
-}
 
 //borrar de la grilla html de actores
 function deleteActor(str) {
@@ -329,9 +293,9 @@ function deleteActor(str) {
 
         if (str == id) {
             //borramos el actor deseado
-            delete arrayActor[itemArray];
-            //arrayActor.splice(arrayActor[itemArray].actorsName, 1);
-        }
+            //delete arrayActor[itemArray];
+            arrayActor.splice(itemArray, 1);
+            }
     }
     //recorremos el array
     for (itemArrayflujo in arrayActorFlujo) {
@@ -341,10 +305,10 @@ function deleteActor(str) {
 
         if (str == idflujo) {
             //borramos el actor deseado
-            delete arrayActorFlujo[itemArrayflujo];
+            arrayActorFlujo.splice(itemArrayflujo, 1);
+            //delete arrayActorFlujo[itemArrayflujo];
         }
     }
-
 
     //lamar la funcionsumar actores
     sumar_grid_actores();
@@ -353,6 +317,7 @@ function deleteActor(str) {
     //llamar la funcion sumar flujos actores
     sumar_flujos_actores();
 
+    recalcValues();
     $("#Btn_add_flujo").removeAttr("disabled");
 }
 
@@ -442,8 +407,6 @@ function sumar_grid_actores() {
             $("#val3").text(0);
         }
     });
-
-
 }
 
 
@@ -606,5 +569,34 @@ function validar_valor_actor_madre() {
         $("#ctl00_cphPrincipal_Lblmesanje_mother").text("");
         $("#ctl00_cphPrincipal_sucess_mother_help").css("display", "none");
     }
+
+}
+
+//llama los datos de la proyecto para edicion
+function View_actores_project() {
+
+    $.ajax({
+        url: "AjaxAddProject.aspx",
+        type: "GET",
+        data: { "action": "View_actores_project", "idproject": ideditar },
+        success: function(result) {
+
+            array_actores_ed = result.split("|");
+
+            for (itemArray in array_actores_ed) {
+
+                var recibeact = JSON.parse(array_actores_ed[itemArray]);
+                arrayActor.push(recibeact);
+            }
+            //llamamos funcion crea la tabla del descripcion de proyecto
+            crear_tabla_inf_prin();
+            //llama la funcion crear la tabla de actores
+            crear_tabla_actores();
+
+        },
+        error: function(msg) {
+            alert("No se pueden cargar los actores en general de la idea = " + idea_buscar);
+        }
+    });
 
 }

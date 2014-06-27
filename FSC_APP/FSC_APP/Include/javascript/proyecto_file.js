@@ -29,7 +29,8 @@ function subirArchivos() {
 
                 //creamos variables
                 var filename = result;
-                filename = filename.replace(/\s/g, '_');
+                filename = $.trim(filename)
+                //  filename = filename.replace(/\s/g, '_');
                 //  alert(filename);
                 var objectfile = data;
                 var description = cambio_text_flujos($("#ctl00_cphPrincipal_Txtdecription").val());
@@ -48,7 +49,7 @@ function subirArchivos() {
                 arrayFiles.push(jsonFiles);
 
                 //llamamos funcion para crear tabla anexos
-                crear_tabla_anexos("/FSC_APP/document/temp/");
+                crear_tabla_anexos("http://" + host + "/document/temp/");
 
                 $("#fileupload").val("");
 
@@ -78,12 +79,16 @@ function crear_tabla_anexos(link_route) {
     for (itemArray in arrayFiles) {
 
         var entregacomas = arrayFiles[itemArray].Description;
-        entregacomas = entregacomas.replace(/¬/g, ',');
+       // entregacomas = entregacomas.replace(/¬/g, ',');
 
         var namefile = arrayFiles[itemArray].filename;
+        namefile = $.trim(namefile);
+
+        var pathFile = namefile;
+        
         namefile = namefile.replace(/_/g, ' ');
 
-        htmlTablefiles += "<tr id='archivo" + arrayFiles[itemArray].idfile + "'><td><a id='linkarchives" + arrayFiles[itemArray].idfile + "' runat='server' href='" + link_route + namefile + "' target= '_blank' title='link'>" + arrayFiles[itemArray].filename + "</a></td><td style='text-align: left;'>" + entregacomas + "</td><td style='text-align: center;'><input type ='button' value= 'Eliminar' onclick=\"deletefile('" + arrayFiles[itemArray].idfile + "')\"></input></td></tr>";
+        htmlTablefiles += "<tr id='archivo" + arrayFiles[itemArray].idfile + "'><td><a id='linkarchives" + arrayFiles[itemArray].idfile + "' runat='server' href='" + link_route + pathFile + "' target= '_blank' title='link'>" + arrayFiles[itemArray].filename + "</a></td><td style='text-align: left;'>" + entregacomas + "</td><td style='text-align: center;'><input type ='button' value= 'Eliminar' onclick=\"deletefile('" + arrayFiles[itemArray].idfile + "')\"></input></td></tr>";
     }
     htmlTablefiles += "</tbody></table>";
 
@@ -97,7 +102,6 @@ function crear_tabla_anexos(link_route) {
         "bDestroy": true
     });
 }
-
 
 //funcion  para borrar los archivos de la lista
 function deletefile(stridfile) {
@@ -144,7 +148,7 @@ function View_anexos_array() {
             }
 
             //llamamos funcion para crear tabla anexos
-            crear_tabla_anexos("/FSC_APP/document/");
+            crear_tabla_anexos("http://" + host + "/document/");
 
         },
         error: function(msg) {
@@ -155,7 +159,7 @@ function View_anexos_array() {
 }
 
 
-function View_anexos_project(){
+function View_anexos_project() {
 
     $.ajax({
         url: "AjaxAddProject.aspx",
@@ -178,14 +182,14 @@ function View_anexos_project(){
             }
 
             //llamamos funcion para crear tabla anexos
-            crear_tabla_anexos();
+            crear_tabla_anexos("http://" + host + "/document/");
 
         },
         error: function(msg) {
             alert("No se pueden cargar los actores de flujos de pago de la idea = " + idea_buscar);
         }
     });
-    
+
 }
 
 function load_idarchive() {

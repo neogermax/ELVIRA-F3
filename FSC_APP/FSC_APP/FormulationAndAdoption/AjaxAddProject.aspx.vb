@@ -232,10 +232,6 @@ Partial Public Class AjaxAddProject
 
                 Case "C_ideas_aprobada"
                     charge_idea_aproval()
-
-                    'Case "C_charge_others"
-                    '    ideditar = Convert.ToInt32(Request.QueryString("idproject").ToString)
-                    '    charge_others_droplist(ideditar)
                     '----------------- modulo ubicacion-------------------------------------------------------
                 Case "C_munip"
                     id_depto = Convert.ToInt32(Request.QueryString("iddepto").ToString)
@@ -1230,7 +1226,7 @@ Partial Public Class AjaxAddProject
                 objResult &= """, ""tflujos"": """
                 tflujos = row.valorparcial
                 tflujos = tflujos.Replace(" ", "")
-                tflujos = Format(Convert.ToInt64(tflujos), "#,###.##")
+                'tflujos = Format(Convert.ToInt64(tflujos), "#,###.##")
                 objResult &= tflujos
 
                 If valuar_flujo = data_listpagos.Count Then

@@ -70,7 +70,6 @@ function BtnaddActors_onclick() {
                 "bJQueryUI": true,
                 "bDestroy": true
             });
-
         }
     }
     //funcion para agregar actor
@@ -286,7 +285,6 @@ function deleteActor(str) {
             //borramos el actor deseado
             //delete arrayActor[itemArray];
             arrayActor.splice(itemArray, 1);
-            //arrayActor.splice(arrayActor[itemArray].actorsName, 1);
         }
     }
     //recorremos el array

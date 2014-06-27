@@ -95,21 +95,17 @@ $(document).ready(function() {
     validafecha2();
 
     borrar_carpeta();
-    
-
+  
     //capturamos la url
     var sPageURL = window.location.search.substring(1);
     var sURLVariables = sPageURL.split('&');
     //validamos si creamos la idea o editamos
     if (sURLVariables[0] == "op=edit") {
         ideditar = sURLVariables[1].replace("id=", "");
-        //if (operacion == "edit") {
-
-
+       
         var timer = setTimeout("fix();", 2000);
 
         Cprogram(0);
-      
 
         validarcampos_fecha_madre();
 
@@ -131,21 +127,19 @@ $(document).ready(function() {
 
         traer_valores_madre("editar", ideditar);
        
-
    
         // $("#SaveProject").css("display", "block");
         $("#li_estado").css("display", "compact");
         $("#SaveProject").attr("value", "Guardar cambios");
         $("#Export").css("display", "compact");
         $("#li_C_idea").css("display", "none");
-
         $("#ddlStrategicLines").attr("disabled", "disabled");
         borrar_carpeta();
 
+        charge_date_list_project(ideditar);
         aprobacion_proyecto();
         validar_proyecto_madre();
-        charge_date_list_project(ideditar);
-
+        
     }
     else {
        
@@ -839,7 +833,6 @@ function editar_proyecto() {
         success: function(result) {
             $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
             $("#SaveProject").css("display", "none");
-            $("#Export").css("display", "compact");
             $("#ctl00_cphPrincipal_lblsaveinformation").text(result);
             $("#ctl00_cphPrincipal_Lbladvertencia").text("");
             $("#ctl00_cphPrincipal_Txtobligationsoftheparties").focus();

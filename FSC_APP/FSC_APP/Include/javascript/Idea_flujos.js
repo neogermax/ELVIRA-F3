@@ -580,7 +580,7 @@ function editflujo(index) {
 
     $("#Btn_add_flujo").removeAttr("disabled");
 
-    getDetailsForNpago(strN_pago);
+    getDetailsForNpago(arrayflujosdepago[index].N_pago);
 
     sumarflujospagos();
 
@@ -739,83 +739,13 @@ function eliminar_flujos() {
 var arrayeditarflujos = [];
 //funcion para restar los valores ingresados erronamente en los input de grilla de actores
 function restar_flujos(str) {
-    /*
-    $("#totalflujos").text("");
-    //construimos el input a validar
-    var idflujo = "#txtinput" + str;
-    var iddesenbolso = "#desenbolso" + str;
-    var idinicial = "#value" + str;
-     
-    //validamos si el input esta vacio
-    if ($(idflujo).val() != "") {
-     
-    //capturamos valores
-    var restaoperador = $(idflujo).val();
-     
-    if (restaoperador == "") {
-    restaoperador = 0;
-    }
-     
-    restaoperador = restaoperador.replace(/\./gi, '');
-     
-    var valorarraytotal = arrayValorflujoTotal[0];
-    // alert("valor capturado para restar ->" + valorarraytotal);
-     
-    var desenbolso = $(iddesenbolso).html();
-    desenbolso = desenbolso.replace(/\./gi, '');
-     
-    var inicial = $(idinicial).html();
-    inicial = inicial.replace(/\./gi, '');
-     
-     
-    //restamos del array de operacion
-     
-    if (edit_swhich_fx == 1) {
-    restaoperador = $(idflujo).val();
-    restaoperador = restaoperador.replace(/\./gi, '');
-    valorarraytotal = parseInt(valorarraytotal) - 0;
-    arrayeditarflujos[0] = valorarraytotal;
-     
-    //        alert("ojo restar 3 " + arrayeditarflujos[0]);
-    } else {
-    valorarraytotal = parseInt(valorarraytotal) - parseInt(restaoperador);
-    }
-     
-    if (edit_flujo_inicializa == 1) {
-    restaoperador = $(idflujo).val();
-    restaoperador = restaoperador.replace(/\./gi, '');
-    arrayValorflujoTotal[0] = 0;
-    //    alert("ojo restar 1 " + arrayValorflujoTotal[0]);
-    edit_flujo_inicializa = 0;
-    edit_swhich_fx = 1;
-     
-    } else {
-    //        alert("ojo restar 2 " + arrayValorflujoTotal[0]);
-    arrayValorflujoTotal[0] = valorarraytotal;
-     
-    }
-     
-    if (swhich_validar_estado_1 != 1) {
-    if (inicial != desenbolso) {
-    var desembolsototal = parseInt(desenbolso) + parseInt(restaoperador);
-     
-    // $("#ctl00_cphPrincipal_Txtpruebas").val(desembolsototal);
-    $(iddesenbolso).text(addCommasrefactor(desembolsototal));
-    swhich_validar_estado_1 = 0;
-    }
-    }
-    //$(idflujo).focus();
-    }
-    */
-
+    
     var valueToSum = removeCommasAndConvert($("#txtinput" + str).val());
     var valueDynamic = removeCommasAndConvert($("#desenbolso" + str).html());
     var totalValue = valueToSum + valueDynamic;
 
     if (totalValue > removeCommasAndConvert($("#value" + str).html())) {
-        //alert("El valor proporcionado no puede ser mayor que el saldo por programar.");
-        //$("#txtinput" + str).val("0");
-
+       
     } else {
         $("#desenbolso" + str).html(addCommasrefactor(totalValue));
     }
@@ -850,49 +780,7 @@ function removeCommasAndConvertFloat(valueToConvert, isDecimal) {
 
 //sumar flujos de pagos
 function sumar_flujos(str) {
-    /*
-    //    //inicializamos las variables
-    var valdinerflujo = 0;
-    var valorlimite = 0;
-    var valtotaldiner = 0;
-    var totaldesembolso = 0;
-     
-    var tr_Id = "#value" + str;
-    var valuesActorslimit = $(tr_Id).html();
-    valuesActorslimit = valuesActorslimit.replace(/\./gi, '');
-    var opevaluesActorslimit = parseInt(valuesActorslimit);
-     
-    var tr_Iddes = "#desenbolso" + str;
-    var valuesActorsdesembolso = $(tr_Iddes).html();
-    valuesActorsdesembolso = valuesActorsdesembolso.replace(/\./gi, '');
-    var opevaluesActorsdesembolso = parseInt(valuesActorsdesembolso);
-     
-    //capturamos el valor deseado
-    var id = "#txtinput" + str;
-    var ValuesActorsflujos = $(id).val();
-     
-    if (ValuesActorsflujos == "") {
-    ValuesActorsflujos = 0;
-    } else {
-    ValuesActorsflujos = ValuesActorsflujos.replace(/\./gi, '');
-    }
-     
-     
-    var opeValuesActorsflujos = parseInt(ValuesActorsflujos);
-     
-    //funtion validar limite de actores
-    //console.log("Pendiente validar limite!");
-    var resultado_val = validar_limite_actores(opeValuesActorsflujos, opevaluesActorsdesembolso, opevaluesActorslimit, totaldesembolso, tr_Iddes, id);
-     
-    //validamos si es el primer registro del array
-     
-    arrayValorflujoTotal[0] = returnValueTotalFlow();
-     
-    $("#totalflujos").text(addCommasrefactor(arrayValorflujoTotal[0]));
-     
-    if (resultado_val == 1) {
-    $("#totalflujos").text("");
-    }*/
+   
 
     var valueToSum = removeCommasAndConvert($("#txtinput" + str).val());
     var valueDynamic = removeCommasAndConvert($("#desenbolso" + str).html());
@@ -922,32 +810,16 @@ function returnValueTotalFlow() {
 function validar_limite_actores(opeValuesActorsflujos, opevaluesActorsdesembolso, opevaluesActorslimit, totaldesembolso, tr_Iddes, idThird) {
     var error_actor = 0;
 
-    //capturamos el valor limite del actor
-    //$("#T_Actorsflujos tr").slice(0, $("#T_Actorsflujos tr").length - 1).each(function () {
-
+   
     //validamos que el valor deseado no supere al limite
     if (opevaluesActorslimit < opeValuesActorsflujos) {
         alert("el valor ingresado no debe superar al ingresado en los actores");
         $(idThird).trigger("focus");
-        /*
-        error_actor = 1;
-        if (opevaluesActorsdesembolso != opevaluesActorslimit) {
-        var desembolsototal2 = parseInt(opevaluesActorsdesembolso) + parseInt(opeValuesActorsflujos);
-        $(tr_Iddes).text(addCommasrefactor(desembolsototal2));
-         
-        }
-         
-        swhich_validar_estado_1 = 1;
-         
-        opeValuesActorsflujos = 0;*/
     } else {
 
         if (opevaluesActorsdesembolso < opeValuesActorsflujos) {
             alert("el valor ingresado no debe superar el desembolso disponible");
-            /*error_actor = 1;
-            swhich_validar_estado_1 = 1;
-            opeValuesActorsflujos = 0;*/
-
+   
             $(idThird).trigger("focus");
 
         } else {
