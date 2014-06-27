@@ -25,6 +25,12 @@ Partial Public Class Proceeding_Request
     'Parte1
     Private _justification As String
 
+    'Parte 2 - 1 Alcance
+    Private _scope As String = "{9}"
+
+    'Parte3
+    Private _risks As String = "{14}"
+
     'Campos sistema
     Private _directorioActas As String
     Private _idproject As String
@@ -39,17 +45,31 @@ Partial Public Class Proceeding_Request
     'Parte 1 - Justificación
     Private _proceedingone_html As String = "<table border=""0"" cellpadding=""0"" cellspacing=""0"" style=""width: 100%;""><tbody><tr><td><strong>1. JUSTIFICACIÓN DE LA SOLICITUD</strong></td></tr><tr><td>{8}</td></tr></tbody></table>"
 
-    'Parte 2 - Detalles
-    Private _proceedingtwo_hmtl As String = ""
+    'Encabezado Parte 2
+    Private _part2header As String = "<table border=""0"" cellpadding=""0"" cellspacing=""0"" style=""width: 100%;""><tbody><tr><td>&nbsp;</td></tr><tr><td><strong>2. DETALLE DE LO QUE SE MODIFICA</strong></td></tr><tr><td>&nbsp;</td></tr></tbody></table>"
 
-    'Parte 3 - Riesgos
-    Private _proceedingthree_html As String = ""
+    'Parte 2 - Detalles
+
+    'Parte 2 - 2 Suspension
+    Private _suspension As String = "{10}"
+
+    'Parte 2 - 3 Adicion
+    Private _adition As String = ""
+
+    'Parte 2 - 4 Cesion
+    Private _cesion As String = ""
+
+    'Parte 2 - 5 Otros
+    Private _others As String = "{13}"
+
+    'Consolidar parte 2
+    Private _proceedingtwo_hmtl As String = _scope & _suspension & _adition & _cesion & _others
 
     'Cierre HTML
     Private _proceedingFooter_html As String = "</html>"
 
     'Consolidar
-    Private _proceedingStar_html As String = _proceedingHeader_html & _proceedingzero_html & _proceedingone_html & _proceedingFooter_html
+    Private _proceedingStar_html As String = _proceedingHeader_html & _proceedingzero_html & _proceedingone_html & _part2header & _proceedingtwo_hmtl & _risks & _proceedingFooter_html
 
 #End Region
 
@@ -145,6 +165,59 @@ Partial Public Class Proceeding_Request
         End Set
     End Property
 
+    Public Property scope() As String
+        Get
+            Return Me._scope
+        End Get
+        Set(ByVal value As String)
+            Me._scope = value
+        End Set
+    End Property
+
+    Public Property suspension() As String
+        Get
+            Return Me._suspension
+        End Get
+        Set(ByVal value As String)
+            Me._suspension = value
+        End Set
+    End Property
+
+    Public Property adition() As String
+        Get
+            Return Me._adition
+        End Get
+        Set(ByVal value As String)
+            Me._adition = value
+        End Set
+    End Property
+
+    Public Property cesion() As String
+        Get
+            Return Me._cesion
+        End Get
+        Set(ByVal value As String)
+            Me._cesion = value
+        End Set
+    End Property
+
+    Public Property others() As String
+        Get
+            Return Me._others
+        End Get
+        Set(ByVal value As String)
+            Me._others = value
+        End Set
+    End Property
+
+    Public Property risks() As String
+        Get
+            Return Me._risks
+        End Get
+        Set(ByVal value As String)
+            Me._risks = value
+        End Set
+    End Property
 
 #End Region
 
@@ -172,7 +245,7 @@ Partial Public Class Proceeding_Request
             Dim nameFile As String = String.Format("/Proceedings/Terminos_de_Referencia_{1}_{2}.doc", _directorioActas, _idproject, Convert.ToDateTime(DateTime.Now).ToString("yyyy_MM_dd_hh_mm_ss"))
             Dim fullPath As String = String.Format("{0}{1}", _directorioActas, nameFile)
 
-            _proceedingStar_html = String.Format(_proceedingStar_html, _idproject, _type_request, _strategic_line, _contract_number, _contract_nature, _subscription_year, _number_request, _date_request, _justification)
+            _proceedingStar_html = String.Format(_proceedingStar_html, _idproject, _type_request, _strategic_line, _contract_number, _contract_nature, _subscription_year, _number_request, _date_request, _justification, _scope, _suspension, "11", "12", _others, _risks)
             WriteFile(fullPath, _proceedingStar_html)
 
             Return nameFile
