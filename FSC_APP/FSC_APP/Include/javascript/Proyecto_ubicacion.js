@@ -1,19 +1,4 @@
-﻿//cargar combo de departamentos
-function Cdeptos() {
-    $.ajax({
-        url: "AjaxAddProject.aspx",
-        type: "GET",
-        data: { "action": "C_deptos" },
-        success: function(result) {
-            $("#ddlDepto").html(result);
-            $("#ddlDepto").trigger("liszt:updated");
-        },
-        error: function(msg) {
-            alert("No se pueden cargar los departamentos.");
-        }
-    });
-}
-
+﻿
 //cargar combo de municipios 
 function Cmunip() {
     $("#ddlDepto").change(function() {
@@ -34,6 +19,17 @@ function Cmunip() {
     });
 }
 
+function valide_date_depto() {
+
+    $("#ddlCity").change(function() {
+        var id_depto = $("#ddlDepto").val();
+
+        if (id_depto == -1) {
+            $("#ddlCity").html("<option>Seleccione...</option>");
+            $("#ddlCity").trigger("liszt:updated");
+        }
+    });
+}
 
 //agregar ubicaciones por el metodo de tablas html
 function Add_location_onclick() {
@@ -83,9 +79,10 @@ function Add_location_onclick() {
 
                 Crear_tabla_ubicacion();
 
-                $("#ddlDepto").val("Seleccione...");
+                $("#ddlDepto").val("-1");
                 $("#ddlDepto").trigger("liszt:updated");
-                $("#ddlCity").val("Seleccione...");
+
+                $("#ddlCity").html("<option>Seleccione...</option>");
                 $("#ddlCity").trigger("liszt:updated");
         
             }
@@ -121,8 +118,6 @@ function Crear_tabla_ubicacion() {
 
 }
 
-
-
 //funcion para cargar  array ubicaciones en traerdatos de la idea
 function view_ubicacion_array() {
     $.ajax({
@@ -147,6 +142,25 @@ function view_ubicacion_array() {
         }
     });
 }
+
+//borrar de la grilla html de ubicaciones 
+function deleteUbicacion(str) {
+    //recorremos el array
+    for (itemArray in arrayUbicacion) {
+        //construimos la llave de validacion
+        var id = arrayUbicacion[itemArray].DeptoName + "_" + arrayUbicacion[itemArray].CityName;
+        //validamos el dato q nos trae la funcion
+        if (str == id) {
+            //borramos la ubicacion deseada
+            arrayUbicacion.splice(itemArray, 1);
+          }
+    }
+}
+
+//------------------------------------------------------------------
+//funciones para buscar contra las tablas de proyecto
+//------------------------------------------------------------------
+
 
 //funcion para cargar  array ubicaciones en editar proyecto
 function view_ubicacion_proyect() {
@@ -176,17 +190,4 @@ function view_ubicacion_proyect() {
 }
 
 
-//borrar de la grilla html de ubicaciones 
-function deleteUbicacion(str) {
-    //recorremos el array
-    for (itemArray in arrayUbicacion) {
-        //construimos la llave de validacion
-        var id = arrayUbicacion[itemArray].DeptoName + "_" + arrayUbicacion[itemArray].CityName;
-        //validamos el dato q nos trae la funcion
-        if (str == id) {
-            //borramos la ubicacion deseada
-            delete arrayUbicacion[itemArray];
-            //arrayUbicacion.splice(arrayUbicacion[itemArray].CityName, 1);
-        }
-    }
-}
+

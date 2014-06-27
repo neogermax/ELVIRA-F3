@@ -39,13 +39,11 @@ function validar_proyecto_madre() {
         type: "GET",
         data: { "action": "proyecto_madre", "idproject": ideditar },
         success: function(result) {
-
+            console.log(result);
             if (result == 1) {
                 desabled_mother();
-
                 $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
                 $("#ctl00_cphPrincipal_lblsaveinformation").text("Este es un proyecto Madre, No puede ser modificado.");
-
             }
 
         },
@@ -195,7 +193,7 @@ function traer_valores_madre(Str_estado_creacion, Str_id_project) {
                 $("#ctl00_cphPrincipal_containerSuccess").css("display", "none");
                 $("#ctl00_cphPrincipal_lblsaveinformation").text("");
                 $("#SaveProject").css("display", "block");
-                $("#Export").css("display", "none");
+                $("#Export").css("display", "compact");
 
             }
 

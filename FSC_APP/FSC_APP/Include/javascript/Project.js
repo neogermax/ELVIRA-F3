@@ -85,7 +85,7 @@ $(document).ready(function() {
 
     comboactor();
 
-    // valide_date_depto();
+    valide_date_depto();
 
     operacionesIdea();
     actors_transanccion();
@@ -95,22 +95,17 @@ $(document).ready(function() {
     validafecha2();
 
     borrar_carpeta();
-
-
-
+  
     //capturamos la url
     var sPageURL = window.location.search.substring(1);
     var sURLVariables = sPageURL.split('&');
     //validamos si creamos la idea o editamos
     if (sURLVariables[0] == "op=edit") {
         ideditar = sURLVariables[1].replace("id=", "");
-        //if (operacion == "edit") {
-
-
+       
         var timer = setTimeout("fix();", 2000);
 
         Cprogram(0);
-      
 
         validarcampos_fecha_madre();
 
@@ -132,26 +127,19 @@ $(document).ready(function() {
 
         traer_valores_madre("editar", ideditar);
        
-
-        //var timer_cline_edit = setTimeout("ClineEstrategic_edit();", 2000);
-
-        //var timer_cline_edit = setTimeout("Cpopulation_view();", 2000);
-        //var timer_cline_edit = setTimeout("Ctypcontract_view();", 2000);
-        //var itemarrayflujos = 0;
-
+   
         // $("#SaveProject").css("display", "block");
         $("#li_estado").css("display", "compact");
         $("#SaveProject").attr("value", "Guardar cambios");
         $("#Export").css("display", "compact");
         $("#li_C_idea").css("display", "none");
-
         $("#ddlStrategicLines").attr("disabled", "disabled");
         borrar_carpeta();
 
+        charge_date_list_project(ideditar);
         aprobacion_proyecto();
         validar_proyecto_madre();
-        charge_date_list_project(ideditar);
-
+        
     }
     else {
        
@@ -192,8 +180,6 @@ $(document).ready(function() {
     $("#ctl00_cphPrincipal_sucess_mother_help").css("display", "none");
 
     $('#ctl00_cphPrincipal_gif_charge_Container').css("display", "none");
-
-    $("#tabsIdea").tabs();
 
     $("#matriz").dataTable({
         "bJQueryUI": true,
@@ -267,7 +253,8 @@ $(document).ready(function() {
     });
 
     $("#tabsproyecto").tabs();
-
+    $("#tabsproyecto").tabs({ active: 1 });
+    
     $(function() {
         $("#datepicker").datepicker();
     });
@@ -407,7 +394,7 @@ function SaveProject_onclick() {
     }
 
     //validar campos de informacion principal obligatorios
-    if ($("#dll_estado :selected").text() == 'Seleccione...' || $("#ctl00_cphPrincipal_RBnList_iva :checked").val() == null || $("#ddlPupulation :selected").text() == 'Seleccione...' || $("#ddlmodcontract :selected").text() == 'Seleccione...' || $("#ddlStrategicLines :selected").text() == 'Seleccione...' || $("#ddlPrograms :selected").text() == 'Seleccione...' || $("#ctl00_cphPrincipal_txtname").val() == '' || $("#ctl00_cphPrincipal_txtjustification").val() == '' || $("#ctl00_cphPrincipal_txtobjective").val() == '' || $("#ctl00_cphPrincipal_txtstartdate").val() == '') {
+    if ($("#ctl00_cphPrincipal_RBnList_iva :checked").val() == null || $("#ddlPupulation :selected").text() == 'Seleccione...' || $("#ddlmodcontract :selected").text() == 'Seleccione...' || $("#ddlStrategicLines :selected").text() == 'Seleccione...' || $("#ddlPrograms :selected").text() == 'Seleccione...' || $("#ctl00_cphPrincipal_txtname").val() == '' || $("#ctl00_cphPrincipal_txtjustification").val() == '' || $("#ctl00_cphPrincipal_txtobjective").val() == '' || $("#ctl00_cphPrincipal_txtstartdate").val() == '') {
 
         verificar_informacion_p = 0;
 
@@ -422,11 +409,6 @@ function SaveProject_onclick() {
         if ($("#ddlPrograms :selected").text() == 'Seleccione...') {
             F_objetivo = 0;
         }
-        //validar estado del proyecto
-        if ($("#dll_estado :selected").text() == 'Seleccione...') {
-            F_estado = 0;
-        }
-
         //validar tipo de proyectos
         //        if ($("#ddltype_proyect :selected").text() == 'Seleccione...') {
         //            F_tipo_pro = 0;
@@ -456,9 +438,8 @@ function SaveProject_onclick() {
             F_fecha_ini = 0;
         }
     }
-    //   alert("verificar_C_fechas" + verificar_C_fechas + "verificar_informacion_p:" + verificar_informacion_p + " verificar_actor:" + verificar_actor + " verificar_ubicaciones:" + verificar_ubicaciones + " verificar_componentes" + verificar_componentes + " verificar_flujos:" + verificar_flujos + " verificar_C_resultados:" + verificar_C_resultados + " fsc_exist" + fsc_exist);
-    //VALIDAR RESULTADOS DE LAS VALIDACIONES
-    if (F_estado == 1 && F_fecha_ini == 1 && verificar_C_fechas == 1 && verificar_actor == 1 && verificar_ubicaciones == 1 && verificar_componentes == 1 && verificar_flujos == 1 && verificar_C_resultados == 1 && fsc_exist == 1 && verificar_informacion_p == 1) {
+     //VALIDAR RESULTADOS DE LAS VALIDACIONES
+    if (F_fecha_ini == 1 && verificar_C_fechas == 1 && verificar_actor == 1 && verificar_ubicaciones == 1 && verificar_componentes == 1 && verificar_flujos == 1 && verificar_C_resultados == 1 && fsc_exist == 1 && verificar_informacion_p == 1) {
 
         $("#ctl00_cphPrincipal_containererrors").css("display", "none");
 
@@ -551,13 +532,6 @@ function SaveProject_onclick() {
             }
             else {
                 $("#ctl00_cphPrincipal_lblinpro").text("");
-            }
-            //estado del proyecto
-            if (F_estado == 0) {
-                $("#ctl00_cphPrincipal_Lblhelp_estado").text("Campo Requerido");
-            }
-            else {
-                $("#ctl00_cphPrincipal_Lblhelp_estado").text("");
             }
             //poblacion
             if (F_poblacion == 0) {
@@ -694,48 +668,19 @@ function Crear_proyecto() {
     Str_listcomponentes = Str_listcomponentes.replace(/class=/g, "*");
     Str_listcomponentes = Str_listcomponentes.replace(/id=/g, "");
     Str_listcomponentes = Str_listcomponentes.replace(/_add/g, "");
+    Str_listcomponentes = Str_listcomponentes.replace(/_selectadd/g, "");
 
-    //    Str_listcomponentes = Str_listcomponentes.replace(/_selectadd/g, "");
-
-
+    
     //recorer array para el ingreso de ubicaciones
-    for (item in arrayUbicacion) {
-        listubicaciones.push(JSON.stringify(arrayUbicacion[item]));
-    }
+    listubicaciones = JSON.stringify(arrayUbicacion);
     //recorer array para el ingreso de actores
-    for (item in arrayActor) {
-        listactores.push(JSON.stringify(arrayActor[item]));
-    }
-
+    listactores = JSON.stringify(arrayActor);
     //recorer array para el ingreso de flujos
-    for (item in arrayflujosdepago) {
-        listflujos.push(JSON.stringify(arrayflujosdepago[item]));
-        console.log(arrayflujosdepago[item]);
-
-    }
-    //validar si el array tiene datos   
-    if (listflujos.length == 0) {
-        listflujos[0] = "vacio_ojo";
-    }
-
-    for (item in matriz_flujos) {
-        listdetallesflujos.push(JSON.stringify(matriz_flujos[item]));
-    }
-
-    //validar si el array tiene datos
-    if (listdetallesflujos.length == 0) {
-        listdetallesflujos[0] = "vacio_ojo";
-    }
-
-    //recorrer el array para el ingreso archivos 
-    for (item in arrayFiles) {
-        listfiles.push(JSON.stringify(arrayFiles[item]));
-    }
-
-    //validar si tiene datos
-    if (listfiles.length == 0) {
-        listfiles[0] = "vacio_ojo";
-    }
+    listflujos = JSON.stringify(arrayflujosdepago);
+    //recorer array para el ingreso de los detalles flujos
+    listdetallesflujos = JSON.stringify(matriz_flujos);
+    //recorer array para el ingreso de flujos
+    listfiles = JSON.stringify(arrayFiles);
 
     var tflujos = $("#ValueCostotal").text();
     tflujos = tflujos.replace(/\./gi, '');
@@ -774,14 +719,13 @@ function Crear_proyecto() {
             "presupuestal": cambio_text($("#ctl00_cphPrincipal_Txtroutepresupuestal").val()),
             "iva": valor_iva,
             "listcomponentes": Str_listcomponentes.toString(),
-            "listubicaciones": listubicaciones.toString(),
-            "listflujos": cambio_text(listflujos.toString()),
-            "listdetallesflujos": listdetallesflujos.toString(),
-            "listfiles": listfiles.toString(),
-            "listactores": listactores.toString(),
+            "listubicaciones": listubicaciones,
+            "listflujos": listflujos,
+            "listdetallesflujos": listdetallesflujos,
+            "listfiles": listfiles,
+            "listactores": listactores,
             "ididea": idea_buscar,
             "str_code": str_ideabuscar
-
 
         },
         //mostrar resultados de la creacion de la idea
@@ -829,43 +773,15 @@ function editar_proyecto() {
     Str_listcomponentes = Str_listcomponentes.replace(/_selectadd/g, "");
 
     //recorer array para el ingreso de ubicaciones
-    for (item in arrayUbicacion) {
-        listubicaciones.push(JSON.stringify(arrayUbicacion[item]));
-    }
+    listubicaciones = JSON.stringify(arrayUbicacion);
     //recorer array para el ingreso de actores
-    for (item in arrayActor) {
-        listactores.push(JSON.stringify(arrayActor[item]));
-    }
-
+    listactores = JSON.stringify(arrayActor);
     //recorer array para el ingreso de flujos
-    for (item in arrayflujosdepago) {
-        listflujos.push(JSON.stringify(arrayflujosdepago[item]));
-        console.log(arrayflujosdepago[item]);
-
-    }
-    //validar si el array tiene datos   
-    if (listflujos.length == 0) {
-        listflujos[0] = "vacio_ojo";
-    }
-
-    for (item in matriz_flujos) {
-        listdetallesflujos.push(JSON.stringify(matriz_flujos[item]));
-    }
-
-    //validar si el array tiene datos
-    if (listdetallesflujos.length == 0) {
-        listdetallesflujos[0] = "vacio_ojo";
-    }
-
-    //recorrer el array para el ingreso archivos 
-    for (item in arrayFiles) {
-        listfiles.push(JSON.stringify(arrayFiles[item]));
-    }
-
-    //validar si tiene datos
-    if (listfiles.length == 0) {
-        listfiles[0] = "vacio_ojo";
-    }
+    listflujos = JSON.stringify(arrayflujosdepago);
+    //recorer array para el ingreso de los detalles flujos
+    listdetallesflujos = JSON.stringify(matriz_flujos);
+    //recorer array para el ingreso de flujos
+    listfiles = JSON.stringify(arrayFiles);
 
     var tflujos = $("#ValueCostotal").text();
     tflujos = tflujos.replace(/\./gi, '');
@@ -904,12 +820,12 @@ function editar_proyecto() {
             "presupuestal": cambio_text($("#ctl00_cphPrincipal_Txtroutepresupuestal").val()),
             "iva": valor_iva,
             "listcomponentes": Str_listcomponentes.toString(),
-            "listubicaciones": listubicaciones.toString(),
-            "listflujos": cambio_text(listflujos.toString()),
-            "listdetallesflujos": listdetallesflujos.toString(),
-            "listfiles": listfiles.toString(),
+            "listubicaciones": listubicaciones,
+            "listflujos": listflujos,
+            "listdetallesflujos": listdetallesflujos,
+            "listfiles": listfiles,
             "tipo_estado": $("#dll_estado").val(),
-            "listactores": listactores.toString(),
+            "listactores": listactores,
             "ididea": idea_str_array[0],
             "str_code": $("#ctl00_cphPrincipal_txtcode").val()
         },
@@ -917,7 +833,6 @@ function editar_proyecto() {
         success: function(result) {
             $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
             $("#SaveProject").css("display", "none");
-            $("#Export").css("display", "compact");
             $("#ctl00_cphPrincipal_lblsaveinformation").text(result);
             $("#ctl00_cphPrincipal_Lbladvertencia").text("");
             $("#ctl00_cphPrincipal_Txtobligationsoftheparties").focus();

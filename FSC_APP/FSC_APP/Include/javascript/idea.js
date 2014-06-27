@@ -5,13 +5,12 @@
 //Funcion perteneciente a el evento onload del elemento body
 
 var arrayUbicacion = [];
-var array_ubicacion_ed = [];
-
 var arrayActor = [];
-var array_actores_ed = [];
-
 var arrayActorFlujo = [];
-var arrayactorflujo_ed = [];
+var arrayflujosdepago = [];
+var matriz_flujos = [];
+var arrayFiles = [];
+
 
 var arraycomponenteing = [];
 var arraycomponente = [];
@@ -22,17 +21,8 @@ var arraycomponente_archivar_ed = [];
 var arrayValorflujoTotal = [];
 var arrayinputflujos = [];
 
-var arrayflujosdepago = [];
-var arrayflujosdepago_ed = [];
-
-var matriz_flujos = [];
-var matriz_flujos_ed = [];
-
 
 var reversedesembolsos = [];
-
-var arrayFiles = [];
-var arrayFiles_ed = [];
 
 var filescharge = [];
 
@@ -115,10 +105,6 @@ $(document).ready(function() {
         load_idarchive();
 
         aprobacion_idea();
-
-        var timer_cline_edit = setTimeout("Cpopulation_view();", 2000);
-        var timer_cline_edit = setTimeout("Ctypcontract_view();", 2000);
-        var timer_cline_edit = setTimeout("Ctypaproval_view();", 2000);
 
         itemarrayflujos = 0;
 

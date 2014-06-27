@@ -913,7 +913,7 @@
                     
                 </div>
                 <br />
-                <input style="margin-left: 3em;" type='button' id="cancelEdition" value="Cancelar Edición" />
+                <input style="margin-left: 3em; margin-bottom: 15px;" type='button' id="cancelEdition" value="Cancelar Edición" />
             </div>
             
         </div>

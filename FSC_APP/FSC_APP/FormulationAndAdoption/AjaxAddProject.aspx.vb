@@ -232,10 +232,6 @@ Partial Public Class AjaxAddProject
 
                 Case "C_ideas_aprobada"
                     charge_idea_aproval()
-
-                    'Case "C_charge_others"
-                    '    ideditar = Convert.ToInt32(Request.QueryString("idproject").ToString)
-                    '    charge_others_droplist(ideditar)
                     '----------------- modulo ubicacion-------------------------------------------------------
                 Case "C_munip"
                     id_depto = Convert.ToInt32(Request.QueryString("iddepto").ToString)
@@ -390,8 +386,6 @@ Partial Public Class AjaxAddProject
 
     End Function
 
-
-
     Protected Function charge_combos_idea_master(ByVal ididea As Integer)
 
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
@@ -448,8 +442,6 @@ Partial Public Class AjaxAddProject
         Return value_string
 
     End Function
-
-
 
     Protected Function load_combos(ByVal type As String)
 
@@ -1234,7 +1226,7 @@ Partial Public Class AjaxAddProject
                 objResult &= """, ""tflujos"": """
                 tflujos = row.valorparcial
                 tflujos = tflujos.Replace(" ", "")
-                tflujos = Format(Convert.ToInt64(tflujos), "#,###.##")
+                'tflujos = Format(Convert.ToInt64(tflujos), "#,###.##")
                 objResult &= tflujos
 
                 If valuar_flujo = data_listpagos.Count Then
@@ -2331,6 +2323,228 @@ Partial Public Class AjaxAddProject
 
     End Function
 
+    Protected Function delete_documents(ByVal id_project As String)
+
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+
+        Dim sql As New StringBuilder
+        Dim dtData, dtDatadoc As DataTable
+
+        sql.Append(" delete Documents where id in (select iddocuments from DocumentsByEntity where EntityName = 'ProjectEntity' and  IdnEntity = " & id_project & ")")
+        GattacaApplication.RunSQL(applicationCredentials, sql.ToString)
+
+        sql = New StringBuilder
+
+        sql.Append(" delete DocumentsByEntity where EntityName = 'ProjectEntity' and IdnEntity = " & id_project)
+        GattacaApplication.RunSQL(applicationCredentials, sql.ToString)
+
+    End Function
+
+    Protected Function save_PROYECTO(ByVal ididea As String, ByVal str_code As String, ByVal code As String, ByVal line_strategic As String, ByVal program As String, ByVal name As String, ByVal justify As String, ByVal objetive As String, ByVal obj_esp As String, ByVal resul_bef As String, ByVal resul_ges_c As String, ByVal resul_cap_i As String, ByVal otros_resul As String, ByVal fecha_i As String, ByVal mes As String, ByVal dia As String, ByVal fecha_f As String, ByVal poblacion As String, ByVal contratacion As String, ByVal riesgos As String, ByVal mitigacion As String, ByVal presupuestal As String, ByVal cost As String, ByVal obligaciones As String, ByVal iva As String, ByVal list_ubicacion As String, ByVal list_actor As String, ByVal list_componentes As String, ByVal list_flujos As String, ByVal list_detalles_flujos As String, ByVal list_files As String, ByVal estado As String) '
+
+        Dim facade As New Facade
+        Dim objProject As New ProjectEntity
+
+        Dim ProgramComponentByProjectList As List(Of ProgramComponentByProjectEntity) = New List(Of ProgramComponentByProjectEntity)
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+
+        Dim arrayubicacion, arrayactor, arraycomponente, arrayflujos, arraydetallesflujos As String()
+
+        Try
+
+            Dim NewListubicaciones = JsonConvert.DeserializeObject(Of List(Of ClocationView))(list_ubicacion)
+            Dim NewListActors = JsonConvert.DeserializeObject(Of List(Of CActorsView))(list_actor)
+            Dim NewListFlujos = JsonConvert.DeserializeObject(Of List(Of CPaymentFlowView))(list_flujos)
+            Dim NewListDetailsFlujos = JsonConvert.DeserializeObject(Of List(Of CDetailsPaymentFlowView))(list_detalles_flujos)
+
+            list_componentes = Replace(list_componentes, "/", "*", 1)
+            list_componentes = Replace(list_componentes, "_ *", "*", 1)
+            ''convertimos el string en un array de datos
+            arraycomponente = list_componentes.Split(New [Char]() {"*"c})
+
+             Dim contadorcomp As Integer = 0
+           
+            'recorremos los componentes seleccionados
+            For Each row In arraycomponente
+
+                'istanciamos el objeto componente
+                Dim myProgramComponentByproject As New ProgramComponentByProjectEntity
+
+                If IsNumeric(arraycomponente(contadorcomp)) Then
+
+                    myProgramComponentByproject.idProgramComponent = arraycomponente(contadorcomp)
+                    ProgramComponentByProjectList.Add(myProgramComponentByproject)
+
+                End If
+
+                contadorcomp = contadorcomp + 1
+            Next
+
+            '----------------------------------------------------ubicaciones------------------------------------------------------------------------
+            Dim LocationByprojectList As List(Of ProjectLocationEntity) = New List(Of ProjectLocationEntity)()
+
+            For Each item_location As ClocationView In NewListubicaciones
+
+                Dim objListProyectLocationsList As List(Of ProjectLocationEntity) = New List(Of ProjectLocationEntity)
+                Dim objProjectLocation As ProjectLocationEntity = New ProjectLocationEntity()
+
+                objProjectLocation.IDDEPTO = item_location.DeptoVal
+                objProjectLocation.idcity = item_location.CityVal
+                'cargamos al list
+                LocationByprojectList.Add(objProjectLocation)
+
+            Next
+            '----------------------------------------------------actores------------------------------------------------------------------------
+            Dim ThirdByProjectList As List(Of ThirdByProjectEntity) = New List(Of ThirdByProjectEntity)()
+            
+            For Each item_third As CActorsView In NewListActors
+
+                Dim ThirdByProject As ThirdByProjectEntity = New ThirdByProjectEntity()
+
+                ThirdByProject.idthird = item_third.actorsVal
+                ThirdByProject.THIRD.name = item_third.actorsName
+                ThirdByProject.Name = item_third.actorsName
+                ThirdByProject.type = item_third.tipoactors
+                ThirdByProject.contact = item_third.contact
+                ThirdByProject.Documents = item_third.cedula
+                ThirdByProject.Phone = item_third.telefono
+                ThirdByProject.Email = item_third.email
+                ThirdByProject.Vrmoney = item_third.diner
+                ThirdByProject.VrSpecies = item_third.especie
+                ThirdByProject.FSCorCounterpartContribution = item_third.total
+                ThirdByProject.EstadoFlujos = item_third.estado_flujo
+                ThirdByProject.CreateDate = Now
+
+                'cargamos al list
+                ThirdByProjectList.Add(ThirdByProject)
+
+            Next
+            '----------------------------------------------------flujos------------------------------------------------------------------------
+            Dim PaymentFlowList As List(Of PaymentFlowEntity) = New List(Of PaymentFlowEntity)()
+
+            For Each item_paymentflow As CPaymentFlowView In NewListFlujos
+
+                Dim objpaymentFlow As PaymentFlowEntity = New PaymentFlowEntity()
+
+                objpaymentFlow.N_pagos = item_paymentflow.N_pago
+                objpaymentFlow.fecha = Convert.ToDateTime(item_paymentflow.fecha_pago)
+                objpaymentFlow.porcentaje = item_paymentflow.porcentaje
+                objpaymentFlow.entregable = item_paymentflow.entrega
+                objpaymentFlow.valortotal = Convert.ToInt32(item_paymentflow.tflujos)
+                objpaymentFlow.valorparcial = Convert.ToInt32(item_paymentflow.tflujos)
+                objpaymentFlow.ididea = 0
+                objpaymentFlow.mother = 0
+
+                'cargamos al list
+                PaymentFlowList.Add(objpaymentFlow)
+
+            Next
+            '----------------------------------------------------detallesflujos------------------------------------------------------------------------
+            Dim DetailedcashflowsList As List(Of DetailedcashflowsEntity) = New List(Of DetailedcashflowsEntity)()
+
+            For Each item_Detailedcashflow As CDetailsPaymentFlowView In NewListDetailsFlujos
+
+                Dim objDetalleflujo As DetailedcashflowsEntity = New DetailedcashflowsEntity()
+
+                'asignamos al objeto
+                objDetalleflujo.N_pago = Convert.ToInt32(item_Detailedcashflow.idpago)
+                objDetalleflujo.IdAportante = Convert.ToInt32(item_Detailedcashflow.idaportante)
+                objDetalleflujo.Aportante = item_Detailedcashflow.Aportante
+                objDetalleflujo.Desembolso = item_Detailedcashflow.desembolso
+                objDetalleflujo.IdIdea = 0
+                objDetalleflujo.mother = 0
+
+                'cargamos al list
+                DetailedcashflowsList.Add(objDetalleflujo)
+
+            Next
+
+            
+            'buscamos el id del proyecto madre
+            Dim idproyect_mother = search_id_project_mother(ididea)
+            'lo asignamos al proyecto derivado
+            objProject.Project_derivados = idproyect_mother
+
+            objProject.code = str_code
+
+            objProject.ididea = ididea
+            objProject.name = clean_vbCrLf(name)
+            objProject.objective = clean_vbCrLf(objetive)
+            objProject.begindate = fecha_i
+            objProject.duration = mes
+            objProject.zonedescription = clean_vbCrLf(obj_esp)
+            objProject.population = poblacion
+            objProject.totalcost = Convert.ToInt32(cost)
+            objProject.results = clean_vbCrLf(resul_bef)
+            objProject.createdate = Now
+            objProject.iduser = applicationCredentials.UserID
+            objProject.justification = clean_vbCrLf(justify)
+            objProject.ResultsKnowledgeManagement = clean_vbCrLf(resul_ges_c)
+            objProject.ResultsInstalledCapacity = clean_vbCrLf(resul_cap_i)
+            objProject.OthersResults = clean_vbCrLf(otros_resul)
+            objProject.idtypecontract = contratacion
+            objProject.Typeapproval = 3
+            objProject.Obligaciones = obligaciones
+            objProject.mitigacion = mitigacion
+            objProject.riesgos = riesgos
+            objProject.presupuestal = presupuestal
+            objProject.dia = dia
+            objProject.iva = iva
+            objProject.mother = 0
+
+            objProject.completiondate = Convert.ToDateTime(fecha_f)
+
+            objProject.effectivebudget = ""
+            objProject.idphase = "1"
+            objProject.strategicdescription = ""
+            objProject.attachment = ""
+            objProject.purpose = ""
+            objProject.source = ""
+
+            'Se garega la lista de ubicaciones agregada
+            objProject.projectlocationlist = LocationByprojectList
+            'Se agrega la lista de terceros agregada
+            objProject.thirdbyprojectlist = ThirdByProjectList
+            'Se agrega la lista de FLUJOS DE PAGOS
+            objProject.paymentflowByProjectList = PaymentFlowList
+            'Se agrega la lista de  detalles de FLUJOS DE PAGOS
+            objProject.DetailedcashflowsbyProjectList = DetailedcashflowsList
+            'Se almacena en el objeto idea la lista de Componentes del Programa obtenida
+            objProject.ProgramComponentbyprojectlist = ProgramComponentByProjectList
+
+
+            'almacenar la entidad
+            objProject.id = facade.addProject(applicationCredentials, objProject)
+
+            update_proyect(objProject.id, str_code)
+
+            save_document_PROYECTO(list_files, objProject.id)
+
+
+            Dim Result As String
+
+            If objProject.id <> 0 Then
+
+                Result = "Proyecto se guardó correctamente!"
+                Response.Write(Result)
+
+            Else
+
+                Result = "Se perdio la conexion al guardar los datos del Proyecto"
+                Response.Write(Result)
+
+            End If
+
+        Catch ex As Exception
+
+            Dim Result As String
+            Result = "Error inesperado por favor consulte el administrador - " & ex.Message
+            Response.Write(Result)
+
+        End Try
+
+    End Function
+
     Protected Function edit_PROYECTO(ByVal id As String, ByVal ididea As String, ByVal str_code As String, ByVal code As String, ByVal line_strategic As String, ByVal program As String, ByVal name As String, ByVal justify As String, ByVal objetive As String, ByVal obj_esp As String, ByVal resul_bef As String, ByVal resul_ges_c As String, ByVal resul_cap_i As String, ByVal otros_resul As String, ByVal fecha_i As String, ByVal mes As String, ByVal dia As String, ByVal fecha_f As String, ByVal poblacion As String, ByVal contratacion As String, ByVal riesgos As String, ByVal mitigacion As String, ByVal presupuestal As String, ByVal cost As String, ByVal obligaciones As String, ByVal iva As String, ByVal list_ubicacion As String, ByVal list_actor As String, ByVal list_componentes As String, ByVal list_flujos As String, ByVal list_detalles_flujos As String, ByVal list_files As String, ByVal estado As String) '
 
         Dim facade As New Facade
@@ -2338,53 +2552,24 @@ Partial Public Class AjaxAddProject
         Dim sOldFile As String = String.Empty
 
         Dim ProgramComponentByProjectList As List(Of ProgramComponentByProjectEntity) = New List(Of ProgramComponentByProjectEntity)
-
-        '        Session("projectLocationList") = New List(Of ProjectLocationEntity)
-        '       Session("thirdByProjectList") = New List(Of ThirdByProjectEntity)
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
 
         Dim arrayubicacion, arrayactor, arraycomponente, arrayflujos, arraydetallesflujos As String()
-        Dim deptovalexist, Cityvalexist As Integer
-        Dim desembolsoexist, Aportanteexist, idaportanteexist, N_pagodetexist, estados_flujosexist, N_pagoexist, fecha_pagoexist, porcentajeexist, entregaexist, tflujosexist, existidprogram, existactorsVal, existactorsName, existtipoactors, existcontact, existcedula, existtelefono, existemail, existdiner, existespecie, existtotal As String
-
-        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
 
         Try
 
-            list_ubicacion = Replace(list_ubicacion, "{", " ", 1)
-            list_ubicacion = Replace(list_ubicacion, "}", " ", 1)
-            list_ubicacion = Replace(list_ubicacion, """", " ", 1)
-            'convertimos el string en un array de datos
-            arrayubicacion = list_ubicacion.Split(New [Char]() {","c})
-
-            list_actor = Replace(list_actor, "{", " ", 1)
-            list_actor = Replace(list_actor, "}", " ", 1)
-            list_actor = Replace(list_actor, """", " ", 1)
-            'convertimos el string en un array de datos
-            arrayactor = list_actor.Split(New [Char]() {","c})
-
-            list_flujos = Replace(list_flujos, "{", " ", 1)
-            list_flujos = Replace(list_flujos, "}", " ", 1)
-            list_flujos = Replace(list_flujos, """", " ", 1)
-            'convertimos el string en un array de datos
-            arrayflujos = list_flujos.Split(New [Char]() {","c})
-
-            list_detalles_flujos = Replace(list_detalles_flujos, "{", " ", 1)
-            list_detalles_flujos = Replace(list_detalles_flujos, "}", " ", 1)
-            list_detalles_flujos = Replace(list_detalles_flujos, """", " ", 1)
-            'convertimos el string en un array de datos
-            arraydetallesflujos = list_detalles_flujos.Split(New [Char]() {","c})
+            Dim NewListubicaciones = JsonConvert.DeserializeObject(Of List(Of ClocationView))(list_ubicacion)
+            Dim NewListActors = JsonConvert.DeserializeObject(Of List(Of CActorsView))(list_actor)
+            Dim NewListFlujos = JsonConvert.DeserializeObject(Of List(Of CPaymentFlowView))(list_flujos)
+            Dim NewListDetailsFlujos = JsonConvert.DeserializeObject(Of List(Of CDetailsPaymentFlowView))(list_detalles_flujos)
 
             list_componentes = Replace(list_componentes, "/", "*", 1)
             list_componentes = Replace(list_componentes, "_ *", "*", 1)
             ''convertimos el string en un array de datos
             arraycomponente = list_componentes.Split(New [Char]() {"*"c})
 
-            Dim contador As Integer = 0
-            Dim contadoractor As Integer = 0
             Dim contadorcomp As Integer = 0
-            Dim contadorflu As Integer = 0
-            Dim contadordetflu As Integer = 0
-
+            
             'recorremos los componentes seleccionados
             For Each row In arraycomponente
 
@@ -2403,230 +2588,84 @@ Partial Public Class AjaxAddProject
             Next
 
             '----------------------------------------------------ubicaciones------------------------------------------------------------------------
-            'ISTANCIAMOS LA VARIABLE DEL TAMAÑO DEL ARRAY
-            Dim t_Aubicacion As Integer
+            Dim LocationByprojectList As List(Of ProjectLocationEntity) = New List(Of ProjectLocationEntity)()
 
-            'ASIGNAMOS EL TAMAÑO 
-            t_Aubicacion = arrayubicacion.Length
-
-            'RECORREMOS LA CANTIDAD DE VECES ASIGNADAS
-            For index_ubi As Integer = 0 To t_Aubicacion
+            For Each item_location As ClocationView In NewListubicaciones
 
                 Dim objListProyectLocationsList As List(Of ProjectLocationEntity) = New List(Of ProjectLocationEntity)
                 Dim objProjectLocation As ProjectLocationEntity = New ProjectLocationEntity()
-                objListProyectLocationsList = (DirectCast(Session("projectLocationList"), List(Of ProjectLocationEntity)))
 
-                Dim objDeptoEntity As DeptoEntity = New DeptoEntity()
-                Dim objCityEntity As CityEntity = New CityEntity()
-
-                'VERIDFICAMOS Q EXISTAN LOS CAMPOS SOLICITADOS
-                deptovalexist = InStr(arrayubicacion(contador), "DeptoVal")
-                Cityvalexist = InStr(arrayubicacion(contador + 2), "CityVal")
-
-                'separamos el valor de campo
-                deptovalexist = Replace(arrayubicacion(contador), " DeptoVal : ", " ", 1)
-                Cityvalexist = Replace(arrayubicacion(contador + 2), "CityVal : ", " ", 1)
-
-                'asignamos al objeto
-                objProjectLocation.IDDEPTO = deptovalexist
-                objProjectLocation.idcity = Cityvalexist
-
+                objProjectLocation.IDDEPTO = item_location.DeptoVal
+                objProjectLocation.idcity = item_location.CityVal
                 'cargamos al list
-                objListProyectLocationsList.Add(objProjectLocation)
-
-                index_ubi = index_ubi + 4
-                contador = contador + 4
-
-                If contador <> index_ubi Then
-                    index_ubi = contador
-                End If
+                LocationByprojectList.Add(objProjectLocation)
 
             Next
-
             '----------------------------------------------------actores------------------------------------------------------------------------
-            'ISTANCIAMOS LA VARIABLE DEL TAMAÑO DEL ARRAY
-            Dim t_Aactor As Integer
+            Dim ThirdByProjectList As List(Of ThirdByProjectEntity) = New List(Of ThirdByProjectEntity)()
 
-            'ASIGNAMOS EL TAMAÑO 
-            t_Aactor = arrayactor.Length
+            For Each item_third As CActorsView In NewListActors
 
-            'RECORREMOS LA CANTIDAD DE VECES ASIGNADAS
-            For index_act As Integer = 0 To t_Aactor
-
-                Dim ThirdByProjectList As List(Of ThirdByProjectEntity) = New List(Of ThirdByProjectEntity)()
                 Dim ThirdByProject As ThirdByProjectEntity = New ThirdByProjectEntity()
-                ThirdByProjectList = DirectCast(Session("thirdByProjectList"), List(Of ThirdByProjectEntity))
 
-                'VERIDFICAMOS Q EXISTAN LOS CAMPOS SOLICITADOS
-                existactorsVal = InStr(arrayactor(contadoractor), "actorsVal") 'y
-                existactorsName = InStr(arrayactor(contadoractor + 1), "actorsName") 'y
-                existtipoactors = InStr(arrayactor(contadoractor + 2), "tipoactors")
-                existcontact = InStr(arrayactor(contadoractor + 3), "contact") 'y
-                existcedula = InStr(arrayactor(contadoractor + 4), "cedula") 'y
-                existtelefono = InStr(arrayactor(contadoractor + 5), "telefono") 'y
-                existemail = InStr(arrayactor(contadoractor + 6), "email") 'y
-                existdiner = InStr(arrayactor(contadoractor + 7), "diner")
-                existespecie = InStr(arrayactor(contadoractor + 8), "especie")
-                existtotal = InStr(arrayactor(contadoractor + 9), "total")
-                estados_flujosexist = InStr(arrayactor(contadoractor + 10), "estado_flujo")
-
-                'separamos el valor de campo
-                existactorsVal = Replace(arrayactor(contadoractor), " actorsVal : ", " ", 1)
-                existactorsName = Replace(arrayactor(contadoractor + 1), "actorsName : ", " ", 1)
-                existtipoactors = Replace(arrayactor(contadoractor + 2), "tipoactors : ", " ", 1)
-                existcontact = Replace(arrayactor(contadoractor + 3), "contact : ", " ", 1)
-                existcedula = Replace(arrayactor(contadoractor + 4), "cedula : ", " ", 1)
-                existtelefono = Replace(arrayactor(contadoractor + 5), "telefono : ", " ", 1)
-                existemail = Replace(arrayactor(contadoractor + 6), "email : ", " ", 1)
-                existdiner = Replace(arrayactor(contadoractor + 7), "diner : ", " ", 1)
-                existespecie = Replace(arrayactor(contadoractor + 8), "especie : ", " ", 1)
-                existtotal = Replace(arrayactor(contadoractor + 9), "total : ", " ", 1)
-                estados_flujosexist = Replace(arrayactor(contadoractor + 10), "estado_flujo : ", " ", 1)
-                estados_flujosexist = estados_flujosexist.Replace(" ", "")
-                'asignamos al objeto
-                ThirdByProject.idthird = existactorsVal
-                ThirdByProject.THIRD.name = existactorsName
-                ThirdByProject.Name = existactorsName
-                ThirdByProject.type = existtipoactors
-                ThirdByProject.THIRD.contact = existcontact
-                ThirdByProject.contact = existcontact
-                ThirdByProject.THIRD.documents = existcedula
-                ThirdByProject.Documents = existcedula
-                ThirdByProject.THIRD.phone = existtelefono
-                ThirdByProject.Phone = existtelefono
-                ThirdByProject.THIRD.email = existemail
-                ThirdByProject.Email = existemail
-                ThirdByProject.Vrmoney = existdiner
-                ThirdByProject.VrSpecies = existespecie
-                ThirdByProject.FSCorCounterpartContribution = existtotal
-                ThirdByProject.EstadoFlujos = estados_flujosexist
+                ThirdByProject.idthird = item_third.actorsVal
+                ThirdByProject.THIRD.name = item_third.actorsName
+                ThirdByProject.Name = item_third.actorsName
+                ThirdByProject.type = item_third.tipoactors
+                ThirdByProject.contact = item_third.contact
+                ThirdByProject.Documents = item_third.cedula
+                ThirdByProject.Phone = item_third.telefono
+                ThirdByProject.Email = item_third.email
+                ThirdByProject.Vrmoney = item_third.diner
+                ThirdByProject.VrSpecies = item_third.especie
+                ThirdByProject.FSCorCounterpartContribution = item_third.total
+                ThirdByProject.EstadoFlujos = item_third.estado_flujo
                 ThirdByProject.CreateDate = Now
 
                 'cargamos al list
                 ThirdByProjectList.Add(ThirdByProject)
 
-                contadoractor = contadoractor + 11
-                index_act = index_act + 11
+            Next
+            '----------------------------------------------------flujos------------------------------------------------------------------------
+            Dim PaymentFlowList As List(Of PaymentFlowEntity) = New List(Of PaymentFlowEntity)()
 
-                If contadoractor <> index_act Then
-                    index_act = contadoractor
-                End If
+            For Each item_paymentflow As CPaymentFlowView In NewListFlujos
+
+                Dim objpaymentFlow As PaymentFlowEntity = New PaymentFlowEntity()
+
+                objpaymentFlow.N_pagos = item_paymentflow.N_pago
+                objpaymentFlow.fecha = Convert.ToDateTime(item_paymentflow.fecha_pago)
+                objpaymentFlow.porcentaje = item_paymentflow.porcentaje
+                objpaymentFlow.entregable = item_paymentflow.entrega
+                item_paymentflow.tflujos = item_paymentflow.tflujos.Replace(".", "")
+                objpaymentFlow.valortotal = Convert.ToInt32(item_paymentflow.tflujos)
+                objpaymentFlow.valorparcial = Convert.ToInt32(item_paymentflow.tflujos)
+                objpaymentFlow.ididea = 0
+                objpaymentFlow.mother = 0
+
+                'cargamos al list
+                PaymentFlowList.Add(objpaymentFlow)
 
             Next
-
-            '----------------------------------------------------flujos------------------------------------------------------------------------
-            'ISTANCIAMOS LA VARIABLE DEL TAMAÑO DEL ARRAY
-            Dim t_Aflujo As Integer
-
-            'ASIGNAMOS EL TAMAÑO 
-            t_Aflujo = arrayflujos.Length
-
-
-            If arrayflujos(0) = "vacio_ojo" Then
-
-            Else
-
-                'RECORREMOS LA CANTIDAD DE VECES ASIGNADAS
-                For index_flu As Integer = 0 To t_Aflujo
-
-                    Dim objpaymentFlow As PaymentFlowEntity = New PaymentFlowEntity()
-                    Dim PaymentFlowList As List(Of PaymentFlowEntity)
-                    PaymentFlowList = DirectCast(Session("paymentFlowList"), List(Of PaymentFlowEntity))
-
-                    'VERIDFICAMOS Q EXISTAN LOS CAMPOS SOLICITADOS
-                    N_pagoexist = InStr(arrayflujos(contadorflu), "N_pago")
-                    fecha_pagoexist = InStr(arrayflujos(contadorflu + 1), "fecha_pago")
-                    porcentajeexist = InStr(arrayflujos(contadorflu + 2), "porcentaje")
-                    entregaexist = InStr(arrayflujos(contadorflu + 3), "entrega")
-                    tflujosexist = InStr(arrayflujos(contadorflu + 4), "tflujos")
-
-                    'separamos el valor de campo
-                    N_pagoexist = Replace(arrayflujos(contadorflu), " N_pago : ", " ", 1)
-                    fecha_pagoexist = Replace(arrayflujos(contadorflu + 1), " fecha_pago : ", " ", 1)
-                    porcentajeexist = Replace(arrayflujos(contadorflu + 2), " porcentaje : ", " ", 1)
-                    porcentajeexist = porcentajeexist.Replace("%", "")
-                    entregaexist = Replace(arrayflujos(contadorflu + 3), " entrega : ", " ", 1)
-                    entregaexist = entregaexist.Replace("¬", ",")
-                    tflujosexist = Replace(arrayflujos(contadorflu + 4), " tflujos : ", " ", 1)
-                    tflujosexist = tflujosexist.Replace(".", "")
-                    'asignamos al objeto
-                    objpaymentFlow.N_pagos = N_pagoexist
-                    objpaymentFlow.fecha = Convert.ToDateTime(fecha_pagoexist)
-                    objpaymentFlow.porcentaje = porcentajeexist
-                    objpaymentFlow.entregable = entregaexist
-                    objpaymentFlow.valortotal = Convert.ToInt32(tflujosexist)
-                    objpaymentFlow.valorparcial = Convert.ToInt32(tflujosexist)
-                    objpaymentFlow.ididea = 0
-                    objpaymentFlow.mother = 0
-                    'cargamos al list
-                    PaymentFlowList.Add(objpaymentFlow)
-
-                    contadorflu = contadorflu + 5
-                    index_flu = index_flu + 5
-
-                    If contadorflu <> index_flu Then
-                        index_flu = contadorflu
-                    End If
-
-                Next
-            End If
-
             '----------------------------------------------------detallesflujos------------------------------------------------------------------------
-            'ISTANCIAMOS LA VARIABLE DEL TAMAÑO DEL ARRAY
-            Dim t_Aflujodetalle As Integer
+            Dim DetailedcashflowsList As List(Of DetailedcashflowsEntity) = New List(Of DetailedcashflowsEntity)()
 
-            'ASIGNAMOS EL TAMAÑO 
-            t_Aflujodetalle = arraydetallesflujos.Length
+            For Each item_Detailedcashflow As CDetailsPaymentFlowView In NewListDetailsFlujos
 
-            If arraydetallesflujos(0) = "vacio_ojo" Then
+                Dim objDetalleflujo As DetailedcashflowsEntity = New DetailedcashflowsEntity()
 
-            Else
+                'asignamos al objeto
+                objDetalleflujo.N_pago = Convert.ToInt32(item_Detailedcashflow.idpago)
+                objDetalleflujo.IdAportante = Convert.ToInt32(item_Detailedcashflow.idaportante)
+                objDetalleflujo.Aportante = item_Detailedcashflow.Aportante
+                objDetalleflujo.Desembolso = item_Detailedcashflow.desembolso
+                objDetalleflujo.IdIdea = 0
+                objDetalleflujo.mother = 0
 
-                'RECORREMOS LA CANTIDAD DE VECES ASIGNADAS
-                For index_fludet As Integer = 0 To t_Aflujodetalle
+                'cargamos al list
+                DetailedcashflowsList.Add(objDetalleflujo)
 
-                    Dim objDetalleflujo As DetailedcashflowsEntity = New DetailedcashflowsEntity()
-                    Dim listDetalleflujo As List(Of DetailedcashflowsEntity)
-                    listDetalleflujo = (DirectCast(Session("DetailedcashflowsList"), List(Of DetailedcashflowsEntity)))
-
-                    'VERIDFICAMOS Q EXISTAN LOS CAMPOS SOLICITADOS
-                    N_pagodetexist = InStr(arraydetallesflujos(contadordetflu), "idpago")
-                    idaportanteexist = InStr(arraydetallesflujos(contadordetflu + 1), "idaportante")
-                    Aportanteexist = InStr(arraydetallesflujos(contadordetflu + 2), "Aportante")
-                    desembolsoexist = InStr(arraydetallesflujos(contadordetflu + 3), "desembolso")
-
-                    'separamos el valor de campo
-                    N_pagodetexist = Replace(arraydetallesflujos(contadordetflu), " idpago : ", " ", 1)
-                    idaportanteexist = Replace(arraydetallesflujos(contadordetflu + 1), " idaportante : ", " ", 1)
-                    Aportanteexist = Replace(arraydetallesflujos(contadordetflu + 2), " Aportante : ", " ", 1)
-                    desembolsoexist = Replace(arraydetallesflujos(contadordetflu + 3), " desembolso : ", " ", 1)
-                    desembolsoexist = desembolsoexist.Replace(".", "")
-
-                    'asignamos al objeto
-                    objDetalleflujo.N_pago = Convert.ToInt32(N_pagodetexist)
-                    objDetalleflujo.IdAportante = Convert.ToInt32(idaportanteexist)
-                    objDetalleflujo.Aportante = Aportanteexist
-                    objDetalleflujo.Desembolso = desembolsoexist
-                    objDetalleflujo.IdIdea = 0
-                    objDetalleflujo.mother = 0
-
-                    'cargamos al list
-                    listDetalleflujo.Add(objDetalleflujo)
-
-                    contadordetflu = contadordetflu + 4
-                    index_fludet = index_fludet + 4
-
-                    If contadordetflu <> index_fludet Then
-                        index_fludet = contadordetflu
-                    End If
-
-                Next
-
-            End If
-
-
-            'Se almacena en el objeto idea la lista de Componentes del Programa obtenida
-            objProject.ProgramComponentbyprojectlist = ProgramComponentByProjectList
+            Next
 
 
             'buscamos el id del proyecto madre
@@ -2672,19 +2711,15 @@ Partial Public Class AjaxAddProject
             objProject.source = ""
 
             'Se garega la lista de ubicaciones agregada
-            objProject.projectlocationlist = DirectCast(Session("projectLocationList"), List(Of ProjectLocationEntity))
-            'objIdea.LOCATIONBYIDEALIST = DirectCast(Session("locationByIdeaList"), List(Of LocationByIdeaEntity))
-
+            objProject.projectlocationlist = LocationByprojectList
             'Se agrega la lista de terceros agregada
-            objProject.thirdbyprojectlist = DirectCast(Session("thirdByProjectList"), List(Of ThirdByProjectEntity))
-            'objIdea.THIRDBYIDEALIST = DirectCast(Session("thirdByIdeaList"), List(Of ThirdByIdeaEntity))
-
+            objProject.thirdbyprojectlist = ThirdByProjectList
             'Se agrega la lista de FLUJOS DE PAGOS
-            objProject.paymentflowByProjectList = DirectCast(Session("paymentFlowList"), List(Of PaymentFlowEntity))
-
+            objProject.paymentflowByProjectList = PaymentFlowList
             'Se agrega la lista de  detalles de FLUJOS DE PAGOS
-            objProject.DetailedcashflowsbyProjectList = DirectCast(Session("DetailedcashflowsList"), List(Of DetailedcashflowsEntity))
-
+            objProject.DetailedcashflowsbyProjectList = DetailedcashflowsList
+            'Se almacena en el objeto idea la lista de Componentes del Programa obtenida
+            objProject.ProgramComponentbyprojectlist = ProgramComponentByProjectList
 
             facade.updateProject(applicationCredentials, objProject, sOldFile)
 
@@ -2707,406 +2742,6 @@ Partial Public Class AjaxAddProject
 
 
         Catch ex As Exception
-
-        End Try
-
-
-    End Function
-
-    Protected Function delete_documents(ByVal id_project As String)
-
-        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
-
-        Dim sql As New StringBuilder
-        Dim dtData, dtDatadoc As DataTable
-
-        sql.Append(" delete Documents where id in (select iddocuments from DocumentsByEntity where EntityName = 'ProjectEntity' and  IdnEntity = " & id_project & ")")
-        GattacaApplication.RunSQL(applicationCredentials, sql.ToString)
-
-        sql = New StringBuilder
-
-        sql.Append(" delete DocumentsByEntity where EntityName = 'ProjectEntity' and IdnEntity = " & id_project)
-        GattacaApplication.RunSQL(applicationCredentials, sql.ToString)
-
-    End Function
-
-    Protected Function save_PROYECTO(ByVal ididea As String, ByVal str_code As String, ByVal code As String, ByVal line_strategic As String, ByVal program As String, ByVal name As String, ByVal justify As String, ByVal objetive As String, ByVal obj_esp As String, ByVal resul_bef As String, ByVal resul_ges_c As String, ByVal resul_cap_i As String, ByVal otros_resul As String, ByVal fecha_i As String, ByVal mes As String, ByVal dia As String, ByVal fecha_f As String, ByVal poblacion As String, ByVal contratacion As String, ByVal riesgos As String, ByVal mitigacion As String, ByVal presupuestal As String, ByVal cost As String, ByVal obligaciones As String, ByVal iva As String, ByVal list_ubicacion As String, ByVal list_actor As String, ByVal list_componentes As String, ByVal list_flujos As String, ByVal list_detalles_flujos As String, ByVal list_files As String, ByVal estado As String) '
-
-        Dim facade As New Facade
-        Dim objProject As New ProjectEntity
-
-        Dim ProgramComponentByProjectList As List(Of ProgramComponentByProjectEntity) = New List(Of ProgramComponentByProjectEntity)
-
-        '        Session("projectLocationList") = New List(Of ProjectLocationEntity)
-        '       Session("thirdByProjectList") = New List(Of ThirdByProjectEntity)
-
-        Dim arrayubicacion, arrayactor, arraycomponente, arrayflujos, arraydetallesflujos As String()
-        Dim deptovalexist, Cityvalexist As Integer
-        Dim desembolsoexist, Aportanteexist, idaportanteexist, N_pagodetexist, estados_flujosexist, N_pagoexist, fecha_pagoexist, porcentajeexist, entregaexist, tflujosexist, existidprogram, existactorsVal, existactorsName, existtipoactors, existcontact, existcedula, existtelefono, existemail, existdiner, existespecie, existtotal As String
-
-        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
-
-        Try
-
-            list_ubicacion = Replace(list_ubicacion, "{", " ", 1)
-            list_ubicacion = Replace(list_ubicacion, "}", " ", 1)
-            list_ubicacion = Replace(list_ubicacion, """", " ", 1)
-            'convertimos el string en un array de datos
-            arrayubicacion = list_ubicacion.Split(New [Char]() {","c})
-
-            list_actor = Replace(list_actor, "{", " ", 1)
-            list_actor = Replace(list_actor, "}", " ", 1)
-            list_actor = Replace(list_actor, """", " ", 1)
-            'convertimos el string en un array de datos
-            arrayactor = list_actor.Split(New [Char]() {","c})
-
-            list_flujos = Replace(list_flujos, "{", " ", 1)
-            list_flujos = Replace(list_flujos, "}", " ", 1)
-            list_flujos = Replace(list_flujos, """", " ", 1)
-            'convertimos el string en un array de datos
-            arrayflujos = list_flujos.Split(New [Char]() {","c})
-
-            list_detalles_flujos = Replace(list_detalles_flujos, "{", " ", 1)
-            list_detalles_flujos = Replace(list_detalles_flujos, "}", " ", 1)
-            list_detalles_flujos = Replace(list_detalles_flujos, """", " ", 1)
-            'convertimos el string en un array de datos
-            arraydetallesflujos = list_detalles_flujos.Split(New [Char]() {","c})
-
-            list_componentes = Replace(list_componentes, "/", "*", 1)
-            list_componentes = Replace(list_componentes, "_ *", "*", 1)
-            ''convertimos el string en un array de datos
-            arraycomponente = list_componentes.Split(New [Char]() {"*"c})
-
-            Dim contador As Integer = 0
-            Dim contadoractor As Integer = 0
-            Dim contadorcomp As Integer = 0
-            Dim contadorflu As Integer = 0
-            Dim contadordetflu As Integer = 0
-
-            'recorremos los componentes seleccionados
-            For Each row In arraycomponente
-
-                'istanciamos el objeto componente
-                Dim myProgramComponentByproject As New ProgramComponentByProjectEntity
-
-                If IsNumeric(arraycomponente(contadorcomp)) Then
-
-                    myProgramComponentByproject.idProgramComponent = arraycomponente(contadorcomp)
-                    ProgramComponentByProjectList.Add(myProgramComponentByproject)
-
-                End If
-
-                contadorcomp = contadorcomp + 1
-            Next
-
-            '----------------------------------------------------ubicaciones------------------------------------------------------------------------
-            'ISTANCIAMOS LA VARIABLE DEL TAMAÑO DEL ARRAY
-            Dim t_Aubicacion As Integer
-
-            'ASIGNAMOS EL TAMAÑO 
-            t_Aubicacion = arrayubicacion.Length
-
-            'RECORREMOS LA CANTIDAD DE VECES ASIGNADAS
-            For index_ubi As Integer = 0 To t_Aubicacion
-
-                Dim objListProyectLocationsList As List(Of ProjectLocationEntity) = New List(Of ProjectLocationEntity)
-                Dim objProjectLocation As ProjectLocationEntity = New ProjectLocationEntity()
-                objListProyectLocationsList = (DirectCast(Session("projectLocationList"), List(Of ProjectLocationEntity)))
-
-                Dim objDeptoEntity As DeptoEntity = New DeptoEntity()
-                Dim objCityEntity As CityEntity = New CityEntity()
-
-                'VERIDFICAMOS Q EXISTAN LOS CAMPOS SOLICITADOS
-                deptovalexist = InStr(arrayubicacion(contador), "DeptoVal")
-                Cityvalexist = InStr(arrayubicacion(contador + 2), "CityVal")
-
-                'separamos el valor de campo
-                deptovalexist = Replace(arrayubicacion(contador), " DeptoVal : ", " ", 1)
-                Cityvalexist = Replace(arrayubicacion(contador + 2), "CityVal : ", " ", 1)
-
-                'asignamos al objeto
-                objProjectLocation.IDDEPTO = deptovalexist
-                objProjectLocation.idcity = Cityvalexist
-
-                'cargamos al list
-                objListProyectLocationsList.Add(objProjectLocation)
-
-                index_ubi = index_ubi + 4
-                contador = contador + 4
-
-                If contador <> index_ubi Then
-                    index_ubi = contador
-                End If
-
-            Next
-
-            '----------------------------------------------------actores------------------------------------------------------------------------
-            'ISTANCIAMOS LA VARIABLE DEL TAMAÑO DEL ARRAY
-            Dim t_Aactor As Integer
-
-            'ASIGNAMOS EL TAMAÑO 
-            t_Aactor = arrayactor.Length
-
-            'RECORREMOS LA CANTIDAD DE VECES ASIGNADAS
-            For index_act As Integer = 0 To t_Aactor
-
-                Dim ThirdByProjectList As List(Of ThirdByProjectEntity) = New List(Of ThirdByProjectEntity)()
-                Dim ThirdByProject As ThirdByProjectEntity = New ThirdByProjectEntity()
-                ThirdByProjectList = DirectCast(Session("thirdByProjectList"), List(Of ThirdByProjectEntity))
-
-                'VERIDFICAMOS Q EXISTAN LOS CAMPOS SOLICITADOS
-                existactorsVal = InStr(arrayactor(contadoractor), "actorsVal") 'y
-                existactorsName = InStr(arrayactor(contadoractor + 1), "actorsName") 'y
-                existtipoactors = InStr(arrayactor(contadoractor + 2), "tipoactors")
-                existcontact = InStr(arrayactor(contadoractor + 3), "contact") 'y
-                existcedula = InStr(arrayactor(contadoractor + 4), "cedula") 'y
-                existtelefono = InStr(arrayactor(contadoractor + 5), "telefono") 'y
-                existemail = InStr(arrayactor(contadoractor + 6), "email") 'y
-                existdiner = InStr(arrayactor(contadoractor + 7), "diner")
-                existespecie = InStr(arrayactor(contadoractor + 8), "especie")
-                existtotal = InStr(arrayactor(contadoractor + 9), "total")
-                estados_flujosexist = InStr(arrayactor(contadoractor + 10), "estado_flujo")
-
-                'separamos el valor de campo
-                existactorsVal = Replace(arrayactor(contadoractor), " actorsVal : ", " ", 1)
-                existactorsName = Replace(arrayactor(contadoractor + 1), "actorsName : ", " ", 1)
-                existtipoactors = Replace(arrayactor(contadoractor + 2), "tipoactors : ", " ", 1)
-                existcontact = Replace(arrayactor(contadoractor + 3), "contact : ", " ", 1)
-                existcedula = Replace(arrayactor(contadoractor + 4), "cedula : ", " ", 1)
-                existtelefono = Replace(arrayactor(contadoractor + 5), "telefono : ", " ", 1)
-                existemail = Replace(arrayactor(contadoractor + 6), "email : ", " ", 1)
-                existdiner = Replace(arrayactor(contadoractor + 7), "diner : ", " ", 1)
-                existespecie = Replace(arrayactor(contadoractor + 8), "especie : ", " ", 1)
-                existtotal = Replace(arrayactor(contadoractor + 9), "total : ", " ", 1)
-                estados_flujosexist = Replace(arrayactor(contadoractor + 10), "estado_flujo : ", " ", 1)
-                estados_flujosexist = estados_flujosexist.Replace(" ", "")
-                'asignamos al objeto
-                ThirdByProject.idthird = existactorsVal
-                ThirdByProject.THIRD.name = existactorsName
-                ThirdByProject.Name = existactorsName
-                ThirdByProject.type = existtipoactors
-                ThirdByProject.THIRD.contact = existcontact
-                ThirdByProject.contact = existcontact
-                ThirdByProject.THIRD.documents = existcedula
-                ThirdByProject.Documents = existcedula
-                ThirdByProject.THIRD.phone = existtelefono
-                ThirdByProject.Phone = existtelefono
-                ThirdByProject.THIRD.email = existemail
-                ThirdByProject.Email = existemail
-                ThirdByProject.Vrmoney = existdiner
-                ThirdByProject.VrSpecies = existespecie
-                ThirdByProject.FSCorCounterpartContribution = existtotal
-                ThirdByProject.EstadoFlujos = estados_flujosexist
-                ThirdByProject.CreateDate = Now
-
-                'cargamos al list
-                ThirdByProjectList.Add(ThirdByProject)
-
-                contadoractor = contadoractor + 11
-                index_act = index_act + 11
-
-                If contadoractor <> index_act Then
-                    index_act = contadoractor
-                End If
-
-            Next
-
-            '----------------------------------------------------flujos------------------------------------------------------------------------
-            'ISTANCIAMOS LA VARIABLE DEL TAMAÑO DEL ARRAY
-            Dim t_Aflujo As Integer
-
-            'ASIGNAMOS EL TAMAÑO 
-            t_Aflujo = arrayflujos.Length
-
-
-            If arrayflujos(0) = "vacio_ojo" Then
-
-            Else
-
-                'RECORREMOS LA CANTIDAD DE VECES ASIGNADAS
-                For index_flu As Integer = 0 To t_Aflujo
-
-                    Dim objpaymentFlow As PaymentFlowEntity = New PaymentFlowEntity()
-                    Dim PaymentFlowList As List(Of PaymentFlowEntity)
-                    PaymentFlowList = DirectCast(Session("paymentFlowList"), List(Of PaymentFlowEntity))
-
-                    'VERIDFICAMOS Q EXISTAN LOS CAMPOS SOLICITADOS
-                    N_pagoexist = InStr(arrayflujos(contadorflu), "N_pago")
-                    fecha_pagoexist = InStr(arrayflujos(contadorflu + 1), "fecha_pago")
-                    porcentajeexist = InStr(arrayflujos(contadorflu + 2), "porcentaje")
-                    entregaexist = InStr(arrayflujos(contadorflu + 3), "entrega")
-                    tflujosexist = InStr(arrayflujos(contadorflu + 4), "tflujos")
-
-                    'separamos el valor de campo
-                    N_pagoexist = Replace(arrayflujos(contadorflu), " N_pago : ", " ", 1)
-                    fecha_pagoexist = Replace(arrayflujos(contadorflu + 1), " fecha_pago : ", " ", 1)
-                    porcentajeexist = Replace(arrayflujos(contadorflu + 2), " porcentaje : ", " ", 1)
-                    porcentajeexist = porcentajeexist.Replace("%", "")
-                    entregaexist = Replace(arrayflujos(contadorflu + 3), " entrega : ", " ", 1)
-                    entregaexist = entregaexist.Replace("¬", ",")
-                    tflujosexist = Replace(arrayflujos(contadorflu + 4), " tflujos : ", " ", 1)
-                    tflujosexist = tflujosexist.Replace(".", "")
-                    'asignamos al objeto
-                    objpaymentFlow.N_pagos = N_pagoexist
-                    objpaymentFlow.fecha = Convert.ToDateTime(fecha_pagoexist)
-                    objpaymentFlow.porcentaje = porcentajeexist
-                    objpaymentFlow.entregable = entregaexist
-                    objpaymentFlow.valortotal = Convert.ToInt32(tflujosexist)
-                    objpaymentFlow.valorparcial = Convert.ToInt32(tflujosexist)
-                    objpaymentFlow.ididea = 0
-                    objpaymentFlow.mother = 0
-                    'cargamos al list
-                    PaymentFlowList.Add(objpaymentFlow)
-
-                    contadorflu = contadorflu + 5
-                    index_flu = index_flu + 5
-
-                    If contadorflu <> index_flu Then
-                        index_flu = contadorflu
-                    End If
-
-                Next
-            End If
-
-            '----------------------------------------------------detallesflujos------------------------------------------------------------------------
-            'ISTANCIAMOS LA VARIABLE DEL TAMAÑO DEL ARRAY
-            Dim t_Aflujodetalle As Integer
-
-            'ASIGNAMOS EL TAMAÑO 
-            t_Aflujodetalle = arraydetallesflujos.Length
-
-            If arraydetallesflujos(0) = "vacio_ojo" Then
-
-            Else
-
-                'RECORREMOS LA CANTIDAD DE VECES ASIGNADAS
-                For index_fludet As Integer = 0 To t_Aflujodetalle
-
-                    Dim objDetalleflujo As DetailedcashflowsEntity = New DetailedcashflowsEntity()
-                    Dim listDetalleflujo As List(Of DetailedcashflowsEntity)
-                    listDetalleflujo = (DirectCast(Session("DetailedcashflowsList"), List(Of DetailedcashflowsEntity)))
-
-                    'VERIDFICAMOS Q EXISTAN LOS CAMPOS SOLICITADOS
-                    N_pagodetexist = InStr(arraydetallesflujos(contadordetflu), "idpago")
-                    idaportanteexist = InStr(arraydetallesflujos(contadordetflu + 1), "idaportante")
-                    Aportanteexist = InStr(arraydetallesflujos(contadordetflu + 2), "Aportante")
-                    desembolsoexist = InStr(arraydetallesflujos(contadordetflu + 3), "desembolso")
-
-                    'separamos el valor de campo
-                    N_pagodetexist = Replace(arraydetallesflujos(contadordetflu), " idpago : ", " ", 1)
-                    idaportanteexist = Replace(arraydetallesflujos(contadordetflu + 1), " idaportante : ", " ", 1)
-                    Aportanteexist = Replace(arraydetallesflujos(contadordetflu + 2), " Aportante : ", " ", 1)
-                    desembolsoexist = Replace(arraydetallesflujos(contadordetflu + 3), " desembolso : ", " ", 1)
-                    desembolsoexist = desembolsoexist.Replace(".", "")
-
-                    'asignamos al objeto
-                    objDetalleflujo.N_pago = Convert.ToInt32(N_pagodetexist)
-                    objDetalleflujo.IdAportante = Convert.ToInt32(idaportanteexist)
-                    objDetalleflujo.Aportante = Aportanteexist
-                    objDetalleflujo.Desembolso = desembolsoexist
-                    objDetalleflujo.IdIdea = 0
-                    objDetalleflujo.mother = 0
-
-                    'cargamos al list
-                    listDetalleflujo.Add(objDetalleflujo)
-
-                    contadordetflu = contadordetflu + 4
-                    index_fludet = index_fludet + 4
-
-                    If contadordetflu <> index_fludet Then
-                        index_fludet = contadordetflu
-                    End If
-
-                Next
-
-            End If
-
-
-            'Se almacena en el objeto idea la lista de Componentes del Programa obtenida
-            objProject.ProgramComponentbyprojectlist = ProgramComponentByProjectList
-
-            'buscamos el id del proyecto madre
-            Dim idproyect_mother = search_id_project_mother(ididea)
-            'lo asignamos al proyecto derivado
-            objProject.Project_derivados = idproyect_mother
-
-            objProject.code = str_code
-
-            objProject.ididea = ididea
-            objProject.name = clean_vbCrLf(name)
-            objProject.objective = clean_vbCrLf(objetive)
-            objProject.begindate = fecha_i
-            objProject.duration = mes
-            objProject.zonedescription = clean_vbCrLf(obj_esp)
-            objProject.population = poblacion
-            objProject.totalcost = Convert.ToInt32(cost)
-            objProject.results = clean_vbCrLf(resul_bef)
-            objProject.createdate = Now
-            objProject.iduser = applicationCredentials.UserID
-            objProject.justification = clean_vbCrLf(justify)
-            objProject.ResultsKnowledgeManagement = clean_vbCrLf(resul_ges_c)
-            objProject.ResultsInstalledCapacity = clean_vbCrLf(resul_cap_i)
-            objProject.OthersResults = clean_vbCrLf(otros_resul)
-            objProject.idtypecontract = contratacion
-            objProject.Typeapproval = estado
-            objProject.Obligaciones = obligaciones
-            objProject.mitigacion = mitigacion
-            objProject.riesgos = riesgos
-            objProject.presupuestal = presupuestal
-            objProject.dia = dia
-            objProject.iva = iva
-            objProject.mother = 0
-
-            objProject.completiondate = Convert.ToDateTime(fecha_f)
-
-            objProject.effectivebudget = ""
-            objProject.idphase = "1"
-            objProject.strategicdescription = ""
-            objProject.attachment = ""
-            objProject.purpose = ""
-            objProject.source = ""
-
-            'Se garega la lista de ubicaciones agregada
-            objProject.projectlocationlist = DirectCast(Session("projectLocationList"), List(Of ProjectLocationEntity))
-            'objIdea.LOCATIONBYIDEALIST = DirectCast(Session("locationByIdeaList"), List(Of LocationByIdeaEntity))
-
-            'Se agrega la lista de terceros agregada
-            objProject.thirdbyprojectlist = DirectCast(Session("thirdByProjectList"), List(Of ThirdByProjectEntity))
-            'objIdea.THIRDBYIDEALIST = DirectCast(Session("thirdByIdeaList"), List(Of ThirdByIdeaEntity))
-
-            'Se agrega la lista de FLUJOS DE PAGOS
-            objProject.paymentflowByProjectList = DirectCast(Session("paymentFlowList"), List(Of PaymentFlowEntity))
-
-            'Se agrega la lista de  detalles de FLUJOS DE PAGOS
-            objProject.DetailedcashflowsbyProjectList = DirectCast(Session("DetailedcashflowsList"), List(Of DetailedcashflowsEntity))
-
-            'almacenar la entidad
-            objProject.id = facade.addProject(applicationCredentials, objProject)
-
-            update_proyect(objProject.id, str_code)
-
-            save_document_PROYECTO(list_files, objProject.id)
-
-
-            Dim Result As String
-
-            If objProject.id <> 0 Then
-
-                Result = "Proyecto se guardó correctamente!"
-                Response.Write(Result)
-
-            Else
-
-                Result = "Se perdio la conexion al guardar los datos del Proyecto"
-                Response.Write(Result)
-
-            End If
-
-        Catch ex As Exception
-
-            Dim Result As String
-            Result = "Error inesperado por favor consulte el administrador - " & ex.Message
-            Response.Write(Result)
 
         End Try
 
@@ -3160,121 +2795,88 @@ Partial Public Class AjaxAddProject
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
         Dim ArrayFile As String()
 
-        list_file = Replace(list_file, "{", " ", 1)
-        list_file = Replace(list_file, "}", " ", 1)
-        list_file = Replace(list_file, """", " ", 1)
-        'convertimos el string en un array de datos
-        ArrayFile = list_file.Split(New [Char]() {","c})
+        Dim NewListFiles = JsonConvert.DeserializeObject(Of List(Of CFilesView))(list_file)
 
-        If ArrayFile(0) <> "vacio_ojo" Then
+        For Each item_file As CFilesView In NewListFiles
 
-            'ISTANCIAMOS LA VARIABLE DEL TAMAÑO DEL ARRAY
-            Dim t_file As Integer
-            Dim contador As Integer = 0
+            Dim objDocument As DocumentsEntity = New DocumentsEntity()
+            Dim objDocumentbyEntity As DocumentsByEntityEntity = New DocumentsByEntityEntity()
 
-            Dim idfileexist, filenameexist, Descriptionexist As String
+            'asignamos al objeto
+            objDocument.title = item_file.filename
+            objDocument.description = item_file.Description
+            objDocument.ideditedfor = 0
+            objDocument.iddocumenttype = 0
+            objDocument.idvisibilitylevel = 0
+            objDocument.createdate = Now
+            objDocument.iduser = applicationCredentials.UserID
+            objDocument.attachfile = item_file.filename
+            objDocument.enabled = 1
+            objDocument.Id_Entity_Zone = "ProjectEntity_" & idPROYECTO
+            objDocument.Id_document = Convert.ToInt32(item_file.idfile)
 
-            'ASIGNAMOS EL TAMAÑO 
-            t_file = ArrayFile.Length
+            'cargamos al list
+            Dim sql As New StringBuilder
+            Dim dtData, dtDatadoc As DataTable
 
-            'RECORREMOS LA CANTIDAD DE VECES ASIGNADAS
-            For index_ubi As Integer = 0 To t_file
+            ' construir la sentencia
+            sql.AppendLine("INSERT INTO Documents(title,description,ideditedfor,idvisibilitylevel,iddocumenttype,createdate,iduser,attachfile,enabled,Id_Entity_Zone,Id_document ) ")
+            sql.AppendLine(" VALUES (")
+            sql.AppendLine("'" & objDocument.title & "',")
+            sql.AppendLine("'" & objDocument.description & "',")
+            sql.AppendLine("'" & objDocument.ideditedfor & "',")
+            sql.AppendLine("'" & objDocument.idvisibilitylevel & "',")
+            sql.AppendLine("'" & objDocument.iddocumenttype & "',")
+            sql.AppendLine("'" & objDocument.createdate.ToString("yyyyMMdd HH:mm:ss") & "',")
+            sql.AppendLine("'" & objDocument.iduser & "',")
+            sql.AppendLine("'" & objDocument.attachfile & "',")
+            sql.AppendLine("'" & objDocument.enabled & "',")
+            sql.AppendLine("'" & objDocument.Id_Entity_Zone & "',")
+            sql.AppendLine("'" & objDocument.Id_document & "')")
 
-                Dim objDocument As DocumentsEntity = New DocumentsEntity()
-                Dim objDocumentbyEntity As DocumentsByEntityEntity = New DocumentsByEntityEntity()
+            ' intruccion para obtener el registro insertado
+            sql.AppendLine(" SELECT SCOPE_IDENTITY() AS Id")
 
-                'VERIDFICAMOS Q EXISTAN LOS CAMPOS SOLICITADOS
-                idfileexist = InStr(ArrayFile(contador), "idfile")
-                filenameexist = InStr(ArrayFile(contador + 1), "filename")
-                Descriptionexist = InStr(ArrayFile(contador + 2), "Description")
+            'obtener el id
+            dtData = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
 
-                'separamos el valor de campo
-                idfileexist = Replace(ArrayFile(contador), " idfile :", " ", 1)
-                filenameexist = Replace(ArrayFile(contador + 1), "filename : ", "", 1)
-                Descriptionexist = Replace(ArrayFile(contador + 2), "Description : ", " ", 1)
-                Descriptionexist = Descriptionexist.Replace("¬", ",")
+            ' id creado
+            Dim idEntity As Long = CLng(dtData.Rows(0)("Id"))
 
-                'asignamos al objeto
-                objDocument.title = filenameexist
-                objDocument.description = Descriptionexist
-                objDocument.ideditedfor = 0
-                objDocument.iddocumenttype = 0
-                objDocument.idvisibilitylevel = 0
-                objDocument.createdate = Now
-                objDocument.iduser = applicationCredentials.UserID
-                objDocument.attachfile = filenameexist
-                objDocument.enabled = 1
-                objDocument.Id_Entity_Zone = "ProjectEntity_" & idPROYECTO
-                objDocument.Id_document = Convert.ToInt32(idfileexist)
+            ' finalizar la transaccion
+            CtxSetComplete()
 
-                'cargamos al list
-                Dim sql As New StringBuilder
-                Dim dtData, dtDatadoc As DataTable
+            'asignamos al objeto
+            objDocumentbyEntity.iddocuments = idEntity
+            objDocumentbyEntity.idnentity = idPROYECTO
+            objDocumentbyEntity.entityname = "ProjectEntity"
 
-                ' construir la sentencia
-                sql.AppendLine("INSERT INTO Documents(title,description,ideditedfor,idvisibilitylevel,iddocumenttype,createdate,iduser,attachfile,enabled,Id_Entity_Zone,Id_document ) ")
-                sql.AppendLine(" VALUES (")
-                sql.AppendLine("'" & objDocument.title & "',")
-                sql.AppendLine("'" & objDocument.description & "',")
-                sql.AppendLine("'" & objDocument.ideditedfor & "',")
-                sql.AppendLine("'" & objDocument.idvisibilitylevel & "',")
-                sql.AppendLine("'" & objDocument.iddocumenttype & "',")
-                sql.AppendLine("'" & objDocument.createdate.ToString("yyyyMMdd HH:mm:ss") & "',")
-                sql.AppendLine("'" & objDocument.iduser & "',")
-                sql.AppendLine("'" & objDocument.attachfile & "',")
-                sql.AppendLine("'" & objDocument.enabled & "',")
-                sql.AppendLine("'" & objDocument.Id_Entity_Zone & "',")
-                sql.AppendLine("'" & objDocument.Id_document & "')")
+            sql = New StringBuilder
 
-                ' intruccion para obtener el registro insertado
-                sql.AppendLine(" SELECT SCOPE_IDENTITY() AS Id")
+            ' construir la sentencia
+            sql.AppendLine("INSERT INTO DocumentsByEntity( iddocuments,idnentity,entityName) ")
+            sql.AppendLine("VALUES (")
+            sql.AppendLine("'" & objDocumentbyEntity.iddocuments & "',")
+            sql.AppendLine("'" & objDocumentbyEntity.idnentity & "',")
+            sql.AppendLine("'" & objDocumentbyEntity.entityname & "')")
 
-                'obtener el id
-                dtData = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+            ' intruccion para obtener el registro insertado
+            sql.AppendLine(" SELECT SCOPE_IDENTITY() AS Id")
 
-                ' id creado
-                Dim idEntity As Long = CLng(dtData.Rows(0)("Id"))
+            'obtener el id
+            dtDatadoc = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
 
-                ' finalizar la transaccion
-                CtxSetComplete()
+            ' id creado
+            Dim num As Long = CLng(dtDatadoc.Rows(0)("Id"))
 
-                'asignamos al objeto
-                objDocumentbyEntity.iddocuments = idEntity
-                objDocumentbyEntity.idnentity = idPROYECTO
-                objDocumentbyEntity.entityname = "ProjectEntity"
+            ' finalizar la transaccion
+            CtxSetComplete()
 
-                sql = New StringBuilder
-
-                ' construir la sentencia
-                sql.AppendLine("INSERT INTO DocumentsByEntity( iddocuments,idnentity,entityName) ")
-                sql.AppendLine("VALUES (")
-                sql.AppendLine("'" & objDocumentbyEntity.iddocuments & "',")
-                sql.AppendLine("'" & objDocumentbyEntity.idnentity & "',")
-                sql.AppendLine("'" & objDocumentbyEntity.entityname & "')")
-
-                ' intruccion para obtener el registro insertado
-                sql.AppendLine(" SELECT SCOPE_IDENTITY() AS Id")
-
-                'obtener el id
-                dtDatadoc = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
-
-                ' id creado
-                Dim num As Long = CLng(dtDatadoc.Rows(0)("Id"))
-
-                ' finalizar la transaccion
-                CtxSetComplete()
-
-                index_ubi = index_ubi + 3
-                contador = contador + 3
-
-            Next
-
-        End If
+        Next
 
     End Function
 
     Protected Function borrar_archivos()
-        'Dim startinfo As New ProcessStartInfo("C:\Gattaca_pruebas\WebSiteFSC\ELVIRA-F3\FSC_APP\FSC_APP\bats\BORRAR_ARC.bat")
         Dim startinfo As New ProcessStartInfo(Server.MapPath("\bats\BORRAR_ARC.bat"))
         startinfo.UseShellExecute = False
         startinfo.WindowStyle = ProcessWindowStyle.Hidden
@@ -3282,7 +2884,6 @@ Partial Public Class AjaxAddProject
     End Function
 
     Protected Function copiar_archivos()
-        ' Dim startinfo As New ProcessStartInfo("C:\Gattaca_pruebas\WebSiteFSC\ELVIRA-F3\FSC_APP\FSC_APP\bats\COPIAR_ARC.bat")
         Dim startinfo As New ProcessStartInfo(Server.MapPath("\bats\COPIAR_ARC.bat"))
         startinfo.UseShellExecute = False
         startinfo.WindowStyle = ProcessWindowStyle.Hidden
@@ -3291,3 +2892,5 @@ Partial Public Class AjaxAddProject
 
 
 End Class
+
+

@@ -1,4 +1,5 @@
-﻿function subirArchivos() {
+﻿//funcion q sube el archivo al servidor
+function subirArchivos() {
 
     //validamos si seleccionaron un archivo
     if ($("#fileupload").val() != "") {
@@ -86,8 +87,6 @@ function crear_tabla_anexos(link_route) {
         var pathFile = namefile;
 
         namefile = namefile.replace(/_/g, ' ');
-
-
 
         htmlTablefiles += "<tr id='archivo" + arrayFiles[itemArray].idfile + "'><td><a id='linkarchives" + arrayFiles[itemArray].idfile + "' runat='server' href='" + link_route + pathFile + "' target= '_blank' title='link'>" + arrayFiles[itemArray].filename + "</a></td><td style='text-align: left;'>" + entregacomas + "</td><td style='text-align: center;'><input type ='button' value= 'Eliminar' onclick=\"deletefile('" + arrayFiles[itemArray].idfile + "')\"></input></td></tr>";
     }

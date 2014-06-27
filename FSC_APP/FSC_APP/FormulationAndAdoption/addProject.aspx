@@ -448,13 +448,16 @@
                 <li>
                     <asp:Label ID="Label18" runat="server" Text="Línea Estratégica "></asp:Label>
                     <select id="ddlStrategicLines" class="Ccombo">
-                    </select><asp:Label ID="lblinfls" runat="server" ForeColor="#990000"></asp:Label></li>
+                    </select>
+                    <asp:Label ID="lblinfls" runat="server" ForeColor="#990000"></asp:Label></li>
             </ul>
             <ul class="right">
                 <li>
                     <asp:Label ID="Label19" runat="server" Text="Objetivo estratégico"></asp:Label>
                     <select id="ddlPrograms" class="Ccombo">
-                    </select><asp:Label ID="lblinpro" runat="server" ForeColor="#990000"></asp:Label></li>
+                            <option value="">Seleccione...</option>
+                    </select>
+                    <asp:Label ID="lblinpro" runat="server" ForeColor="#990000"></asp:Label></li>
             </ul>
             <table style="margin: 0 auto;">
                 <tr>
@@ -486,16 +489,13 @@
                 <li>
                     <asp:Label ID="lbiddepto" runat="server" Text="Departamento"></asp:Label>
                     <select id="ddlDepto" class="Ccombo">
-                        <asp:DropDownList ID="ddlDepto" runat="server">
-                        </asp:DropDownList>
                     </select>
                 </li>
                 <br />
                 <li>
                     <asp:Label ID="lbidcity" runat="server" Text="Municipio"></asp:Label>
                     <select id="ddlCity" class="Ccombo">
-                        <asp:DropDownList ID="ddlCity" runat="server">
-                        </asp:DropDownList>
+                                <option value="">Seleccione...</option>
                     </select>
                 </li>
             </ul>
@@ -931,7 +931,7 @@
                     </table>
                 </div>
                 <br />
-                <input style="margin-left: 3em;" type="button" id="cancelEdition" value="Cancelar Edición" />
+                <input style="margin-left: 3em; margin-bottom: 15px;" type="button" id="cancelEdition" value="Cancelar Edición" />
             </div>
         </div>
         <div id="anexos">
