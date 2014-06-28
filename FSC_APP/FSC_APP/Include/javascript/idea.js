@@ -92,6 +92,7 @@ $(document).ready(function() {
             ClineEstrategic_edit();
         });
 
+        charge_date_list_project();
         View_componentes_array();
         view_ubicacion_array();
         View_actores_array();
@@ -103,6 +104,7 @@ $(document).ready(function() {
         edit_component_view();
 
         load_idarchive();
+
 
         aprobacion_idea();
 
@@ -951,6 +953,35 @@ function load_combos() {
         },
         error: function(msg) {
             alert("No se pueden cargar los combos de idea.");
+        }
+    });
+}
+
+
+function charge_date_list_project() {
+
+    $.ajax({
+        url: "AjaxAddIdea.aspx",
+        type: "GET",
+        data: { "action": "Charge_combos_edit", "ididea": ideditar },
+        success: function(result) {
+
+            result = JSON.parse(result);
+
+            console.log(result);
+
+            $("#ddlPupulation").val(result[2]);
+            $("#ddlPupulation").trigger("liszt:updated");
+
+            $("#ddlmodcontract").val(result[4]);
+            $("#ddlmodcontract").trigger("liszt:updated");
+
+            $("#dll_estado").val(result[3]);
+            $("#dll_estado").trigger("liszt:updated");
+
+        },
+        error: function(msg) {
+            alert("No se pueden cargar los combos de proyecto.");
         }
     });
 }

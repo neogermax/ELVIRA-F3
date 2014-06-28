@@ -945,7 +945,6 @@ function charge_date_list_idea(id_idea) {
         success: function(result) {
 
             result = JSON.parse(result);
-            console.log(result);
             $("#ddlStrategicLines").val(result[0]);
             $("#ddlStrategicLines").trigger("liszt:updated");
 
@@ -976,7 +975,6 @@ function charge_date_list_project(id_proyect) {
 
             result = JSON.parse(result);
 
-            console.log(result);
             $("#ddlStrategicLines").val(result[0]);
             $("#ddlStrategicLines").trigger("liszt:updated");
 
