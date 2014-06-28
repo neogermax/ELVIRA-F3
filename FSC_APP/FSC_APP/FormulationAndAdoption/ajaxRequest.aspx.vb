@@ -357,10 +357,16 @@ Partial Public Class ajaxRequest
         Dim DataProject As DataTable
         Dim DataReq As DataTable
         Dim DataStrLin As DataTable
+        Dim DataPDetail As DataTable
         Dim primero As Boolean = False
+        Dim alcance As Boolean = False
+        Dim suspension As Boolean = False
+        Dim adicion As Boolean = False
+        Dim cesion As Boolean = False
+        Dim otros As Boolean = False
 
         Try
-            proyecto = 772
+            proyecto = 775
             'Query inicial de otro si
             sql.AppendLine("select * from request where idproject = " & proyecto)
             DataTerms = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
@@ -377,7 +383,7 @@ Partial Public Class ajaxRequest
             sql = New StringBuilder
 
             'Query tipos de otrosi
-            sql.AppendLine("select rt.type from request_requesttype r ")
+            sql.AppendLine("select r.IdRequestType, rt.type from request_requesttype r  ")
             sql.AppendLine("right join RequestType rt ")
             sql.AppendLine("on r.idrequesttype = rt.id ")
             sql.AppendLine("where idrequest = " & DataTerms.Rows(0)("Id"))
@@ -391,7 +397,16 @@ Partial Public Class ajaxRequest
             sql.AppendLine("where PCP.IdProject = " & proyecto)
             DataStrLin = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
 
+            sql = New StringBuilder
+
+            'Query datos de proyecto
+            sql.AppendLine("select objective, zonedescription, begindate, completiondate, results, ResultsKnowledgeManagement, ResultsInstalledCapacity, OtherResults, obligationsoftheparties, RisksIdentified, RiskMitigation from Project")
+            sql.AppendLine("where ID = " & proyecto)
+            DataPDetail = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
             If DataTerms.Rows.Count > 0 Then
+
+
 
                 'Diligenciar encabezado
                 'Diligenciar parte inicial
@@ -418,11 +433,31 @@ Partial Public Class ajaxRequest
 
                 primero = False
 
-                'Cargar tipos de otro si
+                'Cargar tipos de otro si 
                 If DataReq.Rows.Count > 0 Then
                     Dim tipos As New StringBuilder
 
                     For Each item In DataReq.Rows
+
+                        'Determinar modulos a diligenciar
+                        Select Case item("IdRequestType")
+
+                            Case 1
+                                adicion = True
+
+                            Case 2
+                                suspension = True
+
+                            Case 3
+                                alcance = True
+
+                            Case 4
+                                cesion = True
+
+                            Case 5
+                                otros = True
+
+                        End Select
 
                         If primero = False Then
                             tipos.Append(item("type"))
@@ -461,9 +496,81 @@ Partial Public Class ajaxRequest
                     objRequest_ReferenceTerms.Justification = DataTerms.Rows(0)("Justification")
                 End If
 
-                'Diligenciar detalles 2-1
-                'Diligenciar
-                'Diligenciar riesgos
+                Dim modulo As New StringBuilder
+
+                'Diligenciar detalles 2-1 Alcance
+
+                If alcance = True Then
+
+                    modulo.Append("<table border=""0"" cellpadding=""0"" cellspacing=""0"" style=""width: 100%;""><tbody><tr><td>&nbsp;</td></tr><tr><td><strong><em><u>ALCANCE:</u></em></strong></td></tr><tr><td>&nbsp;</td></tr></tbody></table>")
+                    modulo.Append("<table border=""1"" cellpadding=""0"" cellspacing=""0"" style=""width: 100%;""><tbody><tr><td colspan=""2"" rowspan=""1"" style=""text-align: center;""><strong>Información Inicial</strong></td><td style=""text-align: center;""><strong>Información a Modificar</strong></td></tr>")
+                    modulo.Append("<tr><td style=""width: 20%;""><strong>Objetivo General:</strong></td><td style=""width: 30%;"">" & DataPDetail.Rows(0)("objective") & "</td><td style=""width: 30%;"">" & DataTerms.Rows(0)("objective") & "</td></tr>")
+                    modulo.Append("<tr><td><strong>Objetivos Específicos:</strong></td><td>" & DataPDetail.Rows(0)("zonedescription") & "</td><td>" & DataTerms.Rows(0)("zonedescription") & "</td></tr>")
+                    modulo.Append("<tr><td><strong>Resultados Beneficiarios:</strong></td><td>" & DataPDetail.Rows(0)("results") & "</td><td>" & DataTerms.Rows(0)("results") & "</td></tr>")
+                    modulo.Append("<tr><td><strong>Resultados Gestión Del Conocimiento:</strong></td><td>" & DataPDetail.Rows(0)("resultsknowledgemanagement") & "</td><td>" & DataTerms.Rows(0)("resultsknowledgemanagement") & "</td></tr>")
+                    modulo.Append("<tr><td><strong>Resultados Capacidad Instalada:</strong></td><td>" & DataPDetail.Rows(0)("resultsinstalledcapacity") & "</td><td>" & DataTerms.Rows(0)("resultsinstalledcapacity") & "</td></tr>")
+                    modulo.Append("<tr><td><strong>Resultados Otros: </strong></td><td>" & DataPDetail.Rows(0)("otherresults") & "</td><td>" & DataTerms.Rows(0)("otherresults") & "</td></tr>")
+                    modulo.Append("<tr><td><strong>Obligaciones de las Partes:</strong></td><td>" & DataPDetail.Rows(0)("obligationsoftheparties") & "</td><td>" & DataTerms.Rows(0)("obligationsoftheparties") & "</td></tr>")
+                    modulo.Append("</tbody></table>")
+
+                    objRequest_ReferenceTerms.scope = modulo.ToString
+                Else
+                    objRequest_ReferenceTerms.scope = ""
+                End If
+
+                modulo = New StringBuilder
+
+                'Diligenciar detalles 2-2 Suspension
+
+                If suspension = True Then
+
+                    modulo.Append("<table border=""0"" cellpadding=""0"" cellspacing=""0"" style=""width: 100%;""><tbody><tr><td>&nbsp;</td></tr><tr><td><strong><em><u>SUSPENSIÓN:</u></em></strong></td></tr><tr><td>&nbsp;</td></tr></tbody></table>")
+                    modulo.Append("<table border=""1"" cellpadding=""0"" cellspacing=""0"" style=""width: 100%;""><tbody><tr><td colspan=""2"" style=""text-align: center;""><strong>Información Inicial</strong></td></tr><tr><td style=""width: 50%;""><strong>Fecha de Inicio:</strong></td><td>" & DataPDetail.Rows(0)("begindate") & "</td></tr><tr><td><strong>Fecha de Finalización:</strong></td><td>" & DataPDetail.Rows(0)("completiondate") & "</td></tr><tr><td><strong>Fecha de Liquidación (Proyecto Madre):</strong></td><td>Fechaliq</td></tr><tr><td colspan=""2"" style=""text-align: center;""><strong>Información a Modificar</strong></td></tr><tr><td><strong>Fecha de inicio de Suspensión:</strong></td><td>" & DataTerms.Rows(0)("startsuspension_date") & "</td></tr><tr><td><strong>Fecha fin de suspensión:</strong></td><td>" & DataTerms.Rows(0)("EndSuspension_date") & "</td></tr><tr><td><strong>Tipo de Reinicio:</strong></td><td>" & DataTerms.Rows(0)("restart_type") & "</td></tr></tbody></table>")
+                    objRequest_ReferenceTerms.suspension = modulo.ToString
+
+                Else
+
+                    objRequest_ReferenceTerms.suspension = ""
+
+                End If
+
+                modulo = New StringBuilder
+
+                'Diligenciar detalles 2-3 Adicion Prorroga Entregable
+
+                If adicion = True Then
+
+                End If
+
+                modulo = New StringBuilder
+
+                'Diligenciar detalles 2-4 Cesion
+
+                If cesion = True Then
+
+                End If
+
+                modulo = New StringBuilder
+
+                'Diligenciar detalles 2-5 Otros
+
+                If otros = True Then
+                    If IsDBNull(DataTerms.Rows(0)("other_request")) = False Then
+                        modulo.Append("<table border=""0"" cellpadding=""0"" cellspacing=""0"" style=""width: 100%;""><tbody><tr><td></td></tr><tr><td><strong><em><u>OTROS</u></em></strong><strong>:</strong></td></tr><tr><td></td></tr><tr><td><strong>Modificación:</strong></td></tr><tr><td>" & DataTerms.Rows(0)("other_request") & "</td></tr></tbody></table>")
+                        objRequest_ReferenceTerms.others = modulo.ToString
+                    End If
+                Else
+                    objRequest_ReferenceTerms.others = ""
+                End If
+
+                modulo = New StringBuilder
+
+                'Diligenciar riesgos 
+                modulo.Append("<tbody><tr><td>&nbsp;</td></tr><tr><td><strong>3. IDENTIFICACIÓN DE RIESGOS</strong></td></tr><tr><td>&nbsp;</td></tr></tbody>")
+                modulo.Append("<table border=""1"" cellpadding=""0"" cellspacing=""0"" style=""width: 100%;""><tbody><tr><td style=""text-align: center;""><strong>Riesgo identificado</strong></td><td style=""text-align: center;""><strong>Acción de mitigación</strong></td></tr><tr><td>" & DataPDetail.Rows(0)("RisksIdentified") & "</td><td>" & DataPDetail.Rows(0)("RiskMitigation") & "</td></tr></tbody></table></br>&nbsp;</br>&nbsp;</br>")
+                modulo.Append("<table border=""0"" cellpadding=""0"" cellspacing=""0"" style=""width: 100%;""><tbody><tr><td><strong>*Nota:&nbsp;En</strong> la Fundación Saldarriaga Concha promovemos la cultura de racionalización en el uso del papel, por lo que se solicita informar a nuestros operadores que solo debe enviar el <strong>informe final </strong>impreso.</td></tr></tbody></table>")
+
+                objRequest_ReferenceTerms.risks = modulo.ToString
 
                 objRequest_ReferenceTerms.idProject = proyecto
                 objRequest_ReferenceTerms.directorio_Actas = Server.MapPath("~")
