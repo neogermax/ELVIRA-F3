@@ -624,7 +624,7 @@ Partial Class addContractRequest
     End Sub
 
     Protected Sub redirectToEdit(ByVal data As String)
-        Response.Write("host + /Engagement/addContractRequest.aspx?successSave=1&op=edit&id=" & data)
+        Response.Write("<script> window.location = host + '/Engagement/addContractRequest.aspx?successSave=1&op=edit&id=" & data & "'; </script>")
     End Sub
 
     Protected Sub btnCancel_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnCancel.Click
