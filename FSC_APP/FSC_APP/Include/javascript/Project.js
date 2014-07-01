@@ -76,6 +76,11 @@ var load_inicial = 0;
 
 $(document).ready(function() {
 
+$("#tabsproyecto").tabs();
+$("#tabsproyecto").tabs({ active: 1 });
+   
+carga_eventos("ctl00_cphPrincipal_container_wait");
+
     load_combos();
 
     Cmunip();
@@ -252,8 +257,6 @@ $(document).ready(function() {
 
     });
 
-    $("#tabsproyecto").tabs();
-    $("#tabsproyecto").tabs({ active: 1 });
     
     $(function() {
         $("#datepicker").datepicker();

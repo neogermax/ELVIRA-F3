@@ -57,6 +57,9 @@ var load_edit;
 var line_strategic;
 $(document).ready(function() {
 
+    $("#tabsIdea").tabs();
+    carga_eventos("ctl00_cphPrincipal_container_wait");
+
     load_combos();
 
     Cmunip();
@@ -133,7 +136,7 @@ $(document).ready(function() {
     //validar campos fechas
     validar_campofecha('ctl00_cphPrincipal_txtstartdate', 'ctl00_cphPrincipal_lblHelpstartdate');
     validar_campofecha('ctl00_cphPrincipal_txtfechapago', 'ctl00_cphPrincipal_helpfechapago');
-    carga_eventos("ctl00_cphPrincipal_container_wait");
+
 
 
 
@@ -217,7 +220,7 @@ $(document).ready(function() {
 
     });
 
-    $("#tabsIdea").tabs();
+
 
     //validar que pestaña esta ingresando
     $("#tabsIdea").click(function() {
