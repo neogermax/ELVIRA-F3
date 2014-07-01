@@ -210,19 +210,6 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                     idpopulation = Convert.ToInt32(Request.QueryString("idpopulation").ToString)
                     Charge_population(idpopulation)
 
-                Case "Cpopulation_view"
-                    ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
-                    searh_c_population(ideditar)
-
-                Case "Ctypcontract_view"
-                    ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
-                    searh_c_typecontract(ideditar)
-
-                Case "Ctypaproval_view"
-
-                    ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
-                    searh_c_typeaproval(ideditar)
-
                     '----------------- modulo ubicacion-------------------------------------------------------
                 Case "C_munip"
 
@@ -295,6 +282,22 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         End If
 
     End Sub
+    Protected Function charge_Array_edit(ByVal id_idea As String)
+
+        ' cargar arreglo  ubicaciones
+        searh_location_array(id_idea)
+        ' cargar arreglo actores
+        searh_actores_array(id_idea)
+        ' cargar arreglo flujos de pago
+        searh_flujos_array(id_idea)
+        ' cargar arreglo actores con flujo  
+        searh_actors_flujos_array(id_idea)
+        ' cargar arreglo destalles de los flujos
+        searh_detalles_array(id_idea)
+        ' cargar arreglo anexo
+        searh_document_anexos_array(id_idea)
+
+    End Function
 
     Protected Function charge_combos_edit(ByVal ididea As Integer)
 
@@ -307,7 +310,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         Dim populationvalue As String = ""
         Dim program_value As String = ""
         Dim linevalue As String = ""
-        
+
         sql.Append(" select i.typeapproval from idea i where i.id =" & ididea)
         Dim data_c_typeaproval = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
 
@@ -421,28 +424,6 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
     End Function
 
-    Protected Function searh_c_typeaproval(ByVal ididea As Integer)
-
-        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
-
-        Dim sql As New StringBuilder
-        Dim objSqlCommand As New SqlCommand
-        Dim type_aproval_value As String = ""
-
-        sql.Append(" select i.typeapproval from idea i where i.id =" & ididea)
-
-        Dim data_c_typeaproval = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
-
-        If data_c_typeaproval = 0 Then
-            type_aproval_value = "0"
-        Else
-            type_aproval_value = data_c_typeaproval
-        End If
-
-        Response.Write(type_aproval_value)
-
-    End Function
-
     Protected Function searh_component_array(ByVal ididea As Integer)
 
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
@@ -521,53 +502,6 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
         End If
         Response.Write(idfile)
-
-    End Function
-
-    Protected Function searh_c_typecontract(ByVal ididea As Integer)
-
-        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
-
-        Dim sql As New StringBuilder
-        Dim objSqlCommand As New SqlCommand
-        Dim populationvalue As String = ""
-
-
-        sql.Append(" select i.Idtypecontract from  Idea i where i.id =" & ididea)
-
-        Dim data_c_population = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
-
-        If data_c_population = 0 Then
-            populationvalue = "0"
-        Else
-            populationvalue = data_c_population
-        End If
-
-        Response.Write(populationvalue)
-
-    End Function
-
-    Protected Function searh_c_population(ByVal ididea As Integer)
-
-        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
-        Dim ProgramComponentByIdea As New ProgramComponentByIdeaDALC
-
-        Dim sql As New StringBuilder
-        Dim objSqlCommand As New SqlCommand
-        Dim populationvalue As String = ""
-
-
-        sql.Append(" select i.population from  Idea i where i.id =" & ididea)
-
-        Dim data_c_population = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
-
-        If data_c_population = 0 Then
-            populationvalue = "0"
-        Else
-            populationvalue = data_c_population
-        End If
-
-        Response.Write(populationvalue)
 
     End Function
 
@@ -1567,7 +1501,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         Dim myProgramComponentByIdeaList As List(Of ProgramComponentByIdeaEntity) = New List(Of ProgramComponentByIdeaEntity)
 
         Dim arrayubicacion, arrayactor, arraycomponente, arrayflujos, arraydetallesflujos As String()
-        
+
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
 
         Try
@@ -1922,7 +1856,7 @@ Class CDetailsPaymentFlowView
     End Property
 #End Region
 End Class
- 
+
 Class ClocationView
 #Region "Properties public and private"
     Private _DeptoVal As String

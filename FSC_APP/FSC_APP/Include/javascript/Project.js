@@ -951,10 +951,10 @@ function charge_date_list_idea(id_idea) {
             $("#ddlPrograms").val(result[1]);
             $("#ddlPrograms").trigger("liszt:updated");
 
-            $("#ddlPupulation").val(result[2]);
+            $("#ddlPupulation").val(result[4]);
             $("#ddlPupulation").trigger("liszt:updated");
 
-            $("#ddlmodcontract").val(result[3]);
+            $("#ddlmodcontract").val(result[2]);
             $("#ddlmodcontract").trigger("liszt:updated");
 
 
