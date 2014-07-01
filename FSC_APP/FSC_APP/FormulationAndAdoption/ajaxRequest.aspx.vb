@@ -358,6 +358,10 @@ Partial Public Class ajaxRequest
         Dim DataReq As DataTable
         Dim DataStrLin As DataTable
         Dim DataPDetail As DataTable
+        Dim DataPresupuestoM As DataTable
+        Dim DataPresupuesto As DataTable
+        Dim DataPFlowM As DataTable
+        Dim DataPFlow As DataTable
         Dim primero As Boolean = False
         Dim alcance As Boolean = False
         Dim suspension As Boolean = False
@@ -366,7 +370,7 @@ Partial Public Class ajaxRequest
         Dim otros As Boolean = False
 
         Try
-            proyecto = 775
+            proyecto = 772
             'Query inicial de otro si
             sql.AppendLine("select * from request where idproject = " & proyecto)
             DataTerms = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
@@ -404,12 +408,38 @@ Partial Public Class ajaxRequest
             sql.AppendLine("where ID = " & proyecto)
             DataPDetail = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
 
+            sql = New StringBuilder
+
+            'Query presupuesto original
+
+            sql.AppendLine("select Name, Vrmoney, VrSpecies, FSCorCounterpartContribution from ThirdByProject ")
+            sql.AppendLine("where IdProject = " & proyecto)
+            DataPresupuesto = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+            sql = New StringBuilder
+
+            'Query Presupuesto modificado
+            sql.AppendLine("select tr.Name, tr.Vrmoney, tr.VrSpecies, tr.FSCorCounterpartContribution from Request r ")
+            sql.AppendLine("right join ThirdByRequest tr on r.id = tr.IdRequest ")
+            sql.AppendLine("where tr.IdRequest = " & DataTerms.Rows(0)("Id"))
+            DataPresupuestoM = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+            sql = New StringBuilder
+
+            'Query flujos modificados
+            sql.AppendLine("select pr.N_pagos, pr.Partialvalue, pr.Percentaje, pr.Deliverable, pr.Date from Request r ")
+            sql.AppendLine("right join Paymentflow_Request pr on r.Id = pr.IdRequest ")
+            sql.AppendLine("where r.id = " & DataTerms.Rows(0)("Id"))
+            DataPFlowM = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+            sql = New StringBuilder
+
+            'Query flujo original
+            sql.AppendLine("select id, n_pagos, valorparcial, porcentaje, entregable, fecha from Paymentflow")
+            sql.AppendLine("where idproject = " & proyecto)
+            DataPFlow = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
             If DataTerms.Rows.Count > 0 Then
-
-
-
-                'Diligenciar encabezado
-                'Diligenciar parte inicial
 
                 'Cargar lineas estrategicas
                 If DataStrLin.Rows.Count > 0 Then
@@ -491,6 +521,7 @@ Partial Public Class ajaxRequest
                     End If
 
                 End If
+
                 'Diligenciar justificación
                 If IsDBNull(DataTerms.Rows(0)("Justification")) = False Then
                     objRequest_ReferenceTerms.Justification = DataTerms.Rows(0)("Justification")
@@ -539,6 +570,127 @@ Partial Public Class ajaxRequest
                 'Diligenciar detalles 2-3 Adicion Prorroga Entregable
 
                 If adicion = True Then
+
+                    'Verificar si existe modificacion de presupuesto
+                    If DataPresupuestoM.Rows.Count > 0 Then
+
+                        'Definir variables para los totales
+                        Dim TotVrmoney As Long = 0
+                        Dim TotVrSpecies As Long = 0
+                        Dim TotCounterPart As Long = 0
+
+                        'Traer los datos anteriores de presupuesto
+                        modulo.Append("<table border=""0"" cellpadding=""0"" cellspacing=""0"" style=""width: 100%;""><tbody><tr><td>&nbsp;</td></tr><tr><td><strong><em><u>ADICIÓN, PRÓRROGA, CAMBIO DE ENTREGABLES O FECHAS:</u></em></strong></td></tr><tr><td>&nbsp;</td></tr><tr><td><strong>PRESUPUESTO GENERAL INICIAL</strong></td></tr><tr><td>&nbsp;</td></tr></tbody></table>")
+                        modulo.Append("<table border=""1"" cellpadding=""0"" cellspacing=""0"" style=""width: 100%;""><tbody><tr><td style=""text-align: center;""><strong>Actor</strong></td><td style=""text-align: center;""><strong>Efectivo</strong></td><td style=""text-align: center;""><strong>Especie</strong></td><td style=""text-align: center;""><strong>Total Aporte</strong></td></tr>")
+
+                        'Diligenciar registros
+                        For Each item In DataPresupuesto.Rows
+                            modulo.Append("<tr><td>" & item("Name") & "</td><td>" & item("Vrmoney") & "</td><td>" & item("VrSpecies") & "</td><td>" & item("FSCorCounterpartContribution") & "</td></tr>")
+                            TotVrmoney = TotVrmoney + item("VrMoney")
+                            TotVrSpecies = TotVrSpecies + item("VrSpecies")
+                            TotCounterPart = TotCounterPart + item("FSCorCounterpartContribution")
+                        Next
+
+                        modulo.Append("<tr><td style=""text-align: right;""><strong>Total</strong></td><td>" & TotVrmoney.ToString("#,#") & "</td><td>" & TotVrSpecies.ToString("#,#") & "</td><td>" & TotCounterPart.ToString("#,#") & "</td></tr></tbody></table>")
+
+                        'Traer los datos de presupuesto modificado
+                        modulo.Append("<table border=""0"" cellpadding=""0"" cellspacing=""0"" style=""width: 100%;""><tbody><tr><td>&nbsp;</td></tr><tr><td><strong>PRESUPUESTO GENERAL MODIFICADO</strong></td></tr><tr><td>&nbsp;</td></tr></tbody></table>")
+                        modulo.Append("<table border=""1"" cellpadding=""0"" cellspacing=""0"" style=""width: 100%;""><tbody><tr><td style=""text-align: center;""><strong>Actor</strong></td><td style=""text-align: center;""><strong>Efectivo</strong></td><td style=""text-align: center;""><strong>Especie</strong></td><td style=""text-align: center;""><strong>Total Aporte</strong></td></tr>")
+
+                        'Reiniciar variables para los totales
+                        TotVrmoney = 0
+                        TotVrSpecies = 0
+                        TotCounterPart = 0
+
+                        'Diligenciar las modificaciones
+                        For Each item In DataPresupuestoM.Rows
+                            modulo.Append("<tr><td>" & item("Name") & "</td><td>" & item("Vrmoney") & "</td><td>" & item("VrSpecies") & "</td><td>" & item("FSCorCounterpartContribution") & "</td></tr>")
+                            TotVrmoney = TotVrmoney + item("Vrmoney")
+                            TotVrSpecies = TotVrSpecies + item("VrSpecies")
+                            TotCounterPart = TotCounterPart + item("FSCorCounterpartContribution")
+                        Next
+
+                        modulo.Append("</tr><tr><td style=""text-align: right;""><strong>Total</strong></td><td>" & TotVrmoney.ToString("#,#") & "</td><td>" & TotVrSpecies.ToString("#,#") & "</td><td>" & TotCounterPart.ToString("#,#") & "</td></tr></tbody></table>")
+                    End If
+
+                    'Verificar si existe modificacion de flujos
+                    If DataPFlowM.Rows.Count > 0 Then
+
+                        'Traer los datos de flujo original
+                        modulo.Append("<table border=""0"" cellpadding=""0"" cellspacing=""0"" style=""width: 100%;""><tbody><tr><td>&nbsp;</td></tr><tr><td><strong>FLUJO DE PAGOS INICIAL</strong></td></tr><tr><td>&nbsp;</td></tr></tbody></table>")
+                        modulo.Append("<table border=""1"" cellpadding=""0"" cellspacing=""0"" style=""width: 100%;""><tbody><tr><td>&nbsp;</td><td style=""text-align: center;""><strong>Valor</strong></td><td style=""text-align: center;""><strong>%</strong></td><td style=""text-align: center;""><strong>Origen de los Recursos</strong></td><td style=""text-align: center;""><strong>Contra entrega</strong></td><td style=""text-align: center;""><strong>Fecha</strong></td></tr>")
+
+                        'Variables para totales de flujos
+                        Dim TotValor As Long = 0
+                        Dim TotPorc As Long = 0
+
+                        'Diligenciar cada pago
+                        For Each item In DataPFlow.Rows
+
+                            'Consultar los detalles del pago
+                            Dim DataOrigen As DataTable
+                            Dim origen As New StringBuilder
+                            Dim PartValue As Long
+
+                            sql = New StringBuilder
+
+                            sql.AppendLine("select Aportante, Desembolso from Detailedcashflows ")
+                            sql.AppendLine("where IdProject = " & proyecto & " and N_pago = " & item("n_pagos"))
+                            DataOrigen = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+                            primero = False
+
+                            'Generar string con el detalle del origen
+                            For Each aporte In DataOrigen.Rows
+                                If primero = False Then
+                                    origen.Append(aporte("aportante") & " : " & aporte("desembolso"))
+                                    primero = True
+                                Else
+                                    origen.Append(" || " & aporte("aportante") & " : " & aporte("desembolso"))
+                                End If
+                            Next
+
+                            PartValue = item("valorparcial")
+                            TotValor = TotValor + item("valorparcial")
+                            TotPorc = TotPorc + item("porcentaje")
+
+                            modulo.Append("<tr><td><strong>Desembolso " & item("n_pagos") & "</strong></td><td>" & PartValue.ToString("#,#") & "</td><td>" & item("porcentaje") & "</td><td>" & origen.ToString & "</td><td>" & item("entregable") & "</td><td>" & item("fecha") & "</td></tr>")
+
+                        Next
+
+                        modulo.Append("<tr><td><strong>TOTAL</strong></td><td>" & TotValor.ToString("#,#") & "</td><td style=""text-align: center;""><strong>" & TotPorc & "%</strong></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr></tbody></table>")
+
+                        sql = New StringBuilder
+                        sql.AppendLine("select Aportante, Desembolso from Detailedcashflows ")
+                        sql.AppendLine("where IdProject = " & proyecto & " and N_pago = 1")
+
+                        'Traer los datos del flujo modificado
+                        modulo.Append("<table border=""0"" cellpadding=""0"" cellspacing=""0"" style=""width: 100%;""><tbody><tr><td>&nbsp;</td></tr><tr><td><strong>FLUJO DE PAGOS MODIFICADO</strong></td></tr><tr><td>&nbsp;</td></tr></tbody></table>")
+                        modulo.Append("<table border=""1"" cellpadding=""0"" cellspacing=""0"" style=""width: 100%;""><tbody><tr><td>&nbsp;</td><td style=""text-align: center;""><strong>Valor</strong></td><td style=""text-align: center;""><strong>%</strong></td><td style=""text-align: center;""><strong>Origen de los Recursos</strong></td><td style=""text-align: center;""><strong>Contra entrega</strong></td><td style=""text-align: center;""><strong>Fecha</strong></td></tr>")
+
+                        'Reiniciar variables para los totales
+                        TotValor = 0
+                        TotPorc = 0
+
+                        For Each item In DataPFlowM.Rows
+
+                            'Consultar los detalles de pago del flujo modificado
+
+                            modulo.Append("<tr><td><strong>Desembolso" & item("N_pagos") & "</strong></td><td>" & item("partialvalue").ToString("#,#") & "</td><td>" & item("Percentaje") & "</td><td>" & "origenM" & "</td><td>" & item("Deliverable") & "</td><td>" & item("date") & "</td></tr><tr>")
+
+                        Next
+
+                        'Final tabla
+                        modulo.Append("<td><strong>TOTAL</strong></td><td>&nbsp;</td><td style=""text-align: center;""><strong>100%</strong></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr></tbody></table>")
+
+
+                    End If
+
+                    objRequest_ReferenceTerms.adition = modulo.ToString
+
+                Else
+
+                    objRequest_ReferenceTerms.adition = ""
 
                 End If
 
