@@ -76,6 +76,11 @@ var load_inicial = 0;
 
 $(document).ready(function() {
 
+$("#tabsproyecto").tabs();
+$("#tabsproyecto").tabs({ active: 1 });
+   
+carga_eventos("ctl00_cphPrincipal_container_wait");
+
     load_combos();
 
     Cmunip();
@@ -252,8 +257,6 @@ $(document).ready(function() {
 
     });
 
-    $("#tabsproyecto").tabs();
-    $("#tabsproyecto").tabs({ active: 1 });
     
     $(function() {
         $("#datepicker").datepicker();
@@ -945,17 +948,16 @@ function charge_date_list_idea(id_idea) {
         success: function(result) {
 
             result = JSON.parse(result);
-            console.log(result);
             $("#ddlStrategicLines").val(result[0]);
             $("#ddlStrategicLines").trigger("liszt:updated");
 
             $("#ddlPrograms").val(result[1]);
             $("#ddlPrograms").trigger("liszt:updated");
 
-            $("#ddlPupulation").val(result[2]);
+            $("#ddlPupulation").val(result[4]);
             $("#ddlPupulation").trigger("liszt:updated");
 
-            $("#ddlmodcontract").val(result[3]);
+            $("#ddlmodcontract").val(result[2]);
             $("#ddlmodcontract").trigger("liszt:updated");
 
 
@@ -976,7 +978,6 @@ function charge_date_list_project(id_proyect) {
 
             result = JSON.parse(result);
 
-            console.log(result);
             $("#ddlStrategicLines").val(result[0]);
             $("#ddlStrategicLines").trigger("liszt:updated");
 

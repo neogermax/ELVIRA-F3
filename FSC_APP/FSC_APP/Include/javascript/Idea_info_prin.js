@@ -1,19 +1,19 @@
 ﻿
 //cargar combo tipos de  proyecto
-function Ctype_project() {
-    $.ajax({
-        url: "AjaxAddIdea.aspx",
-        type: "GET",
-        data: { "action": "C_type_project" },
-        success: function(result) {
-            $("#ddltype_proyect").html(result);
-            $("#ddltype_proyect").trigger("liszt:updated");
-        },
-        error: function(msg) {
-            alert("No se pueden cargar los tipos de proyecto.");
-        }
-    });
-}
+//function Ctype_project() {
+//    $.ajax({
+//        url: "AjaxAddIdea.aspx",
+//        type: "GET",
+//        data: { "action": "C_type_project" },
+//        success: function(result) {
+//            $("#ddltype_proyect").html(result);
+//            $("#ddltype_proyect").trigger("liszt:updated");
+//        },
+//        error: function(msg) {
+//            alert("No se pueden cargar los tipos de proyecto.");
+//        }
+//    });
+//}
 
 //cargar combo tipos de  poblacion segun el proyecto seleccionado
 function Cpopulation() {
@@ -31,82 +31,6 @@ function Cpopulation() {
         }
     });
     //  });
-}
-
-
-function Cpopulation_view() {
-
-    $.ajax({
-        url: "AjaxAddIdea.aspx",
-        type: "GET",
-        data: { "action": "Cpopulation_view", "ididea": ideditar },
-        success: function(result) {
-
-            $("#ddlPupulation").val(result);
-            $("#ddlPupulation").trigger("liszt:updated");
-
-        },
-        error: function(msg) {
-            alert("No se pueden cargar la linea estrategica deseada.");
-        }
-    });
-
-}
-
-
-
-//cargar combo tipos de contratos
-function CtypeContract() {
-    $.ajax({
-        url: "AjaxAddIdea.aspx",
-        type: "GET",
-        data: { "action": "C_typecontract" },
-        success: function(result) {
-            $("#ddlmodcontract").html(result);
-            $("#ddlmodcontract").trigger("liszt:updated");
-        },
-        error: function(msg) {
-            alert("No se pueden cargar los tipos de contrato.");
-        }
-    });
-}
-
-function Ctypcontract_view() {
-
-    $.ajax({
-        url: "AjaxAddIdea.aspx",
-        type: "GET",
-        data: { "action": "Ctypcontract_view", "ididea": ideditar },
-        success: function(result) {
-
-            $("#ddlmodcontract").val(result);
-            $("#ddlmodcontract").trigger("liszt:updated");
-
-        },
-        error: function(msg) {
-            alert("No se pueden cargar la linea estrategica deseada.");
-        }
-    });
-
-}
-
-function Ctypaproval_view() {
-
-    $.ajax({
-        url: "AjaxAddIdea.aspx",
-        type: "GET",
-        data: { "action": "Ctypaproval_view", "ididea": ideditar },
-        success: function(result) {
-
-            $("#dll_estado").val(result);
-            $("#dll_estado").trigger("liszt:updated");
-
-        },
-        error: function(msg) {
-            alert("No se pueden cargar la linea estrategica deseada.");
-        }
-    });
-
 }
 
 

@@ -396,12 +396,17 @@ Partial Public Class AjaxAddProject
         Dim populationvalue As String = ""
         Dim program_value As String = ""
         Dim linevalue As String = ""
+        Dim contract_value As String = ""
 
         sql.Append(" select i.typeapproval from idea i where i.id =" & ididea)
         Dim data_c_typeaproval = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
 
         sql = New StringBuilder
         sql.Append(" select i.Idtypecontract from  Idea i where i.id =" & ididea)
+        Dim data_c_contract = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
+
+        sql = New StringBuilder
+        sql.Append(" select i.population from idea i where i.id =" & ididea)
         Dim data_c_population = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
 
         sql = New StringBuilder
@@ -419,11 +424,12 @@ Partial Public Class AjaxAddProject
         Dim data_lineStrategig = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
 
         type_aproval_value = validate_date_consult(data_c_typeaproval)
-        populationvalue = validate_date_consult(data_c_population)
+        contract_value = validate_date_consult(data_c_contract)
         program_value = validate_date_consult(data_program)
         linevalue = validate_date_consult(data_lineStrategig)
+        populationvalue = validate_date_consult(data_c_population)
 
-        Dim objCatalogSerialize = String.Format("[{0},{1},{2},{3}]", linevalue, program_value, populationvalue, type_aproval_value)
+        Dim objCatalogSerialize = String.Format("[{0},{1},{2},{3},{4}]", linevalue, program_value, contract_value, type_aproval_value, populationvalue)
 
         Response.Write(objCatalogSerialize)
 
