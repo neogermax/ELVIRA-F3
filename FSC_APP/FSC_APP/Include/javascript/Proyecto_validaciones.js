@@ -252,15 +252,9 @@ function verificar_dat_idea() {
             traer_datos_idea_inf_p();
             //pestaña ubicacion del proyecto
             view_ubicacion_array();
-            //pestaña actores del proyecto
-            //View_actores_array();
-            //pestaña flujos del proyecto
-            // View_flujos_p_array();
-            // View_flujos_actors_array();
-            // View_detalle_flujo_array();
-
             //pestaña anexos del proyecto
             View_anexos_array();
+            
             //pestaña componentes del proyecto
             $("#ddlStrategicLines").ready(function() {
                 ClineEstrategic_edit();
@@ -277,6 +271,7 @@ function verificar_dat_idea() {
         }
         else {
 
+            componentes_editados = 1;
             //pestaña componentes del proyecto
             $("#ddlStrategicLines").ready(function() {
                 ClineEstrategic_edit();
@@ -286,10 +281,8 @@ function verificar_dat_idea() {
 
             //bloquemos los controles de la pestaña componentes
             $("#ddlStrategicLines").attr("disabled", "disabled");
-            validar_ini_ed = 0;
-            
-            charge_date_list_idea(idea_buscar);
 
+            validar_ini_ed = 0;
         }
 
     });
