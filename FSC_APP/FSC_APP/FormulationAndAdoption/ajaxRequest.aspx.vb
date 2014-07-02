@@ -362,6 +362,8 @@ Partial Public Class ajaxRequest
         Dim DataPresupuesto As DataTable
         Dim DataPFlowM As DataTable
         Dim DataPFlow As DataTable
+        Dim DataThird As DataTable
+        Dim DataThirdM As DataTable
         Dim primero As Boolean = False
         Dim alcance As Boolean = False
         Dim suspension As Boolean = False
@@ -370,7 +372,8 @@ Partial Public Class ajaxRequest
         Dim otros As Boolean = False
 
         Try
-            proyecto = 772
+            proyecto = 791
+
             'Query inicial de otro si
             sql.AppendLine("select * from request where idproject = " & proyecto)
             DataTerms = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
@@ -438,6 +441,24 @@ Partial Public Class ajaxRequest
             sql.AppendLine("select id, n_pagos, valorparcial, porcentaje, entregable, fecha from Paymentflow")
             sql.AppendLine("where idproject = " & proyecto)
             DataPFlow = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+            sql = New StringBuilder
+
+            'Query actores originales
+            sql.AppendLine("select IdAportante, t.Name, t.PersonaNatural, t.contact, t.phone, t.email from Detailedcashflows dc ")
+            sql.AppendLine("inner join Third t on dc.IdAportante = t.Id ")
+            sql.AppendLine("where IdProject = " & proyecto)
+            sql.AppendLine(" group by IdAportante, t.Name, t.PersonaNatural, t.contact, t.phone, t.email")
+            DataThird = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+            sql = New StringBuilder
+
+            'Query actores modificados
+            sql.AppendLine("select IdAportante, t.Name, t.PersonaNatural, t.contact, t.phone, t.email from DetailedCashFlowsRequest dcr ")
+            sql.AppendLine("inner join Third t on dcr.IdAportante = t.Id ")
+            sql.AppendLine("where IdRequest = " & DataTerms.Rows(0)("Id"))
+            sql.AppendLine(" group by IdAportante, t.Name, t.PersonaNatural, t.contact, t.phone, t.email")
+            DataThirdM = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
 
             If DataTerms.Rows.Count > 0 Then
 
@@ -523,8 +544,8 @@ Partial Public Class ajaxRequest
                 End If
 
                 'Diligenciar justificación
-                If IsDBNull(DataTerms.Rows(0)("Justification")) = False Then
-                    objRequest_ReferenceTerms.Justification = DataTerms.Rows(0)("Justification")
+                If IsDBNull(DataTerms.Rows(0)("Justification_Request")) = False Then
+                    objRequest_ReferenceTerms.Justification = DataTerms.Rows(0)("Justification_Request")
                 End If
 
                 Dim modulo As New StringBuilder
@@ -553,10 +574,31 @@ Partial Public Class ajaxRequest
 
                 'Diligenciar detalles 2-2 Suspension
 
+                Dim reinicio As String
+
+                If IsDBNull(DataTerms.Rows(0)("restart_type")) = False Then
+                    reinicio = DataTerms.Rows(0)("restart_type")
+
+                    If UCase(reinicio) = "FALSE" Then
+                        reinicio = "Automático"
+                    Else
+                        reinicio = "Condicionado"
+                    End If
+
+                End If
+
                 If suspension = True Then
 
+                    Dim fechaliq As String
+                    Dim DataContr As DataTable
+
+                    sql = New StringBuilder
+                    sql.AppendLine("select LiquidationDate from contractrequest")
+                    sql.AppendLine("where IdProject = " & proyecto)
+                    DataContr = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
                     modulo.Append("<table border=""0"" cellpadding=""0"" cellspacing=""0"" style=""width: 100%;""><tbody><tr><td>&nbsp;</td></tr><tr><td><strong><em><u>SUSPENSIÓN:</u></em></strong></td></tr><tr><td>&nbsp;</td></tr></tbody></table>")
-                    modulo.Append("<table border=""1"" cellpadding=""0"" cellspacing=""0"" style=""width: 100%;""><tbody><tr><td colspan=""2"" style=""text-align: center;""><strong>Información Inicial</strong></td></tr><tr><td style=""width: 50%;""><strong>Fecha de Inicio:</strong></td><td>" & DataPDetail.Rows(0)("begindate") & "</td></tr><tr><td><strong>Fecha de Finalización:</strong></td><td>" & DataPDetail.Rows(0)("completiondate") & "</td></tr><tr><td><strong>Fecha de Liquidación (Proyecto Madre):</strong></td><td>Fechaliq</td></tr><tr><td colspan=""2"" style=""text-align: center;""><strong>Información a Modificar</strong></td></tr><tr><td><strong>Fecha de inicio de Suspensión:</strong></td><td>" & DataTerms.Rows(0)("startsuspension_date") & "</td></tr><tr><td><strong>Fecha fin de suspensión:</strong></td><td>" & DataTerms.Rows(0)("EndSuspension_date") & "</td></tr><tr><td><strong>Tipo de Reinicio:</strong></td><td>" & DataTerms.Rows(0)("restart_type") & "</td></tr></tbody></table>")
+                    modulo.Append("<table border=""1"" cellpadding=""0"" cellspacing=""0"" style=""width: 100%;""><tbody><tr><td colspan=""2"" style=""text-align: center;""><strong>Información Inicial</strong></td></tr><tr><td style=""width: 50%;""><strong>Fecha de Inicio:</strong></td><td>" & DataPDetail.Rows(0)("begindate") & "</td></tr><tr><td><strong>Fecha de Finalización:</strong></td><td>" & DataPDetail.Rows(0)("completiondate") & "</td></tr><tr><td><strong>Fecha de Liquidación (Proyecto Madre):</strong></td><td>" & DataContr.Rows(0)("LiquidationDate") & "</td></tr><tr><td colspan=""2"" style=""text-align: center;""><strong>Información a Modificar</strong></td></tr><tr><td><strong>Fecha de inicio de Suspensión:</strong></td><td>" & DataTerms.Rows(0)("startsuspension_date") & "</td></tr><tr><td><strong>Fecha fin de suspensión:</strong></td><td>" & DataTerms.Rows(0)("EndSuspension_date") & "</td></tr><tr><td><strong>Tipo de Reinicio:</strong></td><td>" & reinicio & "</td></tr></tbody></table>")
                     objRequest_ReferenceTerms.suspension = modulo.ToString
 
                 Else
@@ -660,10 +702,6 @@ Partial Public Class ajaxRequest
 
                         modulo.Append("<tr><td><strong>TOTAL</strong></td><td>" & TotValor.ToString("#,#") & "</td><td style=""text-align: center;""><strong>" & TotPorc & "%</strong></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr></tbody></table>")
 
-                        sql = New StringBuilder
-                        sql.AppendLine("select Aportante, Desembolso from Detailedcashflows ")
-                        sql.AppendLine("where IdProject = " & proyecto & " and N_pago = 1")
-
                         'Traer los datos del flujo modificado
                         modulo.Append("<table border=""0"" cellpadding=""0"" cellspacing=""0"" style=""width: 100%;""><tbody><tr><td>&nbsp;</td></tr><tr><td><strong>FLUJO DE PAGOS MODIFICADO</strong></td></tr><tr><td>&nbsp;</td></tr></tbody></table>")
                         modulo.Append("<table border=""1"" cellpadding=""0"" cellspacing=""0"" style=""width: 100%;""><tbody><tr><td>&nbsp;</td><td style=""text-align: center;""><strong>Valor</strong></td><td style=""text-align: center;""><strong>%</strong></td><td style=""text-align: center;""><strong>Origen de los Recursos</strong></td><td style=""text-align: center;""><strong>Contra entrega</strong></td><td style=""text-align: center;""><strong>Fecha</strong></td></tr>")
@@ -674,14 +712,40 @@ Partial Public Class ajaxRequest
 
                         For Each item In DataPFlowM.Rows
 
+                            Dim DataOrigen As DataTable
+                            Dim origen As New StringBuilder
+                            Dim PartValue As Long
+
                             'Consultar los detalles de pago del flujo modificado
 
-                            modulo.Append("<tr><td><strong>Desembolso" & item("N_pagos") & "</strong></td><td>" & item("partialvalue").ToString("#,#") & "</td><td>" & item("Percentaje") & "</td><td>" & "origenM" & "</td><td>" & item("Deliverable") & "</td><td>" & item("date") & "</td></tr><tr>")
+                            sql = New StringBuilder
+                            sql.AppendLine("select Aportante, Desembolso from DetailedCashFlowsRequest")
+                            sql.AppendLine("where IdRequest = " & DataTerms.Rows(0)("Id") & " And N_pago = " & item("n_pagos"))
+                            DataOrigen = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+                            primero = False
+
+                            'Generar string con el detalle del origen
+                            For Each aportem In DataOrigen.Rows
+                                If primero = False Then
+                                    origen.Append(aportem("aportante") & " : " & aportem("desembolso"))
+                                    primero = True
+                                Else
+                                    origen.Append(" || " & aportem("aportante") & " : " & aportem("desembolso"))
+                                End If
+
+                            Next
+
+                            PartValue = item("partialvalue")
+                            TotValor = TotValor + item("partialvalue")
+                            TotPorc = TotPorc + item("percentaje")
+
+                            modulo.Append("<tr><td><strong>Desembolso" & item("N_pagos") & "</strong></td><td>" & PartValue.ToString("#,#") & "</td><td>" & item("Percentaje") & "</td><td>" & origen.ToString & "</td><td>" & item("Deliverable") & "</td><td>" & item("date") & "</td></tr><tr>")
 
                         Next
 
                         'Final tabla
-                        modulo.Append("<td><strong>TOTAL</strong></td><td>&nbsp;</td><td style=""text-align: center;""><strong>100%</strong></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr></tbody></table>")
+                        modulo.Append("<td><strong>TOTAL</strong></td><td>" & TotValor.ToString("#,#") & "</td><td style=""text-align: center;""><strong>" & TotPorc & "%</strong></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr></tbody></table>")
 
 
                     End If
@@ -700,6 +764,47 @@ Partial Public Class ajaxRequest
 
                 If cesion = True Then
 
+                    'Actores originales
+                    modulo.Append("<table border=""0"" cellpadding=""0"" cellspacing=""0"" style=""width: 100%;""><tbody><tr><td>&nbsp;</td></tr><tr><td><strong><em><u>CESIÓN</u></em></strong></td></tr><tr><td>&nbsp;</td></tr><tr><td><strong>ACTORES INICIALES:</strong></td></tr><tr><td>&nbsp;</td></tr></tbody></table>")
+                    modulo.Append("<table border=""1"" cellpadding=""0"" cellspacing=""0"" style=""width: 100%;""><tbody><tr><td style=""width: 20%;""><strong>Actor</strong></td><td style=""width: 20%;""><strong>Tipo de Actor</strong></td><td style=""width: 20%;""><strong>Contacto</strong></td><td style=""width: 20%;""><strong>Teléfono</strong></td><td><strong>Correo electrónico</strong></td></tr>")
+
+                    For Each actor In DataThird.Rows
+                        Dim TipoActor As String
+
+                        If actor("PersonaNatural") = 0 Then
+                            TipoActor = "Persona Jurídica"
+                        Else
+                            TipoActor = "Persona Natural"
+                        End If
+
+                        modulo.Append("<tr><td>" & actor("Name") & "</td><td>" & TipoActor & "</td><td>" & actor("contact") & "</td><td>" & actor("phone") & "</td><td>" & actor("email") & "</td></tr>")
+                    Next
+
+                    modulo.Append("</tbody></table>")
+
+                    'Actores modificados
+                    modulo.Append("<table border=""0"" cellpadding=""0"" cellspacing=""0"" style=""width: 100%;""><tbody><tr><td>&nbsp;</td></tr><tr><td><strong>ACTORES A MODIFICAR:</strong></td></tr><tr><td>&nbsp;</td></tr></tbody></table>")
+                    modulo.Append("<table border=""1"" cellpadding=""0"" cellspacing=""0"" style=""width: 100%;""><tbody><tr><td style=""width: 20%;""><strong>Actor</strong></td><td style=""width: 20%;""><strong>Tipo de Actor</strong></td><td style=""width: 20%;""><strong>Contacto</strong></td><td style=""width: 20%;""><strong>Teléfono</strong></td><td><strong>Correo electrónico</strong></td></tr>")
+
+                    For Each actor In DataThirdM.Rows
+
+                        Dim TipoActor As String
+
+                        If actor("PersonaNatural") = 0 Then
+                            TipoActor = "Persona Jurídica"
+                        Else
+                            TipoActor = "Persona Natural"
+                        End If
+
+                        modulo.Append("<tr><td>" & actor("Name") & "</td><td>" & TipoActor & "</td><td>" & actor("contact") & "</td><td>" & actor("phone") & "</td><td>" & actor("email") & "</td></tr>")
+                    Next
+
+                    modulo.Append("</tbody></table>")
+
+                    objRequest_ReferenceTerms.cesion = modulo.ToString
+
+                Else
+                    objRequest_ReferenceTerms.cesion = ""
                 End If
 
                 modulo = New StringBuilder
