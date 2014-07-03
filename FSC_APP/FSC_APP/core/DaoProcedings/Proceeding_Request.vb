@@ -54,10 +54,10 @@ Partial Public Class Proceeding_Request
     Private _suspension As String = "{10}"
 
     'Parte 2 - 3 Adicion
-    Private _adition As String = "{11}"
+    Private _adition As String = ""
 
     'Parte 2 - 4 Cesion
-    Private _cesion As String = "{12}"
+    Private _cesion As String = ""
 
     'Parte 2 - 5 Otros
     Private _others As String = "{13}"
@@ -245,7 +245,7 @@ Partial Public Class Proceeding_Request
             Dim nameFile As String = String.Format("/Proceedings/Terminos_de_Referencia_{1}_{2}.doc", _directorioActas, _idproject, Convert.ToDateTime(DateTime.Now).ToString("yyyy_MM_dd_hh_mm_ss"))
             Dim fullPath As String = String.Format("{0}{1}", _directorioActas, nameFile)
 
-            _proceedingStar_html = String.Format(_proceedingStar_html, _idproject, _type_request, _strategic_line, _contract_number, _contract_nature, _subscription_year, _number_request, _date_request, _justification, _scope, _suspension, _adition, _cesion, _others, _risks)
+            _proceedingStar_html = String.Format(_proceedingStar_html, _idproject, _type_request, _strategic_line, _contract_number, _contract_nature, _subscription_year, _number_request, _date_request, _justification, _scope, _suspension, "11", "12", _others, _risks)
             WriteFile(fullPath, _proceedingStar_html)
 
             Return nameFile

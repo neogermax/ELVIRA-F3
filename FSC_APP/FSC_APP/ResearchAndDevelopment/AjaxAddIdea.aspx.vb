@@ -299,69 +299,6 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
     End Function
 
-    Protected Function charge_combos_edit(ByVal ididea As Integer)
-
-        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
-
-        Dim sql As New StringBuilder
-        Dim objSqlCommand As New SqlCommand
-        Dim type_aproval_value As String = ""
-        Dim typecontractvalue As String = ""
-        Dim populationvalue As String = ""
-        Dim program_value As String = ""
-        Dim linevalue As String = ""
-
-        sql.Append(" select i.typeapproval from idea i where i.id =" & ididea)
-        Dim data_c_typeaproval = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
-
-        sql = New StringBuilder
-        sql.Append(" select i.Idtypecontract from  Idea i where i.id =" & ididea)
-        Dim data_c_typecontract = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
-
-        sql = New StringBuilder
-        sql.Append(" select i.population from Idea i where i.id =" & ididea)
-        Dim data_c_population = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
-
-        sql = New StringBuilder
-        sql.Append(" select top 1(pc.IdProgram) from ProgramComponentByIdea pci ")
-        sql.Append(" INNER JOIN ProgramComponent pc ON pci.idProgramComponent = pc.Id ")
-        sql.Append(" where pci.IdIdea = " & ididea)
-        Dim data_program = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
-
-        sql = New StringBuilder
-        sql.Append(" select TOP 1(SL.Id) from ProgramComponentByIdea pci ")
-        sql.Append(" INNER JOIN ProgramComponent pc ON pci.idProgramComponent = pc.Id ")
-        sql.Append(" INNER JOIN Program p ON Pc.IdProgram = P.Id ")
-        sql.Append(" INNER JOIN StrategicLine SL ON SL.Id = P.IdStrategicLine ")
-        sql.Append(" where pci.IdIdea = " & ididea)
-        Dim data_lineStrategig = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
-
-        type_aproval_value = validate_date_consult(data_c_typeaproval)
-        populationvalue = validate_date_consult(data_c_population)
-        typecontractvalue = validate_date_consult(data_c_typecontract)
-        program_value = validate_date_consult(data_program)
-        linevalue = validate_date_consult(data_lineStrategig)
-
-        Dim objCatalogSerialize = String.Format("[{0},{1},{2},{3},{4}]", linevalue, program_value, populationvalue, type_aproval_value, typecontractvalue)
-
-        Response.Write(objCatalogSerialize)
-
-    End Function
-
-    Function validate_date_consult(ByVal date_consult As String)
-
-        Dim value_string As String
-
-        If date_consult = 0 Then
-            value_string = "0"
-        Else
-            value_string = date_consult
-        End If
-
-        Return value_string
-
-    End Function
-
     Protected Function load_combos(ByVal type As String)
 
         Dim facade As New Facade
@@ -528,50 +465,6 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         Response.Write(result)
     End Function
 
-    Protected Function searh_document_anexos_array(ByVal ididea As Integer)
-
-        Dim sql As New StringBuilder
-        Dim objSqlCommand As New SqlCommand
-        Dim data_anexos As DataTable
-
-        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
-
-        Dim objListCFileView As New List(Of CFilesView)
-
-
-        sql.Append(" select d.id, d.AttachFile,d.Description, d.id_document from DocumentsByEntity de ")
-        sql.Append(" inner join Documents d on d.Id =de.IdDocuments ")
-        sql.Append(" where  de.EntityName ='IdeaEntity' and de.IdnEntity=" & ididea)
-
-        data_anexos = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
-
-        If data_anexos.Rows.Count > 0 Then
-
-
-            For Each row As DataRow In data_anexos.Rows
-
-                Dim objCFileView As CFilesView = New CFilesView()
-
-                objCFileView.idfile = row(3).ToString
-
-                If objCFileView.idfile = "" Then
-                    objCFileView.idfile = row(0).ToString
-                End If
-
-                objCFileView.filename = row(1).ToString
-                objCFileView.Description = row(2).ToString
-
-                objListCFileView.Add(objCFileView)
-
-            Next
-
-        End If
-
-
-        Response.Write(JsonConvert.SerializeObject(objListCFileView.ToArray()))
-
-    End Function
-
     Protected Function charge_list_program(ByVal idLinestrategic As Integer)
         Dim facade As New Facade
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
@@ -592,90 +485,7 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
     End Function
 
-    Protected Function searh_component(ByVal ididea As Integer)
-
-        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
-        Dim ProgramComponentByIdea As New ProgramComponentByIdeaDALC
-
-        Dim sql As New StringBuilder
-        Dim objSqlCommand As New SqlCommand
-        Dim component_value As DataTable
-
-        Dim htmlcomponente As String = ""
-        sql.Append(" SELECT  pc.Id ,pc.Code FROM ProgramComponentByIdea pci ")
-        sql.Append(" INNER JOIN ProgramComponent pc  ON pci.idProgramComponent = Pc.Id  ")
-        sql.Append(" INNER JOIN Program p ON Pc.IdProgram = P.Id  ")
-        sql.Append(" where pci.IdIdea = " & ididea)
-
-        component_value = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
-
-        If component_value.Rows.Count > 0 Then
-
-            For Each row As DataRow In component_value.Rows
-                htmlcomponente &= "<li id= 'selectadd" + row(0).ToString() + "' class='des_seleccionar'>" + row(1).ToString() + "</li>"
-            Next
-
-        End If
-
-        Response.Write(htmlcomponente)
-
-
-
-    End Function
-
-    Protected Function searh_Program(ByVal ididea As Integer)
-
-        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
-        Dim ProgramComponentByIdea As New ProgramComponentByIdeaDALC
-
-        Dim sql As New StringBuilder
-        Dim objSqlCommand As New SqlCommand
-
-        Dim program_value As String = ""
-
-        sql.Append(" select top 1(pc.IdProgram) from ProgramComponentByIdea pci ")
-        sql.Append(" INNER JOIN ProgramComponent pc ON pci.idProgramComponent = pc.Id ")
-        sql.Append(" where pci.IdIdea = " & ididea)
-
-        Dim data_program = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
-
-        If data_program = 0 Then
-            program_value = "0"
-        Else
-            program_value = data_program
-        End If
-
-        Response.Write(program_value)
-
-
-    End Function
-
-    Protected Function searh_line_Strategic(ByVal ididea As Integer)
-
-        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
-        Dim ProgramComponentByIdea As New ProgramComponentByIdeaDALC
-
-        Dim sql As New StringBuilder
-        Dim objSqlCommand As New SqlCommand
-        Dim linevalue As String = ""
-
-        sql.Append(" select TOP 1(SL.Id) from ProgramComponentByIdea pci ")
-        sql.Append(" INNER JOIN ProgramComponent pc ON pci.idProgramComponent = pc.Id ")
-        sql.Append(" INNER JOIN Program p ON Pc.IdProgram = P.Id ")
-        sql.Append(" INNER JOIN StrategicLine SL ON SL.Id = P.IdStrategicLine ")
-        sql.Append(" where pci.IdIdea = " & ididea)
-
-        Dim data_lineStrategig = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
-
-        If data_lineStrategig = 0 Then
-            linevalue = "0"
-        Else
-            linevalue = data_lineStrategig
-        End If
-
-        Response.Write(linevalue)
-
-    End Function
+#Region "Charge Arrays"
 
     Protected Function searh_detalles_array(ByVal ididea As Integer)
 
@@ -857,6 +667,188 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
     End Function
 
+    Protected Function searh_document_anexos_array(ByVal ididea As Integer)
+
+        Dim sql As New StringBuilder
+        Dim objSqlCommand As New SqlCommand
+        Dim data_anexos As DataTable
+
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+
+        Dim objListCFileView As New List(Of CFilesView)
+
+
+        sql.Append(" select d.id, d.AttachFile,d.Description, d.id_document from DocumentsByEntity de ")
+        sql.Append(" inner join Documents d on d.Id =de.IdDocuments ")
+        sql.Append(" where  de.EntityName ='IdeaEntity' and de.IdnEntity=" & ididea)
+
+        data_anexos = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+        If data_anexos.Rows.Count > 0 Then
+
+
+            For Each row As DataRow In data_anexos.Rows
+
+                Dim objCFileView As CFilesView = New CFilesView()
+
+                objCFileView.idfile = row(3).ToString
+
+                If objCFileView.idfile = "" Then
+                    objCFileView.idfile = row(0).ToString
+                End If
+
+                objCFileView.filename = row(1).ToString
+                objCFileView.Description = row(2).ToString
+
+                objListCFileView.Add(objCFileView)
+
+            Next
+
+        End If
+
+
+        Response.Write(JsonConvert.SerializeObject(objListCFileView.ToArray()))
+
+    End Function
+
+#End Region
+
+#Region "Charge list Edit"
+
+    Protected Function charge_combos_edit(ByVal ididea As Integer)
+
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+
+        Dim sql As New StringBuilder
+        Dim objSqlCommand As New SqlCommand
+        Dim type_aproval_value As String = ""
+        Dim typecontractvalue As String = ""
+        Dim populationvalue As String = ""
+        Dim program_value As String = ""
+        Dim linevalue As String = ""
+
+        sql.Append(" select i.typeapproval from idea i where i.id =" & ididea)
+        Dim data_c_typeaproval = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
+
+        sql = New StringBuilder
+        sql.Append(" select i.Idtypecontract from  Idea i where i.id =" & ididea)
+        Dim data_c_typecontract = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
+
+        sql = New StringBuilder
+        sql.Append(" select i.population from Idea i where i.id =" & ididea)
+        Dim data_c_population = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
+
+        sql = New StringBuilder
+        sql.Append(" select top 1(pc.IdProgram) from ProgramComponentByIdea pci ")
+        sql.Append(" INNER JOIN ProgramComponent pc ON pci.idProgramComponent = pc.Id ")
+        sql.Append(" where pci.IdIdea = " & ididea)
+        Dim data_program = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
+
+        sql = New StringBuilder
+        sql.Append(" select TOP 1(SL.Id) from ProgramComponentByIdea pci ")
+        sql.Append(" INNER JOIN ProgramComponent pc ON pci.idProgramComponent = pc.Id ")
+        sql.Append(" INNER JOIN Program p ON Pc.IdProgram = P.Id ")
+        sql.Append(" INNER JOIN StrategicLine SL ON SL.Id = P.IdStrategicLine ")
+        sql.Append(" where pci.IdIdea = " & ididea)
+        Dim data_lineStrategig = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
+
+        type_aproval_value = validate_date_consult(data_c_typeaproval)
+        populationvalue = validate_date_consult(data_c_population)
+        typecontractvalue = validate_date_consult(data_c_typecontract)
+        program_value = validate_date_consult(data_program)
+        linevalue = validate_date_consult(data_lineStrategig)
+
+        Dim objCatalogSerialize = String.Format("[{0},{1},{2},{3},{4}]", linevalue, program_value, populationvalue, type_aproval_value, typecontractvalue)
+
+        Response.Write(objCatalogSerialize)
+
+    End Function
+
+    Protected Function searh_component(ByVal ididea As Integer)
+
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+        Dim ProgramComponentByIdea As New ProgramComponentByIdeaDALC
+
+        Dim sql As New StringBuilder
+        Dim objSqlCommand As New SqlCommand
+        Dim component_value As DataTable
+
+        Dim htmlcomponente As String = ""
+        sql.Append(" SELECT  pc.Id ,pc.Code FROM ProgramComponentByIdea pci ")
+        sql.Append(" INNER JOIN ProgramComponent pc  ON pci.idProgramComponent = Pc.Id  ")
+        sql.Append(" INNER JOIN Program p ON Pc.IdProgram = P.Id  ")
+        sql.Append(" where pci.IdIdea = " & ididea)
+
+        component_value = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+        If component_value.Rows.Count > 0 Then
+
+            For Each row As DataRow In component_value.Rows
+                htmlcomponente &= "<li id= 'selectadd" + row(0).ToString() + "' class='des_seleccionar'>" + row(1).ToString() + "</li>"
+            Next
+
+        End If
+
+        Response.Write(htmlcomponente)
+
+
+
+    End Function
+
+    Protected Function searh_Program(ByVal ididea As Integer)
+
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+        Dim ProgramComponentByIdea As New ProgramComponentByIdeaDALC
+
+        Dim sql As New StringBuilder
+        Dim objSqlCommand As New SqlCommand
+
+        Dim program_value As String = ""
+
+        sql.Append(" select top 1(pc.IdProgram) from ProgramComponentByIdea pci ")
+        sql.Append(" INNER JOIN ProgramComponent pc ON pci.idProgramComponent = pc.Id ")
+        sql.Append(" where pci.IdIdea = " & ididea)
+
+        Dim data_program = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
+
+        If data_program = 0 Then
+            program_value = "0"
+        Else
+            program_value = data_program
+        End If
+
+        Response.Write(program_value)
+
+
+    End Function
+
+    Protected Function searh_line_Strategic(ByVal ididea As Integer)
+
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+        Dim ProgramComponentByIdea As New ProgramComponentByIdeaDALC
+
+        Dim sql As New StringBuilder
+        Dim objSqlCommand As New SqlCommand
+        Dim linevalue As String = ""
+
+        sql.Append(" select TOP 1(SL.Id) from ProgramComponentByIdea pci ")
+        sql.Append(" INNER JOIN ProgramComponent pc ON pci.idProgramComponent = pc.Id ")
+        sql.Append(" INNER JOIN Program p ON Pc.IdProgram = P.Id ")
+        sql.Append(" INNER JOIN StrategicLine SL ON SL.Id = P.IdStrategicLine ")
+        sql.Append(" where pci.IdIdea = " & ididea)
+
+        Dim data_lineStrategig = GattacaApplication.RunSQL(applicationCredentials, sql.ToString(), 174, Nothing, CommandType.Text, "DB1", "FSC", True)
+
+        If data_lineStrategig = 0 Then
+            linevalue = "0"
+        Else
+            linevalue = data_lineStrategig
+        End If
+
+        Response.Write(linevalue)
+
+    End Function
+
     ''' <summary>
     ''' funcion que carga el combo de tipo de poblacion segun la selección del tipo de proyecto
     ''' Autor: German Rodriguez MGgroup
@@ -1010,89 +1002,9 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
     End Function
 
-    Protected Function save_document_IDEA(ByVal list_file As String, ByVal ididea As Integer)
+#End Region
 
-        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
-        Dim ArrayFile As String()
-
-        Dim NewListFiles = JsonConvert.DeserializeObject(Of List(Of CFilesView))(list_file)
-
-        For Each item_file As CFilesView In NewListFiles
-
-            Dim objDocument As DocumentsEntity = New DocumentsEntity()
-            Dim objDocumentbyEntity As DocumentsByEntityEntity = New DocumentsByEntityEntity()
-
-            objDocument.title = item_file.filename
-            objDocument.description = item_file.Description
-            objDocument.ideditedfor = 0
-            objDocument.iddocumenttype = 0
-            objDocument.idvisibilitylevel = 0
-            objDocument.createdate = Now
-            objDocument.iduser = applicationCredentials.UserID
-            objDocument.attachfile = item_file.filename
-            objDocument.enabled = 1
-            objDocument.Id_Entity_Zone = "IdeaEntity_" & ididea
-            objDocument.Id_document = Convert.ToInt32(item_file.idfile)
-
-            Dim sql As New StringBuilder
-            Dim dtData, dtDatadoc As DataTable
-
-            ' construir la sentencia
-            sql.AppendLine("INSERT INTO Documents(title,description,ideditedfor,idvisibilitylevel,iddocumenttype,createdate,iduser,attachfile,enabled,Id_Entity_Zone,Id_document ) ")
-            sql.AppendLine(" VALUES (")
-            sql.AppendLine("'" & objDocument.title & "',")
-            sql.AppendLine("'" & objDocument.description & "',")
-            sql.AppendLine("'" & objDocument.ideditedfor & "',")
-            sql.AppendLine("'" & objDocument.idvisibilitylevel & "',")
-            sql.AppendLine("'" & objDocument.iddocumenttype & "',")
-            sql.AppendLine("'" & objDocument.createdate.ToString("yyyyMMdd HH:mm:ss") & "',")
-            sql.AppendLine("'" & objDocument.iduser & "',")
-            sql.AppendLine("'" & objDocument.attachfile & "',")
-            sql.AppendLine("'" & objDocument.enabled & "',")
-            sql.AppendLine("'" & objDocument.Id_Entity_Zone & "',")
-            sql.AppendLine("'" & objDocument.Id_document & "')")
-
-            ' intruccion para obtener el registro insertado
-            sql.AppendLine(" SELECT SCOPE_IDENTITY() AS Id")
-
-            'obtener el id
-            dtData = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
-
-            ' id creado
-            Dim idEntity As Long = CLng(dtData.Rows(0)("Id"))
-
-            ' finalizar la transaccion
-            CtxSetComplete()
-
-            'asignamos al objeto
-            objDocumentbyEntity.iddocuments = idEntity
-            objDocumentbyEntity.idnentity = ididea
-            objDocumentbyEntity.entityname = "IdeaEntity"
-
-
-            sql = New StringBuilder
-            ' construir la sentencia
-            sql.AppendLine("INSERT INTO DocumentsByEntity( iddocuments,idnentity,entityName) ")
-            sql.AppendLine("VALUES (")
-            sql.AppendLine("'" & objDocumentbyEntity.iddocuments & "',")
-            sql.AppendLine("'" & objDocumentbyEntity.idnentity & "',")
-            sql.AppendLine("'" & objDocumentbyEntity.entityname & "')")
-
-            ' intruccion para obtener el registro insertado
-            sql.AppendLine(" SELECT SCOPE_IDENTITY() AS Id")
-
-            'obtener el id
-            dtDatadoc = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
-
-            ' id creado
-            Dim num As Long = CLng(dtDatadoc.Rows(0)("Id"))
-
-            ' finalizar la transaccion
-            CtxSetComplete()
-
-        Next
-
-    End Function
+#Region "Metodos y funciones"
 
     Protected Function calculafechas(ByVal fecha As DateTime, ByVal duracion As String, ByVal dias_ope As String) As String
 
@@ -1227,9 +1139,6 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
 
     End Function
-    ' TODO: 16 funcion que verifica si la idea esta aprobada
-    ' Autor: german Rodriguez MG group
-    ' cierre de cambio
 
     ''' <summary>
     ''' TODO: 100 funcion que revisa los enter en el guardar y editar idea
@@ -1264,6 +1173,93 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
         startinfo.UseShellExecute = False
         startinfo.WindowStyle = ProcessWindowStyle.Hidden
         Process.Start(startinfo)
+    End Function
+
+#End Region
+
+
+    Protected Function save_document_IDEA(ByVal list_file As String, ByVal ididea As Integer)
+
+        Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
+        Dim ArrayFile As String()
+
+        Dim NewListFiles = JsonConvert.DeserializeObject(Of List(Of CFilesView))(list_file)
+
+        For Each item_file As CFilesView In NewListFiles
+
+            Dim objDocument As DocumentsEntity = New DocumentsEntity()
+            Dim objDocumentbyEntity As DocumentsByEntityEntity = New DocumentsByEntityEntity()
+
+            objDocument.title = item_file.filename
+            objDocument.description = item_file.Description
+            objDocument.ideditedfor = 0
+            objDocument.iddocumenttype = 0
+            objDocument.idvisibilitylevel = 0
+            objDocument.createdate = Now
+            objDocument.iduser = applicationCredentials.UserID
+            objDocument.attachfile = item_file.filename
+            objDocument.enabled = 1
+            objDocument.Id_Entity_Zone = "IdeaEntity_" & ididea
+            objDocument.Id_document = Convert.ToInt32(item_file.idfile)
+
+            Dim sql As New StringBuilder
+            Dim dtData, dtDatadoc As DataTable
+
+            ' construir la sentencia
+            sql.AppendLine("INSERT INTO Documents(title,description,ideditedfor,idvisibilitylevel,iddocumenttype,createdate,iduser,attachfile,enabled,Id_Entity_Zone,Id_document ) ")
+            sql.AppendLine(" VALUES (")
+            sql.AppendLine("'" & objDocument.title & "',")
+            sql.AppendLine("'" & objDocument.description & "',")
+            sql.AppendLine("'" & objDocument.ideditedfor & "',")
+            sql.AppendLine("'" & objDocument.idvisibilitylevel & "',")
+            sql.AppendLine("'" & objDocument.iddocumenttype & "',")
+            sql.AppendLine("'" & objDocument.createdate.ToString("yyyyMMdd HH:mm:ss") & "',")
+            sql.AppendLine("'" & objDocument.iduser & "',")
+            sql.AppendLine("'" & objDocument.attachfile & "',")
+            sql.AppendLine("'" & objDocument.enabled & "',")
+            sql.AppendLine("'" & objDocument.Id_Entity_Zone & "',")
+            sql.AppendLine("'" & objDocument.Id_document & "')")
+
+            ' intruccion para obtener el registro insertado
+            sql.AppendLine(" SELECT SCOPE_IDENTITY() AS Id")
+
+            'obtener el id
+            dtData = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+            ' id creado
+            Dim idEntity As Long = CLng(dtData.Rows(0)("Id"))
+
+            ' finalizar la transaccion
+            CtxSetComplete()
+
+            'asignamos al objeto
+            objDocumentbyEntity.iddocuments = idEntity
+            objDocumentbyEntity.idnentity = ididea
+            objDocumentbyEntity.entityname = "IdeaEntity"
+
+
+            sql = New StringBuilder
+            ' construir la sentencia
+            sql.AppendLine("INSERT INTO DocumentsByEntity( iddocuments,idnentity,entityName) ")
+            sql.AppendLine("VALUES (")
+            sql.AppendLine("'" & objDocumentbyEntity.iddocuments & "',")
+            sql.AppendLine("'" & objDocumentbyEntity.idnentity & "',")
+            sql.AppendLine("'" & objDocumentbyEntity.entityname & "')")
+
+            ' intruccion para obtener el registro insertado
+            sql.AppendLine(" SELECT SCOPE_IDENTITY() AS Id")
+
+            'obtener el id
+            dtDatadoc = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+            ' id creado
+            Dim num As Long = CLng(dtDatadoc.Rows(0)("Id"))
+
+            ' finalizar la transaccion
+            CtxSetComplete()
+
+        Next
+
     End Function
 
     ''' <summary>
@@ -1722,6 +1718,20 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
         sql.Append(" delete DocumentsByEntity where EntityName = 'IdeaEntity' and IdnEntity = " & id_idea)
         GattacaApplication.RunSQL(applicationCredentials, sql.ToString)
+
+    End Function
+
+    Protected Function validate_date_consult(ByVal date_consult As String)
+
+        Dim value_string As String
+
+        If date_consult = 0 Then
+            value_string = "0"
+        Else
+            value_string = date_consult
+        End If
+
+        Return value_string
 
     End Function
 
