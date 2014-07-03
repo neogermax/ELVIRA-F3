@@ -88,7 +88,7 @@ function crear_tabla_anexos(link_route) {
 
         namefile = namefile.replace(/_/g, ' ');
 
-        htmlTablefiles += "<tr id='archivo" + arrayFiles[itemArray].idfile + "'><td><a id='linkarchives" + arrayFiles[itemArray].idfile + "' runat='server' href='" + link_route + pathFile + "' target= '_blank' title='link'>" + arrayFiles[itemArray].filename + "</a></td><td style='text-align: left;'>" + entregacomas + "</td><td style='text-align: center;'><input type ='button' value= 'Eliminar' onclick=\"deletefile('" + arrayFiles[itemArray].idfile + "')\"></input></td></tr>";
+        htmlTablefiles += "<tr id='archivo" + arrayFiles[itemArray].idfile + "'><td><a id='linkarchives" + arrayFiles[itemArray].idfile + "' runat='server' href='" + link_route + pathFile + "' target= '_blank' title='link'>" + arrayFiles[itemArray].filename + "</a></td><td style='text-align: left;'>" + entregacomas + "</td><td style='text-align: center;'><input type ='button' class= 'deleteFile' value= 'Eliminar' onclick=\"deletefile('" + arrayFiles[itemArray].idfile + "')\"></input></td></tr>";
     }
     htmlTablefiles += "</tbody></table>";
 
@@ -96,6 +96,8 @@ function crear_tabla_anexos(link_route) {
     $("#tdFileInputs").html("");
     $("#tdFileInputs").html(htmlTablefiles);
 
+    $(".deleteFile").click(function() {
+    });
     //reconstruimos el pluging de la tabla
     $("#T_files").dataTable({
         "bJQueryUI": true,

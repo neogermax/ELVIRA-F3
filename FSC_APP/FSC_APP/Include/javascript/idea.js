@@ -196,6 +196,7 @@ $(document).ready(function() {
     $("#fileupload").button();
     $("#cancelEdition").button();
 
+    
     //generar el la ventana emergente
     $("#dialog").dialog({
         modal: true,
@@ -1047,8 +1048,20 @@ function desabled_text() {
     $("#ctl00_cphPrincipal_Txtdecription").attr("disabled", "disabled");
     $("#Btncharge_file").attr("disabled", "disabled");
 
+    $("#ctl00_cphPrincipal_RBnList_iva_0").attr("disabled", "disabled");
+    $("#ctl00_cphPrincipal_RBnList_iva_1").attr("disabled", "disabled");
+    $("#ctl00_cphPrincipal_RBListflujo_0").attr("disabled", "disabled");
+    $("#ctl00_cphPrincipal_RBListflujo_1").attr("disabled", "disabled");
 
+    
+    $(".deleteUbicacion").attr("disabled", "disabled");
+    $(".deleteActor").attr("disabled", "disabled");
+    $(".editFlow").attr("disabled", "disabled");
+    $(".deleteFlow").attr("disabled", "disabled");
+    $(".deleteFile").attr("disabled", "disabled");
 
+    $("#cancelEdition").attr("disabled", "disabled");
+    
     $("#SaveIdea").css("display", "none");
     $("#dll_estado").attr("disabled", "disabled");
    // $("#dll_estado").val(1);
