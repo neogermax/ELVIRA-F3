@@ -887,15 +887,12 @@ function aprobacion_idea() {
             if (result == 1) {
                 $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
                 $("#ctl00_cphPrincipal_lblsaveinformation").text("Esta Idea ya se encuentra aprobada y NO puede ser modificada!");
-                $("#SaveIdea").css("display", "none");
-                $("#dll_estado").attr("disabled", "disabled");
-                $("#dll_estado").val(1);
-
+                desabled_text();
+                
             }
             else {
                 $("#ctl00_cphPrincipal_containerSuccess").css("display", "none");
                 $("#SaveIdea").css("display", "compact");
-                //   $("#dll_estado").val(3);
             }
         },
         error: function(msg) {
@@ -987,4 +984,73 @@ function charge_date_list_project() {
             alert("No se pueden cargar los combos de proyecto.");
         }
     });
+}
+
+function desabled_text() {
+
+    //componentes
+    $("#ddlStrategicLines").attr("disabled", "disabled");
+    $("#ddlPrograms").attr("disabled", "disabled");
+    $("#Btnaddcomponent").attr("disabled", "disabled");
+    $("#Btndeletecomponent").attr("disabled", "disabled");
+
+    //informacion
+    $("#ctl00_cphPrincipal_txtid").attr("disabled", "disabled");
+    $("#ctl00_cphPrincipal_txtname").attr("disabled", "disabled");
+    $("#ctl00_cphPrincipal_txtjustification").attr("disabled", "disabled");
+    $("#ctl00_cphPrincipal_txtobjective").attr("disabled", "disabled");
+    $("#ctl00_cphPrincipal_txtareadescription").attr("disabled", "disabled");
+    $("#ctl00_cphPrincipal_txtresults").attr("disabled", "disabled");
+    $("#ctl00_cphPrincipal_txtresulgc").attr("disabled", "disabled");
+    $("#ctl00_cphPrincipal_txtresulci").attr("disabled", "disabled");
+    $("#ctl00_cphPrincipal_Txtothersresults").attr("disabled", "disabled");
+    $("#ctl00_cphPrincipal_txtstartdate").attr("disabled", "disabled");
+    $("#ctl00_cphPrincipal_txtduration").attr("disabled", "disabled");
+    $("#ctl00_cphPrincipal_Txtday").attr("disabled", "disabled");
+    $("#ctl00_cphPrincipal_Txtdatecierre").attr("disabled", "disabled");
+    $("#ddlPupulation").attr("disabled", "disabled");
+    $("#ddlmodcontract").attr("disabled", "disabled");
+    $("#ctl00_cphPrincipal_Txtobligationsoftheparties").attr("disabled", "disabled");
+    $("#ctl00_cphPrincipal_Txtriesgos").attr("disabled", "disabled");
+    $("#ctl00_cphPrincipal_Txtaccionmitig").attr("disabled", "disabled");
+    $("#ctl00_cphPrincipal_Txtroutepresupuestal").attr("disabled", "disabled");
+    $("#ctl00_cphPrincipal_txtcode").attr("disabled", "disabled");
+    $("#dll_estado").attr("disabled", "disabled");
+
+
+    //ubicacion
+    $("#ddlDepto").attr("disabled", "disabled");
+    $("#ddlCity").attr("disabled", "disabled");
+    $("#B_add_location").attr("disabled", "disabled");
+
+    //actores
+    $("#ddlactors").attr("disabled", "disabled");
+    $("#ctl00_cphPrincipal_linkactors").attr("disabled", "disabled");
+    $("#ctl00_cphPrincipal_ddlType").attr("disabled", "disabled");
+    $("#ctl00_cphPrincipal_Txtcontact").attr("disabled", "disabled");
+    $("#ctl00_cphPrincipal_Txtcedulacont").attr("disabled", "disabled");
+    $("#ctl00_cphPrincipal_Txttelcont").attr("disabled", "disabled");
+    $("#ctl00_cphPrincipal_Txtemail").attr("disabled", "disabled");
+    $("#ctl00_cphPrincipal_Txtvrdiner").attr("disabled", "disabled");
+    $("#ctl00_cphPrincipal_Txtvresp").attr("disabled", "disabled");
+    $("#BtnaddActors").attr("disabled", "disabled");
+
+    //flujos
+    $("#ctl00_cphPrincipal_txtvalortotalflow").attr("disabled", "disabled");
+    $("#ctl00_cphPrincipal_txtfechapago").attr("disabled", "disabled");
+    $("#ctl00_cphPrincipal_txtporcentaje").attr("disabled", "disabled");
+    $("#ctl00_cphPrincipal_txtentregable").attr("disabled", "disabled");
+    $("#Btn_add_flujo").attr("disabled", "disabled");
+
+    //anexos
+    $("#fileupload").attr("disabled", "disabled");
+    $("#ctl00_cphPrincipal_Txtdecription").attr("disabled", "disabled");
+    $("#Btncharge_file").attr("disabled", "disabled");
+
+
+
+    $("#SaveIdea").css("display", "none");
+    $("#dll_estado").attr("disabled", "disabled");
+   // $("#dll_estado").val(1);
+
 }
