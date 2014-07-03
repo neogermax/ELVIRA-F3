@@ -2102,7 +2102,7 @@ Public Class ProjectDALC
 
         Try
 
-            sql.Append("update Project set Typeapproval = 1 where id = " & idproject)
+            sql.Append("update Project set Typeapproval = 7 where id = " & idproject)
             GattacaApplication.RunSQLRDT(objApplicationCredentials, sql.ToString)
             CtxSetComplete()
 
