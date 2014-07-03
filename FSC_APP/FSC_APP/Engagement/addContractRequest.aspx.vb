@@ -425,13 +425,13 @@ Partial Class addContractRequest
             If Me.txtInitialDate.Text <> "" Then
                 objContractRequest.startdate = Convert.ToDateTime(Me.txtInitialDate.Text)
             Else
-                objContractRequest.startdate = Nothing 'Convert.ToDateTime("2000-01-01")
+                objContractRequest.startdate = Nothing
             End If
 
             If Me.txtSubscriptionDate.Text <> "" Then
                 objContractRequest.suscriptdate = Convert.ToDateTime(Me.txtSubscriptionDate.Text)
             Else
-                objContractRequest.suscriptdate = Nothing 'Convert.ToDateTime("2000-01-01")
+                objContractRequest.suscriptdate = Nothing
             End If
 
             If Me.txtContractDuration.Text <> "" Then
