@@ -1061,7 +1061,8 @@ function desabled_text() {
     $(".deleteFile").attr("disabled", "disabled");
 
     $("#cancelEdition").attr("disabled", "disabled");
-    
+
+    $("#PartialSaved").css("display", "none");
     $("#SaveIdea").css("display", "none");
     $("#dll_estado").attr("disabled", "disabled");
    // $("#dll_estado").val(1);
