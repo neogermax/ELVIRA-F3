@@ -254,8 +254,9 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
                     '----------------- tareas generales-------------------------------------------------------
                 Case "load_combos"
+                    ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
                     type_i_p = Request.QueryString("type").ToString
-                    load_combos(type_i_p)
+                    load_combos(type_i_p, ideditar)
 
                 Case "Charge_combos_edit"
                     ideditar = Convert.ToInt32(Request.QueryString("ididea").ToString)
@@ -299,16 +300,42 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
 
     End Function
 
-    Protected Function load_combos(ByVal type As String)
+    Protected Function load_combos(ByVal type As String, ByVal id_idea As String)
 
         Dim facade As New Facade
 
         Dim sql As New StringBuilder
         Dim objSqlCommand As New SqlCommand
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
-        Dim Data_line, Data_typecontrato, Data_typo_project, Data_depto, Data_Actor, Data_Approval As DataTable
+        Dim Data_line, Data_typecontrato, Data_typo_project, Data_depto, Data_Actor, Data_Approval, D_component As DataTable
+        Dim id_component As String
+        Dim Switch_list As Integer
 
-        sql.Append(" SELECT ID, Code as descripcion FROM StrategicLine AS pro where id <> 32 order by descripcion")
+        If id_idea <> 0 Then
+            sql.Append(" select IdProgramComponent from ProgramComponentByIdea where IdIdea = " & id_idea)
+            D_component = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
+
+            For Each item_comp As DataRow In D_component.Rows
+
+                id_component = item_comp(0).ToString()
+
+                If id_component < 108 Then
+                    Switch_list = 0
+                Else
+                    Switch_list = 1
+                End If
+
+            Next
+        End If
+
+        sql = New StringBuilder
+
+        If Switch_list = 0 Then
+            sql.Append(" SELECT ID, Code as descripcion  FROM StrategicLine  where id <> 32 order by descripcion")
+        Else
+            sql.Append(" SELECT ID, Code as descripcion  FROM StrategicLine  where EnableStrategicLines = 1 order by descripcion")
+        End If
+
         Data_line = GattacaApplication.RunSQLRDT(applicationCredentials, sql.ToString)
 
         sql = New StringBuilder

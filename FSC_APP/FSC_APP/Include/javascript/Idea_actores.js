@@ -212,7 +212,7 @@ function crear_tabla_actores() {
     var htmlTableActores = "<table id='T_Actors' align='center' border='1' cellpadding='1' cellspacing='1' style='width: 100%;'><thead><tr><th width='1'></th><th>Actores</th><th>Tipo</th><th>Contacto</th><th>Documento Identidad</th><th>Tel&eacute;fono</th><th>Correo electr&oacute;nico</th><th>Vr Dinero</th><th>Vr Especie</th><th>Vr Total</th><th>Eliminar</th></tr></thead><tbody>";
 
     for (itemArray in arrayActor) {
-        htmlTableActores += "<tr id='actor" + arrayActor[itemArray].actorsVal + "' ><td width='1' style='color: #D3D6FF;font-size: 0.1em;'>" + arrayActor[itemArray].actorsVal + "</td><td>" + arrayActor[itemArray].actorsName + "</td><td>" + arrayActor[itemArray].tipoactors + "</td><td>" + arrayActor[itemArray].contact + "</td><td>" + arrayActor[itemArray].cedula + "</td><td>" + arrayActor[itemArray].telefono + "</td><td>" + arrayActor[itemArray].email + "</td><td>" + arrayActor[itemArray].diner + "</td><td>" + arrayActor[itemArray].especie + "</td><td>" + arrayActor[itemArray].total + "</td><td><input type ='button' value= 'Eliminar' onclick=\"deleteActor('" + arrayActor[itemArray].actorsVal + "')\"></input></td></tr>";
+        htmlTableActores += "<tr id='actor" + arrayActor[itemArray].actorsVal + "' ><td width='1' style='color: #D3D6FF;font-size: 0.1em;'>" + arrayActor[itemArray].actorsVal + "</td><td>" + arrayActor[itemArray].actorsName + "</td><td>" + arrayActor[itemArray].tipoactors + "</td><td>" + arrayActor[itemArray].contact + "</td><td>" + arrayActor[itemArray].cedula + "</td><td>" + arrayActor[itemArray].telefono + "</td><td>" + arrayActor[itemArray].email + "</td><td>" + arrayActor[itemArray].diner + "</td><td>" + arrayActor[itemArray].especie + "</td><td>" + arrayActor[itemArray].total + "</td><td><input type ='button'class= 'deleteActor' value= 'Eliminar' onclick=\"deleteActor('" + arrayActor[itemArray].actorsVal + "')\"></input></td></tr>";
     }
 
     //se anexa columna para totales
@@ -221,6 +221,10 @@ function crear_tabla_actores() {
     //cargamos el div donde se generara la tabla actores
     $("#T_ActorsContainer").html("");
     $("#T_ActorsContainer").html(htmlTableActores);
+
+    //agregamos atributos de eliminar fila
+    $(".deleteActor").click(function() {
+    });
 
     //llama la funcion sumar en la grilla de actores
     sumar_grid_actores();

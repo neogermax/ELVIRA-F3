@@ -196,6 +196,7 @@ $(document).ready(function() {
     $("#fileupload").button();
     $("#cancelEdition").button();
 
+
     //generar el la ventana emergente
     $("#dialog").dialog({
         modal: true,
@@ -888,7 +889,7 @@ function aprobacion_idea() {
                 $("#ctl00_cphPrincipal_containerSuccess").css("display", "block");
                 $("#ctl00_cphPrincipal_lblsaveinformation").text("Esta Idea ya se encuentra aprobada y NO puede ser modificada!");
                 desabled_text();
-                
+
             }
             else {
                 $("#ctl00_cphPrincipal_containerSuccess").css("display", "none");
@@ -936,10 +937,22 @@ function copiar_archivos() {
 //funcion de carga de listas
 function load_combos() {
 
+    var val_idea;
+    var sPageURL = window.location.search.substring(1);
+    var sURLVariables = sPageURL.split('&');
+    //validamos si creamos la idea o editamos
+    //editar idea
+    if (sURLVariables[0] == "op=edit") {
+        val_idea = sURLVariables[1].replace("id=", "");
+    }
+    else {
+        val_idea = 0;
+    }
+
     $.ajax({
         url: "AjaxAddIdea.aspx",
         type: "GET",
-        data: { "action": "load_combos", "type": "I" },
+        data: { "action": "load_combos", "type": "I", "ididea": val_idea },
         success: function(result) {
 
             result = JSON.parse(result);
@@ -967,8 +980,6 @@ function charge_date_list_project() {
         success: function(result) {
 
             result = JSON.parse(result);
-
-            console.log(result);
 
             $("#ddlPupulation").val(result[2]);
             $("#ddlPupulation").trigger("liszt:updated");
@@ -1047,10 +1058,23 @@ function desabled_text() {
     $("#ctl00_cphPrincipal_Txtdecription").attr("disabled", "disabled");
     $("#Btncharge_file").attr("disabled", "disabled");
 
+    $("#ctl00_cphPrincipal_RBnList_iva_0").attr("disabled", "disabled");
+    $("#ctl00_cphPrincipal_RBnList_iva_1").attr("disabled", "disabled");
+    $("#ctl00_cphPrincipal_RBListflujo_0").attr("disabled", "disabled");
+    $("#ctl00_cphPrincipal_RBListflujo_1").attr("disabled", "disabled");
 
 
+    $(".deleteUbicacion").attr("disabled", "disabled");
+    $(".deleteActor").attr("disabled", "disabled");
+    $(".editFlow").attr("disabled", "disabled");
+    $(".deleteFlow").attr("disabled", "disabled");
+    $(".deleteFile").attr("disabled", "disabled");
+
+    $("#cancelEdition").attr("disabled", "disabled");
+
+    $("#PartialSaved").css("display", "none");
     $("#SaveIdea").css("display", "none");
     $("#dll_estado").attr("disabled", "disabled");
-   // $("#dll_estado").val(1);
+    // $("#dll_estado").val(1);
 
 }

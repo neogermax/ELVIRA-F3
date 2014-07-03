@@ -296,7 +296,7 @@ function crear_tabla_flujos_pagos(notClear) {
         var pagoadd = arrayflujosdepago[itemArray].tflujos;
         pagoadd = addCommasrefactor(pagoadd);
 
-        htmlTableflujos += "<tr id='flow" + arrayflujosdepago[itemArray].N_pago + "' ><td>" + arrayflujosdepago[itemArray].N_pago + "</td><td>" + arrayflujosdepago[itemArray].fecha_pago + "</td><td>" + arrayflujosdepago[itemArray].porcentaje + " %</td><td>" + entregacomas + "</td><td>" + pagoadd + "</td><td><input class='editFlow' type ='button' value= 'Editar' onclick=\"editflujo(" + itemArray + ")\" ></input><input type ='button' value= 'Eliminar' onclick=\" eliminarflujo('" + arrayflujosdepago[itemArray].N_pago + "')\"></input></td><td><input type ='button' value= 'Detalle' onclick=\"traerdetalles('" + arrayflujosdepago[itemArray].N_pago + "',this)\"></input></td></tr>";
+        htmlTableflujos += "<tr id='flow" + arrayflujosdepago[itemArray].N_pago + "' ><td>" + arrayflujosdepago[itemArray].N_pago + "</td><td>" + arrayflujosdepago[itemArray].fecha_pago + "</td><td>" + arrayflujosdepago[itemArray].porcentaje + " %</td><td>" + entregacomas + "</td><td>" + pagoadd + "</td><td><input class='editFlow' type ='button' value= 'Editar' onclick=\"editflujo(" + itemArray + ")\" ></input><input type ='button' class='deleteFlow' value= 'Eliminar' onclick=\" eliminarflujo('" + arrayflujosdepago[itemArray].N_pago + "')\"></input></td><td><input type ='button' value= 'Detalle' onclick=\"traerdetalles('" + arrayflujosdepago[itemArray].N_pago + "',this)\"></input></td></tr>";
 
     }
     htmlTableflujos += "<tr><td width='1' style='color: #D3D6FF; font-size: 0.1em;'>1000</td><td>Porcentaje acumulado</td><td id='porcentaje'>0 %</td><td>Total</td><td id='totalflujospagos'>0</td><td></td><td></td></tr></tbody></table>";
@@ -319,6 +319,9 @@ function crear_tabla_flujos_pagos(notClear) {
     $(".editFlow").click(function() {
         $(this).parent().parent().remove();
         sumarflujospagos();
+    });
+
+    $(".deleteFlow").click(function() {
     });
 
     recalcValues();
@@ -739,13 +742,13 @@ function eliminar_flujos() {
 var arrayeditarflujos = [];
 //funcion para restar los valores ingresados erronamente en los input de grilla de actores
 function restar_flujos(str) {
-    
+
     var valueToSum = removeCommasAndConvert($("#txtinput" + str).val());
     var valueDynamic = removeCommasAndConvert($("#desenbolso" + str).html());
     var totalValue = valueToSum + valueDynamic;
 
     if (totalValue > removeCommasAndConvert($("#value" + str).html())) {
-       
+
     } else {
         $("#desenbolso" + str).html(addCommasrefactor(totalValue));
     }
@@ -780,7 +783,7 @@ function removeCommasAndConvertFloat(valueToConvert, isDecimal) {
 
 //sumar flujos de pagos
 function sumar_flujos(str) {
-   
+
 
     var valueToSum = removeCommasAndConvert($("#txtinput" + str).val());
     var valueDynamic = removeCommasAndConvert($("#desenbolso" + str).html());
@@ -810,7 +813,7 @@ function returnValueTotalFlow() {
 function validar_limite_actores(opeValuesActorsflujos, opevaluesActorsdesembolso, opevaluesActorslimit, totaldesembolso, tr_Iddes, idThird) {
     var error_actor = 0;
 
-   
+
     //validamos que el valor deseado no supere al limite
     if (opevaluesActorslimit < opeValuesActorsflujos) {
         alert("el valor ingresado no debe superar al ingresado en los actores");
@@ -819,7 +822,7 @@ function validar_limite_actores(opeValuesActorsflujos, opevaluesActorsdesembolso
 
         if (opevaluesActorsdesembolso < opeValuesActorsflujos) {
             alert("el valor ingresado no debe superar el desembolso disponible");
-   
+
             $(idThird).trigger("focus");
 
         } else {
