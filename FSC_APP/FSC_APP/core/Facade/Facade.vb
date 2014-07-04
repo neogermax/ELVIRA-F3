@@ -10819,6 +10819,7 @@ Public Class Facade
         Optional ByVal StrategicLineName As String = "", _
         Optional ByVal ProgramName As String = "", _
         Optional ByVal ProgramComponentName As String = "", _
+        Optional ByVal filterstatus As String = "", _
         Optional ByVal Loadingobservations As String = "", _
         Optional ByVal ResultsKnowledgeManagement As String = "", _
         Optional ByVal ResultsInstalledCapacity As String = "", _
@@ -10867,6 +10868,7 @@ Public Class Facade
              ResultsKnowledgeManagement, _
              ResultsInstalledCapacity, _
              Contacts, _
+             filterstatus, _
              order)
 
             ' finalizar la transaccion

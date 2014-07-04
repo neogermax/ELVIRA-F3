@@ -183,6 +183,7 @@ Partial Class searchIdea
         Dim StrategicLineName As String = ""
         Dim ProgramName As String = ""
         Dim ProgramComponentName As String = ""
+        Dim filterstatus As String = CStr(Me.ddlFinished.SelectedValue)
         Dim applicationCredentials As ApplicationCredentials = DirectCast(Session("ApplicationCredentials"), ApplicationCredentials)
 
         ' obtener el valor de la busqueda
@@ -212,6 +213,7 @@ Partial Class searchIdea
             Case "StrategicLineName" : StrategicLineName = CStr(Me.txtSearch.Text)
             Case "ProgramName" : ProgramName = CStr(Me.txtSearch.Text)
             Case "ProgramComponentName" : ProgramComponentName = CStr(Me.txtSearch.Text)
+            Case "filterstatus" : filterstatus = CStr(Me.ddlFinished.SelectedValue)
 
         End Select
 
@@ -241,7 +243,8 @@ Partial Class searchIdea
              enabledtext, _
              StrategicLineName, _
              ProgramName, _
-             ProgramComponentName)
+             ProgramComponentName, _
+             filterstatus)
 
         Catch ex As Exception
             ' ir a error

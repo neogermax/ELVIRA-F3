@@ -451,6 +451,7 @@ Public Class IdeaDALC
         Optional ByVal ResultsKnowledgeManagement As String = "", _
         Optional ByVal ResultsInstalledCapacity As String = "", _
         Optional ByVal idtypecontract As String = "", _
+        Optional ByVal filterstatus As String = "", _
         Optional ByVal order As String = "") As List(Of IdeaEntity)
 
         ' TODO: 24 ideadalc getlist se crean nuevos campos
@@ -682,6 +683,16 @@ Public Class IdeaDALC
 
                 sql.Append(where & " CONVERT(NVARCHAR, Idea.createdate, 103) like '%" & createdate.Trim() & "%'")
                 where = " AND "
+
+            End If
+
+            'Verificar si hay filtro por estado
+            If Not filterstatus.Equals("") Then
+
+                If filterstatus > 0 Then
+                    sql.Append(where & " Idea.Typeapproval = " & filterstatus)
+                    where = " AND "
+                End If
 
             End If
 

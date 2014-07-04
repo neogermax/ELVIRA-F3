@@ -1,4 +1,5 @@
-<%@ Page Language="VB" MasterPageFile="~/Master/mpAdmin.master" AutoEventWireup="false" Inherits="FSC_APP.searchIdea" Title="searchIdea" Codebehind="searchIdea.aspx.vb" %>
+<%@ Page Language="VB" MasterPageFile="~/Master/mpAdmin.master" AutoEventWireup="false"
+    Inherits="FSC_APP.searchIdea" Title="searchIdea" CodeBehind="searchIdea.aspx.vb" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="cphPrincipal" runat="Server">
 
@@ -33,6 +34,13 @@
                                 <asp:ListItem Value="username">Usuario</asp:ListItem>
                                 <%--     <asp:ListItem Value="enabledtext">Estado</asp:ListItem>--%>
                             </asp:RadioButtonList>
+                            <asp:Label ID="lblStatus" runat="server" Text="Estado de la idea"></asp:Label>
+                            <asp:DropDownList ID="ddlFinished" runat="server">
+                                <asp:ListItem Value="0">Todos</asp:ListItem>
+                                <asp:ListItem Value="1">Aprobado</asp:ListItem>
+                                <asp:ListItem Value="2">No aprobado</asp:ListItem>
+                                <asp:ListItem Value="3">Pendiente de aprobación</asp:ListItem>
+                            </asp:DropDownList>
                         </td>
                         <td>
                             <asp:UpdatePanel ID="upSearch" runat="server" UpdateMode="Conditional">
@@ -118,7 +126,8 @@
     <table>
         <tr>
             <td>
-                <button id="export" onclick="exportModalidades(); return false;" runat="server">Exportar Busqueda</button>
+                <button id="export" onclick="exportModalidades(); return false;" runat="server">
+                    Exportar Busqueda</button>
             </td>
         </tr>
     </table>
