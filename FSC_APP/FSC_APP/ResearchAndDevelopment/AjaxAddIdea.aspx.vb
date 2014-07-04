@@ -326,6 +326,8 @@ Partial Class ResearchAndDevelopment_AjaxAddIdea
                 End If
 
             Next
+        Else
+            Switch_list = 1
         End If
 
         sql = New StringBuilder
